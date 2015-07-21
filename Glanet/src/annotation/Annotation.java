@@ -2589,7 +2589,8 @@ public class Annotation {
 			TIntIntMap allBasedKeggPathwayNumber2KMap, 
 			TIntIntMap tfNumberExonBasedKeggPathwayNumber2KMap,
 			TIntIntMap tfNumberRegulationBasedKeggPathwayNumber2KMap,
-			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, int overlapDefinition,
+			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, 
+			int overlapDefinition,
 			TIntObjectMap<String> tfNumber2TfNameMap, 
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String> fileNumber2FileNameMap,
@@ -2769,7 +2770,7 @@ public class Annotation {
 
 								keggPathwayNumber = it.next();
 								
-								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber;
+								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber;
 								
 								
 								/*******************************************************************/
@@ -2818,7 +2819,7 @@ public class Annotation {
 
 								keggPathwayNumber = it.next();
 
-								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber;
+								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS  + keggPathwayNumber;
 								
 								/*******************************************************************/
 								// Write Annotation Found Overlaps to element Named File
@@ -2866,7 +2867,7 @@ public class Annotation {
 
 								keggPathwayNumber = it.next();
 
-								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber;
+								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS  + keggPathwayNumber;
 								
 								/*******************************************************************/
 								// Write Annotation Found Overlaps to element Named File
@@ -3596,7 +3597,6 @@ public class Annotation {
 					}
 
 				}// End of for
-					// code will be added here
 
 				// New search for given input SNP or interval case, does not
 				// matter.
@@ -3630,8 +3630,9 @@ public class Annotation {
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
-								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber; 
-								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * 100000L + keggPathwayNumber;
+								
+								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber; 
+								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * Commons.LONG_5DIGITS + keggPathwayNumber;
 								
 								/*******************************************************************/
 								// Write Annotation Found Overlaps to element Named File
@@ -3705,9 +3706,10 @@ public class Annotation {
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
-								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber; 
-								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * 100000L + keggPathwayNumber;
-							
+								
+								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber; 
+								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * Commons.LONG_5DIGITS + keggPathwayNumber;
+								
 								/*******************************************************************/
 								// Write Annotation Found Overlaps to element Named File
 								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
@@ -3782,9 +3784,11 @@ public class Annotation {
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
-								tfNumberKeggPathwayNumber = tfNumber * 100000 + keggPathwayNumber; 
-								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * 100000L + keggPathwayNumber;
-							
+								
+								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber; 
+								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * Commons.LONG_5DIGITS + keggPathwayNumber;
+								
+								
 								/*******************************************************************/
 								// Write Annotation Found Overlaps to element Named File
 								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
@@ -4136,11 +4140,17 @@ public class Annotation {
 	// starts
 	// Annotation
 	// With Numbers
-	public void searchUserDefinedLibraryWithNumbers( String outputFolder,
+	public void searchUserDefinedLibraryWithNumbers(
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree userDefinedLibraryIntervalTree,
-			TIntIntMap elementNumber2KMap, int overlapDefinition, String elementType,
-			TIntObjectMap<String> elementNumber2ElementNameMap, TIntObjectMap<String> fileNumber2FileNameMap) {
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, 
+			IntervalTree userDefinedLibraryIntervalTree,
+			TIntIntMap elementNumber2KMap, 
+			int overlapDefinition, 
+			String elementType,
+			TIntObjectMap<String> elementNumber2ElementNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap) {
 
 		String strLine = null;
 		int indexofFirstTab = -1;
@@ -6354,6 +6364,7 @@ public class Annotation {
 			// Fill permutationNumberRegulationBasedKeggPathway2ZeroorOneMap
 			// Fill permutationNumberAllBasedKeggPathway2ZeroorOneMap
 			if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+				
 				ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 						permutationNumber, ucscRefSeqGenesIntervalTree.getRoot(), inputLine, chromName,
 						geneId2KeggPathwayNumberMap, permutationNumberExonBasedKeggPathwayNumber2ZeroorOneMap,
@@ -7240,7 +7251,7 @@ public class Annotation {
 
 	// TF KEGG Pathway Annotation
 	public void writeTFKEGGPathwayResultsWithNumbers( 
-			TIntIntMap elementNumberCellLineNumber2KMap,
+			TIntIntMap elementNumberKEGGPathwayNumber2KMap,
 			TIntObjectMap<String> elementNumber2ElementNameMap,
 			TIntObjectMap<String> KEGGPathwayNumber2KEGGPathwayNameMap, 
 			String outputFolder, 
@@ -7248,7 +7259,7 @@ public class Annotation {
 
 		BufferedWriter bufferedWriter;
 
-		int elementNumberCellLineNumber;
+		int elementNumberKEGGPathwayNumber;
 		int elementNumber;
 		int keggPathwayNumber;
 
@@ -7256,7 +7267,7 @@ public class Annotation {
 		String keggPathwayName;
 
 		List<Element> elementList = null;
-		elementList = transformMapToCollection( elementNumberCellLineNumber2KMap);
+		elementList = transformMapToCollection(elementNumberKEGGPathwayNumber2KMap);
 
 		Collections.sort( elementList, Element.NUMBER_OF_OVERLAPS);
 
@@ -7275,23 +7286,23 @@ public class Annotation {
 
 				element = it.next();
 
-				elementNumberCellLineNumber = element.getElementIntNumber();
+				elementNumberKEGGPathwayNumber = element.getElementIntNumber();
 
 				elementNumber = IntervalTree.getElementNumber(
-						elementNumberCellLineNumber,
+						elementNumberKEGGPathwayNumber,
 						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 				
 				elementName = elementNumber2ElementNameMap.get( elementNumber);
 				
 				keggPathwayNumber = IntervalTree.getCellLineNumberOrGeneSetNumber(
-						elementNumberCellLineNumber,
+						elementNumberKEGGPathwayNumber,
 						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				
 				keggPathwayName = KEGGPathwayNumber2KEGGPathwayNameMap.get( keggPathwayNumber);
 
 				numberofOverlaps = element.getElementNumberofOverlaps();
 
-				bufferedWriter.write( elementNumberCellLineNumber + "\t" + elementName + "_" + keggPathwayName + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
+				bufferedWriter.write( elementNumberKEGGPathwayNumber + "\t" + elementName + "_" + keggPathwayName + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
 
 			}// End of For
 
@@ -9419,6 +9430,7 @@ public class Annotation {
 				GlanetRunner.appendLog( "KEGG Pathway annotation starts: " + new Date());
 
 				dateBefore = System.currentTimeMillis();
+				
 				searchGeneSetWithNumbers( dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
 						exonBasedKeggPathway2KMap, regulationBasedKeggPathway2KMap, allBasedKeggPathway2KMap,
 						overlapDefinition, keggPathwayNumber2NameMap, geneId2ListofKeggPathwayNumberMap,
@@ -9969,9 +9981,13 @@ public class Annotation {
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
 
 				// TF KEGGPathway
-				writeTFKEGGPathwayResultsWithNumbers( tfExonBasedKeggPathway2KMap, tfNumber2NameMap,
-						keggPathwayNumber2NameMap, outputFolder,
+				writeTFKEGGPathwayResultsWithNumbers( 
+						tfExonBasedKeggPathway2KMap, 
+						tfNumber2NameMap,
+						keggPathwayNumber2NameMap, 
+						outputFolder,
 						Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
+				
 				writeTFKEGGPathwayResultsWithNumbers( tfRegulationBasedKeggPathway2KMap, tfNumber2NameMap,
 						keggPathwayNumber2NameMap, outputFolder,
 						Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);

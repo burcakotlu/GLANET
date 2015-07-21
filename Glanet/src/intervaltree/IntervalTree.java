@@ -2280,8 +2280,11 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// with permutationNumberTfNameCellLineNameOverlapList
-	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( int permutationNumber, IntervalTreeNode node,
-			InputLineMinimal interval, ChromosomeName chromName,
+	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+			int permutationNumber, 
+			IntervalTreeNode node,
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
 			TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
 			List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList,
 			int overlapDefinition) {
@@ -2300,7 +2303,7 @@ public class IntervalTree {
 					permutationNumber,
 					castedNode.getTforHistoneNumber(),
 					castedNode.getCellLineNumber(),
-					( short)0,
+					(short)0,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
 			permutationNumberTfNumberCellLineNumberOverlapList.add( new PermutationNumberTfNumberCellLineNumberOverlap(
@@ -3126,25 +3129,25 @@ public class IntervalTree {
 		switch( generatedMixedNumberDescriptionOrderLength){
 
 			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER:{
-				cellLineNumberOrGeneSetNumber = mixedNumber % 10000;
+				cellLineNumberOrGeneSetNumber = mixedNumber % Commons.INT_4DIGITS;
 				break;
 			}
 			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-				cellLineNumberOrGeneSetNumber = mixedNumber % 10000;
+				cellLineNumberOrGeneSetNumber = mixedNumber %  Commons.INT_4DIGITS;
 				break;
 			}
 			
 			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
-				cellLineNumberOrGeneSetNumber = mixedNumber % 100000;
+				cellLineNumberOrGeneSetNumber = mixedNumber % Commons.INT_5DIGITS;
 				break;
 				
 			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
-				cellLineNumberOrGeneSetNumber = mixedNumber % 100000;
+				cellLineNumberOrGeneSetNumber = mixedNumber % Commons.INT_5DIGITS;
 				break;
 				
-			default:{
+			default:
 				break;
-			}
+			
 		}// End of SWITCH
 
 		return cellLineNumberOrGeneSetNumber;
@@ -3221,7 +3224,7 @@ public class IntervalTree {
 		switch( generatedMixedNumberDescriptionOrderLength){
 
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
-				keggPathwayNumber = (int) (elementNumberCellLineNumberKeggPathwayNumber % 100000l);
+				keggPathwayNumber = (int) (elementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_5DIGITS);
 				break;
 		
 			default:
@@ -3323,7 +3326,7 @@ public class IntervalTree {
 			}
 				
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:{
-				cellLineNumber = (int) ((mixedNumber % 10000000000L) / 100000);
+				cellLineNumber = (int) ((mixedNumber % Commons.LONG_10DIGITS) / Commons.INT_5DIGITS);
 				break;
 			}
 				
@@ -3422,17 +3425,15 @@ public class IntervalTree {
 
 		switch( generatedMixedNumberDescriptionOrderLength){
 
-		case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-			elementNumber = ( int)(mixedNumber % 1000000);
-			break;
-			
-		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
-			elementNumber = (mixedNumber / 100000);
-
-
-
-		default:
-			break;
+			case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+				elementNumber = mixedNumber % Commons.INT_6DIGITS;
+				break;
+				
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
+				elementNumber = mixedNumber / Commons.INT_5DIGITS;
+	
+			default:
+				break;
 
 		}// End of SWITCH
 
@@ -3481,17 +3482,17 @@ public class IntervalTree {
 			}
 	
 			case INT_10DIGIT_GENENUMBER:{
-				elementNumber = ( int)( mixedNumber % 10000000000L);
+				elementNumber = ( int)( mixedNumber % Commons.LONG_10DIGITS);
 				break;
 			}
 	
 			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER: {
-				elementNumber = (int)(mixedNumber / 100000L);
+				elementNumber = (int)(mixedNumber / Commons.LONG_5DIGITS);
 				break;
 			}
 			
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:{
-				elementNumber = ( int)( mixedNumber / 10000000000L);
+				elementNumber = ( int)( mixedNumber / Commons.LONG_10DIGITS);
 				break;
 			}
 	
@@ -3533,11 +3534,11 @@ public class IntervalTree {
 					generatedMixedNumberDescriptionOrderLength);
 
 			if( cellLineNumber > 0){
-				//GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER
-				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 100000 + cellLineNumber;
+				//GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER
+				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * Commons.INT_4DIGITS + cellLineNumber;
 			}else if( keggPathwayNumber > 0){
-				//GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER
-				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * 100000 + keggPathwayNumber;
+				//GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER
+				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * Commons.INT_4DIGITS + keggPathwayNumber;
 			}
 			return elementNumberCellLineNumberOrKeggPathwayNumber;
 		}
@@ -3834,7 +3835,7 @@ public class IntervalTree {
 		switch( generatedMixedNumberDescriptionOrderLength){
 
 		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
-			elementNumberCellLineNumber = elementNumber * 100000 + cellLineNumber;
+			elementNumberCellLineNumber = elementNumber * Commons.INT_5DIGITS + cellLineNumber;
 			break;
 		}
 		default:{
@@ -3866,7 +3867,7 @@ public class IntervalTree {
 		switch( generatedMixedNumberDescriptionOrderLength){
 		
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:{
-				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 10000000000L + cellLineNumber * 100000 + keggPathwayNumber;
+				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * Commons.LONG_10DIGITS + cellLineNumber * Commons.INT_5DIGITS + keggPathwayNumber;
 				break;
 			}
 		
@@ -4041,8 +4042,8 @@ public class IntervalTree {
 		long cellLineRemovedKeggPathwayAdded = Long.MIN_VALUE;
 
 		cellLineRemoved = removeCellLineNumber( mixedNumber, generatedMixedNumberDescriptionOrderLength);
-		cellLineRemovedKeggPathwayAdded = addKeggPathwayNumber( cellLineRemoved, keggPathwayNumber,
-				generatedMixedNumberDescriptionOrderLength);
+		
+		cellLineRemovedKeggPathwayAdded = addKeggPathwayNumber( cellLineRemoved, keggPathwayNumber,generatedMixedNumberDescriptionOrderLength);
 
 		return cellLineRemovedKeggPathwayAdded;
 
@@ -6814,12 +6815,19 @@ public class IntervalTree {
 	// Annotation
 	// hg19 refseq Gene Annotation with numbers starts
 	// Implemented for Chen Yao Paper
-	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers( String outputFolder,
+	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers( 
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			BufferedWriter bufferedWriter, int givenIntervalNumber,
-			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap, IntervalTreeNode node,
-			Interval interval, ChromosomeName chromName, TIntByteMap entrezGeneID2OneorZeroMap, String type,
-			int overlapDefinition, TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			BufferedWriter bufferedWriter, 
+			int givenIntervalNumber,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap, 
+			IntervalTreeNode node,
+			Interval interval, 
+			ChromosomeName chromName, 
+			TIntByteMap entrezGeneID2OneorZeroMap, 
+			String type,
+			int overlapDefinition, 
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		int geneEntrezId;
@@ -7123,9 +7131,12 @@ public class IntervalTree {
 	// @todo Gene Annotation with numbers ends
 
 	// Annotation with Numbers starts
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( String outputFolder,
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( 
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName,
 			TIntByteMap exonBasedGeneSet2OneorZeroMap, 
 			TIntByteMap regulationBasedGeneSet2OneorZeroMap,
 			TIntByteMap allBasedGeneSet2OneorZeroMap, 

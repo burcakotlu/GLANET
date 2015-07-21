@@ -1,7 +1,15 @@
 package common;
 
 public class Commons {
+	
+	//Element Number Generation
+	public static final int INT_4DIGITS = 10000;
+	public static final int INT_5DIGITS = 100000;
+	public static final int INT_6DIGITS = 1000000;
 
+	public static final long LONG_5DIGITS = 100000L;
+	public static final long LONG_10DIGITS = 10000000000L;
+	
 	// Number of MegaBytes
 	public static final int MIN_HEAP_FOR_GLANET = 1000;
 

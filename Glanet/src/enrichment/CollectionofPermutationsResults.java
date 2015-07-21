@@ -339,6 +339,16 @@ public class CollectionofPermutationsResults {
 				
 				return tforHistoneName + "_" + cellLineName;
 			}
+			
+			case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
+				tfNumber = IntervalTree.getElementNumber(modifiedMixedNumber,generatedMixedNumberDescriptionOrderLength);
+				tfName = tfNumber2NameMap.get(tfNumber);
+		
+				cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,generatedMixedNumberDescriptionOrderLength);
+				cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
+		
+				return tfName + "_" + cellLineName;
+		
 		
 			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:{
 				histoneNumber = IntervalTree.getElementNumber( modifiedMixedNumber,
@@ -398,11 +408,22 @@ public class CollectionofPermutationsResults {
 		return null;
 	}
 
-	public static void collectPermutationResults( int numberofPermutationsInEachRun,
-			float bonferroniCorrectionSignigicanceLevel, float FDR, MultipleTestingType multipleTestingParameter,
-			String dataFolder, String outputFolder, String runFileName, String allFileName, String jobName,
-			int numberofRuns, int numberofRemainders, int numberofComparisons, AnnotationType annotationType,
-			String userDefinedGeneSetOptionalDescriptionInputFile, String elementType,
+	public static void collectPermutationResults(
+			int numberofPermutationsInEachRun,
+			float bonferroniCorrectionSignigicanceLevel, 
+			float FDR, 
+			MultipleTestingType multipleTestingParameter,
+			String dataFolder, 
+			String outputFolder, 
+			String runFileName, 
+			String allFileName, 
+			String jobName,
+			int numberofRuns, 
+			int numberofRemainders, 
+			int numberofComparisons, 
+			AnnotationType annotationType,
+			String userDefinedGeneSetOptionalDescriptionInputFile, 
+			String elementType,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		// 13 May 2015 starts

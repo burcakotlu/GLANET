@@ -2603,8 +2603,10 @@ public class Enrichment {
 	}
 
 	// TLongIntMap TIntObjectMap<TIntList> TIntIntMap starts
-	public static void convert( TLongIntMap permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap,
-			TIntObjectMap<TIntList> elementNumber2AllKMap, TIntIntMap elementNumber2OriginalKMap,
+	public static void convert( 
+			TLongIntMap permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap,
+			TIntObjectMap<TIntList> elementNumber2AllKMap, 
+			TIntIntMap elementNumber2OriginalKMap,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		Long permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
@@ -2623,6 +2625,12 @@ public class Enrichment {
 			// get permutationNumber from permutationAugmentedName
 			permutationNumberElementNumberCellLineNumberKeggPathwayNumber = it.key();
 			numberofOverlaps = it.value();
+			
+			//debug starts
+			if (permutationNumberElementNumberCellLineNumberKeggPathwayNumber.equals(9165007100000207l)){
+				System.out.println("Inspect");
+			}
+			//debug ends
 
 			permutationNumber = IntervalTree.getPermutationNumber(
 					permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
@@ -2656,7 +2664,8 @@ public class Enrichment {
 	// TLongIntMap TIntObjectMap<TIntList> TIntIntMap ends
 
 	// TIntIntMap TIntObjectMap<TIntList> TIntIntMap version starts
-	public static void convert( TIntIntMap permutationNumberCellLineNumberOrGeneSetNumber2KMap,
+	public static void convert(
+			TIntIntMap permutationNumberCellLineNumberOrGeneSetNumber2KMap,
 			TIntObjectMap<TIntList> cellLineNumberorGeneSetNumber2AllKMap,
 			TIntIntMap cellLineNumberorGeneSetNumber2OriginalKMap,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
@@ -6240,7 +6249,7 @@ public class Enrichment {
 
 		// TFKEGG Pathway
 		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
-
+			
 			convert(
 					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap(),
 					tfExonBasedKeggPathway2AllKMap,
@@ -7309,8 +7318,7 @@ public class Enrichment {
 		/**********************************************************************************************/
 		
 		
-		
-		
+	
 
 		/***********************************************************************************************/
 		/********************** INITIALIZATION of elementNumber2OriginalK TO NULL STARTS****************/
@@ -7383,8 +7391,8 @@ public class Enrichment {
 		if( tfAnnotationType.doTFAnnotation()){
 			
 			//Number2NameMap
-			cellLineNumber2NameMap =  new TIntObjectHashMap<String>();
-			tfNumber2NameMap =   new TIntObjectHashMap<String>();
+			cellLineNumber2NameMap 	=  new TIntObjectHashMap<String>();
+			tfNumber2NameMap 		=  new TIntObjectHashMap<String>();
 			
 			//Fill Number2NameMaps
 			FileOperations.fillNumber2NameMap(
@@ -7398,7 +7406,6 @@ public class Enrichment {
 					Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
 		
 			
-
 			tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
 			
 		}
