@@ -5316,11 +5316,18 @@ public class Enrichment {
 			TIntIntMap originalTfRegulationBasedKeggPathway2KMap, TIntIntMap originalTfAllBasedKeggPathway2KMap,
 			TLongIntMap originalTfCellLineExonBasedKeggPathway2KMap,
 			TLongIntMap originalTfCellLineRegulationBasedKeggPathway2KMap,
-			TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap, AnnotationType dnaseAnnotationType,
-			AnnotationType histoneAnnotationType, AnnotationType tfAnnotationType, AnnotationType geneAnnotationType,
-			AnnotationType userDefinedGeneSetAnnotationType, AnnotationType userDefinedLibraryAnnotationType,
-			AnnotationType keggPathwayAnnotationType, AnnotationType tfKeggPathwayAnnotationType,
-			AnnotationType tfCellLineKeggPathwayAnnotationType, int overlapDefinition,
+			TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap, 
+			AnnotationType dnaseAnnotationType,
+			AnnotationType histoneAnnotationType, 
+			AnnotationType tfAnnotationType, 
+			AnnotationType geneAnnotationType,
+			AnnotationType userDefinedGeneSetAnnotationType, 
+			AnnotationType userDefinedLibraryAnnotationType,
+			AnnotationType keggPathwayAnnotationType, 
+			AnnotationType tfKeggPathwayAnnotationType,
+			AnnotationType tfCellLineKeggPathwayAnnotationType, 
+			AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
+			int overlapDefinition,
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
 			TIntObjectMap<String> elementTypeNumber2ElementTypeMap) {
@@ -6074,8 +6081,8 @@ public class Enrichment {
 
 				}
 
-				if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
-
+				if( bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
+					
 					tfIntervalTree = generateTfbsIntervalTreeWithNumbers( dataFolder, chromName);
 					ucscRefSeqGenesIntervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers( dataFolder, chromName);
 
@@ -7904,7 +7911,9 @@ public class Enrichment {
 							tfCellLineAllBasedKeggPathway2OriginalKMap, dnaseAnnotationType, histoneAnnotationType,
 							tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType,
 							userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType,
-							tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap,
+							tfCellLineKeggPathwayAnnotationType, 
+							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
+							overlapDefinition, geneId2KeggPathwayNumberMap,
 							geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
 				}else{
 					
@@ -7932,7 +7941,9 @@ public class Enrichment {
 							tfCellLineAllBasedKeggPathway2OriginalKMap, dnaseAnnotationType, histoneAnnotationType,
 							tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType,
 							userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType,
-							tfCellLineKeggPathwayAnnotationType, overlapDefinition, geneId2KeggPathwayNumberMap,
+							tfCellLineKeggPathwayAnnotationType,
+							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
+							overlapDefinition, geneId2KeggPathwayNumberMap,
 							geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
 				}
 				GlanetRunner.appendLog( "Concurrent programming has ended.");

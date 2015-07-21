@@ -322,6 +322,7 @@ public class CollectionofPermutationsResults {
 				return keggPathwayName;
 			}
 		
+			//Without ZScores
 			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
 				
 				tforHistoneNumber = IntervalTree.getElementNumber(modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);
@@ -340,6 +341,7 @@ public class CollectionofPermutationsResults {
 				return tforHistoneName + "_" + cellLineName;
 			}
 			
+			//With ZScore
 			case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
 				tfNumber = IntervalTree.getElementNumber(modifiedMixedNumber,generatedMixedNumberDescriptionOrderLength);
 				tfName = tfNumber2NameMap.get(tfNumber);
@@ -350,13 +352,12 @@ public class CollectionofPermutationsResults {
 				return tfName + "_" + cellLineName;
 		
 		
+			//With ZScore
 			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:{
-				histoneNumber = IntervalTree.getElementNumber( modifiedMixedNumber,
-						generatedMixedNumberDescriptionOrderLength);
+				histoneNumber = IntervalTree.getElementNumber( modifiedMixedNumber,generatedMixedNumberDescriptionOrderLength);
 				histoneName = histoneNumber2NameMap.get( histoneNumber);
 		
-				cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,
-						generatedMixedNumberDescriptionOrderLength);
+				cellLineNumber = IntervalTree.getCellLineNumber( modifiedMixedNumber,generatedMixedNumberDescriptionOrderLength);
 				cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
 		
 				return histoneName + "_" + cellLineName;
