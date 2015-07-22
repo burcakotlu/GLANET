@@ -5998,8 +5998,9 @@ public class Enrichment {
 							AnnotationType.DO_KEGGPATHWAY_ANNOTATION, geneId2ListofKeggPathwayNumberMap,
 							overlapDefinition);
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
-					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
-							AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
+					
+					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
+					
 					allMapsWithNumbers = null;
 					intervalTree = null;
 
@@ -6029,10 +6030,8 @@ public class Enrichment {
 					// Will be used for TF and KEGG Pathway Enrichment or
 					// for TF and CellLine and KEGG Pathway Enrichment
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_ANNOTATION);
-					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
-							AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
-					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
-							AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION);
+					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
+					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION);
 
 					allMapsWithNumbers = null;
 					tfIntervalTree = null;
@@ -6065,11 +6064,10 @@ public class Enrichment {
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					// Will be used for Tf and KeggPathway Enrichment or
 					// for Tf and CellLine and KeggPathway Enrichment
+					
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_ANNOTATION);
-					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
-							AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
-					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
-							AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION);
+					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
+					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION);
 
 					allMapsWithNumbers = null;
 					tfIntervalTree = null;
@@ -6093,15 +6091,13 @@ public class Enrichment {
 							ucscRefSeqGenesIntervalTree,
 							AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 							geneId2ListofKeggPathwayNumberMap, overlapDefinition);
+					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_ANNOTATION);
-					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
-							AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
-					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
-							AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION);
-					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
-							AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION);
+					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.DO_KEGGPATHWAY_ANNOTATION);
+					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION);
+					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION);
 
 					allMapsWithNumbers = null;
 					tfIntervalTree = null;
@@ -6180,9 +6176,7 @@ public class Enrichment {
 					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
 		}
 
-		if( tfAnnotationType.doTFAnnotation() || 
-				tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() ||
-				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if( tfAnnotationType.doTFAnnotation()){
 
 			convert(
 					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),
@@ -6238,9 +6232,7 @@ public class Enrichment {
 		}
 
 		// KEGG Pathway
-		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() || 
-				tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() || 
-				tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
 
 			convert( accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap(),
 					exonBasedKeggPathway2AllKMap, originalExonBasedKeggPathway2KMap,
@@ -6278,6 +6270,70 @@ public class Enrichment {
 		// TFCelllineKEGG Pathway
 		if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap(),
+					tfCellLineExonBasedKeggPathway2AllKMap,
+					originalTfCellLineExonBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap(),
+					tfCellLineRegulationBasedKeggPathway2AllKMap,
+					originalTfCellLineRegulationBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap(),
+					tfCellLineAllBasedKeggPathway2AllKMap,
+					originalTfCellLineAllBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+		}
+		
+		// BOTH
+		// TF KEGGPathway
+		// TF CellLine KEGGPathway
+		if (bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
+			
+			//TF
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),
+					tfbs2AllKMap,
+					originalTfbs2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+			//KEGGPathway
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap(),
+					exonBasedKeggPathway2AllKMap, 
+					originalExonBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathwayNumber2KMap(),
+					regulationBasedKeggPathway2AllKMap, 
+					originalRegulationBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathwayNumber2KMap(),
+					allBasedKeggPathway2AllKMap, 
+					originalAllBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+			
+			
+			//TF KEGGPathway
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap(),
+					tfExonBasedKeggPathway2AllKMap,
+					originalTfExonBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap(),
+					tfRegulationBasedKeggPathway2AllKMap,
+					originalTfRegulationBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap(),
+					tfAllBasedKeggPathway2AllKMap,
+					originalTfAllBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+			//TF CellLine KEGGPathway
 			convert(
 					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap(),
 					tfCellLineExonBasedKeggPathway2AllKMap,
@@ -7908,13 +7964,21 @@ public class Enrichment {
 							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
 							tfAllBasedKeggPathway2OriginalKMap, tfCellLineExonBasedKeggPathway2OriginalKMap,
 							tfCellLineRegulationBasedKeggPathway2OriginalKMap,
-							tfCellLineAllBasedKeggPathway2OriginalKMap, dnaseAnnotationType, histoneAnnotationType,
-							tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType,
-							userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType,
+							tfCellLineAllBasedKeggPathway2OriginalKMap, 
+							dnaseAnnotationType, 
+							histoneAnnotationType,
+							tfAnnotationType, 
+							geneAnnotationType, 
+							userDefinedGeneSetAnnotationType,
+							userDefinedLibraryAnnotationType, 
+							keggPathwayAnnotationType, 
+							tfKeggPathwayAnnotationType,
 							tfCellLineKeggPathwayAnnotationType, 
 							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
-							overlapDefinition, geneId2KeggPathwayNumberMap,
-							geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
+							overlapDefinition, 
+							geneId2KeggPathwayNumberMap,
+							geneId2ListofUserDefinedGeneSetNumberMap, 
+							elementTypeNumber2ElementTypeMap);
 				}else{
 					
 					Enrichment.annotateAllPermutationsInThreads( outputFolder, dataFolder, givenInputsSNPsorIntervals,
