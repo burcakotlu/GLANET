@@ -618,6 +618,7 @@ public class Enrichment {
 
 			this.elementNumber2OriginalKMap = elementNumber2OriginalKMap;
 			
+			//Will be used KEGGPathway and UserDefinedGeneSet
 			this.exonBasedGeneSetNumber2OriginalKMap 		= exonBasedGeneSetNumber2OriginalKMap;
 			this.regulationBasedGeneSetNumber2OriginalKMap 	= regulationBasedGeneSetNumber2OriginalKMap;
 			this.allBasedGeneSetNumber2OriginalKMap 		= allBasedGeneSetNumber2OriginalKMap;
@@ -3766,6 +3767,7 @@ public class Enrichment {
 
 	// 29 June 2015
 
+	// Modified 22 July 2015
 	// 24 June 2015 starts
 	// DO NOT KEEP NUMBER OF OVERLAPS COMING FROM EACH PERMUTATION starts
 	public static void annotateAllPermutationsInThreadsForAllChromosomes(
@@ -3808,6 +3810,7 @@ public class Enrichment {
 			AnnotationType tfKeggPathwayAnnotationType,
 			AnnotationType tfCellLineKeggPathwayAnnotationType,
 			AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType, 
+			String userDefinedGeneSetName,
 			int overlapDefinition,
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
@@ -4603,17 +4606,17 @@ public class Enrichment {
 			fillElementNumber2OriginalKMap( 
 					exonBasedUserDefinedGeneSet2OriginalKMap, 
 					outputFolder,
-					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
 			
 			fillElementNumber2OriginalKMap( 
 					regulationBasedUserDefinedGeneSet2OriginalKMap, 
 					outputFolder,
-					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
 			
 			fillElementNumber2OriginalKMap( 
 					allBasedUserDefinedGeneSet2OriginalKMap, 
 					outputFolder,
-					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
 
 
 			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
@@ -7877,11 +7880,20 @@ public class Enrichment {
 							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
 							tfAllBasedKeggPathway2OriginalKMap, tfCellLineExonBasedKeggPathway2OriginalKMap,
 							tfCellLineRegulationBasedKeggPathway2OriginalKMap,
-							tfCellLineAllBasedKeggPathway2OriginalKMap, dnaseAnnotationType, histoneAnnotationType,
-							tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType,
-							userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType,
-							tfCellLineKeggPathwayAnnotationType, bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
-							overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap,
+							tfCellLineAllBasedKeggPathway2OriginalKMap, 
+							dnaseAnnotationType, 
+							histoneAnnotationType,
+							tfAnnotationType, 
+							geneAnnotationType, 
+							userDefinedGeneSetAnnotationType,
+							userDefinedLibraryAnnotationType, 
+							keggPathwayAnnotationType, 
+							tfKeggPathwayAnnotationType,
+							tfCellLineKeggPathwayAnnotationType, 
+							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
+							userDefinedGeneSetName,
+							overlapDefinition, 
+							geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap,
 							elementTypeNumber2ElementTypeMap,
 							dnaseCellLineNumber2NameMap,
 							cellLineNumber2NameMap,
@@ -7905,11 +7917,20 @@ public class Enrichment {
 							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
 							tfAllBasedKeggPathway2OriginalKMap, tfCellLineExonBasedKeggPathway2OriginalKMap,
 							tfCellLineRegulationBasedKeggPathway2OriginalKMap,
-							tfCellLineAllBasedKeggPathway2OriginalKMap, dnaseAnnotationType, histoneAnnotationType,
-							tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType,
-							userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType,
-							tfCellLineKeggPathwayAnnotationType, bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
-							overlapDefinition, geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap,
+							tfCellLineAllBasedKeggPathway2OriginalKMap, 
+							dnaseAnnotationType, 
+							histoneAnnotationType,
+							tfAnnotationType, 
+							geneAnnotationType, 
+							userDefinedGeneSetAnnotationType,
+							userDefinedLibraryAnnotationType, 
+							keggPathwayAnnotationType, 
+							tfKeggPathwayAnnotationType,
+							tfCellLineKeggPathwayAnnotationType,
+							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
+							userDefinedGeneSetName,
+							overlapDefinition, 
+							geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap,
 							elementTypeNumber2ElementTypeMap,
 							dnaseCellLineNumber2NameMap,
 							cellLineNumber2NameMap,

@@ -9521,17 +9521,17 @@ public class Annotation {
 						exonBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
 						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
+						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY  + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
 				writeResultsWithNumbers(
 						regulationBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
 						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
+						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
 				writeResultsWithNumbers(
 						allBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
 						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
+						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
 
 				dateAfter = System.currentTimeMillis();
 
@@ -11224,15 +11224,15 @@ public class Annotation {
 					tfNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
 			
 			
-			//debug starts
-			checkforDebug(tfNumberExonBasedKEGGPathwayNumber2PermutationKMap);
-			checkforDebug(tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap);
-			checkforDebug(tfNumberAllBasedKEGGPathwayNumber2PermutationKMap);
-			
-			checkforDebug(tfNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
-			checkforDebug(tfNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
-			checkforDebug(tfNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
-			//debug ends
+//			//debug starts
+//			checkforDebug(tfNumberExonBasedKEGGPathwayNumber2PermutationKMap);
+//			checkforDebug(tfNumberRegulationBasedKEGGPathwayNumber2PermutationKMap);
+//			checkforDebug(tfNumberAllBasedKEGGPathwayNumber2PermutationKMap);
+//			
+//			checkforDebug(tfNumberExonBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+//			checkforDebug(tfNumberRegulationBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+//			checkforDebug(tfNumberAllBasedKEGGPathwayNumber2PermutationOneorZeroMap);
+//			//debug ends
 				
 			// Set elementNumber2PermutationOneorZeroMap
 			allMapsKeysWithNumbersAndValuesOneorZero.setTfNumberCellLineNumber2PermutationOneorZeroMap(tfNumberCellLineNumber2PermutationOneorZeroMap);
@@ -11639,12 +11639,6 @@ public class Annotation {
 			elementNumber = itr.key();
 			originalNumberofOverlaps = itr.value();
 			
-			//debug starts
-			if ((elementNumber) % 100000 > 269){
-				System.out.println("There is a situation200: elementNumber is "  + elementNumber);
-			}
-			//debug ends
-
 			permutationNumberofOverlaps = elementNumber2PermutationKMap.get( elementNumber);
 
 			if( permutationNumberofOverlaps != null){
