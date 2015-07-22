@@ -6254,7 +6254,7 @@ public class Annotation {
 						}// End of for inner loop
 
 					
-					}
+					}//End of ELSE IF BOTH TFKEGGPathway and TFCellLineKEGGPathway
 			
 				}// End of for each input line
 				
@@ -11289,7 +11289,7 @@ public class Annotation {
 		
 		//21 July 2015
 		//BOTH TFKEGGPathway and TFCellLineKEGGPathway
-		if (annotationType.doTFCellLineKEGGPathwayAnnotation()){
+		if (annotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
 			
 			// TF
 			// This will be filled and set.

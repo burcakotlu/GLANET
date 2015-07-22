@@ -6249,6 +6249,29 @@ public class Enrichment {
 		// TFKEGG Pathway
 		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()){
 			
+			//TF
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),
+					tfbs2AllKMap,
+					originalTfbs2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+			//KEGGPathway
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap(),
+					exonBasedKeggPathway2AllKMap, 
+					originalExonBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathwayNumber2KMap(),
+					regulationBasedKeggPathway2AllKMap, 
+					originalRegulationBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathwayNumber2KMap(),
+					allBasedKeggPathway2AllKMap, 
+					originalAllBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+	
+			//TF KEGGPathway
 			convert(
 					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap(),
 					tfExonBasedKeggPathway2AllKMap,
@@ -6269,7 +6292,29 @@ public class Enrichment {
 
 		// TFCelllineKEGG Pathway
 		if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+			
+			//TF
+			convert(
+					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap(),
+					tfbs2AllKMap,
+					originalTfbs2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
+			//KEGGPathway
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap(),
+					exonBasedKeggPathway2AllKMap, 
+					originalExonBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathwayNumber2KMap(),
+					regulationBasedKeggPathway2AllKMap, 
+					originalRegulationBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathwayNumber2KMap(),
+					allBasedKeggPathway2AllKMap, 
+					originalAllBasedKeggPathway2KMap,
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+			//TF CellLine KEGGPathway
 			convert(
 					accumulatedAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap(),
 					tfCellLineExonBasedKeggPathway2AllKMap,
