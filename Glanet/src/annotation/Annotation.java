@@ -4460,7 +4460,7 @@ public class Annotation {
 	// With IO
 	// With Numbers
 	
-	
+	// 22 July 2015
 	// 7 July 2015 
 	// KEGGPathway
 	// Without ZScores
@@ -10948,6 +10948,96 @@ public class Annotation {
 			histoneNumberCellLineNumber2PermutationKMap = null;
 		}
 
+		//22 July 2015
+		//UserDefinedGeneSet
+		if (annotationType.doUserDefinedGeneSetAnnotation()){
+			
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap exonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap 		= new TIntByteHashMap();
+			TIntByteMap regulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+			TIntByteMap allBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap 		= new TIntByteHashMap();
+
+			// This will be filled during search method call
+			TIntIntMap exonBasedUserDefinedGeneSetNumber2PermutationKMap 		= new TIntIntHashMap();
+			TIntIntMap regulationBasedUserDefinedGeneSetNumber2PermutationKMap 	= new TIntIntHashMap();
+			TIntIntMap allBasedUserDefinedGeneSetNumber2PermutationKMap 		= new TIntIntHashMap();
+			
+			// EXON Based UserDefined GeneSet Analysis
+			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap,
+					geneId2ListofGeneSetNumberMap, 
+					null,
+					exonBasedUserDefinedGeneSetNumber2PermutationKMap, 
+					null, 
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, 
+					GeneSetType.USERDEFINEDGENESET,
+					overlapDefinition);
+			
+			
+			// REGULATION Based UserDefined GeneSet Analysis
+			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap,
+					geneId2ListofGeneSetNumberMap, 
+					null,
+					regulationBasedUserDefinedGeneSetNumber2PermutationKMap, 
+					null,
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, 
+					GeneSetType.USERDEFINEDGENESET,
+					overlapDefinition);
+			
+			
+			// ALL Based KEGG Pathway Analysis
+			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
+					permutationNumber, 
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap,
+					geneId2ListofGeneSetNumberMap, 
+					null, 
+					allBasedUserDefinedGeneSetNumber2PermutationKMap, 
+					null,
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, 
+					GeneSetType.USERDEFINEDGENESET,
+					overlapDefinition);
+			
+			
+			// Fill exonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap
+			// using exonBasedGeneSetNumber2OriginalKMap and exonBasedUserDefinedGeneSetNumber2PermutationKMap
+			fillPermutationOneorZeroMap(
+				exonBasedGeneSetNumber2OriginalKMap, 
+				exonBasedUserDefinedGeneSetNumber2PermutationKMap,
+				exonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap);
+
+			fillPermutationOneorZeroMap(
+				regulationBasedGeneSetNumber2OriginalKMap, 
+				regulationBasedUserDefinedGeneSetNumber2PermutationKMap,
+				regulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap);
+			
+			fillPermutationOneorZeroMap(
+				allBasedGeneSetNumber2OriginalKMap, 
+				allBasedUserDefinedGeneSetNumber2PermutationKMap,
+				allBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap);
+			
+			// Set elementNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setExonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap(exonBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap);
+			allMapsKeysWithNumbersAndValuesOneorZero.setRegulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap(regulationBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap);
+			allMapsKeysWithNumbersAndValuesOneorZero.setAllBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap(allBasedUserDefinedGeneSetNumber2PermutationOneorZeroMap);
+
+			//Free space
+			exonBasedUserDefinedGeneSetNumber2PermutationKMap 			= null;
+			regulationBasedUserDefinedGeneSetNumber2PermutationKMap 	= null;
+			allBasedUserDefinedGeneSetNumber2PermutationKMap 			= null;
+			
+		}
+		
 		//KEGGPathway
 		if (annotationType.doKEGGPathwayAnnotation()){
 			

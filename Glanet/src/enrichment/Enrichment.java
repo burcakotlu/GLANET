@@ -4570,6 +4570,132 @@ public class Enrichment {
 		/*************************** KEGGPathway ANNOTATION OF PERMUTATIONS ENDS ********************************/
 		/********************************************************************************************************/
 		
+		//22 July 2015
+		/********************************************************************************************************/
+		/*************************User Defined GeneSet ANNOTATION OF PERMUTATIONS STARTS*************************/
+		/********************************************************************************************************/
+		if(userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
+
+			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+			GlanetRunner.appendLog("User Defined GeneSet Annotation of Permutations has started.");
+			logger.info("User Defined GeneSet Annotation of Permutations has started.");
+
+			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+
+			// Fill chrNumber2IntervalTreeMap
+			// For each chromosome, generate intervalTree and fill intervalTreeMap
+			for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+
+				chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
+				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
+
+				if( chromosomeBaseOriginalInputLines != null){
+
+					intervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder, chromName);
+					ucscRefSeqGenesIntervalTreeMap.put( chrNumber, intervalTree);
+
+				}// End of IF chromosomeBaseOriginalInputLines is NOT NULL
+
+			}// End of FOR each CHROMOSOME
+
+			// Why don't we fill it before?
+			fillElementNumber2OriginalKMap( 
+					exonBasedUserDefinedGeneSet2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
+			
+			fillElementNumber2OriginalKMap( 
+					regulationBasedUserDefinedGeneSet2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
+			
+			fillElementNumber2OriginalKMap( 
+					allBasedUserDefinedGeneSet2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
+
+
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
+					outputFolder,
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun,
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO,
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					ucscRefSeqGenesIntervalTreeMap, 
+					null,
+					AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION, 
+					geneId2ListofKeggPathwayNumberMap, 
+					overlapDefinition,
+					null,
+					exonBasedUserDefinedGeneSet2OriginalKMap,
+					regulationBasedUserDefinedGeneSet2OriginalKMap,
+					allBasedUserDefinedGeneSet2OriginalKMap,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null);
+
+			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations(),
+					userDefinedGeneSetAnnotationType,
+					null,
+					null,
+					keggPathwayNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations(),
+					userDefinedGeneSetAnnotationType,
+					null,
+					null,
+					keggPathwayNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations(),
+					userDefinedGeneSetAnnotationType,
+					null,
+					null,
+					keggPathwayNumber2NameMap);
+
+			// Free memory
+			ucscRefSeqGenesIntervalTreeMap = null;
+
+			System.gc();
+			System.runFinalization();
+
+			GlanetRunner.appendLog("User Defined GeneSet Annotation of Permutations has ended.");
+			logger.info("User Defined GeneSet Annotation of Permutations has ended.");
+
+			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+			GlanetRunner.appendLog( "RunNumber: " + runNumber + "User Defined GeneSet of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			GlanetRunner.appendLog( "******************************************************************************************");
+
+			logger.info( "RunNumber: " + runNumber + "User Defined GeneSet of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			logger.info( "******************************************************************************************");
+
+		}// End of IF DO User Defined GeneSet Annotation
+		/********************************************************************************************************/
+		/*************************User Defined GeneSet ANNOTATION OF PERMUTATIONS ENDS***************************/
+		/********************************************************************************************************/
+
+		
 		//15 July 2015 
 		/********************************************************************************************************/
 		/******************************TF KEGGPathway ANNOTATION OF PERMUTATIONS STARTS**************************/

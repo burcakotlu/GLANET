@@ -967,12 +967,15 @@ public class Commons {
 
 	// starts
 	public static final String ENRICHMENT_EXONBASED_USERDEFINED_GENESET = Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET;
+	public static final String TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET;
 	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_EXONBASED_USERDEFINED_GENESET = Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET;
 
 	public static final String ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET = Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET;
 	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_REGULATIONBASED_USERDEFINED_GENESET = Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET;
 
 	public static final String ENRICHMENT_ALLBASED_USERDEFINED_GENESET = Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET;
+	public static final String TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET;
 	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_ALLBASED_USERDEFINED_GENESET = Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET;
 	// ends
 
