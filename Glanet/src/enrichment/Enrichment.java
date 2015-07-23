@@ -7616,6 +7616,11 @@ public class Enrichment {
 		TIntObjectMap<String> keggPathwayNumber2NameMap 	= null;
 		TIntObjectMap<String> userDefinedGeneSetNumber2NameMap = null;
 		
+		TIntObjectMap<String> userDefinedLibraryElementTypeNumber2NameMap = null;
+		TIntObjectMap<String> userDefinedLibraryElementNumber2NameMap = null;
+		TIntObjectMap<String> userDefinedLibraryFileNumber2NameMap = null;
+		
+		
 		
 		// ElementNumber2OriginalKMaps
 		// Annotation of original data: number of overlaps: k out of n for original data
@@ -7725,11 +7730,48 @@ public class Enrichment {
 			gene2OriginalKMap = new TIntIntHashMap();
 		}
 
-
-		// User Defined Library
+		//User Defined GeneSet
+		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
+			
+			//Number2NameMap
+			userDefinedGeneSetNumber2NameMap = new TIntObjectHashMap<String>();
+			
+			//Fill Number2NameMaps
+			FileOperations.fillNumber2NameMap(
+					userDefinedGeneSetNumber2NameMap,
+					dataFolder,
+					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
+			
+			
+			exonBasedUserDefinedGeneSet2OriginalKMap 		= new TIntIntHashMap();
+			regulationBasedUserDefinedGeneSet2OriginalKMap 	= new TIntIntHashMap();
+			allBasedUserDefinedGeneSet2OriginalKMap 		= new TIntIntHashMap();
+			
+		}
+		
+		// User Defined Library		
 		if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
-			//@todo
-			//fill userDefinedLibaryNumber2NameMAp
+			
+			//Fill Number2NameMaps
+			FileOperations.fillNumber2NameMap(
+					userDefinedLibraryElementTypeNumber2NameMap,
+					dataFolder,
+					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			
+			//Fill Number2NameMaps
+			FileOperations.fillNumber2NameMap(
+					userDefinedLibraryElementNumber2NameMap,
+					dataFolder,
+					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);
+			
+		
+			//Fill Number2NameMaps
+			FileOperations.fillNumber2NameMap(
+					userDefinedLibraryFileNumber2NameMap,
+					dataFolder,
+					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			
+			
 			elementTypeNumberElementNumber2OriginalKMap = new TIntIntHashMap();
 		}
 
@@ -7751,24 +7793,7 @@ public class Enrichment {
 			
 		}
 		
-		//User Defined GeneSet
-		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
-			
-			//Number2NameMap
-			userDefinedGeneSetNumber2NameMap = new TIntObjectHashMap<String>();
-			
-			//Fill Number2NameMaps
-			FileOperations.fillNumber2NameMap(
-					userDefinedGeneSetNumber2NameMap,
-					dataFolder,
-					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
-			
-			
-			exonBasedUserDefinedGeneSet2OriginalKMap 		= new TIntIntHashMap();
-			regulationBasedUserDefinedGeneSet2OriginalKMap 	= new TIntIntHashMap();
-			allBasedUserDefinedGeneSet2OriginalKMap 		= new TIntIntHashMap();
-	
-		}
+		
 
 		// TF KEGGPathway Enrichment
 		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
