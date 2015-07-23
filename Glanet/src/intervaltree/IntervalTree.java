@@ -3096,21 +3096,22 @@ public class IntervalTree {
 
 		switch( generatedMixedNumberDescriptionOrderLength){
 
-		case INT_4DIGIT_KEGGPATHWAYNUMBER:
-		case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-		case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			geneSetNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
-			break;
-		}
-		case INT_5DIGIT_USERDEFINEDGENESETNUMBER:
-		case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:{
-			geneSetNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000L);
-			break;
-		}
-		default:{
-			break;
-		}
+			case INT_4DIGIT_KEGGPATHWAYNUMBER:
+			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:
+			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				geneSetNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
+				break;
+			}
+			case INT_10DIGIT_USERDEFINEDGENESETNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:{
+				geneSetNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
+				break;
+			}
+			default:{
+				break;
+			}
+			
 		}// End of Switch
 
 		return geneSetNumber;
@@ -3520,39 +3521,39 @@ public class IntervalTree {
 
 		switch( generatedMixedNumberDescriptionOrderLength){
 
-		case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:{
-			userDefinedGeneSetNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 100000L);
-			return userDefinedGeneSetNumber;
-		}
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			int elementNumber = getElementNumber( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			int cellLineNumber = getCellLineNumber( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
-					generatedMixedNumberDescriptionOrderLength);
-			int keggPathwayNumber = getGeneSetNumber(
-					permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
-					generatedMixedNumberDescriptionOrderLength);
-
-			if( cellLineNumber > 0){
-				//GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER
-				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * Commons.INT_4DIGITS + cellLineNumber;
-			}else if( keggPathwayNumber > 0){
-				//GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER
-				elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * Commons.INT_4DIGITS + keggPathwayNumber;
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:{
+				userDefinedGeneSetNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
+				return userDefinedGeneSetNumber;
 			}
-			return elementNumberCellLineNumberOrKeggPathwayNumber;
-		}
-		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
-			elementTypeNumberElementNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
-			return elementTypeNumberElementNumber;
-		}
-		case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:{
-			geneNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
-			return geneNumber;
-		}
-		default:
-			break;
-
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				int elementNumber = getElementNumber( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				int cellLineNumber = getCellLineNumber( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
+						generatedMixedNumberDescriptionOrderLength);
+				int keggPathwayNumber = getGeneSetNumber(
+						permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
+						generatedMixedNumberDescriptionOrderLength);
+	
+				if( cellLineNumber > 0){
+					//GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER
+					elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * Commons.INT_4DIGITS + cellLineNumber;
+				}else if( keggPathwayNumber > 0){
+					//GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER
+					elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * Commons.INT_4DIGITS + keggPathwayNumber;
+				}
+				return elementNumberCellLineNumberOrKeggPathwayNumber;
+			}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
+				elementTypeNumberElementNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
+				return elementTypeNumberElementNumber;
+			}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:{
+				geneNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
+				return geneNumber;
+			}
+			default:
+				break;
+	
 		}// End of switch
 
 		return elementNumberCellLineNumberOrKeggPathwayNumber;
@@ -3615,7 +3616,8 @@ public class IntervalTree {
 	// Called from writeAnnotationstoFiles_ElementNumberKeggPathwayNumber method
 	// in AnnotatePermutations
 	// Get PermutationNumber from mixed number
-	public static int getPermutationNumber( long permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+	public static int getPermutationNumber( 
+			long permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		// Long.MAX_VALUE 9223372_0368_5477_5807
@@ -3624,25 +3626,26 @@ public class IntervalTree {
 		int permutationNumber = Integer.MIN_VALUE;
 
 		switch( generatedMixedNumberDescriptionOrderLength){
-		case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:{
-			permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 100000L);
-			break;
-		}
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
-			break;
-		}
-		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
-			permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
-			break;
-		}
-		case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:{
-			permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
-			break;
-		}
-		default:{
-			break;
-		}
+		
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:{
+				permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / Commons.LONG_10DIGITS);
+				break;
+			}
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
+				break;
+			}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
+				permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
+				break;
+			}
+			case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:{
+				permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
+				break;
+			}
+			default:{
+				break;
+			}
 
 		}// End of SWITCH
 
@@ -3665,7 +3668,7 @@ public class IntervalTree {
 		switch( generatedMixedNumberDescriptionOrderLength){
 
 		case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:
-			_permutationNumber = permutationNumber * 10000000000L;
+			_permutationNumber = permutationNumber * Commons.LONG_10DIGITS;
 			_geneNumber = geneNumber * 1L;
 			permutationNumberGeneNumber = _permutationNumber + _geneNumber;
 			break;
@@ -3757,8 +3760,8 @@ public class IntervalTree {
 		
 		switch(generatedMixedNumberDescriptionOrderLength){
 		
-			case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
-				mixedNumber = permutationNumber * 100000L + geneSetNumber * 1L;
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:
+				mixedNumber = permutationNumber * Commons.LONG_10DIGITS + geneSetNumber * 1L;
 				break;
 			default:
 				break;
@@ -3775,8 +3778,12 @@ public class IntervalTree {
 	// AnnotatePermutations withIO withNumbers
 	// PERMUTATIONNUMBER TFNUMBER CELLLINENUMBER
 	// PERMUTATIONNUMBER HISTONENUMBER CELLLINENUMBER
-	public static long generateMixedNumber( int permutationNumber, short elementNumber, short cellLineNumber,
-			short geneSetNumber, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+	public static long generateMixedNumber( 
+			int permutationNumber, 
+			short elementNumber, 
+			short cellLineNumber,
+			short geneSetNumber, 
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		// Long.MAX_VALUE 9223372_0368_5477_5807
 		// Long.MIN_VALUE -9223372_0368_5477_5808
@@ -3805,8 +3812,8 @@ public class IntervalTree {
 		}
 
 		// PERMUTATIONNUMBER USERDEFINEDGENESETNUMBER
-		case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:{
-			mixedNumber = permutationNumber * 100000L + geneSetNumber * 1L;
+		case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:{
+			mixedNumber = permutationNumber * Commons.LONG_10DIGITS + geneSetNumber * 1L;
 			break;
 
 		}
@@ -4690,7 +4697,7 @@ public class IntervalTree {
 												Short.MIN_VALUE,
 												Short.MIN_VALUE,
 												geneSetNumber,
-												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 										bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get( permutationNumberUserDefinedGeneSetNumber);
 
@@ -4787,7 +4794,7 @@ public class IntervalTree {
 												Short.MIN_VALUE,
 												Short.MIN_VALUE,
 												geneSetNumber,
-												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 										bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get( permutationNumberUserDefinedGeneSetNumber);
 
@@ -4881,7 +4888,7 @@ public class IntervalTree {
 											Short.MIN_VALUE,
 											Short.MIN_VALUE,
 											geneSetNumber,
-											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 									bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get( permutationNumberUserDefinedGeneSetNumber);
 
@@ -5421,7 +5428,7 @@ public class IntervalTree {
 											Short.MIN_VALUE,
 											Short.MIN_VALUE,
 											geneSetNumber,
-											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 									// Debug starts
 									if( permutationNumberUserDefinedGeneSetNumber < 0){
@@ -5487,7 +5494,7 @@ public class IntervalTree {
 											Short.MIN_VALUE,
 											Short.MIN_VALUE,
 											geneSetNumber,
-											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 									// Debug starts
 									if( permutationNumberUserDefinedGeneSetNumber < 0){
@@ -5552,7 +5559,7 @@ public class IntervalTree {
 										Short.MIN_VALUE,
 										Short.MIN_VALUE,
 										geneSetNumber,
-										GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+										GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 								// Debug starts
 								if( permutationNumberUserDefinedGeneSetNumber < 0){

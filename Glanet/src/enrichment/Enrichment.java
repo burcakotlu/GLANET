@@ -3108,10 +3108,13 @@ public class Enrichment {
 
 	}
 
-	public static void writeAnnotationstoFiles( String outputFolder,
+	public static void writeAnnotationstoFiles( 
+			String outputFolder,
 			TLongIntMap permutationNumberElementNumberCellLineNumberKeggPathwayNumber2KMap,
-			Map<Integer, BufferedWriter> permutationNumber2BufferedWriterHashMap, String folderName,
-			String extraFileName, GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+			Map<Integer, BufferedWriter> permutationNumber2BufferedWriterHashMap, 
+			String folderName,
+			String extraFileName, 
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		Long permutationNumberElementNumberCellLineNumberKeggPathwayNumber;
 
@@ -3119,6 +3122,7 @@ public class Enrichment {
 		Integer elementNumber;
 		Integer cellLineNumber;
 		Integer keggPathwayNumber;
+		Integer userDefinedGeneSetNumber;
 		Integer elementTypeNumber;
 
 		Integer numberofOverlaps;
@@ -3158,25 +3162,25 @@ public class Enrichment {
 					// Set header line starts
 					switch( generatedMixedNumberDescriptionOrderLength){
 
-					// User Defined Library
-					case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-						bufferedWriter.write( "ElementTypeNumber" + "\t" + "ElementNumber" + "\t" + "NumberofOverlaps" + System.getProperty( "line.separator"));
-						break;
-
-					// User Defined Geneset
-					case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
-						bufferedWriter.write( "UserDefinedGeneSetNumber" + "\t" + "NumberofOverlaps" + System.getProperty( "line.separator"));
-						break;
-
-					// PermutationNumber_ElementNumber_CellLineNumber_KeggPathwayNumber
-					case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
-						bufferedWriter.write( "TfNumber" + "\t" + "CellLineNumber" + "\t" + "KeggPathwayNumber" + "\t" + "NumberofOverlaps" + System.getProperty( "line.separator"));
-						break;
-
-					default:
-						break;
+						// User Defined Library
+						case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+							bufferedWriter.write( "ElementTypeNumber" + "\t" + "ElementNumber" + "\t" + "NumberofOverlaps" + System.getProperty( "line.separator"));
+							break;
+	
+						// User Defined Geneset
+						case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:
+							bufferedWriter.write( "UserDefinedGeneSetNumber" + "\t" + "NumberofOverlaps" + System.getProperty( "line.separator"));
+							break;
+	
+						// PermutationNumber_ElementNumber_CellLineNumber_KeggPathwayNumber
+						case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
+							bufferedWriter.write( "TfNumber" + "\t" + "CellLineNumber" + "\t" + "KeggPathwayNumber" + "\t" + "NumberofOverlaps" + System.getProperty( "line.separator"));
+							break;
+	
+						default:
+							break;
 					}// End of SWITCH
-						// Set header line ends
+					// Set header line ends
 
 					permutationNumber2BufferedWriterHashMap.put( permutationNumber, bufferedWriter);
 				}// End of if bufferedWriter is NULL
@@ -3184,44 +3188,44 @@ public class Enrichment {
 				// mixed number resolution and write to bufferedWriter starts
 				switch( generatedMixedNumberDescriptionOrderLength){
 
-				// User Defined Library
-				case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-					elementTypeNumber = IntervalTree.getElementTypeNumber(
-							permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
-							generatedMixedNumberDescriptionOrderLength);
-					elementNumber = IntervalTree.getElementNumber(
-							permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
-							generatedMixedNumberDescriptionOrderLength);
-					bufferedWriter.write( elementTypeNumber + "\t" + elementNumber + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
-					break;
-
-				// User Defined Geneset
-				case LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER:
-					keggPathwayNumber = IntervalTree.getGeneSetNumber(
-							permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
-							generatedMixedNumberDescriptionOrderLength);
-					bufferedWriter.write( keggPathwayNumber + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
-
-					break;
-
-				// PermutationNumber_ElementNumber_CellLineNumber_KeggPathwayNumber
-				case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
-					elementNumber = IntervalTree.getElementNumber(
-							permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
-							generatedMixedNumberDescriptionOrderLength);
-					cellLineNumber = IntervalTree.getCellLineNumber(
-							permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
-							generatedMixedNumberDescriptionOrderLength);
-					keggPathwayNumber = IntervalTree.getGeneSetNumber(
-							permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
-							generatedMixedNumberDescriptionOrderLength);
-					bufferedWriter.write( elementNumber + "\t" + cellLineNumber + "\t" + keggPathwayNumber + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
-					break;
-
-				default:
-					break;
+					// User Defined Library
+					case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
+						elementTypeNumber = IntervalTree.getElementTypeNumber(
+								permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+								generatedMixedNumberDescriptionOrderLength);
+						elementNumber = IntervalTree.getElementNumber(
+								permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+								generatedMixedNumberDescriptionOrderLength);
+						bufferedWriter.write( elementTypeNumber + "\t" + elementNumber + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
+						break;
+	
+					// User Defined Geneset
+					case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:
+						userDefinedGeneSetNumber = IntervalTree.getGeneSetNumber(
+								permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+								generatedMixedNumberDescriptionOrderLength);
+						bufferedWriter.write( userDefinedGeneSetNumber + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
+	
+						break;
+	
+					// PermutationNumber_ElementNumber_CellLineNumber_KeggPathwayNumber
+					case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
+						elementNumber = IntervalTree.getElementNumber(
+								permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+								generatedMixedNumberDescriptionOrderLength);
+						cellLineNumber = IntervalTree.getCellLineNumber(
+								permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+								generatedMixedNumberDescriptionOrderLength);
+						keggPathwayNumber = IntervalTree.getGeneSetNumber(
+								permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+								generatedMixedNumberDescriptionOrderLength);
+						bufferedWriter.write( elementNumber + "\t" + cellLineNumber + "\t" + keggPathwayNumber + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
+						break;
+	
+					default:
+						break;
 				}// End of SWITCH
-					// mixed number resolution and write to bufferedWriter ends
+				// mixed number resolution and write to bufferedWriter ends
 
 				bufferedWriter.close();
 			}catch( IOException e){
@@ -6049,9 +6053,7 @@ public class Enrichment {
 				}
 
 				// Using AnnotateWithNumbers
-				if( ( tfAnnotationType.doTFAnnotation()) && 
-						!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
-						!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+				if( ( tfAnnotationType.doTFAnnotation())){
 
 					// tf
 					// generate tf interval tree
@@ -6383,17 +6385,17 @@ public class Enrichment {
 					accumulatedAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap(),
 					exonBasedUserDefinedGeneSet2AllKMap,
 					originalExonBasedUserDefinedGeneSet2KMap,
-					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 			convert(
 					accumulatedAllMapsWithNumbers.getPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap(),
 					regulationBasedUserDefinedGeneSet2AllKMap,
 					originalRegulationBasedUserDefinedGeneSet2KMap,
-					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 			convert(
 					accumulatedAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap(),
 					allBasedUserDefinedGeneSet2AllKMap,
 					originalAllBasedUserDefinedGeneSet2KMap,
-					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 		}
 
 		// UserDefinedLibrary
@@ -6652,7 +6654,7 @@ public class Enrichment {
 						permutationNumber2ExonBasedUserDefinedGeneSetBufferedWriterHashMap,
 						AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION.convertEnumtoString() + System.getProperty( "file.separator") + "exonBased" + System.getProperty( "file.separator"),
 						Commons.EXON_BASED,
-						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 				closeBufferedWriters( permutationNumber2ExonBasedUserDefinedGeneSetBufferedWriterHashMap);
 
 				// Regulation Based User Defined GeneSet
@@ -6662,7 +6664,7 @@ public class Enrichment {
 						permutationNumber2RegulationBasedUserDefinedGeneSetBufferedWriterHashMap,
 						AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION.convertEnumtoString() + System.getProperty( "file.separator") + "regulationBased" + System.getProperty( "file.separator"),
 						Commons.REGULATION_BASED,
-						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 				closeBufferedWriters( permutationNumber2RegulationBasedUserDefinedGeneSetBufferedWriterHashMap);
 
 				// All Based User Defined GeneSet
@@ -6672,7 +6674,7 @@ public class Enrichment {
 						permutationNumber2AllBasedUserDefinedGeneSetBufferedWriterHashMap,
 						AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION.convertEnumtoString() + System.getProperty( "file.separator") + "allBased" + System.getProperty( "file.separator"),
 						Commons.ALL_BASED,
-						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_5DIGITS_USERDEFINEDGENESETNUMBER);
+						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 				closeBufferedWriters( permutationNumber2AllBasedUserDefinedGeneSetBufferedWriterHashMap);
 
 				permutationNumber2ExonBasedUserDefinedGeneSetBufferedWriterHashMap = null;
@@ -7718,19 +7720,16 @@ public class Enrichment {
 
 		// Gene
 		if( geneAnnotationType.doGeneAnnotation()){
+			//@todo
+			//fill geneNumber2NameMAp
 			gene2OriginalKMap = new TIntIntHashMap();
 		}
 
-		// User Defined GeneSet
-		if( userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
-
-			exonBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
-			regulationBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
-			allBasedUserDefinedGeneSet2OriginalKMap = new TIntIntHashMap();
-		}
 
 		// User Defined Library
 		if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
+			//@todo
+			//fill userDefinedLibaryNumber2NameMAp
 			elementTypeNumberElementNumber2OriginalKMap = new TIntIntHashMap();
 		}
 
@@ -8106,9 +8105,9 @@ public class Enrichment {
 
 				// User Defined GeneSet
 				if( userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
-					exonBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
-					regulationBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
-					allBasedUserDefinedGeneSet2AllKMap = new TIntObjectHashMap<TIntList>();
+					exonBasedUserDefinedGeneSet2AllKMap 		= new TIntObjectHashMap<TIntList>();
+					regulationBasedUserDefinedGeneSet2AllKMap 	= new TIntObjectHashMap<TIntList>();
+					allBasedUserDefinedGeneSet2AllKMap 			= new TIntObjectHashMap<TIntList>();
 				}
 
 				// User Defined Library

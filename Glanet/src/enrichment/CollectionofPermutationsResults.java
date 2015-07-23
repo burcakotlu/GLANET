@@ -135,9 +135,17 @@ public class CollectionofPermutationsResults {
 	// How to decide enriched elements?
 	// with respect to Benjamini Hochberg FDR or
 	// with respect to Bonferroni Correction Significance Level
-	public static void writeResultstoOutputFiles( String outputFolder, String fileName, String jobName,
-			List<FunctionalElement> list, AnnotationType annotationType, MultipleTestingType multipleTestingParameter,
-			float bonferroniCorrectionSignigicanceLevel, float FDR, int numberofPermutations, int numberofComparisons) throws IOException {
+	public static void writeResultstoOutputFiles(
+			String outputFolder, 
+			String fileName, 
+			String jobName,
+			List<FunctionalElement> list, 
+			AnnotationType annotationType, 
+			MultipleTestingType multipleTestingParameter,
+			float bonferroniCorrectionSignigicanceLevel, 
+			float FDR, 
+			int numberofPermutations, 
+			int numberofComparisons) throws IOException {
 
 		BufferedWriter bufferedWriter = null;
 		FunctionalElement element = null;
@@ -226,8 +234,25 @@ public class CollectionofPermutationsResults {
 
 			}else if( annotationType.doUserDefinedGeneSetAnnotation()){
 				// line per element in output file
-				bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + element.getEmpiricalPValueCalculatedFromZScore() == null?null:df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?null:df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?null:df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t" + element.getRejectNullHypothesisCalculatedFromZScore() + "\t" + df.format( element.getEmpiricalPValue()) + "\t" + df.format( element.getBonferroniCorrectedPValue()) + "\t" + df.format( element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
-
+				//bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + element.getEmpiricalPValueCalculatedFromZScore() == null?null:df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?null:df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?null:df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t" + element.getRejectNullHypothesisCalculatedFromZScore() + "\t" + df.format( element.getEmpiricalPValue()) + "\t" + df.format( element.getBonferroniCorrectedPValue()) + "\t" + df.format( element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+				bufferedWriter.write(element.getNumber() + "\t");
+				bufferedWriter.write(element.getName() + "\t");
+				bufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t" );
+				bufferedWriter.write(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(numberofPermutations + "\t" );
+				bufferedWriter.write(numberofComparisons + "\t" );
+				bufferedWriter.write(element.getMean() + "\t");
+				bufferedWriter.write(element.getStdDev() + "\t" );
+				bufferedWriter.write(element.getZScore() + "\t");
+				bufferedWriter.write(element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t");
+				bufferedWriter.write(element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t");
+				bufferedWriter.write(element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t");
+				bufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t");
+				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
+				bufferedWriter.write(element.isRejectNullHypothesis() + "\t");
+				
 				bufferedWriter.write(element.getUserDefinedGeneSetDescription() + System.getProperty( "line.separator"));
 
 			}else{
@@ -308,7 +333,7 @@ public class CollectionofPermutationsResults {
 				cellLineName = cellLineNumber2NameMap.get( cellLineNumber);
 				return cellLineName;
 			}
-			case INT_5DIGIT_USERDEFINEDGENESETNUMBER:{
+			case INT_10DIGIT_USERDEFINEDGENESETNUMBER:{
 				userDefinedGeneSetNumber = IntervalTree.getGeneSetNumber( modifiedMixedNumber,
 						generatedMixedNumberDescriptionOrderLength);
 				userDefinedGeneSetName = userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap.get( userDefinedGeneSetNumber);
@@ -667,7 +692,7 @@ public class CollectionofPermutationsResults {
 
 					// mixedNumber can be in one of these formats
 					// INT_4DIGIT_DNASECELLLINENUMBER
-					// INT_5DIGIT_USERDEFINEDGENESETNUMBER
+					// INT_10DIGIT_USERDEFINEDGENESETNUMBER
 					// INT_4DIGIT_KEGGPATHWAYNUMBER
 					// INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER
 					// INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER
@@ -1281,8 +1306,10 @@ public class CollectionofPermutationsResults {
 					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET + "_" + userDefinedGeneSetName,
 					jobName, numberofRuns, numberofRemainders,
 					numberofComparisons.getExonBasedUserDefinedGeneSetNumberofComparison(),
-					userDefinedGeneSetAnnotationType, userDefinedGeneSetDescriptionOptionalInputFile, null,
-					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
+					userDefinedGeneSetAnnotationType, 
+					userDefinedGeneSetDescriptionOptionalInputFile, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER);
 
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
@@ -1296,7 +1323,7 @@ public class CollectionofPermutationsResults {
 					jobName, numberofRuns, numberofRemainders,
 					numberofComparisons.getRegulationBasedUserDefinedGeneSetNumberofComparison(),
 					userDefinedGeneSetAnnotationType, userDefinedGeneSetDescriptionOptionalInputFile, null,
-					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER);
 
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
@@ -1310,7 +1337,7 @@ public class CollectionofPermutationsResults {
 					jobName, numberofRuns, numberofRemainders,
 					numberofComparisons.getAllBasedUserDefinedGeneSetNumberofComparison(),
 					userDefinedGeneSetAnnotationType, userDefinedGeneSetDescriptionOptionalInputFile, null,
-					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGIT_USERDEFINEDGENESETNUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER);
 
 		}
 		/************ Collection of UserDefinedGeneSet RESULTS ends *****************/
