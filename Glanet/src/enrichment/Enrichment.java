@@ -3563,7 +3563,8 @@ public class Enrichment {
 			AnnotationType annotationType,
 			TIntObjectMap<String> elementNumber2NameMap,
 			TIntObjectMap<String> cellLineNumber2NameMap,
-			TIntObjectMap<String> keggPathwayNumber2NameMap) {
+			TIntObjectMap<String> keggPathwayNumber2NameMap,
+			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -3595,6 +3596,10 @@ public class Enrichment {
 					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "HistoneName" + "\t" + "CellLineName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
 					break;
 	
+				case DO_USER_DEFINED_GENESET_ANNOTATION:
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "UserDefinedGeneSetName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					break;
+				
 				case DO_KEGGPATHWAY_ANNOTATION:
 					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "KEGGPathwayName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
 					break;
@@ -3632,6 +3637,10 @@ public class Enrichment {
 						elementNumber = mixedNumber / 100000;
 						cellLineNumber = mixedNumber % 100000;
 						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+						break;
+						
+					case DO_USER_DEFINED_GENESET_ANNOTATION:
+						bufferedWriter.write( mixedNumber + "\t" + userDefinedGeneSetNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
 						break;
 	
 					case DO_KEGGPATHWAY_ANNOTATION:
@@ -3819,7 +3828,9 @@ public class Enrichment {
 			TIntObjectMap<String> cellLineNumber2NameMap,
 			TIntObjectMap<String> tfNumber2NameMap,
 			TIntObjectMap<String> histoneNumber2NameMap,
-			TIntObjectMap<String> keggPathwayNumber2NameMap) {
+			TIntObjectMap<String> keggPathwayNumber2NameMap,
+			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap
+			) {
 
 		// 26 June 2015
 		// AllMapsWithNumbersForAllChromosomes stores all chromosomes results
@@ -4235,6 +4246,7 @@ public class Enrichment {
 					dnaseAnnotationType,
 					dnaseCellLineNumber2NameMap,
 					null,
+					null,
 					null);
 
 			// Free memory
@@ -4331,6 +4343,7 @@ public class Enrichment {
 					tfAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
+					null,
 					null);
 
 			// Free memory
@@ -4425,6 +4438,7 @@ public class Enrichment {
 					histoneAnnotationType,
 					histoneNumber2NameMap,
 					cellLineNumber2NameMap,
+					null,
 					null);
 
 			// Free memory
@@ -4529,7 +4543,8 @@ public class Enrichment {
 					keggPathwayAnnotationType,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4539,7 +4554,8 @@ public class Enrichment {
 					keggPathwayAnnotationType,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4549,7 +4565,8 @@ public class Enrichment {
 					keggPathwayAnnotationType,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			// Free memory
 			ucscRefSeqGenesIntervalTreeMap = null;
@@ -4631,7 +4648,7 @@ public class Enrichment {
 					ucscRefSeqGenesIntervalTreeMap, 
 					null,
 					AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION, 
-					geneId2ListofKeggPathwayNumberMap, 
+					geneId2ListofUserDefinedGeneSetNumberMap, 
 					overlapDefinition,
 					null,
 					exonBasedUserDefinedGeneSet2OriginalKMap,
@@ -4654,7 +4671,8 @@ public class Enrichment {
 					userDefinedGeneSetAnnotationType,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					null,
+					userDefinedGeneSetNumber2NameMap);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4664,7 +4682,8 @@ public class Enrichment {
 					userDefinedGeneSetAnnotationType,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					null,
+					userDefinedGeneSetNumber2NameMap);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4674,7 +4693,8 @@ public class Enrichment {
 					userDefinedGeneSetAnnotationType,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					null,
+					userDefinedGeneSetNumber2NameMap);
 
 			// Free memory
 			ucscRefSeqGenesIntervalTreeMap = null;
@@ -4810,6 +4830,7 @@ public class Enrichment {
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
+					null,
 					null);
 
 			
@@ -4822,7 +4843,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4832,7 +4854,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4842,7 +4865,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			//TF KEGGPathway
 			writeToBeCollectedNumberofPermutations( 
@@ -4853,7 +4877,8 @@ public class Enrichment {
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4863,7 +4888,8 @@ public class Enrichment {
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4873,7 +4899,8 @@ public class Enrichment {
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			// Free memory
 			tfIntervalTreeMap = null;
@@ -5008,6 +5035,7 @@ public class Enrichment {
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
+					null,
 					null);
 
 			
@@ -5020,7 +5048,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -5030,7 +5059,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -5040,7 +5070,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			//TF Cellline KEGGPathway
 			writeToBeCollectedNumberofPermutations( 
@@ -5226,6 +5257,7 @@ public class Enrichment {
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
+					null,
 					null);
 
 			
@@ -5238,7 +5270,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -5248,7 +5281,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -5258,7 +5292,8 @@ public class Enrichment {
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 			
 
 			//TF KEGGPathway
@@ -5270,7 +5305,8 @@ public class Enrichment {
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -5280,7 +5316,8 @@ public class Enrichment {
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -5290,7 +5327,8 @@ public class Enrichment {
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
-					keggPathwayNumber2NameMap);
+					keggPathwayNumber2NameMap,
+					null);
 			
 
 			//TF Cellline KEGGPathway
@@ -5436,13 +5474,20 @@ public class Enrichment {
 			WriteGeneratedRandomDataMode writeGeneratedRandomDataMode,
 			WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
 			WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode,
-			TIntIntMap originalDnase2KMap, TIntIntMap originalTfbs2KMap, TIntIntMap originalHistone2KMap,
-			TIntIntMap originalGene2KMap, TIntIntMap originalExonBasedUserDefinedGeneSet2KMap,
+			TIntIntMap originalDnase2KMap, 
+			TIntIntMap originalTfbs2KMap, 
+			TIntIntMap originalHistone2KMap,
+			TIntIntMap originalGene2KMap, 
+			TIntIntMap originalExonBasedUserDefinedGeneSet2KMap,
 			TIntIntMap originalRegulationBasedUserDefinedGeneSet2KMap,
-			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap, TIntIntMap originalElementTypeNumberElementNumber2KMap,
-			TIntIntMap originalExonBasedKeggPathway2KMap, TIntIntMap originalRegulationBasedKeggPathway2KMap,
-			TIntIntMap originalAllBasedKeggPathway2KMap, TIntIntMap originalTfExonBasedKeggPathway2KMap,
-			TIntIntMap originalTfRegulationBasedKeggPathway2KMap, TIntIntMap originalTfAllBasedKeggPathway2KMap,
+			TIntIntMap originalAllBasedUserDefinedGeneSet2KMap, 
+			TIntIntMap originalElementTypeNumberElementNumber2KMap,
+			TIntIntMap originalExonBasedKeggPathway2KMap, 
+			TIntIntMap originalRegulationBasedKeggPathway2KMap,
+			TIntIntMap originalAllBasedKeggPathway2KMap, 
+			TIntIntMap originalTfExonBasedKeggPathway2KMap,
+			TIntIntMap originalTfRegulationBasedKeggPathway2KMap, 
+			TIntIntMap originalTfAllBasedKeggPathway2KMap,
 			TLongIntMap originalTfCellLineExonBasedKeggPathway2KMap,
 			TLongIntMap originalTfCellLineRegulationBasedKeggPathway2KMap,
 			TLongIntMap originalTfCellLineAllBasedKeggPathway2KMap, 
@@ -7567,6 +7612,7 @@ public class Enrichment {
 		TIntObjectMap<String> tfNumber2NameMap 				= null;
 		TIntObjectMap<String> histoneNumber2NameMap 		= null;
 		TIntObjectMap<String> keggPathwayNumber2NameMap 	= null;
+		TIntObjectMap<String> userDefinedGeneSetNumber2NameMap = null;
 		
 		
 		// ElementNumber2OriginalKMaps
@@ -7704,6 +7750,25 @@ public class Enrichment {
 			regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
 			allBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
 			
+		}
+		
+		//User Defined GeneSet
+		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
+			
+			//Number2NameMap
+			userDefinedGeneSetNumber2NameMap = new TIntObjectHashMap<String>();
+			
+			//Fill Number2NameMaps
+			FileOperations.fillNumber2NameMap(
+					userDefinedGeneSetNumber2NameMap,
+					dataFolder,
+					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
+			
+			
+			exonBasedUserDefinedGeneSet2OriginalKMap 		= new TIntIntHashMap();
+			regulationBasedUserDefinedGeneSet2OriginalKMap 	= new TIntIntHashMap();
+			allBasedUserDefinedGeneSet2OriginalKMap 		= new TIntIntHashMap();
+	
 		}
 
 		// TF KEGGPathway Enrichment
@@ -7893,13 +7958,15 @@ public class Enrichment {
 							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
 							userDefinedGeneSetName,
 							overlapDefinition, 
-							geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap,
+							geneId2KeggPathwayNumberMap, 
+							geneId2ListofUserDefinedGeneSetNumberMap,
 							elementTypeNumber2ElementTypeMap,
 							dnaseCellLineNumber2NameMap,
 							cellLineNumber2NameMap,
 							tfNumber2NameMap,
 							histoneNumber2NameMap,
-							keggPathwayNumber2NameMap);
+							keggPathwayNumber2NameMap,
+							userDefinedGeneSetNumber2NameMap);
 
 				}else{
 
@@ -7936,7 +8003,8 @@ public class Enrichment {
 							cellLineNumber2NameMap,
 							tfNumber2NameMap,
 							histoneNumber2NameMap,
-							keggPathwayNumber2NameMap);
+							keggPathwayNumber2NameMap,
+							userDefinedGeneSetNumber2NameMap);
 				}
 
 				GlanetRunner.appendLog( "Concurrent programming has ended.");
