@@ -532,8 +532,10 @@ public class Enrichment {
 		private final WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode;
 
 		private final TIntList permutationNumberList;
+		
 		private final TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap;
 		private final TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap;
+		private TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap;
 
 		private final AnnotationType annotationType;
 
@@ -551,6 +553,9 @@ public class Enrichment {
 		private TIntIntMap exonBasedGeneSetNumber2OriginalKMap;
 		private TIntIntMap regulationBasedGeneSetNumber2OriginalKMap;
 		private TIntIntMap allBasedGeneSetNumber2OriginalKMap;
+		
+		private TIntObjectMap<TIntIntMap> userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap;
+		
 		
 		private TIntIntMap tfNumberExonBasedKEGGPathwayNumber2OriginalKMap;
 		private TIntIntMap tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap;
@@ -570,7 +575,8 @@ public class Enrichment {
 				int highIndex, 
 				TIntList permutationNumberList,
 				TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
-				TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+				TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap,
+				TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
 				AnnotationType annotationType,
 				TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, 
 				int overlapDefinition,
@@ -578,6 +584,7 @@ public class Enrichment {
 				TIntIntMap exonBasedGeneSetNumber2OriginalKMap,
 				TIntIntMap regulationBasedGeneSetNumber2OriginalKMap,
 				TIntIntMap allBasedGeneSetNumber2OriginalKMap,
+				TIntObjectMap<TIntIntMap> userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap,
 				TIntIntMap tfNumberExonBasedKEGGPathwayNumber2OriginalKMap,
 				TIntIntMap tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap,
 				TIntIntMap tfNumberAllBasedKEGGPathwayNumber2OriginalKMap,
@@ -604,6 +611,7 @@ public class Enrichment {
 			// otherwise sent null
 			this.chrNumber2UcscRefSeqGenesIntervalTreeMap = chrNumber2UcscRefSeqGenesIntervalTreeMap;
 
+			this.userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap =  userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap;
 			this.annotationType = annotationType;
 
 			// geneId2ListofGeneSetNumberMap
@@ -622,6 +630,8 @@ public class Enrichment {
 			this.exonBasedGeneSetNumber2OriginalKMap 		= exonBasedGeneSetNumber2OriginalKMap;
 			this.regulationBasedGeneSetNumber2OriginalKMap 	= regulationBasedGeneSetNumber2OriginalKMap;
 			this.allBasedGeneSetNumber2OriginalKMap 		= allBasedGeneSetNumber2OriginalKMap;
+			
+			this.userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap = userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap;
 			
 			this.tfNumberExonBasedKEGGPathwayNumber2OriginalKMap = tfNumberExonBasedKEGGPathwayNumber2OriginalKMap;
 			this.tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap = tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap;
@@ -645,15 +655,21 @@ public class Enrichment {
 			// DIVIDE
 			if( highIndex - lowIndex > Commons.NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY){
 				middleIndex = lowIndex + ( highIndex - lowIndex) / 2;
-				AnnotateWithNumbersForAllChromosomes left = new AnnotateWithNumbersForAllChromosomes( outputFolder,
+				AnnotateWithNumbersForAllChromosomes left = new AnnotateWithNumbersForAllChromosomes( 
+						outputFolder,
 						chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations,
 						writePermutationBasedandParametricBasedAnnotationResultMode, lowIndex, middleIndex,
-						permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap,
-						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,
+						permutationNumberList, 
+						chrNumber2IntervalTreeMap, 
+						chrNumber2UcscRefSeqGenesIntervalTreeMap,
+						userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
+						annotationType, 
+						geneId2ListofGeneSetNumberMap, overlapDefinition,
 						elementNumber2OriginalKMap,
 						exonBasedGeneSetNumber2OriginalKMap,
 						regulationBasedGeneSetNumber2OriginalKMap,
 						allBasedGeneSetNumber2OriginalKMap,
+						userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap,
 						tfNumberExonBasedKEGGPathwayNumber2OriginalKMap,
 						tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap,
 						tfNumberAllBasedKEGGPathwayNumber2OriginalKMap,
@@ -664,12 +680,16 @@ public class Enrichment {
 				AnnotateWithNumbersForAllChromosomes right = new AnnotateWithNumbersForAllChromosomes( outputFolder,
 						chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutations,
 						writePermutationBasedandParametricBasedAnnotationResultMode, middleIndex, highIndex,
-						permutationNumberList, chrNumber2IntervalTreeMap, chrNumber2UcscRefSeqGenesIntervalTreeMap,
+						permutationNumberList, 
+						chrNumber2IntervalTreeMap, 
+						chrNumber2UcscRefSeqGenesIntervalTreeMap,
+						userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
 						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition,
 						elementNumber2OriginalKMap,
 						exonBasedGeneSetNumber2OriginalKMap,
 						regulationBasedGeneSetNumber2OriginalKMap,
 						allBasedGeneSetNumber2OriginalKMap,
+						userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap,
 						tfNumberExonBasedKEGGPathwayNumber2OriginalKMap,
 						tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap,
 						tfNumberAllBasedKEGGPathwayNumber2OriginalKMap,
@@ -3802,8 +3822,9 @@ public class Enrichment {
 			TIntIntMap gene2OriginalKMap,
 			TIntIntMap exonBasedUserDefinedGeneSet2OriginalKMap,
 			TIntIntMap regulationBasedUserDefinedGeneSet2OriginalKMap,
-			TIntIntMap allBasedUserDefinedGeneSet2OriginalKMap, 
-			TIntIntMap elementTypeNumberElementNumber2OriginalKMap,
+			TIntIntMap allBasedUserDefinedGeneSet2OriginalKMap,
+			TIntIntMap userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap,
+			TIntObjectMap<TIntIntMap> userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap,
 			TIntIntMap exonBasedKeggPathway2OriginalKMap, 
 			TIntIntMap regulationBasedKeggPathway2OriginalKMap,
 			TIntIntMap allBasedKeggPathway2OriginalKMap, 
@@ -3827,7 +3848,7 @@ public class Enrichment {
 			int overlapDefinition,
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
-			TIntObjectMap<String> elementTypeNumber2ElementTypeMap,
+			TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeNameMap,
 			TIntObjectMap<String> dnaseCellLineNumber2NameMap,
 			TIntObjectMap<String> cellLineNumber2NameMap,
 			TIntObjectMap<String> tfNumber2NameMap,
@@ -4226,10 +4247,12 @@ public class Enrichment {
 					permutationNumberList, 
 					dnaseIntervalTreeMap, 
 					null,
+					null,
 					AnnotationType.DO_DNASE_ANNOTATION, 
 					null, 
 					overlapDefinition, 
 					dnaseCellLineNumber2OriginalKMap,
+					null,
 					null,
 					null,
 					null,
@@ -4323,10 +4346,12 @@ public class Enrichment {
 					permutationNumberList, 
 					tfIntervalTreeMap, 
 					null,
+					null,
 					AnnotationType.DO_TF_ANNOTATION, 
 					null, 
 					overlapDefinition,
 					tfNumberCellLineNumber2OriginalKMap,
+					null,
 					null,
 					null,
 					null,
@@ -4418,10 +4443,12 @@ public class Enrichment {
 					permutationNumberList, 
 					histoneIntervalTreeMap, 
 					null,
+					null,
 					AnnotationType.DO_HISTONE_ANNOTATION, 
 					null, 
 					overlapDefinition,
 					histoneNumberCellLineNumber2OriginalKMap,
+					null,
 					null,
 					null,
 					null,
@@ -4523,6 +4550,7 @@ public class Enrichment {
 					permutationNumberList, 
 					ucscRefSeqGenesIntervalTreeMap, 
 					null,
+					null,
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, 
 					geneId2ListofKeggPathwayNumberMap, 
 					overlapDefinition,
@@ -4530,6 +4558,7 @@ public class Enrichment {
 					exonBasedKeggPathway2OriginalKMap,
 					regulationBasedKeggPathway2OriginalKMap,
 					allBasedKeggPathway2OriginalKMap,
+					null,
 					null,
 					null,
 					null,
@@ -4651,6 +4680,7 @@ public class Enrichment {
 					permutationNumberList, 
 					ucscRefSeqGenesIntervalTreeMap, 
 					null,
+					null,
 					AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION, 
 					geneId2ListofUserDefinedGeneSetNumberMap, 
 					overlapDefinition,
@@ -4658,6 +4688,7 @@ public class Enrichment {
 					exonBasedUserDefinedGeneSet2OriginalKMap,
 					regulationBasedUserDefinedGeneSet2OriginalKMap,
 					allBasedUserDefinedGeneSet2OriginalKMap,
+					null,
 					null,
 					null,
 					null,
@@ -4722,6 +4753,171 @@ public class Enrichment {
 		/*************************User Defined GeneSet ANNOTATION OF PERMUTATIONS ENDS***************************/
 		/********************************************************************************************************/
 
+		
+		//24 July 2015
+		//@todo
+		/********************************************************************************************************/
+		/************************User Defined Library ANNOTATION OF PERMUTATIONS STARTS**************************/
+		/********************************************************************************************************/
+		if (userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
+			
+			int elementTypeNumber;
+			String elementType;
+
+			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+			GlanetRunner.appendLog("User Defined Library Annotation of Permutations has started.");
+			logger.info("User Defined Library Annotation of Permutations has started.");
+
+			TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap = new TIntObjectHashMap<TIntObjectMap<IntervalTree>>();
+			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap = null;
+			
+			// For each elementTypeNumber
+			for( TIntObjectIterator<String> it = userDefinedLibraryElementTypeNumber2ElementTypeNameMap.iterator(); it.hasNext();){
+
+				it.advance();
+				
+				elementTypeNumber = it.key();
+				elementType = it.value();
+				
+				// Fill chrNumber2IntervalTreeMap
+				// For each chromosome, generate intervalTree and fill intervalTreeMap
+				for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+	
+					chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
+					chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
+	
+					if( chromosomeBaseOriginalInputLines != null){
+						
+						// generate User Defined Library Interval Tree
+						intervalTree = generateUserDefinedLibraryIntervalTreeWithNumbers(
+								dataFolder,
+								elementTypeNumber, 
+								elementType, 
+								chromName);
+							
+	
+						chrNumber2IntervalTreeMap = userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap.get(elementTypeNumber);
+						
+						if (chrNumber2IntervalTreeMap == null){
+							chrNumber2IntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+							userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap.put(elementTypeNumber, chrNumber2IntervalTreeMap);	
+						}
+						
+						chrNumber2IntervalTreeMap.put(chrNumber, intervalTree);
+						
+					}// End of IF chromosomeBaseOriginalInputLines is NOT NULL
+	
+				}// End of FOR each CHROMOSOME
+			
+			}//End of each elementTypeNumber
+
+			//@todo
+			// For each elementTypeNumber
+			for( TIntObjectIterator<String> it = userDefinedLibraryElementTypeNumber2ElementTypeNameMap.iterator(); it.hasNext();){
+				it.advance();
+				
+				elementTypeNumber = it.key();
+				elementType = it.value();
+				
+				TIntIntMap userDefinedLibraryElementNumber2OriginalKMap = new TIntIntHashMap();
+				
+				// Why don't we fill it before?
+				fillElementNumber2OriginalKMap( 
+						userDefinedLibraryElementNumber2OriginalKMap, 
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_DIRECTORY + elementType + Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_FILE);
+				
+				//question: should I use userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap?
+				userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap.put(elementTypeNumber,userDefinedLibraryElementNumber2OriginalKMap);
+			}
+
+				
+			//@todo left here
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
+					outputFolder,
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun,
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO,
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					null,
+					null,
+					userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
+					AnnotationType.DO_USER_DEFINED_LIBRARY_ANNOTATION, 
+					geneId2ListofUserDefinedGeneSetNumberMap, 
+					overlapDefinition,
+					null,
+					null,
+					null,
+					null,
+					userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null);
+
+			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations(),
+					userDefinedGeneSetAnnotationType,
+					null,
+					null,
+					null,
+					userDefinedGeneSetNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations(),
+					userDefinedGeneSetAnnotationType,
+					null,
+					null,
+					null,
+					userDefinedGeneSetNumber2NameMap);
+
+			writeToBeCollectedNumberofPermutations( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					runNumber,
+					allMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations(),
+					userDefinedGeneSetAnnotationType,
+					null,
+					null,
+					null,
+					userDefinedGeneSetNumber2NameMap);
+
+			// Free memory
+			userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap = null;
+
+			System.gc();
+			System.runFinalization();
+
+			GlanetRunner.appendLog("User Defined Library Annotation of Permutations has ended.");
+			logger.info("User Defined Library Annotation of Permutations has ended.");
+
+			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+			GlanetRunner.appendLog( "RunNumber: " + runNumber + "User Defined Library of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			GlanetRunner.appendLog( "******************************************************************************************");
+
+			logger.info( "RunNumber: " + runNumber + "User Defined Library of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			logger.info( "******************************************************************************************");
+
+		}
+		/********************************************************************************************************/
+		/************************User Defined Library ANNOTATION OF PERMUTATIONS ENDS****************************/
+		/********************************************************************************************************/
+		
 		
 		//15 July 2015 
 		/********************************************************************************************************/
@@ -4809,6 +5005,7 @@ public class Enrichment {
 					permutationNumberList, 
 					tfIntervalTreeMap, 
 					ucscRefSeqGenesIntervalTreeMap,
+					null,
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION, 
 					geneId2ListofKeggPathwayNumberMap, 
 					overlapDefinition,
@@ -4816,6 +5013,7 @@ public class Enrichment {
 					exonBasedKeggPathway2OriginalKMap,
 					regulationBasedKeggPathway2OriginalKMap,
 					allBasedKeggPathway2OriginalKMap,
+					null,
 					tfExonBasedKeggPathway2OriginalKMap,
 					tfRegulationBasedKeggPathway2OriginalKMap,
 					tfAllBasedKeggPathway2OriginalKMap,
@@ -5014,6 +5212,7 @@ public class Enrichment {
 					permutationNumberList, 
 					tfIntervalTreeMap, 
 					ucscRefSeqGenesIntervalTreeMap,
+					null,
 					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, 
 					geneId2ListofKeggPathwayNumberMap, 
 					overlapDefinition,
@@ -5021,6 +5220,7 @@ public class Enrichment {
 					exonBasedKeggPathway2OriginalKMap,
 					regulationBasedKeggPathway2OriginalKMap,
 					allBasedKeggPathway2OriginalKMap,
+					null,
 					null,
 					null,
 					null,
@@ -5236,6 +5436,7 @@ public class Enrichment {
 					permutationNumberList, 
 					tfIntervalTreeMap, 
 					ucscRefSeqGenesIntervalTreeMap,
+					null,
 					AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION, 
 					geneId2ListofKeggPathwayNumberMap, 
 					overlapDefinition,
@@ -5243,6 +5444,7 @@ public class Enrichment {
 					exonBasedKeggPathway2OriginalKMap,
 					regulationBasedKeggPathway2OriginalKMap,
 					allBasedKeggPathway2OriginalKMap,
+					null,
 					tfExonBasedKeggPathway2OriginalKMap,
 					tfRegulationBasedKeggPathway2OriginalKMap,
 					tfAllBasedKeggPathway2OriginalKMap,
@@ -7534,24 +7736,7 @@ public class Enrichment {
 		/********************* FILL GENEID 2 KEGG PATHWAY NUMBER MAP ENDS ****************************/
 		/*********************************************************************************************/
 
-		/***********************************************************************************************/
-		/****************************** USER DEFINED LIBRARY *******************************************/
-		/********************* FILL ElementTypeNumber2ElementTypeMap STARTS ****************************/
-		TIntObjectMap<String> elementTypeNumber2ElementTypeMap = null;
-
-		if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
-
-			elementTypeNumber2ElementTypeMap = new TIntObjectHashMap<String>();
-
-			UserDefinedLibraryUtility.fillNumber2NameMap( elementTypeNumber2ElementTypeMap, dataFolder,
-					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME,
-					Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
-
-		}
-		/********************* FILL ElementTypeNumber2ElementTypeMap ENDS ******************************/
-		/****************************** USER DEFINED LIBRARY *******************************************/
-		/***********************************************************************************************/
-
+		
 		/*********************************************************************************/
 		/**************DO NOT MAKE SAME CALCULATIONS AGAIN and AGAIN starts***************/
 		/*********************************************************************************/
@@ -7644,6 +7829,8 @@ public class Enrichment {
 
 		// UserDefinedLibrary
 		TIntIntMap elementTypeNumberElementNumber2OriginalKMap = null;
+		TIntObjectMap<TIntIntMap> userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap = null;
+		
 
 		// KEGGPathway
 		TIntIntMap exonBasedKeggPathway2OriginalKMap = null;
@@ -7730,6 +7917,23 @@ public class Enrichment {
 			gene2OriginalKMap = new TIntIntHashMap();
 		}
 
+		
+		// User Defined Library		
+		if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
+			
+			userDefinedLibraryElementTypeNumber2NameMap = new TIntObjectHashMap<String>();
+
+			UserDefinedLibraryUtility.fillNumber2NameMap( 
+					userDefinedLibraryElementTypeNumber2NameMap, 
+					dataFolder,
+					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
+
+			
+			elementTypeNumberElementNumber2OriginalKMap = new TIntIntHashMap();
+			userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap = new TIntObjectHashMap<TIntIntMap>();
+		}
+				
 		//User Defined GeneSet
 		if (userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
 			
@@ -7749,31 +7953,7 @@ public class Enrichment {
 			
 		}
 		
-		// User Defined Library		
-		if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
-			
-			//Fill Number2NameMaps
-			FileOperations.fillNumber2NameMap(
-					userDefinedLibraryElementTypeNumber2NameMap,
-					dataFolder,
-					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
-			
-			//Fill Number2NameMaps
-			FileOperations.fillNumber2NameMap(
-					userDefinedLibraryElementNumber2NameMap,
-					dataFolder,
-					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);
-			
 		
-			//Fill Number2NameMaps
-			FileOperations.fillNumber2NameMap(
-					userDefinedLibraryFileNumber2NameMap,
-					dataFolder,
-					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_FILE_NUMBER_2_NAME_OUTPUT_FILENAME);
-			
-			
-			elementTypeNumberElementNumber2OriginalKMap = new TIntIntHashMap();
-		}
 
 		// KEGGPathway
 		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
@@ -7963,8 +8143,11 @@ public class Enrichment {
 							writePermutationBasedAnnotationResultMode, dnaseCellLineNumber2OriginalKMap,
 							tfNumberCellLineNumber2OriginalKMap, histoneNumberCellLineNumber2OriginalKMap,
 							gene2OriginalKMap, exonBasedUserDefinedGeneSet2OriginalKMap,
-							regulationBasedUserDefinedGeneSet2OriginalKMap, allBasedUserDefinedGeneSet2OriginalKMap,
-							elementTypeNumberElementNumber2OriginalKMap, exonBasedKeggPathway2OriginalKMap,
+							regulationBasedUserDefinedGeneSet2OriginalKMap, 
+							allBasedUserDefinedGeneSet2OriginalKMap,
+							elementTypeNumberElementNumber2OriginalKMap, 
+							userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap,
+							exonBasedKeggPathway2OriginalKMap,
 							regulationBasedKeggPathway2OriginalKMap, allBasedKeggPathway2OriginalKMap,
 							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
 							tfAllBasedKeggPathway2OriginalKMap, tfCellLineExonBasedKeggPathway2OriginalKMap,
@@ -7984,7 +8167,7 @@ public class Enrichment {
 							overlapDefinition, 
 							geneId2KeggPathwayNumberMap, 
 							geneId2ListofUserDefinedGeneSetNumberMap,
-							elementTypeNumber2ElementTypeMap,
+							userDefinedLibraryElementTypeNumber2NameMap,
 							dnaseCellLineNumber2NameMap,
 							cellLineNumber2NameMap,
 							tfNumber2NameMap,
@@ -8003,7 +8186,9 @@ public class Enrichment {
 							tfNumberCellLineNumber2OriginalKMap, histoneNumberCellLineNumber2OriginalKMap,
 							gene2OriginalKMap, exonBasedUserDefinedGeneSet2OriginalKMap,
 							regulationBasedUserDefinedGeneSet2OriginalKMap, allBasedUserDefinedGeneSet2OriginalKMap,
-							elementTypeNumberElementNumber2OriginalKMap, exonBasedKeggPathway2OriginalKMap,
+							elementTypeNumberElementNumber2OriginalKMap, 
+							userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap,
+							exonBasedKeggPathway2OriginalKMap,
 							regulationBasedKeggPathway2OriginalKMap, allBasedKeggPathway2OriginalKMap,
 							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
 							tfAllBasedKeggPathway2OriginalKMap, tfCellLineExonBasedKeggPathway2OriginalKMap,
@@ -8021,8 +8206,9 @@ public class Enrichment {
 							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
 							userDefinedGeneSetName,
 							overlapDefinition, 
-							geneId2KeggPathwayNumberMap, geneId2ListofUserDefinedGeneSetNumberMap,
-							elementTypeNumber2ElementTypeMap,
+							geneId2KeggPathwayNumberMap, 
+							geneId2ListofUserDefinedGeneSetNumberMap,
+							userDefinedLibraryElementTypeNumber2NameMap,
 							dnaseCellLineNumber2NameMap,
 							cellLineNumber2NameMap,
 							tfNumber2NameMap,
@@ -8262,7 +8448,7 @@ public class Enrichment {
 							overlapDefinition, 
 							geneId2KeggPathwayNumberMap,
 							geneId2ListofUserDefinedGeneSetNumberMap, 
-							elementTypeNumber2ElementTypeMap);
+							userDefinedLibraryElementTypeNumber2NameMap);
 				}else{
 					
 					Enrichment.annotateAllPermutationsInThreads( outputFolder, dataFolder, givenInputsSNPsorIntervals,
@@ -8292,7 +8478,8 @@ public class Enrichment {
 							tfCellLineKeggPathwayAnnotationType,
 							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
 							overlapDefinition, geneId2KeggPathwayNumberMap,
-							geneId2ListofUserDefinedGeneSetNumberMap, elementTypeNumber2ElementTypeMap);
+							geneId2ListofUserDefinedGeneSetNumberMap, 
+							userDefinedLibraryElementTypeNumber2NameMap);
 				}
 				GlanetRunner.appendLog( "Concurrent programming has ended.");
 				logger.info( "Concurrent programming has ended.");
@@ -8350,7 +8537,7 @@ public class Enrichment {
 				if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
 
 					writeToBeCollectedNumberofOverlapsForUserDefinedLibrary( outputFolder,
-							elementTypeNumber2ElementTypeMap, elementTypeNumberElementNumber2OriginalKMap,
+							userDefinedLibraryElementTypeNumber2NameMap, elementTypeNumberElementNumber2OriginalKMap,
 							elementTypeNumberElementNumber2AllKMap, runName);
 
 				}
@@ -8588,7 +8775,7 @@ public class Enrichment {
 		geneId2KeggPathwayNumberMap = null;
 		keggPathwayName2KeggPathwayNumberMap = null;
 
-		elementTypeNumber2ElementTypeMap = null;
+		userDefinedLibraryElementTypeNumber2NameMap = null;
 		/***********************************************************************************/
 		/**********************FREE AUXILIARY MAPS ends*************************************/
 		/***********************************************************************************/
