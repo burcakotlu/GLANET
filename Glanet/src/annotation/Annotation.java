@@ -4051,13 +4051,108 @@ public class Annotation {
 	// with Numbers ends
 	// @todo
 
+	
+	
+	//27 July 2015 starts
+	public static void searchUserDefinedLibraryWithoutIOWithNumbers(
+			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData,
+			TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
+			TIntIntMap userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap,
+			TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeNameMap,
+			int overlapDefinition){
+		
+		ChromosomeName chromName;
+		List<InputLineMinimal> inputLines;
+		InputLineMinimal inputLine;
+		
+		TIntObjectMap<IntervalTree> chrNumber2UserDefinedLibraryIntervalTree;
+		IntervalTree userDefinedLibraryIntervalTree;
+		
+		TIntByteMap elementTypeNumberElementNumber2PermutationOneorZeroMap = null;
+		
+		int elementTypeNumber;
+		
+		for(TIntObjectIterator<String> itr =userDefinedLibraryElementTypeNumber2ElementTypeNameMap.iterator();itr.hasNext();){
+			
+			itr.advance();
+			
+			elementTypeNumber = itr.key();
+			
+			chrNumber2UserDefinedLibraryIntervalTree = userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap.get(elementTypeNumber);
+			
+			for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+				
+				chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+				inputLines = chrNumber2RandomlyGeneratedData.get(chrNumber);
+				
+				userDefinedLibraryIntervalTree = chrNumber2UserDefinedLibraryIntervalTree.get(chrNumber);
+
+				
+				if( inputLines != null){
+					
+					for( int i = 0; i < inputLines.size(); i++){
+						
+						elementTypeNumberElementNumber2PermutationOneorZeroMap = new TIntByteHashMap();
+						
+						inputLine = inputLines.get(i);
+						
+						
+						userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+								userDefinedLibraryIntervalTree.getRoot(), 
+								inputLine, 
+								chromName, 
+								elementTypeNumberElementNumber2PermutationOneorZeroMap, 
+								overlapDefinition);
+						
+						
+						// accumulate search results of elementTypeNumberElementNumber2PermutationOneorZeroMap
+						// in userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap
+						for( TIntByteIterator it = elementTypeNumberElementNumber2PermutationOneorZeroMap.iterator(); it.hasNext();){
+
+							it.advance();
+
+							if( !( userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.containsKey( it.key()))){
+								userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.put( it.key(), it.value());
+							}else{
+								userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.put( it.key(),
+										userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.get( it.key()) + it.value());
+
+							}
+
+						}// End of for
+						
+						
+					}//End of FOR each inputLine
+						
+					
+				}//End of IF inputLines is not null
+				
+				
+			}//End of FOR each chromosome
+		
+		}//End of FOR each elementTypeNumber
+
+		
+		
+
+			
+		
+	}
+	//27 July 2015 ends
+	
+	
+	
 	// 4 NOV 2014
 	// Enrichment
 	// Without IO
 	// With Numbers
-	public static void searchUserDefinedLibraryWithoutIOWithNumbers( int permutationNumber, ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, IntervalTree userDefinedLibraryIntervalTree,
-			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap, int overlapDefinition) {
+	public static void searchUserDefinedLibraryWithoutIOWithNumbers( 
+			int permutationNumber, 
+			ChromosomeName chromName,
+			List<InputLineMinimal> inputLines, 
+			IntervalTree userDefinedLibraryIntervalTree,
+			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap, 
+			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
 
@@ -4467,7 +4562,6 @@ public class Annotation {
 	// Without IO
 	// With Numbers
 	public static void searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
-			int permutationNumber, 
 			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
 			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
@@ -4515,7 +4609,6 @@ public class Annotation {
 					if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 						
 						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
-								permutationNumber, 
 								ucscRefSeqGenesIntervalTree.getRoot(), 
 								inputLine, 
 								chromName,
@@ -10839,6 +10932,8 @@ public class Annotation {
 			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData,
 			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
 			TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, 
+			TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
+			TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeNameMap,
 			AnnotationType annotationType,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, 
 			int overlapDefinition,
@@ -10846,6 +10941,7 @@ public class Annotation {
 			TIntIntMap exonBasedGeneSetNumber2OriginalKMap,
 			TIntIntMap regulationBasedGeneSetNumber2OriginalKMap,
 			TIntIntMap allBasedGeneSetNumber2OriginalKMap,
+			TIntIntMap userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap,
 			TIntIntMap tfNumberExonBasedKEGGPathwayNumber2OriginalKMap,
 			TIntIntMap tfNumberRegulationBasedKEGGPathwayNumber2OriginalKMap,
 			TIntIntMap tfNumberAllBasedKEGGPathwayNumber2OriginalKMap,
@@ -10966,7 +11062,6 @@ public class Annotation {
 			
 			// EXON Based UserDefined GeneSet Analysis
 			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
-					permutationNumber, 
 					chrNumber2RandomlyGeneratedData, 
 					chrNumber2IntervalTreeMap,
 					geneId2ListofGeneSetNumberMap, 
@@ -10981,7 +11076,6 @@ public class Annotation {
 			
 			// REGULATION Based UserDefined GeneSet Analysis
 			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
-					permutationNumber, 
 					chrNumber2RandomlyGeneratedData, 
 					chrNumber2IntervalTreeMap,
 					geneId2ListofGeneSetNumberMap, 
@@ -10996,7 +11090,6 @@ public class Annotation {
 			
 			// ALL Based KEGG Pathway Analysis
 			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
-					permutationNumber, 
 					chrNumber2RandomlyGeneratedData, 
 					chrNumber2IntervalTreeMap,
 					geneId2ListofGeneSetNumberMap, 
@@ -11038,6 +11131,38 @@ public class Annotation {
 			
 		}
 		
+		
+		//@TODO
+		//UserDefinedLibrary
+		if (annotationType.doUserDefinedLibraryAnnotation()){
+			
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap elementTypeNumberElementNumber2PermutationOneorZeroMap 	= new TIntByteHashMap();
+			
+			// This will be filled during search method call
+			TIntIntMap elementTypeNumberElementNumber2PermutationKMap 			= new TIntIntHashMap();
+			
+			searchUserDefinedLibraryWithoutIOWithNumbers(
+					chrNumber2RandomlyGeneratedData,
+					userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
+					elementTypeNumberElementNumber2PermutationKMap,
+					userDefinedLibraryElementTypeNumber2ElementTypeNameMap,
+					overlapDefinition);
+			
+			fillPermutationOneorZeroMap(
+					userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap, 
+					elementTypeNumberElementNumber2PermutationKMap,
+					elementTypeNumberElementNumber2PermutationOneorZeroMap);
+
+			// Set elementNumber2PermutationOneorZeroMap
+			allMapsKeysWithNumbersAndValuesOneorZero.setElementTypeNumberElementNumber2PermutationOneorZeroMap(elementTypeNumberElementNumber2PermutationOneorZeroMap);
+			
+			//Free space
+			elementTypeNumberElementNumber2PermutationKMap 	= null;
+		}
+		
 		//KEGGPathway
 		if (annotationType.doKEGGPathwayAnnotation()){
 			
@@ -11055,7 +11180,6 @@ public class Annotation {
 			
 			// EXON Based KEGG Pathway Analysis
 			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
-					permutationNumber, 
 					chrNumber2RandomlyGeneratedData, 
 					chrNumber2IntervalTreeMap,
 					geneId2ListofGeneSetNumberMap, 
@@ -11070,7 +11194,6 @@ public class Annotation {
 			
 			// REGULATION Based KEGG Pathway Analysis
 			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
-					permutationNumber, 
 					chrNumber2RandomlyGeneratedData, 
 					chrNumber2IntervalTreeMap,
 					geneId2ListofGeneSetNumberMap, 
@@ -11085,7 +11208,6 @@ public class Annotation {
 			
 			// ALL Based KEGG Pathway Analysis
 			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
-					permutationNumber, 
 					chrNumber2RandomlyGeneratedData, 
 					chrNumber2IntervalTreeMap,
 					geneId2ListofGeneSetNumberMap, 

@@ -2429,6 +2429,57 @@ public class IntervalTree {
 
 		}
 	}
+	
+	
+	//27 July 2015 starts
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TIntByteMap elementTypeNumberElementNumber2ZeroorOneMap, 
+			int overlapDefinition) {
+
+		int elementTypeNumberElementNumber;
+		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
+
+		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+
+			if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+				castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+			}
+
+			elementTypeNumberElementNumber = generateElementTypeNumberElementNumber(
+					castedNode.getElementTypeNumber(),
+					castedNode.getElementNumber(),
+					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+
+			if( !( elementTypeNumberElementNumber2ZeroorOneMap.containsKey( elementTypeNumberElementNumber))){
+				elementTypeNumberElementNumber2ZeroorOneMap.put(elementTypeNumberElementNumber, Commons.BYTE_1);
+			}
+		}
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+					node.getLeft(),
+					interval, 
+					chromName, 
+					elementTypeNumberElementNumber2ZeroorOneMap,
+					overlapDefinition);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+					node.getRight(),
+					interval, 
+					chromName, 
+					elementTypeNumberElementNumber2ZeroorOneMap,
+					overlapDefinition);
+
+		}
+
+	}
+	//27 July 2015 ends
+	
 
 	// 4 NOV 2014
 	// Enrichment
@@ -3721,7 +3772,10 @@ public class IntervalTree {
 	// Enrichment
 	// WithoutIO WithNumbers
 	// PermutationNumber ElementTypeNumber ElementNumber
-	public static long generateMixedNumber( int permutationNumber, int elementTypeNumber, int elementNumber,
+	public static long generateMixedNumber( 
+			int permutationNumber, 
+			int elementTypeNumber, 
+			int elementNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		long mixedNumber = Long.MIN_VALUE;
@@ -3824,6 +3878,34 @@ public class IntervalTree {
 
 		return mixedNumber;
 	}
+	
+	
+	//27 July 2015
+	// UserDefinedLibrary
+	public static int generateElementTypeNumberElementNumber(
+			int elementTypeNumber, 
+			int elementNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+
+		int elementTypeNumberElementNumber = Integer.MIN_VALUE;
+
+		// Integer.MAX 2147_483_647
+		// Integer.MIN -2147_483_648
+		switch( generatedMixedNumberDescriptionOrderLength){
+
+			case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
+				elementTypeNumberElementNumber = elementTypeNumber * Commons.INT_6DIGITS + elementNumber;
+				break;
+			}
+			default:{
+				break;
+			}
+
+		}// End of switch
+
+		return elementTypeNumberElementNumber;
+	}
+	
 
 	// 3 July 2015
 	// Annotation
@@ -3894,7 +3976,9 @@ public class IntervalTree {
 	// TF CELLLINE KEGGPATHWAY
 	// This method is called with value of "0" for keggPathwayNumber
 	// But keggPathwayNumber is added in the code later
-	public static int generateElementNumberCellLineNumberKeggPathwayNumber( short elementNumber, short cellLineNumber,
+	public static int generateElementNumberCellLineNumberKeggPathwayNumber(
+			short elementNumber, 
+			short cellLineNumber,
 			short keggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
@@ -5127,12 +5211,12 @@ public class IntervalTree {
 	}
 	
 	
+	//Modified 27 July 2015
 	// 8 July 2015
 	// WITHOUT IO
 	// WITH Numbers
 	// WITHOUT ZScores
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
-			int permutationNumber,
 			IntervalTreeNode node, 
 			InputLineMinimal interval, 
 			ChromosomeName chromName,
@@ -5303,7 +5387,6 @@ public class IntervalTree {
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
-					permutationNumber, 
 					node.getLeft(),
 					interval, 
 					chromName, 
@@ -5319,7 +5402,6 @@ public class IntervalTree {
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
-					permutationNumber, 
 					node.getRight(),
 					interval, 
 					chromName, 
