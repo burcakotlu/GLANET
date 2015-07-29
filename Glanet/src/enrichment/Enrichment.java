@@ -73,7 +73,6 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 /**
@@ -539,7 +538,6 @@ public class Enrichment {
 		
 		private final TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeNameMap;
 		
-
 		private final AnnotationType annotationType;
 
 		private final int lowIndex;
@@ -3596,7 +3594,8 @@ public class Enrichment {
 			TIntObjectMap<String> elementNumber2NameMap,
 			TIntObjectMap<String> cellLineNumber2NameMap,
 			TIntObjectMap<String> keggPathwayNumber2NameMap,
-			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap) {
+			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap,
+			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -3627,7 +3626,11 @@ public class Enrichment {
 				case DO_HISTONE_ANNOTATION:
 					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "HistoneName" + "\t" + "CellLineName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
 					break;
-	
+					
+				case DO_USER_DEFINED_LIBRARY_ANNOTATION:	
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "ElementName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					break;
+					
 				case DO_USER_DEFINED_GENESET_ANNOTATION:
 					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "UserDefinedGeneSetName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
 					break;
@@ -3670,6 +3673,11 @@ public class Enrichment {
 						cellLineNumber = mixedNumber % 100000;
 						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
 						break;
+						
+
+					case DO_USER_DEFINED_LIBRARY_ANNOTATION:	
+						bufferedWriter.write(mixedNumber + "\t" + userDefinedLibraryElementNumber2ElementNameMap.get(mixedNumber) + "\t" + elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.get(mixedNumber) + System.getProperty( "line.separator"));
+						break;	
 						
 					case DO_USER_DEFINED_GENESET_ANNOTATION:
 						bufferedWriter.write( mixedNumber + "\t" + userDefinedGeneSetNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
@@ -3793,7 +3801,7 @@ public class Enrichment {
 				elementNumber = Integer.parseInt( strLine.substring( 0, indexofFirstTab));
 				numberofOriginalOverlaps = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
 
-				elementNumber2OriginalKMap.put( elementNumber, numberofOriginalOverlaps);
+				elementNumber2OriginalKMap.put(elementNumber, numberofOriginalOverlaps);
 
 			}// End of WHILE
 
@@ -3856,6 +3864,7 @@ public class Enrichment {
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
 			TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeNameMap,
+			TIntObjectMap<TIntObjectMap<String>> userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap,
 			TIntObjectMap<String> dnaseCellLineNumber2NameMap,
 			TIntObjectMap<String> cellLineNumber2NameMap,
 			TIntObjectMap<String> tfNumber2NameMap,
@@ -4277,6 +4286,7 @@ public class Enrichment {
 					dnaseCellLineNumber2NameMap,
 					null,
 					null,
+					null,
 					null);
 
 			// Free memory
@@ -4377,6 +4387,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
+					null,
 					null);
 
 			// Free memory
@@ -4474,6 +4485,7 @@ public class Enrichment {
 					histoneAnnotationType,
 					histoneNumber2NameMap,
 					cellLineNumber2NameMap,
+					null,
 					null,
 					null);
 
@@ -4583,6 +4595,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -4594,6 +4607,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -4605,6 +4619,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			// Free memory
@@ -4714,7 +4729,8 @@ public class Enrichment {
 					null,
 					null,
 					null,
-					userDefinedGeneSetNumber2NameMap);
+					userDefinedGeneSetNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4725,7 +4741,8 @@ public class Enrichment {
 					null,
 					null,
 					null,
-					userDefinedGeneSetNumber2NameMap);
+					userDefinedGeneSetNumber2NameMap,
+					null);
 
 			writeToBeCollectedNumberofPermutations( 
 					outputFolder, 
@@ -4736,7 +4753,8 @@ public class Enrichment {
 					null,
 					null,
 					null,
-					userDefinedGeneSetNumber2NameMap);
+					userDefinedGeneSetNumber2NameMap,
+					null);
 
 			// Free memory
 			ucscRefSeqGenesIntervalTreeMap = null;
@@ -4762,7 +4780,6 @@ public class Enrichment {
 
 		
 		//24 July 2015
-		//@todo
 		/********************************************************************************************************/
 		/************************User Defined Library ANNOTATION OF PERMUTATIONS STARTS**************************/
 		/********************************************************************************************************/
@@ -4770,12 +4787,13 @@ public class Enrichment {
 			
 			int elementTypeNumber;
 			String elementTypeName;
-			
-			int elementNumber;
+
+			int elementTypeNumberElementNumber;
 			int numberofOverlaps;
 			
-			int elementTypeNumberElementNumber;
-
+			int elementNumber;
+			
+		
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog("User Defined Library Annotation of Permutations has started.");
@@ -4794,10 +4812,10 @@ public class Enrichment {
 				
 				// Fill chrNumber2IntervalTreeMap
 				// For each chromosome, generate intervalTree and fill intervalTreeMap
-				for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+				for(int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
 	
-					chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
-					chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
+					chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+					chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get(chromName);
 	
 					if( chromosomeBaseOriginalInputLines != null){
 						
@@ -4814,7 +4832,7 @@ public class Enrichment {
 						if (chrNumber2IntervalTreeMap == null){
 							chrNumber2IntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 							userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap.put(elementTypeNumber, chrNumber2IntervalTreeMap);	
-						}
+						}//End of IF chrNumber2IntervalTreeMap IS NULL
 						
 						chrNumber2IntervalTreeMap.put(chrNumber, intervalTree);
 						
@@ -4845,6 +4863,8 @@ public class Enrichment {
 				
 				for(TIntIntIterator itr=userDefinedLibraryElementNumber2OriginalKMap.iterator(); itr.hasNext();){
 					
+					itr.advance();
+					
 					elementNumber = itr.key();
 					numberofOverlaps = itr.value();
 					
@@ -4857,7 +4877,6 @@ public class Enrichment {
 			}//End of FOR each elementType
 
 				
-			//@todo left here
 			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
 					outputFolder,
 					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
@@ -4886,22 +4905,60 @@ public class Enrichment {
 					null,
 					null);
 
-			//@todo
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+			
+			
+			//28 July 2015
+			//We will fill this data structure
+			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2NumberofPermutations = new TIntObjectHashMap<TIntIntMap>();
+			
+			//Initialize elementTypeNumber2ElementNumber2NumberofPermutations for each elementType
+			for(TIntObjectIterator<String> itr = userDefinedLibraryElementTypeNumber2ElementTypeNameMap.iterator();itr.hasNext();){
+				
+				itr.advance();
+				
+				elementTypeNumber = itr.key();
+				
+				elementTypeNumber2ElementNumber2NumberofPermutations.put(elementTypeNumber, new TIntIntHashMap());
+				
+			}//End of FOR
+			
+			// Fill the first argument using the second argument
+			// Fill elementTypeBased elementNumber2KMap and elementNumber2AllKMap
+			UserDefinedLibraryUtility.fillElementTypeNumberBasedMaps( 
+					elementTypeNumber2ElementNumber2NumberofPermutations,
+					allMapsWithNumbersForAllChromosomes.getElementTypeNumberElementNumber2NumberofPermutations());
+		
+			
+			// For each elementTypeNumber map write
+			for( TIntObjectIterator<TIntIntMap> it = elementTypeNumber2ElementNumber2NumberofPermutations.iterator(); it.hasNext();){
+				
+				it.advance();
 
-			//@todo
-			writeToBeCollectedNumberofPermutations( 
-					outputFolder, 
-					Commons.TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
-					runNumber,
-					allMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations(),
-					userDefinedGeneSetAnnotationType,
-					null,
-					null,
-					null,
-					userDefinedGeneSetNumber2NameMap);
+				elementTypeNumber = it.key();
+				
+				TIntIntMap elementNumber2NumberofPermutationsMap = it.value();
+
+				elementTypeName = userDefinedLibraryElementTypeNumber2ElementTypeNameMap.get(elementTypeNumber);
+
+				
+				writeToBeCollectedNumberofPermutations( 
+						outputFolder, 
+						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementTypeName,
+						runNumber,
+						elementNumber2NumberofPermutationsMap,
+						userDefinedLibraryAnnotationType,
+						null,
+						null,
+						null,
+						null,
+						userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap.get(elementTypeNumber));
 
 			
+
+			}// End of each elementTypeNumberMap
+
+				
 
 			// Free memory
 			userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap = null;
@@ -5041,6 +5098,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
+					null,
 					null);
 
 			
@@ -5054,6 +5112,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5065,6 +5124,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5076,6 +5136,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			//TF KEGGPathway
@@ -5088,6 +5149,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5099,6 +5161,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5110,6 +5173,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			// Free memory
@@ -5249,6 +5313,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
+					null,
 					null);
 
 			
@@ -5262,6 +5327,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5273,6 +5339,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5284,6 +5351,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			//TF Cellline KEGGPathway
@@ -5474,6 +5542,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
+					null,
 					null);
 
 			
@@ -5487,6 +5556,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5498,6 +5568,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5509,6 +5580,7 @@ public class Enrichment {
 					null,
 					null,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 			
 
@@ -5522,6 +5594,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5533,6 +5606,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 
 			writeToBeCollectedNumberofPermutations( 
@@ -5544,6 +5618,7 @@ public class Enrichment {
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
+					null,
 					null);
 			
 
@@ -7339,9 +7414,12 @@ public class Enrichment {
 
 		// Fill the first argument using the second argument
 		// Fill elementTypeBased elementNumber2KMap and elementNumber2AllKMap
-		UserDefinedLibraryUtility.fillElementTypeNumberBasedMaps( elementTypeNumber2ElementNumber2KMap,
+		UserDefinedLibraryUtility.fillElementTypeNumberBasedMaps( 
+				elementTypeNumber2ElementNumber2KMap,
 				originalElementTypeNumberElementNumber2KMap);
-		UserDefinedLibraryUtility.fillElementTypeNumberBasedMaps( elementTypeNumber2ElementNumber2AllKMap,
+		
+		UserDefinedLibraryUtility.fillElementTypeNumberBasedMaps( 
+				elementTypeNumber2ElementNumber2AllKMap,
 				elementTypeNumberElementNumber2AllKMap);
 
 		// For each elementTypeNumber map write
@@ -7812,9 +7890,7 @@ public class Enrichment {
 		TIntObjectMap<String> userDefinedGeneSetNumber2NameMap = null;
 		
 		TIntObjectMap<String> userDefinedLibraryElementTypeNumber2NameMap = null;
-		TIntObjectMap<String> userDefinedLibraryElementNumber2NameMap = null;
-		TIntObjectMap<String> userDefinedLibraryFileNumber2NameMap = null;
-		
+		TIntObjectMap<TIntObjectMap<String>> userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap = null;
 		
 		
 		// ElementNumber2OriginalKMaps
@@ -7931,17 +8007,38 @@ public class Enrichment {
 		// User Defined Library		
 		if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
 			
+			int elementTypeNumber;
+			String elementTypeName;
+			
 			userDefinedLibraryElementTypeNumber2NameMap = new TIntObjectHashMap<String>();
-
+			userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap = new TIntObjectHashMap<TIntObjectMap<String>> ();
+					
 			UserDefinedLibraryUtility.fillNumber2NameMap( 
 					userDefinedLibraryElementTypeNumber2NameMap, 
 					dataFolder,
 					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME,
 					Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
-
 			
+			for(TIntObjectIterator<String> itr = userDefinedLibraryElementTypeNumber2NameMap.iterator();itr.hasNext();){
+				
+				itr.advance();
+				
+				elementTypeNumber = itr.key();
+				elementTypeName = itr.value();
+				
+				TIntObjectMap<String> elementNumber2ElementNameMap = new TIntObjectHashMap<String>();
+				
+				UserDefinedLibraryUtility.fillNumber2NameMap( 
+						elementNumber2ElementNameMap, 
+						dataFolder,
+						Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + elementTypeName + System.getProperty( "file.separator") ,
+						Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);
+			
+				userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap.put(elementTypeNumber, elementNumber2ElementNameMap);
+				
+			}//End of FOR
+
 			elementTypeNumberElementNumber2OriginalKMap = new TIntIntHashMap();
-			//userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap = new TIntObjectHashMap<TIntIntMap>();
 		}
 				
 		//User Defined GeneSet
@@ -8150,16 +8247,22 @@ public class Enrichment {
 							numberofRemainedPermutations, numberofPermutationsInEachRun, originalInputLines,
 							generateRandomDataMode, writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
-							writePermutationBasedAnnotationResultMode, dnaseCellLineNumber2OriginalKMap,
-							tfNumberCellLineNumber2OriginalKMap, histoneNumberCellLineNumber2OriginalKMap,
-							gene2OriginalKMap, exonBasedUserDefinedGeneSet2OriginalKMap,
+							writePermutationBasedAnnotationResultMode, 
+							dnaseCellLineNumber2OriginalKMap,
+							tfNumberCellLineNumber2OriginalKMap, 
+							histoneNumberCellLineNumber2OriginalKMap,
+							gene2OriginalKMap, 
+							exonBasedUserDefinedGeneSet2OriginalKMap,
 							regulationBasedUserDefinedGeneSet2OriginalKMap, 
 							allBasedUserDefinedGeneSet2OriginalKMap,
 							elementTypeNumberElementNumber2OriginalKMap, 
 							exonBasedKeggPathway2OriginalKMap,
-							regulationBasedKeggPathway2OriginalKMap, allBasedKeggPathway2OriginalKMap,
-							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
-							tfAllBasedKeggPathway2OriginalKMap, tfCellLineExonBasedKeggPathway2OriginalKMap,
+							regulationBasedKeggPathway2OriginalKMap, 
+							allBasedKeggPathway2OriginalKMap,
+							tfExonBasedKeggPathway2OriginalKMap, 
+							tfRegulationBasedKeggPathway2OriginalKMap,
+							tfAllBasedKeggPathway2OriginalKMap, 
+							tfCellLineExonBasedKeggPathway2OriginalKMap,
 							tfCellLineRegulationBasedKeggPathway2OriginalKMap,
 							tfCellLineAllBasedKeggPathway2OriginalKMap, 
 							dnaseAnnotationType, 
@@ -8177,6 +8280,7 @@ public class Enrichment {
 							geneId2KeggPathwayNumberMap, 
 							geneId2ListofUserDefinedGeneSetNumberMap,
 							userDefinedLibraryElementTypeNumber2NameMap,
+							userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap,
 							dnaseCellLineNumber2NameMap,
 							cellLineNumber2NameMap,
 							tfNumber2NameMap,
@@ -8217,6 +8321,7 @@ public class Enrichment {
 							geneId2KeggPathwayNumberMap, 
 							geneId2ListofUserDefinedGeneSetNumberMap,
 							userDefinedLibraryElementTypeNumber2NameMap,
+							userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap,
 							dnaseCellLineNumber2NameMap,
 							cellLineNumber2NameMap,
 							tfNumber2NameMap,
@@ -8544,9 +8649,12 @@ public class Enrichment {
 				// UserDefinedLibrary
 				if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
 
-					writeToBeCollectedNumberofOverlapsForUserDefinedLibrary( outputFolder,
-							userDefinedLibraryElementTypeNumber2NameMap, elementTypeNumberElementNumber2OriginalKMap,
-							elementTypeNumberElementNumber2AllKMap, runName);
+					writeToBeCollectedNumberofOverlapsForUserDefinedLibrary(
+							outputFolder,
+							userDefinedLibraryElementTypeNumber2NameMap, 
+							elementTypeNumberElementNumber2OriginalKMap,
+							elementTypeNumberElementNumber2AllKMap, 
+							runName);
 
 				}
 

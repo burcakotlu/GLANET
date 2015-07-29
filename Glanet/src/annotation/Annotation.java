@@ -4096,7 +4096,6 @@ public class Annotation {
 						
 						inputLine = inputLines.get(i);
 						
-						
 						userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 								userDefinedLibraryIntervalTree.getRoot(), 
 								inputLine, 
@@ -4114,9 +4113,7 @@ public class Annotation {
 							if( !( userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.containsKey( it.key()))){
 								userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.put( it.key(), it.value());
 							}else{
-								userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.put( it.key(),
-										userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.get( it.key()) + it.value());
-
+								userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.put( it.key(),userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap.get( it.key()) + it.value());
 							}
 
 						}// End of for

@@ -69,40 +69,47 @@ public class UserDefinedLibraryUtility {
 			elementNumber2AllKMap.put( elementNumber, allK);
 		}
 	}
+	
+	//28 July 2015
+	
 
 	// Fill the first argument using the second argument
 	// Fill elementTypeNumber2ElementNumber2KMap using
 	// originalElementTypeNumberElementNumber2KMap
-	public static void fillElementTypeNumberBasedMaps( TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMap,
-			TIntIntMap originalElementTypeNumberElementNumber2KMap) {
+	public static void fillElementTypeNumberBasedMaps( 
+			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMap,
+			TIntIntMap elementTypeNumberElementNumber2KMap) {
 
 		int elementTypeNumberElementNumber;
 		int elementTypeNumber;
 		int elementNumber;
-		int numberofOverlaps;
+		int numberofPermutationsorOverlaps;
 
-		// For each elementTypeNumberElementNumber
-		for( TIntIntIterator it = originalElementTypeNumberElementNumber2KMap.iterator(); it.hasNext();){
+		//FOR each elementTypeNumberElementNumber
+		for( TIntIntIterator it = elementTypeNumberElementNumber2KMap.iterator(); it.hasNext();){
 
 			it.advance();
 
 			elementTypeNumberElementNumber = it.key();
-			numberofOverlaps = it.value();
+			numberofPermutationsorOverlaps = it.value();
 
-			elementTypeNumber = IntervalTree.getElementTypeNumber( elementTypeNumberElementNumber,
-					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
-			elementNumber = IntervalTree.getElementNumber( elementTypeNumberElementNumber,
-					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+			elementTypeNumber = IntervalTree.getElementTypeNumber(elementTypeNumberElementNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+			
+			elementNumber = IntervalTree.getElementNumber(elementTypeNumberElementNumber,GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
 
-			TIntIntMap elementNumber2KMap = elementTypeNumber2ElementNumber2KMap.get( elementTypeNumber);
+			TIntIntMap elementNumber2KMap = elementTypeNumber2ElementNumber2KMap.get(elementTypeNumber);
 
-			elementNumber2KMap.put( elementNumber, numberofOverlaps);
-		}// End of for each elementTypeNumberElementNumber
+			elementNumber2KMap.put(elementNumber, numberofPermutationsorOverlaps);
+			
+		}//End of FOR each elementTypeNumberElementNumber
 
 	}
 
-	public static void fillNumber2NameMap( TIntObjectMap<String> number2NameMap, String dataFolder,
-			String directoryName, String fileName) {
+	public static void fillNumber2NameMap( 
+			TIntObjectMap<String> number2NameMap, 
+			String dataFolder,
+			String directoryName, 
+			String fileName) {
 
 		String strLine;
 		FileReader fileReader;

@@ -2453,7 +2453,7 @@ public class IntervalTree {
 					castedNode.getElementNumber(),
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
 
-			if( !( elementTypeNumberElementNumber2ZeroorOneMap.containsKey( elementTypeNumberElementNumber))){
+			if( !( elementTypeNumberElementNumber2ZeroorOneMap.containsKey(elementTypeNumberElementNumber))){
 				elementTypeNumberElementNumber2ZeroorOneMap.put(elementTypeNumberElementNumber, Commons.BYTE_1);
 			}
 		}
