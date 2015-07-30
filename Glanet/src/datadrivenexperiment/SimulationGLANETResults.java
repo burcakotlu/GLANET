@@ -515,7 +515,7 @@ public class SimulationGLANETResults {
 		else
 			tpmString = Commons.TPM_0_001;
 
-		String dnaseOverlapsExcludedorNot = ( ( args.length < 3) || Integer.parseInt( args[2]) == 0)?Commons.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP:Commons.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+		String dnaseOverlapsExcludedorNot = ( ( args.length < 3) || Integer.parseInt( args[2]) == 0)?Commons.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS:Commons.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL;
 
 		float FDR = ( args.length > 3)?Float.parseFloat( args[3]):0.05f;
 		float bonferroniCorrectionSignificanceLevel = ( args.length > 4)?Float.parseFloat( args[4]):0.05f;

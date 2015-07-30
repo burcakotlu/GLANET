@@ -6,7 +6,7 @@ package datadrivenexperiment;
 import enumtypes.ChromosomeName;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date May 8, 2015
  * @project Glanet 
  *

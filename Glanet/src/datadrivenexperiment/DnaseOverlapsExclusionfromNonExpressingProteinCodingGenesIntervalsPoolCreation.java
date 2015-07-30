@@ -36,7 +36,7 @@ import gnu.trove.map.hash.TObjectShortHashMap;
  * Data Driven Experiment Step 2
  *
  */
-public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
+public class DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesIntervalsPoolCreation {
 
 	public static void fillMap( ChromosomeName chrName, int low, int high,
 			TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2InputIntervalsListMap) {
@@ -262,7 +262,7 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 
 			// CASE2
 			// Partially Discard NonExpressingGenesIntervals Remain All The Intervals If There Is Dnase Overlaps
-			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalInCaseOfDnaseOverlap()){
+			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalRemainAllTheRemainingIntervalsInCaseOfDnaseOverlap()){
 
 				// Should I merge the intervals in overlappingIntervalList?
 				// Not so important for the time being.
@@ -474,14 +474,15 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 
 		DnaseOverlapExclusionType dnaseOverlapExclusionType;
 
-		dnaseOverlapExclusionType = ( Integer.parseInt( args[2]) == 0)?DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP:DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
-
+		dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[2]);
+		
 		// We will create interval pools of
-		float tpm = Float.parseFloat( args[1]);
+		float tpm = Float.parseFloat(args[1]);
 
-		String tpmString = NonExpressingGenesIntervalsPoolCreation.getTPMString( tpm);
+		String tpmString = NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
 
-		System.out.println( "tpm is: " + tpm + " DnaseOverlaps is: " + dnaseOverlapExclusionType.convertEnumtoString());
+		System.out.println("TPM is: " + tpm);
+		System.out.println("DnaseOverlapExclusionType is: " + dnaseOverlapExclusionType.convertEnumtoString());
 
 		/********************************************************************************/
 		List<String> dnaseCellLineNameList = new ArrayList<String>();
@@ -503,7 +504,7 @@ public class DnaseOverlapsExclusionfromNonExpressingGenesIntervalsPoolCreation {
 		// String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data +
 		// System.getProperty("file.separator") + Commons.TPM_01 + Commons.NON_EXPRESSING_GENES +
 		// "Intervals_EndInclusive.txt";
-		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty( "file.separator") + tpmString + "_" + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";
+		String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty( "file.separator") + tpmString + "_" + Commons.NON_EXPRESSING_PROTEIN_CODING_GENES + "Intervals_EndInclusive.txt";
 
 		// Output File
 		// Set DnaseOverlapsExcluded NonExpressingGenesIntervalsFile

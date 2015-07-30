@@ -196,8 +196,8 @@ public class SimulationDataCreation {
 
 		DnaseOverlapExclusionType dnaseOverlapExclusionType;
 
-		dnaseOverlapExclusionType = ( Integer.parseInt( args[2]) == 0)?DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP:DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
-
+		dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[2]);
+		
 		// Depending on tpmString and dnaseOverlapsExcluded
 		// Set IntervalPoolFile
 		String intervalPoolFileName = getIntervalPoolFileName( tpmString, dnaseOverlapExclusionType, dataFolder);

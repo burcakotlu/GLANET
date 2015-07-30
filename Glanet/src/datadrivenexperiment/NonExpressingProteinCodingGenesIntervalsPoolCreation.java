@@ -20,7 +20,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 8, 2015
  * @project Glanet 
  * 
@@ -30,10 +30,13 @@ import common.Commons;
  * Intervals of 600 base long each for various TPM values.
  * 
  */
-public class NonExpressingGenesIntervalsPoolCreation {
+public class NonExpressingProteinCodingGenesIntervalsPoolCreation {
 
-	public static void generateIntervalsFromFemaleGTFFile( TObjectFloatMap<String> ensemblGeneID2TPMMap,
-			String femaleGTFFileName, float tpmThreshold, String nonExpressingGenesIntervalsFileName) {
+	public static void generateIntervalsFromFemaleGTFFile(
+			TObjectFloatMap<String> ensemblGeneID2TPMMap,
+			String femaleGTFFileName, 
+			float tpmThreshold, 
+			String nonExpressingGenesIntervalsFileName) {
 
 		// List<String> geneIDList = new ArrayList<String>();
 		Map<String, List<ProteinCodingGeneExonNumberOneInterval>> geneId2GeneExonNumberOneIntervalsMap = new HashMap<String, List<ProteinCodingGeneExonNumberOneInterval>>();
@@ -279,7 +282,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 			}// End of for
 				// Writing NonExpressingGenes Intervals ends
 
-			System.out.println( "Number of NonExpressing protein coding genes intervals created: " + numberofIntervalsCreated);
+			System.out.println( "Number of NonExpressing Protein Coding Genes intervals created: " + numberofIntervalsCreated + " under " +  nonExpressingGenesIntervalsFileName);
 
 			// Close BufferedReader
 			bufferedReader.close();
@@ -499,7 +502,8 @@ public class NonExpressingGenesIntervalsPoolCreation {
 	public static void main( String[] args) {
 
 		String glanetFolder = args[0];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 
 		// This will be filled while reading GM12878 Rep1
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforRep1;
@@ -530,7 +534,7 @@ public class NonExpressingGenesIntervalsPoolCreation {
 		// Output File
 		// Set NonExpressingGenesIntervalsFile
 		String TPMString = getTPMString( tpmThreshold);
-		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty( "file.separator") + TPMString + "_" + Commons.NON_EXPRESSING_GENES + "Intervals_EndInclusive.txt";
+		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString + "_" + Commons.NON_EXPRESSING_PROTEIN_CODING_GENES + "Intervals_EndInclusive.txt";
 
 		// Read GM12878 Rep1 results file and fill ensemblGeneID2TPMMapRep1
 		ensemblGeneID2TPMMapforRep1 = fillMapUsingGTFFile( GM12878Rep1GTFFileName);
@@ -543,11 +547,14 @@ public class NonExpressingGenesIntervalsPoolCreation {
 		// Otherwise no need
 		// Find the number of non expressing genes
 		numberofNonExpressingGenes = findNonExpressingGenes( ensemblGeneID2TPMMapforUnionofRep1andRep2, tpmThreshold);
-		System.out.println( "Number of Non Expressing Genes: " + numberofNonExpressingGenes + " for tmpThreshod: " + tpmThreshold);
+		System.out.println("Number of NonExpressing Genes: " + numberofNonExpressingGenes + " for tmpThreshod: " + tpmThreshold);
 
 		// Generate Intervals for the non expressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
 		// the tmpThreshold using female.gtf to nonExpressingGenesIntervalsFile
-		generateIntervalsFromFemaleGTFFile( ensemblGeneID2TPMMapforUnionofRep1andRep2, femaleGTFFileName, tpmThreshold,
+		generateIntervalsFromFemaleGTFFile(
+				ensemblGeneID2TPMMapforUnionofRep1andRep2, 
+				femaleGTFFileName, 
+				tpmThreshold,
 				nonExpressingProteinCodingGenesIntervalsFile);
 
 	}

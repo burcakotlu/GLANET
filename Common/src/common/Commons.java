@@ -61,12 +61,12 @@ public class Commons {
 	public static final String TPM_UNKNOWN = "TPM_UNKNOWN";
 
 	public static final String DNASE_OVERLAPS_EXCLUDED = "DnaseOverlapsExcluded";
-	public static final String NON_EXPRESSING_GENES = "NonExpressingGenes";
+	public static final String NON_EXPRESSING_PROTEIN_CODING_GENES = "NonExpressingProteinCodingGenes";
 
-	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscardIntervalInCaseOfDnaseOverlap";
-	public static final String PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardIntervalInCaseOfDnaseOverlap";
-	public static final String PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardIntervalRemainOnlyTheLongestIntervalInCaseOfDnaseOverlap";
-	public static final String NON_EXPRESSING_GENES_INTERVALS = "NonExpressingGenesIntervals";
+	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP";
+	public static final String PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL = "PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL";
+	public static final String PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS = "PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS";
+	public static final String NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS = "NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS";
 
 	public static final String SIMULATION_DATA = "SimulationData";
 	public static final String SIMULATION = "Sim";
