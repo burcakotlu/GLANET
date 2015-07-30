@@ -2914,17 +2914,18 @@ public class Enrichment {
 		return Annotation.createHistoneIntervalTreeWithNumbers( dataFolder, chromName);
 	}
 
-	public static IntervalTree generateUcscRefSeqGeneIntervalTreeWithNumbers( String dataFolder,
-			ChromosomeName chromName) {
+	public static IntervalTree generateUcscRefSeqGeneIntervalTreeWithNumbers( String dataFolder,ChromosomeName chromName) {
 
 		return Annotation.createUcscRefSeqGenesIntervalTreeWithNumbers( dataFolder, chromName);
 	}
 
-	public static IntervalTree generateUserDefinedLibraryIntervalTreeWithNumbers( String dataFolder,
-			int elementTypeNumber, String elementType, ChromosomeName chromName) {
+	public static IntervalTree generateUserDefinedLibraryIntervalTreeWithNumbers(
+			String dataFolder,
+			int elementTypeNumber, 
+			String elementType, 
+			ChromosomeName chromName) {
 
-		return Annotation.createUserDefinedIntervalTreeWithNumbers( dataFolder, elementTypeNumber, elementType,
-				chromName);
+		return Annotation.createUserDefinedIntervalTreeWithNumbers(dataFolder,elementTypeNumber,elementType,chromName);
 	}
 
 	public static void closeBufferedWriters( Map<Integer, BufferedWriter> permutationNumber2BufferedWriterHashMap) {

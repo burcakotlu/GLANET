@@ -498,7 +498,8 @@ public class Annotation {
 						endPosition, cellLineNumber, fileNumber, NodeType.ORIGINAL);
 				dnaseIntervalTree.intervalTreeInsert( dnaseIntervalTree, node);
 
-			} // End of While
+			} // End of WHILE
+			
 		}catch( IOException e){
 			logger.error( e.toString());
 		}
@@ -674,8 +675,7 @@ public class Annotation {
 				elementNumber = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
 				fileNumber = Integer.parseInt( strLine.substring( indexofFifthTab + 1));
 
-				// Creating millions of nodes with six attributes causes out of
-				// memory error
+				// Creating millions of nodes with six attributes causes out of memory error
 				UserDefinedLibraryIntervalTreeNodeWithNumbers node = new UserDefinedLibraryIntervalTreeNodeWithNumbers(
 						chromName, startPosition, endPosition, elementTypeNumber, elementNumber, fileNumber,
 						NodeType.ORIGINAL);
@@ -684,7 +684,8 @@ public class Annotation {
 				chromName = null;
 				strLine = null;
 
-			}
+			}//End of WHILE
+			
 		}catch( NumberFormatException e){
 
 			logger.error( e.toString());
@@ -692,7 +693,7 @@ public class Annotation {
 		}catch( IOException e){
 
 			logger.error( e.toString());
-		}// End of WHILE
+		}
 
 		return userDefinedLibraryIntervalTree;
 
@@ -753,7 +754,8 @@ public class Annotation {
 				chromName = null;
 				strLine = null;
 
-			}
+			}//END OF WHILE
+			
 		}catch( IOException e){
 
 			logger.error( e.toString());
@@ -951,7 +953,8 @@ public class Annotation {
 				chromName = null;
 				strLine = null;
 
-			}
+			}//End of WHILE
+			
 		}catch( IOException e){
 
 			logger.error( e.toString());
@@ -1120,6 +1123,7 @@ public class Annotation {
 		Integer geneHugoSymbolNumber;
 
 		try{
+			
 			while( ( strLine = bufferedReader.readLine()) != null){
 				// example strLine
 				// chrY 16733888 16734470 NR_028319 22829 EXON 2 + NLGN4Y
@@ -1165,7 +1169,8 @@ public class Annotation {
 
 				strLine = null;
 
-			}// end of While
+			}//End of WHILE
+			
 		}catch( IOException e){
 			logger.error( e.toString());
 		}
@@ -1248,8 +1253,11 @@ public class Annotation {
 		return tree;
 	}
 
-	public static IntervalTree createUserDefinedIntervalTreeWithNumbers( String dataFolder, int elementTypeNumber,
-			String elementType, ChromosomeName chromName) {
+	public static IntervalTree createUserDefinedIntervalTreeWithNumbers( 
+			String dataFolder, 
+			int elementTypeNumber,
+			String elementType, 
+			ChromosomeName chromName) {
 
 		IntervalTree userDefinedLibraryIntervalTree = null;
 		FileReader fileReader = null;
@@ -1260,8 +1268,13 @@ public class Annotation {
 			fileReader = FileOperations.createFileReader(
 					dataFolder + Commons.USER_DEFINED_LIBRARY + System.getProperty( "file.separator") + elementType + System.getProperty( "file.separator"),
 					chromName.convertEnumtoString() + Commons.UNSORTED_USERDEFINEDLIBRARY_FILE_WITH_NUMBERS);
+			
 			bufferedReader = new BufferedReader( fileReader);
-			userDefinedLibraryIntervalTree = generateUserDefinedLibraryIntervalTreeWithNumbers( bufferedReader);
+			
+			userDefinedLibraryIntervalTree = generateUserDefinedLibraryIntervalTreeWithNumbers(bufferedReader);
+			
+			//Close BufferedReader
+			bufferedReader.close();
 
 		}catch( IOException e){
 
@@ -1302,7 +1315,9 @@ public class Annotation {
 	// Generate Interval Tree
 	// With Number starts
 	// For Annotation and Enrichment
-	public static IntervalTree createDnaseIntervalTreeWithNumbers( String dataFolder, ChromosomeName chromName) {
+	public static IntervalTree createDnaseIntervalTreeWithNumbers(
+			String dataFolder, 
+			ChromosomeName chromName) {
 
 		IntervalTree dnaseIntervalTree = null;
 		FileReader fileReader = null;
@@ -1310,10 +1325,16 @@ public class Annotation {
 
 		try{
 
-			fileReader = FileOperations.createFileReader( dataFolder + Commons.BYGLANET_ENCODE_DNASE_DIRECTORY,
+			fileReader = FileOperations.createFileReader( 
+					dataFolder + Commons.BYGLANET_ENCODE_DNASE_DIRECTORY,
 					chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_DNASE_FILE_WITH_NUMBERS);
+			
 			bufferedReader = new BufferedReader( fileReader);
-			dnaseIntervalTree = generateEncodeDnaseIntervalTreeWithNumbers( bufferedReader);
+			
+			dnaseIntervalTree = generateEncodeDnaseIntervalTreeWithNumbers(bufferedReader);
+			
+			//Close bufferedReader
+			bufferedReader.close();
 
 		}catch( FileNotFoundException e){
 			logger.error( e.toString());
@@ -1337,10 +1358,16 @@ public class Annotation {
 
 		try{
 
-			fileReader = FileOperations.createFileReader( dataFolder + Commons.BYGLANET_ENCODE_TF_DIRECTORY,
+			fileReader = FileOperations.createFileReader(
+					dataFolder + Commons.BYGLANET_ENCODE_TF_DIRECTORY,
 					chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_TF_FILE_WITH_NUMBERS);
+			
 			bufferedReader = new BufferedReader( fileReader);
+			
 			tfbsIntervalTree = generateEncodeTfbsIntervalTreeWithNumbers( bufferedReader);
+			
+			//Close BufferedReader
+			bufferedReader.close();
 
 		}catch( FileNotFoundException e){
 			logger.error( e.toString());
@@ -1365,8 +1392,13 @@ public class Annotation {
 		try{
 			fileReader = FileOperations.createFileReader( dataFolder + Commons.BYGLANET_ENCODE_HISTONE_DIRECTORY,
 					chromName.convertEnumtoString() + Commons.UNSORTED_ENCODE_HISTONE_FILE_WITH_NUMBERS);
+			
 			bufferedReader = new BufferedReader( fileReader);
+			
 			histoneIntervalTree = generateEncodeHistoneIntervalTreeWithNumbers( bufferedReader);
+			
+			//Close bufferedReader
+			bufferedReader.close();
 
 		}catch( IOException e){
 
@@ -1388,8 +1420,13 @@ public class Annotation {
 			fileReader = FileOperations.createFileReader(
 					dataFolder + Commons.BYGLANET_UCSCGENOME_HG19_REFSEQ_GENES_DIRECTORY,
 					chromName.convertEnumtoString() + Commons.UNSORTED_UCSCGENOME_HG19_REFSEQ_GENES_FILE_WITH_NUMBERS);
+			
 			bufferedReader = new BufferedReader( fileReader);
-			ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTreeWithNumbers( bufferedReader);
+			
+			ucscRefSeqGenesIntervalTree = generateUcscRefSeqGenesIntervalTreeWithNumbers(bufferedReader);
+			
+			//Close bufferedReader
+			bufferedReader.close();
 
 		}catch( IOException e){
 
