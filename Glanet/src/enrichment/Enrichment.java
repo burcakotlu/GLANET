@@ -2898,7 +2898,7 @@ public class Enrichment {
 		permutationNumberList.add( originalDataPermutationNumber);
 	}
 
-	// Enrichment
+	// Generate IntervalTrees for Enrichment starts
 	public static IntervalTree generateDnaseIntervalTreeWithNumbers( String dataFolder, ChromosomeName chromName) {
 
 		return Annotation.createDnaseIntervalTreeWithNumbers( dataFolder, chromName);
@@ -2927,6 +2927,7 @@ public class Enrichment {
 
 		return Annotation.createUserDefinedIntervalTreeWithNumbers(dataFolder,elementTypeNumber,elementType,chromName);
 	}
+	// Generate IntervalTrees for Enrichment ends
 
 	public static void closeBufferedWriters( Map<Integer, BufferedWriter> permutationNumber2BufferedWriterHashMap) {
 
@@ -4662,8 +4663,8 @@ public class Enrichment {
 			// For each chromosome, generate intervalTree and fill intervalTreeMap
 			for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
 
-				chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
-				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
+				chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get(chromName);
 
 				if( chromosomeBaseOriginalInputLines != null){
 
@@ -4892,7 +4893,7 @@ public class Enrichment {
 					userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
 					userDefinedLibraryElementTypeNumber2ElementTypeNameMap,
 					AnnotationType.DO_USER_DEFINED_LIBRARY_ANNOTATION, 
-					geneId2ListofUserDefinedGeneSetNumberMap, 
+					null, 
 					overlapDefinition,
 					null,
 					null,
