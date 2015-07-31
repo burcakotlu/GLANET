@@ -480,10 +480,8 @@ public class DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesIntervalsP
 	/*
 	 * args[0] = glanet folder (which includes Data folder inside)
 	 * args[1] = tpm value (0.1, 0.01, 0.001)
-	 * args[2] = 0 or otherwise (any value except 0).
-	 * 0 = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
-	 * any value except 0 (e.g. 1) =
-	 * DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
+	 * args[2] = CompletelyDiscardIntervalInCaseofDnaseOverlap, PartiallyDiscardIntervalTakeOnlyTheLongestRemainingInterval
+	 * PartiallyDiscardIntervalTakeAllTheRemainingIntervals, NonExpressingProteinCodingGenesIntervals
 	 */
 	public static void main( String[] args) {
 
