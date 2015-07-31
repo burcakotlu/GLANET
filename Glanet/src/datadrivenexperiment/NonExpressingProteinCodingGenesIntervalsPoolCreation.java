@@ -26,7 +26,7 @@ import common.Commons;
  * 
  * Data Driven Experiment Step 1
  *
- * In this class we create interval pool of nonExpressingGenes 
+ * In this class we create interval pool of nonExpressing protein coding genes 
  * Intervals of 600 base long each for various TPM values.
  * 
  */
@@ -181,9 +181,9 @@ public class NonExpressingProteinCodingGenesIntervalsPoolCreation {
 
 				exonNumber = Integer.parseInt( exonNumberWithPair.replace( "exon_number", "").trim());
 
-				if( exonNumber == 1){
+				if(exonNumber == 1){
 
-					if( ensemblGeneID2TPMMap.containsKey( ensemblGeneID) && ( ensemblGeneID2TPMMap.get( ensemblGeneID) <= tpmThreshold) && geneType.equals( "\"protein_coding\"")){
+					if( ensemblGeneID2TPMMap.containsKey(ensemblGeneID) && ( ensemblGeneID2TPMMap.get( ensemblGeneID) <= tpmThreshold) && geneType.equals( "\"protein_coding\"")){
 
 						switch( strand){
 
@@ -225,7 +225,7 @@ public class NonExpressingProteinCodingGenesIntervalsPoolCreation {
 				}// End of IF: Exon Number is 1
 
 			}// End of While
-				// Reading female.gtf file is accomplished
+			// Reading female.gtf file is accomplished
 
 			// Writing NonExpressingGenes Intervals starts
 			for( Map.Entry<String, List<ProteinCodingGeneExonNumberOneInterval>> entry : geneId2GeneExonNumberOneIntervalsMap.entrySet()){
@@ -247,33 +247,35 @@ public class NonExpressingProteinCodingGenesIntervalsPoolCreation {
 				// Find the lowest low for "+" genes
 				// Find the highest high for "-" genes
 				switch( strand){
-				case '+':
-					for( int i = 0; i < proteinCodingGeneExonNumberOneIntervalList.size(); i++){
-
-						geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( i);
-
-						if( geneExonNumberOneInterval.getLow() < minLow){
-							minLow = geneExonNumberOneInterval.getLow();
-							savedIndex = i;
-						}// End of IF
-
-					}// End of FOR
-					break;
-
-				case '-':
-					for( int i = 0; i < proteinCodingGeneExonNumberOneIntervalList.size(); i++){
-
-						geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( i);
-
-						if( geneExonNumberOneInterval.getHigh() > maxHigh){
-							maxHigh = geneExonNumberOneInterval.getHigh();
-							savedIndex = i;
-						}// End of IF
-
-					}// End of FOR
-
-					break;
-				}// End of swicth
+				
+					case '+':
+						for( int i = 0; i < proteinCodingGeneExonNumberOneIntervalList.size(); i++){
+	
+							geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( i);
+	
+							if( geneExonNumberOneInterval.getLow() < minLow){
+								minLow = geneExonNumberOneInterval.getLow();
+								savedIndex = i;
+							}// End of IF
+	
+						}// End of FOR
+						break;
+	
+					case '-':
+						for( int i = 0; i < proteinCodingGeneExonNumberOneIntervalList.size(); i++){
+	
+							geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( i);
+	
+							if( geneExonNumberOneInterval.getHigh() > maxHigh){
+								maxHigh = geneExonNumberOneInterval.getHigh();
+								savedIndex = i;
+							}// End of IF
+	
+						}// End of FOR
+	
+						break;
+					
+				}// End of SWITCH
 
 				// Now write
 				geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( savedIndex);
@@ -282,7 +284,7 @@ public class NonExpressingProteinCodingGenesIntervalsPoolCreation {
 			}// End of for
 				// Writing NonExpressingGenes Intervals ends
 
-			System.out.println( "Number of NonExpressing Protein Coding Genes intervals created: " + numberofIntervalsCreated + " under " +  nonExpressingGenesIntervalsFileName);
+			System.out.println("Number of NonExpressing Protein Coding Genes intervals created: " + numberofIntervalsCreated + " under " +  nonExpressingGenesIntervalsFileName);
 
 			// Close BufferedReader
 			bufferedReader.close();
@@ -537,11 +539,10 @@ public class NonExpressingProteinCodingGenesIntervalsPoolCreation {
 		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString + "_" + Commons.NON_EXPRESSING_PROTEIN_CODING_GENES + "Intervals_EndInclusive.txt";
 
 		// Read GM12878 Rep1 results file and fill ensemblGeneID2TPMMapRep1
-		ensemblGeneID2TPMMapforRep1 = fillMapUsingGTFFile( GM12878Rep1GTFFileName);
+		ensemblGeneID2TPMMapforRep1 = fillMapUsingGTFFile(GM12878Rep1GTFFileName);
 
 		// Read GM12878 Rep2 results file and fill ensemblGeneID2TPMMapforUnionofRep1andRep2
-		ensemblGeneID2TPMMapforUnionofRep1andRep2 = fillMapUsingGTFFile( GM12878Rep2GTFFileName,
-				ensemblGeneID2TPMMapforRep1);
+		ensemblGeneID2TPMMapforUnionofRep1andRep2 = fillMapUsingGTFFile(GM12878Rep2GTFFileName,ensemblGeneID2TPMMapforRep1);
 
 		// Just for information
 		// Otherwise no need

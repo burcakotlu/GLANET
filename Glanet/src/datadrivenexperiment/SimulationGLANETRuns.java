@@ -85,13 +85,13 @@ public class SimulationGLANETRuns {
 			// x12
 			// With GC and Mapability
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS, withGCandMapability,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP, withGCandMapability,
 					args);
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS, withGCandMapability,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP, withGCandMapability,
 					args);
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS, withGCandMapability,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP, withGCandMapability,
 					args);
 
 			bufferedWriter.close();
@@ -102,13 +102,13 @@ public class SimulationGLANETRuns {
 
 			// Without GC and Mapability
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP,
 					withoutGCandMapability, args);
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP,
 					withoutGCandMapability, args);
 			writeTPMIntervals( bufferedWriter, numberOfSimulations, Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ALL_THE_REMAINING_INTERVALS,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP,
 					withoutGCandMapability, args);
 
 			bufferedWriter.close();
@@ -122,19 +122,19 @@ public class SimulationGLANETRuns {
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
 					withGCandMapability, args);
 			writeTPMIntervals(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
 					withGCandMapability, args);
 			writeTPMIntervals(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
 					withGCandMapability, args);
 
 			bufferedWriter.close();
@@ -148,19 +148,19 @@ public class SimulationGLANETRuns {
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
 					withoutGCandMapability, args);
 			writeTPMIntervals(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
 					withoutGCandMapability, args);
 			writeTPMIntervals(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP_REMAIN_ONLY_THE_LONGEST_INTERVAL,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
 					withoutGCandMapability, args);
 
 			// Close BufferedWriter
