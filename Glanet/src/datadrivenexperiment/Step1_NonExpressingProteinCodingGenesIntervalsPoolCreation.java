@@ -26,11 +26,17 @@ import common.Commons;
  * 
  * Data Driven Experiment Step 1
  *
- * In this class we create interval pool of nonExpressing protein coding genes 
- * Intervals of 600 base long each for various TPM values.
+ * In this class 
+ * We create interval pool of nonExpressing protein coding genes 
+ * Depending on the given TPM (Transcription Per Million)
+ * Where each interval is 600 base long.
+ * 
+ * By the way, there can be more than one transcript for a nonExpressing protein coding gene.
+ * In this case we consider the transcript with the lowest exon1 start for the "+" strand,
+ * or the transcript with the highest exon1 end for the "-" strand.
  * 
  */
-public class NonExpressingProteinCodingGenesIntervalsPoolCreation {
+public class Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation {
 
 	public static void generateIntervalsFromFemaleGTFFile(
 			TObjectFloatMap<String> ensemblGeneID2TPMMap,
@@ -498,8 +504,8 @@ public class NonExpressingProteinCodingGenesIntervalsPoolCreation {
 	}
 
 	/*
-	 * args[0] = glanet folder (which includes Data folder inside)
-	 * args[1] = tpm value (0.1, 0.01, 0.001)
+	 * args[0] = Glanet Folder (which is the parent of Data folder)
+	 * args[1] = TPM value (0.1, 0.01, 0.001)
 	 */
 	public static void main( String[] args) {
 

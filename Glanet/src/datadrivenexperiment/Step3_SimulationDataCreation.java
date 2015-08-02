@@ -24,17 +24,20 @@ import enumtypes.DnaseOverlapExclusionType;
  * @project Glanet 
  * 
  * Data Driven Experiment Step 3
- * In this class, Simulation Data for GLANET Data Driven Experiment is created.
  * 
- * GLANET folder which is the parent of Data Folder
+ * In this class
+ * Simulation Data for GLANET Data Driven Experiment is created.
+ * 
+ * Program arguments are as follows
+ * 
+ * GLANET folder (which is the parent of Data Folder)
  * TPM
  * DnaseOverlapExclusionType  
  * Number of simulations
  * Number of intervals in each simulation
- * are provided during runtime in program arguments.
  *
  */
-public class SimulationDataCreation {
+public class Step3_SimulationDataCreation {
 
 	public static String getIntervalPoolFileName( String tpmString,
 			DnaseOverlapExclusionType dnaseOverlapExclusionType, String dataFolder) {
@@ -191,7 +194,7 @@ public class SimulationDataCreation {
 
 		
 		float tpm = Float.parseFloat(args[1]);
-		String tpmString = NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
+		String tpmString = Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
 
 		DnaseOverlapExclusionType dnaseOverlapExclusionType;
 

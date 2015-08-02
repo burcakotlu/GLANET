@@ -35,7 +35,7 @@ import enumtypes.MultipleTestingType;
  * Data Driven Experiment Step 5
  *
  */
-public class SimulationGLANETResults {
+public class Step5_SimulationGLANETResults {
 
 	public static boolean isEnriched( String strLine) {
 

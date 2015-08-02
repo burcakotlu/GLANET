@@ -36,10 +36,18 @@ import gnu.trove.map.hash.TObjectShortHashMap;
  * Data Driven Experiment Step 2
  * 
  * In this class
- * Dnase Overlaps are excluded from NonExpressing Protein Coding Genes
+ * Dnase Overlaps are excluded from NonExpressing Protein Coding Genes Intervals Pool
+ * Depending on the given TPM and DnaseOverlapExclusionType values
+ * 
+ * Possible Values for DnaseOverlapExclusionType are as follows
+ * 
+ * CompletelyDiscardIntervalInCaseofDnaseOverlap, 
+ * PartiallyDiscardIntervalTakeOnlyTheLongestRemainingInterval
+ * PartiallyDiscardIntervalTakeAllTheRemainingIntervals, 
+ * NonExpressingProteinCodingGenesIntervals
  *
  */
-public class DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesIntervalsPoolCreation {
+public class Step2_DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesIntervalsPoolCreation {
 
 	public static void fillMap( ChromosomeName chrName, int low, int high,
 			TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2InputIntervalsListMap) {
@@ -478,10 +486,16 @@ public class DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesIntervalsP
 	}
 
 	/*
-	 * args[0] = glanet folder (which includes Data folder inside)
-	 * args[1] = tpm value (0.1, 0.01, 0.001)
-	 * args[2] = CompletelyDiscardIntervalInCaseofDnaseOverlap, PartiallyDiscardIntervalTakeOnlyTheLongestRemainingInterval
-	 * PartiallyDiscardIntervalTakeAllTheRemainingIntervals, NonExpressingProteinCodingGenesIntervals
+	 * args[0] = Glanet Folder (which is the parent of Data folder)
+	 * args[1] = TPM value (0.1, 0.01, 0.001)
+	 * args[2] = DnaseOverlapExclusionType
+	 * 
+	 * Possible Values for DnaseOverlapExclusionType
+	 * CompletelyDiscardIntervalInCaseofDnaseOverlap, 
+	 * PartiallyDiscardIntervalTakeOnlyTheLongestRemainingInterval
+	 * PartiallyDiscardIntervalTakeAllTheRemainingIntervals, 
+	 * NonExpressingProteinCodingGenesIntervals
+	 * 
 	 */
 	public static void main( String[] args) {
 
@@ -495,7 +509,7 @@ public class DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesIntervalsP
 		// We will create interval pools of
 		float tpm = Float.parseFloat(args[1]);
 
-		String tpmString = NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
+		String tpmString = Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
 
 		System.out.println("TPM is: " + tpm);
 		System.out.println("DnaseOverlapExclusionType is: " + dnaseOverlapExclusionType.convertEnumtoString());
