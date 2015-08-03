@@ -1226,11 +1226,22 @@ public class CollectionofPermutationsResults {
 		/************************************************************/
 		/************ Collection of DNASE RESULTS starts ************/
 		if( dnaseAnnotationType.doDnaseAnnotation()){
-			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
-					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					dataFolder, 
+					outputFolder,
 					Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,
-					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_DNASE, jobName, numberofRuns, numberofRemainders,
-					numberofComparisons.getDnaseCellLineNumberofComparison(), dnaseAnnotationType, null, null,
+					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_DNASE, 
+					jobName, 
+					numberofRuns, 
+					numberofRemainders,
+					numberofComparisons.getDnaseCellLineNumberofComparison(), 
+					dnaseAnnotationType, 
+					null, 
+					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_DNASECELLLINENUMBER);
 		}
 		/************ Collection of DNASE RESULTS ends **************/
@@ -1256,7 +1267,7 @@ public class CollectionofPermutationsResults {
 					histoneAnnotationType, 
 					null, 
 					null,
-					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER);
 		}
 		/************ Collection of HISTONE RESULTS ends ************/
 		/************************************************************/
@@ -1267,12 +1278,23 @@ public class CollectionofPermutationsResults {
 				!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 				!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
-			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
-					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
-					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF,
-					jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(),
-					tfAnnotationType, null, null,
-					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					dataFolder, 
+					outputFolder,
+					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, 
+					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF,
+					jobName, 
+					numberofRuns, 
+					numberofRemainders, 
+					numberofComparisons.getTfCellLineNumberofComparison(),
+					tfAnnotationType, 
+					null, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER);
 		}
 		/************ Collection of TF RESULTS ends *****************/
 		/************************************************************/
@@ -1281,11 +1303,20 @@ public class CollectionofPermutationsResults {
 		/************ Collection of Gene RESULTS starts *************/
 		if( geneAnnotationType.doGeneAnnotation()){
 
-			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
-					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, dataFolder, outputFolder,
 					Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS,
-					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_GENE, jobName, numberofRuns, numberofRemainders,
-					numberofComparisons.getGeneNumberofComparison(), AnnotationType.DO_GENE_ANNOTATION, null, null,
+					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_GENE, 
+					jobName, 
+					numberofRuns, 
+					numberofRemainders,
+					numberofComparisons.getGeneNumberofComparison(), 
+					AnnotationType.DO_GENE_ANNOTATION, 
+					null, 
+					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GENENUMBER);
 		}
 		/************ Collection of Gene RESULTS starts *************/
@@ -1375,8 +1406,10 @@ public class CollectionofPermutationsResults {
 						jobName,
 						numberofRuns,
 						numberofRemainders,
-						numberofComparisons.getUserDefinedLibraryElementTypeNumber2NumberofComparisonMap().get(
-								elementTypeNumber), userDefinedLibraryAnnotationType, null, elementType,
+						numberofComparisons.getUserDefinedLibraryElementTypeNumber2NumberofComparisonMap().get(elementTypeNumber), 
+						userDefinedLibraryAnnotationType, 
+						null, 
+						elementType,
 						GeneratedMixedNumberDescriptionOrderLength.INT_6DIGIT_ELEMENTNUMBER);
 
 			}// End of for each elementTypeNumber

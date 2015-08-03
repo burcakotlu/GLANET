@@ -2653,12 +2653,6 @@ public class Enrichment {
 			permutationNumberElementNumberCellLineNumberKeggPathwayNumber = it.key();
 			numberofOverlaps = it.value();
 			
-			//debug starts
-			if (permutationNumberElementNumberCellLineNumberKeggPathwayNumber.equals(9165007100000207l)){
-				System.out.println("Inspect");
-			}
-			//debug ends
-
 			permutationNumber = IntervalTree.getPermutationNumber(
 					permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
 					generatedMixedNumberDescriptionOrderLength);
@@ -6636,7 +6630,8 @@ public class Enrichment {
 			// convert(accumulatedAllMapsDnaseTFHistoneWithNumbers.getPermutationNumberDnaseCellLineNumber2KMap(),
 			// dnase2AllKMap, originalDnase2KMap,
 			// GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
-			convert( accumulatedAllMapsWithNumbers.getPermutationNumberDnaseCellLineNumber2KMap(), dnase2AllKMap,
+			convert( accumulatedAllMapsWithNumbers.getPermutationNumberDnaseCellLineNumber2KMap(), 
+					dnase2AllKMap,
 					originalDnase2KMap,
 					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
 		}
@@ -7979,8 +7974,8 @@ public class Enrichment {
 		if( histoneAnnotationType.doHistoneAnnotation()){
 			
 			//Number2NameMap
-			cellLineNumber2NameMap =  new TIntObjectHashMap<String>();
-			histoneNumber2NameMap =  new TIntObjectHashMap<String>();
+			cellLineNumber2NameMap 	=  new TIntObjectHashMap<String>();
+			histoneNumber2NameMap 	=  new TIntObjectHashMap<String>();
 
 			//Fill Number2NameMaps
 			FileOperations.fillNumber2NameMap(
