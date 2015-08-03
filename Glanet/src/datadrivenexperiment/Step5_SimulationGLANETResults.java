@@ -20,11 +20,11 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElementMinimal;
 import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
-
 import common.Commons;
-
+import enumtypes.DnaseOverlapExclusionType;
 import enumtypes.ElementType;
 import enumtypes.EnrichmentDecision;
+import enumtypes.GenerateRandomDataMode;
 import enumtypes.MultipleTestingType;
 
 /**
@@ -327,11 +327,20 @@ public class Step5_SimulationGLANETResults {
 
 	}
 
-	public static void readSimulationGLANETResults( String outputFolder, String tpmString,
-			String dnaseOverlapsExcludedorNot, int numberofSimulations, int numberofComparisons,
-			ElementType elementType, String cellLineName, String elementNameCellLineName,
-			Float bonferroniCorrectionSignificanceLevel, Float FDR, MultipleTestingType multipleTestingParameter,
-			EnrichmentDecision enrichmentDecision) {
+	public static void readSimulationGLANETResults(
+			String outputFolder, 
+			String tpmString,
+			DnaseOverlapExclusionType dnaseOverlapExclusionType, 
+			int numberofSimulations, 
+			int numberofComparisons,
+			ElementType elementType, 
+			String cellLineName, 
+			String elementNameCellLineName,
+			Float bonferroniCorrectionSignificanceLevel, 
+			Float FDR,
+			MultipleTestingType multipleTestingParameter,
+			EnrichmentDecision enrichmentDecision,
+			GenerateRandomDataMode generateRandomDataMode) {
 
 		int numberofSimulationsThatHasElementNameCellLineNameEnriched = 0;
 
@@ -355,10 +364,24 @@ public class Step5_SimulationGLANETResults {
 
 				// Initialize elementList
 				elementList = new ArrayList<FunctionalElementMinimal>();
+				
+				switch(generateRandomDataMode){
+					
+					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
+						enrichmentDirectory = new File(
+								outputFolder + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" +Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
-				enrichmentDirectory = new File(
-						outputFolder + tpmString + "_" + dnaseOverlapsExcludedorNot + Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						break;
+						
+					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
+						enrichmentDirectory = new File(
+								outputFolder + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" +Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
+						break;
+				
+				}//End of SWITCH
+
+				
 				// Get the enrichmentFile in this folder for this simulation
 				// There must only one enrichmentFile
 
@@ -460,23 +483,15 @@ public class Step5_SimulationGLANETResults {
 	}
 
 	/*
-	 * args[0] = glanet folder (which includes Data folder inside)
-	 * args[1] = tpm value (0.1, 0.01, 0.001)
-	 * args[2] = 0 or otherwise (any value except 0).
-	 * 0 = DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
-	 * any value except 0 (e.g. 1) =
-	 * DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_REMAIN_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP
-	 * args[3] = fdr value (e.g. "0.05")
-	 * args[4] = bonferroni correction significance level ( e.g "0.05")
-	 * args[5] = 0 or otherwise (any value except 0)
-	 * 0 = MultipleTestingType.BONFERRONI_CORRECTION
-	 * any value except 0 (e.g. 1) = MultipleTestingType.BENJAMINI_HOCHBERG_FDR
-	 * 
-	 * args[6] = 0 or otherwise (any value except 0)
-	 * 0 = EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE
-	 * any value except 0 (e.g. 1) = EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO
-	 * 
+	 * args[0] = Glanet Folder (which is the parent of Data folder)
+	 * args[1] = TPM value (0.1, 0.01, 0.001)
+	 * args[2] = DnaseOverlapExclusionType e.g. PartiallyDiscardIntervalTakeAllTheRemainingIntervals
+	 * args[3] = FDR value (e.g. "0.05")
+	 * args[4] = Bonferroni Correction Significance Level ( e.g "0.05")
+	 * args[5] = MultipleTestingType e.g. "Bonferroni Correction" or "Benjamini Hochberg FDR"
+	 * args[6] = EnrichmentDecision e.g. P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO 
 	 * args[7] = number of simulations (e.g. "100")
+	 * args[8] = GenerateRandomDataMode e.g. "With GC and Mappability" or "Without GC and Mappability"
 	 * 
 	 * example parameters:
 	 * 
@@ -492,54 +507,76 @@ public class Step5_SimulationGLANETResults {
 	public static void main( String[] args) {
 
 		String glanetFolder = args[0];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
-		String tpmString;
+		String dataFolder = glanetFolder + System.getProperty( "file.separator") + Commons.DATA + System.getProperty( "file.separator");
+		String outputFolder = glanetFolder + System.getProperty( "file.separator") + Commons.OUTPUT + System.getProperty( "file.separator");
+		
+		float tpm = Float.parseFloat(args[1]);
+		String tpmString = Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
 
-		if( args.length > 1)
-			switch( args[1]){
-
-			case "0.1":
-				tpmString = Commons.TPM_0_1;
-				break;
-			case "0.01":
-				tpmString = Commons.TPM_0_01;
-				break;
-			case "0.001":
-				tpmString = Commons.TPM_0_001;
-				break;
-			default:
-				tpmString = Commons.TPM_0_001;
-				break;
-			}
-		else
-			tpmString = Commons.TPM_0_001;
-
-		String dnaseOverlapsExcludedorNot = ( ( args.length < 3) || Integer.parseInt( args[2]) == 0)? Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP:Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
-
+		DnaseOverlapExclusionType dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[2]);
+		
 		float FDR = ( args.length > 3)?Float.parseFloat( args[3]):0.05f;
+		
 		float bonferroniCorrectionSignificanceLevel = ( args.length > 4)?Float.parseFloat( args[4]):0.05f;
-		MultipleTestingType multipleTestingParameter = ( !( args.length > 5) || Integer.parseInt( args[5]) == 0)?MultipleTestingType.BONFERRONI_CORRECTION:MultipleTestingType.BENJAMINI_HOCHBERG_FDR;
-
+		
+		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[5]);
+		
 		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(
 				dataFolder, ElementType.TF, Commons.GM12878);
 		int numberofHistoneElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(
 				dataFolder, ElementType.HISTONE, Commons.GM12878);
 
 		// Should I use pValueCalculatedFromZScore or pValueCalculatedFromNumberofPermutationsSuchThat...Ratio
-		EnrichmentDecision enrichmentDecision = ( !( args.length > 6) || Integer.parseInt( args[6]) == 0)?EnrichmentDecision.P_VALUE_CALCULATED_FROM_Z_SCORE:EnrichmentDecision.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO;
+		EnrichmentDecision enrichmentDecision = EnrichmentDecision.convertStringtoEnum(args[6]);
 
 		int numberofSimulations = ( args.length > 7)?Integer.parseInt( args[7]):100;
 
-		readSimulationGLANETResults( outputFolder, tpmString, dnaseOverlapsExcludedorNot, numberofSimulations,
-				numberofTFElementsInCellLine, ElementType.TF, Commons.GM12878, Commons.POL2_GM12878,
-				bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, enrichmentDecision);
-		readSimulationGLANETResults( outputFolder, tpmString, dnaseOverlapsExcludedorNot, numberofSimulations,
-				numberofHistoneElementsInCellLine, ElementType.HISTONE, Commons.GM12878, Commons.H3K4ME3_GM12878,
-				bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, enrichmentDecision);
-		readSimulationGLANETResults( outputFolder, tpmString, dnaseOverlapsExcludedorNot, numberofSimulations,
-				numberofHistoneElementsInCellLine, ElementType.HISTONE, Commons.GM12878, Commons.H3K27ME3_GM12878,
-				bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, enrichmentDecision);
+		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[8]);
+		
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofTFElementsInCellLine, 
+				ElementType.TF, 
+				Commons.GM12878, 
+				Commons.POL2_GM12878,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecision,
+				generateRandomDataMode);
+		
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofHistoneElementsInCellLine, 
+				ElementType.HISTONE, 
+				Commons.GM12878, 
+				Commons.H3K4ME3_GM12878,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecision,
+				generateRandomDataMode);
+		
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofHistoneElementsInCellLine, 
+				ElementType.HISTONE, 
+				Commons.GM12878, 
+				Commons.H3K27ME3_GM12878,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecision,
+				generateRandomDataMode);
 	}
 
 }

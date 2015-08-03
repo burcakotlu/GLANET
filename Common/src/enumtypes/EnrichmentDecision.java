@@ -6,15 +6,17 @@ package enumtypes;
 import common.Commons;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date May 22, 2015
  * @project Common 
  *
  */
 public enum EnrichmentDecision {
 
-	P_VALUE_CALCULATED_FROM_Z_SCORE( 1), P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO( 2),
-	BOTH_ZSCORE_AND_NUMBEROFPERMUTATIONSRATIO( 3), OLD_RESULT_FILE_VERSION( 4);
+	P_VALUE_CALCULATED_FROM_Z_SCORE( 1), 
+	P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO( 2),
+	BOTH_ZSCORE_AND_NUMBEROFPERMUTATIONSRATIO( 3), 
+	OLD_RESULT_FILE_VERSION( 4);
 
 	private final int enrichmentDecision;
 

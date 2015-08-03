@@ -12,7 +12,9 @@ import common.Commons;
  */
 public enum MultipleTestingType {
 
-	EMPIRICAL_P_VALUE( 1), BONFERRONI_CORRECTION( 2), BENJAMINI_HOCHBERG_FDR( 3);
+	EMPIRICAL_P_VALUE( 1), 
+	BONFERRONI_CORRECTION( 2), 
+	BENJAMINI_HOCHBERG_FDR( 3);
 
 	private final int multipleTestingType;
 
