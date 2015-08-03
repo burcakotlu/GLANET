@@ -164,11 +164,10 @@ public class CollectionofPermutationsResults {
 		if( multipleTestingParameter.isBenjaminiHochbergFDR()){
 
 			// sort w.r.t. Benjamini and Hochberg FDR Adjusted pValue
-			Collections.sort( list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
+			Collections.sort(list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
 
 			// write the results to a output file starts
-			bufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( outputFolder + fileName + "_" + jobName + Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( outputFolder + fileName + "_" + jobName + Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE));
 		}
 		/***********************************************************************************/
 		/********** MULTIPLE TESTING W.R.T. BENJAMINI HOCHBERG ends ************************/
@@ -762,8 +761,7 @@ public class CollectionofPermutationsResults {
 								generatedMixedNumberDescriptionOrderLength.is_INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER() || 
 								generatedMixedNumberDescriptionOrderLength.is_LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER()){
 
-							keggPathwayNumber = IntervalTree.getGeneSetNumber( mixedNumber,
-									generatedMixedNumberDescriptionOrderLength);
+							keggPathwayNumber = IntervalTree.getGeneSetNumber( mixedNumber,generatedMixedNumberDescriptionOrderLength);
 							element.setKeggPathwayNumber( keggPathwayNumber);
 
 						}
@@ -792,7 +790,7 @@ public class CollectionofPermutationsResults {
 			// 13 May 2015 starts
 			// Compute mean of permutationNumberofOverlapsList for each element
 			// Compute standard deviation of permutationNumberofOverlapsList for each element
-			// Compute zscore for each element
+			// Compute zScore for each element
 			for( TLongIntIterator it = elementNumber2OriginalNumberofOverlaps.iterator(); it.hasNext();){
 
 				it.advance();
@@ -809,23 +807,25 @@ public class CollectionofPermutationsResults {
 					mean = statsPerElement.getMean();
 					stdDev = statsPerElement.getStandardDeviation();
 
-					element.setMean( mean);
-					element.setStdDev( stdDev);
+					element.setMean(mean);
+					element.setStdDev(stdDev);
 
 				}else{
 
-					element.setMean( null);
-					element.setStdDev( null);
+					element.setMean(null);
+					element.setStdDev(null);
 				}
 
 				// 27 May 2015
 				if( stdDev == 0 || stdDev == null){
 
-					// There is a situation
+					// For these cases
+					// Do not calculate zScore
+					// Otherwise we will encounter
 					// Division by zero
 					// Division by not a number
-					// Do not calculate zScore
-
+					// Errors
+					
 					// zScore is infinity and further calculations are not applicable
 
 					element.setZScore( null);
@@ -852,29 +852,14 @@ public class CollectionofPermutationsResults {
 				}// End of ELSE stdDev != 0 or stdDev!= bull
 
 			}// End of for
-				// 13 May 2015 ends
+			// 13 May 2015 ends
 
-			// /****************************************************************************************************************************/
-			// /*****SORT w.r.t. #ofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps in ascending
-			// order starts********/
-			// /*****SORT w.r.t. zScore in descending order
-			// starts**************************************************************************/
-			// /****************************************************************************************************************************/
-			// List<FunctionalElement> list = new ArrayList<FunctionalElement>(elementNumber2ElementMap.values());
-			// Collections.sort(list,
-			// FunctionalElement.NUMBER_OF_PERMUTATIONS_HAVING_OVERLAPS_GREATER_THAN_EQUAL_TO_ORIGINAL_NUMBER_OF_OVERLAPS);
-			// /****************************************************************************************************************************/
-			// /*****SORT w.r.t. #ofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps in ascending
-			// order ends**********/
-			// /*****SORT w.r.t. zScore in descending order
-			// ends****************************************************************************/
-			// /****************************************************************************************************************************/
 
 			/****************************************************************************************************************************/
 			/*****SORT w.r.t. zScore in descending order starts**************************************************************************/
 			/****************************************************************************************************************************/
-			List<FunctionalElement> list = new ArrayList<FunctionalElement>( elementNumber2ElementMap.values());
-			Collections.sort( list, FunctionalElement.Z_SCORE);
+			List<FunctionalElement> list = new ArrayList<FunctionalElement>(elementNumber2ElementMap.values());
+			Collections.sort(list, FunctionalElement.Z_SCORE);
 			/****************************************************************************************************************************/
 			/*****SORT w.r.t. zScore in descending order ends****************************************************************************/
 			/****************************************************************************************************************************/
@@ -892,50 +877,11 @@ public class CollectionofPermutationsResults {
 			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE ENDS ******************/
 			/************************************************************************************/
 
-			// /****************************************************************************************************************************/
-			// /*****Write w.r.t. zScore in descending order
-			// starts*************************************************************************/
-			// /****************************************************************************************************************************/
-			// FileWriter fileWriter = null;
-			// BufferedWriter bufferedWriter = null;
-			//
-			// fileWriter = FileOperations.createFileWriter(outputFolder + runFileName + "_" + "ZScores.txt" );
-			// bufferedWriter = new BufferedWriter(fileWriter);
-			//
-			// //Header Line
-			// bufferedWriter.write("elementNumber" + "\t" + "elementName" + "\t" + "originalNumberofElements" + "\t" +
-			// "mean"+ "\t" + "stdDev" + "\t" +
-			// "NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps" + "\t" + "zScore" + "\t"
-			// + "pValueCalculatedFromZScore" + "\t" + "bonferroniCorrectedPValueCalculatedFromZScore" + "\t" +
-			// "BHFDRAdjustedPValueCalculatedFromZScore" + "\t" + "RejectNullHypothesisFromZScore" +
-			// System.getProperty("line.separator"));
-			//
-			// for(Iterator<FunctionalElement> it = list.iterator(); it.hasNext();){
-			//
-			// element = it.next();
-			//
-			// bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t"+
-			// element.getOriginalNumberofOverlaps() + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" +
-			// element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" +
-			// df.format(element.getZScore()) + "\t" + df.format(element.getEmpiricalPValueCalculatedFromZScore())+ "\t"
-			// + df.format(element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" +
-			// df.format(element.getBHFDRAdjustedPValueFromZScore()) + "\t" + element.isRejectNullHypothesisFromZScore()
-			// + System.getProperty("line.separator"));
-			//
-			// }//End of for
-			//
-			// //Close BufferedWriter
-			// bufferedWriter.close();
-			// /****************************************************************************************************************************/
-			// /*****Write w.r.t. zScore in descending order
-			// ends***************************************************************************/
-			// /****************************************************************************************************************************/
 
 			/************************************************************************************/
 			/******* COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE STARTS***********/
 			/************************************************************************************/
-			// Now compute empirical pValue and Bonferroni Corrected pValue and
-			// write
+			// Now compute empirical pValue and Bonferroni Corrected pValue and write
 			for( Map.Entry<Long, FunctionalElement> entry : elementNumber2ElementMap.entrySet()){
 
 				mixedNumber = entry.getKey();
@@ -979,8 +925,7 @@ public class CollectionofPermutationsResults {
 			/************************************************************************************/
 			if( annotationType.doUserDefinedGeneSetAnnotation() && userDefinedGeneSetOptionalDescriptionInputFile != null && !userDefinedGeneSetOptionalDescriptionInputFile.equals( Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED)){
 
-				UserDefinedGeneSetUtility.augmentUserDefinedGeneSetIDwithTerm(
-						userDefinedGeneSetOptionalDescriptionInputFile, list);
+				UserDefinedGeneSetUtility.augmentUserDefinedGeneSetIDwithTerm(userDefinedGeneSetOptionalDescriptionInputFile, list);
 
 			}
 			/************************************************************************************/
@@ -1027,12 +972,28 @@ public class CollectionofPermutationsResults {
 			// How to decide enriched elements?
 			// with respect to Benjamini Hochberg FDR or
 			// with respect to Bonferroni Correction Significance Level
-			writeResultstoOutputFiles( outputFolder, allFileName, jobName, list, annotationType,
-					multipleTestingParameter, bonferroniCorrectionSignigicanceLevel, FDR, numberofPermutations,
+			writeResultstoOutputFiles(
+					outputFolder, 
+					allFileName, 
+					jobName, 
+					list, 
+					annotationType,
+					multipleTestingParameter, 
+					bonferroniCorrectionSignigicanceLevel, 
+					FDR, 
+					numberofPermutations,
 					numberofComparisons);
 
-			writeResultsWRTZScorestoOutputFiles( outputFolder, allFileName, jobName, list, annotationType,
-					multipleTestingParameter, bonferroniCorrectionSignigicanceLevel, FDR, numberofPermutations,
+			writeResultsWRTZScorestoOutputFiles(
+					outputFolder, 
+					allFileName, 
+					jobName, 
+					list, 
+					annotationType,
+					multipleTestingParameter, 
+					bonferroniCorrectionSignigicanceLevel, 
+					FDR, 
+					numberofPermutations,
 					numberofComparisons);
 			/************************************************************************************/
 			/****************************** WRITE RESULTS ENDS **********************************/
@@ -1152,7 +1113,7 @@ public class CollectionofPermutationsResults {
 		}
 		// jobName ends
 
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
 
 		NumberofComparisons numberofComparisons = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection( dataFolder);
