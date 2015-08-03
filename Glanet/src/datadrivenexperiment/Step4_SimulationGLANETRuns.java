@@ -33,7 +33,7 @@ public class Step4_SimulationGLANETRuns {
 			GenerateRandomDataMode withorWithout, 
 			String args[]) throws IOException {
 
-		String rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + "\" -i \"" + args[1] + "Data" + System.getProperty( "file.separator") + "SimulationData" + System.getProperty( "file.separator") + tpm + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "Sim";
+		String rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + "Data" + System.getProperty( "file.separator") + "SimulationData" + System.getProperty( "file.separator") + tpm + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "Sim";
 
 		for( int i = 0; i < numberofSimulations; i++){
 
@@ -272,8 +272,4 @@ public class Step4_SimulationGLANETRuns {
 		}
 
 	}
-
-	java -jar "C:\\Users\\Burçak\\Google Drive\\GLANET\\GLANET.jar" -Xms4G -Xmx4G -c -g "C:\\Users\\Burçak\\Google Drive\" -i "C:\\Users\\Burçak\\Google Drive\\Data\\SimulationData\\TPM_0_001_PartiallyDiscardIntervalTakeAllTheRemainingIntervalsSim0.txt" -f0 -dnase -tf -histone -e -ewz  -rdgcm -pe 10000 -j TPM_0_001_PartiallyDiscardIntervalTakeAllTheRemainingIntervalswGCMSim0
-	
-
 }
