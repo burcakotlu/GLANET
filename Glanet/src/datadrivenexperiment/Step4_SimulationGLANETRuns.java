@@ -103,7 +103,7 @@ public class Step4_SimulationGLANETRuns {
 
 			// x12
 			// With GC and Mapability
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_001,
@@ -111,7 +111,7 @@ public class Step4_SimulationGLANETRuns {
 					withGCandMapability,
 					args);
 			
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_01,
@@ -119,7 +119,7 @@ public class Step4_SimulationGLANETRuns {
 					withGCandMapability,
 					args);
 			
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_1,
@@ -146,7 +146,7 @@ public class Step4_SimulationGLANETRuns {
 //			bufferedWriter.write( "#!/bin/bash\n");
 
 			// Without GC and Mapability
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_001,
@@ -154,7 +154,7 @@ public class Step4_SimulationGLANETRuns {
 					withoutGCandMapability, 
 					args);
 			
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_01,
@@ -163,7 +163,7 @@ public class Step4_SimulationGLANETRuns {
 					args);
 			
 			
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_1,
@@ -191,7 +191,7 @@ public class Step4_SimulationGLANETRuns {
 //			bufferedWriter.write( "#!/bin/bash\n");
 
 			// With GC and Mapability
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_001,
@@ -199,7 +199,7 @@ public class Step4_SimulationGLANETRuns {
 					withGCandMapability, 
 					args);
 			
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_01,
@@ -207,7 +207,7 @@ public class Step4_SimulationGLANETRuns {
 					withGCandMapability, 
 					args);
 			
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_1,
@@ -234,7 +234,7 @@ public class Step4_SimulationGLANETRuns {
 //			bufferedWriter.write( "#!/bin/bash\n");
 
 			// Without GC and Mapability
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_001,
@@ -242,7 +242,7 @@ public class Step4_SimulationGLANETRuns {
 					withoutGCandMapability, 
 					args);
 			
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_01,
@@ -250,7 +250,7 @@ public class Step4_SimulationGLANETRuns {
 					withoutGCandMapability, 
 					args);
 			
-			writeTPMIntervals(
+			writeGLANETRuns(
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_1,
@@ -272,5 +272,8 @@ public class Step4_SimulationGLANETRuns {
 		}
 
 	}
+
+	java -jar "C:\\Users\\Burçak\\Google Drive\\GLANET\\GLANET.jar" -Xms4G -Xmx4G -c -g "C:\\Users\\Burçak\\Google Drive\" -i "C:\\Users\\Burçak\\Google Drive\\Data\\SimulationData\\TPM_0_001_PartiallyDiscardIntervalTakeAllTheRemainingIntervalsSim0.txt" -f0 -dnase -tf -histone -e -ewz  -rdgcm -pe 10000 -j TPM_0_001_PartiallyDiscardIntervalTakeAllTheRemainingIntervalswGCMSim0
+	
 
 }
