@@ -25,7 +25,7 @@ import auxiliary.FileOperations;
  */
 public class Step4_SimulationGLANETRuns {
 
-	public static void writeTPMIntervals( 
+	public static void writeGLANETRuns( 
 			BufferedWriter bufferedWriter, 
 			int numberofSimulations, 
 			String tpm,
@@ -140,7 +140,7 @@ public class Step4_SimulationGLANETRuns {
 			//*************************************************************************************************************//
 			//*************************************************************************************************************//
 			//fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(2).sh");
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeAllRemainingIntervalsWithoutGCandMapability.sh");
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeAllRemainingIntervalsWithoutGCandMapability.bat");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 //			bufferedWriter.write( "#!/bin/bash\n");
@@ -185,7 +185,7 @@ public class Step4_SimulationGLANETRuns {
 			//*************************************************************************************************************//
 			//*************************************************************************************************************//
 //			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(3).sh");
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeOnlyTheLongestIntervalWithGCandMpability.sh");
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeOnlyTheLongestIntervalWithGCandMpability.bat");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 //			bufferedWriter.write( "#!/bin/bash\n");
@@ -228,7 +228,7 @@ public class Step4_SimulationGLANETRuns {
 			//*************************************************************************************************************//
 			//*************************************************************************************************************//
 //			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(4).sh");
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeOnlyTheLongestIntervalWithoutGCandMpability.sh");
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeOnlyTheLongestIntervalWithoutGCandMpability.bat");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 //			bufferedWriter.write( "#!/bin/bash\n");
