@@ -41,13 +41,20 @@ public enum EnrichmentDecision {
 
 		if( Commons.P_VALUE_CALCULATED_FROM_Z_SCORE.equals( enrichmentDecision)){
 			return P_VALUE_CALCULATED_FROM_Z_SCORE;
-		}else if( Commons.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO.equals( enrichmentDecision)){
+		}
+		
+		else if( Commons.P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO.equals( enrichmentDecision)){
 			return P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO;
-		}else if( Commons.OLD_RESULT_FILE_VERSION.equals( enrichmentDecision)){
+		}
+		else if( Commons.OLD_RESULT_FILE_VERSION.equals( enrichmentDecision)){
 			return OLD_RESULT_FILE_VERSION;
-		}else if( Commons.BOTH_ZSCORE_AND_NUMBEROFPERMUTATIONSRATIO.equals( enrichmentDecision)){
+		}
+		
+		else if( Commons.BOTH_ZSCORE_AND_NUMBEROFPERMUTATIONSRATIO.equals( enrichmentDecision)){
 			return BOTH_ZSCORE_AND_NUMBEROFPERMUTATIONSRATIO;
-		}else
+		}
+		
+		else
 			return null;
 	}
 

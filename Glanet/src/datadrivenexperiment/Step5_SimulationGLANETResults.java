@@ -33,6 +33,23 @@ import enumtypes.MultipleTestingType;
  * @project Glanet 
  * 
  * Data Driven Experiment Step 5
+ * 
+ * In this class
+ * We collect the Simulations Enrichments Results
+ * In the context of counting the number of simulations that has found the repressor element enriched in the nonExpressing Genes Intervals
+ * and the number of simulations that has found the expressor element enriched in the Expressing Genes Intervals.
+ * 
+ * We have to provide the
+ * 
+ *  Glanet Folder
+ *  TPM value (0.1, 0.01, 0.001)
+ *  DnaseOverlapExclusionType e.g. PartiallyDiscardIntervalTakeAllTheRemainingIntervals
+ *  FDR value (e.g. "0.05")
+ *  Bonferroni Correction Significance Level ( e.g "0.05")
+ *  MultipleTestingType e.g. "Bonferroni Correction" or "Benjamini Hochberg FDR"
+ *  EnrichmentDecision e.g. P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO 
+ *  number of simulations (e.g. "100")
+ *  GenerateRandomDataMode e.g. "With GC and Mappability" or "Without GC and Mappability"
  *
  */
 public class Step5_SimulationGLANETResults {
@@ -449,16 +466,16 @@ public class Step5_SimulationGLANETResults {
 				// sort w.r.t. BH or BonferroniCorrection
 				switch( multipleTestingParameter){
 
-				case BONFERRONI_CORRECTION:
-					Collections.sort( elementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
-					break;
-
-				case BENJAMINI_HOCHBERG_FDR:
-					Collections.sort( elementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-					break;
-
-				default:
-					break;
+					case BONFERRONI_CORRECTION:
+						Collections.sort( elementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
+						break;
+	
+					case BENJAMINI_HOCHBERG_FDR:
+						Collections.sort( elementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
+						break;
+	
+					default:
+						break;
 
 				}// End of switch
 
@@ -506,31 +523,38 @@ public class Step5_SimulationGLANETResults {
 	 */
 	public static void main( String[] args) {
 
+		//args[0]
 		String glanetFolder = args[0];
-		String dataFolder = glanetFolder + System.getProperty( "file.separator") + Commons.DATA + System.getProperty( "file.separator");
+		String dataFolder 	= glanetFolder + System.getProperty( "file.separator") + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = glanetFolder + System.getProperty( "file.separator") + Commons.OUTPUT + System.getProperty( "file.separator");
 		
+		//args[1]
 		float tpm = Float.parseFloat(args[1]);
-		String tpmString = Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
+		String tpmString = Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString(tpm);
 
+		//args[2]
 		DnaseOverlapExclusionType dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[2]);
 		
-		float FDR = ( args.length > 3)?Float.parseFloat( args[3]):0.05f;
+		//args[3]
+		float FDR = ( args.length > 3)?Float.parseFloat(args[3]):0.05f;
 		
+		//args[4]
 		float bonferroniCorrectionSignificanceLevel = ( args.length > 4)?Float.parseFloat( args[4]):0.05f;
 		
+		//args[5]
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[5]);
 		
-		int numberofTFElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(
-				dataFolder, ElementType.TF, Commons.GM12878);
-		int numberofHistoneElementsInCellLine = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(
-				dataFolder, ElementType.HISTONE, Commons.GM12878);
+		int numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.GM12878);
+		int numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.GM12878);
 
+		//args[6]
 		// Should I use pValueCalculatedFromZScore or pValueCalculatedFromNumberofPermutationsSuchThat...Ratio
 		EnrichmentDecision enrichmentDecision = EnrichmentDecision.convertStringtoEnum(args[6]);
 
-		int numberofSimulations = ( args.length > 7)?Integer.parseInt( args[7]):100;
+		//args[7]
+		int numberofSimulations = ( args.length > 7)?Integer.parseInt(args[7]):100;
 
+		//args[8]
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[8]);
 		
 		readSimulationGLANETResults(
@@ -538,7 +562,7 @@ public class Step5_SimulationGLANETResults {
 				tpmString, 
 				dnaseOverlapExclusionType, 
 				numberofSimulations,
-				numberofTFElementsInCellLine, 
+				numberofTFElementsInThisCellLine, 
 				ElementType.TF, 
 				Commons.GM12878, 
 				Commons.POL2_GM12878,
@@ -553,7 +577,7 @@ public class Step5_SimulationGLANETResults {
 				tpmString, 
 				dnaseOverlapExclusionType, 
 				numberofSimulations,
-				numberofHistoneElementsInCellLine, 
+				numberofHistoneElementsInThisCellLine, 
 				ElementType.HISTONE, 
 				Commons.GM12878, 
 				Commons.H3K4ME3_GM12878,
@@ -568,7 +592,7 @@ public class Step5_SimulationGLANETResults {
 				tpmString, 
 				dnaseOverlapExclusionType, 
 				numberofSimulations,
-				numberofHistoneElementsInCellLine, 
+				numberofHistoneElementsInThisCellLine, 
 				ElementType.HISTONE, 
 				Commons.GM12878, 
 				Commons.H3K27ME3_GM12878,
