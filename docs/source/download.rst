@@ -15,4 +15,4 @@ You can download GLANET executable jar from `here <https://drive.google.com/file
 
 Data
 ^^^^
-Download GLANET data from `here <https://drive.google.com/file/d/0BwmVAJuppNSMZlBadGdPVVk2QkU/view?usp=sharing>`_
+Download GLANET data from `here <https://drive.google.com/folderview?id=0BwmVAJuppNSMTnlVLWpqdGNzOFk&usp=sharing>`_
