@@ -99,11 +99,11 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Histone Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Histone modifications sites.
 
-	* *Genome Annotation (CellLine Based)*
-                -  Needs explanation
-
 	* *Transcription Factor (TF) Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors (TFs) binding sites.
+		
+	* *Gene Annotation 
+	-  Check this check box, if you want to annotate given intervals w.r.t. clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg19),  RefSeq Genes.
 
 	* *KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG Pathways in exon-based, regulation-based and all-based manner.
@@ -182,10 +182,10 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Perform Enrichment*
 		-  Check *Perform Enrichment* checkbox if you want Enrichment Analysis.
 		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation Options.
-
-	* *Perform Enrichment With ZScores*
-                -  Needs explanation
-
+		-  Check Perform Enrichment With ZScores (Default) if you want to rank elements w.r.t. their zScores in addition to their empirical, Bonferroni Corrected and Benjamini Hochberg FDR adjsuted p values.
+		-  Perform Enrichment With ZScores requires more memory than Without ZScores and it is recommended when you have thousands of elements to be analysed.
+		-  Perform Enrichment Without is recommended when you have myriads of elements to be analysed (e.g. In Case of Cell Line Based TF and KEGG Pathway).
+               
 	* *Generate Random Data Mode*
 		-  With GC and Mapability (default)
 		-  Without GC and Mapability
