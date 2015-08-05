@@ -185,8 +185,8 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		
 		-  Perform Enrichment With ZScores (Default) ranks elements w.r.t. their zScores in addition to their empirical, Bonferroni corrected and Benjamini Hochberg FDR adjusted p values.
        
-		-  Perform Enrichment With ZScores requires more memory than Without ZScores and it is recommended when you have thousands of elements to be analysed.
-		-  Perform Enrichment Without is recommended when you have hundreds of thousands of elements to be analysed (e.g. In Case of Cell Line Based TF and KEGG Pathway Analysis).
+		-  Perform Enrichment With ZScores requires more memory than Without ZScores and it is recommended when you have at most thousands of elements to be analysed.
+		-  Perform Enrichment Without is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
 
 		-  Uncheck Perform Enrichment With ZScores if you have hundreds of thousands of elements and you don't have enough memory (> 16GB)
 		        
@@ -325,8 +325,8 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-celltfkegg`_|                      |
 |                         +---------------+-------------------+--------------+----------------------+
-|			  | `-ewz`_       |  Optional         | `-e`_        + None		    |
-|			  +---------------+-------------------+--------------+----------------------+
+|			 			  | `-ewoz`_      |  Optional         | `-e`_        + -ewz		            |
+|			   		      +---------------+-------------------+--------------+----------------------+
 |                         | `-rdgcm`_     |  Required         | `-e`_        | `-rdgcm`_            |
 |                         +---------------+                   |              |                      |
 |                         | `-rd`_        |                   |              |                      |
@@ -435,7 +435,8 @@ This option enables Histone Modifications Sites (Cell Line Based) Annotation.
 -gene
 ^^^^^
 
-Needs explanation
+This option enables clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg19),  RefSeq Genes Annotation.
+
 
 -tf
 ^^^
@@ -542,7 +543,12 @@ Enrichment operation requires at least one annotation option (:option:`-dnase`, 
 
 -ewz
 ^^^^
-Needs explanation
+If this option is specified, GLANET performs enrichment with ZScores.
+
+-ewoz
+^^^^
+If this option is specified, GLANET performs enrichment without ZScores.
+
 
 -rdgcm
 ^^^^^^
