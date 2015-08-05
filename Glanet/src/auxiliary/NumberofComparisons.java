@@ -302,26 +302,26 @@ public class NumberofComparisons {
 
 		switch( elementType){
 
-		case TF:
-			TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
-			FileOperations.fillNumber2NameMap( tfCellLineNumber2NameMap,
-					dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
-					Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-			numberofComparisons = getNumberofElementsInCellLine( tfCellLineNumber2NameMap, cellLineName);
-			tfCellLineNumber2NameMap = null;
-			break;
-
-		case HISTONE:
-			TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
-			FileOperations.fillNumber2NameMap( histoneCellLineNumber2NameMap,
-					dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
-					Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-			numberofComparisons = getNumberofElementsInCellLine( histoneCellLineNumber2NameMap, cellLineName);
-			histoneCellLineNumber2NameMap = null;
-			break;
-
-		default:
-			break;
+			case TF:
+				TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+				FileOperations.fillNumber2NameMap( tfCellLineNumber2NameMap,
+						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+						Commons.ALL_POSSIBLE_ENCODE_TF_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+				numberofComparisons = getNumberofElementsInCellLine( tfCellLineNumber2NameMap, cellLineName);
+				tfCellLineNumber2NameMap = null;
+				break;
+	
+			case HISTONE:
+				TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();
+				FileOperations.fillNumber2NameMap( histoneCellLineNumber2NameMap,
+						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+						Commons.ALL_POSSIBLE_ENCODE_HISTONE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+				numberofComparisons = getNumberofElementsInCellLine( histoneCellLineNumber2NameMap, cellLineName);
+				histoneCellLineNumber2NameMap = null;
+				break;
+	
+			default:
+				break;
 
 		}// End of switch
 

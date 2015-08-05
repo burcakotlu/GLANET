@@ -155,9 +155,8 @@ public class Step5_SimulationGLANETResults {
 
 		elementName = strLine.substring( indexofFirstTab + 1, indexofSecondTab);
 		originalNumberofOverlaps = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
-		numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt( strLine.substring(
-				indexofThirdTab + 1, indexofFourthTab));
-		numberofPermutations = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
+		numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt( strLine.substring(indexofThirdTab + 1, indexofFourthTab));
+		numberofPermutations = Integer.parseInt(strLine.substring( indexofFourthTab + 1, indexofFifthTab));
 
 		element.setName( elementName);
 		element.setNumberofPermutations( numberofPermutations);
@@ -188,7 +187,7 @@ public class Step5_SimulationGLANETResults {
 		return element;
 	}
 
-	public static int writeNewEnrichmentFile(
+	public static int writeCellLineFilteredEnrichmentFile(
 			List<FunctionalElementMinimal> elementList,
 			BufferedWriter cellLineFilteredEnrichmentBufferedWriter, 
 			MultipleTestingType multipleTestingParameter,
@@ -240,16 +239,17 @@ public class Step5_SimulationGLANETResults {
 						}
 						
 					}// BH FDR Adjusted PValue from numberofPermutationsRatio ends
-					
-					// BH FDR Adjusted PValue from zScore starts
-					else if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromZscore()){
-						
-						if( element.getBHFDRAdjustedPValueCalculatedFromZScore() != null && 
-								element.getBHFDRAdjustedPValueCalculatedFromZScore() <= FDR){
-							numberofSimulationsThatHasElementNameCellLineNameEnriched++;
-						}
-						
-					}// BH FDR Adjusted PValue from zScore ends
+		
+//Right now it is meaningless, since BHFDRAdjustedPValueCalculatedFromZScore is not set.				
+//					// BH FDR Adjusted PValue from zScore starts
+//					else if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromZscore()){
+//						
+//						if( element.getBHFDRAdjustedPValueCalculatedFromZScore() != null && 
+//								element.getBHFDRAdjustedPValueCalculatedFromZScore() <= FDR){
+//							numberofSimulationsThatHasElementNameCellLineNameEnriched++;
+//						}
+//						
+//					}// BH FDR Adjusted PValue from zScore ends
 					
 					// Bonferroni Corrected PValue from numberofPermutationsRatio starts
 					else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromRatioofPermutations()){
@@ -260,21 +260,22 @@ public class Step5_SimulationGLANETResults {
 					}// Bonferroni Corrected PValue from numberofPermutationsRatio ends
 
 					
-					// Bonferroni Corrected PValue from zScore starts
-					else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromZscore()){
-						
-						if( element.getBonferroniCorrectedPValueCalculatedFromZScore() != null && 
-								element.getBonferroniCorrectedPValueCalculatedFromZScore() <= bonferroniCorrectionSignificanceLevel){
-							numberofSimulationsThatHasElementNameCellLineNameEnriched++;
-						}
-						
-					}// Bonferroni Corrected PValue from zScore ends
+//Right now it is meaningless, since BonferroniCorrectedPValueCalculatedFromZScore is not set.				
+//					// Bonferroni Corrected PValue from zScore starts
+//					else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromZscore()){
+//						
+//						if( element.getBonferroniCorrectedPValueCalculatedFromZScore() != null && 
+//								element.getBonferroniCorrectedPValueCalculatedFromZScore() <= bonferroniCorrectionSignificanceLevel){
+//							numberofSimulationsThatHasElementNameCellLineNameEnriched++;
+//						}
+//						
+//					}// Bonferroni Corrected PValue from zScore ends
 	
 						
 				}// End of IF elementName contains elementNameCellLineName
 
 				
-				//Write Enrichment Result Line
+				//Write CellLine Filtered Enrichment Result Line
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getName() + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t");
@@ -364,7 +365,8 @@ public class Step5_SimulationGLANETResults {
 					
 					for( File eachEnrichmentFile : enrichmentDirectory.listFiles()){
 
-						if( !eachEnrichmentFile.isDirectory() && eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE)){
+						if( !eachEnrichmentFile.isDirectory() && 
+								(eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE) || eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE)) ){
 
 							enrichmentFile = eachEnrichmentFile.getAbsolutePath();
 
@@ -389,9 +391,9 @@ public class Step5_SimulationGLANETResults {
 				// Filter lines that contain cellLine only
 				while( ( strLine = enrichmentBufferedReader.readLine()) != null){
 
-					if( strLine.contains( cellLineName)){
+					if( strLine.contains(cellLineName)){
 						// Fill elementList
-						elementList.add(getElement( strLine, numberofComparisons));
+						elementList.add(getElement(strLine, numberofComparisons));
 					}
 
 				}// End of WHILE
@@ -436,7 +438,7 @@ public class Step5_SimulationGLANETResults {
 
 				// Write new Enrichment File
 				// We have to accumulate the number of simulations whether simulation has returned 1 or 0.
-				numberofSimulationsThatHasElementNameCellLineNameEnriched += writeNewEnrichmentFile(elementList,
+				numberofSimulationsThatHasElementNameCellLineNameEnriched += writeCellLineFilteredEnrichmentFile(elementList,
 																									cellLineFilteredEnrichmentBufferedWriter, 
 																									multipleTestingParameter, 
 																									elementNameCellLineName,
@@ -496,10 +498,10 @@ public class Step5_SimulationGLANETResults {
 		DnaseOverlapExclusionType dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[2]);
 		
 		//args[3]
-		float FDR = ( args.length > 3)?Float.parseFloat(args[3]):0.05f;
+		float FDR = (args.length > 3)?Float.parseFloat(args[3]):0.05f;
 		
 		//args[4]
-		float bonferroniCorrectionSignificanceLevel = ( args.length > 4)?Float.parseFloat( args[4]):0.05f;
+		float bonferroniCorrectionSignificanceLevel = (args.length > 4)?Float.parseFloat(args[4]):0.05f;
 		
 		//args[5]
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[5]);
@@ -508,11 +510,14 @@ public class Step5_SimulationGLANETResults {
 		int numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.GM12878);
 
 		//args[6]
-		// Should I use pValueCalculatedFromZScore or pValueCalculatedFromNumberofPermutationsSuchThat...Ratio
+		//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_ZSCORE
+		//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_ZSCORE
+		//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
+		//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
 		EnrichmentDecisionType enrichmentDecisionType = EnrichmentDecisionType.convertStringtoEnum(args[6]);
 
 		//args[7]
-		int numberofSimulations = ( args.length > 7)?Integer.parseInt(args[7]):100;
+		int numberofSimulations = ( args.length > 7)?Integer.parseInt(args[7]):0;
 
 		//args[8]
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[8]);

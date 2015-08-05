@@ -1003,6 +1003,11 @@ public class CollectionofPermutationsResults {
 					numberofPermutations,
 					numberofComparisons);
 
+			//In this class 
+			//zScores are presented
+			//empiricalPValue, bonferroniCorrectedPValue and BHFDRAdjustedPValue calculated from ZScore are presented
+			//empiricalPValue, bonferroniCorrectedPValue and BHFDRAdjustedPValue calculated from ratio of numberofPermutationsThatHasNumberofOverlapsGreaterThanEqualToOriginalNumberofOverlaps and numberofPermutations are presented
+			//Results are sorted in descending order w.r.t. zScore
 			writeResultsWRTZScorestoOutputFiles(
 					outputFolder, 
 					allFileName, 
