@@ -325,7 +325,7 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-celltfkegg`_|                      |
 |                         +---------------+-------------------+--------------+----------------------+
-|			 			  | `-ewoz`_      |  Optional         | `-e`_        + -ewz		            |
+|			 			  | `-ewoz`_      |  Optional         | `-e`_        | `-ewz`_		        |
 |			   		      +---------------+-------------------+--------------+----------------------+
 |                         | `-rdgcm`_     |  Required         | `-e`_        | `-rdgcm`_            |
 |                         +---------------+                   |              |                      |
