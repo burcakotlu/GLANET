@@ -325,9 +325,9 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-celltfkegg`_|                      |
 |                         +---------------+-------------------+--------------+----------------------+
-|                         | `-mtbhfdr`_   |  Required         | `-e`_        | `-mtbhfdr`_          |
+|                         | `-ewz`_       |  Required         | `-e`_        | `-ewz`_              |
 |                         +---------------+                   |              |                      |
-|                         | `-mtbc`_      |                   |              |                      |
+|                         | `-ewoz`_      |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-rdgcm`_     |  Required         | `-e`_        | `-rdgcm`_            |
 |                         +---------------+                   |              |                      |
