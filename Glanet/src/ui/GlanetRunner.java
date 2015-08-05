@@ -73,7 +73,7 @@ public class GlanetRunner implements Runnable {
 			Enrichment.main( args);
 			/************************ Annotate Permutations ends ******************************/
 
-			if( getArgs()[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()].equalsIgnoreCase( Commons.PERFORM_ENRICHMENT_WITH_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION)){
+			if( getArgs()[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()].equalsIgnoreCase( Commons.PERFORM_ENRICHMENT_WITH_ZSCORES)){
 
 				/******************* Collection of Permutations Results starts *******************/
 				setCurrentProcessInfo( "Collection of Permutations Results...");

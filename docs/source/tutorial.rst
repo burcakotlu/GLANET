@@ -102,7 +102,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Transcription Factor (TF) Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors (TFs) binding sites.
 		
-	* *Gene Annotation 
+	* *Gene Annotation* 
 		-  Check this check box, if you want to annotate given intervals w.r.t. clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg19),  RefSeq Genes.
 
 	* *KEGG Pathway Annotation*
@@ -180,14 +180,14 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 7)	**Enrichment**: (Optional)
 
 	* *Perform Enrichment*
-		-  Check *Perform Enrichment* checkbox if you want Enrichment Analysis.
+		-  Check *Perform Enrichment* check box if you want Enrichment Analysis.
 		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation Options.
         -  Perform Enrichment With ZScores (Default) 
 		-  Perform Enrichment Without ZScores 
 		-  Perform Enrichment With ZScores (Default) ranks elements w.r.t. their zScores in addition to their empirical, Bonferroni corrected and Benjamini Hochberg FDR adjusted p values.
 		-  Perform Enrichment With ZScores requires more memory than Without ZScores and it is recommended when you have at most thousands of elements to be analysed.
 		-  Perform Enrichment Without is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
-		-  Uncheck Perform Enrichment With ZScores if you have hundreds of thousands of elements and you don't have enough memory (> 16GB)
+		-  Do not check Perform Enrichment With ZScores if you have hundreds of thousands of elements and you don't have enough memory (> 16GB)
 		        
 	* *Generate Random Data Mode*
 		-  With GC and Mapability (default)

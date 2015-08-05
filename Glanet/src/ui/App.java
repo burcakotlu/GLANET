@@ -518,7 +518,7 @@ public class App {
 			for( int i = 0; i < args.length; i++)
 				if( args[i].equalsIgnoreCase( Commons.ARG_PERFORM_ENRICHMENT_WITH_ZSCORES))
 					if( argsInOrder[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()].equals( notSet))
-						argsInOrder[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()] = Commons.PERFORM_ENRICHMENT_WITH_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION;
+						argsInOrder[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()] = Commons.PERFORM_ENRICHMENT_WITH_ZSCORES;
 					else{
 						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 						return false;

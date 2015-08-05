@@ -191,7 +191,7 @@ public class MainView extends JPanel {
 						inputFormatCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
 						performEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
-						performEnrichmentWithZScoresCheckBox.isSelected()?Commons.PERFORM_ENRICHMENT_WITH_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION:Commons.PERFORM_ENRICHMENT_WITHOUT_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION,
+						performEnrichmentWithZScoresCheckBox.isSelected()?Commons.PERFORM_ENRICHMENT_WITH_ZSCORES:Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORES,
 						generateRandomDataModeCombo.getSelectedItem().toString(),
 						multipleTestingCombo.getSelectedItem().toString(),
 						signifanceCriteria.getText(),
