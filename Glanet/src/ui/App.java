@@ -514,18 +514,20 @@ public class App {
 			return false;
 
 		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
-			// parsing perform enrichment with zscores
-			for( int i = 0; i < args.length; i++)
+			// parsing perform enrichment with zScores
+			for( int i = 0; i < args.length; i++){
+				
 				if( args[i].equalsIgnoreCase( Commons.ARG_PERFORM_ENRICHMENT_WITH_ZSCORES))
-					if( argsInOrder[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()].equals( notSet))
-						argsInOrder[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()] = Commons.PERFORM_ENRICHMENT_WITH_ZSCORES;
+					if( argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()].equals( notSet))
+						argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()] = Commons.PERFORM_ENRICHMENT_WITH_ZSCORE;
 					else{
 						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 						return false;
 					}
+				
+			}//End of FOR
 
-		if( !setWithDefaultValueIfNotSet( argsInOrder,
-				CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation))
+		if( !setWithDefaultValueIfNotSet( argsInOrder,CommandLineArguments.PerformEnrichmentWithZScoreDecision))
 			return false;
 
 		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))

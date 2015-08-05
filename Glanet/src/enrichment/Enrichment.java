@@ -8,7 +8,7 @@ package enrichment;
 import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
-import enumtypes.EnrichmentKeepingNumberofOverlapsComingFromEachPermutationType;
+import enumtypes.EnrichmentZScoreType;
 import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
@@ -73,6 +73,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
 import common.Commons;
 
 /**
@@ -7717,7 +7718,7 @@ public class Enrichment {
 		GivenInputDataType givenInputsSNPsorIntervals = GivenInputDataType.convertStringtoEnum( args[CommandLineArguments.GivenInputDataType.value()]);
 
 		// 23 May 2015
-		EnrichmentKeepingNumberofOverlapsComingFromEachPermutationType enrichmentKeepingNumberofOverlapsDecision = EnrichmentKeepingNumberofOverlapsComingFromEachPermutationType.convertStringtoEnum( args[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()]);
+		EnrichmentZScoreType enrichmentZScoreType = EnrichmentZScoreType.convertStringtoEnum(args[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()]);
 
 		// 18 FEB 2015
 		// performEnrichment is not used since GLANETRunner calls
@@ -8216,7 +8217,7 @@ public class Enrichment {
 
 		// Perform Enrichment WITHOUT Keeping Number of Overlaps Coming from Each Permutation starts
 		// Consumes Less Memory
-		if( enrichmentKeepingNumberofOverlapsDecision.isPerformEnrichmentWithoutKeepingNumberofOverlapsComingFromEachPermutationType()){
+		if( enrichmentZScoreType.isPerformEnrichmentWithoutZScore()){
 
 			/**********************************************************************************************/
 			/********************* FOR LOOP FOR RUN NUMBERS STARTS ****************************************/
@@ -8346,7 +8347,7 @@ public class Enrichment {
 
 		// Perform Enrichment WITH Keeping Number of Overlaps Coming from Each Permutation starts
 		// Consumes more memory
-		else if( enrichmentKeepingNumberofOverlapsDecision.isPerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutationType()){
+		else if( enrichmentZScoreType.isPerformEnrichmentWithZScore()){
 
 			/**********************************************************************************************/
 			/********************* FOR LOOP FOR RUN NUMBERS STARTS ****************************************/

@@ -1054,11 +1054,11 @@ public class Commons {
 	// ENRICHMENT KEEPING NUMBER OF OVERLAPS COMING FROM EACH PERMUTATION DECISION
 	// Consumes more memory
 	// PERFORM_ENRICHMENT_WITH_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION
-	public static final String PERFORM_ENRICHMENT_WITH_ZSCORES = "PERFORM_ENRICHMENT_WITH_ZSCORES";
+	public static final String PERFORM_ENRICHMENT_WITH_ZSCORE = "PERFORM_ENRICHMENT_WITH_ZSCORE";
 	
 	// Consumes less memory
 	// PERFORM_ENRICHMENT_WITHOUT_KEEPING_NUMBER_OF_OVERLAPS_COMING_FROM_EACH_PERMUTATION
-	public static final String PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "PERFORM_ENRICHMENT_WITHOUT_ZSCORES";
+	public static final String PERFORM_ENRICHMENT_WITHOUT_ZSCORE = "PERFORM_ENRICHMENT_WITHOUT_ZSCORE";
 
 	// Enumtypes
 	// Write all possible names
@@ -1341,7 +1341,7 @@ public class Commons {
 	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number Of Total Permutations That Will Be Carried Out For Enrichment";
 	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = "Number Of Permutations That Will Be Carried Out In Each Run";
 	public static final String GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION = "DNase Annotation (Cell Line Based)";
-	public static final String GUI_HINT_GENE_ANNOTATION = "Gene Annotation";
+	public static final String GUI_HINT_GENE_ANNOTATION = "RefSeq Gene Annotation";
 	public static final String GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION = "Histone Annotation (Cell Line Based)";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "Transcription Factor Annotation (Cell Line Based)";
 	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";

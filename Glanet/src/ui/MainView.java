@@ -191,7 +191,7 @@ public class MainView extends JPanel {
 						inputFormatCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
 						performEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
-						performEnrichmentWithZScoresCheckBox.isSelected()?Commons.PERFORM_ENRICHMENT_WITH_ZSCORES:Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORES,
+						performEnrichmentWithZScoresCheckBox.isSelected()?Commons.PERFORM_ENRICHMENT_WITH_ZSCORE:Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE,
 						generateRandomDataModeCombo.getSelectedItem().toString(),
 						multipleTestingCombo.getSelectedItem().toString(),
 						signifanceCriteria.getText(),
@@ -401,19 +401,20 @@ public class MainView extends JPanel {
 		// histoneAnnotation added to annotationOptions
 		histoneAnnotation = new JCheckBox( Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION);
 		histoneAnnotation.addItemListener( enableEnrichmentListener);
-		annotationOptions.add( createPanelWithHint( histoneAnnotation,
-				Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION));
+		annotationOptions.add( createPanelWithHint( histoneAnnotation,Commons.GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION));
 
-		// geneAnnotation added to annotationOptions
-		geneAnnotation = new JCheckBox( Commons.GUI_HINT_GENE_ANNOTATION);
-		geneAnnotation.addItemListener( enableEnrichmentListener);
-		annotationOptions.add( createPanelWithHint( geneAnnotation, Commons.GUI_HINT_GENE_ANNOTATION));
-
+		
 		// tfAnnotation added to annotationOptions
 		tfAnnotation = new JCheckBox( Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION);
 		tfAnnotation.addItemListener( enableEnrichmentListener);
 		tfAnnotation.addItemListener( enableRegulatorySequenceAnalysis);
 		annotationOptions.add( createPanelWithHint( tfAnnotation, Commons.GUI_HINT_CELLLINE_BASED_TF_ANNOTATION));
+		
+		// geneAnnotation added to annotationOptions
+		geneAnnotation = new JCheckBox( Commons.GUI_HINT_GENE_ANNOTATION);
+		geneAnnotation.addItemListener( enableEnrichmentListener);
+		annotationOptions.add( createPanelWithHint( geneAnnotation, Commons.GUI_HINT_GENE_ANNOTATION));
+
 
 		// keggPathwayAnnotation added to annotationOptions
 		keggPathwayAnnotation = new JCheckBox( Commons.GUI_HINT_KEGG_PATHWAY_ANNOTATION);
@@ -549,6 +550,7 @@ public class MainView extends JPanel {
 		performEnrichmentPanel.add( performEnrichmentCheckBox);
 
 		performEnrichmentWithZScoresCheckBox = new JCheckBox( "Enrichment With ZScores (requires more memory)");
+		performEnrichmentWithZScoresCheckBox.setSelected(true);
 		performEnrichmentPanel.add( performEnrichmentWithZScoresCheckBox);
 
 		enrichmentPanel.add( performEnrichmentPanel);

@@ -50,7 +50,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 	@Override
 	public void startRunActionsWithOptions( String inputFileName, String inputFileAssembly, String outputFolder,
 			String inputFileFormat, String numberOfBases, String enrichmentEnabled,
-			String enrichmentWithKeeepingNumberofOverlapsFromEachPermutation, String generateRandomDataMode,
+			String enrichmentWithZScoreDecision, String generateRandomDataMode,
 			String multipleTestingChoice, String bonferoniCorrectionSignificanceLevel, String falseDiscoveryRate,
 			String numberOfPermutations, String dnaseEnrichment, String histoneEnrichment, String tfEnrichment,
 			String geneEnrichment, String keggPathwayEnrichment, String tfAndKeggPathwayEnrichment,
@@ -72,7 +72,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.InputFileDataFormat.value()] = inputFileFormat;
 		args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()] = numberOfBases;
 		args[CommandLineArguments.PerformEnrichment.value()] = enrichmentEnabled;
-		args[CommandLineArguments.PerformEnrichmentWithKeepingNumberofOverlapsComingFromEachPermutation.value()] = enrichmentWithKeeepingNumberofOverlapsFromEachPermutation;
+		args[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()] = enrichmentWithZScoreDecision;
 		args[CommandLineArguments.GenerateRandomDataMode.value()] = generateRandomDataMode;
 		args[CommandLineArguments.MultipleTesting.value()] = multipleTestingChoice;
 		args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()] = bonferoniCorrectionSignificanceLevel;
