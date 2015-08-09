@@ -151,32 +151,27 @@ public class GlanetRunner implements Runnable {
 	}
 
 	public static void appendLog( String log) {
-		if( args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE)){
-			if( getMainView() == null)
-				System.out.println( log);
-			else
-				getMainView().appendNewTextToLogArea( log);
-		}
+
+		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+			System.out.println( log);
+		else
+			getMainView().appendNewTextToLogArea( log);
 	}
 
 	public static void appendLog( int log) {
-		
-		if( args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE)){
-			if( getMainView() == null)
-				System.out.println( log);
-			else
-				getMainView().appendNewTextToLogArea( log);
-		}
+
+		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+			System.out.println( log);
+		else
+			getMainView().appendNewTextToLogArea( log);
 	}
 
 	public static void appendLog( float log) {
 
-		if( args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE)){
-			if( getMainView() == null)
-				System.out.println( log);
-			else
-				getMainView().appendNewTextToLogArea( log);
-		}
+		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+			System.out.println( log);
+		else
+			getMainView().appendNewTextToLogArea( log);
 	}
 
 	public static MainView getMainView() {
