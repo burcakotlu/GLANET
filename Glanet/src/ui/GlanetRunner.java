@@ -151,27 +151,32 @@ public class GlanetRunner implements Runnable {
 	}
 
 	public static void appendLog( String log) {
-
-		if( getMainView() == null)
-			System.out.println( log);
-		else
-			getMainView().appendNewTextToLogArea( log);
+		if( args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE)){
+			if( getMainView() == null)
+				System.out.println( log);
+			else
+				getMainView().appendNewTextToLogArea( log);
+		}
 	}
 
 	public static void appendLog( int log) {
-
-		if( getMainView() == null)
-			System.out.println( log);
-		else
-			getMainView().appendNewTextToLogArea( log);
+		
+		if( args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE)){
+			if( getMainView() == null)
+				System.out.println( log);
+			else
+				getMainView().appendNewTextToLogArea( log);
+		}
 	}
 
 	public static void appendLog( float log) {
 
-		if( getMainView() == null)
-			System.out.println( log);
-		else
-			getMainView().appendNewTextToLogArea( log);
+		if( args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE)){
+			if( getMainView() == null)
+				System.out.println( log);
+			else
+				getMainView().appendNewTextToLogArea( log);
+		}
 	}
 
 	public static MainView getMainView() {
