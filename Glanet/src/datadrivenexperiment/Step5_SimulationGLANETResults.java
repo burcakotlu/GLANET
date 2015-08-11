@@ -378,7 +378,7 @@ public class Step5_SimulationGLANETResults {
 
 				}// End of IF EnrichmentDirectory Exists
 
-				enrichmentFileReader = FileOperations.createFileReader( enrichmentFile);
+				enrichmentFileReader = FileOperations.createFileReader(enrichmentFile);
 				enrichmentBufferedReader = new BufferedReader( enrichmentFileReader);
 
 				cellLineFilteredEnrichmentFileWriter = FileOperations.createFileWriter(enrichmentDirectory + System.getProperty( "file.separator") + elementType.convertEnumtoString() + "_" + cellLineName + "_" + Commons.SIMULATION + i + ".txt");
