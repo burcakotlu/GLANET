@@ -88,7 +88,7 @@ public class App {
 
 		// parsing input file location
 		for( int i = 0; i < args.length; i++)
-			if( args[i].equalsIgnoreCase( Commons.ARG_INPUT_FILE))
+			if( args[i].equalsIgnoreCase( Commons.ARG_INPUT_FILE)){
 				if( argsInOrder[CommandLineArguments.InputFileNameWithFolder.value()].equals( notSet)){
 
 					// String inputString = args[i+1];
@@ -113,13 +113,28 @@ public class App {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
+			}
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.InputFileNameWithFolder))
 			return false;
-
+		
+		//parsing debug mode
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase( Commons.ARG_DEBUG_MODE)){
+				if( argsInOrder[CommandLineArguments.DebugMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.DebugMode.value()] = Commons.ARG_DEBUG_MODE;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+		
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.DebugMode))
+			return false;
+		
 		// parsing glanet folder location
 		for( int i = 0; i < args.length; i++)
-			if( args[i].equalsIgnoreCase( Commons.ARG_GLANET_FOLDER))
+			if( args[i].equalsIgnoreCase( Commons.ARG_GLANET_FOLDER)){
 				if( argsInOrder[CommandLineArguments.GlanetFolder.value()].equals( notSet)){
 
 					// String glanetString = args[i+1];
@@ -145,6 +160,7 @@ public class App {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
+			}
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.GlanetFolder))
 			return false;
