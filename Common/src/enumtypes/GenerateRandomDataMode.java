@@ -36,9 +36,9 @@ public enum GenerateRandomDataMode {
 
 	public static GenerateRandomDataMode convertStringtoEnum( String generateRandomDataMode) {
 
-		if( Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT.equals( generateRandomDataMode)){
+		if( Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT.equalsIgnoreCase( generateRandomDataMode)){
 			return GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
-		}else if( Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT.equals( generateRandomDataMode)){
+		}else if( Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT.equalsIgnoreCase( generateRandomDataMode)){
 			return GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
 		}else
 			return null;
