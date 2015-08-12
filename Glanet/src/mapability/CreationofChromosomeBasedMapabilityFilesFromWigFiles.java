@@ -27,6 +27,8 @@ import common.Commons;
 
 public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 
+	final static Logger logger = Logger.getLogger(CreationofChromosomeBasedMapabilityFilesFromWigFiles.class);
+
 	public static void readMapabilityFileWriteChromBasedMapabilityFiles( String dataFolder,
 			TIntObjectMap<BufferedWriter> chromName2BufferedWriterMap) {
 
@@ -73,7 +75,7 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 					}
 
 					if( correspondingBufferedWriter == null){
-						GlanetRunner.loggerError( "No BufferedWriter is possible for this null chrName");
+						if( GlanetRunner.shouldLog())logger.error( "No BufferedWriter is possible for this null chrName");
 					}
 
 				}

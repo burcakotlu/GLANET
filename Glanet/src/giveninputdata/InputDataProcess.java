@@ -38,6 +38,8 @@ import common.Commons;
  */
 public class InputDataProcess {
 
+	final static Logger logger = Logger.getLogger(InputDataProcess.class);
+
 	// for debug purposes
 	static Collection<IntervalTreeNode> nonOverLap( Collection<IntervalTreeNode> bigger,
 			Collection<IntervalTreeNode> smaller) {
@@ -173,10 +175,10 @@ public class InputDataProcess {
 				}// End of if not comment line
 			}// End of WHILE
 
-			GlanetRunner.loggerInfo( "******************************************************************************");
-			GlanetRunner.loggerInfo( "Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
-			GlanetRunner.loggerInfo( "Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
-			GlanetRunner.loggerInfo( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
+			if( GlanetRunner.shouldLog())logger.info( "Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 			/*********************************************************************/
 			/***************** READ GIVEN RSIDs INPUTFILE ends *******************/
 			/*********************************************************************/
@@ -192,7 +194,7 @@ public class InputDataProcess {
 			/************************************************************************************/
 			/*************** NCBI EUTIL EFETCH RESULTS ANALYSIS STARTS ****************************/
 			/************************************************************************************/
-			GlanetRunner.loggerInfo( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 			numberofRsIdsLost = 0;
 
 			for( int i = 0; i < rsIdList.size(); i++){
@@ -204,11 +206,11 @@ public class InputDataProcess {
 					}
 
 				if( !check)
-					GlanetRunner.loggerInfo( "rsId Lost Count: " + ++numberofRsIdsLost + " Given input rsID: " + rsIdList.get( i) + " Not found in the list returned by NCBI EUTIL");
+					if( GlanetRunner.shouldLog())logger.info( "rsId Lost Count: " + ++numberofRsIdsLost + " Given input rsID: " + rsIdList.get( i) + " Not found in the list returned by NCBI EUTIL");
 
 			}// End of FOR
 
-			GlanetRunner.loggerInfo( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 			numberofRsIdsGainedByMerge = 0;
 
@@ -221,25 +223,25 @@ public class InputDataProcess {
 					}
 
 				if( !check)
-					GlanetRunner.loggerInfo( "rsId Gained By Merge Count: " + ++numberofRsIdsGainedByMerge + " NCBI EUTIL returned rsID: " + rsInformationList.get(
+					if( GlanetRunner.shouldLog())logger.info( "rsId Gained By Merge Count: " + ++numberofRsIdsGainedByMerge + " NCBI EUTIL returned rsID: " + rsInformationList.get(
 							i).getRsId() + " Not found in the given rsIDList");
 
 			}// End of FOR
-			GlanetRunner.loggerInfo( "******************************************************************************");
-			GlanetRunner.loggerInfo( "We have " + rsIdList.size() + " rsIds at hand before NCBI EUTIL EFETCH");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "We have " + rsIdList.size() + " rsIds at hand before NCBI EUTIL EFETCH");
 
-			GlanetRunner.loggerInfo( "Number of given rsIds that are lost " + numberofRsIdsLost);
-			GlanetRunner.loggerInfo( "Number of NCBI EUTIL returned rsIds that are gained " + numberofRsIdsGainedByMerge);
+			if( GlanetRunner.shouldLog())logger.info( "Number of given rsIds that are lost " + numberofRsIdsLost);
+			if( GlanetRunner.shouldLog())logger.info( "Number of NCBI EUTIL returned rsIds that are gained " + numberofRsIdsGainedByMerge);
 
-			GlanetRunner.loggerInfo( "Number of given rsIds  does not map to any assembly " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly());
-			GlanetRunner.loggerInfo( "Number of given rsIds  does not return any rsID " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs());
+			if( GlanetRunner.shouldLog())logger.info( "Number of given rsIds  does not map to any assembly " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly());
+			if( GlanetRunner.shouldLog())logger.info( "Number of given rsIds  does not return any rsID " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs());
 
-			GlanetRunner.loggerInfo( "We have " + rsInformationList.size() + " rsIds remained after NCBI EUTIL EFETCH");
+			if( GlanetRunner.shouldLog())logger.info( "We have " + rsInformationList.size() + " rsIds remained after NCBI EUTIL EFETCH");
 
 			numberofRsIdsWeMightHaveLostAfterNCBIEUTILs = numberofRsIdsLost - ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() - ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() - numberofRsIdsGainedByMerge;
 
-			GlanetRunner.loggerInfo( "We might have lost " + numberofRsIdsWeMightHaveLostAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
-			GlanetRunner.loggerInfo( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "We might have lost " + numberofRsIdsWeMightHaveLostAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 			/************************************************************************************/
 			/*************** NCBI EUTIL EFETCH RESULTS ANALYSIS ENDS ******************************/
 			/************************************************************************************/
@@ -278,9 +280,9 @@ public class InputDataProcess {
 
 			numberofLocisInRemapInputFile--;
 
-			GlanetRunner.loggerInfo( "******************************************************************************");
-			GlanetRunner.loggerInfo( "Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
-			GlanetRunner.loggerInfo( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 			/*********************************************************************/
 			/***************** WRITE TO REMAP INPUT FILE ends ********************/
 			/*********************************************************************/
@@ -300,7 +302,7 @@ public class InputDataProcess {
 				// sourceReferenceAssemblyID = "GCF_000001405.26";
 				sourceReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get( sourceAssemblyName);
 			}else{
-				GlanetRunner.loggerError( Commons.THERE_IS_A_SITUATION + " sourceAssemblyName is " + sourceAssemblyName);
+				if( GlanetRunner.shouldLog())logger.error( Commons.THERE_IS_A_SITUATION + " sourceAssemblyName is " + sourceAssemblyName);
 			}
 
 			// targetReferenceAssemblyID = "GCF_000001405.25";
@@ -322,7 +324,7 @@ public class InputDataProcess {
 			// outputFolder +
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
 
-			GlanetRunner.loggerInfo( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 			Remap.remap(
 					dataFolder,
@@ -345,7 +347,7 @@ public class InputDataProcess {
 					lineNumber2SourceGenomicLociMap, lineNumber2SourceInformationMap, lineNumber2TargetGenomicLociMap,
 					headerLine);
 
-			GlanetRunner.loggerInfo( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 			// Write
 			// rsId_chrNameStartEndLatestAssembly_chrNameStartEndGRCh37p13Assembly_File
@@ -364,10 +366,10 @@ public class InputDataProcess {
 			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.close();
 
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( Exception e){
 
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -445,7 +447,7 @@ public class InputDataProcess {
 			bufferedReader.close();
 
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 		// @todo remove overlaps if any exists
@@ -528,7 +530,7 @@ public class InputDataProcess {
 			bufferedReader.close();
 
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -677,7 +679,7 @@ public class InputDataProcess {
 			bufferedReader.close();
 
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 	}
 
@@ -826,7 +828,7 @@ public class InputDataProcess {
 			bufferedReader.close();
 
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}

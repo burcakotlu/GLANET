@@ -52,6 +52,8 @@ import gnu.trove.map.hash.TLongObjectHashMap;
 
 public class CollectionofPermutationsResults {
 
+	final static Logger logger = Logger.getLogger(CollectionofPermutationsResults.class);
+
 	public static void writeResultsWRTZScorestoOutputFiles( 
 			String outputFolder, 
 			String fileName, 
@@ -689,8 +691,8 @@ public class CollectionofPermutationsResults {
 
 					// debug starts
 					if( mixedNumber < 0){
-						GlanetRunner.loggerError( "There is a situation 1");
-						GlanetRunner.loggerError( mixedNumber);
+						if( GlanetRunner.shouldLog())logger.error( "There is a situation 1");
+						if( GlanetRunner.shouldLog())logger.error( mixedNumber);
 					}
 					// debug ends
 
@@ -720,7 +722,7 @@ public class CollectionofPermutationsResults {
 					// For Control Purposes
 					// originalNumberofOverlaps coming from other run results
 					else if( elementNumber2OriginalNumberofOverlaps.get( mixedNumber) != originalNumberofOverlaps){
-						GlanetRunner.loggerError( "There is a situation: Original Number of Overlaps differ");
+						if( GlanetRunner.shouldLog())logger.error( "There is a situation: Original Number of Overlaps differ");
 					}
 
 					indexofFormerComma = indexofPipe;

@@ -16,6 +16,8 @@ import ui.GlanetRunner;
  */
 public class BonferroniCorrection {
 
+	final static Logger logger = Logger.getLogger(BonferroniCorrection.class);
+
 	// 22 May 2015
 	// zScore version
 	public static void calculateBonferroniCorrectedPValueCalculatedFromZScore(
@@ -64,7 +66,7 @@ public class BonferroniCorrection {
 			empiricalPValue = ( element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() * 1.0f) / element.getNumberofPermutations();
 
 			if( !element.getEmpiricalPValue().equals( empiricalPValue)){
-				GlanetRunner.loggerError( "There is a situation: EmpiricalPValues are not equal.");
+				if( GlanetRunner.shouldLog())logger.error( "There is a situation: EmpiricalPValues are not equal.");
 			}
 			// For control purposes ends
 

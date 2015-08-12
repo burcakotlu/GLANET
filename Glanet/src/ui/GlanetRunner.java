@@ -20,7 +20,6 @@ public class GlanetRunner implements Runnable {
 
 	private static String args[];
 	private static MainView mainView;
-	private static Logger logger = null;
 	@Override
 	public void run() {
 
@@ -194,41 +193,14 @@ public class GlanetRunner implements Runnable {
 			
 			GlanetRunner.args[i] = args[i];
 		}
-		
-		if( GlanetRunner.args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE)){
-			
-			GlanetRunner.logger = Logger.getLogger(GlanetRunner.class);
-		}else{
-			
-			if (GlanetRunner.logger != null)
-				GlanetRunner.logger.removeAllAppenders();
-			
-			GlanetRunner.logger = null;
-		}
 	}
 	
-	public static void loggerInfo( Object message){
+	public static boolean shouldLog(){
 		
-		if( GlanetRunner.logger != null)
-			GlanetRunner.logger.info(message);
-	}
-	
-	public static void loggerError( Object message){
+		if( GlanetRunner.args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+			return true;
 		
-		if( GlanetRunner.logger != null)
-			GlanetRunner.logger.error(message);
-	}
-	
-	public static void loggerWarn( Object message){
-		
-		if( GlanetRunner.logger != null)
-			GlanetRunner.logger.warn(message);
-	}
-	
-	public static void loggerDebug( Object message){
-		
-		if( GlanetRunner.logger != null)
-			GlanetRunner.logger.debug(message);
+		return false;
 	}
 	
 	public static void setCurrentProcessInfo( String processInfo) {

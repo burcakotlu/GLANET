@@ -53,6 +53,8 @@ import common.Commons;
  */
 public class AugmentationofGivenRsIdwithInformation {
 
+	final static Logger logger = Logger.getLogger(AugmentationofGivenRsIdwithInformation.class);
+
 	private Unmarshaller unmarshaller;
 	// private static gov.nih.nlm.ncbi.snp.docsum.ObjectFactory
 	// _fool_javac=null;
@@ -278,7 +280,7 @@ public class AugmentationofGivenRsIdwithInformation {
 							ncbiEutilStatistics.setNumberofRsIDsDoesNotMapToAnyAssembly( ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + 1);
 
 							// Declare rsIDs that does not map to any assembly
-							GlanetRunner.loggerInfo( "rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
+							if( GlanetRunner.shouldLog())logger.info( "rsId does not map to any assembly Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() + " --- rs" + rs.getRsId() + " in the given list doesn't map to any assembly. Since It's assembly group label is null");
 
 						}
 
@@ -286,7 +288,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 				}catch( JAXBException e){
 					// e.printStackTrace();
-					GlanetRunner.loggerError( e.toString());
+					if( GlanetRunner.shouldLog())logger.error( e.toString());
 
 				}catch( NumberFormatException e){
 					// e.printStackTrace();
@@ -304,7 +306,7 @@ public class AugmentationofGivenRsIdwithInformation {
 								indexofCommaAfterProblemRSID);
 					}
 
-					GlanetRunner.loggerInfo( e.toString() + " for " + problemRsId);
+					if( GlanetRunner.shouldLog())logger.info( e.toString() + " for " + problemRsId);
 
 					problemRsInformation = getInformationforGivenRsId( problemRsId);
 
@@ -327,20 +329,20 @@ public class AugmentationofGivenRsIdwithInformation {
 
 				// Declare no information is gathered for a rsID in the given
 				// commaSeparatedRsIdList
-				GlanetRunner.loggerInfo( "rsId that does not return any rsID Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");
+				if( GlanetRunner.shouldLog())logger.info( "rsId that does not return any rsID Count: " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() + " No information is gathered for a rsID in the given commaSeparatedRsIdList");
 
 			}
 
 			reader.close();
 
 		}catch( XMLStreamException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( ClientProtocolException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( URISyntaxException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 		return rsInformationList;
@@ -531,7 +533,7 @@ public class AugmentationofGivenRsIdwithInformation {
 					// Means that given rsId is a merged rsID
 					// Valid rsID is returned rsId
 					if( Integer.parseInt( rsId) != rs.getRsId()){
-						GlanetRunner.loggerDebug( "Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + " are not equal. So given rsId is merged");
+						if( GlanetRunner.shouldLog())logger.debug( "Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + " are not equal. So given rsId is merged");
 						return null;
 					}
 
@@ -587,7 +589,7 @@ public class AugmentationofGivenRsIdwithInformation {
 					}// End of for Assembly
 				}catch( NumberFormatException e){
 					// e.printStackTrace();
-					GlanetRunner.loggerError( e.toString());
+					if( GlanetRunner.shouldLog())logger.error( e.toString());
 				}
 
 			}// End of while
@@ -596,11 +598,11 @@ public class AugmentationofGivenRsIdwithInformation {
 
 		}catch( XMLStreamException e){
 			// e.printStackTrace();
-			GlanetRunner.loggerError( e.toString() + " for " + rsId);
+			if( GlanetRunner.shouldLog())logger.error( e.toString() + " for " + rsId);
 
 		}catch( JAXBException e){
 			// e.printStackTrace();
-			GlanetRunner.loggerError( e.toString() + " for " + rsId);
+			if( GlanetRunner.shouldLog())logger.error( e.toString() + " for " + rsId);
 
 		}catch( UnsupportedEncodingException e1){
 			// TODO Auto-generated catch block

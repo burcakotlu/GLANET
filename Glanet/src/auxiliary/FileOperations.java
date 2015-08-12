@@ -34,6 +34,8 @@ import gnu.trove.map.TShortObjectMap;
 
 public class FileOperations {
 
+	final static Logger logger = Logger.getLogger(FileOperations.class);
+
 	// 15 DEC 2014
 	public static void createFolder( String path) {
 
@@ -156,7 +158,7 @@ public class FileOperations {
 
 		// if(folder.isFile() && folder.getName()!=Commons.GLANET_LOG_FILE){
 		if( folder.isFile()){
-			GlanetRunner.loggerDebug( "Deleting " + folder.getAbsolutePath());
+			if( GlanetRunner.shouldLog())logger.debug( "Deleting " + folder.getAbsolutePath());
 			folder.delete();
 		}else if( folder.isDirectory()){
 			File[] files = folder.listFiles();
@@ -193,9 +195,9 @@ public class FileOperations {
 		File file = new File( outputFolder + fileName);
 
 		if( file.delete()){
-			GlanetRunner.loggerDebug( file.getName() + " is deleted!");
+			if( GlanetRunner.shouldLog())logger.debug( file.getName() + " is deleted!");
 		}else{
-			GlanetRunner.loggerError( "Delete operation is failed.");
+			if( GlanetRunner.shouldLog())logger.error( "Delete operation is failed.");
 		}
 
 	}
@@ -973,9 +975,9 @@ public class FileOperations {
 
 			}// End of While
 
-			GlanetRunner.loggerInfo( "******************************************************************************");
-			GlanetRunner.loggerInfo( "Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
-			GlanetRunner.loggerInfo( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "Number of given input lines ready for GLANET execution: " + numberofProcessedInputLinesForGLANET);
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 			// Close bufferedReader and bufferedWriter
 			bufferedReader.close();

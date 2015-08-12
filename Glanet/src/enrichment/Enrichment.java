@@ -81,6 +81,8 @@ import common.Commons;
  */
 public class Enrichment {
 
+	final static Logger logger = Logger.getLogger(Enrichment.class);
+
 	// Static Nested Class starts
 	static class GenerateRandomData extends RecursiveTask<TIntObjectMap<List<InputLineMinimal>>> {
 
@@ -281,7 +283,7 @@ public class Enrichment {
 				bufferedWriter.close();
 
 			}catch( IOException e){
-				GlanetRunner.loggerError( e.toString());
+				if( GlanetRunner.shouldLog())logger.error( e.toString());
 			}
 
 		}
@@ -2570,7 +2572,7 @@ public class Enrichment {
 		int high;
 
 		GlanetRunner.appendLog( "Input data file name is: " + inputFileName);
-		GlanetRunner.loggerInfo( "Input data file name is: " + inputFileName);
+		if( GlanetRunner.shouldLog())logger.info( "Input data file name is: " + inputFileName);
 
 		try{
 			fileReader = new FileReader( inputFileName);
@@ -2596,9 +2598,9 @@ public class Enrichment {
 
 			}
 		}catch( FileNotFoundException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -2932,7 +2934,7 @@ public class Enrichment {
 				bufferedWriter.close();
 			}
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -2947,7 +2949,7 @@ public class Enrichment {
 				bufferedWriter.close();
 			}
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -2998,7 +3000,7 @@ public class Enrichment {
 				bufferedWriter.write( numberofOverlaps + System.getProperty( "line.separator"));
 				bufferedWriter.close();
 			}catch( IOException e){
-				GlanetRunner.loggerError( e.toString());
+				if( GlanetRunner.shouldLog())logger.error( e.toString());
 			}
 		}// End of for
 
@@ -3062,7 +3064,7 @@ public class Enrichment {
 
 				bufferedWriter.close();
 			}catch( IOException e){
-				GlanetRunner.loggerError( e.toString());
+				if( GlanetRunner.shouldLog())logger.error( e.toString());
 			}
 		}// End of for
 
@@ -3123,7 +3125,7 @@ public class Enrichment {
 				bufferedWriter.write( numberofOverlaps + System.getProperty( "line.separator"));
 				bufferedWriter.close();
 			}catch( IOException e){
-				GlanetRunner.loggerError( e.toString());
+				if( GlanetRunner.shouldLog())logger.error( e.toString());
 			}
 		}// End of for
 
@@ -3250,7 +3252,7 @@ public class Enrichment {
 
 				bufferedWriter.close();
 			}catch( IOException e){
-				GlanetRunner.loggerError( e.toString());
+				if( GlanetRunner.shouldLog())logger.error( e.toString());
 			}
 		}// End of for
 
@@ -3967,7 +3969,7 @@ public class Enrichment {
 		startTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
 		GlanetRunner.appendLog( "Run Number: " + runNumber);
-		GlanetRunner.loggerInfo( "Run Number: " + runNumber);
+		if( GlanetRunner.shouldLog())logger.info( "Run Number: " + runNumber);
 
 		/********************************************************************************************************/
 		/****************************** GENERATE PERMUTATION NUMBER LIST STARTS *********************************/
@@ -3975,7 +3977,7 @@ public class Enrichment {
 		permutationNumberList = new TIntArrayList();
 
 		GlanetRunner.appendLog( "PermutationNumberList is filled.");
-		GlanetRunner.loggerInfo( "PermutationNumberList is filled.");
+		if( GlanetRunner.shouldLog())logger.info( "PermutationNumberList is filled.");
 		fillPermutationNumberList( permutationNumberList, runNumber, numberofPermutationsinThisRun,
 				numberofPermutationsinEachRun);
 		/********************************************************************************************************/
@@ -4036,7 +4038,7 @@ public class Enrichment {
 			chromSize = hg19ChromosomeSizes.get( chrNumber - 1);
 
 			GlanetRunner.appendLog( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
-			GlanetRunner.loggerInfo( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
+			if( GlanetRunner.shouldLog())logger.info( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 
 			chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
 
@@ -4049,7 +4051,7 @@ public class Enrichment {
 				if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 
 					GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
-					GlanetRunner.loggerInfo("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					if( GlanetRunner.shouldLog())logger.info("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
 
 					startTimeFillingList = System.currentTimeMillis();
 
@@ -4127,7 +4129,7 @@ public class Enrichment {
 					endTimeFillingList = System.currentTimeMillis();
 
 					GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
-					GlanetRunner.loggerInfo("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
+					if( GlanetRunner.shouldLog())logger.info("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
 
 				}// Generate Random Data WITH GC and Mapability
 				/*******************************************************************************************************************************/
@@ -4140,7 +4142,7 @@ public class Enrichment {
 				startTimeGenerateRandomDataForEachChromosome = System.currentTimeMillis() ;
 				
 				GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has started.");
-				GlanetRunner.loggerInfo("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has started.");
+				if( GlanetRunner.shouldLog())logger.info("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has started.");
 				// First generate Random Data
 				generateRandomData = new GenerateRandomData( outputFolder, chromSize, chromName,
 						chromosomeBaseOriginalInputLines, generateRandomDataMode, writeGeneratedRandomDataMode,
@@ -4154,7 +4156,7 @@ public class Enrichment {
 				endTimeGenerateRandomDataForEachChromosome = System.currentTimeMillis();
 				
 				GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations took " + ( float)( ( endTimeGenerateRandomDataForEachChromosome - startTimeGenerateRandomDataForEachChromosome) / 1000) + " seconds.");
-				GlanetRunner.loggerInfo("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations took " + ( float)( ( endTimeGenerateRandomDataForEachChromosome - startTimeGenerateRandomDataForEachChromosome) / 1000) + " seconds.");
+				if( GlanetRunner.shouldLog())logger.info("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations took " + ( float)( ( endTimeGenerateRandomDataForEachChromosome - startTimeGenerateRandomDataForEachChromosome) / 1000) + " seconds.");
 				/********************************************************************************************************/
 				/*************************** GENERATE RANDOM DATA FOR EACH CHROMOSOME ENDS ******************************/
 				/********************************************************************************************************/
@@ -4192,7 +4194,7 @@ public class Enrichment {
 		endTimeGenerateRandomData = System.currentTimeMillis();
 
 		GlanetRunner.appendLog( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
-		GlanetRunner.loggerInfo( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+		if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
 		/******************************************************************************************************/
 		/*********************FILL ALL NECCESSARY DATA STRUCTURES ENDS*****************************************/
 		/******************************************************************************************************/
@@ -4215,7 +4217,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "DNase Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo( "DNase Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info( "DNase Annotation of Permutations has started.");
 
 			// TLinkable<IntervalTree> dnaseIntervalTreeList = null;
 			TIntObjectMap<IntervalTree> dnaseIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -4292,15 +4294,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog( "DNase Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo( "DNase Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info( "DNase Annotation of Permutations has ended.");
 			
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + " DNase Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + " DNase Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + " DNase Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 
 		}// End of IF DO DNase Annotation
@@ -4316,7 +4318,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "Transcription Factor Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo( "Transcription Factor Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info( "Transcription Factor Annotation of Permutations has started.");
 
 			// TLinkable<IntervalTree> dnaseIntervalTreeList = null;
 			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -4392,15 +4394,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog( "Transcription Factor Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo( "Transcription Factor Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info( "Transcription Factor Annotation of Permutations has ended.");
 			
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + " TF Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + " TF Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + " TF Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 		}// End of IF DO TF Annotation
 		/********************************************************************************************************/
@@ -4416,7 +4418,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog("Histone Modifications Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo( "Histone Modifications Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info( "Histone Modifications Annotation of Permutations has started.");
 
 			TIntObjectMap<IntervalTree> histoneIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 
@@ -4491,15 +4493,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog("Histone Modifications Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo("Histone Modifications Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info("Histone Modifications Annotation of Permutations has ended.");
 
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + "Histone Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + "Histone Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + "Histone Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 		}// End of IF DO HISTONE Annotation
 		/********************************************************************************************************/
@@ -4514,7 +4516,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog("KEGG Pathway Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo("KEGG Pathway  Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info("KEGG Pathway  Annotation of Permutations has started.");
 
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 
@@ -4624,15 +4626,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog("KEGG Pathway Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo("KEGG Pathway Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info("KEGG Pathway Annotation of Permutations has ended.");
 
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + "KEGG Pathway of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + "KEGG Pathway of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + "KEGG Pathway of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 		}// End of IF DO KEGG Pathway Annotation
 		/********************************************************************************************************/
@@ -4648,7 +4650,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog("User Defined GeneSet Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo("User Defined GeneSet Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info("User Defined GeneSet Annotation of Permutations has started.");
 
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 
@@ -4758,15 +4760,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog("User Defined GeneSet Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo("User Defined GeneSet Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info("User Defined GeneSet Annotation of Permutations has ended.");
 
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + "User Defined GeneSet of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + "User Defined GeneSet of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + "User Defined GeneSet of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 		}// End of IF DO User Defined GeneSet Annotation
 		/********************************************************************************************************/
@@ -4792,7 +4794,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog("User Defined Library Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo("User Defined Library Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info("User Defined Library Annotation of Permutations has started.");
 
 			TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap = new TIntObjectHashMap<TIntObjectMap<IntervalTree>>();
 			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap = null;
@@ -4962,15 +4964,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog("User Defined Library Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo("User Defined Library Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info("User Defined Library Annotation of Permutations has ended.");
 
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + "User Defined Library of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + "User Defined Library of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + "User Defined Library of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 		}
 		/********************************************************************************************************/
@@ -4987,7 +4989,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog("TF KEGGPathway Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo("TF KEGGPathway Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info("TF KEGGPathway Annotation of Permutations has started.");
 
 			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -5179,15 +5181,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog("TF KEGGPathway Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo("TF KEGGPathway Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info("TF KEGGPathway Annotation of Permutations has ended.");
 
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + "TF KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + "TF KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + "TF KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 		}
 		/********************************************************************************************************/
@@ -5202,7 +5204,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog("TF CellLine KEGGPathway Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo("TF CellLine KEGGPathway Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info("TF CellLine KEGGPathway Annotation of Permutations has started.");
 
 			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -5388,15 +5390,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog("TF CellLine KEGGPathway Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo("TF CellLine KEGGPathway Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info("TF CellLine KEGGPathway Annotation of Permutations has ended.");
 
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + "TF CellLine KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + "TF CellLine KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + "TF CellLine KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 		}// End of IF DO TF CellLine KEGGPathway Annotation
 		/********************************************************************************************************/
@@ -5414,7 +5416,7 @@ public class Enrichment {
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Permutations has started.");
-			GlanetRunner.loggerInfo("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog())logger.info("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Permutations has started.");
 
 			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -5656,15 +5658,15 @@ public class Enrichment {
 			System.runFinalization();
 
 			GlanetRunner.appendLog("BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of Permutations has ended.");
-			GlanetRunner.loggerInfo("BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog())logger.info("BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of Permutations has ended.");
 
 			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
 			GlanetRunner.appendLog( "RunNumber: " + runNumber + "BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
 			GlanetRunner.appendLog( "******************************************************************************************");
 
-			GlanetRunner.loggerInfo( "RunNumber: " + runNumber + "BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
-			GlanetRunner.loggerInfo( "******************************************************************************************");
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + "BOTH TF KEGGPathway and TF CellLine KEGGPathway Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 		}// End of IF DO TF CellLine KEGGPathway Annotation
 		
@@ -5700,13 +5702,13 @@ public class Enrichment {
 
 		if( pool.isTerminated()){
 			GlanetRunner.appendLog( "ForkJoinPool is terminated ");
-			GlanetRunner.loggerInfo( "ForkJoinPool is terminated ");
+			if( GlanetRunner.shouldLog())logger.info( "ForkJoinPool is terminated ");
 		}
 
 		endTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
 		GlanetRunner.appendLog( "RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + ( float)( ( endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes) / 1000) + " seconds.");
-		GlanetRunner.loggerInfo( "RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + ( float)( ( endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes) / 1000) + " seconds.");
+		if( GlanetRunner.shouldLog())logger.info( "RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + ( float)( ( endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes) / 1000) + " seconds.");
 
 		/*************************************************************************************************************************/
 		/********************** Make null starts**********************************************************************************/
@@ -5909,7 +5911,7 @@ public class Enrichment {
 		startTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
 		GlanetRunner.appendLog( "Run Number: " + runNumber);
-		GlanetRunner.loggerInfo( "Run Number: " + runNumber);
+		if( GlanetRunner.shouldLog())logger.info( "Run Number: " + runNumber);
 
 		/********************************************************************************************************/
 		/****************************** GENERATE PERMUTATION NUMBER LIST STARTS *********************************/
@@ -5917,7 +5919,7 @@ public class Enrichment {
 		permutationNumberList = new TIntArrayList();
 
 		GlanetRunner.appendLog( "PermutationNumberList is filled.");
-		GlanetRunner.loggerInfo( "PermutationNumberList is filled.");
+		if( GlanetRunner.shouldLog())logger.info( "PermutationNumberList is filled.");
 		fillPermutationNumberList( permutationNumberList, runNumber, numberofPermutationsinThisRun,
 				numberofPermutationsinEachRun);
 		/********************************************************************************************************/
@@ -5944,7 +5946,7 @@ public class Enrichment {
 			chromSize = hg19ChromosomeSizes.get( i - 1);
 
 			GlanetRunner.appendLog( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
-			GlanetRunner.loggerInfo( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
+			if( GlanetRunner.shouldLog())logger.info( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 
 			chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
 
@@ -5999,7 +6001,7 @@ public class Enrichment {
 				if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 
 					GlanetRunner.appendLog( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
-					GlanetRunner.loggerInfo( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
+					if( GlanetRunner.shouldLog())logger.info( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
 
 					startTimeFillingList = System.currentTimeMillis();
 
@@ -6076,7 +6078,7 @@ public class Enrichment {
 					endTimeFillingList = System.currentTimeMillis();
 
 					GlanetRunner.appendLog( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
-					GlanetRunner.loggerInfo( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
+					if( GlanetRunner.shouldLog())logger.info( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
 
 				}
 				/*******************************************************************************************************************************/
@@ -6087,7 +6089,7 @@ public class Enrichment {
 				/********************************** GENERATE RANDOM DATA STARTS *****************************************/
 				/********************************************************************************************************/
 				GlanetRunner.appendLog( "Generate Random Data for permutations has started.");
-				GlanetRunner.loggerInfo( "Generate Random Data for permutations has started.");
+				if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for permutations has started.");
 				// First generate Random Data
 
 				startTimeGenerateRandomData = System.currentTimeMillis();
@@ -6127,14 +6129,14 @@ public class Enrichment {
 				// averageNumberofTrialsForAllPermutation =
 				// averageNumberofTrialsForAllPermutation/permutationNumber2RandomlyGeneratedDataHashMap.size();
 				//
-				// GlanetRunner.loggerInfo("averageNumberofTrialsForAllPermutation" + "\t" +
+				// if( GlanetRunner.shouldLog())logger.info("averageNumberofTrialsForAllPermutation" + "\t" +
 				// averageNumberofTrialsForAllPermutation);
 				// //For testing average number of trials mapabilityByteList versus mapabilityShortList ends
 
 				endTimeGenerateRandomData = System.currentTimeMillis();
 
 				GlanetRunner.appendLog( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
-				GlanetRunner.loggerInfo( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+				if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
 				/********************************************************************************************************/
 				/********************************** GENERATE RANDOM DATA ENDS *****************************************/
 				/******************************************************************************************************/
@@ -6176,7 +6178,7 @@ public class Enrichment {
 				/***************************** ANNOTATE PERMUTATIONS STARTS *********************************************/
 				/********************************************************************************************************/
 				GlanetRunner.appendLog( "Annotation of Permutations has started.");
-				GlanetRunner.loggerInfo( "Annotation of Permutations has started.");
+				if( GlanetRunner.shouldLog())logger.info( "Annotation of Permutations has started.");
 
 				startTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 
@@ -6570,7 +6572,7 @@ public class Enrichment {
 				endTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 
 				GlanetRunner.appendLog( "Annotation of Permutations has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
-				GlanetRunner.loggerInfo( "Annotation of Permutations has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
+				if( GlanetRunner.shouldLog())logger.info( "Annotation of Permutations has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
 				/********************************************************************************************************/
 				/***************************** ANNOTATE PERMUTATIONS ENDS ***********************************************/
 				/********************************************************************************************************/
@@ -6579,8 +6581,8 @@ public class Enrichment {
 				GlanetRunner.appendLog( "RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + ( float)( ( endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
 				GlanetRunner.appendLog( "******************************************************************************************");
 
-				GlanetRunner.loggerInfo( "RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + ( float)( ( endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
-				GlanetRunner.loggerInfo( "******************************************************************************************");
+				if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + ( float)( ( endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
+				if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 				permutationNumber2RandomlyGeneratedDataHashMap.clear();
 				permutationNumber2RandomlyGeneratedDataHashMap = null;
@@ -6607,13 +6609,13 @@ public class Enrichment {
 
 		if( pool.isTerminated()){
 			GlanetRunner.appendLog( "ForkJoinPool is terminated ");
-			GlanetRunner.loggerInfo( "ForkJoinPool is terminated ");
+			if( GlanetRunner.shouldLog())logger.info( "ForkJoinPool is terminated ");
 		}
 
 		endTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
 		GlanetRunner.appendLog( "RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + ( float)( ( endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes) / 1000) + " seconds.");
-		GlanetRunner.loggerInfo( "RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + ( float)( ( endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes) / 1000) + " seconds.");
+		if( GlanetRunner.shouldLog())logger.info( "RUN_NUMBER: " + runNumber + " NUMBER_OF_PERMUTATIONS:  " + numberofPermutationsinThisRun + " took " + ( float)( ( endTimeAllPermutationsAllChromosomes - startTimeAllPermutationsAllChromosomes) / 1000) + " seconds.");
 
 		/*************************************************************************************************************************/
 		/***************************************** CONVERT starts*****************************************************************/
@@ -7492,7 +7494,7 @@ public class Enrichment {
 			bufferedWriter.close();
 		}catch( IOException e){
 
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -7542,17 +7544,17 @@ public class Enrichment {
 			bufferedWriter.close();
 		}catch( IOException e){
 
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
 
 	public static void writeJavaRunTimeMemoryInformation() {
 
-		GlanetRunner.loggerInfo( "Java runtime max memory: " + ( java.lang.Runtime.getRuntime().maxMemory() / Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
-		GlanetRunner.loggerInfo( "Java runtime total memory: " + ( java.lang.Runtime.getRuntime().totalMemory() / Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
-		GlanetRunner.loggerInfo( "Java runtime free memory: " + ( java.lang.Runtime.getRuntime().freeMemory() / Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
-		GlanetRunner.loggerInfo( "Java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors());
+		if( GlanetRunner.shouldLog())logger.info( "Java runtime max memory: " + ( java.lang.Runtime.getRuntime().maxMemory() / Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
+		if( GlanetRunner.shouldLog())logger.info( "Java runtime total memory: " + ( java.lang.Runtime.getRuntime().totalMemory() / Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
+		if( GlanetRunner.shouldLog())logger.info( "Java runtime free memory: " + ( java.lang.Runtime.getRuntime().freeMemory() / Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE) + "\t" + "MBs");
+		if( GlanetRunner.shouldLog())logger.info( "Java runtime available processors: " + java.lang.Runtime.getRuntime().availableProcessors());
 
 	}
 
@@ -7648,7 +7650,7 @@ public class Enrichment {
 		/***********************************************************************************/
 		/**************Memory Usage Before Enrichment***************************************/
 		/***********************************************************************************/
-		// GlanetRunner.loggerInfo("Memory Used Before Enrichment" + "\t" +
+		// if( GlanetRunner.shouldLog())logger.info("Memory Used Before Enrichment" + "\t" +
 		// ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE)
 		// + "\t" + "MBs");
 		/***********************************************************************************/
@@ -8222,7 +8224,7 @@ public class Enrichment {
 			for( int runNumber = 1; runNumber <= numberofRuns; runNumber++){
 
 				GlanetRunner.appendLog( "**************	" + runNumber + ". Run" + "	******************	starts");
-				GlanetRunner.loggerInfo( "**************	" + runNumber + ". Run" + "	******************	starts");
+				if( GlanetRunner.shouldLog())logger.info( "**************	" + runNumber + ". Run" + "	******************	starts");
 
 				runName = jobName + "_" + Commons.RUN + runNumber;
 
@@ -8230,7 +8232,7 @@ public class Enrichment {
 				/************************** ANNOTATE PERMUTATIONS STARTS ***************************************/
 				/***********************************************************************************************/
 				GlanetRunner.appendLog( "Concurrent programming has started.");
-				GlanetRunner.loggerInfo( "Concurrent programming has started.");
+				if( GlanetRunner.shouldLog())logger.info( "Concurrent programming has started.");
 
 				// Concurrent Programming
 				// First Generate Random Data for all permutations
@@ -8327,13 +8329,13 @@ public class Enrichment {
 				}
 
 				GlanetRunner.appendLog( "Concurrent programming has ended.");
-				GlanetRunner.loggerInfo( "Concurrent programming has ended.");
+				if( GlanetRunner.shouldLog())logger.info( "Concurrent programming has ended.");
 				/**********************************************************************************************/
 				/************************** ANNOTATE PERMUTATIONS ENDS ****************************************/
 				/**********************************************************************************************/
 
 				GlanetRunner.appendLog( "**************	" + runNumber + ". Run" + "	******************	ends");
-				GlanetRunner.loggerInfo( "**************	" + runNumber + ". Run" + "	******************	ends");
+				if( GlanetRunner.shouldLog())logger.info( "**************	" + runNumber + ". Run" + "	******************	ends");
 
 			}// End of FOR each run number
 			/*********************************************************************************************/
@@ -8352,7 +8354,7 @@ public class Enrichment {
 			for( int runNumber = 1; runNumber <= numberofRuns; runNumber++){
 
 				GlanetRunner.appendLog( "**************	" + runNumber + ". Run" + "	******************	starts");
-				GlanetRunner.loggerInfo( "**************	" + runNumber + ". Run" + "	******************	starts");
+				if( GlanetRunner.shouldLog())logger.info( "**************	" + runNumber + ". Run" + "	******************	starts");
 
 				runName = jobName + "_" + Commons.RUN + runNumber;
 
@@ -8515,7 +8517,7 @@ public class Enrichment {
 				/************************** ANNOTATE PERMUTATIONS STARTS ***************************************/
 				/***********************************************************************************************/
 				GlanetRunner.appendLog( "Concurrent programming has started.");
-				GlanetRunner.loggerInfo( "Concurrent programming has started.");
+				if( GlanetRunner.shouldLog())logger.info( "Concurrent programming has started.");
 				// Concurrent Programming
 				// First Generate Random Data for all permutations
 				// Then Annotate Permutations (Random Data) concurrently
@@ -8591,7 +8593,7 @@ public class Enrichment {
 							userDefinedLibraryElementTypeNumber2NameMap);
 				}
 				GlanetRunner.appendLog( "Concurrent programming has ended.");
-				GlanetRunner.loggerInfo( "Concurrent programming has ended.");
+				if( GlanetRunner.shouldLog())logger.info( "Concurrent programming has ended.");
 				/**********************************************************************************************/
 				/************************** ANNOTATE PERMUTATIONS ENDS ****************************************/
 				/**********************************************************************************************/
@@ -8825,7 +8827,7 @@ public class Enrichment {
 				/***********************************************************************************************/
 
 				GlanetRunner.appendLog( "**************	" + runNumber + ". Run" + "	******************	ends");
-				GlanetRunner.loggerInfo( "**************	" + runNumber + ". Run" + "	******************	ends");
+				if( GlanetRunner.shouldLog())logger.info( "**************	" + runNumber + ". Run" + "	******************	ends");
 
 			}// End of FOR each run number
 			/*********************************************************************************************/
@@ -8895,7 +8897,7 @@ public class Enrichment {
 		/***********************************************************************************/
 		/**************Memory Usage After Enrichment****************************************/
 		/***********************************************************************************/
-		// GlanetRunner.loggerInfo("Memory Used After Enrichment" + "\t" +
+		// if( GlanetRunner.shouldLog())logger.info("Memory Used After Enrichment" + "\t" +
 		// ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE)
 		// + "\t" + "MBs");
 		/***********************************************************************************/

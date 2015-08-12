@@ -33,6 +33,8 @@ import enumtypes.NodeType;
 
 public class InputDataRemoveOverlaps {
 
+	final static Logger logger = Logger.getLogger(InputDataRemoveOverlaps.class);
+
 	public static IntervalTreeNode mergeIntervals( IntervalTreeNode node1, IntervalTreeNode node2) {
 
 		if( node2.getLow() < node1.getLow()){
@@ -319,16 +321,16 @@ public class InputDataRemoveOverlaps {
 
 	public static void writeGLANETRunTimeArguments( String[] args) {
 
-		GlanetRunner.loggerInfo( "*****************************************************************");
-		GlanetRunner.loggerInfo( "GLANET Parameters starts");
+		if( GlanetRunner.shouldLog())logger.info( "*****************************************************************");
+		if( GlanetRunner.shouldLog())logger.info( "GLANET Parameters starts");
 
 		// Write GLANET Arguments
 		for( int i = 0; i < args.length; i++){
-			GlanetRunner.loggerInfo( args[i]);
+			if( GlanetRunner.shouldLog())logger.info( args[i]);
 		}
 
-		GlanetRunner.loggerInfo( "GLANET Parameters ends");
-		GlanetRunner.loggerInfo( "*****************************************************************");
+		if( GlanetRunner.shouldLog())logger.info( "GLANET Parameters ends");
+		if( GlanetRunner.shouldLog())logger.info( "*****************************************************************");
 
 	}
 

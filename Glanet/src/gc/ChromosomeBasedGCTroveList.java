@@ -26,6 +26,8 @@ import ui.GlanetRunner;
  */
 public class ChromosomeBasedGCTroveList {
 
+	final static Logger logger = Logger.getLogger(ChromosomeBasedGCTroveList.class);
+
 	public static void fillTroveList( String dataFolder, ChromosomeName chromName, TByteList gcByteList) {
 
 		String gcFastaFileName = Commons.GC + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.GC_FILE_END;
@@ -55,7 +57,7 @@ public class ChromosomeBasedGCTroveList {
 
 			// check whether fasta file starts with > greater character
 			if( !strLine.startsWith( ">")){
-				GlanetRunner.loggerInfo( "Fasta file does not start with > character.");
+				if( GlanetRunner.shouldLog())logger.info( "Fasta file does not start with > character.");
 			}
 
 			while( ( numberofCharactersRead = bufferedReader.read( cbuf)) != -1){
@@ -107,7 +109,7 @@ public class ChromosomeBasedGCTroveList {
 			/*********************Last Byte*****************************************/
 			/***********************************************************************/
 
-			GlanetRunner.loggerInfo( "nthBase must be written once: " + nthBase + " GCByteList construction has ended.");
+			if( GlanetRunner.shouldLog())logger.info( "nthBase must be written once: " + nthBase + " GCByteList construction has ended.");
 
 		}catch( FileNotFoundException e){
 			e.printStackTrace();

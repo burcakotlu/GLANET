@@ -37,6 +37,8 @@ import enumtypes.IsochoreFamily;
 
 public class RandomDataGenerator {
 
+	final static Logger logger = Logger.getLogger(RandomDataGenerator.class);
+
 	// Each hit also has numberofOverlappingBases starts
 	public static IsochoreFamily calculateIsochoreFamily( List<GCIsochoreIntervalTreeHitNode> hits) {
 
@@ -51,7 +53,7 @@ public class RandomDataGenerator {
 		int isochoreFamilyNumberWithMaximumNumberofHits = 0;
 
 		if( hits.size() == 0){
-			GlanetRunner.loggerError( "There is a situation. Number of hits is 0");
+			if( GlanetRunner.shouldLog())logger.error( "There is a situation. Number of hits is 0");
 		}
 
 		// There is only one hit case
@@ -177,7 +179,7 @@ public class RandomDataGenerator {
 
 		// We don't accept interval of length greater than 100 KB
 		if( originalInputLineLength > Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
-			GlanetRunner.loggerError( "Interval of length greater than " + Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE + " is not accepted.");
+			if( GlanetRunner.shouldLog())logger.error( "Interval of length greater than " + Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE + " is not accepted.");
 		}else{
 
 			// Now get a random low between isochoreFamilyPoolLow and isochoreFamilyPoolHigh

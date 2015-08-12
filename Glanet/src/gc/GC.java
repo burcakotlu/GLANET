@@ -29,6 +29,8 @@ import enumtypes.CommandLineArguments;
 
 public class GC {
 
+	final static Logger logger = Logger.getLogger(GC.class);
+
 	static GCCharArray gcCharArray;
 
 	public static GCCharArray getGcCharArray() {
@@ -152,7 +154,7 @@ public class GC {
 		// Debug purposes starts
 		if( ( byteListStartByte > byteListEndByte) || ( ( byteListStartByte == byteListEndByte) && ( byteListStartBit > byteListEndBit))){
 
-			GlanetRunner.loggerError( "There is a situation");
+			if( GlanetRunner.shouldLog())logger.error( "There is a situation");
 		}
 		// Debug purposes ends
 
@@ -220,8 +222,8 @@ public class GC {
 		}
 		// Not a valid input
 		else{
-			GlanetRunner.loggerError( "byteListStartByte: " + byteListStartByte + "\t" + "byteListEndByte: " + byteListEndByte + "\t" + "gcByteList.size(): " + gcByteList.size());
-			GlanetRunner.loggerError( "Input line's high exceeds hg19 chromsome size");
+			if( GlanetRunner.shouldLog())logger.error( "byteListStartByte: " + byteListStartByte + "\t" + "byteListEndByte: " + byteListEndByte + "\t" + "gcByteList.size(): " + gcByteList.size());
+			if( GlanetRunner.shouldLog())logger.error( "Input line's high exceeds hg19 chromsome size");
 		}
 
 		return gcContent;

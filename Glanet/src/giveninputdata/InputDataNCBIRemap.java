@@ -27,6 +27,8 @@ import common.Commons;
  */
 public class InputDataNCBIRemap {
 
+	final static Logger logger = Logger.getLogger(InputDataNCBIRemap.class);
+
 	public static void readRemapOutputFileWriteProcessedInputFile( String givenInputDataFolder,
 			String remapOutputFile1BasedStartEndInGRCh37p13, String processedFile0BasedStartEndInGRCh37p13) {
 
@@ -198,7 +200,7 @@ public class InputDataNCBIRemap {
 		readInputFileFillMapWriteRemapInputFile( givenInputDataFolder, inputFile, lineNumber2SourceGenomicLociMap,
 				Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE);
 
-		GlanetRunner.loggerInfo( "******************************************************************************");
+		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 		Remap.remap(
 				dataFolder,
@@ -220,7 +222,7 @@ public class InputDataNCBIRemap {
 				lineNumber2SourceGenomicLociMap, lineNumber2SourceInformationMap, lineNumber2TargetGenomicLociMap,
 				headerLine);
 
-		GlanetRunner.loggerInfo( "******************************************************************************");
+		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 		// read remap outputfile
 		// write processed file in 0Based start end in GRCH37 p13

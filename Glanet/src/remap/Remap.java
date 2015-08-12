@@ -29,6 +29,7 @@ import ui.GlanetRunner;
  */
 public class Remap {
 
+	final static Logger logger = Logger.getLogger(Remap.class);
 	public static void fillAssemblyName2RefSeqAssemblyIDMap( String dataFolder, String supportedAssembliesFileName,
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap) {
 
@@ -113,7 +114,7 @@ public class Remap {
 
 		}catch( IOException e){
 
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -157,7 +158,7 @@ public class Remap {
 			bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
 
 			while( ( line = bufferedReader.readLine()) != null){
-				// GlanetRunner.loggerInfo(line);
+				// if( GlanetRunner.shouldLog())logger.info(line);
 				// System.out.println(line);
 				bufferedWriter.write( line + System.getProperty( "line.separator"));
 			}// End of while
@@ -166,11 +167,11 @@ public class Remap {
 			bufferedReader.close();
 			bufferedWriter.close();
 
-			GlanetRunner.loggerInfo( "NCBI REMAP Show Batches Exit status = " + process.exitValue());
+			if( GlanetRunner.shouldLog())logger.info( "NCBI REMAP Show Batches Exit status = " + process.exitValue());
 
 		}catch( IOException e){
 
-			GlanetRunner.loggerInfo( "NCBI REMAP Show Batches Exception = " + "\t" + "Exception toString():  " + e.toString());
+			if( GlanetRunner.shouldLog())logger.info( "NCBI REMAP Show Batches Exception = " + "\t" + "Exception toString():  " + e.toString());
 		}
 	}
 
@@ -313,8 +314,8 @@ public class Remap {
 				// Set maximum line number to the last lineNumber
 				maximumLineNumber = lineNumber;
 
-				GlanetRunner.loggerInfo( "******************************************************************************");
-				GlanetRunner.loggerInfo( "Number of given genomic loci before NCBI REMAP: " + maximumLineNumber);
+				if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+				if( GlanetRunner.shouldLog())logger.info( "Number of given genomic loci before NCBI REMAP: " + maximumLineNumber);
 
 				// Write to the file
 				for( int i = 1; i <= maximumLineNumber; i++){
@@ -327,14 +328,14 @@ public class Remap {
 					}else{
 						bufferedWriter.write( Commons.NULL + "\t" + Commons.NULL + "\t" + Commons.NULL + System.getProperty( "line.separator"));
 						numberofUnConvertedGenomicLociInPrimaryAssembly++;
-						GlanetRunner.loggerWarn( "We have not converted this genomic loci in latest assembly to hg19 using NCBI REMAP: " + remapInputFileLineNumber2LineContentMap.get( i));
+						if( GlanetRunner.shouldLog())logger.warn( "We have not converted this genomic loci in latest assembly to hg19 using NCBI REMAP: " + remapInputFileLineNumber2LineContentMap.get( i));
 					}
 
 				}// End of for
 
-				GlanetRunner.loggerInfo( "Number of converted genomic loci after NCBI REMAP: " + numberofConvertedGenomicLociInPrimaryAssembly);
-				GlanetRunner.loggerInfo( "We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP");
-				GlanetRunner.loggerInfo( "******************************************************************************");
+				if( GlanetRunner.shouldLog())logger.info( "Number of converted genomic loci after NCBI REMAP: " + numberofConvertedGenomicLociInPrimaryAssembly);
+				if( GlanetRunner.shouldLog())logger.info( "We have lost " + numberofUnConvertedGenomicLociInPrimaryAssembly + " genomic loci during NCBI REMAP");
+				if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 				// close
 				bufferedReader.close();
@@ -343,7 +344,7 @@ public class Remap {
 			}// End of if remapReportFile exists
 
 		}catch( IOException e){
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -381,21 +382,21 @@ public class Remap {
 			// String line;
 
 			// while ( ( line = bufferedReader.readLine()) != null){
-			// GlanetRunner.loggerInfo(line);
+			// if( GlanetRunner.shouldLog())logger.info(line);
 			// }//End of while
 
-			GlanetRunner.loggerInfo( "NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
+			if( GlanetRunner.shouldLog())logger.info( "NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
 
 			// Close
 			// bufferedReader.close();
 
 		}catch( InterruptedException e){
 
-			GlanetRunner.loggerInfo( "NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception toString():  " + e.toString());
+			if( GlanetRunner.shouldLog())logger.info( "NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception toString():  " + e.toString());
 
 		}catch( IOException e){
 
-			GlanetRunner.loggerInfo( "NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception toString():  " + e.toString());
+			if( GlanetRunner.shouldLog())logger.info( "NCBI REMAP Exception = " + "\t" + information + "\t" + "Exception toString():  " + e.toString());
 		}
 	}
 
@@ -457,12 +458,12 @@ public class Remap {
 				}else{
 					if( lineNumber2SourceInformationMap != null){
 						toBeRemappedInformation = lineNumber2SourceInformationMap.get( i);
-						GlanetRunner.loggerWarn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-						GlanetRunner.loggerWarn( "rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+						if( GlanetRunner.shouldLog())logger.warn( "rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
 						numberofUnRemappedInputLine++;
 					}else{
-						GlanetRunner.loggerWarn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-						GlanetRunner.loggerWarn( "To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+						if( GlanetRunner.shouldLog())logger.warn( "To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
 						numberofUnRemappedInputLine++;
 					}
 
@@ -470,17 +471,17 @@ public class Remap {
 
 			}// End of FOR
 
-			GlanetRunner.loggerWarn( "Number of unremapped lines is: " + numberofUnRemappedInputLine);
+			if( GlanetRunner.shouldLog())logger.warn( "Number of unremapped lines is: " + numberofUnRemappedInputLine);
 
 			// CLOSE
 			bufferedWriter.close();
 
 		}catch( FileNotFoundException e){
 
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( IOException e){
 
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -534,15 +535,15 @@ public class Remap {
 				else{
 
 					if( mapped1 == null){
-						GlanetRunner.loggerWarn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-						GlanetRunner.loggerWarn( "To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " after: " + information);
+						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+						if( GlanetRunner.shouldLog())logger.warn( "To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " after: " + information);
 
 						numberofUnRemappedInputLine++;
 					}
 
 					if( mapped2 == null){
-						GlanetRunner.loggerWarn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-						GlanetRunner.loggerWarn( " To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
+						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+						if( GlanetRunner.shouldLog())logger.warn( " To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
 
 						numberofUnRemappedInputLine++;
 					}
@@ -550,17 +551,17 @@ public class Remap {
 
 			}// End of FOR
 
-			GlanetRunner.loggerWarn( "Number of unremapped lines is: " + numberofUnRemappedInputLine);
+			if( GlanetRunner.shouldLog())logger.warn( "Number of unremapped lines is: " + numberofUnRemappedInputLine);
 
 			// CLOSE
 			bufferedWriter.close();
 
 		}catch( FileNotFoundException e){
 
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( IOException e){
 
-			GlanetRunner.loggerError( e.toString());
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
 	}
@@ -703,7 +704,7 @@ public class Remap {
 								// check
 								if( !lineNumber2SourceGenomicLociMap.get( lineNumber).equals(
 										sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd)){
-									GlanetRunner.loggerError( Commons.THERE_IS_A_SITUATION);
+									if( GlanetRunner.shouldLog())logger.error( Commons.THERE_IS_A_SITUATION);
 								}
 
 							}// End of IF: Valid conversion
@@ -714,8 +715,8 @@ public class Remap {
 				}// End of while
 
 				// for debug purposes starts
-				GlanetRunner.loggerInfo( "Number of Lines In lineNumber2SourceGenomicLociMap : " + lineNumber2SourceGenomicLociMap.size() + " for file: " + remapReportFile);
-				GlanetRunner.loggerInfo( "Number of Lines In lineNumber2TargetGenomicLociMap : " + lineNumber2TargetGenomicLociMap.size() + " for file: " + remapReportFile);
+				if( GlanetRunner.shouldLog())logger.info( "Number of Lines In lineNumber2SourceGenomicLociMap : " + lineNumber2SourceGenomicLociMap.size() + " for file: " + remapReportFile);
+				if( GlanetRunner.shouldLog())logger.info( "Number of Lines In lineNumber2TargetGenomicLociMap : " + lineNumber2TargetGenomicLociMap.size() + " for file: " + remapReportFile);
 				// for debug purposes ends
 
 				// close
@@ -723,7 +724,7 @@ public class Remap {
 
 			}catch( IOException e){
 
-				GlanetRunner.loggerError( e.toString());
+				if( GlanetRunner.shouldLog())logger.error( e.toString());
 			}
 
 		}// End of if remapReportFile exists
