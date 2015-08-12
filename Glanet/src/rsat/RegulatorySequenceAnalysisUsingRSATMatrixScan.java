@@ -61,10 +61,9 @@ import auxiliary.FileOperations;
 import auxiliary.GlanetDecimalFormat;
 import common.Commons;
 import enumtypes.CommandLineArguments;
+import ui.GlanetRunner;
 
 public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
-
-	final static Logger logger = Logger.getLogger( RegulatorySequenceAnalysisUsingRSATMatrixScan.class);
 
 	/**
 	 * 
@@ -111,7 +110,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			bufferedReader.close();
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return firstLine;
@@ -138,7 +137,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			bufferedReader.close();
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return all;
@@ -298,7 +297,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 				}// End of SWITCH
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of IF resultLine contains SNP Position
@@ -368,7 +367,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			bufferedWriter.write( sequenceType.convertEnumtoString() + "\t" + description + "\t" + matrixName + "\t" + matrixNumber + "\t" + direction + "\t" + start + "\t" + end + "\t" + sequence + "\t" + df.format( pValue) + System.getProperty( "line.separator"));
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}
@@ -397,7 +396,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}
@@ -443,7 +442,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return resultLineContainingSNPPosition;
@@ -633,8 +632,8 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 		}catch( RemoteException e){
 
-			logger.error( e.toString());
-			logger.error( sequence);
+			GlanetRunner.loggerError( e.toString());
+			GlanetRunner.loggerError( sequence);
 
 		}
 
@@ -996,7 +995,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			try{
 				proxy = service.getRSATWSPortType();
 			}catch( ServiceException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 			MatrixScanRequest matrixScanRequest = new MatrixScanRequest();
@@ -1060,7 +1059,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 						// what is enrichedElement
 						// what is given interval name
 						// what is snp
-						logger.info( "RSAT MatrixScan " + matrixScanNumber++ + " for " + eachSNPDirectory.getPath());
+						GlanetRunner.loggerInfo( "RSAT MatrixScan " + matrixScanNumber++ + " for " + eachSNPDirectory.getPath());
 						matrixScan( eachSNPDirectory.getName(), tfName2TFPfmMatricesFileMap, snpReferenceSequenceFile,
 								snpAlteredSequenceFileList, tfName2TfExtendedPeakSequenceFileMap, proxy,
 								matrixScanRequest, bufferedWriter, snpReferenceSequence2RSATResultMap,
@@ -1074,11 +1073,11 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		}// End of IF mainSNPsDirectory exists and mainSNPsDirectory is a
 			// directory
 
-		// logger.info("Number of entries in snpReferenceSequence2RSATResultMap: "
+		// GlanetRunner.loggerInfo("Number of entries in snpReferenceSequence2RSATResultMap: "
 		// + snpReferenceSequence2RSATResultMap.size());
-		// logger.info("Number of entries in snpAlteredSequence2RSATResultMap: "
+		// GlanetRunner.loggerInfo("Number of entries in snpAlteredSequence2RSATResultMap: "
 		// + snpAlteredSequence2RSATResultMap.size());
-		// logger.info("Number of entries in tfExtendedPeakSequence2RSATResultMap: "
+		// GlanetRunner.loggerInfo("Number of entries in tfExtendedPeakSequence2RSATResultMap: "
 		// + tfExtendedPeakSequence2RSATResultMap.size());
 
 	}
@@ -1195,9 +1194,9 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 			/***************************************************************************************************/
 			/***************** Regulatory Sequence Analysis for All TF Annotations starts ************************/
 			/***************************************************************************************************/
-			logger.info( "RSAT starts for TF");
+			GlanetRunner.loggerInfo( "RSAT starts for TF");
 			matrixScan( outputFolder, forRSASNPTFSequencesMatricesDirectory, bufferedWriter);
-			logger.info( "RSAT ends for TF");
+			GlanetRunner.loggerInfo( "RSAT ends for TF");
 			/***************************************************************************************************/
 			/***************** Regulatory Sequence Analysis for All TF Annotations ends **************************/
 			/***************************************************************************************************/
@@ -1207,7 +1206,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}

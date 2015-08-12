@@ -20,9 +20,6 @@ import common.Commons;
  */
 public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 
-	// private static Logger logger =
-	// Logger.getLogger(NewLogForEachGlanetRunFileAppender.class);
-
 	// This method is executed by internal calls
 	// I don't know whether I can pass outputFolder to this method
 	public NewLogForEachGlanetRunFileAppender() {

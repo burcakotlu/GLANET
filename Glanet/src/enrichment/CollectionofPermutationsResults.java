@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import multipletesting.BenjaminiandHochberg;
+import ui.GlanetRunner;
+
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.apache.log4j.Logger;
 import userdefined.geneset.UserDefinedGeneSetUtility;
@@ -49,8 +51,6 @@ import gnu.trove.map.hash.TLongIntHashMap;
 import gnu.trove.map.hash.TLongObjectHashMap;
 
 public class CollectionofPermutationsResults {
-
-	final static Logger logger = Logger.getLogger( CollectionofPermutationsResults.class);
 
 	public static void writeResultsWRTZScorestoOutputFiles( 
 			String outputFolder, 
@@ -689,8 +689,8 @@ public class CollectionofPermutationsResults {
 
 					// debug starts
 					if( mixedNumber < 0){
-						logger.error( "There is a situation 1");
-						logger.error( mixedNumber);
+						GlanetRunner.loggerError( "There is a situation 1");
+						GlanetRunner.loggerError( mixedNumber);
 					}
 					// debug ends
 
@@ -720,7 +720,7 @@ public class CollectionofPermutationsResults {
 					// For Control Purposes
 					// originalNumberofOverlaps coming from other run results
 					else if( elementNumber2OriginalNumberofOverlaps.get( mixedNumber) != originalNumberofOverlaps){
-						logger.error( "There is a situation: Original Number of Overlaps differ");
+						GlanetRunner.loggerError( "There is a situation: Original Number of Overlaps differ");
 					}
 
 					indexofFormerComma = indexofPipe;

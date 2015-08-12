@@ -11,6 +11,7 @@ import common.Commons;
 import enumtypes.ChromosomeName;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
+import ui.GlanetRunner;
 
 /**
  * @author Bur�ak Otlu
@@ -22,8 +23,6 @@ import gnu.trove.list.TShortList;
  *
  */
 public class ChromosomeBasedMappabilityTroveList {
-
-	final static Logger logger = Logger.getLogger( ChromosomeBasedMappabilityTroveList.class);
 
 	public static void fillTroveList( String dataFolder, ChromosomeName chromName,
 			TIntList mapabilityChromosomePositionList, TShortList mapabilityShortValueList
@@ -50,7 +49,7 @@ public class ChromosomeBasedMappabilityTroveList {
 		// For MapabilityByteValue
 		// byte mapabilityByteValue;
 
-		logger.info( chromName);
+		GlanetRunner.loggerInfo( chromName);
 
 		int numberofGaps = 0;
 
@@ -70,7 +69,7 @@ public class ChromosomeBasedMappabilityTroveList {
 					// chr1 10000 10014 0.00277778
 					// chr1 10014 10015 0.333333
 					// chr1 10015 10026 0.5
-					// logger.info("There is a gap in the given mapability file!" + " next low: " + low +
+					// GlanetRunner.loggerInfo("There is a gap in the given mapability file!" + " next low: " + low +
 					// " previous high: " + high);
 					numberofGaps++;
 
@@ -104,9 +103,9 @@ public class ChromosomeBasedMappabilityTroveList {
 			mapabilityShortValueList.add( Commons.SHORT_0);
 			// mapabilityByteValueList.add(Commons.BYTE_0);
 
-			logger.info( "numberofGaps:" + numberofGaps);
+			GlanetRunner.loggerInfo( "numberofGaps:" + numberofGaps);
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}

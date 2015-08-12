@@ -18,11 +18,9 @@ import common.Commons;
 
 public class GlanetRunner implements Runnable {
 
-	final static Logger logger = Logger.getLogger( GlanetRunner.class);
-
 	private static String args[];
 	private static MainView mainView;
-
+	private static Logger logger = null;
 	@Override
 	public void run() {
 
@@ -193,11 +191,46 @@ public class GlanetRunner implements Runnable {
 
 		GlanetRunner.args = new String[args.length];
 		for( int i = 0; i < args.length; i++){
+			
 			GlanetRunner.args[i] = args[i];
-
+		}
+		
+		if( GlanetRunner.args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE)){
+			
+			GlanetRunner.logger = Logger.getLogger(GlanetRunner.class);
+		}else{
+			
+			if (GlanetRunner.logger != null)
+				GlanetRunner.logger.removeAllAppenders();
+			
+			GlanetRunner.logger = null;
 		}
 	}
-
+	
+	public static void loggerInfo( Object message){
+		
+		if( GlanetRunner.logger != null)
+			GlanetRunner.logger.info(message);
+	}
+	
+	public static void loggerError( Object message){
+		
+		if( GlanetRunner.logger != null)
+			GlanetRunner.logger.error(message);
+	}
+	
+	public static void loggerWarn( Object message){
+		
+		if( GlanetRunner.logger != null)
+			GlanetRunner.logger.warn(message);
+	}
+	
+	public static void loggerDebug( Object message){
+		
+		if( GlanetRunner.logger != null)
+			GlanetRunner.logger.debug(message);
+	}
+	
 	public static void setCurrentProcessInfo( String processInfo) {
 
 		if( getMainView() != null)

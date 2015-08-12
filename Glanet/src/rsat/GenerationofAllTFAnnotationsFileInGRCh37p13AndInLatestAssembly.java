@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import org.apache.log4j.Logger;
 import remap.Remap;
+import ui.GlanetRunner;
 import auxiliary.FileOperations;
 import common.Commons;
 
@@ -22,8 +23,6 @@ import common.Commons;
  *
  */
 public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
-
-	final static Logger logger = Logger.getLogger( GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.class);
 
 	public static void callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly( String dataFolder,
 			String outputFolder, TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
@@ -50,7 +49,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 		String inputFormat = Commons.BED;
 
-		logger.info( "******************************************************************************");
+		GlanetRunner.loggerInfo( "******************************************************************************");
 
 		Remap.remap( dataFolder, sourceReferenceAssemblyID, targetReferenceAssemblyID,
 				forRSA_REMAP_Folder + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13_BED_FILE,
@@ -67,7 +66,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38, lineNumber2SourceGenomicLociMap,
 				lineNumber2SourceInformationMap, lineNumber2TargetGenomicLociMap, headerLine);
 
-		logger.info( "******************************************************************************");
+		GlanetRunner.loggerInfo( "******************************************************************************");
 
 	}
 
@@ -221,7 +220,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 

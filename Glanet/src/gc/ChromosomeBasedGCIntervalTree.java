@@ -27,8 +27,6 @@ import enumtypes.IsochoreFamily;
  */
 public class ChromosomeBasedGCIntervalTree {
 
-	final static Logger logger = Logger.getLogger( ChromosomeBasedGCIntervalTree.class);
-
 	public static void fillIsochoreFamilyPool( String dataFolder, ChromosomeName chromName,
 			IsochoreFamily isochoreFamily, List<Interval> gcIsochoreFamilyPool) {
 

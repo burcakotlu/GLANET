@@ -6,6 +6,7 @@ package multipletesting;
 import java.util.List;
 import org.apache.log4j.Logger;
 import auxiliary.FunctionalElementMinimal;
+import ui.GlanetRunner;
 
 /**
  * @author Bur�ak Otlu
@@ -14,8 +15,6 @@ import auxiliary.FunctionalElementMinimal;
  *
  */
 public class BonferroniCorrection {
-
-	final static Logger logger = Logger.getLogger( BonferroniCorrection.class);
 
 	// 22 May 2015
 	// zScore version
@@ -65,7 +64,7 @@ public class BonferroniCorrection {
 			empiricalPValue = ( element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() * 1.0f) / element.getNumberofPermutations();
 
 			if( !element.getEmpiricalPValue().equals( empiricalPValue)){
-				logger.error( "There is a situation: EmpiricalPValues are not equal.");
+				GlanetRunner.loggerError( "There is a situation: EmpiricalPValues are not equal.");
 			}
 			// For control purposes ends
 

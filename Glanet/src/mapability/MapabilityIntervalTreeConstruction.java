@@ -22,8 +22,6 @@ import enumtypes.ChromosomeName;
  */
 public class MapabilityIntervalTreeConstruction {
 
-	final static Logger logger = Logger.getLogger( MapabilityIntervalTreeConstruction.class);
-
 	public static void fillIntervalTree( String dataFolder, ChromosomeName chromName,
 			IntervalTree mapabilityIntervalTree) {
 

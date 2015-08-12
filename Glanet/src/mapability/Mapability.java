@@ -33,8 +33,6 @@ import enumtypes.CommandLineArguments;
 
 public class Mapability {
 
-	final static Logger logger = Logger.getLogger( Mapability.class);
-
 	static IntervalTree mapabilityIntervalTree;
 
 	public static IntervalTree getMapabilityIntervalTree() {
@@ -601,7 +599,7 @@ public class Mapability {
 
 				// high is 1-based therefore it can be equal to chromSize
 				if( low >= chromSize || high > chromSize){
-					logger.error( "Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: " + high);
+					GlanetRunner.loggerError( "Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: " + high);
 				}
 
 				// High-1 is done here

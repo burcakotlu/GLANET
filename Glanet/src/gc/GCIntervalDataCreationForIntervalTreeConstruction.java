@@ -15,6 +15,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import ui.GlanetRunner;
 
 /**
  * @author Bur�ak Otlu
@@ -23,8 +24,6 @@ import enumtypes.CommandLineArguments;
  *
  */
 public class GCIntervalDataCreationForIntervalTreeConstruction {
-
-	final static Logger logger = Logger.getLogger( GCIntervalDataCreationForIntervalTreeConstruction.class);
 
 	// Create GC Interval Data where consecutive zeros intervals are merged
 	// In this way number of nodes in the GC interval tree will be minimized
@@ -196,7 +195,7 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 
 			// check whether fasta file starts with > greater character
 			if( !strLine.startsWith( ">")){
-				logger.info( "Fasta file does not start with > character.");
+				GlanetRunner.loggerInfo( "Fasta file does not start with > character.");
 			}
 
 			/*****************************************************************/
@@ -262,7 +261,7 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 			System.out.println( "totalNumberofGCs: " + totalNumberofGCs);
 			System.out.println( "totalNumberofCharsRead: " + totalNumberofCharsRead);
 
-			logger.info( "nthBase must be written once: " + nthBase + " GCIntervalTree construction has ended.");
+			GlanetRunner.loggerInfo( "nthBase must be written once: " + nthBase + " GCIntervalTree construction has ended.");
 
 		}catch( FileNotFoundException e){
 			e.printStackTrace();

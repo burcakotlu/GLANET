@@ -17,6 +17,7 @@ import common.Commons;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.IsochoreFamily;
+import ui.GlanetRunner;
 
 /**
  * @author Bur�ak Otlu
@@ -25,8 +26,6 @@ import enumtypes.IsochoreFamily;
  *
  */
 public class GCIsochoreIntervalTreeDataPoolDataCreation {
-
-	final static Logger logger = Logger.getLogger( GCIsochoreIntervalTreeDataPoolDataCreation.class);
 
 	public static IsochoreFamily calculateIsochoreFamily( float gcPercentage) {
 
@@ -145,7 +144,7 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 
 			// check whether fasta file starts with > greater character
 			if( !strLine.startsWith( ">")){
-				logger.info( "Fasta file does not start with > character.");
+				GlanetRunner.loggerInfo( "Fasta file does not start with > character.");
 			}
 
 			// Write header file
@@ -257,11 +256,11 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 			}// End of IF there is a last interval
 
 			if( ( lengthOfLastInterval == 0) && ( numberofGCsInStandardGCIntervalLength > 0)){
-				logger.error( "There is a situation1!");
+				GlanetRunner.loggerError( "There is a situation1!");
 			}
 
 			if( nthBase != totalNumberofCharsReadInChromosome){
-				logger.error( "There is a situation2!");
+				GlanetRunner.loggerError( "There is a situation2!");
 			}
 			/*****************************************************************/
 
@@ -280,7 +279,7 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 			System.out.println( "totalNumberofGCsInChromosome: " + totalNumberofGCsInChromosome);
 			System.out.println( "totalNumberofCharsReadInChromosome: " + totalNumberofCharsReadInChromosome);
 
-			logger.info( "nthBase must be written once: " + nthBase + " GCIntervalTree construction has ended.");
+			GlanetRunner.loggerInfo( "nthBase must be written once: " + nthBase + " GCIntervalTree construction has ended.");
 
 		}catch( FileNotFoundException e){
 			e.printStackTrace();

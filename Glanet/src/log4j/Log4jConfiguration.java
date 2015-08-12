@@ -16,9 +16,6 @@ import org.apache.log4j.PropertyConfigurator;
  */
 public class Log4jConfiguration {
 
-	// private static Logger logger =
-	// Logger.getLogger(Log4jConfiguration.class);
-
 	private static String fileName;
 
 	public static String getFileName() {

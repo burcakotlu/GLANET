@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import remap.Remap;
+import ui.GlanetRunner;
 import auxiliary.FileOperations;
 import common.Commons;
 
@@ -25,8 +26,6 @@ import common.Commons;
  *
  */
 public class InputDataNCBIRemap {
-
-	final static Logger logger = Logger.getLogger( InputDataNCBIRemap.class);
 
 	public static void readRemapOutputFileWriteProcessedInputFile( String givenInputDataFolder,
 			String remapOutputFile1BasedStartEndInGRCh37p13, String processedFile0BasedStartEndInGRCh37p13) {
@@ -199,7 +198,7 @@ public class InputDataNCBIRemap {
 		readInputFileFillMapWriteRemapInputFile( givenInputDataFolder, inputFile, lineNumber2SourceGenomicLociMap,
 				Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE);
 
-		logger.info( "******************************************************************************");
+		GlanetRunner.loggerInfo( "******************************************************************************");
 
 		Remap.remap(
 				dataFolder,
@@ -221,7 +220,7 @@ public class InputDataNCBIRemap {
 				lineNumber2SourceGenomicLociMap, lineNumber2SourceInformationMap, lineNumber2TargetGenomicLociMap,
 				headerLine);
 
-		logger.info( "******************************************************************************");
+		GlanetRunner.loggerInfo( "******************************************************************************");
 
 		// read remap outputfile
 		// write processed file in 0Based start end in GRCH37 p13

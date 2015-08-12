@@ -98,8 +98,6 @@ import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
  */
 public class Annotation {
 
-	final static Logger logger = Logger.getLogger( Annotation.class);
-
 	// Write a class such that it can be called from Annotation and Enrichment
 	// Annotate Original Given Data and --> Annotation
 	// Annotate Randomly Generated Data --> Enrichment
@@ -170,14 +168,14 @@ public class Annotation {
 						writeElementBasedAnnotationFoundOverlapsMode, lowTaskIndex, middleTaskIndex, overlapDefinition,
 						intervalTree, numberofComparisonsDnase, dnaseCellLineNames, fileNames);
 
-				// logger.info("Find Overlaps Left" + "\t" + "lowTaskIndex:" + "\t" + lowTaskIndex + "\t" +
+				// GlanetRunner.loggerInfo("Find Overlaps Left" + "\t" + "lowTaskIndex:" + "\t" + lowTaskIndex + "\t" +
 				// "middleTaskIndex:" + "\t" + middleTaskIndex);
 
 				FindOverlaps right = new FindOverlaps( outputFolder, chromName, data,
 						writeElementBasedAnnotationFoundOverlapsMode, middleTaskIndex, highTaskIndex,
 						overlapDefinition, intervalTree, numberofComparisonsDnase, dnaseCellLineNames, fileNames);
 
-				// logger.info("Find Overlaps Right" + "\t" + "middleTaskIndex:" + "\t" + middleTaskIndex + "\t" +
+				// GlanetRunner.loggerInfo("Find Overlaps Right" + "\t" + "middleTaskIndex:" + "\t" + middleTaskIndex + "\t" +
 				// "highTaskIndex:" + "\t" + highTaskIndex);
 
 				left.fork();
@@ -195,7 +193,7 @@ public class Annotation {
 
 				kArray = new int[numberofComparisonsDnase];
 
-				// logger.info(chromName.convertEnumtoString() + "\t" + "Before " + "\t" + "lowTaskIndex" + "\t"+
+				// GlanetRunner.loggerInfo(chromName.convertEnumtoString() + "\t" + "Before " + "\t" + "lowTaskIndex" + "\t"+
 				// lowTaskIndex + "\t" + "highTaskIndex" + "\t"+ highTaskIndex + "\t" + "elementNumber2KMap.size()" +
 				// "\t" + elementNumber2KMap.size());
 
@@ -203,7 +201,7 @@ public class Annotation {
 
 					interval = data.get( i);
 
-					// logger.info(chromName.convertEnumtoString() + "\t" + "Interval Index:" + i);
+					// GlanetRunner.loggerInfo(chromName.convertEnumtoString() + "\t" + "Interval Index:" + i);
 
 					byte[] oneOrZeroByteArray = new byte[numberofComparisonsDnase];
 
@@ -214,7 +212,7 @@ public class Annotation {
 								chromName, oneOrZeroByteArray, overlapDefinition, dnaseCellLineNames, fileNames);
 					}
 
-					// logger.info(chromName.convertEnumtoString() + "\t" + "Interval Index:" + i + "\t" +
+					// GlanetRunner.loggerInfo(chromName.convertEnumtoString() + "\t" + "Interval Index:" + i + "\t" +
 					// "elementNumber2OneorZeroMap.size()" + "\t" +elementNumber2OneorZeroMap.size());
 
 					accumulate( oneOrZeroByteArray, kArray);
@@ -223,7 +221,7 @@ public class Annotation {
 
 				}// End of FOR
 
-				// logger.info(chromName.convertEnumtoString() + "\t" + "After " + "\t" + "lowTaskIndex" + "\t"+
+				// GlanetRunner.loggerInfo(chromName.convertEnumtoString() + "\t" + "After " + "\t" + "lowTaskIndex" + "\t"+
 				// lowTaskIndex + "\t" + "highTaskIndex" + "\t" + highTaskIndex + "\t" + "elementNumber2KMap.size()"+
 				// "\t"+ elementNumber2KMap.size());
 
@@ -328,7 +326,7 @@ public class Annotation {
 			bufferedWriterList.add( bufferedWriter24);
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 
@@ -341,7 +339,7 @@ public class Annotation {
 					strLine + System.getProperty( "line.separator"));
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 
@@ -368,16 +366,16 @@ public class Annotation {
 			} // End of While
 
 		}catch( FileNotFoundException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		try{
 			bufferedReader.close();
 			fileReader.close();
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 
@@ -436,7 +434,7 @@ public class Annotation {
 
 			} // End of While
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -501,7 +499,7 @@ public class Annotation {
 			} // End of WHILE
 			
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -565,7 +563,7 @@ public class Annotation {
 
 			} // End of While
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -630,7 +628,7 @@ public class Annotation {
 
 			} // End of While
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -688,11 +686,11 @@ public class Annotation {
 			
 		}catch( NumberFormatException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return userDefinedLibraryIntervalTree;
@@ -758,7 +756,7 @@ public class Annotation {
 			
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return tfbsIntervalTree;
@@ -825,7 +823,7 @@ public class Annotation {
 			}
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return tfbsIntervalTree;
@@ -892,7 +890,7 @@ public class Annotation {
 			}
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return tfbsIntervalTree;
@@ -957,7 +955,7 @@ public class Annotation {
 			
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return histoneIntervalTree;
@@ -1024,7 +1022,7 @@ public class Annotation {
 			}
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return histoneIntervalTree;
@@ -1090,7 +1088,7 @@ public class Annotation {
 			}
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return histoneIntervalTree;
@@ -1172,7 +1170,7 @@ public class Annotation {
 			}//End of WHILE
 			
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return tree;
@@ -1247,7 +1245,7 @@ public class Annotation {
 				strLine = null;
 			}// end of While
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return tree;
@@ -1278,7 +1276,7 @@ public class Annotation {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return userDefinedLibraryIntervalTree;
@@ -1301,10 +1299,10 @@ public class Annotation {
 			dnaseIntervalTree = generateEncodeDnaseIntervalTreeWithNumbers( bufferedReader, cellLineNumberList);
 
 		}catch( FileNotFoundException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -1337,10 +1335,10 @@ public class Annotation {
 			bufferedReader.close();
 
 		}catch( FileNotFoundException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return dnaseIntervalTree;
@@ -1370,10 +1368,10 @@ public class Annotation {
 			bufferedReader.close();
 
 		}catch( FileNotFoundException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return tfbsIntervalTree;
@@ -1402,7 +1400,7 @@ public class Annotation {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return histoneIntervalTree;
@@ -1430,7 +1428,7 @@ public class Annotation {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		return ucscRefSeqGenesIntervalTree;
@@ -1761,7 +1759,7 @@ public class Annotation {
 				bufferedReader.close();
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -1802,7 +1800,7 @@ public class Annotation {
 				bufferedReader.close();
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -1842,7 +1840,7 @@ public class Annotation {
 				bufferedReader.close();
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -1893,7 +1891,7 @@ public class Annotation {
 				bufferedReader.close();
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -1948,10 +1946,10 @@ public class Annotation {
 			}// End of while
 		}catch( NumberFormatException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 
 	}
@@ -2007,10 +2005,10 @@ public class Annotation {
 			}// End of while
 		}catch( NumberFormatException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 
 	}
@@ -2064,10 +2062,10 @@ public class Annotation {
 			}// End of while
 		}catch( NumberFormatException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 
 	}
@@ -2151,11 +2149,11 @@ public class Annotation {
 
 		}catch( NumberFormatException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 
 		} // End of while
 
@@ -2479,9 +2477,9 @@ public class Annotation {
 			}// End of IF
 
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 	}
 
@@ -2602,9 +2600,9 @@ public class Annotation {
 			}// End of WHILE
 
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 	}
 
@@ -3021,9 +3019,9 @@ public class Annotation {
 			}// End of WHILE
 
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 	}
 
@@ -3448,9 +3446,9 @@ public class Annotation {
 			}// End of WHILE
 
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 	}
 
@@ -4032,9 +4030,9 @@ public class Annotation {
 
 			}// End of WHILE
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 	}
 
@@ -4337,9 +4335,9 @@ public class Annotation {
 			}// End of WHILE
 
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 
 	}
@@ -4419,9 +4417,9 @@ public class Annotation {
 			}// End of WHILE
 
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 	}
 
@@ -4498,9 +4496,9 @@ public class Annotation {
 			}// End of WHILE
 
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 	}
 
@@ -5737,9 +5735,9 @@ public class Annotation {
 			}// End of for each input line
 
 		}catch( NumberFormatException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		} // End of while
 
 	}
@@ -7079,7 +7077,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}
@@ -7140,7 +7138,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}
@@ -7280,7 +7278,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}
@@ -7369,7 +7367,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 
@@ -7452,7 +7450,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 
@@ -7567,7 +7565,7 @@ public class Annotation {
 			bufferedWriter.close();
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 
@@ -7593,7 +7591,7 @@ public class Annotation {
 			}// End of for
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 
@@ -7613,7 +7611,7 @@ public class Annotation {
 
 		kArray = pool.invoke( findOverlaps);
 
-		// logger.info(chromName.convertEnumtoString() + "\t" +
+		// GlanetRunner.loggerInfo(chromName.convertEnumtoString() + "\t" +
 		// "dnaseCellLineNumber2KMap.size() after FindOverlaps call" + "\t" + dnaseCellLineNumber2KMap.size() );
 
 		System.gc();
@@ -7660,7 +7658,7 @@ public class Annotation {
 			try{
 				bufferedReader.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of FOR each chromosomeName
@@ -7709,7 +7707,7 @@ public class Annotation {
 			try{
 				bufferedReader.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -7775,7 +7773,7 @@ public class Annotation {
 			try{
 				bufferedReader.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -7841,7 +7839,7 @@ public class Annotation {
 			try{
 				bufferedReader.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -7912,7 +7910,7 @@ public class Annotation {
 			try{
 				bufferedReader.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}// End of for each chromosomeName
 
@@ -7965,7 +7963,7 @@ public class Annotation {
 					bufferedReader.close();
 				}catch( IOException e){
 
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 
 			}// End of for each chromosomeName
@@ -8012,7 +8010,7 @@ public class Annotation {
 			try{
 				bufferedReader.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -8064,7 +8062,7 @@ public class Annotation {
 			try{
 				bufferedReader.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 
 		}// End of for each chromosomeName
@@ -8467,7 +8465,7 @@ public class Annotation {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}
@@ -8506,7 +8504,7 @@ public class Annotation {
 			}// End of while
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 	}
@@ -8746,7 +8744,7 @@ public class Annotation {
 		/***********************************************************************************/
 		/**************Memory Usage Before Annotation***************************************/
 		/***********************************************************************************/
-		// logger.info("Memory Used Before Annotation" + "\t" +
+		// GlanetRunner.loggerInfo("Memory Used Before Annotation" + "\t" +
 		// ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE)
 		// + "\t" + "MBs");
 		/***********************************************************************************/
@@ -9068,7 +9066,7 @@ public class Annotation {
 		//
 		//
 		//
-		// //logger.info(chrName.convertEnumtoString() + "\t" + "number of given interval" + "\t" +
+		// //GlanetRunner.loggerInfo(chrName.convertEnumtoString() + "\t" + "number of given interval" + "\t" +
 		// dataArrayList.size());
 		//
 		// dnaseCellLineKArray = searchDnaseWithNumbers(
@@ -9085,7 +9083,7 @@ public class Annotation {
 		// pool);
 		//
 		//
-		// //logger.info("Check It" + "\t" + chrName.convertEnumtoString() + "\t" + "dnaseCellLineNumber2KMap.size()" +
+		// //GlanetRunner.loggerInfo("Check It" + "\t" + chrName.convertEnumtoString() + "\t" + "dnaseCellLineNumber2KMap.size()" +
 		// "\t" + dnaseCellLineNumber2KMap.size());
 		//
 		// Accumulation.accumulate(dnaseCellLineKArray,allChromosomesDnaseCellLineKArray);
@@ -9193,7 +9191,7 @@ public class Annotation {
 			/************DNASE ANNOTATION ends**********************************************/
 			/*******************************************************************************/
 
-			// logger.info("durationofCharArray" + "\t" + "durationofCharSequenceMap" + "\t" +
+			// GlanetRunner.loggerInfo("durationofCharArray" + "\t" + "durationofCharSequenceMap" + "\t" +
 			// "durationofStringBuilderMap" + "\t" + "durationofStringMap" );
 			// int sizeofArray = 10;
 			// float[][] duration = new float[sizeofArray+1][4];
@@ -9366,16 +9364,16 @@ public class Annotation {
 			// /************DNASE ANNOTATION ends**********************************************/
 			// /*******************************************************************************/
 			//
-			// logger.info(duration[i][0] + "\t" + duration[i][1] + "\t" + duration[i][2] + "\t" + duration[i][3]);
+			// GlanetRunner.loggerInfo(duration[i][0] + "\t" + duration[i][1] + "\t" + duration[i][2] + "\t" + duration[i][3]);
 			//
 			//
 			// }//End of FOR
 			//
-			// logger.info("Average Run Times");
+			// GlanetRunner.loggerInfo("Average Run Times");
 			//
-			// logger.info(writeElementBasedAnnotationFoundOverlapsMode.convertEnumtoString());
+			// GlanetRunner.loggerInfo(writeElementBasedAnnotationFoundOverlapsMode.convertEnumtoString());
 			//
-			// logger.info(duration[sizeofArray][0]/sizeofArray+ "\t" + duration[sizeofArray][1]/sizeofArray + "\t" +
+			// GlanetRunner.loggerInfo(duration[sizeofArray][0]/sizeofArray+ "\t" + duration[sizeofArray][1]/sizeofArray + "\t" +
 			// duration[sizeofArray][2]/sizeofArray + "\t" + duration[sizeofArray][3]/sizeofArray);
 
 			/*******************************************************************************/
@@ -10195,7 +10193,7 @@ public class Annotation {
 		/***********************************************************************************/
 		/**************Memory Usage After Annotation****************************************/
 		/***********************************************************************************/
-		// logger.info("Memory Used After Annotation" + "\t" +
+		// GlanetRunner.loggerInfo("Memory Used After Annotation" + "\t" +
 		// ((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/Commons.NUMBER_OF_BYTES_IN_A_MEGABYTE)
 		// + "\t" + "MBs");
 		/***********************************************************************************/
@@ -10290,7 +10288,7 @@ public class Annotation {
 				bufferedWriter = it.value();
 				bufferedWriter.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 	}
@@ -10308,7 +10306,7 @@ public class Annotation {
 
 				bufferedWriter.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 	}
@@ -10326,7 +10324,7 @@ public class Annotation {
 
 				bufferedWriter.close();
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 	}

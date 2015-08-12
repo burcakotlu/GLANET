@@ -22,6 +22,8 @@ import jaxbxjctool.AugmentationofGivenIntervalwithRsIds;
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.PositionFrequency;
 import jaxbxjctool.RsInformation;
+import ui.GlanetRunner;
+
 import org.apache.log4j.Logger;
 import auxiliary.FileOperations;
 import common.Commons;
@@ -33,8 +35,6 @@ import enumtypes.CommandLineArguments;
  * 
  */
 public class GenerationofSequencesandMatricesforSNPs {
-
-	final static Logger logger = Logger.getLogger( GenerationofSequencesandMatricesforSNPs.class);
 
 	public static void constructLogoMatricesfromEncodeMotifs( String dataFolder, String encodeMotifsInputFileName,
 			Map<String, String> tfName2LogoMatrices) {
@@ -850,10 +850,10 @@ public class GenerationofSequencesandMatricesforSNPs {
 						Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
 
 			}catch( StringIndexOutOfBoundsException e){
-				logger.error( "Exception Message:" + e.getMessage());
-				logger.error( "Exception toString:" + e.toString());
-				logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
-				logger.error( "ObservedAllele: " + observedAllele);
+				GlanetRunner.loggerError( "Exception Message:" + e.getMessage());
+				GlanetRunner.loggerError( "Exception toString:" + e.toString());
+				GlanetRunner.loggerError( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
+				GlanetRunner.loggerError( "ObservedAllele: " + observedAllele);
 			}
 
 			// This observed allele is already in the SNP Reference Sequence
@@ -909,9 +909,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		if( !snpContainsAnyOfObservedAlleles){
 			// Give alarm
-			logger.error( "There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
-			logger.error( "rsID: " + rsId);
-			logger.error( "snp Reference Sequence: " + snpInformation.getFastaFile());
+			GlanetRunner.loggerError( "There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
+			GlanetRunner.loggerError( "rsID: " + rsId);
+			GlanetRunner.loggerError( "snp Reference Sequence: " + snpInformation.getFastaFile());
 		}
 
 		snpInformation.setSnpContainsAnyOfObservedAlleles( snpContainsAnyOfObservedAlleles);
@@ -1096,8 +1096,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 			// Close the connection
 			in.close();
 		}catch( Exception e){
-			logger.error( "Error reading from the URL:");
-			logger.error( e);
+			GlanetRunner.loggerError( "Error reading from the URL:");
+			GlanetRunner.loggerError( e);
 		}
 
 		return sourceHTML;
@@ -1419,7 +1419,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 							}// End of if rsInformation is null
 							else{
 
-								logger.error( "I guess this else part is unnecessary!");
+								GlanetRunner.loggerError( "I guess this else part is unnecessary!");
 
 								// Means that rsInformation is already put
 								// so this rsId is not a merged rsId

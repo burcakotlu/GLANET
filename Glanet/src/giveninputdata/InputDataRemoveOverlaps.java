@@ -11,6 +11,8 @@ package giveninputdata;
 import intervaltree.GivenInputDataSNPSorIntervals;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
+import ui.GlanetRunner;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -30,8 +32,6 @@ import enumtypes.GivenIntervalsInputFileDataFormat;
 import enumtypes.NodeType;
 
 public class InputDataRemoveOverlaps {
-
-	final static Logger logger = Logger.getLogger( InputDataRemoveOverlaps.class);
 
 	public static IntervalTreeNode mergeIntervals( IntervalTreeNode node1, IntervalTreeNode node2) {
 
@@ -319,16 +319,16 @@ public class InputDataRemoveOverlaps {
 
 	public static void writeGLANETRunTimeArguments( String[] args) {
 
-		logger.info( "*****************************************************************");
-		logger.info( "GLANET Parameters starts");
+		GlanetRunner.loggerInfo( "*****************************************************************");
+		GlanetRunner.loggerInfo( "GLANET Parameters starts");
 
 		// Write GLANET Arguments
 		for( int i = 0; i < args.length; i++){
-			logger.info( args[i]);
+			GlanetRunner.loggerInfo( args[i]);
 		}
 
-		logger.info( "GLANET Parameters ends");
-		logger.info( "*****************************************************************");
+		GlanetRunner.loggerInfo( "GLANET Parameters ends");
+		GlanetRunner.loggerInfo( "*****************************************************************");
 
 	}
 

@@ -77,8 +77,6 @@ import gnu.trove.map.TShortObjectMap;
 //public class IntervalTree  extends TLinkableAdapter<IntervalTree>{
 public class IntervalTree {
 
-	final static Logger logger = Logger.getLogger( IntervalTree.class);
-
 	IntervalTreeNode root;
 	int numberofNodes;
 	long numberofNonOverlappingBases;
@@ -753,7 +751,7 @@ public class IntervalTree {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		if( node.getRight().getNodeName().isNotSentinel())
@@ -812,7 +810,7 @@ public class IntervalTree {
 
 		}catch( IOException e){
 
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 
 		if( node.getRight().getNodeName().isNotSentinel())
@@ -1296,7 +1294,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -1364,7 +1362,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -1428,7 +1426,7 @@ public class IntervalTree {
 				bufferedWriter.flush();
 
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -1651,7 +1649,7 @@ public class IntervalTree {
 				}
 
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -1714,7 +1712,7 @@ public class IntervalTree {
 				bufferedWriter.close();
 
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -1791,7 +1789,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -1860,7 +1858,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -1963,7 +1961,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2053,7 +2051,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2117,7 +2115,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2414,7 +2412,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2579,7 +2577,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2653,7 +2651,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2739,7 +2737,7 @@ public class IntervalTree {
 				}
 
 			}catch( IOException e){
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2829,7 +2827,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2896,7 +2894,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2933,7 +2931,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -2966,7 +2964,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -3037,7 +3035,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -3110,7 +3108,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -4670,7 +4668,7 @@ public class IntervalTree {
 				bufferedWriter.close();
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 
@@ -5013,7 +5011,7 @@ public class IntervalTree {
 					// write ALL BASED results ends
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -5190,7 +5188,7 @@ public class IntervalTree {
 					}
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -5985,7 +5983,7 @@ public class IntervalTree {
 						// null
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 
 			}// End of if: there is overlap
@@ -6182,7 +6180,7 @@ public class IntervalTree {
 						// null
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 
 			}// End of if: there is overlap
@@ -6349,7 +6347,7 @@ public class IntervalTree {
 						// null
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 
 			}// End of if: there is overlap
@@ -7194,7 +7192,7 @@ public class IntervalTree {
 					}
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 			}// End of IF: overlaps
 		} // End of IF: type is NCBI_GENE_ID
@@ -7425,7 +7423,7 @@ public class IntervalTree {
 					} // End of IF: geneSetListContainingThisGeneId is not null
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 
 			}// End of IF: there is an overlap
@@ -7650,7 +7648,7 @@ public class IntervalTree {
 					/*******************************************************************/
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -7852,7 +7850,7 @@ public class IntervalTree {
 						// null
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -8024,7 +8022,7 @@ public class IntervalTree {
 					}
 
 				}catch( IOException e){
-					logger.error( e.toString());
+					GlanetRunner.loggerError( e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
@@ -8133,7 +8131,7 @@ public class IntervalTree {
 			} // If node is not null
 
 		}catch( IOException e){
-			logger.error( e.toString());
+			GlanetRunner.loggerError( e.toString());
 		}
 	}
 
@@ -8157,7 +8155,7 @@ public class IntervalTree {
 
 			}catch( IOException e){
 
-				logger.error( e.toString());
+				GlanetRunner.loggerError( e.toString());
 			}
 		}
 

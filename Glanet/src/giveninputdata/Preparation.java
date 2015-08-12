@@ -15,8 +15,6 @@ import enumtypes.CommandLineArguments;
  */
 public class Preparation {
 
-	final static Logger logger = Logger.getLogger( Preparation.class);
-
 	// args[0] ---> Input File Name with folder
 	// args[1] ---> GLANET installation folder with "\\" at the end. This folder
 	// will be used for outputFolder and dataFolder.
