@@ -235,7 +235,7 @@ public class GlanetRunner implements Runnable {
 
 		if( getMainView() != null)
 			getMainView().setCurrentProcessInfo( processInfo);
-		else
+		else if( args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
 			System.out.println( "Current Status: " + processInfo);
 	}
 }
