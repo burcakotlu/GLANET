@@ -37,7 +37,7 @@ public class Step4_SimulationGLANETRuns {
 
 		for( int i = 0; i < numberofSimulations; i++){
 
-			String command = rootCommand + i + ".txt\" " + "-f0 " + "-dnase " + "-tf " + "-histone " + "-e " + "-ewz ";
+			String command = rootCommand + i + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
 
 			switch( withorWithout){
 
