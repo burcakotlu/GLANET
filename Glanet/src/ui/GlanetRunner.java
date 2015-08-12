@@ -154,7 +154,7 @@ public class GlanetRunner implements Runnable {
 
 		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
 			System.out.println( log);
-		else
+		else if( getMainView() != null)
 			getMainView().appendNewTextToLogArea( log);
 	}
 
@@ -162,7 +162,7 @@ public class GlanetRunner implements Runnable {
 
 		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
 			System.out.println( log);
-		else
+		else if( getMainView() != null)
 			getMainView().appendNewTextToLogArea( log);
 	}
 
@@ -170,7 +170,7 @@ public class GlanetRunner implements Runnable {
 
 		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
 			System.out.println( log);
-		else
+		else if( getMainView() != null)
 			getMainView().appendNewTextToLogArea( log);
 	}
 
