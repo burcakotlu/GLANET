@@ -121,18 +121,18 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.InputFileNameWithFolder))
 			return false;
 		
-		//parsing debug mode
+		//parsing log mode
 		for( int i = 0; i < args.length; i++)
-			if( args[i].equalsIgnoreCase( Commons.ARG_DEBUG_MODE)){
-				if( argsInOrder[CommandLineArguments.DebugMode.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.DebugMode.value()] = Commons.ARG_DEBUG_MODE;
+			if( args[i].equalsIgnoreCase( Commons.ARG_LOG_FILE)){
+				if( argsInOrder[CommandLineArguments.LogFile.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.LogFile.value()] = Commons.ARG_LOG_FILE;
 				else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
 			}
 		
-		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.DebugMode))
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.LogFile))
 			return false;
 		
 		// parsing glanet folder location

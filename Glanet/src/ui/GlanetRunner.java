@@ -7,13 +7,13 @@ import giveninputdata.InputDataNCBIRemap;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
-import org.apache.log4j.Logger;
 import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly;
 import rsat.GenerationofSequencesandMatricesforSNPs;
 import rsat.RegulatorySequenceAnalysisUsingRSATMatrixScan;
 import annotation.Annotation;
 import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
 import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
+
 import common.Commons;
 
 public class GlanetRunner implements Runnable {
@@ -149,7 +149,7 @@ public class GlanetRunner implements Runnable {
 
 	public static void appendLog( String log) {
 
-		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+		if( getMainView() == null && args[CommandLineArguments.LogFile.value()].equalsIgnoreCase(Commons.ARG_LOG_FILE))
 			System.out.println( log);
 		else if( getMainView() != null)
 			getMainView().appendNewTextToLogArea( log);
@@ -157,7 +157,7 @@ public class GlanetRunner implements Runnable {
 
 	public static void appendLog( int log) {
 
-		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+		if( getMainView() == null && args[CommandLineArguments.LogFile.value()].equalsIgnoreCase(Commons.ARG_LOG_FILE))
 			System.out.println( log);
 		else if( getMainView() != null)
 			getMainView().appendNewTextToLogArea( log);
@@ -165,7 +165,7 @@ public class GlanetRunner implements Runnable {
 
 	public static void appendLog( float log) {
 
-		if( getMainView() == null && args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+		if( getMainView() == null && args[CommandLineArguments.LogFile.value()].equalsIgnoreCase(Commons.ARG_LOG_FILE))
 			System.out.println( log);
 		else if( getMainView() != null)
 			getMainView().appendNewTextToLogArea( log);
@@ -197,7 +197,7 @@ public class GlanetRunner implements Runnable {
 	
 	public static boolean shouldLog(){
 		
-		if( GlanetRunner.args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+		if( GlanetRunner.args[CommandLineArguments.LogFile.value()].equalsIgnoreCase(Commons.ARG_LOG_FILE))
 			return true;
 		
 		return false;
@@ -207,7 +207,7 @@ public class GlanetRunner implements Runnable {
 
 		if( getMainView() != null)
 			getMainView().setCurrentProcessInfo( processInfo);
-		else if( args[CommandLineArguments.DebugMode.value()].equalsIgnoreCase(Commons.ARG_DEBUG_MODE))
+		else if( args[CommandLineArguments.LogFile.value()].equalsIgnoreCase(Commons.ARG_LOG_FILE))
 			System.out.println( "Current Status: " + processInfo);
 	}
 }

@@ -124,7 +124,7 @@ public enum CommandLineArguments {
 	UserDefinedLibraryInput( 33,Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED), 
 	UserDefinedLibraryDataFormat( 34,Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES), 
 	GivenInputDataType( 35,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS),
-	DebugMode( 36, Commons.ARG_NO_DEBUG_MODE),
+	LogFile( 36, Commons.ARG_NO_LOG_FILE),
 	NumberOfArguments( 37);
 
 	private final int value;

@@ -102,7 +102,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.UserDefinedLibraryInput.value()] = userDefinedLibraryInputFile;
 		args[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = userDefinedLibraryDataFormat;
 		args[CommandLineArguments.GivenInputDataType.value()] = givenInputDataType;
-		args[CommandLineArguments.DebugMode.value()] = Commons.ARG_DEBUG_MODE;
+		args[CommandLineArguments.LogFile.value()] = Commons.ARG_LOG_FILE;
 
 		// filling the rest with selected cell lines.
 		for( int i = CommandLineArguments.NumberOfArguments.value(); i < args.length; i++)
