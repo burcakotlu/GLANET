@@ -11,6 +11,7 @@ import org.apache.log4j.Layout;
 import org.apache.log4j.spi.ErrorCode;
 import auxiliary.FileOperations;
 import common.Commons;
+import ui.GlanetRunner;
 
 /**
  * @author Bur�ak Otlu
@@ -19,7 +20,9 @@ import common.Commons;
  *
  */
 public class NewLogForEachGlanetRunFileAppender extends FileAppender {
-
+	
+	public static int count = 0;
+	
 	// This method is executed by internal calls
 	// I don't know whether I can pass outputFolder to this method
 	public NewLogForEachGlanetRunFileAppender() {
@@ -54,12 +57,12 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 		// + fileName);
 		// //for debug
 
-		if( fileName != null){
+		if( fileName != null && count == 0 && GlanetRunner.shouldLog()){
 			try{
 				fileName = getNewLogFileName();
 				FileOperations.createFile( fileName);
 				setFile( fileName, fileAppend, bufferedIO, bufferSize);
-
+				count++;
 			}catch( Exception e){
 				errorHandler.error( "Error while activating log options", e, ErrorCode.FILE_OPEN_FAILURE);
 			}
