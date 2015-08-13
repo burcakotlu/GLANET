@@ -4,7 +4,8 @@ import common.Commons;
 
 public enum Orient {
 
-	FORWARD( 1), REVERSE( 2);
+	FORWARD( 1),
+	REVERSE( 2);
 
 	private final int orient;
 

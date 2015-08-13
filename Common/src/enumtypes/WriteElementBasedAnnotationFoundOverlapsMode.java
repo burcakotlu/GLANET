@@ -13,7 +13,8 @@ import common.Commons;
  */
 public enum WriteElementBasedAnnotationFoundOverlapsMode {
 
-	DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS( 1), DO_NOT_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS( 2);
+	DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS( 1),
+	DO_NOT_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS( 2);
 
 	private final int writeElementBasedAnnotationFoundOverlapsMode;
 

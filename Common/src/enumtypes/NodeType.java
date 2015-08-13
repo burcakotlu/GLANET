@@ -12,7 +12,8 @@ import common.Commons;
  */
 public enum NodeType {
 
-	ORIGINAL( 1), MERGED( 2);
+	ORIGINAL( 1),
+	MERGED( 2);
 
 	private final int nodeType;
 

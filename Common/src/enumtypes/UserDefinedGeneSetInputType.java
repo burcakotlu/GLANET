@@ -12,7 +12,9 @@ import common.Commons;
  */
 public enum UserDefinedGeneSetInputType {
 
-	GENE_ID( 1), RNA_NUCLEOTIDE_ACCESSION( 2), GENE_SYMBOL( 3);
+	GENE_ID( 1),
+	RNA_NUCLEOTIDE_ACCESSION( 2),
+	GENE_SYMBOL( 3);
 
 	private final int userDefinedGeneSetInputType;
 

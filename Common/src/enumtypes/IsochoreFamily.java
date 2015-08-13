@@ -13,7 +13,11 @@ import common.Commons;
  */
 public enum IsochoreFamily {
 
-	L1( 1), L2( 2), H1( 3), H2( 4), H3( 5);
+	L1( 1),
+	L2( 2),
+	H1( 3),
+	H2( 4),
+	H3( 5);
 
 	private final int isochoreFamily;
 

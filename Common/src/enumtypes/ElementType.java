@@ -13,7 +13,10 @@ import common.Commons;
  */
 public enum ElementType {
 
-	DNASE( 1), TF( 2), HISTONE( 3), HG19_REFSEQ_GENE( 4);
+	DNASE( 1),
+	TF( 2),
+	HISTONE( 3),
+	HG19_REFSEQ_GENE( 4);
 
 	private final int elementType;
 

@@ -11,7 +11,9 @@ import common.Commons;
  */
 public enum GeneInformationType {
 
-	GENE_ID( 1), GENE_SYMBOL( 2), RNA_NUCLEOTIDE_ACCESSION( 3);
+	GENE_ID( 1),
+	GENE_SYMBOL( 2),
+	RNA_NUCLEOTIDE_ACCESSION( 3);
 
 	private final int geneInformationType;
 

@@ -13,7 +13,9 @@ import common.Commons;
  */
 public enum FileFormatType {
 
-	NARROWPEAK( 1), BED( 2), FILE_FORMAT_TYPE_OTHER( 3);
+	NARROWPEAK( 1),
+	BED( 2),
+	FILE_FORMAT_TYPE_OTHER( 3);
 
 	private final int fileFormatType;
 

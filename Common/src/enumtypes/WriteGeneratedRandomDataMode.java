@@ -12,7 +12,8 @@ import common.Commons;
  */
 public enum WriteGeneratedRandomDataMode {
 
-	DO_WRITE_GENERATED_RANDOM_DATA( 1), DO_NOT_WRITE_GENERATED_RANDOM_DATA( 2);
+	DO_WRITE_GENERATED_RANDOM_DATA( 1),
+	DO_NOT_WRITE_GENERATED_RANDOM_DATA( 2);
 
 	private final int writeGeneratedRandomDataMode;
 

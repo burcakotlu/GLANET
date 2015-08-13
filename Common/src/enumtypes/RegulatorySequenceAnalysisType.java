@@ -12,7 +12,8 @@ import common.Commons;
  */
 public enum RegulatorySequenceAnalysisType {
 
-	DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT( 1), DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT( 2);
+	DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT( 1),
+	DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT( 2);
 
 	private final int regulatorySequenceAnalysisType;
 

@@ -12,7 +12,8 @@ import common.Commons;
  */
 public enum WritePermutationBasedAnnotationResultMode {
 
-	DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT( 1), DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT( 2);
+	DO_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT( 1),
+	DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT( 2);
 
 	private final int writePermutationBasedAnnotationResultMode;
 

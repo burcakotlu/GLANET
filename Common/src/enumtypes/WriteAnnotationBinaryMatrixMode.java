@@ -13,7 +13,8 @@ import common.Commons;
  */
 public enum WriteAnnotationBinaryMatrixMode {
 
-	DO_WRITE_ANNOTATION_BINARY_MATRIX( 1), DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX( 2);
+	DO_WRITE_ANNOTATION_BINARY_MATRIX( 1),
+	DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX( 2);
 
 	private final int writeAnnotationBinaryMatrixMode;
 

@@ -13,7 +13,8 @@ import common.Commons;
  */
 public enum Annotation {
 
-	ANNOTATION_IN_PARALEL( 1), ANNOTATION_SEQUENTIALLY( 2);
+	ANNOTATION_IN_PARALEL( 1),
+	ANNOTATION_SEQUENTIALLY( 2);
 
 	private final int annotation;
 

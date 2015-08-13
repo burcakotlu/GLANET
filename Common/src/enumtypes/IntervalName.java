@@ -12,7 +12,14 @@ import common.Commons;
  */
 public enum IntervalName {
 
-	EXON( 1), INTRON( 2), FIVE_P_ONE( 3), FIVE_P_TWO( 4), FIVE_D( 5), THREE_P_ONE( 6), THREE_P_TWO( 7), THREE_D( 8);
+	EXON( 1),
+	INTRON( 2),
+	FIVE_P_ONE( 3),
+	FIVE_P_TWO( 4),
+	FIVE_D( 5),
+	THREE_P_ONE( 6),
+	THREE_P_TWO( 7),
+	THREE_D( 8);
 
 	// public static final String EXON = "EXON";
 	// public static final String INTRON = "INTRON";

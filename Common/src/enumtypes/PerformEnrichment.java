@@ -13,7 +13,8 @@ import common.Commons;
  */
 public enum PerformEnrichment {
 
-	DO_ENRICH( 1), DO_NOT_ENRICH( 2);
+	DO_ENRICH( 1),
+	DO_NOT_ENRICH( 2);
 
 	private final int performEnrichment;
 

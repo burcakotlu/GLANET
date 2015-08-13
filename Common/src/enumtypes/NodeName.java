@@ -12,7 +12,8 @@ import common.Commons;
  */
 public enum NodeName {
 
-	SENTINEL( 1), NOT_SENTINEL( 2);
+	SENTINEL( 1),
+	NOT_SENTINEL( 2);
 
 	private final int nodeName;
 
