@@ -352,6 +352,10 @@ In the following table, commands and their prerequisite commands, if any, are sp
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Job Name                | `-j`_         |  Optional         | `-c`_        | "NoName" (String)    |
 +-------------------------+---------------+-------------------+--------------+----------------------+
+| Log File                | `-l`_         |  Optional         |              | `-nl`_               |
+|                         +---------------+                   +              +                      +
+|                         | `-nl`_        |                   |              |                      |
++-------------------------+---------------+-------------------+--------------+----------------------+
 
 
 ------------------------------------
@@ -624,6 +628,16 @@ It creates an output folder with the specified Job Name.
 Results will be collected under this folder. 
 Job Name must be specified as the parameter. 
 If you do not set anything, default option is :option:`-f NoName`.
+
+-l
+^^
+
+GLANET Run is written to log file.
+
+-nl
+^^
+
+GLANET Run is not written to log file.
 
 -------------------------------
 GLANET Command-Line Sample Runs
