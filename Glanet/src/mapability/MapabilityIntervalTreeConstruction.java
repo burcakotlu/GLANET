@@ -5,17 +5,20 @@ package mapability;
 
 import intervaltree.IntervalTree;
 import intervaltree.MapabilityIntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import org.apache.log4j.Logger;
+
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 13, 2015
  * @project Glanet 
  *

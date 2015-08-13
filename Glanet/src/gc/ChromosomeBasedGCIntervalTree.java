@@ -7,20 +7,23 @@ import intervaltree.GCIntervalTreeNode;
 import intervaltree.GCIsochoreIntervalTreeNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
-import org.apache.log4j.Logger;
+
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.IsochoreFamily;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 10, 2015
  * @project Glanet 
  *

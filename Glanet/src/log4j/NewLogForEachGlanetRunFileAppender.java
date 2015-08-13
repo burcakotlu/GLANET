@@ -31,18 +31,27 @@ public class NewLogForEachGlanetRunFileAppender extends FileAppender {
 		// System.out.println("NewLogForEachGlanetRunFileAppender()");
 	}
 
-	public NewLogForEachGlanetRunFileAppender( Layout layout, String filename, boolean append, boolean bufferedIO,
+	public NewLogForEachGlanetRunFileAppender(
+			Layout layout, 
+			String filename, 
+			boolean append, 
+			boolean bufferedIO,
 			int bufferSize) throws IOException {
 
 		super( layout, filename, append, bufferedIO, bufferSize);
 	}
 
-	public NewLogForEachGlanetRunFileAppender( Layout layout, String filename, boolean append) throws IOException {
+	public NewLogForEachGlanetRunFileAppender(
+			Layout layout, 
+			String filename, 
+			boolean append) throws IOException {
 
 		super( layout, filename, append);
 	}
 
-	public NewLogForEachGlanetRunFileAppender( Layout layout, String filename) throws IOException {
+	public NewLogForEachGlanetRunFileAppender(
+			Layout layout, 
+			String filename) throws IOException {
 
 		super( layout, filename);
 	}

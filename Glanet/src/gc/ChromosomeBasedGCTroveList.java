@@ -16,7 +16,7 @@ import gnu.trove.list.array.TByteArrayList;
 import ui.GlanetRunner;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Mar 19, 2015
  * @project Glanet 
  *

@@ -5,9 +5,10 @@
  */
 package giveninputdata;
 
-import org.apache.log4j.Logger;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 /**
