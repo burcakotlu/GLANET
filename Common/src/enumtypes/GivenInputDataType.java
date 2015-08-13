@@ -13,7 +13,8 @@ import common.Commons;
  */
 public enum GivenInputDataType {
 
-	GIVEN_INPUT_DATA_CONSISTS_OF_SNPS( 1), GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS( 2);
+	GIVEN_INPUT_DATA_CONSISTS_OF_SNPS( 1),
+	GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS( 2);
 
 	private final int givenInputDataType;
 

@@ -11,7 +11,8 @@ package enumtypes;
  */
 public enum GeneOverlapAnalysisFileMode {
 
-	WITH_OVERLAP_INFORMATION( 1), WITHOUT_OVERLAP_INFORMATION( 2);
+	WITH_OVERLAP_INFORMATION( 1),
+	WITHOUT_OVERLAP_INFORMATION( 2);
 
 	private final int geneOverlapAnalysisFileMode;
 

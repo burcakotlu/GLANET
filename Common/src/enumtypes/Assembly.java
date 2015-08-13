@@ -4,7 +4,8 @@ import common.Commons;
 
 public enum Assembly {
 
-	GRCh37_p13( 1), GRCh38( 2);
+	GRCh37_p13( 1),
+	GRCh38( 2);
 
 	private final int assembly;
 

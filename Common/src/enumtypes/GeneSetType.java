@@ -9,7 +9,9 @@ package enumtypes;
  */
 public enum GeneSetType {
 
-	USERDEFINEDGENESET( 1), KEGGPATHWAY( 2), NO_GENESET_TYPE_IS_DEFINED( 3);
+	USERDEFINEDGENESET( 1),
+	KEGGPATHWAY( 2),
+	NO_GENESET_TYPE_IS_DEFINED( 3);
 
 	private final int geneSetType;
 

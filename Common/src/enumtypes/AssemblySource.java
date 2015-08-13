@@ -13,7 +13,8 @@ import common.Commons;
  */
 public enum AssemblySource {
 
-	PRIMARYASSEMBLY( 1), PATCHES( 2);
+	PRIMARYASSEMBLY( 1),
+	PATCHES( 2);
 
 	private final int assembly;
 
