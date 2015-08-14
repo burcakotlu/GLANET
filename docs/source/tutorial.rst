@@ -235,6 +235,10 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	Please give a job name, then a directory named with this job name will be created under ~path/to/tool/Output/JobName/.
 	Choose shorter job name so that all the sub folders to be created under ~path/to/tool/Output/JobName/ directory will not exceed the allowable length.
 	Default is Job Name is  *NoName*.
+	
+	**Log File**:
+	
+	GLANET run from GUI (by double clicking the GLANET.jar) will be logged in a log file which will be saved in same location of GLANET.jar.
 
 
 ---------------------------------------------------------
@@ -632,12 +636,12 @@ If you do not set anything, default option is :option:`-f NoName`.
 -l
 ^^
 
-If this option is set, GLANET Run is written to log file.
+If this option is set, GLANET Run is written to a log file. Log file will be saved in the directory where the GLANET command-line run is achieved.
 
 -nl
 ^^^
 
-If this option is set, GLANET Run is not written to log file.
+If this option is set, GLANET Run is not written to a log file.
 
 -------------------------------
 GLANET Command-Line Sample Runs
