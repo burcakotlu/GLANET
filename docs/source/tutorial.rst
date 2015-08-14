@@ -636,7 +636,7 @@ If you do not set anything, default option is :option:`-f NoName`.
 -l
 ^^
 
-If this option is set, GLANET Run is written to a log file. Log file will be saved in the directory where the GLANET command-line run is achieved.
+If this option is set, GLANET Run is written to a log file. Log file will be saved under the directory where the GLANET command-line run is achieved.
 
 -nl
 ^^^
