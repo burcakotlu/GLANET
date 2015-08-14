@@ -2131,6 +2131,7 @@ public class Enrichment {
 		private final String outputFolder;
 
 		private final int overlapDefinition;
+		
 
 		public AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
 				String outputFolder,
@@ -2184,21 +2185,26 @@ public class Enrichment {
 			this.geneId2ListofGeneSetNumberMap = geneId2ListofGeneSetNumberMap;
 
 			this.overlapDefinition = overlapDefinition;
+			
 		}
 
 		protected AllMapsWithNumbers compute() {
 
-			int middleIndex;
 			AllMapsWithNumbers rightAllMapsWithNumbers;
 			AllMapsWithNumbers leftAllMapsWithNumbers;
 
 			Integer permutationNumber;
 			List<AllMapsWithNumbers> listofAllMapsWithNumbers;
 			AllMapsWithNumbers allMapsWithNumbers;
+			
+			int numberofPermutationsForEachProcessor;
+			
+			numberofPermutationsForEachProcessor = numberofPermutations/numberofProcessors;
+			
 
 			// DIVIDE
-			if( highIndex - lowIndex > Commons.NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY){
-				middleIndex = lowIndex + ( highIndex - lowIndex) / 2;
+			// As Much As Number of Processors
+			if (highIndex-lowIndex > numberofPermutationsForEachProcessor){
 				
 				AnnotateWithNumbersDivideAsMuchAsNumberofProcessors left = new AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
 						outputFolder, 
@@ -2209,14 +2215,14 @@ public class Enrichment {
 						numberofProcessors,
 						writePermutationBasedandParametricBasedAnnotationResultMode,
 						lowIndex, 
-						middleIndex, 
+						lowIndex+numberofPermutationsForEachProcessor, 
 						permutationNumberList, 
 						intervalTree, 
 						ucscRefSeqGenesIntervalTree,
 						annotationType, 
 						geneId2ListofGeneSetNumberMap, 
 						overlapDefinition);
-				
+					
 				AnnotateWithNumbersDivideAsMuchAsNumberofProcessors right = new AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
 						outputFolder, 
 						chromName, 
@@ -2225,7 +2231,7 @@ public class Enrichment {
 						numberofPermutations, 
 						numberofProcessors,
 						writePermutationBasedandParametricBasedAnnotationResultMode,
-						middleIndex, 
+						lowIndex+numberofPermutationsForEachProcessor+1, 
 						highIndex, 
 						permutationNumberList, 
 						intervalTree, 
@@ -2240,7 +2246,12 @@ public class Enrichment {
 				combineLeftAllMapsandRightAllMaps( leftAllMapsWithNumbers, rightAllMapsWithNumbers);
 				leftAllMapsWithNumbers = null;
 				return rightAllMapsWithNumbers;
-			}
+				
+				
+				
+			}//End of FOR
+			
+			
 			// CONQUER
 			else{
 
@@ -6792,12 +6803,25 @@ public class Enrichment {
 					// histone
 					// generate histone interval tree
 					intervalTree = generateHistoneIntervalTreeWithNumbers( dataFolder, chromName);
-					annotateWithNumbers = new AnnotateWithNumbers( outputFolder, chromName,
-							permutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun,
-							writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO,
-							permutationNumberList.size(), permutationNumberList, intervalTree, null,
-							AnnotationType.DO_HISTONE_ANNOTATION, null, overlapDefinition);
-					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
+					
+					annotateWithNumbersDivideAsMuchAsNumberofProcessors = new AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
+							outputFolder, 
+							chromName,
+							permutationNumber2RandomlyGeneratedDataHashMap, 
+							runNumber, 
+							numberofPermutationsinThisRun,
+							numberofProcessors,
+							writePermutationBasedandParametricBasedAnnotationResultMode, 
+							Commons.ZERO,
+							permutationNumberList.size(), 
+							permutationNumberList, 
+							intervalTree, 
+							null,
+							AnnotationType.DO_HISTONE_ANNOTATION, 
+							null, 
+							overlapDefinition);
+					
+					allMapsWithNumbers = pool.invoke( annotateWithNumbersDivideAsMuchAsNumberofProcessors);
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_HISTONE_ANNOTATION);
 					allMapsWithNumbers = null;
 					intervalTree = null;
@@ -6814,13 +6838,24 @@ public class Enrichment {
 					
 					intervalTree = generateTfbsIntervalTreeWithNumbers( dataFolder, chromName);
 					
-					annotateWithNumbers = new AnnotateWithNumbers( outputFolder, chromName,
-							permutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun,
-							writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO,
-							permutationNumberList.size(), permutationNumberList, intervalTree, null,
-							AnnotationType.DO_TF_ANNOTATION, null, overlapDefinition);
+					annotateWithNumbersDivideAsMuchAsNumberofProcessors = new AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
+							outputFolder, 
+							chromName,
+							permutationNumber2RandomlyGeneratedDataHashMap, 
+							runNumber, 
+							numberofPermutationsinThisRun,
+							numberofProcessors,
+							writePermutationBasedandParametricBasedAnnotationResultMode, 
+							Commons.ZERO,
+							permutationNumberList.size(), 
+							permutationNumberList, 
+							intervalTree, 
+							null,
+							AnnotationType.DO_TF_ANNOTATION, 
+							null, 
+							overlapDefinition);
 					
-					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
+					allMapsWithNumbers = pool.invoke( annotateWithNumbersDivideAsMuchAsNumberofProcessors);
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_ANNOTATION);
 					allMapsWithNumbers = null;
 					intervalTree = null;
