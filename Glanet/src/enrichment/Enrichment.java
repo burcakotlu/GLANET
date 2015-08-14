@@ -288,9 +288,9 @@ public class Enrichment {
 
 		}
 	}// End of GenerateRandomData Class
-		// Static Nested Class ends
+	// Static Nested Class ends
 
-	// Testing Purposes starts
+	// For Testing Purposes starts
 	static class AnnotateDnaseTFHistoneWithNumbers extends RecursiveTask<AllMapsDnaseTFHistoneWithNumbers> {
 
 		private static final long serialVersionUID = -8989881139246912265L;
@@ -515,8 +515,7 @@ public class Enrichment {
 			}
 		}
 	}
-
-	// Testing Purposes ends
+	// For Testing Purposes ends
 
 	// Static Nested Class starts
 	// AnnotateWithNumbersForAllChromosomes
@@ -2102,17 +2101,19 @@ public class Enrichment {
 		}
 
 	}
-
 	// AnnotateWithNumbersForAllChromosomes
 	// Static Nested Class ends
-
-	static class AnnotateWithNumbers extends RecursiveTask<AllMapsWithNumbers> {
+	
+	
+	//14 August 2015 starts
+	static class AnnotateWithNumbersDivideAsMuchAsNumberofProcessors extends RecursiveTask<AllMapsWithNumbers> {
 
 		private static final long serialVersionUID = 2919115895116169524L;
 		private final ChromosomeName chromName;
 		private final TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap;
 		private final int runNumber;
 		private final int numberofPermutations;
+		private final int numberofProcessors;
 
 		private final WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode;
 
@@ -2131,12 +2132,13 @@ public class Enrichment {
 
 		private final int overlapDefinition;
 
-		public AnnotateWithNumbers(
+		public AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
 				String outputFolder,
 				ChromosomeName chromName,
 				TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap,
 				int runNumber,
 				int numberofPermutations,
+				int numberofProcessors,
 				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
 				int lowIndex, 
 				int highIndex, 
@@ -2153,6 +2155,7 @@ public class Enrichment {
 			this.randomlyGeneratedDataMap = randomlyGeneratedDataMap;
 			this.runNumber = runNumber;
 			this.numberofPermutations = numberofPermutations;
+			this.numberofProcessors = numberofProcessors;
 
 			this.writePermutationBasedandParametricBasedAnnotationResultMode = writePermutationBasedandParametricBasedAnnotationResultMode;
 
@@ -2196,14 +2199,41 @@ public class Enrichment {
 			// DIVIDE
 			if( highIndex - lowIndex > Commons.NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY){
 				middleIndex = lowIndex + ( highIndex - lowIndex) / 2;
-				AnnotateWithNumbers left = new AnnotateWithNumbers( outputFolder, chromName, randomlyGeneratedDataMap,
-						runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode,
-						lowIndex, middleIndex, permutationNumberList, intervalTree, ucscRefSeqGenesIntervalTree,
-						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition);
-				AnnotateWithNumbers right = new AnnotateWithNumbers( outputFolder, chromName, randomlyGeneratedDataMap,
-						runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode,
-						middleIndex, highIndex, permutationNumberList, intervalTree, ucscRefSeqGenesIntervalTree,
-						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition);
+				
+				AnnotateWithNumbersDivideAsMuchAsNumberofProcessors left = new AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
+						outputFolder, 
+						chromName, 
+						randomlyGeneratedDataMap,
+						runNumber, 
+						numberofPermutations, 
+						numberofProcessors,
+						writePermutationBasedandParametricBasedAnnotationResultMode,
+						lowIndex, 
+						middleIndex, 
+						permutationNumberList, 
+						intervalTree, 
+						ucscRefSeqGenesIntervalTree,
+						annotationType, 
+						geneId2ListofGeneSetNumberMap, 
+						overlapDefinition);
+				
+				AnnotateWithNumbersDivideAsMuchAsNumberofProcessors right = new AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
+						outputFolder, 
+						chromName, 
+						randomlyGeneratedDataMap,
+						runNumber, 
+						numberofPermutations, 
+						numberofProcessors,
+						writePermutationBasedandParametricBasedAnnotationResultMode,
+						middleIndex, 
+						highIndex, 
+						permutationNumberList, 
+						intervalTree, 
+						ucscRefSeqGenesIntervalTree,
+						annotationType, 
+						geneId2ListofGeneSetNumberMap, 
+						overlapDefinition);
+				
 				left.fork();
 				rightAllMapsWithNumbers = right.compute();
 				leftAllMapsWithNumbers = left.join();
@@ -2246,7 +2276,8 @@ public class Enrichment {
 		}
 
 		// Accumulate the allMaps in the left into listofAllMaps in the right
-		protected void combineListofAllMapsWithNumbers( List<AllMapsWithNumbers> listofAllMaps,
+		protected void combineListofAllMapsWithNumbers(
+				List<AllMapsWithNumbers> listofAllMaps,
 				AllMapsWithNumbers allMaps) {
 
 			for( int i = 0; i < listofAllMaps.size(); i++){
@@ -2255,7 +2286,8 @@ public class Enrichment {
 		}
 
 		// Combine leftAllMapsWithNumbers and rightAllMapsWithNumbers in rightAllMapsWithNumbers
-		protected void combineLeftAllMapsandRightAllMaps( AllMapsWithNumbers leftAllMapsWithNumbers,
+		protected void combineLeftAllMapsandRightAllMaps(
+				AllMapsWithNumbers leftAllMapsWithNumbers,
 				AllMapsWithNumbers rightAllMapsWithNumbers) {
 
 			// LEFT ALL MAPS WITH NUMBERS
@@ -2462,7 +2494,9 @@ public class Enrichment {
 		// Accumulate leftMapWithNumbers in the rightMapWithNumbers
 		// Accumulate number of overlaps
 		// based on permutationNumber and ElementName
-		protected void combineLeftMapandRightMap( TIntIntMap leftMapWithNumbers, TIntIntMap rightMapWithNumbers) {
+		protected void combineLeftMapandRightMap(
+				TIntIntMap leftMapWithNumbers, 
+				TIntIntMap rightMapWithNumbers) {
 
 			for( TIntIntIterator it = leftMapWithNumbers.iterator(); it.hasNext();){
 
@@ -2495,7 +2529,9 @@ public class Enrichment {
 		// Accumulate leftMapWithNumbers in the rightMapWithNumbers
 		// Accumulate number of overlaps
 		// based on permutationNumber and ElementNumber
-		protected void combineLeftMapandRightMap( TLongIntMap leftMapWithNumbers, TLongIntMap rightMapWithNumbers) {
+		protected void combineLeftMapandRightMap(
+				TLongIntMap leftMapWithNumbers, 
+				TLongIntMap rightMapWithNumbers) {
 
 			for( TLongIntIterator it = leftMapWithNumbers.iterator(); it.hasNext();){
 
@@ -2519,42 +2555,464 @@ public class Enrichment {
 
 		}
 
-		protected void deleteRandomlyGeneratedData( List<InputLine> randomlyGeneratedData) {
+	}
+	//14 August 2015 ends
 
-			for( InputLine inputLine : randomlyGeneratedData){
-				inputLine.setChrName( null);
-				inputLine = null;
-			}
+	static class AnnotateWithNumbers extends RecursiveTask<AllMapsWithNumbers> {
 
-			randomlyGeneratedData.clear();
+		private static final long serialVersionUID = 2919115895116169524L;
+		private final ChromosomeName chromName;
+		private final TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap;
+		private final int runNumber;
+		private final int numberofPermutations;
+
+		private final WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode;
+
+		private final TIntList permutationNumberList;
+		private final IntervalTree intervalTree;
+		private final IntervalTree ucscRefSeqGenesIntervalTree;
+
+		private final AnnotationType annotationType;
+
+		private final int lowIndex;
+		private final int highIndex;
+
+		private final TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap;
+
+		private final String outputFolder;
+
+		private final int overlapDefinition;
+
+		public AnnotateWithNumbers(
+				String outputFolder,
+				ChromosomeName chromName,
+				TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap,
+				int runNumber,
+				int numberofPermutations,
+				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
+				int lowIndex, 
+				int highIndex, 
+				TIntList permutationNumberList, 
+				IntervalTree intervalTree,
+				IntervalTree ucscRefSeqGenesIntervalTree, 
+				AnnotationType annotationType,
+				TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, 
+				int overlapDefinition) {
+
+			this.outputFolder = outputFolder;
+
+			this.chromName = chromName;
+			this.randomlyGeneratedDataMap = randomlyGeneratedDataMap;
+			this.runNumber = runNumber;
+			this.numberofPermutations = numberofPermutations;
+
+			this.writePermutationBasedandParametricBasedAnnotationResultMode = writePermutationBasedandParametricBasedAnnotationResultMode;
+
+			this.lowIndex = lowIndex;
+			this.highIndex = highIndex;
+
+			this.permutationNumberList = permutationNumberList;
+			this.intervalTree = intervalTree;
+
+			// sent full when annotationType is TF_KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is
+			// TF_CELLLINE_KEGG_PATHWAY_ANNOTATION
+			// otherwise sent null
+			this.ucscRefSeqGenesIntervalTree = ucscRefSeqGenesIntervalTree;
+
+			this.annotationType = annotationType;
+			// this.tfandKeggPathwayEnrichmentType =
+			// tfandKeggPathwayEnrichmentType;
+
+			// geneId2ListofGeneSetNumberMap
+			// sent full when annotationType is KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is TF_KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is TF_CELLLINE_KEGG_PATHWAY_ANNOTATION
+			// sent full when annotationType is USER_DEFINED_GENE_SET_ANNOTATION
+			// otherwise sent null
+			this.geneId2ListofGeneSetNumberMap = geneId2ListofGeneSetNumberMap;
+
+			this.overlapDefinition = overlapDefinition;
 		}
 
-		protected void deleteMap( Map<String, Integer> map) {
+		protected AllMapsWithNumbers compute() {
 
-			if( map != null){
-				for( Map.Entry<String, Integer> entry : map.entrySet()){
-					entry.setValue( null);
-					entry = null;
+			int middleIndex;
+			AllMapsWithNumbers rightAllMapsWithNumbers;
+			AllMapsWithNumbers leftAllMapsWithNumbers;
+
+			Integer permutationNumber;
+			List<AllMapsWithNumbers> listofAllMapsWithNumbers;
+			AllMapsWithNumbers allMapsWithNumbers;
+
+			// DIVIDE
+			if( highIndex - lowIndex > Commons.NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY){
+				middleIndex = lowIndex + ( highIndex - lowIndex) / 2;
+				AnnotateWithNumbers left = new AnnotateWithNumbers( outputFolder, chromName, randomlyGeneratedDataMap,
+						runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode,
+						lowIndex, middleIndex, permutationNumberList, intervalTree, ucscRefSeqGenesIntervalTree,
+						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition);
+				AnnotateWithNumbers right = new AnnotateWithNumbers( outputFolder, chromName, randomlyGeneratedDataMap,
+						runNumber, numberofPermutations, writePermutationBasedandParametricBasedAnnotationResultMode,
+						middleIndex, highIndex, permutationNumberList, intervalTree, ucscRefSeqGenesIntervalTree,
+						annotationType, geneId2ListofGeneSetNumberMap, overlapDefinition);
+				left.fork();
+				rightAllMapsWithNumbers = right.compute();
+				leftAllMapsWithNumbers = left.join();
+				combineLeftAllMapsandRightAllMaps( leftAllMapsWithNumbers, rightAllMapsWithNumbers);
+				leftAllMapsWithNumbers = null;
+				return rightAllMapsWithNumbers;
+			}
+			// CONQUER
+			else{
+
+				listofAllMapsWithNumbers = new ArrayList<AllMapsWithNumbers>();
+				allMapsWithNumbers = new AllMapsWithNumbers();
+
+				for( int i = lowIndex; i < highIndex; i++){
+					permutationNumber = permutationNumberList.get( i);
+
+					// WITHOUT IO WithNumbers
+					if( writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
+						listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithoutIOWithNumbers(
+								permutationNumber, chromName, randomlyGeneratedDataMap.get( permutationNumber),
+								intervalTree, ucscRefSeqGenesIntervalTree, annotationType,
+								geneId2ListofGeneSetNumberMap, overlapDefinition));
+					}
+
+					// WITH IO WithNumbers
+					else if( writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
+						listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithIOWithNumbers( outputFolder,
+								permutationNumber, chromName, randomlyGeneratedDataMap.get( permutationNumber),
+								intervalTree, ucscRefSeqGenesIntervalTree, annotationType,
+								geneId2ListofGeneSetNumberMap, overlapDefinition));
+					}
+				}// End of FOR
+
+				combineListofAllMapsWithNumbers( listofAllMapsWithNumbers, allMapsWithNumbers);
+
+				listofAllMapsWithNumbers = null;
+				return allMapsWithNumbers;
+
+			}
+		}
+
+		// Accumulate the allMaps in the left into listofAllMaps in the right
+		protected void combineListofAllMapsWithNumbers(
+				List<AllMapsWithNumbers> listofAllMaps,
+				AllMapsWithNumbers allMaps) {
+
+			for( int i = 0; i < listofAllMaps.size(); i++){
+				combineLeftAllMapsandRightAllMaps( listofAllMaps.get( i), allMaps);
+			}
+		}
+
+		// Combine leftAllMapsWithNumbers and rightAllMapsWithNumbers in rightAllMapsWithNumbers
+		protected void combineLeftAllMapsandRightAllMaps(
+				AllMapsWithNumbers leftAllMapsWithNumbers,
+				AllMapsWithNumbers rightAllMapsWithNumbers) {
+
+			// LEFT ALL MAPS WITH NUMBERS
+			// DNASE
+			TIntIntMap leftPermutationNumberDnaseCellLineNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberDnaseCellLineNumber2KMap();
+
+			// TF
+			TLongIntMap leftPermutationNumberTfNumberCellLineNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap();
+
+			// HISTONE
+			TLongIntMap leftPermutationNumberHistoneNumberCellLineNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap();
+
+			// Gene
+			TLongIntMap leftPermutationNumberGeneNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberGeneNumber2KMap();
+
+			// USERDEFINED GENESET
+			TLongIntMap leftPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap();
+			TLongIntMap leftPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap();
+			TLongIntMap leftPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap();
+
+			// USERDEFINED LIBRARY
+			TLongIntMap leftPermutationNumberElementTypeNumberElementNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberElementTypeNumberElementNumber2KMap();
+
+			// KEGG Pathway
+			TIntIntMap leftPermutationNumberExonBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap();
+			TIntIntMap leftPermutationNumberRegulationBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathwayNumber2KMap();
+			TIntIntMap leftPermutationNumberAllBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathwayNumber2KMap();
+
+			// TF KEGGPathway
+			TLongIntMap leftPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap();
+			TLongIntMap leftPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap();
+			TLongIntMap leftPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap();
+
+			// TF CellLine KEGGPathway
+			TLongIntMap leftPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap();
+			TLongIntMap leftPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap();
+			TLongIntMap leftPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap = leftAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap();
+
+			// RIGHT ALL MAPS WITH NUMBERS
+			// DNASE
+			TIntIntMap rightPermutationNumberDnaseCellLineNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberDnaseCellLineNumber2KMap();
+
+			// TF
+			TLongIntMap rightPermutationNumberTfNumberCellLineNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumber2KMap();
+
+			// HISTONE
+			TLongIntMap rightPermutationNumberHistoneNumberCellLineNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberHistoneNumberCellLineNumber2KMap();
+
+			// Gene
+			TLongIntMap rightPermutationNumberGeneNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberGeneNumber2KMap();
+
+			// USERDEFINED GENESET
+			TLongIntMap rightPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap();
+			TLongIntMap rightPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap();
+			TLongIntMap rightPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap();
+
+			// USERDEFINED LIBRARY
+			TLongIntMap rightPermutationNumberElementTypeNumberElementNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberElementTypeNumberElementNumber2KMap();
+
+			// KEGG Pathway
+			TIntIntMap rightPermutationNumberExonBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberExonBasedKeggPathwayNumber2KMap();
+			TIntIntMap rightPermutationNumberRegulationBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberRegulationBasedKeggPathwayNumber2KMap();
+			TIntIntMap rightPermutationNumberAllBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberAllBasedKeggPathwayNumber2KMap();
+
+			// TF KEGGPathway
+			TLongIntMap rightPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap();
+			TLongIntMap rightPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap();
+			TLongIntMap rightPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap();
+
+			// TF CellLine KEGGPathway
+			TLongIntMap rightPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap();
+			TLongIntMap rightPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap();
+			TLongIntMap rightPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap = rightAllMapsWithNumbers.getPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap();
+
+			// DNASE
+			if( leftPermutationNumberDnaseCellLineNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberDnaseCellLineNumber2KMap,
+						rightPermutationNumberDnaseCellLineNumber2KMap);
+				leftPermutationNumberDnaseCellLineNumber2KMap = null;
+			}
+
+			// TF
+			if( leftPermutationNumberTfNumberCellLineNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberTfNumberCellLineNumber2KMap,
+						rightPermutationNumberTfNumberCellLineNumber2KMap);
+				leftPermutationNumberTfNumberCellLineNumber2KMap = null;
+			}
+
+			// HISTONE
+			if( leftPermutationNumberHistoneNumberCellLineNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberHistoneNumberCellLineNumber2KMap,
+						rightPermutationNumberHistoneNumberCellLineNumber2KMap);
+				leftPermutationNumberHistoneNumberCellLineNumber2KMap = null;
+			}
+
+			// GENE
+			if( leftPermutationNumberGeneNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberGeneNumber2KMap, rightPermutationNumberGeneNumber2KMap);
+				leftPermutationNumberGeneNumber2KMap = null;
+			}
+
+			// USERDEFINED GENESET starts
+			// EXON BASED USERDEFINED GENESET
+			if( leftPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap,
+						rightPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap);
+				leftPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap = null;
+			}
+
+			// REGULATION BASED USERDEFINED GENESET
+			if( leftPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap,
+						rightPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap);
+				leftPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap = null;
+			}
+
+			// ALL BASED USERDEFINED GENESET
+			if( leftPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap,
+						rightPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap);
+				leftPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap = null;
+			}
+			// USERDEFINED GENESET ends
+
+			// USERDEFINED LIBRARY starts
+			if( leftPermutationNumberElementTypeNumberElementNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberElementTypeNumberElementNumber2KMap,
+						rightPermutationNumberElementTypeNumberElementNumber2KMap);
+				leftPermutationNumberElementTypeNumberElementNumber2KMap = null;
+			}
+			// USERDEFINED LIBRARY ends
+
+			// EXON BASED KEGG PATHWAY
+			if( leftPermutationNumberExonBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberExonBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberExonBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberExonBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// REGULATION BASED KEGG PATHWAY
+			if( leftPermutationNumberRegulationBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberRegulationBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberRegulationBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberRegulationBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// ALL BASED KEGG PATHWAY
+			if( leftPermutationNumberAllBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberAllBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberAllBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberAllBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// TF and EXON BASED KEGG PATHWAY
+			if( leftPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberTfNumberExonBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// TF and REGULATION BASED KEGG PATHWAY
+			if( leftPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// TF and ALL BASED KEGG PATHWAY
+			if( leftPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberTfNumberAllBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// TF and CellLine and EXON BASED KEGG PATHWAY
+			if( leftPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// TF and CellLine and REGULATION BASED KEGG PATHWAY
+			if( leftPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap(
+						leftPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// TF and CellLine and ALL BASED KEGG PATHWAY
+			if( leftPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap != null){
+				combineLeftMapandRightMap( leftPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap,
+						rightPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
+				leftPermutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap = null;
+			}
+
+			// delete AllMaps
+			// deleteAllMaps(leftAllMaps);
+			leftAllMapsWithNumbers = null;
+
+		}// End of combineAllMaps
+
+		// TIntIntMap version starts
+		// Accumulate leftMapWithNumbers in the rightMapWithNumbers
+		// Accumulate number of overlaps
+		// based on permutationNumber and ElementName
+		protected void combineLeftMapandRightMap(
+				TIntIntMap leftMapWithNumbers, 
+				TIntIntMap rightMapWithNumbers) {
+
+			for( TIntIntIterator it = leftMapWithNumbers.iterator(); it.hasNext();){
+
+				it.advance();
+
+				int permutationNumberCellLineNumberOrKeggPathwayNumber = it.key();
+				int numberofOverlaps = it.value();
+
+				// For debug purposes starts
+				// System.out.println("permutationNumberCellLineNumberOrKeggPathwayNumber: "
+				// + permutationNumberCellLineNumberOrKeggPathwayNumber);
+				// For debug purposes ends
+
+				if( !( rightMapWithNumbers.containsKey( permutationNumberCellLineNumberOrKeggPathwayNumber))){
+					rightMapWithNumbers.put( permutationNumberCellLineNumberOrKeggPathwayNumber, numberofOverlaps);
+				}else{
+					rightMapWithNumbers.put(
+							permutationNumberCellLineNumberOrKeggPathwayNumber,
+							rightMapWithNumbers.get( permutationNumberCellLineNumberOrKeggPathwayNumber) + numberofOverlaps);
 				}
-				map = null;
 			}
 
+			leftMapWithNumbers.clear();
+			leftMapWithNumbers = null;
+
 		}
 
-		protected void deleteAllMaps( AllMaps allMaps) {
+		// TIntIntMap version ends
 
-			Map<String, Integer> map = allMaps.getPermutationNumberDnaseCellLineName2KMap();
-			deleteMap( map);
-			map = allMaps.getPermutationNumberTfNameCellLineName2KMap();
-			deleteMap( map);
-			map = allMaps.getPermutationNumberHistoneNameCellLineName2KMap();
-			deleteMap( map);
-			map = allMaps.getPermutationNumberExonBasedKeggPathway2KMap();
-			deleteMap( map);
-			map = allMaps.getPermutationNumberRegulationBasedKeggPathway2KMap();
-			deleteMap( map);
-			allMaps = null;
+		// Accumulate leftMapWithNumbers in the rightMapWithNumbers
+		// Accumulate number of overlaps
+		// based on permutationNumber and ElementNumber
+		protected void combineLeftMapandRightMap(
+				TLongIntMap leftMapWithNumbers, 
+				TLongIntMap rightMapWithNumbers) {
+
+			for( TLongIntIterator it = leftMapWithNumbers.iterator(); it.hasNext();){
+
+				it.advance();
+
+				long permutationNumberElementNumberCellLineNumberKeggPathwayNumber = it.key();
+				int numberofOverlaps = it.value();
+
+				if( !( rightMapWithNumbers.containsKey( permutationNumberElementNumberCellLineNumberKeggPathwayNumber))){
+					rightMapWithNumbers.put( permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+							numberofOverlaps);
+				}else{
+					rightMapWithNumbers.put(
+							permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+							rightMapWithNumbers.get( permutationNumberElementNumberCellLineNumberKeggPathwayNumber) + numberofOverlaps);
+				}
+			}
+
+			leftMapWithNumbers.clear();
+			leftMapWithNumbers = null;
+
 		}
+
+//		protected void deleteRandomlyGeneratedData( List<InputLine> randomlyGeneratedData) {
+//
+//			for( InputLine inputLine : randomlyGeneratedData){
+//				inputLine.setChrName( null);
+//				inputLine = null;
+//			}
+//
+//			randomlyGeneratedData.clear();
+//		}
+
+//		protected void deleteMap( Map<String, Integer> map) {
+//
+//			if( map != null){
+//				for( Map.Entry<String, Integer> entry : map.entrySet()){
+//					entry.setValue( null);
+//					entry = null;
+//				}
+//				map = null;
+//			}
+//
+//		}
+
+//		protected void deleteAllMaps( AllMaps allMaps) {
+//
+//			Map<String, Integer> map = allMaps.getPermutationNumberDnaseCellLineName2KMap();
+//			deleteMap( map);
+//			map = allMaps.getPermutationNumberTfNameCellLineName2KMap();
+//			deleteMap( map);
+//			map = allMaps.getPermutationNumberHistoneNameCellLineName2KMap();
+//			deleteMap( map);
+//			map = allMaps.getPermutationNumberExonBasedKeggPathway2KMap();
+//			deleteMap( map);
+//			map = allMaps.getPermutationNumberRegulationBasedKeggPathway2KMap();
+//			deleteMap( map);
+//			allMaps = null;
+//		}
 
 	}
 
@@ -3820,7 +4278,7 @@ public class Enrichment {
 			String outputFolder,
 			String dataFolder,
 			GivenInputDataType givenInputsSNPsorIntervals,
-			int NUMBER_OF_AVAILABLE_PROCESSORS,
+			int numberofProcessors,
 			int runNumber,
 			int numberofPermutationsinThisRun,
 			int numberofPermutationsinEachRun,
@@ -3964,7 +4422,7 @@ public class Enrichment {
 
 		GenerateRandomData generateRandomData;
 
-		ForkJoinPool pool = new ForkJoinPool( NUMBER_OF_AVAILABLE_PROCESSORS);
+		ForkJoinPool pool = new ForkJoinPool(numberofProcessors);
 
 		startTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
@@ -5736,7 +6194,7 @@ public class Enrichment {
 			String outputFolder,
 			String dataFolder,
 			GivenInputDataType givenInputsSNPsorIntervals,
-			int NUMBER_OF_AVAILABLE_PROCESSORS,
+			int numberofProcessors,
 			int runNumber,
 			int numberofPermutationsinThisRun,
 			int numberofPermutationsinEachRun,
@@ -5901,12 +6359,13 @@ public class Enrichment {
 		TIntObjectMap<List<InputLineMinimal>> permutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<List<InputLineMinimal>>();
 
 		AnnotateWithNumbers annotateWithNumbers;
+		AnnotateWithNumbersDivideAsMuchAsNumberofProcessors annotateWithNumbersDivideAsMuchAsNumberofProcessors;
 
 		// For testing purposes
 		// AnnotateDnaseTFHistoneWithNumbers annotateDnaseTFHistoneWithNumbers;
 
 		GenerateRandomData generateRandomData;
-		ForkJoinPool pool = new ForkJoinPool( NUMBER_OF_AVAILABLE_PROCESSORS);
+		ForkJoinPool pool = new ForkJoinPool(numberofProcessors);
 
 		startTimeAllPermutationsAllChromosomes = System.currentTimeMillis();
 
@@ -6301,13 +6760,24 @@ public class Enrichment {
 					// generate dnase interval tree
 					intervalTree = generateDnaseIntervalTreeWithNumbers( dataFolder, chromName);
 
-					annotateWithNumbers = new AnnotateWithNumbers( outputFolder, chromName,
-							permutationNumber2RandomlyGeneratedDataHashMap, runNumber, numberofPermutationsinThisRun,
-							writePermutationBasedandParametricBasedAnnotationResultMode, Commons.ZERO,
-							permutationNumberList.size(), permutationNumberList, intervalTree, null,
-							AnnotationType.DO_DNASE_ANNOTATION, null, overlapDefinition);
+					annotateWithNumbersDivideAsMuchAsNumberofProcessors = new AnnotateWithNumbersDivideAsMuchAsNumberofProcessors(
+							outputFolder, 
+							chromName,
+							permutationNumber2RandomlyGeneratedDataHashMap, 
+							runNumber, 
+							numberofPermutationsinThisRun,
+							numberofProcessors,
+							writePermutationBasedandParametricBasedAnnotationResultMode, 
+							Commons.ZERO,
+							permutationNumberList.size(), 
+							permutationNumberList, 
+							intervalTree, 
+							null,
+							AnnotationType.DO_DNASE_ANNOTATION, 
+							null, 
+							overlapDefinition);
 
-					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
+					allMapsWithNumbers = pool.invoke(annotateWithNumbersDivideAsMuchAsNumberofProcessors);
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_DNASE_ANNOTATION);
 
 					allMapsWithNumbers = null;
@@ -7656,6 +8126,9 @@ public class Enrichment {
 		/***********************************************************************************/
 		/**************Memory Usage Before Enrichment***************************************/
 		/***********************************************************************************/
+		
+		//Get Number of processors
+		int numberofProcessors = Commons.NUMBER_OF_AVAILABLE_PROCESSORS;
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
@@ -8215,7 +8688,7 @@ public class Enrichment {
 		/***********INITIALIZATION OF elementNumber2OriginalK MAPS for ORIGINAL DATA ENDS **************/
 		/***********************************************************************************************/
 
-		// Perform Enrichment WITHOUT Keeping Number of Overlaps Coming from Each Permutation starts
+		// Perform Enrichment WITHOUT ZSCORES (Without Keeping Number of Overlaps Coming from Each Permutation starts)
 		// Consumes Less Memory
 		if( enrichmentZScoreType.isPerformEnrichmentWithoutZScore()){
 
@@ -8240,9 +8713,15 @@ public class Enrichment {
 				// elementName2AllKMap and originalElementName2KMap will be filled here
 				if( ( runNumber == numberofRuns) && ( numberofRemainedPermutations > 0)){
 
-					Enrichment.annotateAllPermutationsInThreadsForAllChromosomes( outputFolder, dataFolder,
-							givenInputsSNPsorIntervals, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber,
-							numberofRemainedPermutations, numberofPermutationsInEachRun, originalInputLines,
+					Enrichment.annotateAllPermutationsInThreadsForAllChromosomes(
+							outputFolder, 
+							dataFolder,
+							givenInputsSNPsorIntervals, 
+							numberofProcessors, 
+							runNumber,
+							numberofRemainedPermutations, 
+							numberofPermutationsInEachRun, 
+							originalInputLines,
 							generateRandomDataMode, writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
 							writePermutationBasedAnnotationResultMode, 
@@ -8288,9 +8767,14 @@ public class Enrichment {
 
 				}else{
 
-					Enrichment.annotateAllPermutationsInThreadsForAllChromosomes( outputFolder, dataFolder,
-							givenInputsSNPsorIntervals, Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber,
-							numberofPermutationsInEachRun, numberofPermutationsInEachRun, originalInputLines,
+					Enrichment.annotateAllPermutationsInThreadsForAllChromosomes(
+							outputFolder, 
+							dataFolder,
+							givenInputsSNPsorIntervals, 
+							numberofProcessors, 
+							runNumber,
+							numberofPermutationsInEachRun, 
+							numberofPermutationsInEachRun, originalInputLines,
 							generateRandomDataMode, writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
 							writePermutationBasedAnnotationResultMode, dnaseCellLineNumber2OriginalKMap,
@@ -8345,7 +8829,7 @@ public class Enrichment {
 		}
 		// Perform Enrichment WITHOUT Keeping Number of Overlaps Coming from Each Permutation ends
 
-		// Perform Enrichment WITH Keeping Number of Overlaps Coming from Each Permutation starts
+		// Perform Enrichment WITH ZSCORES (With Keeping Number of Overlaps Coming from Each Permutation starts)
 		// Consumes more memory
 		else if( enrichmentZScoreType.isPerformEnrichmentWithZScore()){
 
@@ -8524,22 +9008,43 @@ public class Enrichment {
 				// elementName2AllKMap and originalElementName2KMap will be filled here
 				if( ( runNumber == numberofRuns) && ( numberofRemainedPermutations > 0)){
 					
-					Enrichment.annotateAllPermutationsInThreads( outputFolder, dataFolder, givenInputsSNPsorIntervals,
-							Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofRemainedPermutations,
-							numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap,
-							histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap,
-							regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap,
-							elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap,
-							regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap,
-							tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap,
-							tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap,
-							tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap,
-							generateRandomDataMode, writeGeneratedRandomDataMode,
+					Enrichment.annotateAllPermutationsInThreads(
+							outputFolder, 
+							dataFolder, 
+							givenInputsSNPsorIntervals,
+							numberofProcessors, 
+							runNumber, 
+							numberofRemainedPermutations,
+							numberofPermutationsInEachRun, 
+							originalInputLines, 
+							dnase2AllKMap, 
+							tfbs2AllKMap,
+							histone2AllKMap, 
+							gene2AllKMap, 
+							exonBasedUserDefinedGeneSet2AllKMap,
+							regulationBasedUserDefinedGeneSet2AllKMap, 
+							allBasedUserDefinedGeneSet2AllKMap,
+							elementTypeNumberElementNumber2AllKMap, 
+							exonBasedKeggPathway2AllKMap,
+							regulationBasedKeggPathway2AllKMap, 
+							allBasedKeggPathway2AllKMap,
+							tfExonBasedKeggPathway2AllKMap, 
+							tfRegulationBasedKeggPathway2AllKMap,
+							tfAllBasedKeggPathway2AllKMap, 
+							tfCellLineExonBasedKeggPathway2AllKMap,
+							tfCellLineRegulationBasedKeggPathway2AllKMap, 
+							tfCellLineAllBasedKeggPathway2AllKMap,
+							generateRandomDataMode, 
+							writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
-							writePermutationBasedAnnotationResultMode, dnaseCellLineNumber2OriginalKMap,
-							tfNumberCellLineNumber2OriginalKMap, histoneNumberCellLineNumber2OriginalKMap,
-							gene2OriginalKMap, exonBasedUserDefinedGeneSet2OriginalKMap,
-							regulationBasedUserDefinedGeneSet2OriginalKMap, allBasedUserDefinedGeneSet2OriginalKMap,
+							writePermutationBasedAnnotationResultMode, 
+							dnaseCellLineNumber2OriginalKMap,
+							tfNumberCellLineNumber2OriginalKMap, 
+							histoneNumberCellLineNumber2OriginalKMap,
+							gene2OriginalKMap, 
+							exonBasedUserDefinedGeneSet2OriginalKMap,
+							regulationBasedUserDefinedGeneSet2OriginalKMap, 
+							allBasedUserDefinedGeneSet2OriginalKMap,
 							elementTypeNumberElementNumber2OriginalKMap, exonBasedKeggPathway2OriginalKMap,
 							regulationBasedKeggPathway2OriginalKMap, allBasedKeggPathway2OriginalKMap,
 							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
@@ -8562,20 +9067,39 @@ public class Enrichment {
 							userDefinedLibraryElementTypeNumber2NameMap);
 				}else{
 					
-					Enrichment.annotateAllPermutationsInThreads( outputFolder, dataFolder, givenInputsSNPsorIntervals,
-							Commons.NUMBER_OF_AVAILABLE_PROCESSORS, runNumber, numberofPermutationsInEachRun,
-							numberofPermutationsInEachRun, originalInputLines, dnase2AllKMap, tfbs2AllKMap,
-							histone2AllKMap, gene2AllKMap, exonBasedUserDefinedGeneSet2AllKMap,
-							regulationBasedUserDefinedGeneSet2AllKMap, allBasedUserDefinedGeneSet2AllKMap,
-							elementTypeNumberElementNumber2AllKMap, exonBasedKeggPathway2AllKMap,
-							regulationBasedKeggPathway2AllKMap, allBasedKeggPathway2AllKMap,
-							tfExonBasedKeggPathway2AllKMap, tfRegulationBasedKeggPathway2AllKMap,
-							tfAllBasedKeggPathway2AllKMap, tfCellLineExonBasedKeggPathway2AllKMap,
-							tfCellLineRegulationBasedKeggPathway2AllKMap, tfCellLineAllBasedKeggPathway2AllKMap,
-							generateRandomDataMode, writeGeneratedRandomDataMode,
+					Enrichment.annotateAllPermutationsInThreads(
+							outputFolder, 
+							dataFolder, 
+							givenInputsSNPsorIntervals,
+							numberofProcessors, 
+							runNumber, 
+							numberofPermutationsInEachRun,
+							numberofPermutationsInEachRun, 
+							originalInputLines, 
+							dnase2AllKMap, 
+							tfbs2AllKMap,
+							histone2AllKMap, 
+							gene2AllKMap, 
+							exonBasedUserDefinedGeneSet2AllKMap,
+							regulationBasedUserDefinedGeneSet2AllKMap, 
+							allBasedUserDefinedGeneSet2AllKMap,
+							elementTypeNumberElementNumber2AllKMap, 
+							exonBasedKeggPathway2AllKMap,
+							regulationBasedKeggPathway2AllKMap, 
+							allBasedKeggPathway2AllKMap,
+							tfExonBasedKeggPathway2AllKMap, 
+							tfRegulationBasedKeggPathway2AllKMap,
+							tfAllBasedKeggPathway2AllKMap, 
+							tfCellLineExonBasedKeggPathway2AllKMap,
+							tfCellLineRegulationBasedKeggPathway2AllKMap, 
+							tfCellLineAllBasedKeggPathway2AllKMap,
+							generateRandomDataMode, 
+							writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
-							writePermutationBasedAnnotationResultMode, dnaseCellLineNumber2OriginalKMap,
-							tfNumberCellLineNumber2OriginalKMap, histoneNumberCellLineNumber2OriginalKMap,
+							writePermutationBasedAnnotationResultMode, 
+							dnaseCellLineNumber2OriginalKMap,
+							tfNumberCellLineNumber2OriginalKMap, 
+							histoneNumberCellLineNumber2OriginalKMap,
 							gene2OriginalKMap, exonBasedUserDefinedGeneSet2OriginalKMap,
 							regulationBasedUserDefinedGeneSet2OriginalKMap, allBasedUserDefinedGeneSet2OriginalKMap,
 							elementTypeNumberElementNumber2OriginalKMap, exonBasedKeggPathway2OriginalKMap,
