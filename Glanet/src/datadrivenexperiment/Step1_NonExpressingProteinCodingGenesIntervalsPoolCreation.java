@@ -474,9 +474,18 @@ public class Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation {
 
 	public static String getTPMString( float tpmThreshold) {
 
+		//TPM values for Expressing Genes
 		if( tpmThreshold == 1f)
 			return Commons.TPM_1;
-
+		
+		else if (tpmThreshold == 10f)
+			return Commons.TPM_10;
+		
+		else if (tpmThreshold == 100f)
+			return Commons.TPM_100;
+		
+		
+		//TPM values for NonExpressing Genes
 		else if( tpmThreshold == 0f)
 			return Commons.TPM_0;
 
@@ -497,15 +506,17 @@ public class Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation {
 
 		else if( tpmThreshold == 0.000001f)
 			return Commons.TPM_0_000001;
-
+		
+		//TPM Unknown
 		else
 			return Commons.TPM_UNKNOWN;
 
 	}
 
 	/*
-	 * args[0] = Glanet Folder (which is the parent of Data folder)
-	 * args[1] = TPM value (0.1, 0.01, 0.001)
+	 * args[0] = 	Glanet Folder (which is the parent of Data folder)
+	 * args[1] = 	TPM value (0.1, 0.01, 0.001) for NonExpressingProteinCodingGenesIntervals pool creation or
+	 * 				TPM value (1, 10, 100) for ExpressingProteinCodingGenesIntervals pool creation
 	 */
 	public static void main( String[] args) {
 

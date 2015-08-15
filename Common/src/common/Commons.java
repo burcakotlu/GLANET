@@ -50,31 +50,42 @@ public class Commons {
 	public static final String Gm12878Rep2_genes_results = "Gm12878Rep2.genes.results";
 	public static final String female_gtf = "female.gtf";
 
-	public static final String TPM_1 = "TPM_1";
 	public static final String TPM_0_1 = "TPM_0_1";
 	public static final String TPM_0_01 = "TPM_0_01";
 	public static final String TPM_0_001 = "TPM_0_001";
 	public static final String TPM_0_0001 = "TPM_0_0001";
+	
 	public static final String TPM_0_00001 = "TPM_0_00001";
 	public static final String TPM_0_000001 = "TPM_0_000001";
 	public static final String TPM_0 = "TPM_0";
 	public static final String TPM_UNKNOWN = "TPM_UNKNOWN";
 
+	public static final String TPM_1 = "TPM_1";
+	public static final String TPM_10 = "TPM_10";
+	public static final String TPM_100 = "TPM_100";
+	
+	
 	public static final String DNASE_OVERLAPS_EXCLUDED = "DnaseOverlapsExcluded";
 	public static final String NON_EXPRESSING_PROTEIN_CODING_GENES = "NonExpressingProteinCodingGenes";
 
-	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscardIntervalInCaseofDnaseOverlap";
-	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardIntervalTakeOnlyTheLongestRemainingInterval";
-	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardIntervalTakeAllTheRemainingIntervals";
-	public static final String NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS = "NonExpressingProteinCodingGenesIntervals";
-
+	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscard";
+	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardTakeTheLongestRemainingInterval";
+	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardTakeAllTheRemainingIntervals";
+	public static final String NO_DISCARD = "NoDiscard";
+	
 	public static final String SIMULATION_DATA = "SimulationData";
 	public static final String SIMULATION = "Sim";
+	
 	public static final String GM12878 = "GM12878";
 	public static final String POL2_GM12878 = "POL2_GM12878";
 	public static final String H3K4ME3_GM12878 = "H3K4ME3_GM12878";
 	public static final String H3K27ME3_GM12878 = "H3K27ME3_GM12878";
-
+	
+	public static final String K562 = "K562";
+	public static final String POL2_K562 = "POL2_K562";
+	public static final String H3K4ME1_K562 = "H3K4ME1_K562";
+	public static final String H3K4ME2_K652 = "H3K4ME2_K652";
+	
 	// GLANET DATA Driven ends
 
 	public static final String demo_input_data = "demo_input_data";

@@ -93,8 +93,11 @@ public class Step4_SimulationGLANETRuns {
 			//fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(1).sh");
 			
 			//Burcak Otlu
+			
+			
 			//*************************************************************************************************************//
-			//*************************************************************************************************************//
+			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
+			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
 			//*************************************************************************************************************//
 			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeAllRemainingIntervalsWithGCandMapability.bat");
 			
@@ -107,7 +110,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP, 
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS, 
 					withGCandMapability,
 					args);
 			
@@ -115,7 +118,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP, 
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS, 
 					withGCandMapability,
 					args);
 			
@@ -123,7 +126,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP, 
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS, 
 					withGCandMapability,
 					args);
 
@@ -131,13 +134,15 @@ public class Step4_SimulationGLANETRuns {
 			bufferedWriter.close();
 			fileWriter.close();
 			//*************************************************************************************************************//
-			//*************************************************************************************************************//
+			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
+			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
 			//*************************************************************************************************************//
 
 			
 			
 			//*************************************************************************************************************//
-			//*************************************************************************************************************//
+			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
+			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
 			//*************************************************************************************************************//
 			//fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(2).sh");
 			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeAllRemainingIntervalsWithoutGCandMapability.bat");
@@ -150,7 +155,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS,
 					withoutGCandMapability, 
 					args);
 			
@@ -158,7 +163,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS,
 					withoutGCandMapability, 
 					args);
 			
@@ -167,7 +172,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter, 
 					numberOfSimulations, 
 					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS,
 					withoutGCandMapability, 
 					args);
 
@@ -175,17 +180,19 @@ public class Step4_SimulationGLANETRuns {
 			bufferedWriter.close();
 			fileWriter.close();
 			//*************************************************************************************************************//
-			//*************************************************************************************************************//
+			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
+			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
 			//*************************************************************************************************************//
 
 			
 			
 			
 			//*************************************************************************************************************//
-			//*************************************************************************************************************//
+			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL********************//
+			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
 			//*************************************************************************************************************//
 //			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(3).sh");
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeOnlyTheLongestIntervalWithGCandMpability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeTheLongestIntervalWithGCandMpability.bat");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 //			bufferedWriter.write( "#!/bin/bash\n");
@@ -195,7 +202,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
 					withGCandMapability, 
 					args);
 			
@@ -203,7 +210,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
 					withGCandMapability, 
 					args);
 			
@@ -211,24 +218,26 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
 					withGCandMapability, 
 					args);
 
 			bufferedWriter.close();
 			fileWriter.close();
 			//*************************************************************************************************************//
-			//*************************************************************************************************************//
+			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL********************//
+			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
 			//*************************************************************************************************************//
 			
 			
 			
 			
 			//*************************************************************************************************************//
-			//*************************************************************************************************************//
+			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL********************//
+			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
 			//*************************************************************************************************************//
 //			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(4).sh");
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeOnlyTheLongestIntervalWithoutGCandMpability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeTheLongestIntervalWithoutGCandMpability.bat");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 //			bufferedWriter.write( "#!/bin/bash\n");
@@ -238,7 +247,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
 					withoutGCandMapability, 
 					args);
 			
@@ -246,7 +255,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
 					withoutGCandMapability, 
 					args);
 			
@@ -254,7 +263,7 @@ public class Step4_SimulationGLANETRuns {
 					bufferedWriter,
 					numberOfSimulations,
 					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP,
+					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
 					withoutGCandMapability, 
 					args);
 
@@ -262,8 +271,177 @@ public class Step4_SimulationGLANETRuns {
 			bufferedWriter.close();
 			fileWriter.close();
 			//*************************************************************************************************************//
+			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL********************//
+			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
 			//*************************************************************************************************************//
+			
+			
+			
 			//*************************************************************************************************************//
+			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
+			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
+			//*************************************************************************************************************//
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsCompletelyDiscardWithGCandMpability.bat");
+			
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			// With GC and Mapability
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_001,
+					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
+					withGCandMapability, 
+					args);
+			
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_01,
+					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
+					withGCandMapability, 
+					args);
+			
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_1,
+					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
+					withGCandMapability, 
+					args);
+
+			bufferedWriter.close();
+			fileWriter.close();
+			//*************************************************************************************************************//
+			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
+			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
+			//*************************************************************************************************************//
+			
+			
+			//*************************************************************************************************************//
+			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
+			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
+			//*************************************************************************************************************//
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsCompletelyDiscardWithoutGCandMpability.bat");
+			
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			// With GC and Mapability
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_001,
+					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
+					withoutGCandMapability, 
+					args);
+			
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_01,
+					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
+					withoutGCandMapability, 
+					args);
+			
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_1,
+					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
+					withoutGCandMapability, 
+					args);
+
+			bufferedWriter.close();
+			fileWriter.close();
+			//*************************************************************************************************************//
+			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
+			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
+			//*************************************************************************************************************//
+
+			
+			
+			//*************************************************************************************************************//
+			//***************************************NO_DISCARD************************************************************//
+			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
+			//*************************************************************************************************************//
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsNoDiscardWithGCandMpability.bat");
+			
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			// With GC and Mapability
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_001,
+					DnaseOverlapExclusionType.NO_DISCARD,
+					withGCandMapability, 
+					args);
+			
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_01,
+					DnaseOverlapExclusionType.NO_DISCARD,
+					withGCandMapability, 
+					args);
+			
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_1,
+					DnaseOverlapExclusionType.NO_DISCARD,
+					withGCandMapability, 
+					args);
+
+			bufferedWriter.close();
+			fileWriter.close();
+			//*************************************************************************************************************//
+			//***************************************NO_DISCARD************************************************************//
+			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
+			//*************************************************************************************************************//
+	
+			
+			//*************************************************************************************************************//
+			//***************************************NO_DISCARD************************************************************//
+			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
+			//*************************************************************************************************************//
+			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsNoDiscardWithoutGCandMpability.bat");
+			
+			bufferedWriter = new BufferedWriter( fileWriter);
+
+			// With GC and Mapability
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_001,
+					DnaseOverlapExclusionType.NO_DISCARD,
+					withoutGCandMapability, 
+					args);
+			
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_01,
+					DnaseOverlapExclusionType.NO_DISCARD,
+					withoutGCandMapability, 
+					args);
+			
+			writeGLANETRuns(
+					bufferedWriter,
+					numberOfSimulations,
+					Commons.TPM_0_1,
+					DnaseOverlapExclusionType.NO_DISCARD,
+					withoutGCandMapability, 
+					args);
+
+			bufferedWriter.close();
+			fileWriter.close();
+			//*************************************************************************************************************//
+			//***************************************NO_DISCARD************************************************************//
+			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
+			//*************************************************************************************************************//
+
+
 			
 
 		}catch( IOException e){

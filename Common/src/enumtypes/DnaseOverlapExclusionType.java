@@ -9,14 +9,17 @@ import common.Commons;
  * @author Burcak Otlu
  * @date May 29, 2015
  * @project Common 
+ * 
+ * What to do when there is an overlap with a DNase Interval and the created interval?
  *
  */
 public enum DnaseOverlapExclusionType {
 
-	COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP(1), 
-	PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP(2),
-	PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP(3),
-	NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS(4);
+	COMPLETELY_DISCARD_INTERVAL(1), 
+	PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL(2),
+	PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS(3),
+	NO_DISCARD(4);
+	
 
 	private final int dnaseOverlapExclusionType;
 
@@ -38,18 +41,18 @@ public enum DnaseOverlapExclusionType {
 	public static DnaseOverlapExclusionType convertStringtoEnum( String dnaseOverlapExclusionType) {
 
 		if( Commons.COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP.equals( dnaseOverlapExclusionType)){
-			return COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+			return COMPLETELY_DISCARD_INTERVAL;
 		}
 		
-		else if( Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP.equals( dnaseOverlapExclusionType)){
-				return PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+		else if( Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP.equals( dnaseOverlapExclusionType)){
+				return PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL;
 		}
 		
 		else if( Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP.equals( dnaseOverlapExclusionType)){
-			return PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP;
+			return PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS;
 
-		}else if( Commons.NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS.equals( dnaseOverlapExclusionType)){
-			return NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS;
+		}else if( Commons.NO_DISCARD.equals( dnaseOverlapExclusionType)){
+			return NO_DISCARD;
 			
 		}else
 			return null;
@@ -57,36 +60,36 @@ public enum DnaseOverlapExclusionType {
 
 	public String convertEnumtoString() {
 
-		if( this.equals( DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP))
+		if( this.equals( DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL))
 			return Commons.COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
 		
-		else if( this.equals( DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP))
-			return Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
+		else if( this.equals( DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL))
+			return Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
 		
-		else if( this.equals( DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP))
+		else if( this.equals( DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS))
 			return Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP;
 		
-		else if( this.equals( DnaseOverlapExclusionType.NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS))
-			return Commons.NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS;
+		else if( this.equals( DnaseOverlapExclusionType.NO_DISCARD))
+			return Commons.NO_DISCARD;
 		
 		else
 			return null;
 	}
 
-	public boolean isCompletelyDiscardIntervalInCaseOfDnaseOverlap() {
-		return ( this == DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP);
+	public boolean isCompletelyDiscardInterval() {
+		return ( this == DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL);
 	}
 
-	public boolean isPartiallyDiscardIntervalTakeOnlyTheLongestIntervalInCaseOfDnaseOverlap() {
-		return ( this == DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ONLY_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP);
+	public boolean isPartiallyDiscardIntervalTakeTheLongestRemainingInterval() {
+		return ( this == DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL);
 	}
 
-	public boolean isPartiallyDiscardIntervalTakeAllTheRemainingIntervalsInCaseOfDnaseOverlap() {
-		return ( this == DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP);
+	public boolean isPartiallyDiscardIntervalTakeAllTheRemainingIntervals() {
+		return ( this == DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS);
 	}
 
-	public boolean isNonExpressingProteinCodingGenesIntervals() {
-		return ( this == DnaseOverlapExclusionType.NON_EXPRESSING_PROTEIN_CODING_GENES_INTERVALS);
+	public boolean isNoDiscard() {
+		return ( this == DnaseOverlapExclusionType.NO_DISCARD);
 	}
 	
 }

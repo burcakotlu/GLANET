@@ -41,9 +41,9 @@ import gnu.trove.map.hash.TObjectShortHashMap;
  * 
  * Possible Values for DnaseOverlapExclusionType are as follows
  * 
- * CompletelyDiscardIntervalInCaseofDnaseOverlap, 
- * PartiallyDiscardIntervalTakeOnlyTheLongestRemainingInterval
- * PartiallyDiscardIntervalTakeAllTheRemainingIntervals, 
+ * CompletelyDiscard, 
+ * PartiallyDiscardTakeTheLongestRemainingInterval
+ * PartiallyDiscardTakeAllTheRemainingIntervals, 
  * NonExpressingProteinCodingGenesIntervals
  *
  */
@@ -260,7 +260,7 @@ public class Step2_DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesInte
 
 			// CASE1
 			// Completely Discard NonExpressingGenesIntervals If There Is Dnase Overlaps
-			if( dnaseOverlapExclusionType.isCompletelyDiscardIntervalInCaseOfDnaseOverlap()){
+			if( dnaseOverlapExclusionType.isCompletelyDiscardInterval()){
 
 				// There is no overlap
 				if( overlappingIntervalList.size() == 0){
@@ -273,7 +273,7 @@ public class Step2_DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesInte
 
 			// CASE2
 			// Partially Discard NonExpressingGenesIntervals Remain All The Intervals If There Is Dnase Overlaps
-			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalTakeAllTheRemainingIntervalsInCaseOfDnaseOverlap()){
+			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalTakeAllTheRemainingIntervals()){
 
 				// Should I merge the intervals in overlappingIntervalList?
 				// Not so important for the time being.
@@ -303,7 +303,7 @@ public class Step2_DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesInte
 
 			// CASE3
 			// Partially Discard NonExpressingGenesIntervals Remain Only The Longest Interval If There Is Dnase Overlaps
-			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalTakeOnlyTheLongestIntervalInCaseOfDnaseOverlap()){
+			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalTakeTheLongestRemainingInterval()){
 
 				// There is overlap, so put overlappingIntervalsExcludedIntervalList into
 				// dnaseOverlapsExcludedIntervalList
@@ -342,6 +342,12 @@ public class Step2_DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesInte
 				}
 
 			}// END OF CASE3
+			
+			// CASE4 starts
+			else if (dnaseOverlapExclusionType.isNoDiscard()){
+				dnaseOverlapsExcludedIntervalList.add(originalInterval);
+			}
+			// CASE4 ends
 
 		}// End of for each original interval in the originalIntervalList
 		/*************************************************************/
@@ -491,10 +497,10 @@ public class Step2_DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesInte
 	 * args[2] = DnaseOverlapExclusionType
 	 * 
 	 * Possible Values for DnaseOverlapExclusionType
-	 * CompletelyDiscardIntervalInCaseofDnaseOverlap, 
-	 * PartiallyDiscardIntervalTakeOnlyTheLongestRemainingInterval
-	 * PartiallyDiscardIntervalTakeAllTheRemainingIntervals, 
-	 * NonExpressingProteinCodingGenesIntervals
+	 * CompletelyDiscard 
+	 * PartiallyDiscardTakeTheLongestRemainingInterval
+	 * PartiallyDiscardTakeAllTheRemainingIntervals 
+	 * NoDiscard
 	 * 
 	 */
 	public static void main( String[] args) {
