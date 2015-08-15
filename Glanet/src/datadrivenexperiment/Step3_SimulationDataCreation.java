@@ -180,10 +180,10 @@ public class Step3_SimulationDataCreation {
 	 * args[0] = GLANET folder (which is the parent of Data folder inside)
 	 * args[1] = tpm value (0.1, 0.01, 0.001)
 	 * args[2] = DnaseOverlapExclusionType:
-	 * CompletelyDiscardIntervalInCaseofDnaseOverlap
-	 * PartiallyDiscardIntervalTakeOnlyTheLongestRemainingInterval
-	 * PartiallyDiscardIntervalTakeAllTheRemainingIntervals
-	 * NonExpressingProteinCodingGenesIntervals
+	 * CompletelyDiscard
+	 * PartiallyDiscardTakeTheLongestRemainingInterval
+	 * PartiallyDiscardTakeAllTheRemainingIntervals
+	 * NoDiscard
 	 * args[3] = NumberofSimulations
 	 * args[4] = NumberofIntervalsInEachSimulations
 	 */
