@@ -197,7 +197,9 @@ public class GlanetRunner implements Runnable {
 	
 	public static boolean shouldLog(){
 		
-		if( GlanetRunner.args[CommandLineArguments.LogFile.value()].equalsIgnoreCase(Commons.ARG_LOG_FILE))
+		if( args != null &&
+			args.length > CommandLineArguments.LogFile.value() &&
+			GlanetRunner.args[CommandLineArguments.LogFile.value()].equalsIgnoreCase(Commons.ARG_LOG_FILE))
 			return true;
 		
 		return false;
