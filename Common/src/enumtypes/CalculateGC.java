@@ -6,7 +6,7 @@ package enumtypes;
 import common.Commons;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 24, 2015
  * @project Common 
  *
