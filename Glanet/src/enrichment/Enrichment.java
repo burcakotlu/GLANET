@@ -5938,6 +5938,9 @@ public class Enrichment {
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
 			TIntObjectMap<String> elementTypeNumber2ElementTypeMap) {
+		
+		EnrichmentPermutationDivisionType enrichmentPermutationDivisionType= EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTATIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS;
+		//EnrichmentPermutationDivisionType enrichmentPermutationDivisionType= EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_MUCH_AS_NUMBER_OF_PROCESSORS;
 
 		String permutationBasedResultDirectory;
 
@@ -6485,7 +6488,7 @@ public class Enrichment {
 							AnnotationType.DO_DNASE_ANNOTATION, 
 							null, 
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 
 					allMapsWithNumbers = pool.invoke(annotateWithNumbers);
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_DNASE_ANNOTATION);
@@ -6519,7 +6522,7 @@ public class Enrichment {
 							AnnotationType.DO_HISTONE_ANNOTATION, 
 							null, 
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_HISTONE_ANNOTATION);
@@ -6554,7 +6557,7 @@ public class Enrichment {
 							AnnotationType.DO_TF_ANNOTATION, 
 							null, 
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_TF_ANNOTATION);
@@ -6592,7 +6595,7 @@ public class Enrichment {
 							AnnotationType.DO_GENE_ANNOTATION, 
 							null, 
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					accumulate(allMapsWithNumbers, accumulatedAllMapsWithNumbers, AnnotationType.DO_GENE_ANNOTATION);
@@ -6629,7 +6632,7 @@ public class Enrichment {
 							AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION,
 							geneId2ListofUserDefinedGeneSetNumberMap, 
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
@@ -6673,7 +6676,7 @@ public class Enrichment {
 								AnnotationType.DO_USER_DEFINED_LIBRARY_ANNOTATION, 
 								null, 
 								overlapDefinition,
-								EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+								enrichmentPermutationDivisionType);
 						
 						allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 						accumulate( allMapsWithNumbers, accumulatedAllMapsWithNumbers,
@@ -6711,7 +6714,7 @@ public class Enrichment {
 							AnnotationType.DO_KEGGPATHWAY_ANNOTATION, 
 							geneId2ListofKeggPathwayNumberMap,
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					
@@ -6753,7 +6756,7 @@ public class Enrichment {
 							AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 							geneId2ListofKeggPathwayNumberMap, 
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					// Will be used for TF and KEGG Pathway Enrichment or
@@ -6801,7 +6804,7 @@ public class Enrichment {
 							AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 							geneId2ListofKeggPathwayNumberMap, 
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 					// Will be used for Tf and KeggPathway Enrichment or
@@ -6842,7 +6845,7 @@ public class Enrichment {
 							AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 							geneId2ListofKeggPathwayNumberMap, 
 							overlapDefinition,
-							EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTAIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS);
+							enrichmentPermutationDivisionType);
 					
 					allMapsWithNumbers = pool.invoke( annotateWithNumbers);
 
