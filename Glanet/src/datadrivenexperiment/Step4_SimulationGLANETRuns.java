@@ -99,7 +99,7 @@ public class Step4_SimulationGLANETRuns {
 			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
 			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
 			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeAllRemainingIntervalsWithGCandMapability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "1SimulationGLANETRunsTakeAllRemainingIntervalsWithGCandMapability.sh");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 			//bufferedWriter.write( "#!/bin/bash\n");
@@ -145,7 +145,7 @@ public class Step4_SimulationGLANETRuns {
 			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
 			//*************************************************************************************************************//
 			//fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(2).sh");
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeAllRemainingIntervalsWithoutGCandMapability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "2SimulationGLANETRunsTakeAllRemainingIntervalsWithoutGCandMapability.sh");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 //			bufferedWriter.write( "#!/bin/bash\n");
@@ -192,7 +192,7 @@ public class Step4_SimulationGLANETRuns {
 			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
 			//*************************************************************************************************************//
 //			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(3).sh");
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeTheLongestIntervalWithGCandMpability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "3SimulationGLANETRunsTakeTheLongestIntervalWithGCandMpability.sh");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 //			bufferedWriter.write( "#!/bin/bash\n");
@@ -237,7 +237,7 @@ public class Step4_SimulationGLANETRuns {
 			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
 			//*************************************************************************************************************//
 //			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(4).sh");
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsTakeTheLongestIntervalWithoutGCandMpability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "4SimulationGLANETRunsTakeTheLongestIntervalWithoutGCandMpability.sh");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 //			bufferedWriter.write( "#!/bin/bash\n");
@@ -281,7 +281,7 @@ public class Step4_SimulationGLANETRuns {
 			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
 			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
 			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsCompletelyDiscardWithGCandMpability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "5SimulationGLANETRunsCompletelyDiscardWithGCandMpability.sh");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 
@@ -322,7 +322,7 @@ public class Step4_SimulationGLANETRuns {
 			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
 			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
 			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsCompletelyDiscardWithoutGCandMpability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "6SimulationGLANETRunsCompletelyDiscardWithoutGCandMpability.sh");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 
@@ -364,7 +364,7 @@ public class Step4_SimulationGLANETRuns {
 			//***************************************NO_DISCARD************************************************************//
 			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
 			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsNoDiscardWithGCandMpability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "7SimulationGLANETRunsNoDiscardWithGCandMpability.sh");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 
@@ -405,7 +405,7 @@ public class Step4_SimulationGLANETRuns {
 			//***************************************NO_DISCARD************************************************************//
 			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
 			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsNoDiscardWithoutGCandMpability.bat");
+			fileWriter = FileOperations.createFileWriter( args[3] + "8SimulationGLANETRunsNoDiscardWithoutGCandMpability.sh");
 			
 			bufferedWriter = new BufferedWriter( fileWriter);
 
