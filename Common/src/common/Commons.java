@@ -48,6 +48,8 @@ public class Commons {
 	public static final String RNA_SEQ_GM12878_K562 = "RNA_seq_GM12878_K562";
 	public static final String Gm12878Rep1_genes_results = "Gm12878Rep1.genes.results";
 	public static final String Gm12878Rep2_genes_results = "Gm12878Rep2.genes.results";
+	public static final String K562Rep1_genes_results = "K562Rep1.genes.results";
+	public static final String K562Rep2_genes_results = "K562Rep2.genes.results";
 	public static final String female_gtf = "female.gtf";
 
 	public static final String TPM_0_1 = "TPM_0_1";
@@ -65,8 +67,9 @@ public class Commons {
 	public static final String TPM_100 = "TPM_100";
 	
 	
-	public static final String DNASE_OVERLAPS_EXCLUDED = "DnaseOverlapsExcluded";
-	public static final String NON_EXPRESSING_PROTEIN_CODING_GENES = "NonExpressingProteinCodingGenes";
+	public static final String DNASE_OVERLAPS_EXCLUDED 				= "DnaseOverlapsExcluded";
+	public static final String NON_EXPRESSING_PROTEIN_CODING_GENES 	= "NonExpressingProteinCodingGenes";
+	public static final String EXPRESSING_PROTEIN_CODING_GENES 		= "ExpressingProteinCodingGenes";
 
 	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscard";
 	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardTakeTheLongestRemainingInterval";

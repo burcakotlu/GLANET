@@ -5939,6 +5939,10 @@ public class Enrichment {
 			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
 			TIntObjectMap<String> elementTypeNumber2ElementTypeMap) {
 		
+		
+		//ForkandJoin as long as the number of permutations is greater than number of processsors
+		//Sequentially annotate random data as much as the number of processors.
+		//This seems to be better.
 		EnrichmentPermutationDivisionType enrichmentPermutationDivisionType= EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_LONG_AS_NUMBER_OF_PERMUTATIONS_IS_GREATER_THAN_NUMBER_OF_PROCESSORS;
 		//EnrichmentPermutationDivisionType enrichmentPermutationDivisionType= EnrichmentPermutationDivisionType.DIVIDE_PERMUTATIONS_AS_MUCH_AS_NUMBER_OF_PROCESSORS;
 

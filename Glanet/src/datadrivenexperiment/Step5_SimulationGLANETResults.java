@@ -492,7 +492,7 @@ public class Step5_SimulationGLANETResults {
 		
 		//args[1]
 		float tpm = Float.parseFloat(args[1]);
-		String tpmString = Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString(tpm);
+		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
 
 		//args[2]
 		DnaseOverlapExclusionType dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[2]);

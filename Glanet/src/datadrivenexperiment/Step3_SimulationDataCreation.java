@@ -194,7 +194,7 @@ public class Step3_SimulationDataCreation {
 
 		
 		float tpm = Float.parseFloat(args[1]);
-		String tpmString = Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
+		String tpmString = DataDrivenExperimentCommon.getTPMString( tpm);
 
 		DnaseOverlapExclusionType dnaseOverlapExclusionType;
 

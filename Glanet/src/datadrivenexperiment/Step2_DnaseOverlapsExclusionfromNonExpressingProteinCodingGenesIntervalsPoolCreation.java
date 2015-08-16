@@ -515,7 +515,7 @@ public class Step2_DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesInte
 		// We will create interval pools of
 		float tpm = Float.parseFloat(args[1]);
 
-		String tpmString = Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation.getTPMString( tpm);
+		String tpmString = DataDrivenExperimentCommon.getTPMString( tpm);
 
 		System.out.println("TPM is: " + tpm);
 		System.out.println("DnaseOverlapExclusionType is: " + dnaseOverlapExclusionType.convertEnumtoString());
