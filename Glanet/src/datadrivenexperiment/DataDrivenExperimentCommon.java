@@ -3,6 +3,7 @@
  */
 package datadrivenexperiment;
 
+import enumtypes.DataDrivenExperimentGeneType;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
 
@@ -11,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**
@@ -21,8 +23,10 @@ import common.Commons;
  */
 public class DataDrivenExperimentCommon {
 	
-	public static TObjectFloatMap<String> fillMapUsingGTFFile( String gtfFileNameWithPath,
-			TObjectFloatMap<String> ensemblGeneId2TPMExistingMap) {
+	public static TObjectFloatMap<String> fillMapUsingGTFFile(
+			String gtfFileNameWithPath,
+			TObjectFloatMap<String> ensemblGeneId2TPMExistingMap,
+			DataDrivenExperimentGeneType geneType) {
 
 		String strLine = null;
 		String ensemblGeneID = null;
@@ -67,16 +71,40 @@ public class DataDrivenExperimentCommon {
 				TPM = Float.parseFloat( strLine.substring( indexofFifthTab + 1, indexofSixthTab));
 
 				// This ensemblGeneID already exists
-				if( ensemblGeneId2TPMExistingMap.containsKey( ensemblGeneID)){
+				if( ensemblGeneId2TPMExistingMap.containsKey(ensemblGeneID)){
 
-					existingTPM = ensemblGeneId2TPMExistingMap.get( ensemblGeneID);
+					existingTPM = ensemblGeneId2TPMExistingMap.get(ensemblGeneID);
+					
+					switch(geneType){
+						
+						case NONEXPRESSING_PROTEINCODING_GENES:{
+							
+							if( TPM > existingTPM){
+								ensemblGeneID2TPMUnionMap.put( ensemblGeneID, TPM);
+								numberofUpdates++;
+							}else{
+								ensemblGeneID2TPMUnionMap.put( ensemblGeneID, existingTPM);
+							}
+							
+							break;
+						}
+						
+						case EXPRESSING_PROTEINCODING_GENES: {
+							
+							if( TPM < existingTPM){
+								ensemblGeneID2TPMUnionMap.put( ensemblGeneID, TPM);
+								numberofUpdates++;
+							}else{
+								ensemblGeneID2TPMUnionMap.put( ensemblGeneID, existingTPM);
+							}
 
-					if( TPM > existingTPM){
-						ensemblGeneID2TPMUnionMap.put( ensemblGeneID, TPM);
-						numberofUpdates++;
-					}else{
-						ensemblGeneID2TPMUnionMap.put( ensemblGeneID, existingTPM);
-					}
+							break;
+						}
+						
+						default: 
+							break;
+					
+					}//End of SWITCH
 
 					numberofExistingGenes++;
 
@@ -84,7 +112,7 @@ public class DataDrivenExperimentCommon {
 				// This ensemblGeneID is seen for the first time
 				else{
 
-					ensemblGeneID2TPMUnionMap.put( ensemblGeneID, TPM);
+					ensemblGeneID2TPMUnionMap.put(ensemblGeneID, TPM);
 					numberofNonExistingGenes++;
 
 				}
@@ -109,7 +137,8 @@ public class DataDrivenExperimentCommon {
 	}
 	
 	
-	public static TObjectFloatMap<String> fillMapUsingGTFFile( String gtfFileNameWithPath) {
+	public static TObjectFloatMap<String> fillMapUsingGTFFile(
+			String gtfFileNameWithPath) {
 
 		String strLine = null;
 		String ensemblGeneID = null;
@@ -138,18 +167,18 @@ public class DataDrivenExperimentCommon {
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 
-				indexofFirstTab = strLine.indexOf( '\t');
-				indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
-				indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
-				indexofFourthTab = ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
-				indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
-				indexofSixthTab = ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
+				indexofFirstTab 	= strLine.indexOf( '\t');
+				indexofSecondTab 	= ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
+				indexofThirdTab 	= ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
+				indexofFourthTab 	= ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
+				indexofFifthTab 	= ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
+				indexofSixthTab 	= ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
 
 				ensemblGeneID = strLine.substring( 0, indexofFirstTab);
 				tpm = Float.parseFloat( strLine.substring( indexofFifthTab + 1, indexofSixthTab));
 
 				if( !ensemblGeneID2TPMMap.containsKey( ensemblGeneID)){
-					ensemblGeneID2TPMMap.put( ensemblGeneID, tpm);
+					ensemblGeneID2TPMMap.put(ensemblGeneID, tpm);
 				}else{
 					System.out.println( "More than one TPM for the same ensemblGeneID ");
 				}

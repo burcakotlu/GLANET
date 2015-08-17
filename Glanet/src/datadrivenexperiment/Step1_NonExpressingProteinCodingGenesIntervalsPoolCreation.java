@@ -1,6 +1,7 @@
 package datadrivenexperiment;
 
 import enumtypes.ChromosomeName;
+import enumtypes.DataDrivenExperimentGeneType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -368,13 +368,13 @@ public class Step1_NonExpressingProteinCodingGenesIntervalsPoolCreation {
 		// Output File
 		// Set NonExpressingGenesIntervalsFile
 		String TPMString = DataDrivenExperimentCommon.getTPMString( tpmThreshold);
-		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString + "_" + Commons.NON_EXPRESSING_PROTEIN_CODING_GENES + "Intervals_EndInclusive.txt";
+		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty("file.separator") + TPMString + "_" + Commons.NONEXPRESSING_PROTEINCODING_GENES + "Intervals_EndInclusive.txt";
 
 		// Read GM12878 Rep1 results file and fill ensemblGeneID2TPMMapRep1
 		ensemblGeneID2TPMMapforRep1 = DataDrivenExperimentCommon.fillMapUsingGTFFile(GM12878Rep1GTFFileName);
 
 		// Read GM12878 Rep2 results file and fill ensemblGeneID2TPMMapforUnionofRep1andRep2
-		ensemblGeneID2TPMMapforUnionofRep1andRep2 = DataDrivenExperimentCommon.fillMapUsingGTFFile(GM12878Rep2GTFFileName,ensemblGeneID2TPMMapforRep1);
+		ensemblGeneID2TPMMapforUnionofRep1andRep2 = DataDrivenExperimentCommon.fillMapUsingGTFFile(GM12878Rep2GTFFileName,ensemblGeneID2TPMMapforRep1,DataDrivenExperimentGeneType.NONEXPRESSING_PROTEINCODING_GENES);
 
 		// Just for information
 		// Otherwise no need

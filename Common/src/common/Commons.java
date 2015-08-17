@@ -68,8 +68,8 @@ public class Commons {
 	
 	
 	public static final String DNASE_OVERLAPS_EXCLUDED 				= "DnaseOverlapsExcluded";
-	public static final String NON_EXPRESSING_PROTEIN_CODING_GENES 	= "NonExpressingProteinCodingGenes";
-	public static final String EXPRESSING_PROTEIN_CODING_GENES 		= "ExpressingProteinCodingGenes";
+	public static final String NONEXPRESSING_PROTEINCODING_GENES 	= "NonExpressingProteinCodingGenes";
+	public static final String EXPRESSING_PROTEINCODING_GENES 		= "ExpressingProteinCodingGenes";
 
 	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscard";
 	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardTakeTheLongestRemainingInterval";

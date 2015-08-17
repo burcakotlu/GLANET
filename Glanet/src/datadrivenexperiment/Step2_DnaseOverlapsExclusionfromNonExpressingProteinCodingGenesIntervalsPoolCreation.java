@@ -540,7 +540,7 @@ public class Step2_DnaseOverlapsExclusionfromNonExpressingProteinCodingGenesInte
 		// String nonExpressingGenesIntervalsFile = dataFolder + Commons.demo_input_data +
 		// System.getProperty("file.separator") + Commons.TPM_01 + Commons.NON_EXPRESSING_GENES +
 		// "Intervals_EndInclusive.txt";
-		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty( "file.separator") + tpmString + "_" + Commons.NON_EXPRESSING_PROTEIN_CODING_GENES + "Intervals_EndInclusive.txt";
+		String nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.demo_input_data + System.getProperty( "file.separator") + tpmString + "_" + Commons.NONEXPRESSING_PROTEINCODING_GENES + "Intervals_EndInclusive.txt";
 
 		// Output File
 		// Set DnaseOverlapsExcluded NonExpressingGenesIntervalsFile
