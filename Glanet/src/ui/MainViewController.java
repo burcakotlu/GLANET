@@ -85,6 +85,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			String userDefinedLibraryInputFile, 
 			String userDefinedLibraryDataFormat, 
 			String givenInputDataType,
+			String glanetRunType,
 			String[] cellLinesToBeConsidered) {
 
 		String[] args = new String[CommandLineArguments.NumberOfArguments.value() + cellLinesToBeConsidered.length];
@@ -126,6 +127,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.UserDefinedLibraryDataFormat.value()] = userDefinedLibraryDataFormat;
 		args[CommandLineArguments.GivenInputDataType.value()] = givenInputDataType;
 		args[CommandLineArguments.LogFile.value()] = Commons.ARG_LOG_FILE;
+		args[CommandLineArguments.GLANETRun.value()] = glanetRunType;
 
 		// filling the rest with selected cell lines.
 		for( int i = CommandLineArguments.NumberOfArguments.value(); i < args.length; i++)

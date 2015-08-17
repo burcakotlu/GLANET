@@ -1401,6 +1401,8 @@ public class Commons {
 	public static final String ARG_IS_COMMAND_LINE_ENABLED = "-c";
 	public static final String ARG_LOG_FILE = "-l";
 	public static final String ARG_NO_LOG_FILE = "-nl";
+	public static final String GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN = "-dder";
+	public static final String GLANET_NORMAL_RUN = "-nr";
 	public static final String ARG_INPUT_FILE = "-i";
 	public static final String ARG_ASSEMBLY_FORMAT_HG_19 = "-grch37";
 	public static final String ARG_ASSEMBLY_FORMAT_HG_38 = "-grch38";

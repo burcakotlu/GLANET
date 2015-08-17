@@ -12207,9 +12207,16 @@ public class Annotation {
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
 	public static void main( String[] args) {
+		
+		String glanetRunType = args[CommandLineArguments.GLANETRun.value()];
+		
+		//Annotate GLANET run is a normal run, not a GLANET Data Driven Experiment run
+		if(!glanetRunType.equalsIgnoreCase(Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN)){
+			Annotation annotateIntervals = new Annotation();
+			annotateIntervals.annotate( args);
+		}//End of IF
 
-		Annotation annotateIntervals = new Annotation();
-		annotateIntervals.annotate( args);
+	
 	}
 
 }

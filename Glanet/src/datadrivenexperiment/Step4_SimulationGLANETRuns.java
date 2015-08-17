@@ -43,12 +43,12 @@ public class Step4_SimulationGLANETRuns {
 
 				case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
 	
-					bufferedWriter.write( command + " -rdgcm -pe 10000 -j " + tpm + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + "Sim" + i + System.getProperty( "line.separator"));
+					bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + tpm + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + "Sim" + i + System.getProperty( "line.separator"));
 					break;
 	
 				case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
 	
-					bufferedWriter.write( command + "-rd -pe 10000 -j " + tpm + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + "Sim" + i + System.getProperty( "line.separator"));
+					bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + tpm + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + "Sim" + i + System.getProperty( "line.separator"));
 					break;
 	
 				default:
