@@ -125,7 +125,7 @@ public enum CommandLineArguments {
 	UserDefinedLibraryDataFormat( 34,Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES), 
 	GivenInputDataType(35,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS),
 	LogFile(36, Commons.ARG_NO_LOG_FILE),
-	GLANETRun(37, Commons.GLANET_NORMAL_RUN), //optional, default is normal run
+	GLANETRun(37, Commons.GLANET_NORMAL_RUN), //This argument is optional, default is normal run
 	NumberOfArguments( 38);
 
 	private final int value;

@@ -104,7 +104,7 @@ public class DataDrivenExperimentCommon {
 						default: 
 							break;
 					
-					}//End of SWITCH
+					}//End of SWITCH geneType
 
 					numberofExistingGenes++;
 
@@ -128,7 +128,6 @@ public class DataDrivenExperimentCommon {
 			System.out.println( "Number of non existing genes is: " + numberofNonExistingGenes);
 
 		}catch( IOException e){
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -188,10 +187,9 @@ public class DataDrivenExperimentCommon {
 			// Close BufferedReader
 			bufferedReader.close();
 
-			System.out.println( "Number of entries in ensemblGeneID2TPMMap for " + gtfFileNameWithPath + " is " + ensemblGeneID2TPMMap.size());
+			System.out.println("Number of entries in ensemblGeneID2TPMMap for " + gtfFileNameWithPath + " is " + ensemblGeneID2TPMMap.size());
 
 		}catch( IOException e){
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

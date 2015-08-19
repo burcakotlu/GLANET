@@ -77,6 +77,7 @@ public class Commons {
 	public static final String NO_DISCARD = "NoDiscard";
 	
 	public static final String SIMULATION_DATA = "SimulationData";
+	public static final String SIMULATION_INTERVAL_POOL = "SimulationIntervalPool";
 	public static final String SIMULATION = "Sim";
 	
 	public static final String GM12878 = "GM12878";
