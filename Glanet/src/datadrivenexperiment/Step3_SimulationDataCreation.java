@@ -16,6 +16,8 @@ import auxiliary.FileOperations;
 import common.Commons;
 import enrichment.InputLine;
 import enumtypes.ChromosomeName;
+import enumtypes.DataDrivenExperimentCellLineType;
+import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DnaseOverlapExclusionType;
 
 /**
@@ -31,6 +33,8 @@ import enumtypes.DnaseOverlapExclusionType;
  * Program arguments are as follows
  * 
  * GLANET folder (which is the parent of Data Folder)
+ * cellLineType
+ * geneType
  * TPM
  * DnaseOverlapExclusionType  
  * Number of simulations
@@ -39,10 +43,14 @@ import enumtypes.DnaseOverlapExclusionType;
  */
 public class Step3_SimulationDataCreation {
 
-	public static String getIntervalPoolFileName( String tpmString,
-			DnaseOverlapExclusionType dnaseOverlapExclusionType, String dataFolder) {
+	public static String getIntervalPoolFileName(
+			DataDrivenExperimentCellLineType cellLineType,
+			DataDrivenExperimentGeneType geneType,
+			String tpmString,
+			DnaseOverlapExclusionType dnaseOverlapExclusionType, 
+			String dataFolder) {
 
-		String intervalPoolFileName = dataFolder + Commons.demo_input_data + System.getProperty( "file.separator") + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_EndInclusive.txt";
+		String intervalPoolFileName = dataFolder + Commons.SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() +"_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalsPool_EndInclusive.txt";
 
 		return intervalPoolFileName;
 	}
@@ -140,8 +148,14 @@ public class Step3_SimulationDataCreation {
 
 	}
 
-	public static void generateRandomSimulationData( String dataFolder, String tpmString,
-			DnaseOverlapExclusionType dnaseOverlapExclusionType, String intervalPoolFileName, int numberofSimulations,
+	public static void generateRandomSimulationData( 
+			String dataFolder, 
+			DataDrivenExperimentCellLineType cellLineType,
+			DataDrivenExperimentGeneType geneType,
+			String tpmString,
+			DnaseOverlapExclusionType dnaseOverlapExclusionType, 
+			String intervalPoolFileName, 
+			int numberofSimulations,
 			int numberofIntervalsInEachSimulation) {
 
 		// There will be one interval pool
@@ -156,7 +170,7 @@ public class Step3_SimulationDataCreation {
 		String baseFolderName = null;
 
 		// Set baseFolderName
-		baseFolderName = dataFolder + System.getProperty( "file.separator") + Commons.SIMULATION_DATA + System.getProperty( "file.separator") + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString();
+		baseFolderName = dataFolder + System.getProperty( "file.separator") + Commons.SIMULATION_DATA + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString();
 
 		for( int i = 0; i < numberofSimulations; i++){
 
@@ -178,42 +192,47 @@ public class Step3_SimulationDataCreation {
 
 	/*
 	 * args[0] = GLANET folder (which is the parent of Data folder inside)
-	 * args[1] = tpm value (0.1, 0.01, 0.001)
-	 * args[2] = DnaseOverlapExclusionType:
+	 * args[1] = cellLineType
+	 * args[2] = geneType
+	 * args[3] = tpm value (0.1, 0.01, 0.001)
+	 * args[4] = DnaseOverlapExclusionType:
 	 * CompletelyDiscard
 	 * PartiallyDiscardTakeTheLongestRemainingInterval
 	 * PartiallyDiscardTakeAllTheRemainingIntervals
 	 * NoDiscard
-	 * args[3] = NumberofSimulations
-	 * args[4] = NumberofIntervalsInEachSimulations
+	 * args[5] = NumberofSimulations
+	 * args[6] = NumberofIntervalsInEachSimulations
 	 */
 	public static void main( String[] args) {
 
 		String glanetFolder = args[0];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 
+		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
 		
-		float tpm = Float.parseFloat(args[1]);
-		String tpmString = DataDrivenExperimentCommon.getTPMString( tpm);
+		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[2]);
+		
+		float tpm = Float.parseFloat(args[3]);
+		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
 
-		DnaseOverlapExclusionType dnaseOverlapExclusionType;
-
-		dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[2]);
+		DnaseOverlapExclusionType dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[4]);
 		
 		// Depending on tpmString and dnaseOverlapsExcluded
 		// Set IntervalPoolFile
-		String intervalPoolFileName = getIntervalPoolFileName( tpmString, dnaseOverlapExclusionType, dataFolder);
+		String intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,tpmString, dnaseOverlapExclusionType, dataFolder);
 
 		// Other Parameters for Simulations
 		// Number of Simulations
-		int numberofSimulations =  Integer.parseInt(args[3]);
+		int numberofSimulations =  Integer.parseInt(args[5]);
 		// Number of intervals in each simulation
-		int numberofIntervalsInEachSimulation = Integer.parseInt(args[4]);
+		int numberofIntervalsInEachSimulation = Integer.parseInt(args[6]);
 
 		// Generate Simulations Data
 		// Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
 		generateRandomSimulationData(
 				dataFolder, 
+				cellLineType,
+				geneType,
 				tpmString, 
 				dnaseOverlapExclusionType, 
 				intervalPoolFileName,
