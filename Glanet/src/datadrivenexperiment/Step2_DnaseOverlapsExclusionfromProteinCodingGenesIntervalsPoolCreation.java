@@ -519,8 +519,6 @@ public class Step2_DnaseOverlapsExclusionfromProteinCodingGenesIntervalsPoolCrea
 	 */
 	public static void main( String[] args) {
 
-
-
 		String glanetFolder	= args[0];
 		String dataFolder	= glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		
