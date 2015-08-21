@@ -7,12 +7,11 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import common.Commons;
+import auxiliary.FileOperations;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DnaseOverlapExclusionType;
 import enumtypes.GenerateRandomDataMode;
-import auxiliary.FileOperations;
 
 /**
  * @author Burcak Otlu
@@ -38,7 +37,7 @@ public class Step4_SimulationGLANETRuns {
 			GenerateRandomDataMode withorWithout, 
 			String args[]) throws IOException {
 
-		String rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + "Data" + System.getProperty( "file.separator") + "SimulationData" + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "Sim";
+		String rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty( "file.separator") + "Data" + System.getProperty( "file.separator") + "SimulationData" + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "Sim";
 
 		for( int i = 0; i < numberofSimulations; i++){
 
@@ -80,16 +79,22 @@ public class Step4_SimulationGLANETRuns {
 	 * args[1]	-->	"C:\Users\Burcak\Google Drive"
 	 * args[2]  --> GM12878, K562
 	 * args[3] 	-->	NonExpressingGenes, ExpressingGenes
-	 * args[4]	-->	1000
-	 * args[5]	-->	"C:\Users\Burcak\Desktop"
+	 * args[4]  --> TPM
+	 * args[5]	-->	1000
+	 * args[6]	-->	"C:\Users\Burcak\Desktop"
 	 */
 	public static void main( String[] args) {
 		
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[2]);
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[3]);
+		
+		float tpm = Float.parseFloat(args[4]);
+		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
+		
+		
 
 		// x1000
-		int numberOfSimulations = Integer.parseInt(args[4]);
+		int numberOfSimulations = Integer.parseInt(args[5]);
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -107,402 +112,62 @@ public class Step4_SimulationGLANETRuns {
 			
 			
 			//*************************************************************************************************************//
-			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
-			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
+			//****************************************************SIMULATIONS**********************************************//
+			//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
+			//**************************************************GLANET RUNS************************************************//
+			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[5] + "1SimulationGLANETRunsTakeAllRemainingIntervalsWithGCandMapability.sh");
 			
-			bufferedWriter = new BufferedWriter( fileWriter);
-			//bufferedWriter.write( "#!/bin/bash\n");
+			for(DnaseOverlapExclusionType dnaseOverlapExclusionType: DnaseOverlapExclusionType.values()){
+				
+				fileWriter = FileOperations.createFileWriter( args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_" +   dnaseOverlapExclusionType.convertEnumtoString() + ".sh");
+				
+				bufferedWriter = new BufferedWriter( fileWriter);
+				//bufferedWriter.write( "#!/bin/bash\n");
 
-			// x12
-			// With GC and Mapability
-			writeGLANETRuns(
-					bufferedWriter, 
-					numberOfSimulations, 
-					cellLineType,
-					geneType,
-					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS, 
-					withGCandMapability,
-					args);
+				// With GC and Mapability
+				writeGLANETRuns(
+						bufferedWriter, 
+						numberOfSimulations, 
+						cellLineType,
+						geneType,
+						tpmString,
+						dnaseOverlapExclusionType, 
+						withGCandMapability,
+						args);
+				
+				
+				// Without GC and Mapability
+				writeGLANETRuns(
+						bufferedWriter, 
+						numberOfSimulations, 
+						cellLineType,
+						geneType,
+						tpmString,
+						dnaseOverlapExclusionType, 
+						withoutGCandMapability,
+						args);
 			
-			writeGLANETRuns(
-					bufferedWriter, 
-					numberOfSimulations, 
-					cellLineType,
-					geneType,
-					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS, 
-					withGCandMapability,
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter, 
-					numberOfSimulations, 
-					cellLineType,
-					geneType,
-					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS, 
-					withGCandMapability,
-					args);
 
-			//Close bufferedWriter
-			bufferedWriter.close();
-			fileWriter.close();
-			//*************************************************************************************************************//
-			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
-			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
-			//*************************************************************************************************************//
-
+				//Close bufferedWriter
+				bufferedWriter.close();
+				fileWriter.close();
+			
+			}//End of For traversing each value in enum DnaseOverlapExclusionType
 			
 			
 			//*************************************************************************************************************//
-			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
-			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
-			//*************************************************************************************************************//
-			//fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(2).sh");
-			fileWriter = FileOperations.createFileWriter( args[5] + "2SimulationGLANETRunsTakeAllRemainingIntervalsWithoutGCandMapability.sh");
-			
-			bufferedWriter = new BufferedWriter( fileWriter);
-//			bufferedWriter.write( "#!/bin/bash\n");
-
-			// Without GC and Mapability
-			writeGLANETRuns(
-					bufferedWriter, 
-					numberOfSimulations, 
-					cellLineType,
-					geneType,
-					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS,
-					withoutGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter, 
-					numberOfSimulations, 
-					cellLineType,
-					geneType,
-					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS,
-					withoutGCandMapability, 
-					args);
-			
-			
-			writeGLANETRuns(
-					bufferedWriter, 
-					numberOfSimulations, 
-					cellLineType,
-					geneType,
-					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS,
-					withoutGCandMapability, 
-					args);
-
-			//Close bufferedWriter
-			bufferedWriter.close();
-			fileWriter.close();
-			//*************************************************************************************************************//
-			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS***********************//
-			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
+			//****************************************************SIMULATIONS**********************************************//
+			//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
+			//**************************************************GLANET RUNS************************************************//
+			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 			//*************************************************************************************************************//
 
 			
 			
-			
-			//*************************************************************************************************************//
-			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL********************//
-			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
-			//*************************************************************************************************************//
-//			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(3).sh");
-			fileWriter = FileOperations.createFileWriter( args[5] + "3SimulationGLANETRunsTakeTheLongestIntervalWithGCandMpability.sh");
-			
-			bufferedWriter = new BufferedWriter( fileWriter);
-//			bufferedWriter.write( "#!/bin/bash\n");
-
-			// With GC and Mapability
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
-					withGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
-					withGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
-					withGCandMapability, 
-					args);
-
-			bufferedWriter.close();
-			fileWriter.close();
-			//*************************************************************************************************************//
-			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL********************//
-			//*********************************WITH_MAPPABILITY_AND_GC_CONTENT*********************************************//
-			//*************************************************************************************************************//
-			
-			
-			
-			
-			//*************************************************************************************************************//
-			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL********************//
-			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
-			//*************************************************************************************************************//
-//			fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(4).sh");
-			fileWriter = FileOperations.createFileWriter( args[5] + "4SimulationGLANETRunsTakeTheLongestIntervalWithoutGCandMpability.sh");
-			
-			bufferedWriter = new BufferedWriter( fileWriter);
-//			bufferedWriter.write( "#!/bin/bash\n");
-
-			// Without GC and Mapability
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
-					withoutGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
-					withoutGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL,
-					withoutGCandMapability, 
-					args);
-
-			// Close BufferedWriter
-			bufferedWriter.close();
-			fileWriter.close();
-			//*************************************************************************************************************//
-			//***************************PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL********************//
-			//*********************************WITHOUT_MAPPABILITY_AND_GC_CONTENT******************************************//
-			//*************************************************************************************************************//
-			
-			
-			
-			//*************************************************************************************************************//
-			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
-			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
-			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[5] + "5SimulationGLANETRunsCompletelyDiscardWithGCandMpability.sh");
-			
-			bufferedWriter = new BufferedWriter( fileWriter);
-
-			// With GC and Mapability
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
-					withGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
-					withGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
-					withGCandMapability, 
-					args);
-
-			bufferedWriter.close();
-			fileWriter.close();
-			//*************************************************************************************************************//
-			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
-			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
-			//*************************************************************************************************************//
-			
-			
-			//*************************************************************************************************************//
-			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
-			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
-			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[5] + "6SimulationGLANETRunsCompletelyDiscardWithoutGCandMpability.sh");
-			
-			bufferedWriter = new BufferedWriter( fileWriter);
-
-			// With GC and Mapability
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
-					withoutGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
-					withoutGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL,
-					withoutGCandMapability, 
-					args);
-
-			bufferedWriter.close();
-			fileWriter.close();
-			//*************************************************************************************************************//
-			//********************************COMPLETELY_DISCARD_INTERVAL**************************************************//
-			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
-			//*************************************************************************************************************//
-
-			
-			
-			//*************************************************************************************************************//
-			//***************************************NO_DISCARD************************************************************//
-			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
-			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[5] + "7SimulationGLANETRunsNoDiscardWithGCandMpability.sh");
-			
-			bufferedWriter = new BufferedWriter( fileWriter);
-
-			// With GC and Mapability
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.NO_DISCARD,
-					withGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.NO_DISCARD,
-					withGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.NO_DISCARD,
-					withGCandMapability, 
-					args);
-
-			bufferedWriter.close();
-			fileWriter.close();
-			//*************************************************************************************************************//
-			//***************************************NO_DISCARD************************************************************//
-			//*******************************WITH_MAPPABILITY_AND_GC_CONTENT***********************************************//
-			//*************************************************************************************************************//
-	
-			
-			//*************************************************************************************************************//
-			//***************************************NO_DISCARD************************************************************//
-			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
-			//*************************************************************************************************************//
-			fileWriter = FileOperations.createFileWriter( args[5] + "8SimulationGLANETRunsNoDiscardWithoutGCandMpability.sh");
-			
-			bufferedWriter = new BufferedWriter( fileWriter);
-
-			// With GC and Mapability
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_001,
-					DnaseOverlapExclusionType.NO_DISCARD,
-					withoutGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_01,
-					DnaseOverlapExclusionType.NO_DISCARD,
-					withoutGCandMapability, 
-					args);
-			
-			writeGLANETRuns(
-					bufferedWriter,
-					numberOfSimulations,
-					cellLineType,
-					geneType,
-					Commons.TPM_0_1,
-					DnaseOverlapExclusionType.NO_DISCARD,
-					withoutGCandMapability, 
-					args);
-
-			bufferedWriter.close();
-			fileWriter.close();
-			//*************************************************************************************************************//
-			//***************************************NO_DISCARD************************************************************//
-			//*******************************WITHOUT_MAPPABILITY_AND_GC_CONTENT********************************************//
-			//*************************************************************************************************************//
-
-
-			
-
+		
 		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
