@@ -38,7 +38,7 @@ import common.Commons;
  * 
  *
  */
-public class Step1_ProteinCodingGenesIntervalsPoolCreation {
+public class Step1_ProteinCodingGenesIntervalPoolCreation {
 	
 	
 	public static void generateIntervalsFromFemaleGTFFile(
@@ -517,6 +517,7 @@ public class Step1_ProteinCodingGenesIntervalsPoolCreation {
 		String femaleGTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.female_gtf;
 
 		// Output File
+		// End Inclusive
 		// Set NonExpressingProteinCodingGenesIntervalsFile
 		// Set ExpressingProteinCodingGenesIntervalsFile
 		String TPMString = DataDrivenExperimentCommon.getTPMString(tpmThreshold);
@@ -526,11 +527,11 @@ public class Step1_ProteinCodingGenesIntervalsPoolCreation {
 		switch(geneType){
 
 			case NONEXPRESSING_PROTEINCODING_GENES: {
-				nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.SIMULATION_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.NONEXPRESSING_PROTEINCODING_GENES + "_IntervalsPool_EndInclusive.txt";
+				nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.SIMULATION_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.NONEXPRESSING_PROTEINCODING_GENES + "_IntervalPool.txt";
 				break;
 			}
 			case EXPRESSING_PROTEINCODING_GENES:{
-				expressingProteinCodingGenesIntervalsFile = dataFolder + Commons.SIMULATION_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.EXPRESSING_PROTEINCODING_GENES + "_IntervalsPool_EndInclusive.txt";
+				expressingProteinCodingGenesIntervalsFile = dataFolder + Commons.SIMULATION_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.EXPRESSING_PROTEINCODING_GENES + "_IntervalPool.txt";
 				break;
 			}
 			

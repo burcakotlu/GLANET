@@ -72,8 +72,8 @@ public class Commons {
 	public static final String EXPRESSING_PROTEINCODING_GENES 		= "ExpressingGenes";
 
 	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscard";
-	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardTakeTheLongestRemainingInterval";
-	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP = "PartiallyDiscardTakeAllTheRemainingIntervals";
+	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "TakeTheLongest";
+	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP = "TakeAll";
 	public static final String NO_DISCARD = "NoDiscard";
 	
 	public static final String SIMULATION_DATA = "SimulationData";
@@ -82,15 +82,22 @@ public class Commons {
 	public static final String SIMULATION = "Sim";
 	
 	public static final String GM12878 = "GM12878";
+	public static final String K562 = "K562";
+	
 	public static final String POL2_GM12878 = "POL2_GM12878";
 	public static final String H3K4ME3_GM12878 = "H3K4ME3_GM12878";
 	public static final String H3K27ME3_GM12878 = "H3K27ME3_GM12878";
 	
-	public static final String K562 = "K562";
 	public static final String POL2_K562 = "POL2_K562";
 	public static final String H3K4ME1_K562 = "H3K4ME1_K562";
 	public static final String H3K4ME2_K652 = "H3K4ME2_K652";
 	
+	public static final String POL2 	= "POL2";
+	public static final String H3K4ME1 	= "H3K4ME1";
+	public static final String H3K4ME2 	= "H3K4ME2";
+	public static final String H3K4ME3 	= "H3K4ME3";
+	public static final String H3K27ME3 = "H3K27ME3";
+
 	// GLANET DATA Driven ends
 
 	public static final String demo_input_data = "demo_input_data";

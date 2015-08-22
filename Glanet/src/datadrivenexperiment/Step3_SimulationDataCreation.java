@@ -18,7 +18,7 @@ import enrichment.InputLine;
 import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DnaseOverlapExclusionType;
+import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 
 /**
  * @author Burcak Otlu
@@ -36,7 +36,6 @@ import enumtypes.DnaseOverlapExclusionType;
  * cellLineType
  * geneType
  * TPM
- * DnaseOverlapExclusionType  
  * Number of simulations
  * Number of intervals in each simulation
  *
@@ -47,10 +46,10 @@ public class Step3_SimulationDataCreation {
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			String tpmString,
-			DnaseOverlapExclusionType dnaseOverlapExclusionType, 
+			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			String dataFolder) {
 
-		String intervalPoolFileName = dataFolder + Commons.SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() +"_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalsPool_EndInclusive.txt";
+		String intervalPoolFileName = dataFolder + Commons.SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() +"_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
 
 		return intervalPoolFileName;
 	}
@@ -153,7 +152,7 @@ public class Step3_SimulationDataCreation {
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			String tpmString,
-			DnaseOverlapExclusionType dnaseOverlapExclusionType, 
+			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			String intervalPoolFileName, 
 			int numberofSimulations,
 			int numberofIntervalsInEachSimulation) {
@@ -175,7 +174,7 @@ public class Step3_SimulationDataCreation {
 		for( int i = 0; i < numberofSimulations; i++){
 
 			// Set simulationDataFile
-			simulationDataFile = baseFolderName + Commons.SIMULATION + i + ".txt";
+			simulationDataFile = baseFolderName + "_" +  Commons.SIMULATION + i + ".txt";
 
 			randomIntervalIndexes = new int[numberofIntervalsInEachSimulation];
 
@@ -195,13 +194,8 @@ public class Step3_SimulationDataCreation {
 	 * args[1] = cellLineType
 	 * args[2] = geneType
 	 * args[3] = tpm value (0.1, 0.01, 0.001)
-	 * args[4] = DnaseOverlapExclusionType:
-	 * CompletelyDiscard
-	 * PartiallyDiscardTakeTheLongestRemainingInterval
-	 * PartiallyDiscardTakeAllTheRemainingIntervals
-	 * NoDiscard
-	 * args[5] = NumberofSimulations
-	 * args[6] = NumberofIntervalsInEachSimulations
+	 * args[4] = NumberofSimulations
+	 * args[5] = NumberofIntervalsInEachSimulations
 	 */
 	public static void main( String[] args) {
 
@@ -214,35 +208,36 @@ public class Step3_SimulationDataCreation {
 		
 		float tpm = Float.parseFloat(args[3]);
 		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
-
-		DnaseOverlapExclusionType dnaseOverlapExclusionType = DnaseOverlapExclusionType.convertStringtoEnum(args[4]);
 		
-		// Depending on tpmString and dnaseOverlapsExcluded
-		// Set IntervalPoolFile
-		String intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,tpmString, dnaseOverlapExclusionType, dataFolder);
-
 		// Other Parameters for Simulations
 		// Number of Simulations
-		int numberofSimulations =  Integer.parseInt(args[5]);
+		int numberofSimulations =  Integer.parseInt(args[4]);
 		// Number of intervals in each simulation
-		int numberofIntervalsInEachSimulation = Integer.parseInt(args[6]);
+		int numberofIntervalsInEachSimulation = Integer.parseInt(args[5]);
 
-		// Generate Simulations Data
-		// Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
-		generateRandomSimulationData(
-				dataFolder, 
-				cellLineType,
-				geneType,
-				tpmString, 
-				dnaseOverlapExclusionType, 
-				intervalPoolFileName,
-				numberofSimulations, 
-				numberofIntervalsInEachSimulation);
+		String intervalPoolFileName = null;
 
-		// Then for each simulationData I will run GLANET
-		// Count the numberofSimulations that have POL2_GM12878 enriched
-		// NumberofSimulations/totalNumberofSimulations will be my false positive rate for POL2_GM12878
+		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType : DataDrivenExperimentDnaseOverlapExclusionType.values() ){
+			
+			// Depending on tpmString and dnaseOverlapsExcluded
+			// Set IntervalPoolFile
+			intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,tpmString, dnaseOverlapExclusionType, dataFolder);
 
+			// Generate Simulations Data
+			// Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
+			generateRandomSimulationData(
+					dataFolder, 
+					cellLineType,
+					geneType,
+					tpmString, 
+					dnaseOverlapExclusionType, 
+					intervalPoolFileName,
+					numberofSimulations, 
+					numberofIntervalsInEachSimulation);
+
+			
+		}//End of for each dnaseOverlapExclusionType
+		
 	}
 
 }

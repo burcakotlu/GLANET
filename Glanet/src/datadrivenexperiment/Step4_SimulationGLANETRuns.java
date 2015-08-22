@@ -10,7 +10,7 @@ import java.io.IOException;
 import auxiliary.FileOperations;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DnaseOverlapExclusionType;
+import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.GenerateRandomDataMode;
 
 /**
@@ -33,11 +33,11 @@ public class Step4_SimulationGLANETRuns {
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			String tpm,
-			DnaseOverlapExclusionType dnaseOverlapExclusionType, 
+			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			GenerateRandomDataMode withorWithout, 
 			String args[]) throws IOException {
 
-		String rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty( "file.separator") + "Data" + System.getProperty( "file.separator") + "SimulationData" + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "Sim";
+		String rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty( "file.separator") + "Data" + System.getProperty( "file.separator") + "SimulationData" + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "Sim";
 
 		for( int i = 0; i < numberofSimulations; i++){
 
@@ -91,8 +91,6 @@ public class Step4_SimulationGLANETRuns {
 		float tpm = Float.parseFloat(args[4]);
 		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
 		
-		
-
 		// x1000
 		int numberOfSimulations = Integer.parseInt(args[5]);
 
@@ -103,12 +101,6 @@ public class Step4_SimulationGLANETRuns {
 		GenerateRandomDataMode withoutGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
 
 		try{
-			// run this created bat file
-
-			//Can Firtina
-			//fileWriter = FileOperations.createFileWriter( args[3] + "SimulationGLANETRunsewz(1).sh");
-			
-			//Burcak Otlu
 			
 			
 			//*************************************************************************************************************//
@@ -119,9 +111,9 @@ public class Step4_SimulationGLANETRuns {
 			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 			//*************************************************************************************************************//
 			
-			for(DnaseOverlapExclusionType dnaseOverlapExclusionType: DnaseOverlapExclusionType.values()){
+			for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 				
-				fileWriter = FileOperations.createFileWriter( args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_" +   dnaseOverlapExclusionType.convertEnumtoString() + ".sh");
+				fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_" +   dnaseOverlapExclusionType.convertEnumtoString() + ".bat");
 				
 				bufferedWriter = new BufferedWriter( fileWriter);
 				//bufferedWriter.write( "#!/bin/bash\n");
