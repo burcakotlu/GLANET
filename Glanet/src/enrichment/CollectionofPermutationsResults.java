@@ -124,13 +124,45 @@ public class CollectionofPermutationsResults {
 
 			}else if( annotationType.doUserDefinedGeneSetAnnotation()){
 				// line per element in output file
-				bufferedWriter.write( element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + ( element.getEmpiricalPValueCalculatedFromZScore() == null?element.getEmpiricalPValueCalculatedFromZScore():df.format( element.getEmpiricalPValueCalculatedFromZScore())) + "\t" + ( element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?element.getBonferroniCorrectedPValueCalculatedFromZScore():df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t" + ( element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?element.getBHFDRAdjustedPValueCalculatedFromZScore():df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t" + element.getRejectNullHypothesisCalculatedFromZScore() + "\t" + df.format( element.getEmpiricalPValue()) + "\t" + df.format( element.getBonferroniCorrectedPValue()) + "\t" + df.format( element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+				bufferedWriter.write(element.getNumber() + "\t");
+				bufferedWriter.write(element.getName() + "\t");
+				bufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(numberofPermutations + "\t");
+				bufferedWriter.write(numberofComparisons + "\t");
+				bufferedWriter.write(element.getMean() + "\t");
+				bufferedWriter.write(element.getStdDev() + "\t");
+				bufferedWriter.write(element.getZScore() + "\t");
+				bufferedWriter.write(( element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore())) + "\t");
+				bufferedWriter.write(( element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t");
+				bufferedWriter.write(( element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null":df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t");
+				bufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t");
+				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
+				bufferedWriter.write(element.isRejectNullHypothesis() + "\t");
 
-				bufferedWriter.write( element.getUserDefinedGeneSetDescription() + System.getProperty( "line.separator"));
+				bufferedWriter.write(element.getUserDefinedGeneSetDescription() + System.getProperty( "line.separator"));
 
 			}else{
 				// line per element in output file
-				bufferedWriter.write( element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + ( element.getEmpiricalPValueCalculatedFromZScore() == null?element.getEmpiricalPValueCalculatedFromZScore():df.format( element.getEmpiricalPValueCalculatedFromZScore())) + "\t" + ( element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?element.getBonferroniCorrectedPValueCalculatedFromZScore():df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t" + ( element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?element.getBHFDRAdjustedPValueCalculatedFromZScore():df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t" + element.getRejectNullHypothesisCalculatedFromZScore() + "\t" + df.format( element.getEmpiricalPValue()) + "\t" + df.format( element.getBonferroniCorrectedPValue()) + "\t" + df.format( element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
+				bufferedWriter.write(element.getNumber() + "\t");
+				bufferedWriter.write(element.getName() + "\t");
+				bufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(numberofPermutations + "\t");
+				bufferedWriter.write(numberofComparisons + "\t");
+				bufferedWriter.write(element.getMean() + "\t");
+				bufferedWriter.write(element.getStdDev() + "\t");
+				bufferedWriter.write(element.getZScore() + "\t");
+				bufferedWriter.write((element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore())) + "\t");
+				bufferedWriter.write((element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t");
+				bufferedWriter.write((element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t");
+				bufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t");
+				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
+				bufferedWriter.write(element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
 
 			}
 
@@ -159,10 +191,8 @@ public class CollectionofPermutationsResults {
 		BufferedWriter bufferedWriter = null;
 		FunctionalElement element = null;
 		
-		
 		//Pay attention reject null hypothesis is always decided on BH FDR adjusted p value 
 		//which is calculated from  empiricalPValue calculated from numberofPermutations...Ratio or from empiricalPValue calculated from zScore
-
 		/***********************************************************************************/
 		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
 		/***********************************************************************************/
@@ -280,9 +310,9 @@ public class CollectionofPermutationsResults {
 				bufferedWriter.write(element.getMean() + "\t"); 
 				bufferedWriter.write(element.getStdDev() + "\t"); 
 				bufferedWriter.write(element.getZScore() + "\t");
-				bufferedWriter.write(element.getEmpiricalPValueCalculatedFromZScore() == null?null:df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t"); 
-				bufferedWriter.write(element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?null:df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"); 
-				bufferedWriter.write(element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?null:df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t");
+				bufferedWriter.write(element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t"); 
+				bufferedWriter.write(element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"); 
+				bufferedWriter.write(element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t");
 				bufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t"); 
 				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
 				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
@@ -883,7 +913,7 @@ public class CollectionofPermutationsResults {
 			/************************************************************************************/
 			// Before calculating BH FDR adjusted p values
 			// Sort w.r.t. Empirical P Value calculated From Z Scores in Ascending Order
-			Collections.sort( list, FunctionalElement.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
+			Collections.sort(list, FunctionalElement.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
 			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValuesFromZScores( list, FDR);
 			// Sort w.r.t. Benjamini and Hochberg FDR is Ascending Order
 			Collections.sort( list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE);
