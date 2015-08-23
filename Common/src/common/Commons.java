@@ -1424,6 +1424,7 @@ public class Commons {
 	public static final String ARG_NUMBER_OF_BASES = "-b";
 	public static final String ARG_PERFORM_ENRICHMENT = "-e";
 	public static final String ARG_PERFORM_ENRICHMENT_WITH_ZSCORES = "-ewz";
+	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "-ewoz";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-rdgcm";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-rd";
 	public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-mtbhfdr";

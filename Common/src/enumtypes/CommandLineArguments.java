@@ -89,11 +89,11 @@ import common.Commons;
 public enum CommandLineArguments {
 
 	InputFileNameWithFolder( 0),
-	InputFileAssembly( 1, Commons.GRCH37_P13),
-	GlanetFolder( 2),
-	InputFileDataFormat( 3, Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES),
-	NumberOfBasesRequiredForOverlap( 4, Commons.NUMBER_BASES_DEFAULT),
-	PerformEnrichment( 5, Commons.DO_NOT_ENRICH),
+	InputFileAssembly(1, Commons.GRCH37_P13),
+	GlanetFolder(2),
+	InputFileDataFormat(3, Commons.INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES),
+	NumberOfBasesRequiredForOverlap(4, Commons.NUMBER_BASES_DEFAULT),
+	PerformEnrichment(5, Commons.DO_NOT_ENRICH),
 	PerformEnrichmentWithZScoreDecision( 6,Commons.PERFORM_ENRICHMENT_WITH_ZSCORE),
 	GenerateRandomDataMode( 7, Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT),
 	MultipleTesting( 8, Commons.BENJAMINI_HOCHBERG_FDR),

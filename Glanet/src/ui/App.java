@@ -121,9 +121,13 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.InputFileNameWithFolder))
 			return false;
 		
-		//parsing log mode
-		for( int i = 0; i < args.length; i++)
-			if( args[i].equalsIgnoreCase( Commons.ARG_LOG_FILE)){
+		/***************************************************************************************/
+		/**********************************LOG FILE MODE****************************************/
+		/***************************************************************************************/
+		//Parsing Log File Mode
+		for( int i = 0; i < args.length; i++){
+			
+			if(args[i].equalsIgnoreCase( Commons.ARG_LOG_FILE)){
 				if( argsInOrder[CommandLineArguments.LogFile.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.LogFile.value()] = Commons.ARG_LOG_FILE;
 				else{
@@ -131,9 +135,57 @@ public class App {
 					return false;
 				}
 			}
+			
+			else if (args[i].equalsIgnoreCase(Commons.ARG_NO_LOG_FILE)){
+				if( argsInOrder[CommandLineArguments.LogFile.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.LogFile.value()] = Commons.ARG_NO_LOG_FILE;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+			
+		}//End of FOR Parsing Log File Mode
 		
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.LogFile))
 			return false;
+		/***************************************************************************************/
+		/**********************************LOG FILE MODE****************************************/
+		/***************************************************************************************/
+
+		
+		/***************************************************************************************/
+		/**********************************GLANET RUN MODE**************************************/
+		/***************************************************************************************/
+		//Parsing GLANET Run Mode
+		for( int i = 0; i < args.length; i++){
+			if( args[i].equalsIgnoreCase( Commons.GLANET_NORMAL_RUN)){
+				if( argsInOrder[CommandLineArguments.GLANETRun.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.GLANETRun.value()] = Commons.GLANET_NORMAL_RUN;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+			
+			else if( args[i].equalsIgnoreCase( Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN)){
+				if( argsInOrder[CommandLineArguments.GLANETRun.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.GLANETRun.value()] = Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+			
+		}//End of FOR Parsing GLANET Run Mode
+		
+		
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.GLANETRun))
+			return false;
+		/***************************************************************************************/
+		/**********************************GLANET RUN MODE**************************************/
+		/***************************************************************************************/
+
 		
 		// parsing glanet folder location
 		for( int i = 0; i < args.length; i++)
@@ -532,22 +584,39 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.PerformEnrichment))
 			return false;
 
+		/***************************************************************************************/
+		/*******************************ENRICHMENT WITH ZSCORES*********************************/
+		/**********************************OR WITHOUT ZSCORES***********************************/
+		/***************************************************************************************/
 		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
 			// parsing perform enrichment with zScores
 			for( int i = 0; i < args.length; i++){
 				
-				if( args[i].equalsIgnoreCase( Commons.ARG_PERFORM_ENRICHMENT_WITH_ZSCORES))
+				if( args[i].equalsIgnoreCase( Commons.ARG_PERFORM_ENRICHMENT_WITH_ZSCORES)){
 					if( argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()].equals( notSet))
 						argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()] = Commons.PERFORM_ENRICHMENT_WITH_ZSCORE;
 					else{
 						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 						return false;
 					}
+				}else if ( args[i].equalsIgnoreCase( Commons.ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES)){
+					if( argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()].equals( notSet))
+						argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()] = Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE;
+					else{
+						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+						return false;
+					}
+				}
 				
-			}//End of FOR
+			}//End of FOR parsing Enrichment ZScore decision
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder,CommandLineArguments.PerformEnrichmentWithZScoreDecision))
 			return false;
+		/***************************************************************************************/
+		/*******************************ENRICHMENT WITH ZSCORES*********************************/
+		/**********************************OR WITHOUT ZSCORES***********************************/
+		/***************************************************************************************/
+
 
 		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
 			// parsing generate random data mode enrichment

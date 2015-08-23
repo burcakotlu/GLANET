@@ -33,34 +33,41 @@ public class Step4_SimulationGLANETRuns {
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			String tpm,
-			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			GenerateRandomDataMode withorWithout, 
 			String args[]) throws IOException {
+		
+		String rootCommand = null;
+		
+		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
+			
+			rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty("file.separator") + "Data" + System.getProperty("file.separator") + "SimulationData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "Sim";
 
-		String rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty( "file.separator") + "Data" + System.getProperty( "file.separator") + "SimulationData" + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "Sim";
+			for( int i = 0; i < numberofSimulations; i++){
 
-		for( int i = 0; i < numberofSimulations; i++){
+				String command = rootCommand + i + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
 
-			String command = rootCommand + i + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
+				switch( withorWithout){
 
-			switch( withorWithout){
+					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
+		
+						bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() +  "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + "Sim" + i + System.getProperty( "line.separator"));
+						break;
+		
+					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
+		
+						bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString()  + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + "Sim" + i + System.getProperty( "line.separator"));
+						break;
+		
+					default:
+						break;
 
-				case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
+				}// End of SWITCH
+
+			}// End of FOR
+
+		}//End of For traversing each value in enum DnaseOverlapExclusionType
 	
-					bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() +  "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + "Sim" + i + System.getProperty( "line.separator"));
-					break;
-	
-				case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-	
-					bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString()  + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + "Sim" + i + System.getProperty( "line.separator"));
-					break;
-	
-				default:
-					break;
 
-			}// End of SWITCH
-
-		}// End of for
 
 	}
 
@@ -70,8 +77,9 @@ public class Step4_SimulationGLANETRuns {
 	 * args[1] = GLANET folder (which is parent of Data folder)
 	 * args[2] = cellLineTpe
 	 * args[3] = geneType
-	 * args[4] = numbeOfSimulations
-	 * args[5] = where to save bat file
+	 * args[4] = TPM
+	 * args[5] = numbeOfSimulations
+	 * args[6] = where to save bat file
 	 * 
 	 * Example:
 	 * 
@@ -107,14 +115,11 @@ public class Step4_SimulationGLANETRuns {
 			//****************************************************SIMULATIONS**********************************************//
 			//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
 			//**************************************************GLANET RUNS************************************************//
-			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 			//*************************************************************************************************************//
 			
-			for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 				
-				fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_" +   dnaseOverlapExclusionType.convertEnumtoString() + ".bat");
-				
+				//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+				fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_" +   "wGCM" + ".bat");	
 				bufferedWriter = new BufferedWriter( fileWriter);
 				//bufferedWriter.write( "#!/bin/bash\n");
 
@@ -124,44 +129,49 @@ public class Step4_SimulationGLANETRuns {
 						numberOfSimulations, 
 						cellLineType,
 						geneType,
-						tpmString,
-						dnaseOverlapExclusionType, 
+						tpmString, 
 						withGCandMapability,
 						args);
 				
+				//Close bufferedWriter
+				bufferedWriter.close();
+				fileWriter.close();
+				//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
 				
+				
+				
+				//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+				fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_" +   "woGCM" + ".bat");	
+				bufferedWriter = new BufferedWriter( fileWriter);
+
 				// Without GC and Mapability
 				writeGLANETRuns(
 						bufferedWriter, 
 						numberOfSimulations, 
 						cellLineType,
 						geneType,
-						tpmString,
-						dnaseOverlapExclusionType, 
+						tpmString, 
 						withoutGCandMapability,
 						args);
 			
-
 				//Close bufferedWriter
 				bufferedWriter.close();
 				fileWriter.close();
+				//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+
+
+				
 			
-			}//End of For traversing each value in enum DnaseOverlapExclusionType
-			
+				
 			
 			//*************************************************************************************************************//
 			//****************************************************SIMULATIONS**********************************************//
 			//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
 			//**************************************************GLANET RUNS************************************************//
-			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 			//*************************************************************************************************************//
 
-			
-			
 		
 		}catch( IOException e){
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
