@@ -315,6 +315,7 @@ public class Step5_SimulationGLANETResults {
 			int numberofComparisons,
 			ElementType elementType, 
 			DataDrivenExperimentCellLineType cellLineType, 
+			DataDrivenExperimentGeneType geneType,
 			DataDrivenExperimentElementNameType elementNameType,
 			Float bonferroniCorrectionSignificanceLevel, 
 			Float FDR,
@@ -348,12 +349,12 @@ public class Step5_SimulationGLANETResults {
 				switch(generateRandomDataMode){
 					
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" +Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  tpmString + "_" + geneType.convertEnumtoString() + "_" +  dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" +Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 						break;
 						
 					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" +Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" +Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 						break;
 				
@@ -569,6 +570,7 @@ public class Step5_SimulationGLANETResults {
 						numberofTFElementsInThisCellLine, 
 						ElementType.TF, 
 						cellLineType, 
+						geneType,
 						DataDrivenExperimentElementNameType.POL2,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -584,6 +586,7 @@ public class Step5_SimulationGLANETResults {
 						numberofHistoneElementsInThisCellLine, 
 						ElementType.HISTONE, 
 						cellLineType, 
+						geneType,
 						DataDrivenExperimentElementNameType.H3K4ME3,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -599,6 +602,7 @@ public class Step5_SimulationGLANETResults {
 						numberofHistoneElementsInThisCellLine, 
 						ElementType.HISTONE, 
 						cellLineType, 
+						geneType,
 						DataDrivenExperimentElementNameType.H3K27ME3,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -617,6 +621,7 @@ public class Step5_SimulationGLANETResults {
 						numberofTFElementsInThisCellLine, 
 						ElementType.TF, 
 						cellLineType, 
+						geneType,
 						DataDrivenExperimentElementNameType.POL2,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -631,7 +636,8 @@ public class Step5_SimulationGLANETResults {
 						numberofSimulations,
 						numberofHistoneElementsInThisCellLine, 
 						ElementType.HISTONE, 
-						cellLineType, 
+						cellLineType,
+						geneType,
 						DataDrivenExperimentElementNameType.H3K4ME1,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -647,6 +653,7 @@ public class Step5_SimulationGLANETResults {
 						numberofHistoneElementsInThisCellLine, 
 						ElementType.HISTONE, 
 						cellLineType, 
+						geneType,
 						DataDrivenExperimentElementNameType.H3K4ME2,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -664,6 +671,7 @@ public class Step5_SimulationGLANETResults {
 						numberofHistoneElementsInThisCellLine, 
 						ElementType.HISTONE, 
 						cellLineType, 
+						geneType,
 						DataDrivenExperimentElementNameType.H3K4ME3,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -679,6 +687,7 @@ public class Step5_SimulationGLANETResults {
 						numberofHistoneElementsInThisCellLine, 
 						ElementType.HISTONE, 
 						cellLineType, 
+						geneType,
 						DataDrivenExperimentElementNameType.H3K27ME3,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
