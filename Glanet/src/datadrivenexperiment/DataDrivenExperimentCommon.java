@@ -4,6 +4,7 @@
 package datadrivenexperiment;
 
 import enumtypes.DataDrivenExperimentGeneType;
+import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
 
@@ -12,7 +13,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -135,6 +135,82 @@ public class DataDrivenExperimentCommon {
 
 	}
 	
+	
+	public static float getTopPercentage(
+			TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2,
+			DataDrivenExperimentGeneType geneType,
+			String topPercentage){
+		
+		if (geneType.isExpressingProteinCodingGenes()){
+			//Sort in descending order
+			//Get the topPercentage TPM value
+			
+			
+		}else if (geneType.isNonExpressingProteinCodingGenes()){
+			//Sort in ascending order
+			//Get the topPercentage TPM value
+			
+		}
+		
+		return 0;
+	}
+	
+	public static TObjectFloatMap<String> getUnion(
+			TObjectFloatMap<String> ensemblGeneID2TPMMapforRep1,
+			TObjectFloatMap<String> ensemblGeneID2TPMMapforRep2, 
+			DataDrivenExperimentGeneType geneType){
+		
+		String geneID = null;
+		Float tpm1 = null;
+		Float tpm2 = null;
+		
+		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2 = new TObjectFloatHashMap<String>();
+		
+		for(TObjectFloatIterator<String> itr =ensemblGeneID2TPMMapforRep1.iterator();itr.hasNext();){
+			
+			itr.advance();
+			
+			geneID = itr.key();
+			tpm1 =itr.value();
+			
+			if (ensemblGeneID2TPMMapforRep2.containsKey(geneID)){
+				
+				tpm2 = ensemblGeneID2TPMMapforRep2.get(geneID);
+				
+				//Save the lowest TPM
+				if (geneType.isExpressingProteinCodingGenes()){
+					
+					if(tpm1<tpm2){
+						ensemblGeneID2TPMMapforUnionofRep1andRep2.put(geneID, tpm1);
+					}else{
+						ensemblGeneID2TPMMapforUnionofRep1andRep2.put(geneID, tpm2);
+					}
+					
+				}
+				
+				//Save the highest TPM
+				else if (geneType.isNonExpressingProteinCodingGenes()){
+					
+					if(tpm1>tpm2){
+						ensemblGeneID2TPMMapforUnionofRep1andRep2.put(geneID, tpm1);
+					}else{
+						ensemblGeneID2TPMMapforUnionofRep1andRep2.put(geneID, tpm2);
+					}
+					
+				}
+			}//End of IF Rep2 contains geneID
+			
+			else{
+				ensemblGeneID2TPMMapforUnionofRep1andRep2.put(geneID, tpm1);
+			}//End of IF Rep2 does not contains geneID
+			
+		}//End of FOR traversing each element in ensemblGeneID2TPMMapforRep1
+		
+
+		
+		return ensemblGeneID2TPMMapforUnionofRep1andRep2;
+		
+	}
 	
 	public static TObjectFloatMap<String> fillMapUsingGTFFile(
 			String gtfFileNameWithPath) {
