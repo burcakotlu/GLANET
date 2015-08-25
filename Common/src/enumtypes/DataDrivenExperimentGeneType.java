@@ -61,7 +61,7 @@ public enum DataDrivenExperimentGeneType {
 		return ( this == DataDrivenExperimentGeneType.NONEXPRESSING_PROTEINCODING_GENES);
 	}
 
-	public boolean isPartiallyDiscardIntervalTakeTheLongestRemainingInterval() {
+	public boolean isExpressingProteinCodingGenes() {
 		return ( this == DataDrivenExperimentGeneType.EXPRESSING_PROTEINCODING_GENES);
 	}
 

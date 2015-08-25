@@ -133,9 +133,12 @@ public class CollectionofPermutationsResults {
 				bufferedWriter.write(element.getMean() + "\t");
 				bufferedWriter.write(element.getStdDev() + "\t");
 				bufferedWriter.write(element.getZScore() + "\t");
-				bufferedWriter.write(( element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore())) + "\t");
-				bufferedWriter.write(( element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t");
-				bufferedWriter.write(( element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null":df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t");
+				bufferedWriter.write(( element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore())));
+				bufferedWriter.write("\t");
+				bufferedWriter.write(( element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())));
+				bufferedWriter.write("\t");
+				bufferedWriter.write(( element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null":df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())));
+				bufferedWriter.write("\t");
 				bufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t");
 				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
 				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
@@ -155,9 +158,12 @@ public class CollectionofPermutationsResults {
 				bufferedWriter.write(element.getMean() + "\t");
 				bufferedWriter.write(element.getStdDev() + "\t");
 				bufferedWriter.write(element.getZScore() + "\t");
-				bufferedWriter.write((element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore())) + "\t");
-				bufferedWriter.write((element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t");
-				bufferedWriter.write((element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t");
+				bufferedWriter.write((element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore())));
+				bufferedWriter.write("\t");
+				bufferedWriter.write((element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())));
+				bufferedWriter.write("\t");
+				bufferedWriter.write((element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())));
+				bufferedWriter.write("\t");
 				bufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t");
 				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
 				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
@@ -286,9 +292,12 @@ public class CollectionofPermutationsResults {
 				bufferedWriter.write(element.getMean() + "\t");
 				bufferedWriter.write(element.getStdDev() + "\t" );
 				bufferedWriter.write(element.getZScore() + "\t");
-				bufferedWriter.write(element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t");
-				bufferedWriter.write(element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t");
-				bufferedWriter.write(element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t");
+				bufferedWriter.write(element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore()));
+				bufferedWriter.write("\t");
+				bufferedWriter.write(element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()));
+				bufferedWriter.write("\t");
+				bufferedWriter.write(element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()));
+				bufferedWriter.write("\t");
 				bufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t");
 				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
 				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
@@ -301,6 +310,7 @@ public class CollectionofPermutationsResults {
 				// line per element in output file
 				//bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + element.getEmpiricalPValueCalculatedFromZScore() == null?null:df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?null:df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?null:df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t" + element.getRejectNullHypothesisCalculatedFromZScore() + "\t" + df.format( element.getEmpiricalPValue()) + "\t" + df.format( element.getBonferroniCorrectedPValue()) + "\t" + df.format( element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
 				
+				
 				bufferedWriter.write(element.getNumber() + "\t");
 				bufferedWriter.write(element.getName() + "\t");
 				bufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
@@ -310,18 +320,18 @@ public class CollectionofPermutationsResults {
 				bufferedWriter.write(element.getMean() + "\t"); 
 				bufferedWriter.write(element.getStdDev() + "\t"); 
 				bufferedWriter.write(element.getZScore() + "\t");
-				bufferedWriter.write(element.getEmpiricalPValueCalculatedFromZScore() == null? "null" :df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t"); 
-				bufferedWriter.write(element.getBonferroniCorrectedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t"); 
-				bufferedWriter.write(element.getBHFDRAdjustedPValueCalculatedFromZScore() == null? "null" :df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t");
+				bufferedWriter.write(element.getEmpiricalPValueCalculatedFromZScore() == null ? "null" : df.format( element.getEmpiricalPValueCalculatedFromZScore()));
+				bufferedWriter.write("\t"); 
+				bufferedWriter.write(element.getBonferroniCorrectedPValueCalculatedFromZScore() == null ? "null" : df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()));
+				bufferedWriter.write("\t"); 
+				bufferedWriter.write(element.getBHFDRAdjustedPValueCalculatedFromZScore() == null ? "null" : df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()));
+				bufferedWriter.write("\t");
 				bufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t"); 
 				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
 				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
 				bufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
 				bufferedWriter.write(element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
 				
-				
-				
-			
 			}
 
 		}// End of WHILE

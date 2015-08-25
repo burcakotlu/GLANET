@@ -169,8 +169,9 @@ public class Step5_SimulationGLANETResults {
 
 			
 
-		if( !strLine.substring( indexofEigthTab + 1, indexofNinethTab).equals("NaN")){
-
+		if( !strLine.substring( indexofEigthTab + 1, indexofNinethTab).equals("NaN") &&
+				!strLine.substring( indexofEigthTab + 1, indexofNinethTab).equals("null")	){
+			
 			zScore = Double.parseDouble( strLine.substring( indexofEigthTab + 1, indexofNinethTab));
 			element.setZScore( zScore);
 
