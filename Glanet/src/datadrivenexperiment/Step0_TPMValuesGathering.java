@@ -3,10 +3,17 @@
  */
 package datadrivenexperiment;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import common.Commons;
 
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
+import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 
 /**
@@ -16,6 +23,36 @@ import gnu.trove.map.TObjectFloatMap;
  *
  */
 public class Step0_TPMValuesGathering {
+	
+	
+   static class MyEntry<String, Float> implements Map.Entry<String, Float>{
+	  
+	   private final String key;
+	   private Float value;
+
+	    public MyEntry(String key, Float value) {
+	        this.key = key;
+	        this.value = value;
+	    }
+
+		@Override
+		public String getKey() {
+			return key;
+		}
+
+		@Override
+		public Float getValue() {
+			return value;
+		}
+
+		@Override
+		public Float setValue(Float value) {
+			 Float old = this.value;
+		     this.value = value;
+		     return old;
+		}
+		
+	}
 
 	/**
 	 * @param args
@@ -86,6 +123,43 @@ public class Step0_TPMValuesGathering {
 		//Get the union of ensemblGeneID2TPMMapRep1 and ensemblGeneID2TPMMapRep2
 		ensemblGeneID2TPMMapforUnionofRep1andRep2 = DataDrivenExperimentCommon.getUnion(ensemblGeneID2TPMMapforRep1,ensemblGeneID2TPMMapforRep2, geneType);
 		
+		
+		//Convert map into list
+		//Sort list by comparator
+		// Convert Map to List
+		List<Map.Entry<String, Float>> list =  new LinkedList<Map.Entry<String, Float>>();
+
+		Map.Entry<String, Float> entry = null;
+		
+		for(TObjectFloatIterator<String> itr = ensemblGeneID2TPMMapforUnionofRep1andRep2.iterator();itr.hasNext();){
+			itr.advance();
+			
+			entry = new MyEntry<String,Float>(itr.key(),itr.value());
+			list.add(entry);
+			
+		}//End of FOR
+		
+		// Sort list with comparator, to compare the Map values in ascending order
+		Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {
+			public int compare(Map.Entry<String, Float> o1,
+                                           Map.Entry<String, Float> o2) {
+				return (o1.getValue()).compareTo(o2.getValue());
+			}
+		});
+
+		
+		// Sort list with comparator, to compare the Map values in descending order
+		Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {
+			public int compare(Map.Entry<String, Float> o1,
+                                           Map.Entry<String, Float> o2) {
+				return (o2.getValue()).compareTo(o1.getValue());
+			}
+		});
+
+		System.out.println(list.get(list.size()/10).getValue());
+		System.out.println(list.get(list.size()/4).getValue());
+		System.out.println(list.get(list.size()/2).getValue());
+		
 		//Get the TOP_TEN_PERCENTAGE_TPM_VALUE
 		//Get the TOP_TWENTYFIVE_PERCENTAGE_TPM_VALUE
 		//Get the TOP_FIFTY_PERCENTAGE_TPM_VALUE
@@ -93,7 +167,10 @@ public class Step0_TPMValuesGathering {
 		float tpmTopTwenthyFive = DataDrivenExperimentCommon.getTopPercentage(ensemblGeneID2TPMMapforUnionofRep1andRep2,geneType,"TOP_TWENTYFIVE_PERCENTAGE");
 		float tpmTopFifty = DataDrivenExperimentCommon.getTopPercentage(ensemblGeneID2TPMMapforUnionofRep1andRep2,geneType,"TOP_FIFTY_PERCENTAGE");
 
-		System.out.println(ensemblGeneID2TPMMapforUnionofRep1andRep2.size());		
+		System.out.println(tpmTopTen);		
+		System.out.println(tpmTopTwenthyFive);		
+		System.out.println(tpmTopFifty);		
+		
 	}
 
 }
