@@ -3,14 +3,13 @@
  */
 package datadrivenexperiment;
 
-import java.util.Collections;
-import java.util.Comparator;
+import java.text.DecimalFormat;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import auxiliary.GlanetDecimalFormat;
 import common.Commons;
-
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
 import gnu.trove.iterator.TObjectFloatIterator;
@@ -65,15 +64,14 @@ public class Step0_TPMValuesGathering {
 		
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[2]);
 		
-		// This will be filled while reading cellLineRep1
+		// This map will be filled while reading cellLineRep1
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforRep1;
 
-		// This will be filled while reading cellLineRep2
+		// This map will be filled while reading cellLineRep2
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforRep2;
 		
-		// This will be filled while reading cellLineRep2
+		// This map will be the union of MapFromCellLineRep1 and MapFromCellLineRep2
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
-
 
 		String cellLineRep1GTFFileName = null;
 		String cellLineRep2GTFFileName = null;
@@ -125,8 +123,6 @@ public class Step0_TPMValuesGathering {
 		
 		
 		//Convert map into list
-		//Sort list by comparator
-		// Convert Map to List
 		List<Map.Entry<String, Float>> list =  new LinkedList<Map.Entry<String, Float>>();
 
 		Map.Entry<String, Float> entry = null;
@@ -139,38 +135,22 @@ public class Step0_TPMValuesGathering {
 			
 		}//End of FOR
 		
-		// Sort list with comparator, to compare the Map values in ascending order
-		Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {
-			public int compare(Map.Entry<String, Float> o1,
-                                           Map.Entry<String, Float> o2) {
-				return (o1.getValue()).compareTo(o2.getValue());
-			}
-		});
-
-		
-		// Sort list with comparator, to compare the Map values in descending order
-		Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {
-			public int compare(Map.Entry<String, Float> o1,
-                                           Map.Entry<String, Float> o2) {
-				return (o2.getValue()).compareTo(o1.getValue());
-			}
-		});
-
-		System.out.println(list.get(list.size()/10).getValue());
-		System.out.println(list.get(list.size()/4).getValue());
-		System.out.println(list.get(list.size()/2).getValue());
 		
 		//Get the TOP_TEN_PERCENTAGE_TPM_VALUE
 		//Get the TOP_TWENTYFIVE_PERCENTAGE_TPM_VALUE
 		//Get the TOP_FIFTY_PERCENTAGE_TPM_VALUE
-		float tpmTopTen = DataDrivenExperimentCommon.getTopPercentage(ensemblGeneID2TPMMapforUnionofRep1andRep2,geneType,"TOP_TEN_PERCENTAGE");
-		float tpmTopTwenthyFive = DataDrivenExperimentCommon.getTopPercentage(ensemblGeneID2TPMMapforUnionofRep1andRep2,geneType,"TOP_TWENTYFIVE_PERCENTAGE");
-		float tpmTopFifty = DataDrivenExperimentCommon.getTopPercentage(ensemblGeneID2TPMMapforUnionofRep1andRep2,geneType,"TOP_FIFTY_PERCENTAGE");
+		float tpmTopTen = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_TEN_PERCENTAGE");
+		float tpmTopTwenthyFive = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_TWENTYFIVE_PERCENTAGE");
+		float tpmTopFifty = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_FIFTY_PERCENTAGE");
+		float tpmTopOneHundred = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_ONEHUNDRED_PERCENTAGE");
 
-		System.out.println(tpmTopTen);		
-		System.out.println(tpmTopTwenthyFive);		
-		System.out.println(tpmTopFifty);		
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		
+		System.out.println(df.format(tpmTopTen));		
+		System.out.println(df.format(tpmTopTwenthyFive));		
+		System.out.println(df.format(tpmTopFifty));		
+		System.out.println(df.format(tpmTopOneHundred));		
+			
 	}
 
 }

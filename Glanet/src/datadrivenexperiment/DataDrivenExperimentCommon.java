@@ -11,9 +11,12 @@ import gnu.trove.map.hash.TObjectFloatHashMap;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -137,26 +140,59 @@ public class DataDrivenExperimentCommon {
 	}
 	
 	
-	public static float getTopPercentage(
-			TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2,
+	public static Float getTopPercentage(
+			List<Map.Entry<String, Float>> list,
 			DataDrivenExperimentGeneType geneType,
 			String topPercentage){
 		
-
-
+		int  index = 0;
 		
 		if (geneType.isExpressingProteinCodingGenes()){
 			//Sort in descending order
-			//Get the topPercentage TPM value
+			
+			// For ExpressingGenes
+			// From largest to smallest tpm value
+			// Sort list with comparator, to compare the Map values in descending order
+			Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {
+				public int compare(Map.Entry<String, Float> o1,
+	                                           Map.Entry<String, Float> o2) {
+					return (o2.getValue()).compareTo(o1.getValue());
+				}
+			});
+
 			
 			
 		}else if (geneType.isNonExpressingProteinCodingGenes()){
 			//Sort in ascending order
-			//Get the topPercentage TPM value
+			
+			// For NonExpressingGenes
+			// From smallest to largest tpm value
+			// Sort list with comparator, to compare the Map values in ascending order
+			Collections.sort(list, new Comparator<Map.Entry<String, Float>>() {
+				public int compare(Map.Entry<String, Float> o1,
+	                                           Map.Entry<String, Float> o2) {
+					return (o1.getValue()).compareTo(o2.getValue());
+				}
+			});
+
 			
 		}
 		
-		return 0;
+		if (topPercentage.equals("TOP_TEN_PERCENTAGE")){
+			index = list.size()*10/100;
+			
+		}else 	if (topPercentage.equals("TOP_TWENTYFIVE_PERCENTAGE")){
+			index = list.size()*25/100;
+			
+		}else 	if (topPercentage.equals("TOP_FIFTY_PERCENTAGE")){
+			index = list.size()*50/100;
+			
+		}else if (topPercentage.equals("TOP_ONEHUNDRED_PERCENTAGE")){
+			// for debug purposes
+			index = list.size()-1;
+		}
+		
+		return list.get(index).getValue();
 	}
 	
 	public static TObjectFloatMap<String> getUnion(
