@@ -15,9 +15,10 @@ public enum DataDrivenExperimentElementNameType {
 	
 	POL2(1), 		//expressor
 	H3K4ME3(2), 	//expressor
-	H3K27ME3(3), 	//repressor
-	H3K4ME1(4), 	//expressor
-	H3K4ME2(5); 	//expressor
+	H3K4ME1(3), 	//expressor
+	H3K4ME2(4), 	//expressor
+	H3K27ME3(5), 	//repressor
+	H3K9ME3(6);		//repressor
 	
 	
 	private final int dataDrivenExperimentElementNameType;
@@ -49,8 +50,9 @@ public enum DataDrivenExperimentElementNameType {
 			return H3K4ME3;
 		}else if( Commons.H3K27ME3.equals(dataDrivenExperimentElementNameType)){
 			return H3K27ME3;
-		}
-		else
+		}else if( Commons.H3K9ME3.equals(dataDrivenExperimentElementNameType)){
+			return H3K9ME3;
+		}else
 			return null;
 	}
 
@@ -70,6 +72,9 @@ public enum DataDrivenExperimentElementNameType {
 		
 		else if( this.equals( DataDrivenExperimentElementNameType.H3K27ME3))
 			return Commons.H3K27ME3;
+		
+		else if( this.equals( DataDrivenExperimentElementNameType.H3K9ME3))
+			return Commons.H3K9ME3;
 		
 		else
 			return null;
@@ -93,5 +98,9 @@ public enum DataDrivenExperimentElementNameType {
 	
 	public boolean isH3K27ME3() {
 		return ( this == DataDrivenExperimentElementNameType.H3K27ME3);
+	}
+	
+	public boolean isH3K9ME3() {
+		return ( this == DataDrivenExperimentElementNameType.H3K9ME3);
 	}
 }

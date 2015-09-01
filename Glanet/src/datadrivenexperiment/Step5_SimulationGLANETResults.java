@@ -179,15 +179,29 @@ public class Step5_SimulationGLANETResults {
 			element.setEmpiricalPValueCalculatedFromZScore( empiricalPValueCalculatedFromZScore);
 
 		}else{
-
 			element.setZScore( null);
 			element.setEmpiricalPValueCalculatedFromZScore( null);
-
 		}
 
-		empiricalPValue = Float.parseFloat( strLine.substring( indexofThirteenthTab + 1, indexofFourteenthTab));
-		element.setEmpiricalPValue( empiricalPValue);
-				
+		if (indexofThirteenthTab>=0 && indexofFourteenthTab>=0){
+			
+			empiricalPValue = Float.parseFloat( strLine.substring(indexofThirteenthTab + 1, indexofFourteenthTab));
+			element.setEmpiricalPValue(empiricalPValue);
+			
+		}
+		
+		//for a special case
+		//remove this else part later
+		else if (strLine.substring(indexofNinethTab + 1,indexofTenthTab).equals("nullnullnullnull")){
+			
+			if(indexofTenthTab>=0 && indexofEleventhTab>=0){
+				empiricalPValue = Float.parseFloat( strLine.substring(indexofTenthTab + 1, indexofEleventhTab));
+				element.setEmpiricalPValue(empiricalPValue);
+			}
+			
+		}
+		
+					
 		return element;
 	}
 
@@ -374,7 +388,7 @@ public class Step5_SimulationGLANETResults {
 								(eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE) || eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE)) ){
 
 							enrichmentFile = eachEnrichmentFile.getAbsolutePath();
-
+							
 							break;
 
 						}// End of IF EnrichmentFile under EnrichmentDirectory
@@ -558,150 +572,111 @@ public class Step5_SimulationGLANETResults {
 		//generateRandomDataMode
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[10]);
 		
+		//Expressor
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofTFElementsInThisCellLine, 
+				ElementType.TF, 
+				cellLineType, 
+				geneType,
+				DataDrivenExperimentElementNameType.POL2,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecisionType,
+				generateRandomDataMode);
 		
-		switch(geneType){
+		//Expressor
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofHistoneElementsInThisCellLine, 
+				ElementType.HISTONE, 
+				cellLineType,
+				geneType,
+				DataDrivenExperimentElementNameType.H3K4ME1,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecisionType,
+				generateRandomDataMode);
 		
-			case NONEXPRESSING_PROTEINCODING_GENES:{
-				
-				readSimulationGLANETResults(
-						outputFolder, 
-						tpmString, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofTFElementsInThisCellLine, 
-						ElementType.TF, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.POL2,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode);
-				
-				readSimulationGLANETResults(
-						outputFolder, 
-						tpmString, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K4ME3,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode);
-				
-				readSimulationGLANETResults(
-						outputFolder, 
-						tpmString, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K27ME3,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode);
-				break;
-			}
-			
-			case EXPRESSING_PROTEINCODING_GENES:{
-				readSimulationGLANETResults(
-						outputFolder, 
-						tpmString, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofTFElementsInThisCellLine, 
-						ElementType.TF, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.POL2,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode);
-				
-				readSimulationGLANETResults(
-						outputFolder, 
-						tpmString, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType,
-						geneType,
-						DataDrivenExperimentElementNameType.H3K4ME1,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode);
-				
-				readSimulationGLANETResults(
-						outputFolder, 
-						tpmString, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K4ME2,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode);
+		//Expressor
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofHistoneElementsInThisCellLine, 
+				ElementType.HISTONE, 
+				cellLineType, 
+				geneType,
+				DataDrivenExperimentElementNameType.H3K4ME2,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecisionType,
+				generateRandomDataMode);
 
 
-				
-				readSimulationGLANETResults(
-						outputFolder, 
-						tpmString, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K4ME3,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode);
-				
-				readSimulationGLANETResults(
-						outputFolder, 
-						tpmString, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K27ME3,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode);
-				
-				break;
-			}
-			
-		}//End of SWITCH geneType
 		
-
+		//Expressor
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofHistoneElementsInThisCellLine, 
+				ElementType.HISTONE, 
+				cellLineType, 
+				geneType,
+				DataDrivenExperimentElementNameType.H3K4ME3,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecisionType,
+				generateRandomDataMode);
+		
+		//Repressor
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofHistoneElementsInThisCellLine, 
+				ElementType.HISTONE, 
+				cellLineType, 
+				geneType,
+				DataDrivenExperimentElementNameType.H3K27ME3,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecisionType,
+				generateRandomDataMode);
+		
+		//Repressor
+		readSimulationGLANETResults(
+				outputFolder, 
+				tpmString, 
+				dnaseOverlapExclusionType, 
+				numberofSimulations,
+				numberofHistoneElementsInThisCellLine, 
+				ElementType.HISTONE, 
+				cellLineType, 
+				geneType,
+				DataDrivenExperimentElementNameType.H3K9ME3,
+				bonferroniCorrectionSignificanceLevel, 
+				FDR, 
+				multipleTestingParameter, 
+				enrichmentDecisionType,
+				generateRandomDataMode);
+				
+				
 	}
 
 }

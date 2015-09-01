@@ -97,6 +97,9 @@ public class Commons {
 	public static final String H3K4ME2 	= "H3K4ME2";
 	public static final String H3K4ME3 	= "H3K4ME3";
 	public static final String H3K27ME3 = "H3K27ME3";
+	public static final String H3K9ME3  = "H3K9ME3";
+	
+	
 
 	// GLANET DATA Driven ends
 
