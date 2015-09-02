@@ -139,17 +139,22 @@ public class Step0_TPMValuesGathering {
 		//Get the TOP_TEN_PERCENTAGE_TPM_VALUE
 		//Get the TOP_TWENTYFIVE_PERCENTAGE_TPM_VALUE
 		//Get the TOP_FIFTY_PERCENTAGE_TPM_VALUE
-		float tpmTopTen = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_TEN_PERCENTAGE");
-		float tpmTopTwenthyFive = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_TWENTYFIVE_PERCENTAGE");
-		float tpmTopFifty = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_FIFTY_PERCENTAGE");
-		float tpmTopOneHundred = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_ONEHUNDRED_PERCENTAGE");
+		float tpmFirstElement 	= DataDrivenExperimentCommon.getTopPercentage(list,geneType,"FIRST_GENE_TPM");
+		float tpmTopTen 		= DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_TEN_PERCENTAGE_TPM");
+		float tpmTopTwenthyFive = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_TWENTYFIVE_PERCENTAGE_TPM");
+		float tpmTopFifty 		= DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_FIFTY_PERCENTAGE_TPM");
+		float tpmLastElement 	= DataDrivenExperimentCommon.getTopPercentage(list,geneType,"LAST_GENE_TPM");
 
 		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		
-		System.out.println(df.format(tpmTopTen));		
-		System.out.println(df.format(tpmTopTwenthyFive));		
-		System.out.println(df.format(tpmTopFifty));		
-		System.out.println(df.format(tpmTopOneHundred));		
+		System.out.println("CellLineType" + "\t" + cellLineType.convertEnumtoString());
+		System.out.println("GeneType" + "\t" + geneType.convertEnumtoString());
+
+		System.out.println("First Gene TPM:"  + "\t" + df.format(tpmFirstElement));		
+		System.out.println("TopTenPercentageTPM:"  + "\t" + df.format(tpmTopTen));		
+		System.out.println("TopTwenthyFivePercentageTPM:"  + "\t" + df.format(tpmTopTwenthyFive));		
+		System.out.println("TopFiftyPercentageTPM:"  + "\t" + df.format(tpmTopFifty));		
+		System.out.println("Last Gene TPM:"  + "\t" + df.format(tpmLastElement));		
 			
 	}
 

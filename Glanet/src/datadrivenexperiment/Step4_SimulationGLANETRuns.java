@@ -30,22 +30,40 @@ public class Step4_SimulationGLANETRuns {
 	//For NonExpressingGenes, all of the DataDrivenExperimentDnaseOverlapExclusionType: CompletelyDiscard, NoDiscard, TakeAll, TakeTheLongest
 	//For ExpressingGenes, only NoDiscard
 	public static void writeGLANETRuns( 
-			BufferedWriter bufferedWriter, 
 			int numberofSimulations, 
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
-			String tpm,
+			float tpm,
 			GenerateRandomDataMode withorWithout, 
 			String args[]) throws IOException {
 		
 		String rootCommand = null;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
+		
 		
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 			
 			if (geneType.isNonExpressingProteinCodingGenes() || 
 				geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard()){
 				
-				rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty("file.separator") + "Data" + System.getProperty("file.separator") + "SimulationData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "Sim";
+				switch( withorWithout){
+				
+					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
+						fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "wGCM" + ".bat");	
+						break;
+					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
+						fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "woGCM" + ".bat");	
+						break;
+				
+				}//End of SWITCH
+				
+				bufferedWriter = new BufferedWriter(fileWriter);
+				
+				rootCommand = "java -jar \"" + args[0] + "\" -Xms2G -Xmx2G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty("file.separator") + "Data" + System.getProperty("file.separator") + "SimulationData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "Sim";
 
 				for( int i = 0; i < numberofSimulations; i++){
 
@@ -55,12 +73,12 @@ public class Step4_SimulationGLANETRuns {
 
 						case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
 			
-							bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString() +  "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + "Sim" + i + System.getProperty( "line.separator"));
+							bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() +  "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + "Sim" + i + System.getProperty( "line.separator"));
 							break;
 			
 						case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
 			
-							bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + tpm + "_" + geneType.convertEnumtoString()  + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + "Sim" + i + System.getProperty( "line.separator"));
+							bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString()  + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + "Sim" + i + System.getProperty( "line.separator"));
 							break;
 			
 						default:
@@ -69,6 +87,11 @@ public class Step4_SimulationGLANETRuns {
 					}// End of SWITCH
 
 				}// End of FOR
+				
+				//Close bufferedWriter
+				bufferedWriter.close();
+				fileWriter.close();
+				
 				
 			}//End of IF geneType is NonExpressingGenes or ExpressingGenesAndNoDiscard
 			
@@ -105,14 +128,11 @@ public class Step4_SimulationGLANETRuns {
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[3]);
 		
 		float tpm = Float.parseFloat(args[4]);
-		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
 		
 		// x1000
 		int numberOfSimulations = Integer.parseInt(args[5]);
 
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-
+		
 		GenerateRandomDataMode withGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
 		GenerateRandomDataMode withoutGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
 
@@ -126,51 +146,32 @@ public class Step4_SimulationGLANETRuns {
 			//*************************************************************************************************************//
 			
 				
-				//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-				fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_" +   "wGCM" + ".bat");	
-				bufferedWriter = new BufferedWriter( fileWriter);
-				//bufferedWriter.write( "#!/bin/bash\n");
-
-				// With GC and Mapability
-				writeGLANETRuns(
-						bufferedWriter, 
-						numberOfSimulations, 
-						cellLineType,
-						geneType,
-						tpmString, 
-						withGCandMapability,
-						args);
-				
-				//Close bufferedWriter
-				bufferedWriter.close();
-				fileWriter.close();
-				//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-				
-				
-				
-				//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
-				fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_" +   "woGCM" + ".bat");	
-				bufferedWriter = new BufferedWriter( fileWriter);
-
-				// Without GC and Mapability
-				writeGLANETRuns(
-						bufferedWriter, 
-						numberOfSimulations, 
-						cellLineType,
-						geneType,
-						tpmString, 
-						withoutGCandMapability,
-						args);
+			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+			//bufferedWriter.write( "#!/bin/bash\n");
+			// With GC and Mapability
+			writeGLANETRuns( 
+					numberOfSimulations, 
+					cellLineType,
+					geneType,
+					tpm, 
+					withGCandMapability,
+					args);
+			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
 			
-				//Close bufferedWriter
-				bufferedWriter.close();
-				fileWriter.close();
-				//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
-
-
-				
 			
-				
+			
+			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+			// Without GC and Mapability
+			writeGLANETRuns(
+					numberOfSimulations, 
+					cellLineType,
+					geneType,
+					tpm, 
+					withoutGCandMapability,
+					args);
+			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+
+			
 			
 			//*************************************************************************************************************//
 			//****************************************************SIMULATIONS**********************************************//

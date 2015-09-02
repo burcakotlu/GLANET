@@ -219,23 +219,28 @@ public class Step3_SimulationDataCreation {
 
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType : DataDrivenExperimentDnaseOverlapExclusionType.values() ){
 			
-			// Depending on tpmString and dnaseOverlapsExcluded
-			// Set IntervalPoolFile
-			intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,tpmString, dnaseOverlapExclusionType, dataFolder);
+			if (	geneType.isNonExpressingProteinCodingGenes() ||
+					(geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard())){
+				
+				// Depending on tpmString and dnaseOverlapsExcluded
+				// Set IntervalPoolFile
+				intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,tpmString, dnaseOverlapExclusionType, dataFolder);
 
-			// Generate Simulations Data
-			// Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
-			generateRandomSimulationData(
-					dataFolder, 
-					cellLineType,
-					geneType,
-					tpmString, 
-					dnaseOverlapExclusionType, 
-					intervalPoolFileName,
-					numberofSimulations, 
-					numberofIntervalsInEachSimulation);
+				// Generate Simulations Data
+				// Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
+				generateRandomSimulationData(
+						dataFolder, 
+						cellLineType,
+						geneType,
+						tpmString, 
+						dnaseOverlapExclusionType, 
+						intervalPoolFileName,
+						numberofSimulations, 
+						numberofIntervalsInEachSimulation);
 
-			
+				
+			}//End of IF
+		
 		}//End of for each dnaseOverlapExclusionType
 		
 	}

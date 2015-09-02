@@ -552,18 +552,24 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		
 			for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 				
-				// Output File
-				// EndInclusive
-				dnaseIntervalsExcluded_interval_pool_outputFile = dataFolder + Commons.SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL+ System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
-	
-				excludeDnaseIntervalsWriteToOutputFile(
-						dataFolder, 
-						intervals_pool_inputFile, 
-						dnaseOverlapExclusionType,
-						dnaseIntervalsExcluded_interval_pool_outputFile, 
-						dnaseCellLineNumberList);
-			}//End of for DataDrivenExperimentDnaseOverlapExclusionType
+				if (	geneType.isNonExpressingProteinCodingGenes() ||
+						(geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard())){
+					
+					// Output File
+					// EndInclusive
+					dnaseIntervalsExcluded_interval_pool_outputFile = dataFolder + Commons.SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL+ System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
+		
+					excludeDnaseIntervalsWriteToOutputFile(
+							dataFolder, 
+							intervals_pool_inputFile, 
+							dnaseOverlapExclusionType,
+							dnaseIntervalsExcluded_interval_pool_outputFile, 
+							dnaseCellLineNumberList);
 			
+				}//End of IF
+				
+			}//End of for DataDrivenExperimentDnaseOverlapExclusionType
+						
 		}
 		
 		
