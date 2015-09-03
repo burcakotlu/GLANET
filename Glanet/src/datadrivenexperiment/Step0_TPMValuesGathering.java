@@ -24,7 +24,7 @@ import gnu.trove.map.TObjectFloatMap;
 public class Step0_TPMValuesGathering {
 	
 	
-   static class MyEntry<String, Float> implements Map.Entry<String, Float>{
+   static class MyEntry<K,V> implements Map.Entry<String, Float>{
 	  
 	   private final String key;
 	   private Float value;

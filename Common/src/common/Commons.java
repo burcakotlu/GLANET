@@ -81,6 +81,10 @@ public class Commons {
 	public static final String SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL = "SimulationDnaseOverlapsExcludedIntervalPool";
 	public static final String SIMULATION = "Sim";
 	
+	public static final String WINDOWS 	= "WINDOWS";
+	public static final String LINUX 	= "LINUX";
+
+	
 	public static final String GM12878 = "GM12878";
 	public static final String K562 = "K562";
 	

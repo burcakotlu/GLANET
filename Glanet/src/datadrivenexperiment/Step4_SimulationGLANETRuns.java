@@ -11,6 +11,7 @@ import auxiliary.FileOperations;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
+import enumtypes.DataDrivenExperimentOperatingSystem;
 import enumtypes.GenerateRandomDataMode;
 
 /**
@@ -33,6 +34,7 @@ public class Step4_SimulationGLANETRuns {
 			int numberofSimulations, 
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
+			DataDrivenExperimentOperatingSystem operatingSystem,
 			float tpm,
 			GenerateRandomDataMode withorWithout, 
 			String args[]) throws IOException {
@@ -41,27 +43,81 @@ public class Step4_SimulationGLANETRuns {
 		
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
+		String fileName = null;
+		
+		FileWriter qsubFileWriter = null;
+		BufferedWriter qsubBufferedWriter = null;
+		
 		
 		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
 		
+		String fileExtension = null;
+		
+	
 		
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 			
 			if (geneType.isNonExpressingProteinCodingGenes() || 
 				geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard()){
 				
+				//Decide on file extension
+				switch(operatingSystem){
+				
+					case WINDOWS: 	{
+						fileExtension = ".bat";
+						break;
+					}
+									
+									
+					case LINUX: {
+						fileExtension = ".sh";
+						qsubFileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "qsub_calls" + fileExtension, true);
+						qsubBufferedWriter = new BufferedWriter(qsubFileWriter);
+						break;
+					}
+								
+				}//End of SWITCH OperatingSystem
+				
+				
+				//Decide on fileName
 				switch( withorWithout){
 				
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "wGCM" + ".bat");	
+						fileName = args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "wGCM" + fileExtension;
 						break;
 					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						fileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "woGCM" + ".bat");	
-						break;
+						fileName = args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "woGCM" + fileExtension;
+					break;
 				
 				}//End of SWITCH
 				
+				
+				fileWriter = FileOperations.createFileWriter(fileName);	
 				bufferedWriter = new BufferedWriter(fileWriter);
+				
+				//Adding Header lines
+				//Adding qsub call in qsubFile
+				switch(operatingSystem){
+					
+					case LINUX:{ 
+						bufferedWriter.write("#!/bin/sh" + System.getProperty("line.separator"));
+						bufferedWriter.write("#PBS -l nodes=1:ppn=8" + System.getProperty("line.separator"));
+						bufferedWriter.write("# name of the queue that the job will be sent" + System.getProperty("line.separator"));
+						bufferedWriter.write("#PBS -q cenga" + System.getProperty("line.separator"));
+						bufferedWriter.write("# to use the environment variables of the shell that the job sent" + System.getProperty("line.separator"));
+						bufferedWriter.write("#PBS -V" + System.getProperty("line.separator"));
+						bufferedWriter.write("#!Running the program" + System.getProperty("line.separator"));
+						
+						bufferedWriter.write(System.getProperty("line.separator"));
+						
+						qsubBufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+						break;
+					}
+					
+					default: 
+						break;
+					
+				}//End of SWITCH
 				
 				rootCommand = "java -jar \"" + args[0] + "\" -Xms2G -Xmx2G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty("file.separator") + "Data" + System.getProperty("file.separator") + "SimulationData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "Sim";
 
@@ -92,6 +148,9 @@ public class Step4_SimulationGLANETRuns {
 				bufferedWriter.close();
 				fileWriter.close();
 				
+				qsubBufferedWriter.close();
+				qsubFileWriter.close();
+				
 				
 			}//End of IF geneType is NonExpressingGenes or ExpressingGenesAndNoDiscard
 			
@@ -111,6 +170,7 @@ public class Step4_SimulationGLANETRuns {
 	 * args[4] = TPM
 	 * args[5] = numbeOfSimulations
 	 * args[6] = where to save bat file
+	 * args[7] = Data Driven Experiment Operating System e.g.: Windows or Linux
 	 * 
 	 * Example:
 	 * 
@@ -121,6 +181,7 @@ public class Step4_SimulationGLANETRuns {
 	 * args[4]  --> TPM
 	 * args[5]	-->	1000
 	 * args[6]	-->	"C:\Users\Burcak\Desktop"
+	 * args[7] ---> "Linux"
 	 */
 	public static void main( String[] args) {
 		
@@ -135,6 +196,9 @@ public class Step4_SimulationGLANETRuns {
 		
 		GenerateRandomDataMode withGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
 		GenerateRandomDataMode withoutGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
+		
+		//Operating System where the Data Driven Experiment will run
+		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[7]);
 
 		try{
 			
@@ -145,6 +209,7 @@ public class Step4_SimulationGLANETRuns {
 			//**************************************************GLANET RUNS************************************************//
 			//*************************************************************************************************************//
 			
+			
 				
 			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
 			//bufferedWriter.write( "#!/bin/bash\n");
@@ -153,6 +218,7 @@ public class Step4_SimulationGLANETRuns {
 					numberOfSimulations, 
 					cellLineType,
 					geneType,
+					operatingSystem,
 					tpm, 
 					withGCandMapability,
 					args);
@@ -166,6 +232,7 @@ public class Step4_SimulationGLANETRuns {
 					numberOfSimulations, 
 					cellLineType,
 					geneType,
+					operatingSystem,
 					tpm, 
 					withoutGCandMapability,
 					args);
