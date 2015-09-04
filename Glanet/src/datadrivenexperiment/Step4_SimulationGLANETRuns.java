@@ -45,11 +45,11 @@ public class Step4_SimulationGLANETRuns {
 		BufferedWriter bufferedWriter = null;
 		String fileName = null;
 		
-		FileWriter qsubCalls_WithGCM_FileWriter = null;
-		BufferedWriter qsubCalls_WithGCM_BufferedWriter = null;
+		FileWriter call_Runs_WithGCM_FileWriter = null;
+		BufferedWriter call_Runs_WithGCM_BufferedWriter = null;
 		
-		FileWriter qsubCalls_WithoutGCM_FileWriter = null;
-		BufferedWriter qsubCalls_WithoutGCM_BufferedWriter = null;
+		FileWriter call_Runs_WithoutGCM_FileWriter = null;
+		BufferedWriter call_Runs_WithoutGCM_BufferedWriter = null;
 		
 		
 		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
@@ -72,17 +72,17 @@ public class Step4_SimulationGLANETRuns {
 					case LINUX:
 					case TURENG_MACHINE:{
 						fileExtension = ".sh";
-						qsubCalls_WithGCM_FileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "qsub_calls_withGCN" + fileExtension, true);
-						qsubCalls_WithGCM_BufferedWriter = new BufferedWriter(qsubCalls_WithGCM_FileWriter);
-						
-						qsubCalls_WithoutGCM_FileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "qsub_calls_withoutGCN" + fileExtension, true);
-						qsubCalls_WithoutGCM_BufferedWriter = new BufferedWriter(qsubCalls_WithoutGCM_FileWriter);
-
 						break;
 					}
 								
 				}//End of SWITCH
 				
+				call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "call_Runs_withGCN" + fileExtension, true);
+				call_Runs_WithGCM_BufferedWriter = new BufferedWriter(call_Runs_WithGCM_FileWriter);
+				
+				call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "call_Runs_withoutGCN" + fileExtension, true);
+				call_Runs_WithoutGCM_BufferedWriter = new BufferedWriter(call_Runs_WithoutGCM_FileWriter);
+
 				
 				//Decide on fileName
 				switch(withorWithout){
@@ -103,6 +103,15 @@ public class Step4_SimulationGLANETRuns {
 				//Adding Header lines
 				//Adding qsub call in qsubFile
 				switch(operatingSystem){
+				
+					case WINDOWS:{
+						if(withorWithout.isGenerateRandomDataModeWithMapabilityandGc()){
+							call_Runs_WithGCM_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));
+						}else if (withorWithout.isGenerateRandomDataModeWithoutMapabilityandGc()){
+							call_Runs_WithoutGCM_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));
+						}
+						break;
+					}
 					
 					case LINUX:{ 
 						bufferedWriter.write("#!/bin/sh" + System.getProperty("line.separator"));
@@ -116,9 +125,9 @@ public class Step4_SimulationGLANETRuns {
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
 						if(withorWithout.isGenerateRandomDataModeWithMapabilityandGc()){
-							qsubCalls_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+							call_Runs_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
 						}else if (withorWithout.isGenerateRandomDataModeWithoutMapabilityandGc()){
-							qsubCalls_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+							call_Runs_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
 						}
 						
 						break;
@@ -129,11 +138,10 @@ public class Step4_SimulationGLANETRuns {
 						bufferedWriter.write("#!/bin/sh" + System.getProperty("line.separator"));
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						
 						if(withorWithout.isGenerateRandomDataModeWithMapabilityandGc()){
-							qsubCalls_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+							call_Runs_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
 						}else if (withorWithout.isGenerateRandomDataModeWithoutMapabilityandGc()){
-							qsubCalls_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+							call_Runs_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
 						}
 						
 						break;
@@ -170,15 +178,20 @@ public class Step4_SimulationGLANETRuns {
 
 				}// End of FOR
 				
-				//Close bufferedWriter
+				//Add Line Separator
+				bufferedWriter.write(System.getProperty("line.separator"));
+				call_Runs_WithGCM_BufferedWriter.write(System.getProperty("line.separator"));
+				call_Runs_WithoutGCM_BufferedWriter.write(System.getProperty("line.separator"));
+				
+				//Close bufferedWriters
 				bufferedWriter.close();
 				fileWriter.close();
 				
-				qsubCalls_WithGCM_BufferedWriter.close();
-				qsubCalls_WithGCM_FileWriter.close();
+				call_Runs_WithGCM_BufferedWriter.close();
+				call_Runs_WithGCM_FileWriter.close();
 				
-				qsubCalls_WithoutGCM_BufferedWriter.close();
-				qsubCalls_WithoutGCM_FileWriter.close();
+				call_Runs_WithoutGCM_BufferedWriter.close();
+				call_Runs_WithoutGCM_FileWriter.close();
 				
 				
 			}//End of IF geneType is NonExpressingGenes or ExpressingGenesAndNoDiscard
