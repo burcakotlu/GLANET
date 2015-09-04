@@ -45,48 +45,53 @@ public class Step4_SimulationGLANETRuns {
 		BufferedWriter bufferedWriter = null;
 		String fileName = null;
 		
-		FileWriter qsubFileWriter = null;
-		BufferedWriter qsubBufferedWriter = null;
+		FileWriter qsubCalls_WithGCM_FileWriter = null;
+		BufferedWriter qsubCalls_WithGCM_BufferedWriter = null;
+		
+		FileWriter qsubCalls_WithoutGCM_FileWriter = null;
+		BufferedWriter qsubCalls_WithoutGCM_BufferedWriter = null;
 		
 		
 		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
 		
 		String fileExtension = null;
-		
-	
-		
+			
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 			
 			if (geneType.isNonExpressingProteinCodingGenes() || 
 				geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard()){
 				
-				//Decide on file extension
+				//Decide on file extension w.r.t. OperatingSystem
 				switch(operatingSystem){
 				
 					case WINDOWS: 	{
 						fileExtension = ".bat";
 						break;
 					}
-									
-									
-					case LINUX: {
+																		
+					case LINUX:
+					case TURENG_MACHINE:{
 						fileExtension = ".sh";
-						qsubFileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "qsub_calls" + fileExtension, true);
-						qsubBufferedWriter = new BufferedWriter(qsubFileWriter);
+						qsubCalls_WithGCM_FileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "qsub_calls_withGCN" + fileExtension, true);
+						qsubCalls_WithGCM_BufferedWriter = new BufferedWriter(qsubCalls_WithGCM_FileWriter);
+						
+						qsubCalls_WithoutGCM_FileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "qsub_calls_withoutGCN" + fileExtension, true);
+						qsubCalls_WithoutGCM_BufferedWriter = new BufferedWriter(qsubCalls_WithoutGCM_FileWriter);
+
 						break;
 					}
 								
-				}//End of SWITCH OperatingSystem
+				}//End of SWITCH
 				
 				
 				//Decide on fileName
-				switch( withorWithout){
+				switch(withorWithout){
 				
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						fileName = args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "wGCM" + fileExtension;
+						fileName = args[6] + System.getProperty("file.separator") + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "wGCM" + fileExtension;
 						break;
 					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						fileName = args[6] + System.getProperty("file.separator") + "SimulationGLANETRuns_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "woGCM" + fileExtension;
+						fileName = args[6] + System.getProperty("file.separator") + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "woGCM" + fileExtension;
 					break;
 				
 				}//End of SWITCH
@@ -110,8 +115,29 @@ public class Step4_SimulationGLANETRuns {
 						
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						qsubBufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+						if(withorWithout.isGenerateRandomDataModeWithMapabilityandGc()){
+							qsubCalls_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+						}else if (withorWithout.isGenerateRandomDataModeWithoutMapabilityandGc()){
+							qsubCalls_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+						}
+						
 						break;
+					}
+					
+					case TURENG_MACHINE:{
+						
+						bufferedWriter.write("#!/bin/sh" + System.getProperty("line.separator"));
+						bufferedWriter.write(System.getProperty("line.separator"));
+						
+						
+						if(withorWithout.isGenerateRandomDataModeWithMapabilityandGc()){
+							qsubCalls_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+						}else if (withorWithout.isGenerateRandomDataModeWithoutMapabilityandGc()){
+							qsubCalls_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+						}
+						
+						break;
+						
 					}
 					
 					default: 
@@ -119,7 +145,7 @@ public class Step4_SimulationGLANETRuns {
 					
 				}//End of SWITCH
 				
-				rootCommand = "java -jar \"" + args[0] + "\" -Xms2G -Xmx2G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty("file.separator") + "Data" + System.getProperty("file.separator") + "SimulationData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "Sim";
+				rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty("file.separator") + "Data" + System.getProperty("file.separator") + "SimulationData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "Sim";
 
 				for( int i = 0; i < numberofSimulations; i++){
 
@@ -148,8 +174,11 @@ public class Step4_SimulationGLANETRuns {
 				bufferedWriter.close();
 				fileWriter.close();
 				
-				qsubBufferedWriter.close();
-				qsubFileWriter.close();
+				qsubCalls_WithGCM_BufferedWriter.close();
+				qsubCalls_WithGCM_FileWriter.close();
+				
+				qsubCalls_WithoutGCM_BufferedWriter.close();
+				qsubCalls_WithoutGCM_FileWriter.close();
 				
 				
 			}//End of IF geneType is NonExpressingGenes or ExpressingGenesAndNoDiscard
@@ -192,7 +221,6 @@ public class Step4_SimulationGLANETRuns {
 		
 		// x1000
 		int numberOfSimulations = Integer.parseInt(args[5]);
-
 		
 		GenerateRandomDataMode withGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
 		GenerateRandomDataMode withoutGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
@@ -209,10 +237,8 @@ public class Step4_SimulationGLANETRuns {
 			//**************************************************GLANET RUNS************************************************//
 			//*************************************************************************************************************//
 			
-			
 				
 			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-			//bufferedWriter.write( "#!/bin/bash\n");
 			// With GC and Mapability
 			writeGLANETRuns( 
 					numberOfSimulations, 

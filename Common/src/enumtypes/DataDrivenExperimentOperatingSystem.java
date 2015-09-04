@@ -14,7 +14,8 @@ import common.Commons;
 public enum DataDrivenExperimentOperatingSystem {
 	
 	WINDOWS(1),
-	LINUX(2);
+	LINUX(2),
+	TURENG_MACHINE(3);
 	
 	private final int dataDrivenExperimentOperatingSystem;
 
@@ -41,6 +42,10 @@ public enum DataDrivenExperimentOperatingSystem {
 				return LINUX;
 		}
 		
+		else if (Commons.TURENG_MACHINE.equals(dataDrivenExperimentOperatingSystem)){
+			return TURENG_MACHINE;
+		}
+		
 		else
 			return null;
 	}
@@ -52,6 +57,9 @@ public enum DataDrivenExperimentOperatingSystem {
 		
 		else if( this.equals( DataDrivenExperimentOperatingSystem.LINUX))
 			return Commons.LINUX;
+		
+		else if( this.equals( DataDrivenExperimentOperatingSystem.TURENG_MACHINE))
+			return Commons.TURENG_MACHINE;
 		
 		else
 			return null;
@@ -66,7 +74,9 @@ public enum DataDrivenExperimentOperatingSystem {
 	}
 
 	
-	
+	public boolean isTurengMachine() {
+		return ( this == DataDrivenExperimentOperatingSystem.TURENG_MACHINE);
+	}
 
 
 }

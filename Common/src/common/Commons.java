@@ -83,7 +83,7 @@ public class Commons {
 	
 	public static final String WINDOWS 	= "WINDOWS";
 	public static final String LINUX 	= "LINUX";
-
+	public static final String TURENG_MACHINE 	= "TURENG_MACHINE";
 	
 	public static final String GM12878 = "GM12878";
 	public static final String K562 = "K562";

@@ -76,6 +76,11 @@ public class Step0_TPMValuesGathering {
 		String cellLineRep1GTFFileName = null;
 		String cellLineRep2GTFFileName = null;
 		
+		float tpmForExpressingGenes = 100;
+		float tpmForNonExpressingGenes = 0.001f;
+		float percentile;
+		
+		
 		switch(cellLineType){
 		
 			case GM12878: {
@@ -135,26 +140,49 @@ public class Step0_TPMValuesGathering {
 			
 		}//End of FOR
 		
+		//Sort the list w.r.t. the geneType
+		list = DataDrivenExperimentCommon.sortList(list,geneType);
 		
 		//Get the TOP_TEN_PERCENTAGE_TPM_VALUE
 		//Get the TOP_TWENTYFIVE_PERCENTAGE_TPM_VALUE
 		//Get the TOP_FIFTY_PERCENTAGE_TPM_VALUE
-		float tpmFirstElement 	= DataDrivenExperimentCommon.getTopPercentage(list,geneType,"FIRST_GENE_TPM");
-		float tpmTopTen 		= DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_TEN_PERCENTAGE_TPM");
-		float tpmTopTwenthyFive = DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_TWENTYFIVE_PERCENTAGE_TPM");
-		float tpmTopFifty 		= DataDrivenExperimentCommon.getTopPercentage(list,geneType,"TOP_FIFTY_PERCENTAGE_TPM");
-		float tpmLastElement 	= DataDrivenExperimentCommon.getTopPercentage(list,geneType,"LAST_GENE_TPM");
-
+		float tpmFirstElement 	= DataDrivenExperimentCommon.getTopPercentage(list,"FIRST_GENE_TPM");
+		
+		float tpmTop1			= DataDrivenExperimentCommon.getTopPercentage(list,"TOP_1_PERCENTAGE");;
+		float tpmTop2			= DataDrivenExperimentCommon.getTopPercentage(list,"TOP_2_PERCENTAGE");;
+		float tpmTop5 		= DataDrivenExperimentCommon.getTopPercentage(list,"TOP_5_PERCENTAGE");
+		float tpmTop10 		= DataDrivenExperimentCommon.getTopPercentage(list,"TOP_10_PERCENTAGE");
+		float tpmTop25 		= DataDrivenExperimentCommon.getTopPercentage(list,"TOP_25_PERCENTAGE");
+		float tpmTop50 		= DataDrivenExperimentCommon.getTopPercentage(list,"TOP_50_PERCENTAGE");
+		
+		float tpmLastElement 	= DataDrivenExperimentCommon.getTopPercentage(list,"LAST_GENE_TPM");
+		
 		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		
 		System.out.println("CellLineType" + "\t" + cellLineType.convertEnumtoString());
 		System.out.println("GeneType" + "\t" + geneType.convertEnumtoString());
 
-		System.out.println("First Gene TPM:"  + "\t" + df.format(tpmFirstElement));		
-		System.out.println("TopTenPercentageTPM:"  + "\t" + df.format(tpmTopTen));		
-		System.out.println("TopTwenthyFivePercentageTPM:"  + "\t" + df.format(tpmTopTwenthyFive));		
-		System.out.println("TopFiftyPercentageTPM:"  + "\t" + df.format(tpmTopFifty));		
-		System.out.println("Last Gene TPM:"  + "\t" + df.format(tpmLastElement));		
+		System.out.println("First Gene TPM:"  + "\t" + df.format(tpmFirstElement));	
+		
+		System.out.println("Top1PercentageTPM:"  + "\t" + df.format(tpmTop1));		
+		System.out.println("Top2PercentageTPM:"  + "\t" + df.format(tpmTop2));		
+		System.out.println("Top5PercentageTPM:"  + "\t" + df.format(tpmTop5));		
+		System.out.println("Top10PercentageTPM:"  + "\t" + df.format(tpmTop10));		
+		System.out.println("Top25PercentageTPM:"  + "\t" + df.format(tpmTop25));		
+		System.out.println("Top50PercentageTPM:"  + "\t" + df.format(tpmTop50));
+		
+		System.out.println("Last Gene TPM:"  + "\t" + df.format(tpmLastElement));	
+		
+		if (geneType.isExpressingProteinCodingGenes()){
+			percentile = DataDrivenExperimentCommon.getPercentile(list,geneType,tpmForExpressingGenes);
+			System.out.println("Percentile for TPM" + "\t" + tpmForExpressingGenes + "\t" + "is" + "\t" + percentile);
+		}else if (geneType.isNonExpressingProteinCodingGenes()){
+			percentile = DataDrivenExperimentCommon.getPercentile(list,geneType,tpmForNonExpressingGenes);
+			System.out.println("Percentile for TPM" + "\t" + tpmForNonExpressingGenes + "\t" + "is" + "\t" + percentile);
+		}
+		
+
+		
 			
 	}
 

@@ -13,10 +13,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**
@@ -139,13 +141,41 @@ public class DataDrivenExperimentCommon {
 
 	}
 	
-	
-	public static Float getTopPercentage(
+	public static float getPercentile(
 			List<Map.Entry<String, Float>> list,
 			DataDrivenExperimentGeneType geneType,
-			String topPercentage){
+			float tpm){
 		
-		int  index = 0;
+		int index = 0;
+		int savedIndex= 0;
+		float distance = Float.MAX_VALUE;
+		
+		for(Iterator<Map.Entry<String, Float>> itr = list.iterator(); itr.hasNext();){
+			
+			Map.Entry<String, Float> entry = itr.next();
+			
+			if (Math.abs(tpm - entry.getValue())<=distance){
+				distance = Math.abs(tpm -entry.getValue());
+				savedIndex = index;
+			}
+			
+			index++;
+			
+		}//End of for traversing the list 
+		
+		System.out.println("savedIndex is " + "\t" + savedIndex);
+		float percentile = ((float)savedIndex/list.size())*100;
+		System.out.println("TPM Value at percentile is " + "\t" + list.get(savedIndex).getValue());
+		System.out.println("TPM Value at percentile+1 is " + "\t" + list.get(savedIndex+1).getValue());
+		
+		
+		return percentile;
+	}
+	
+	
+	public static List<Map.Entry<String, Float>> sortList(
+			List<Map.Entry<String, Float>> list,
+			DataDrivenExperimentGeneType geneType){
 		
 		if (geneType.isExpressingProteinCodingGenes()){
 			//Sort in descending order
@@ -160,8 +190,6 @@ public class DataDrivenExperimentCommon {
 				}
 			});
 
-			
-			
 		}else if (geneType.isNonExpressingProteinCodingGenes()){
 			//Sort in ascending order
 			
@@ -175,26 +203,45 @@ public class DataDrivenExperimentCommon {
 				}
 			});
 
-			
-		}
+		}//End of ELSE
 		
+		return list;
 		
+	}
+	
+	public static Float getTopPercentage(
+			List<Map.Entry<String, Float>> list,
+			String topPercentage){
+		
+		int  index = 0;
 				
 		if (topPercentage.equals("FIRST_GENE_TPM")){
 			index = 0;
 		}
-		
-		else if (topPercentage.equals("TOP_TEN_PERCENTAGE_TPM")){
+		else if (topPercentage.equals("TOP_1_PERCENTAGE")){
+			index = list.size()*1/100;
+			
+		}
+		else if (topPercentage.equals("TOP_2_PERCENTAGE")){
+			index = list.size()*2/100;
+			
+		}
+		else if (topPercentage.equals("TOP_5_PERCENTAGE")){
+			index = list.size()*5/100;
+			
+		}
+		else if (topPercentage.equals("TOP_10_PERCENTAGE")){
 			index = list.size()*10/100;
 			
-		}else 	if (topPercentage.equals("TOP_TWENTYFIVE_PERCENTAGE_TPM")){
+		}else 	if (topPercentage.equals("TOP_25_PERCENTAGE")){
 			index = list.size()*25/100;
 			
-		}else 	if (topPercentage.equals("TOP_FIFTY_PERCENTAGE_TPM")){
+		}else 	if (topPercentage.equals("TOP_50_PERCENTAGE")){
 			index = list.size()*50/100;
 			
 		}else if (topPercentage.equals("LAST_GENE_TPM")){
 			index = list.size()-1;
+			
 		}
 		
 		return list.get(index).getValue();
