@@ -7,6 +7,8 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import common.Commons;
+
 import auxiliary.FileOperations;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
@@ -26,7 +28,7 @@ import enumtypes.GenerateRandomDataMode;
  * GLANET Data Driven Experiments Simulations command line runs are written in a bat file.
  *
  */
-public class Step4_SimulationGLANETRuns {
+public class Step4_DDE_GLANETRuns {
 
 	//For NonExpressingGenes, all of the DataDrivenExperimentDnaseOverlapExclusionType: CompletelyDiscard, NoDiscard, TakeAll, TakeTheLongest
 	//For ExpressingGenes, only NoDiscard
@@ -37,7 +39,8 @@ public class Step4_SimulationGLANETRuns {
 			DataDrivenExperimentOperatingSystem operatingSystem,
 			float tpm,
 			GenerateRandomDataMode withorWithout, 
-			String args[]) throws IOException {
+			String args[],
+			String dataDrivenExperimentScriptFolder) throws IOException {
 		
 		String rootCommand = null;
 		
@@ -77,10 +80,10 @@ public class Step4_SimulationGLANETRuns {
 								
 				}//End of SWITCH
 				
-				call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "call_Runs_withGCN" + fileExtension, true);
+				call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + "call_Runs_withGCM" + fileExtension, true);
 				call_Runs_WithGCM_BufferedWriter = new BufferedWriter(call_Runs_WithGCM_FileWriter);
 				
-				call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(args[6] + System.getProperty("file.separator") + "call_Runs_withoutGCN" + fileExtension, true);
+				call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + "call_Runs_withoutGCM" + fileExtension, true);
 				call_Runs_WithoutGCM_BufferedWriter = new BufferedWriter(call_Runs_WithoutGCM_FileWriter);
 
 				
@@ -88,10 +91,10 @@ public class Step4_SimulationGLANETRuns {
 				switch(withorWithout){
 				
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						fileName = args[6] + System.getProperty("file.separator") + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "wGCM" + fileExtension;
+						fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "wGCM" + fileExtension;
 						break;
 					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						fileName = args[6] + System.getProperty("file.separator") + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "woGCM" + fileExtension;
+						fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" + tpmString + "_" +  geneType.convertEnumtoString() + "_"   + dnaseOverlapExclusionType.convertEnumtoString() + "_" +   "woGCM" + fileExtension;
 					break;
 				
 				}//End of SWITCH
@@ -211,8 +214,7 @@ public class Step4_SimulationGLANETRuns {
 	 * args[3] = geneType
 	 * args[4] = TPM
 	 * args[5] = numbeOfSimulations
-	 * args[6] = where to save bat file
-	 * args[7] = Data Driven Experiment Operating System e.g.: Windows or Linux
+	 * args[6] = Data Driven Experiment Operating System e.g.: Windows or Linux
 	 * 
 	 * Example:
 	 * 
@@ -222,24 +224,29 @@ public class Step4_SimulationGLANETRuns {
 	 * args[3] 	-->	NonExpressingGenes, ExpressingGenes
 	 * args[4]  --> TPM
 	 * args[5]	-->	1000
-	 * args[6]	-->	"C:\Users\Burcak\Desktop"
-	 * args[7] ---> "Linux"
+	 * args[6] ---> "Linux"
 	 */
 	public static void main( String[] args) {
+		
+		String glanetFolder = args[1];
+		String dataDrivenExperimentFolder = glanetFolder + Commons.DDE + System.getProperty("file.separator");
+		String dataDrivenExperimentScriptFolder =  dataDrivenExperimentFolder +  Commons.SCRIPT_FILES + System.getProperty("file.separator");
+
 		
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[2]);
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[3]);
 		
+		
 		float tpm = Float.parseFloat(args[4]);
 		
 		// x1000
-		int numberOfSimulations = Integer.parseInt(args[5]);
+		int numberOfDDERuns = Integer.parseInt(args[5]);
 		
 		GenerateRandomDataMode withGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
 		GenerateRandomDataMode withoutGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
 		
 		//Operating System where the Data Driven Experiment will run
-		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[7]);
+		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[6]);
 
 		try{
 			
@@ -254,13 +261,14 @@ public class Step4_SimulationGLANETRuns {
 			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
 			// With GC and Mapability
 			writeGLANETRuns( 
-					numberOfSimulations, 
+					numberOfDDERuns, 
 					cellLineType,
 					geneType,
 					operatingSystem,
 					tpm, 
 					withGCandMapability,
-					args);
+					args,
+					dataDrivenExperimentScriptFolder);
 			//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
 			
 			
@@ -268,13 +276,14 @@ public class Step4_SimulationGLANETRuns {
 			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 			// Without GC and Mapability
 			writeGLANETRuns(
-					numberOfSimulations, 
+					numberOfDDERuns, 
 					cellLineType,
 					geneType,
 					operatingSystem,
 					tpm, 
 					withoutGCandMapability,
-					args);
+					args,
+					dataDrivenExperimentScriptFolder);
 			//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 
 			

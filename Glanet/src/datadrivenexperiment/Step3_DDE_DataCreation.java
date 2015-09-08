@@ -40,16 +40,16 @@ import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
  * Number of intervals in each simulation
  *
  */
-public class Step3_SimulationDataCreation {
+public class Step3_DDE_DataCreation {
 
 	public static String getIntervalPoolFileName(
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			String tpmString,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
-			String dataFolder) {
+			String dataDrivenExperimentFolder) {
 
-		String intervalPoolFileName = dataFolder + Commons.SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() +"_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
+		String intervalPoolFileName = dataDrivenExperimentFolder + Commons.DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() +"_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
 
 		return intervalPoolFileName;
 	}
@@ -148,7 +148,7 @@ public class Step3_SimulationDataCreation {
 	}
 
 	public static void generateRandomSimulationData( 
-			String dataFolder, 
+			String dataDrivenExperimentFolder, 
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			String tpmString,
@@ -169,12 +169,12 @@ public class Step3_SimulationDataCreation {
 		String baseFolderName = null;
 
 		// Set baseFolderName
-		baseFolderName = dataFolder + System.getProperty( "file.separator") + Commons.SIMULATION_DATA + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString();
+		baseFolderName = dataDrivenExperimentFolder + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString();
 
 		for( int i = 0; i < numberofSimulations; i++){
 
 			// Set simulationDataFile
-			simulationDataFile = baseFolderName + "_" +  Commons.SIMULATION + i + ".txt";
+			simulationDataFile = baseFolderName + "_" +  Commons.DDE_RUN + i + ".txt";
 
 			randomIntervalIndexes = new int[numberofIntervalsInEachSimulation];
 
@@ -200,7 +200,7 @@ public class Step3_SimulationDataCreation {
 	public static void main( String[] args) {
 
 		String glanetFolder = args[0];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		String dataDrivenExperimentFolder = glanetFolder + Commons.DDE + System.getProperty("file.separator");
 
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
 		
@@ -224,12 +224,12 @@ public class Step3_SimulationDataCreation {
 				
 				// Depending on tpmString and dnaseOverlapsExcluded
 				// Set IntervalPoolFile
-				intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,tpmString, dnaseOverlapExclusionType, dataFolder);
+				intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,tpmString, dnaseOverlapExclusionType, dataDrivenExperimentFolder);
 
 				// Generate Simulations Data
 				// Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
 				generateRandomSimulationData(
-						dataFolder, 
+						dataDrivenExperimentFolder, 
 						cellLineType,
 						geneType,
 						tpmString, 

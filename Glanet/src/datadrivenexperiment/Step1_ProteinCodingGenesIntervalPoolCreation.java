@@ -459,7 +459,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		// float tpmThreshold = 0.1f;
 		float tpmThreshold = Float.parseFloat( args[3]);
 
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
+		String dataDrivenExperimentFolder = glanetFolder + Commons.DDE + System.getProperty("file.separator");
 
 		// This will be filled while reading cellLineRep1
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforRep1;
@@ -527,11 +527,11 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		switch(geneType){
 
 			case NONEXPRESSING_PROTEINCODING_GENES: {
-				nonExpressingProteinCodingGenesIntervalsFile = dataFolder + Commons.SIMULATION_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.NONEXPRESSING_PROTEINCODING_GENES + "_IntervalPool.txt";
+				nonExpressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.NONEXPRESSING_PROTEINCODING_GENES + "_IntervalPool.txt";
 				break;
 			}
 			case EXPRESSING_PROTEINCODING_GENES:{
-				expressingProteinCodingGenesIntervalsFile = dataFolder + Commons.SIMULATION_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.EXPRESSING_PROTEINCODING_GENES + "_IntervalPool.txt";
+				expressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.EXPRESSING_PROTEINCODING_GENES + "_IntervalPool.txt";
 				break;
 			}
 			

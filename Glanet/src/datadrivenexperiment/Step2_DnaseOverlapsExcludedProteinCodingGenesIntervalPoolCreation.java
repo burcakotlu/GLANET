@@ -511,7 +511,9 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 	public static void main( String[] args) {
 
 		String glanetFolder	= args[0];
-		String dataFolder	= glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		String dataDrivenExperimentFolder	= glanetFolder + Commons.DDE + System.getProperty( "file.separator");
 		
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
 		
@@ -547,7 +549,7 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		// Considers cellLineType
 		// tpmString
 		// geneType
-		String intervals_pool_inputFile = dataFolder + Commons.SIMULATION_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_IntervalPool.txt";
+		String intervals_pool_inputFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_IntervalPool.txt";
 		String dnaseIntervalsExcluded_interval_pool_outputFile = null;
 		
 			for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
@@ -557,7 +559,7 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 					
 					// Output File
 					// EndInclusive
-					dnaseIntervalsExcluded_interval_pool_outputFile = dataFolder + Commons.SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL+ System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
+					dnaseIntervalsExcluded_interval_pool_outputFile = dataDrivenExperimentFolder + Commons.DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL+ System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
 		
 					excludeDnaseIntervalsWriteToOutputFile(
 							dataFolder, 

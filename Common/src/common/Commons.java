@@ -76,10 +76,13 @@ public class Commons {
 	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP = "TakeAll";
 	public static final String NO_DISCARD = "NoDiscard";
 	
-	public static final String SIMULATION_DATA = "SimulationData";
-	public static final String SIMULATION_INTERVAL_POOL = "SimulationIntervalPool";
-	public static final String SIMULATION_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL = "SimulationDnaseOverlapsExcludedIntervalPool";
-	public static final String SIMULATION = "Sim";
+	public static final String DDE_DATA = "DDEData";
+	public static final String DDE_INTERVAL_POOL = "IntervalPool";
+	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL = "DnaseOverlapsExcludedIntervalPool";
+	public static final String DDE_RUN = "Run";
+	public static final String SCRIPT_FILES = "ScriptFiles";
+	
+	
 	
 	public static final String WINDOWS 	= "WINDOWS";
 	public static final String LINUX 	= "LINUX";
@@ -111,6 +114,8 @@ public class Commons {
 
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
+	
+	public static final String DDE = "DDE";
 
 	// Sub Folders, Internal Folders
 	public static final String RESULTS = "Results";

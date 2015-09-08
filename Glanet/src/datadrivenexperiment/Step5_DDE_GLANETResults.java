@@ -55,7 +55,7 @@ import enumtypes.MultipleTestingType;
  *  GenerateRandomDataMode e.g. "With GC and Mappability" or "Without GC and Mappability"
  *
  */
-public class Step5_SimulationGLANETResults {
+public class Step5_DDE_GLANETResults {
 
 	public static boolean isEnriched( String strLine) {
 
@@ -364,12 +364,12 @@ public class Step5_SimulationGLANETResults {
 				switch(generateRandomDataMode){
 					
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  tpmString + "_" + geneType.convertEnumtoString() + "_" +  dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" +Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  tpmString + "_" + geneType.convertEnumtoString() + "_" +  dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 						break;
 						
 					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" +Commons.SIMULATION + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 						break;
 				
@@ -400,7 +400,7 @@ public class Step5_SimulationGLANETResults {
 				enrichmentFileReader = FileOperations.createFileReader(enrichmentFile);
 				enrichmentBufferedReader = new BufferedReader( enrichmentFileReader);
 
-				cellLineFilteredEnrichmentFileWriter = FileOperations.createFileWriter(enrichmentDirectory + System.getProperty( "file.separator") + elementType.convertEnumtoString() + "_" + cellLineType.convertEnumtoString() + "_" + Commons.SIMULATION + i + ".txt");
+				cellLineFilteredEnrichmentFileWriter = FileOperations.createFileWriter(enrichmentDirectory + System.getProperty( "file.separator") + elementType.convertEnumtoString() + "_" + cellLineType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt");
 				cellLineFilteredEnrichmentBufferedWriter = new BufferedWriter( cellLineFilteredEnrichmentFileWriter);
 
 				// Skip HeaderLine
