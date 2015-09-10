@@ -79,7 +79,10 @@ public class GlanetRunner implements Runnable {
 				/******************* Collection of Permutations Results ends *********************/
 
 			}
-
+			//10th of September 2015
+			//We should not do anything here for PERFORM_ENRICHMENT_WITHOUT_ZSCORE
+			//Since resulting output file is already written in Enrichment Class
+			
 			/************** Augmentation of Enriched Elements with Given Input Data starts in** GRCh37.p13*******/
 			if( getArgs()[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()].equalsIgnoreCase( Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS)){
 				setCurrentProcessInfo( "Augmentation of Enriched Elements with Annotation in GRCh37.p13 ...");

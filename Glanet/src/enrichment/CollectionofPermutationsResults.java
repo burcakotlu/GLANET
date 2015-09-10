@@ -771,8 +771,7 @@ public class CollectionofPermutationsResults {
 					// Inner While
 					while( indexofFormerComma != -1 && indexofLatterComma != -1){
 
-						permutationNumberofOverlaps = Integer.parseInt( strLine.substring( indexofFormerComma + 1,
-								indexofLatterComma));
+						permutationNumberofOverlaps = Integer.parseInt( strLine.substring( indexofFormerComma + 1,indexofLatterComma));
 
 						// 13 May 2015 starts
 						statsPerElement.addValue( permutationNumberofOverlaps);
@@ -852,14 +851,14 @@ public class CollectionofPermutationsResults {
 				elementNumber = it.key();
 				originalNumberofOverlaps = it.value();
 
-				statsPerElement = elementNumber2StatsMap.get( elementNumber);
+				statsPerElement = elementNumber2StatsMap.get(elementNumber);
 
 				element = elementNumber2ElementMap.get( elementNumber);
 
 				if( statsPerElement.getValues().length > 0){
 
-					mean = statsPerElement.getMean();
-					stdDev = statsPerElement.getStandardDeviation();
+					mean 	= statsPerElement.getMean();
+					stdDev 	= statsPerElement.getStandardDeviation();
 
 					element.setMean(mean);
 					element.setStdDev(stdDev);
@@ -926,7 +925,7 @@ public class CollectionofPermutationsResults {
 			Collections.sort(list, FunctionalElement.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
 			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValuesFromZScores( list, FDR);
 			// Sort w.r.t. Benjamini and Hochberg FDR is Ascending Order
-			Collections.sort( list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE);
+			Collections.sort(list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE);
 			/************************************************************************************/
 			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE ENDS ******************/
 			/************************************************************************************/

@@ -6,7 +6,7 @@ package auxiliary;
 import java.util.Comparator;
 
 /**
- * @author Burï¿½ak Otlu
+ * @author Burçak Otlu
  * @date May 6, 2015
  * @project Glanet 
  *
