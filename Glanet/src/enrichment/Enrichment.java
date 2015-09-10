@@ -74,6 +74,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+import auxiliary.FunctionalElementMinimal;
 import auxiliary.NumberofComparisons;
 import common.Commons;
 
@@ -3750,6 +3751,9 @@ public class Enrichment {
 	
 		int numberofPermutations;
 		
+		FunctionalElementMinimal element = null;
+		
+		
 		
 		try{
 			fileWriter = FileOperations.createFileWriter( outputFolder + outputFileName + "_" + runNumber + ".txt");
@@ -3798,6 +3802,15 @@ public class Enrichment {
 
 				mixedNumber = itr.key();
 				numberofPermutations = itr.value();
+				
+				element = new FunctionalElementMinimal();
+				
+				//Left here
+				//First fill element attributes
+				//Add to the list
+				
+				//Sort the list to the BH FDR or Bonferroni corrected p value
+				//Write the results
 				
 				switch(annotationType){
 				
@@ -8282,7 +8295,10 @@ public class Enrichment {
 			
 			dnaseCellLineNumber2OriginalKMap = new TIntIntHashMap();
 			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,dnaseAnnotationType,numberofComparisons);
+			numberofComparisons.setDnaseCellLineNumberofComparison(dnaseCellLineNumber2NameMap.size());
+			
+			//No Need
+			//NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,dnaseAnnotationType,numberofComparisons);
 		}
 
 		// TF
@@ -8353,6 +8369,8 @@ public class Enrichment {
 			
 			userDefinedLibraryElementTypeNumber2NameMap = new TIntObjectHashMap<String>();
 			userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap = new TIntObjectHashMap<TIntObjectMap<String>> ();
+			TIntIntMap userDefinedLibraryElementTypeNumber2NumberofComparisonMap = new TIntIntHashMap();
+			
 					
 			UserDefinedLibraryUtility.fillNumber2NameMap( 
 					userDefinedLibraryElementTypeNumber2NameMap, 
@@ -8376,12 +8394,15 @@ public class Enrichment {
 						Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);
 			
 				userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap.put(elementTypeNumber, elementNumber2ElementNameMap);
-				
+				userDefinedLibraryElementTypeNumber2NumberofComparisonMap.put(elementTypeNumber, elementNumber2ElementNameMap.size());
 			}//End of FOR
 
 			elementTypeNumberElementNumber2OriginalKMap = new TIntIntHashMap();
 			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,userDefinedLibraryAnnotationType,numberofComparisons);
+			numberofComparisons.setUserDefinedLibraryElementTypeNumber2NumberofComparisonMap(userDefinedLibraryElementTypeNumber2NumberofComparisonMap);
+			
+			//No need
+			//NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,userDefinedLibraryAnnotationType,numberofComparisons);
 						
 		}
 				
@@ -8426,7 +8447,6 @@ public class Enrichment {
 			
 			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,keggPathwayAnnotationType,numberofComparisons);
 
-			
 		}
 		
 		
