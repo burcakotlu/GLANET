@@ -55,7 +55,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			String inputFileFormat, 
 			String numberOfBases, 
 			String enrichmentEnabled,
-			String enrichmentWithZScoreDecision, 
+			String enrichmentZScoreMode, 
 			String generateRandomDataMode,
 			String multipleTestingChoice, 
 			String bonferoniCorrectionSignificanceLevel, 
@@ -96,7 +96,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.InputFileDataFormat.value()] = inputFileFormat;
 		args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()] = numberOfBases;
 		args[CommandLineArguments.PerformEnrichment.value()] = enrichmentEnabled;
-		args[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()] = enrichmentWithZScoreDecision;
+		args[CommandLineArguments.EnrichmentZScoreMode.value()] = enrichmentZScoreMode;
 		args[CommandLineArguments.GenerateRandomDataMode.value()] = generateRandomDataMode;
 		args[CommandLineArguments.MultipleTesting.value()] = multipleTestingChoice;
 		args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()] = bonferoniCorrectionSignificanceLevel;

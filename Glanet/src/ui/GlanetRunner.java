@@ -70,10 +70,10 @@ public class GlanetRunner implements Runnable {
 			Enrichment.main( args);
 			/************************ Annotate Permutations ends ******************************/
 
-			if( getArgs()[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()].equalsIgnoreCase( Commons.PERFORM_ENRICHMENT_WITH_ZSCORE)){
+			if( getArgs()[CommandLineArguments.EnrichmentZScoreMode.value()].equalsIgnoreCase( Commons.PERFORM_ENRICHMENT_WITH_ZSCORE)){
 
 				/******************* Collection of Permutations Results starts *******************/
-				setCurrentProcessInfo( "Collection of Permutations Results...");
+				setCurrentProcessInfo("Collection of Permutations Results With ZScores...");
 
 				CollectionofPermutationsResults.main( args);
 				/******************* Collection of Permutations Results ends *********************/
@@ -82,6 +82,15 @@ public class GlanetRunner implements Runnable {
 			//10th of September 2015
 			//We should not do anything here for PERFORM_ENRICHMENT_WITHOUT_ZSCORE
 			//Since resulting output file is already written in Enrichment Class
+			//This is not correct since there can be more than one run in Enrichment
+			//And all of the run results must be collected.
+			else if (getArgs()[CommandLineArguments.EnrichmentZScoreMode.value()].equalsIgnoreCase( Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE)){
+				/******************* Collection of Permutations Results starts *******************/
+				setCurrentProcessInfo("Collection of Permutations Results Without ZScores...");
+
+				CollectionofPermutationsResults.main( args);
+				/******************* Collection of Permutations Results ends *********************/
+			}
 			
 			/************** Augmentation of Enriched Elements with Given Input Data starts in** GRCh37.p13*******/
 			if( getArgs()[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()].equalsIgnoreCase( Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS)){

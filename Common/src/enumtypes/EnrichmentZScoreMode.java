@@ -11,12 +11,12 @@ import common.Commons;
  * @project Common 
  *
  */
-public enum EnrichmentZScoreType {
+public enum EnrichmentZScoreMode {
 
 	PerformEnrichmentWithZScore(1),
 	PerformEnrichmentWithoutZScore(2);
 
-	private final int enrichmentZScoreType;
+	private final int enrichmentZScoreMode;
 
 	/*
 	 * This constructor is private.
@@ -25,38 +25,38 @@ public enum EnrichmentZScoreType {
 	 * Can never use "new" with any enum, even inside the enum
 	 * class itself.
 	 */
-	private EnrichmentZScoreType(int enrichmentZScoreType) {
-		this.enrichmentZScoreType = enrichmentZScoreType;
+	private EnrichmentZScoreMode(int enrichmentZScoreMode) {
+		this.enrichmentZScoreMode = enrichmentZScoreMode;
 	}
 
-	public int getEnrichmentZScoreType() {
-		return enrichmentZScoreType;
+	public int getEnrichmentZScoreMode() {
+		return enrichmentZScoreMode;
 	}
 
-	public static EnrichmentZScoreType convertStringtoEnum(String enrichmentZScoreType) {
-		if( Commons.PERFORM_ENRICHMENT_WITH_ZSCORE.equals(enrichmentZScoreType)){
+	public static EnrichmentZScoreMode convertStringtoEnum(String enrichmentZScoreMode) {
+		if( Commons.PERFORM_ENRICHMENT_WITH_ZSCORE.equals(enrichmentZScoreMode)){
 			return PerformEnrichmentWithZScore;
-		}else if( Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE.equals(enrichmentZScoreType)){
+		}else if( Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE.equals(enrichmentZScoreMode)){
 			return PerformEnrichmentWithoutZScore;
 		}else
 			return null;
 	}
 
 	public String convertEnumtoString() {
-		if( this.equals( EnrichmentZScoreType.PerformEnrichmentWithZScore))
+		if( this.equals( EnrichmentZScoreMode.PerformEnrichmentWithZScore))
 			return Commons.PERFORM_ENRICHMENT_WITH_ZSCORE;
-		else if( this.equals( EnrichmentZScoreType.PerformEnrichmentWithoutZScore))
+		else if( this.equals( EnrichmentZScoreMode.PerformEnrichmentWithoutZScore))
 			return Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE;
 		else
 			return null;
 	}
 
 	public boolean isPerformEnrichmentWithZScore() {
-		return ( this == EnrichmentZScoreType.PerformEnrichmentWithZScore);
+		return ( this == EnrichmentZScoreMode.PerformEnrichmentWithZScore);
 	}
 
 	public boolean isPerformEnrichmentWithoutZScore() {
-		return ( this == EnrichmentZScoreType.PerformEnrichmentWithoutZScore);
+		return ( this == EnrichmentZScoreMode.PerformEnrichmentWithoutZScore);
 	}
 
 }

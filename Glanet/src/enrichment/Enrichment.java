@@ -9,7 +9,7 @@ import enumtypes.AnnotationType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentPermutationDivisionType;
-import enumtypes.EnrichmentZScoreType;
+import enumtypes.EnrichmentZScoreMode;
 import enumtypes.GeneInformationType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
@@ -74,8 +74,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-import auxiliary.FunctionalElementMinimal;
-import auxiliary.NumberofComparisons;
+
 import common.Commons;
 
 /**
@@ -3024,8 +3023,11 @@ public class Enrichment {
 
 	}
 
-	public static void fillPermutationNumberList( TIntList permutationNumberList, int runNumber,
-			int numberofPermutationsinThisRun, int numberofPermutationsinEachRun) {
+	public static void fillPermutationNumberList(
+			TIntList permutationNumberList, 
+			int runNumber,
+			int numberofPermutationsinThisRun, 
+			int numberofPermutationsinEachRun) {
 
 		for( int permutationNumber = 1; permutationNumber <= numberofPermutationsinThisRun; permutationNumber++){
 			permutationNumberList.add( ( runNumber - 1) * numberofPermutationsinEachRun + permutationNumber);
@@ -3672,10 +3674,10 @@ public class Enrichment {
 	}
 	
 	//9 July 2015
-	public static void writeResultFileWithoutZScore( 
+	public static void writeToBeCollectedWithoutZScore( 
 			String outputFolder, 
 			String outputFileName,
-			int runNumber,
+			String runName,
 			TLongIntMap elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap,
 			AnnotationType annotationType,
 			TIntObjectMap<String> elementNumber2NameMap,
@@ -3694,7 +3696,7 @@ public class Enrichment {
 		int numberofPermutations;
 
 		try{
-			fileWriter = FileOperations.createFileWriter( outputFolder + outputFileName + "_" + runNumber + ".txt");
+			fileWriter = FileOperations.createFileWriter( outputFolder + outputFileName + "_" + runName + ".txt");
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Header Line
@@ -3719,7 +3721,6 @@ public class Enrichment {
 			bufferedWriter.close();
 
 		}catch( IOException e){
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -3728,18 +3729,17 @@ public class Enrichment {
 	
 
 	// 1 July 2015
-	public static void writeResultFileWithoutZScore( 
+	public static void writeToBeCollectedWithoutZScore( 
 			String outputFolder, 
 			String outputFileName,
-			int runNumber,
+			String runName,
 			TIntIntMap elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap,
 			AnnotationType annotationType,
 			TIntObjectMap<String> elementNumber2NameMap,
 			TIntObjectMap<String> cellLineNumber2NameMap,
 			TIntObjectMap<String> keggPathwayNumber2NameMap,
 			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap,
-			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap,
-			NumberofComparisons numberofComparisons) {
+			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -3749,17 +3749,15 @@ public class Enrichment {
 		int cellLineNumber;
 		int keggPathwayNumber;
 	
-		int numberofPermutations;
-		
-		FunctionalElementMinimal element = null;
+		int numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps;
 		
 		
 		
 		try{
-			fileWriter = FileOperations.createFileWriter( outputFolder + outputFileName + "_" + runNumber + ".txt");
+			fileWriter = FileOperations.createFileWriter( outputFolder + outputFileName + "_" + runName + ".txt");
 			bufferedWriter = new BufferedWriter( fileWriter);
 
-			// Header Line
+			// Write header line starts here
 			switch(annotationType){
 			
 				case DO_DNASE_ANNOTATION:
@@ -3795,52 +3793,50 @@ public class Enrichment {
 					break;
 
 			}//End of SWITCH
+			//Write header line ends here
 			
 			for( TIntIntIterator itr = elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.iterator(); itr.hasNext();){
 
 				itr.advance();
 
 				mixedNumber = itr.key();
-				numberofPermutations = itr.value();
-				
-				element = new FunctionalElementMinimal();
-				
-				//Left here
-				//First fill element attributes
-				//Add to the list
-				
-				//Sort the list to the BH FDR or Bonferroni corrected p value
-				//Write the results
+				numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps = itr.value();
 				
 				switch(annotationType){
 				
 					case DO_DNASE_ANNOTATION:
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+						
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					case DO_TF_ANNOTATION:
 						elementNumber = mixedNumber / 100000;
 						cellLineNumber = mixedNumber % 100000;
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+						
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					case DO_HISTONE_ANNOTATION:
 						elementNumber = mixedNumber / 100000;
 						cellLineNumber = mixedNumber % 100000;
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+						
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 
 					case DO_USER_DEFINED_LIBRARY_ANNOTATION:	
+						
 						bufferedWriter.write(mixedNumber + "\t" + userDefinedLibraryElementNumber2ElementNameMap.get(mixedNumber) + "\t" + elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.get(mixedNumber) + System.getProperty( "line.separator"));
 						break;	
 						
 					case DO_USER_DEFINED_GENESET_ANNOTATION:
-						bufferedWriter.write( mixedNumber + "\t" + userDefinedGeneSetNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+						
+						bufferedWriter.write( mixedNumber + "\t" + userDefinedGeneSetNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 	
 					case DO_KEGGPATHWAY_ANNOTATION:
-						bufferedWriter.write( mixedNumber + "\t" + keggPathwayNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+						
+						bufferedWriter.write( mixedNumber + "\t" + keggPathwayNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 	
 					case DO_TF_KEGGPATHWAY_ANNOTATION:
@@ -3851,7 +3847,7 @@ public class Enrichment {
 							System.out.println("stop here");	
 						}
 						
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t"  + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t"  + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					default:
@@ -3859,15 +3855,13 @@ public class Enrichment {
 
 				
 				}// End of SWITCH
-
-				
+					
 			}// End of FOR
 
 			// Close bufferedWriter
 			bufferedWriter.close();
 
 		}catch( IOException e){
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -3983,6 +3977,7 @@ public class Enrichment {
 			int runNumber,
 			int numberofPermutationsinThisRun,
 			int numberofPermutationsinEachRun,
+			String runName,
 			List<InputLine> allOriginalInputLines,
 			GenerateRandomDataMode generateRandomDataMode,
 			WriteGeneratedRandomDataMode writeGeneratedRandomDataMode,
@@ -4026,8 +4021,7 @@ public class Enrichment {
 			TIntObjectMap<String> tfNumber2NameMap,
 			TIntObjectMap<String> histoneNumber2NameMap,
 			TIntObjectMap<String> keggPathwayNumber2NameMap,
-			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap,
-			NumberofComparisons numberofComparisons
+			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap
 			) {
 
 		// 26 June 2015
@@ -4139,7 +4133,11 @@ public class Enrichment {
 		GlanetRunner.appendLog( "PermutationNumberList is filled.");
 		if( GlanetRunner.shouldLog())
 			logger.info( "PermutationNumberList is filled.");
-		fillPermutationNumberList( permutationNumberList, runNumber, numberofPermutationsinThisRun,numberofPermutationsinEachRun);
+		fillPermutationNumberList(
+				permutationNumberList, 
+				runNumber, 
+				numberofPermutationsinThisRun,
+				numberofPermutationsinEachRun);
 		/********************************************************************************************************/
 		/****************************** GENERATE PERMUTATION NUMBER LIST ENDS ***********************************/
 		/********************************************************************************************************/
@@ -4174,7 +4172,7 @@ public class Enrichment {
 
 		TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<TIntObjectMap<List<InputLineMinimal>>>();
 		/******************************************************************************************************/
-		/**********************************24 JUNE 2015 ends*************************************************/
+		/**********************************24 JUNE 2015 ends***************************************************/
 		/******************************************************************************************************/
 
 		
@@ -4433,18 +4431,17 @@ public class Enrichment {
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);
 
-			writeResultFileWithoutZScore(
+			writeToBeCollectedWithoutZScore(
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,
-					runNumber, 
+					runName, 
 					allMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutations(),
 					dnaseAnnotationType,
 					dnaseCellLineNumber2NameMap,
 					null,
 					null,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			// Free memory
 			dnaseIntervalTreeMap = null;
@@ -4535,18 +4532,17 @@ public class Enrichment {
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);
 
-			writeResultFileWithoutZScore(
+			writeToBeCollectedWithoutZScore(
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
-					runNumber, 
+					runName, 
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
 					tfAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			// Free memory
 			tfIntervalTreeMap = null;
@@ -4635,18 +4631,17 @@ public class Enrichment {
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutations(),
 					histoneAnnotationType,
 					histoneNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			// Free memory
 			histoneIntervalTreeMap = null;
@@ -4745,44 +4740,41 @@ public class Enrichment {
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
 					keggPathwayAnnotationType,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					keggPathwayAnnotationType,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
 					keggPathwayAnnotationType,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			// Free memory
 			ucscRefSeqGenesIntervalTreeMap = null;
@@ -4882,44 +4874,41 @@ public class Enrichment {
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations(),
 					userDefinedGeneSetAnnotationType,
 					null,
 					null,
 					null,
 					userDefinedGeneSetNumber2NameMap,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations(),
 					userDefinedGeneSetAnnotationType,
 					null,
 					null,
 					null,
 					userDefinedGeneSetNumber2NameMap,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations(),
 					userDefinedGeneSetAnnotationType,
 					null,
 					null,
 					null,
 					userDefinedGeneSetNumber2NameMap,
-					null,
-					numberofComparisons);
+					null);
 
 			// Free memory
 			ucscRefSeqGenesIntervalTreeMap = null;
@@ -5107,18 +5096,17 @@ public class Enrichment {
 				elementTypeName = userDefinedLibraryElementTypeNumber2ElementTypeNameMap.get(elementTypeNumber);
 
 				
-				writeResultFileWithoutZScore( 
+				writeToBeCollectedWithoutZScore( 
 						outputFolder, 
 						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementTypeName,
-						runNumber,
+						runName,
 						elementNumber2NumberofPermutationsMap,
 						userDefinedLibraryAnnotationType,
 						null,
 						null,
 						null,
 						null,
-						userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap.get(elementTypeNumber),
-						numberofComparisons);
+						userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap.get(elementTypeNumber));
 
 			
 
@@ -5255,99 +5243,92 @@ public class Enrichment {
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 
 			//TF
-			writeResultFileWithoutZScore(
+			writeToBeCollectedWithoutZScore(
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
-					runNumber, 
+					runName, 
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			
 			//KEGGPathway
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			//TF KEGGPathway
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			// Free memory
 			tfIntervalTreeMap = null;
@@ -5477,85 +5458,81 @@ public class Enrichment {
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 
 			//TF
-			writeResultFileWithoutZScore(
+			writeToBeCollectedWithoutZScore(
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
-					runNumber, 
+					runName, 
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			
 			//KEGGPathway
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			//TF Cellline KEGGPathway
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
 					tfCellLineKeggPathwayAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					tfCellLineKeggPathwayAnnotationType,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
 					tfCellLineKeggPathwayAnnotationType,
 					tfNumber2NameMap,
@@ -5710,127 +5687,120 @@ public class Enrichment {
 			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
 
 			//TF
-			writeResultFileWithoutZScore(
+			writeToBeCollectedWithoutZScore(
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
-					runNumber, 
+					runName, 
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					null,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
 			
 			//KEGGPathway
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
 					null,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 			
 
 			//TF KEGGPathway
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap,
 					null,
-					null,
-					numberofComparisons);
+					null);
 			
 
 			//TF Cellline KEGGPathway
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
 					cellLineNumber2NameMap,
 					keggPathwayNumber2NameMap);
 
-			writeResultFileWithoutZScore( 
+			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
-					runNumber,
+					runName,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
@@ -7724,10 +7694,12 @@ public class Enrichment {
 
 	// NEW FUNCIONALITY ADDED
 
-	public static void writeToBeCollectedNumberofOverlapsForUserDefinedLibrary( String outputFolder,
+	public static void writeToBeCollectedNumberofOverlapsForUserDefinedLibrary( 
+			String outputFolder,
 			TIntObjectMap<String> elementTypeNumber2ElementTypeMap,
 			TIntIntMap originalElementTypeNumberElementNumber2KMap,
-			TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap, String runName) {
+			TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap, 
+			String runName) {
 
 		String elementType;
 		int elementTypeNumber;
@@ -7800,8 +7772,7 @@ public class Enrichment {
 		BufferedWriter bufferedWriter = null;
 
 		try{
-			bufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( outputFolder + toBePolledDirectoryName + "_" + runNumber + ".txt"));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( outputFolder + toBePolledDirectoryName + "_" + runNumber + ".txt"));
 
 			for( TIntIntIterator it = originalPermutationNumberRemovedMixedNumber2KMap.iterator(); it.hasNext();){
 
@@ -8065,7 +8036,7 @@ public class Enrichment {
 		GivenInputDataType givenInputsSNPsorIntervals = GivenInputDataType.convertStringtoEnum( args[CommandLineArguments.GivenInputDataType.value()]);
 
 		// 23 May 2015
-		EnrichmentZScoreType enrichmentZScoreType = EnrichmentZScoreType.convertStringtoEnum(args[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()]);
+		EnrichmentZScoreMode enrichmentZScoreMode = EnrichmentZScoreMode.convertStringtoEnum(args[CommandLineArguments.EnrichmentZScoreMode.value()]);
 
 		// 18 FEB 2015
 		// performEnrichment is not used since GLANETRunner calls
@@ -8210,8 +8181,8 @@ public class Enrichment {
 		numberofRuns = numberofTotalPermutations / numberofPermutationsInEachRun;
 		numberofRemainedPermutations = numberofTotalPermutations % numberofPermutationsInEachRun;
 
-		// Increase numberofRuns by 1 for remainder permutations less than
-		// Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN
+		// Increase numberofRuns by 1
+		// When numberofRemainedPermutations is nonZero
 		if( numberofRemainedPermutations > 0){
 			numberofRuns += 1;
 		}
@@ -8278,7 +8249,6 @@ public class Enrichment {
 		TLongIntMap tfCellLineRegulationBasedKeggPathway2OriginalKMap = null;
 		TLongIntMap tfCellLineAllBasedKeggPathway2OriginalKMap = null;
 
-		NumberofComparisons numberofComparisons = new NumberofComparisons();
 		
 		// DNase
 		if(dnaseAnnotationType.doDnaseAnnotation()){
@@ -8295,10 +8265,6 @@ public class Enrichment {
 			
 			dnaseCellLineNumber2OriginalKMap = new TIntIntHashMap();
 			
-			numberofComparisons.setDnaseCellLineNumberofComparison(dnaseCellLineNumber2NameMap.size());
-			
-			//No Need
-			//NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,dnaseAnnotationType,numberofComparisons);
 		}
 
 		// TF
@@ -8321,10 +8287,7 @@ public class Enrichment {
 		
 			
 			tfNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
-			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,tfAnnotationType,numberofComparisons);
-			
-			
+				
 		}
 
 		// Histone
@@ -8347,9 +8310,7 @@ public class Enrichment {
 			
 			
 			histoneNumberCellLineNumber2OriginalKMap = new TIntIntHashMap();
-			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,histoneAnnotationType,numberofComparisons);
-			
+						
 		}
 
 		// Gene
@@ -8357,7 +8318,6 @@ public class Enrichment {
 			
 			gene2OriginalKMap = new TIntIntHashMap();
 			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,geneAnnotationType,numberofComparisons);
 		}
 
 		
@@ -8399,11 +8359,6 @@ public class Enrichment {
 
 			elementTypeNumberElementNumber2OriginalKMap = new TIntIntHashMap();
 			
-			numberofComparisons.setUserDefinedLibraryElementTypeNumber2NumberofComparisonMap(userDefinedLibraryElementTypeNumber2NumberofComparisonMap);
-			
-			//No need
-			//NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,userDefinedLibraryAnnotationType,numberofComparisons);
-						
 		}
 				
 		//User Defined GeneSet
@@ -8423,8 +8378,6 @@ public class Enrichment {
 			regulationBasedUserDefinedGeneSet2OriginalKMap 	= new TIntIntHashMap();
 			allBasedUserDefinedGeneSet2OriginalKMap 		= new TIntIntHashMap();
 			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,userDefinedGeneSetAnnotationType,numberofComparisons);
-
 		}
 		
 		
@@ -8445,8 +8398,6 @@ public class Enrichment {
 			regulationBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
 			allBasedKeggPathway2OriginalKMap = new TIntIntHashMap();
 			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,keggPathwayAnnotationType,numberofComparisons);
-
 		}
 		
 		
@@ -8490,9 +8441,6 @@ public class Enrichment {
 			tfRegulationBasedKeggPathway2OriginalKMap 	= new TIntIntHashMap();
 			tfAllBasedKeggPathway2OriginalKMap 			= new TIntIntHashMap();
 			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,tfKeggPathwayAnnotationType,numberofComparisons);
-
-
 		}
 
 		// TF CellLine KEGGPathway Enrichment
@@ -8535,9 +8483,6 @@ public class Enrichment {
 			tfCellLineRegulationBasedKeggPathway2OriginalKMap = new TLongIntHashMap();
 			tfCellLineAllBasedKeggPathway2OriginalKMap = new TLongIntHashMap();
 			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,tfCellLineKeggPathwayAnnotationType,numberofComparisons);
-
-
 		}
 
 		// BOTH
@@ -8587,8 +8532,6 @@ public class Enrichment {
 			tfCellLineRegulationBasedKeggPathway2OriginalKMap 	= new TLongIntHashMap();
 			tfCellLineAllBasedKeggPathway2OriginalKMap 			= new TLongIntHashMap();
 			
-			NumberofComparisons.setNumberofComparisonsforBonferroniCorrection(dataFolder,bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,numberofComparisons);
-
 		}
 		/***********************************************************************************************/
 		/********************** INITIALIZATION of elementNumber2OriginalK TO NULL ENDS******************/
@@ -8598,7 +8541,7 @@ public class Enrichment {
 		// Perform Enrichment WITHOUT ZSCORES (Without Keeping Number of Overlaps Coming from Each Permutation starts)
 		// Consumes Less Memory when the number of elements is in tens of thousands
 		// Consumes More Memory when the number of elements is in hundreds
-		if( enrichmentZScoreType.isPerformEnrichmentWithoutZScore()){
+		if( enrichmentZScoreMode.isPerformEnrichmentWithoutZScore()){
 
 			/**********************************************************************************************/
 			/********************* FOR LOOP FOR RUN NUMBERS STARTS ****************************************/
@@ -8619,6 +8562,8 @@ public class Enrichment {
 				// First Generate Random Data for all permutations
 				// Then Annotate Permutations (Random Data) concurrently
 				// elementName2AllKMap and originalElementName2KMap will be filled here
+				
+				//For the last run with numberofRemainedPermutations is nonZero and less than numberofPermutationsInEachRun
 				if( ( runNumber == numberofRuns) && ( numberofRemainedPermutations > 0)){
 
 					Enrichment.annotateAllPermutationsInThreadsForAllChromosomes(
@@ -8629,6 +8574,7 @@ public class Enrichment {
 							runNumber,
 							numberofRemainedPermutations, 
 							numberofPermutationsInEachRun, 
+							runName,
 							originalInputLines,
 							generateRandomDataMode, writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
@@ -8671,10 +8617,12 @@ public class Enrichment {
 							tfNumber2NameMap,
 							histoneNumber2NameMap,
 							keggPathwayNumber2NameMap,
-							userDefinedGeneSetNumber2NameMap,
-							numberofComparisons);
+							userDefinedGeneSetNumber2NameMap);
 
-				}else{
+				}
+				
+				//For the rest of the runs
+				else{
 
 					Enrichment.annotateAllPermutationsInThreadsForAllChromosomes(
 							outputFolder, 
@@ -8684,6 +8632,7 @@ public class Enrichment {
 							runNumber,
 							numberofPermutationsInEachRun, 
 							numberofPermutationsInEachRun, 
+							runName,
 							originalInputLines,
 							generateRandomDataMode, 
 							writeGeneratedRandomDataMode,
@@ -8727,8 +8676,7 @@ public class Enrichment {
 							tfNumber2NameMap,
 							histoneNumber2NameMap,
 							keggPathwayNumber2NameMap,
-							userDefinedGeneSetNumber2NameMap,
-							numberofComparisons);
+							userDefinedGeneSetNumber2NameMap);
 				}
 
 				GlanetRunner.appendLog( "Concurrent programming has ended.");
@@ -8751,7 +8699,7 @@ public class Enrichment {
 		// Perform Enrichment WITH ZSCORES (With Keeping Number of Overlaps Coming from Each Permutation starts)
 		// Consumes More Memory when the number of elements is in tens of thousands
 		// Consumes Less Memory when the number of elements is in hundreds
-		else if( enrichmentZScoreType.isPerformEnrichmentWithZScore()){
+		else if( enrichmentZScoreMode.isPerformEnrichmentWithZScore()){
 
 			/**********************************************************************************************/
 			/********************* FOR LOOP FOR RUN NUMBERS STARTS ****************************************/

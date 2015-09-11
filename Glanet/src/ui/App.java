@@ -593,15 +593,15 @@ public class App {
 			for( int i = 0; i < args.length; i++){
 				
 				if( args[i].equalsIgnoreCase( Commons.ARG_PERFORM_ENRICHMENT_WITH_ZSCORES)){
-					if( argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()].equals( notSet))
-						argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()] = Commons.PERFORM_ENRICHMENT_WITH_ZSCORE;
+					if( argsInOrder[CommandLineArguments.EnrichmentZScoreMode.value()].equals( notSet))
+						argsInOrder[CommandLineArguments.EnrichmentZScoreMode.value()] = Commons.PERFORM_ENRICHMENT_WITH_ZSCORE;
 					else{
 						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 						return false;
 					}
 				}else if ( args[i].equalsIgnoreCase( Commons.ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES)){
-					if( argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()].equals( notSet))
-						argsInOrder[CommandLineArguments.PerformEnrichmentWithZScoreDecision.value()] = Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE;
+					if( argsInOrder[CommandLineArguments.EnrichmentZScoreMode.value()].equals( notSet))
+						argsInOrder[CommandLineArguments.EnrichmentZScoreMode.value()] = Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE;
 					else{
 						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 						return false;
@@ -610,7 +610,7 @@ public class App {
 				
 			}//End of FOR parsing Enrichment ZScore decision
 
-		if( !setWithDefaultValueIfNotSet( argsInOrder,CommandLineArguments.PerformEnrichmentWithZScoreDecision))
+		if( !setWithDefaultValueIfNotSet( argsInOrder,CommandLineArguments.EnrichmentZScoreMode))
 			return false;
 		/***************************************************************************************/
 		/*******************************ENRICHMENT WITH ZSCORES*********************************/
