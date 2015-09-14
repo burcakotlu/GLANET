@@ -4431,6 +4431,7 @@ public class Enrichment {
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);
 
+			//@todo pass dnaseCellLineNumber2OriginalKMap
 			writeToBeCollectedWithoutZScore(
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,
@@ -8579,7 +8580,8 @@ public class Enrichment {
 							numberofPermutationsInEachRun, 
 							runName,
 							originalInputLines,
-							generateRandomDataMode, writeGeneratedRandomDataMode,
+							generateRandomDataMode, 
+							writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
 							writePermutationBasedAnnotationResultMode, 
 							dnaseCellLineNumber2OriginalKMap,
@@ -8720,7 +8722,6 @@ public class Enrichment {
 				// ElementNumber2AllK
 				// Annotation of each permutation's randomly generated data
 				// number of overlaps: k out of n for all permutations
-
 				/********************** INITIALIZATION TO NULL *************************************************/
 				/************** INITIALIZATION of elementNumber2AllLMap to NULL starts *************************/
 				// DNase

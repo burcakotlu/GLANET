@@ -1345,7 +1345,7 @@ public class CollectionofPermutationsResults {
 			/***************** AUGMENT WITH KEGG PATHWAY INFORMATION ENDS ***********************/
 			/************************************************************************************/
 			
-			writeResults_WRT_MultipleTestingParameter_WithZScores(
+			writeResults_WRT_MultipleTestingParameter_WithoutZScores(
 					outputFolder, 
 					allFileName, 
 					jobName, 
