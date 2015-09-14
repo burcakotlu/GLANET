@@ -7472,6 +7472,7 @@ public class Annotation {
 
 		// For each elementTypeNumber
 		for( TIntObjectIterator<String> it = userDefinedLibraryElementTypeNumber2ElementTypeMap.iterator(); it.hasNext();){
+			
 			it.advance();
 
 			elementTypeNumber = it.key();
@@ -7481,7 +7482,10 @@ public class Annotation {
 			elementNumber2KMap = elementTypeNumber2ElementNumber2KMapMap.get( elementTypeNumber);
 			elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get( elementTypeNumber);
 
-			writeResultsWithNumbers( elementNumber2KMap, elementNumber2ElementNameMap, outputFolder + directoryName,
+			writeResultsWithNumbers(
+					elementNumber2KMap, 
+					elementNumber2ElementNameMap, 
+					outputFolder + directoryName,
 					elementType + fileName);
 
 		}// End of for each elementTypeNumber
@@ -9015,10 +9019,8 @@ public class Annotation {
 		/********************ANNOTATION***Sequentially or in Parallel**************************/
 		/**************************************************************************************/
 
-		// /**********************FOR TESTING
-		// PURPOSES******************************************************************/
-		// /********************ANNOTATION IN PARALLEL
-		// STARTS***********************************************************/
+		// /**********************FOR TESTING PURPOSES******************************************************************/
+		// /********************ANNOTATION IN PARALLEL STARTS***********************************************************/
 		// /************************************************************************************************************/
 		// if (annotation.annotateInParalel()){
 		//
@@ -9719,11 +9721,14 @@ public class Annotation {
 				// files with numbers
 
 				UserDefinedLibraryUtility.readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(
-						dataFolder, userDefinedLibraryInputFile, userDefinedLibraryDataFormat,
+						dataFolder, 
+						userDefinedLibraryInputFile, 
+						userDefinedLibraryDataFormat,
 						userDefinedLibraryElementType2ElementTypeNumberMap,
 						userDefinedLibraryElementTypeNumber2ElementTypeMap,
 						elementTypeNumber2ElementName2ElementNumberMapMap,
-						elementTypeNumber2ElementNumber2ElementNameMapMap, userDefinedLibraryFileName2FileNumberMap,
+						elementTypeNumber2ElementNumber2ElementNameMapMap, 
+						userDefinedLibraryFileName2FileNumberMap,
 						userDefinedLibraryFileNumber2FileNameMap);
 
 				TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap = new TIntObjectHashMap<TIntIntMap>();
@@ -9736,10 +9741,15 @@ public class Annotation {
 					elementTypeNumber2ElementNumber2KMapMap.put( it.key(), map);
 				}// End of for each elementTypeNumber initialize elementNumber2KMap
 
-				searchUserDefinedLibraryWithNumbers( dataFolder, outputFolder,
-						writeElementBasedAnnotationFoundOverlapsMode, overlapDefinition,
-						elementTypeNumber2ElementNumber2KMapMap, elementTypeNumber2ElementNumber2ElementNameMapMap,
-						userDefinedLibraryElementTypeNumber2ElementTypeMap, userDefinedLibraryFileNumber2FileNameMap);
+				searchUserDefinedLibraryWithNumbers(
+						dataFolder, 
+						outputFolder,
+						writeElementBasedAnnotationFoundOverlapsMode, 
+						overlapDefinition,
+						elementTypeNumber2ElementNumber2KMapMap, 
+						elementTypeNumber2ElementNumber2ElementNameMapMap,
+						userDefinedLibraryElementTypeNumber2ElementTypeMap, 
+						userDefinedLibraryFileNumber2FileNameMap);
 
 				// UserDefinedLibrary
 				writeResultsWithNumbers( userDefinedLibraryElementTypeNumber2ElementTypeMap,

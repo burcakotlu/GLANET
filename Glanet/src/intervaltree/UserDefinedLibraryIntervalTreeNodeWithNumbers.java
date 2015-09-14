@@ -7,7 +7,7 @@ import enumtypes.ChromosomeName;
 import enumtypes.NodeType;
 
 /**
- * @author Bur�ak
+ * @author Burcak
  *
  */
 public class UserDefinedLibraryIntervalTreeNodeWithNumbers extends IntervalTreeNode {

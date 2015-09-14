@@ -3140,7 +3140,8 @@ public class IntervalTree {
 	// Called from convertGeneratedMixedNumberToName in
 	// CollectionofPermutationsResults
 	// Get GeneSetNumber from mixed number
-	public static int getGeneSetNumber( long permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
+	public static int getGeneSetNumber( 
+			long permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int geneSetNumber = Integer.MIN_VALUE;
@@ -3150,18 +3151,24 @@ public class IntervalTree {
 			case INT_4DIGIT_KEGGPATHWAYNUMBER:
 			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:
 			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
-			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
 				geneSetNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
 				break;
-			}
+			
 			case INT_10DIGIT_USERDEFINEDGENESETNUMBER:
-			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:{
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:
 				geneSetNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
 				break;
-			}
-			default:{
+			
+			case INT_10DIGIT_KEGGPATHWAYNUMBER:
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+				geneSetNumber = (int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000L);
 				break;
-			}
+								
+			default:
+				break;
+			
 			
 		}// End of Switch
 
@@ -3287,32 +3294,32 @@ public class IntervalTree {
 		return keggPathwayNumber;
 	}
 
-	// Annotation
-	// AnnotateGivenIntervals with Numbers
-	public static short getKeggPathwayNumber(
-			int elementNumberCellLineNumberKeggPathwayNumber,
-			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
-
-		short keggPathwayNumber = Short.MIN_VALUE;
-
-		switch( generatedMixedNumberDescriptionOrderLength){
-
-		case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
-			// example 100_300_020
-			keggPathwayNumber = ( short)( elementNumberCellLineNumberKeggPathwayNumber % 1000);
-			break;
-			
-		case	INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
-			keggPathwayNumber = ( short)( elementNumberCellLineNumberKeggPathwayNumber % 100000);
-			break;
-
-		default:
-			break;
-
-		} // End of SWITCH
-
-		return keggPathwayNumber;
-	}
+//	// Annotation
+//	// AnnotateGivenIntervals with Numbers
+//	public static short getKeggPathwayNumber(
+//			int elementNumberCellLineNumberKeggPathwayNumber,
+//			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+//
+//		short keggPathwayNumber = Short.MIN_VALUE;
+//
+//		switch( generatedMixedNumberDescriptionOrderLength){
+//
+//			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
+//				// example 100_300_020
+//				keggPathwayNumber = ( short)( elementNumberCellLineNumberKeggPathwayNumber % 1000);
+//				break;
+//				
+//			case	INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
+//				keggPathwayNumber = ( short)( elementNumberCellLineNumberKeggPathwayNumber % 100000);
+//				break;
+//	
+//			default:
+//				break;
+//
+//		} // End of SWITCH
+//
+//		return keggPathwayNumber;
+//	}
 
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
@@ -3969,39 +3976,39 @@ public class IntervalTree {
 		return elementNumberCellLineNumberKeggPathwayNumber;
 	}
 
-	// Annotation
-	// AnnotateGivenIntervals with numbers
-	// TF
-	// TF KEGGPATHWAY
-	// TF CELLLINE KEGGPATHWAY
-	// This method is called with value of "0" for keggPathwayNumber
-	// But keggPathwayNumber is added in the code later
-	public static int generateElementNumberCellLineNumberKeggPathwayNumber(
-			short elementNumber, 
-			short cellLineNumber,
-			short keggPathwayNumber,
-			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
-
-		int elementNumberCellLineNumberKeggPathwayNumber = Integer.MIN_VALUE;
-
-		// Integer.MAX 2147_483_647
-		// Integer.MIN -2147_483_648
-
-		switch( generatedMixedNumberDescriptionOrderLength){
-
-			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:{
-				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 1000000 + cellLineNumber * 1000 + keggPathwayNumber;
-				break;
-			}
-			
-			default:{
-				break;
-			}
-
-		}// End of switch
-
-		return elementNumberCellLineNumberKeggPathwayNumber;
-	}
+//	// Annotation
+//	// AnnotateGivenIntervals with numbers
+//	// TF
+//	// TF KEGGPATHWAY
+//	// TF CELLLINE KEGGPATHWAY
+//	// This method is called with value of "0" for keggPathwayNumber
+//	// But keggPathwayNumber is added in the code later
+//	public static int generateElementNumberCellLineNumberKeggPathwayNumber(
+//			short elementNumber, 
+//			short cellLineNumber,
+//			short keggPathwayNumber,
+//			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+//
+//		int elementNumberCellLineNumberKeggPathwayNumber = Integer.MIN_VALUE;
+//
+//		// Integer.MAX 2147_483_647
+//		// Integer.MIN -2147_483_648
+//
+//		switch( generatedMixedNumberDescriptionOrderLength){
+//
+//			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:{
+//				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 1000000 + cellLineNumber * 1000 + keggPathwayNumber;
+//				break;
+//			}
+//			
+//			default:{
+//				break;
+//			}
+//
+//		}// End of switch
+//
+//		return elementNumberCellLineNumberKeggPathwayNumber;
+//	}
 
 	// AnnotatePermutations withoutIO withNumbers
 	// AnnotatePermutations withIO withNumbers

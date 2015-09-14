@@ -60,7 +60,7 @@ public class CollectionofPermutationsResults {
 
 	final static Logger logger = Logger.getLogger(CollectionofPermutationsResults.class);
 
-	public static void writeResultsWRTZScorestoOutputFiles( 
+	public static void writeResults_WRT_ZScores_WithMultipleTestingParameter( 
 			String outputFolder, 
 			String fileName, 
 			String jobName,
@@ -185,10 +185,172 @@ public class CollectionofPermutationsResults {
 
 	}
 
+	public static void writeResults_WRT_MultipleTestingParameter_WithoutZScores(
+			String outputFolder, 
+			String fileName, 
+			String jobName,
+			List<FunctionalElement> list, 
+			AnnotationType annotationType, 
+			MultipleTestingType multipleTestingParameter,
+			float bonferroniCorrectionSignigicanceLevel, 
+			float FDR, 
+			int numberofPermutations, 
+			int numberofComparisons) throws IOException {
+		
+		BufferedWriter bufferedWriter = null;
+		FunctionalElement element = null;
+		
+		//Pay attention reject null hypothesis is always decided on BH FDR adjusted p value 
+		//which is calculated from  empiricalPValue calculated from numberofPermutations...Ratio or from empiricalPValue calculated from zScore
+		/***********************************************************************************/
+		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
+		/***********************************************************************************/
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
+		/***********************************************************************************/
+		/*********************** SET DECIMAL FORMAT SEPARATORS *****************************/
+		/***********************************************************************************/
+
+		/***********************************************************************************/
+		/********** MULTIPLE TESTING W.R.T. BENJAMINI HOCHBERG starts **********************/
+		/***********************************************************************************/
+		if( multipleTestingParameter.isBenjaminiHochbergFDR()){
+
+			// sort w.r.t. Benjamini and Hochberg FDR Adjusted pValue
+			Collections.sort(list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
+
+			// write the results to a output file starts
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( outputFolder + fileName + "_" + jobName + Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE));
+		}
+		/***********************************************************************************/
+		/********** MULTIPLE TESTING W.R.T. BENJAMINI HOCHBERG ends ************************/
+		/***********************************************************************************/
+
+		/***********************************************************************************/
+		/********** MULTIPLE TESTING W.R.T. BONFERRONI CORRECTION starts *******************/
+		/***********************************************************************************/
+		else if( multipleTestingParameter.isBonferroniCorrection()){
+
+			// sort w.r.t. Bonferroni Corrected pVlaue
+			Collections.sort( list, FunctionalElement.BONFERRONI_CORRECTED_P_VALUE);
+
+			// write the results to a output file starts
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + fileName + "_" + jobName + Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE));
+		}
+		/***********************************************************************************/
+		/********** MULTIPLE TESTING W.R.T. BONFERRONI CORRECTION ends *********************/
+		/***********************************************************************************/
+
+		/*************************************************************************************************/
+		/***************** Common for BenjaminiHochberg and BonferroniCorrection starts ******************/
+		/*************************************************************************************************/
+		// header line in output file
+		bufferedWriter.write("ElementNumber" + "\t");
+		bufferedWriter.write("ElementName" + "\t");
+		bufferedWriter.write("OriginalNumberofOverlaps" + "\t");
+		bufferedWriter.write("NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualToIn" + numberofPermutations + "Permutations" + "\t");
+		bufferedWriter.write("NumberofPermutations" + "\t");
+		bufferedWriter.write("NumberofComparisonsforBonferroniCorrection" + "\t");
+		bufferedWriter.write("empiricalPValue" + "\t");
+		bufferedWriter.write("BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t"); 
+		bufferedWriter.write("BHFDRAdjustedPValue" + "\t"); 
+		bufferedWriter.write("RejectNullHypothesisforanFDRof" + FDR + System.getProperty("line.separator"));
+
+		Iterator<FunctionalElement> itr = list.iterator();
+
+		while( itr.hasNext()){
+			element = itr.next();
+
+			if( annotationType.doKEGGPathwayAnnotation() || 
+					annotationType.doTFKEGGPathwayAnnotation() || 
+					annotationType.doTFCellLineKEGGPathwayAnnotation()){
+
+				// line per element in output file
+				bufferedWriter.write(element.getNumber() + "\t");
+				bufferedWriter.write(element.getName() + "\t");
+				bufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(numberofPermutations + "\t");
+				bufferedWriter.write(numberofComparisons + "\t");
+				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
+				bufferedWriter.write(element.isRejectNullHypothesis() + "\t");
+				bufferedWriter.write( element.getKeggPathwayName() + "\t");
+
+				if( element.getKeggPathwayGeneIdList().size() >= 1){
+					int i;
+					// Write the gene ids of the kegg pathway
+					for( i = 0; i < element.getKeggPathwayGeneIdList().size() - 1; i++){
+						bufferedWriter.write( element.getKeggPathwayGeneIdList().get( i) + ", ");
+					}
+					bufferedWriter.write( element.getKeggPathwayGeneIdList().get( i) + "\t");
+				}
+
+				if( element.getKeggPathwayAlternateGeneNameList().size() >= 1){
+					int i;
+
+					// Write the alternate gene names of the kegg pathway
+					for( i = 0; i < element.getKeggPathwayAlternateGeneNameList().size() - 1; i++){
+						bufferedWriter.write( element.getKeggPathwayAlternateGeneNameList().get( i) + ", ");
+					}
+					bufferedWriter.write( element.getKeggPathwayAlternateGeneNameList().get( i));
+
+					bufferedWriter.write("\t" + "NumberofGenesInThisKEGGPathway:" + "" + element.getKeggPathwayAlternateGeneNameList().size());
+
+				}
+
+				bufferedWriter.write( System.getProperty( "line.separator"));
+
+			}else if( annotationType.doUserDefinedGeneSetAnnotation()){
+				// line per element in output file
+				//bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + element.getEmpiricalPValueCalculatedFromZScore() == null?null:df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?null:df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?null:df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t" + element.getRejectNullHypothesisCalculatedFromZScore() + "\t" + df.format( element.getEmpiricalPValue()) + "\t" + df.format( element.getBonferroniCorrectedPValue()) + "\t" + df.format( element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
+				
+				bufferedWriter.write(element.getNumber() + "\t");
+				bufferedWriter.write(element.getName() + "\t");
+				bufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t" );
+				bufferedWriter.write(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(numberofPermutations + "\t" );
+				bufferedWriter.write(numberofComparisons + "\t" );
+				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
+				bufferedWriter.write(element.isRejectNullHypothesis() + "\t");
+				
+				bufferedWriter.write(element.getUserDefinedGeneSetDescription() + System.getProperty( "line.separator"));
+
+			}else{
+				// line per element in output file
+				//bufferedWriter.write(element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + element.getEmpiricalPValueCalculatedFromZScore() == null?null:df.format( element.getEmpiricalPValueCalculatedFromZScore()) + "\t" + element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?null:df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore()) + "\t" + element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?null:df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore()) + "\t" + element.getRejectNullHypothesisCalculatedFromZScore() + "\t" + df.format( element.getEmpiricalPValue()) + "\t" + df.format( element.getBonferroniCorrectedPValue()) + "\t" + df.format( element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
+				bufferedWriter.write(element.getNumber() + "\t");
+				bufferedWriter.write(element.getName() + "\t");
+				bufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t");
+				bufferedWriter.write(numberofPermutations + "\t");
+				bufferedWriter.write(numberofComparisons + "\t");
+				bufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
+				bufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
+				bufferedWriter.write(element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
+				
+			}
+
+		}// End of WHILE
+
+		// Close the file
+		bufferedWriter.close();
+		/*************************************************************************************************/
+		/***************** Common for BenjaminiHochberg and BonferroniCorrection ends ********************/
+		/*************************************************************************************************/
+
+		
+	}
+			
+	
 	// How to decide enriched elements?
+	// multipleTestingParameter decides on that
 	// with respect to Benjamini Hochberg FDR or
 	// with respect to Bonferroni Correction Significance Level
-	public static void writeResultstoOutputFiles(
+	public static void writeResults_WRT_MultipleTestingParameter_WithZScores(
 			String outputFolder, 
 			String fileName, 
 			String jobName,
@@ -517,12 +679,11 @@ public class CollectionofPermutationsResults {
 			TIntObjectMap<String> geneHugoSymbolNumber2NameMap,
 			TIntObjectMap<String> keggPathwayNumber2NameMap,
 			TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
-			TIntObjectMap<String>userDefinedLibraryElementNumber2ElementNameMap,
+			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap,
 			TIntObjectMap<String> geneID2GeneHugoSymbolMap,
 			int numberofPermutations
 		){
-		
-		
+				
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		
@@ -538,6 +699,9 @@ public class CollectionofPermutationsResults {
 		
 		long mixedNumber;
 		
+		float empiricalPValue;
+		float bonferroniCorrectedEmpiricalPValue;
+		
 		TLongObjectMap<DescriptiveStatistics> elementNumber2StatsMap = new TLongObjectHashMap<DescriptiveStatistics>();
 		DescriptiveStatistics statsPerElement = null;
 		
@@ -547,11 +711,6 @@ public class CollectionofPermutationsResults {
 		Double empiricalPValueCalculatedFromZScore = 0.0;
 		Double bonferroniCorrectedPValueCalculatedFromZScore = 0.0;
 		
-		float empiricalPValue;
-		float bonferroniCorrectedEmpiricalPValue;
-
-
-
 		int originalNumberofOverlaps = 0;
 		TLongIntMap elementNumber2OriginalNumberofOverlaps = new TLongIntHashMap();
 		
@@ -560,8 +719,6 @@ public class CollectionofPermutationsResults {
 		Map<Long, FunctionalElement> elementNumber2ElementMap = new HashMap<Long, FunctionalElement>();
 		FunctionalElement element;
 		long elementNumber;
-		
-	
 		
 		String tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol;
 		
@@ -578,7 +735,7 @@ public class CollectionofPermutationsResults {
 
 				tempRunName = "_" + jobName + "_" + Commons.RUN + i;
 
-				fileReader = new FileReader( outputFolder + runFileName + tempRunName + ".txt");
+				fileReader = new FileReader(outputFolder + runFileName + tempRunName + ".txt");
 				bufferedReader = new BufferedReader( fileReader);
 
 				// Outer While
@@ -595,8 +752,8 @@ public class CollectionofPermutationsResults {
 
 					// debug starts
 					if( mixedNumber < 0){
-						if( GlanetRunner.shouldLog())logger.error( "There is a situation 1");
-						if( GlanetRunner.shouldLog())logger.error( mixedNumber);
+						if( GlanetRunner.shouldLog()) logger.error( "There is a situation 1");
+						if( GlanetRunner.shouldLog()) logger.error( mixedNumber);
 					}
 					// debug ends
 
@@ -626,7 +783,7 @@ public class CollectionofPermutationsResults {
 					// For Control Purposes
 					// originalNumberofOverlaps coming from other run results
 					else if( elementNumber2OriginalNumberofOverlaps.get( mixedNumber) != originalNumberofOverlaps){
-						if( GlanetRunner.shouldLog())logger.error( "There is a situation: Original Number of Overlaps differ");
+						if( GlanetRunner.shouldLog()) logger.error( "There is a situation: Original Number of Overlaps differ");
 					}
 
 					indexofFormerComma = indexofPipe;
@@ -777,23 +934,25 @@ public class CollectionofPermutationsResults {
 			/*****SORT w.r.t. zScore in descending order starts**************************************************************************/
 			/****************************************************************************************************************************/
 			List<FunctionalElement> list = new ArrayList<FunctionalElement>(elementNumber2ElementMap.values());
-			Collections.sort(list, FunctionalElement.Z_SCORE);
+			// Why do we sort here?
+			//Collections.sort(list, FunctionalElement.Z_SCORE);
 			/****************************************************************************************************************************/
 			/*****SORT w.r.t. zScore in descending order ends****************************************************************************/
 			/****************************************************************************************************************************/
 
-			/************************************************************************************/
-			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE STARTS ****************/
-			/************************************************************************************/
+			/************************************************************************************************/
+			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE FROM ZSCORE STARTS ****************/
+			/************************************************************************************************/
 			// Before calculating BH FDR adjusted p values
 			// Sort w.r.t. Empirical P Value calculated From Z Scores in Ascending Order
 			Collections.sort(list, FunctionalElement.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
-			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValuesFromZScores( list, FDR);
+			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValuesFromZScores(list, FDR);
+			// Why do we sort here?
 			// Sort w.r.t. Benjamini and Hochberg FDR is Ascending Order
-			Collections.sort(list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE);
-			/************************************************************************************/
-			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE ENDS ******************/
-			/************************************************************************************/
+			//Collections.sort(list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE_CALCULATED_FROM_Z_SCORE);
+			/************************************************************************************************/
+			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE FROM ZSCORE ENDS ******************/
+			/************************************************************************************************/
 
 
 			/************************************************************************************/
@@ -808,14 +967,14 @@ public class CollectionofPermutationsResults {
 				numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps();
 
 				empiricalPValue = ( numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps * 1.0f) / numberofPermutations;
-				bonferroniCorrectedEmpiricalPValue = ( ( numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps * 1.0f) / numberofPermutations) * numberofComparisons;
+				bonferroniCorrectedEmpiricalPValue = empiricalPValue * numberofComparisons;
 
 				if( bonferroniCorrectedEmpiricalPValue > 1.0f){
 					bonferroniCorrectedEmpiricalPValue = 1.0f;
 				}
 
-				element.setEmpiricalPValue( empiricalPValue);
-				element.setBonferroniCorrectedPValue( bonferroniCorrectedEmpiricalPValue);
+				element.setEmpiricalPValue(empiricalPValue);
+				element.setBonferroniCorrectedPValue(bonferroniCorrectedEmpiricalPValue);
 
 			}
 			/************************************************************************************/
@@ -832,8 +991,10 @@ public class CollectionofPermutationsResults {
 
 			Collections.sort( list, FunctionalElement.EMPIRICAL_P_VALUE);
 			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues( list, FDR);
+			
+			//Why do we sort here?
 			// sort w.r.t. Benjamini and Hochberg FDR
-			Collections.sort( list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
+			//Collections.sort( list, FunctionalElement.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
 			/************************************************************************************/
 			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE ENDS ******************/
 			/************************************************************************************/
@@ -897,7 +1058,7 @@ public class CollectionofPermutationsResults {
 			//empiricalPValue, bonferroniCorrectedPValue and BHFDRAdjustedPValue calculated from ratio of numberofPermutationsThatHasNumberofOverlapsGreaterThanEqualToOriginalNumberofOverlaps and numberofPermutations are presented
 			//Results are sorted in ascending order w.r.t. multipleTestingParameter
 			//which can be BHFDRAdjustedPValue calculated from ratio of numberofPermutations.... or bonferroniCorrectedPValue calculated from ratio of numberofPermutations....
-			writeResultstoOutputFiles(
+			writeResults_WRT_MultipleTestingParameter_WithZScores(
 					outputFolder, 
 					allFileName, 
 					jobName, 
@@ -914,7 +1075,7 @@ public class CollectionofPermutationsResults {
 			//empiricalPValue, bonferroniCorrectedPValue and BHFDRAdjustedPValue calculated from ZScore are presented
 			//empiricalPValue, bonferroniCorrectedPValue and BHFDRAdjustedPValue calculated from ratio of numberofPermutationsThatHasNumberofOverlapsGreaterThanEqualToOriginalNumberofOverlaps and numberofPermutations are presented
 			//Results are sorted in descending order w.r.t. ZScore
-			writeResultsWRTZScorestoOutputFiles(
+			writeResults_WRT_ZScores_WithMultipleTestingParameter(
 					outputFolder, 
 					allFileName, 
 					jobName, 
@@ -954,7 +1115,7 @@ public class CollectionofPermutationsResults {
 			AnnotationType annotationType,
 			String userDefinedGeneSetOptionalDescriptionInputFile, 
 			String elementType,
-			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLengthForWithZScoreMode,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength,
 			TIntObjectMap<String> cellLineNumber2NameMap,
 			TIntObjectMap<String> tfNumber2NameMap,
 			TIntObjectMap<String> histoneNumber2NameMap,
@@ -965,28 +1126,245 @@ public class CollectionofPermutationsResults {
 			TIntObjectMap<String> geneID2GeneHugoSymbolMap,
 			int numberofPermutations){
 		
-//		Map<Long, FunctionalElement> elementNumber2ElementMap = new HashMap<Long, FunctionalElement>();
-//		FunctionalElement element;
-//		long mixedNumber;
-//		long elementNumber;
-//		String tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol;
-//
-//		// In case of functionalElement contains KEGG Pathway
-//		int keggPathwayNumber;
-//
-//		FileReader fileReader = null;
-//		BufferedReader bufferedReader = null;
-//		
-//		String strLine;
-//		String tempRunName;
-//		
-//		int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
-//		float empiricalPValue;
-//		float bonferroniCorrectedEmpiricalPValue;
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
 		
+		String strLine;
+
+		int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
+		float empiricalPValue;
+		float bonferroniCorrectedEmpiricalPValue;
+
+		Map<Long, FunctionalElement> elementNumber2ElementMap = new HashMap<Long, FunctionalElement>();
+		FunctionalElement element;
+		long mixedNumber;
+
+		String elementName = null;
+
+		// In case of functionalElement contains KEGG Pathway
+		int keggPathwayNumber;
+
+		String tempRunName;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		
+		List<FunctionalElement> list = null;
+		
+		
+		try{
+
+			/************************************************************************************/
+			/*********************** FOR EACH RUN STARTS ****************************************/
+			/************************************************************************************/
+			for(int i = 1; i <= numberofRuns; i++){
+
+				tempRunName = "_" + jobName + "_" + Commons.RUN + i;
+
+				fileReader = new FileReader(outputFolder + runFileName + tempRunName + ".txt");
+				bufferedReader = new BufferedReader( fileReader);
+				
+				//Skip Header Line
+				bufferedReader.readLine();
+				
+
+				// Outer While
+				while( ( strLine = bufferedReader.readLine()) != null){
+
+					// Initialize numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps to zero
+					numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = 0;
+
+					indexofFirstTab  = strLine.indexOf('\t');
+					indexofSecondTab = (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) : -1;
+					indexofThirdTab  = (indexofSecondTab>0) ? strLine.indexOf('\t', indexofSecondTab+1): -1;
+					indexofFourthTab = (indexofThirdTab>0) ? strLine.indexOf('\t', indexofThirdTab+1) : -1;
+					
+					
+					// PermutationNumber does not exists
+					mixedNumber = Long.parseLong( strLine.substring( 0, indexofFirstTab));
+					if(indexofFourthTab!=-1){
+						elementName = strLine.substring(indexofFirstTab+1,indexofFourthTab);
+						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofFourthTab+1));
+					}else if (indexofThirdTab!=-1){
+						elementName = strLine.substring(indexofFirstTab+1,indexofThirdTab);
+						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofThirdTab+1));
+					}else if (indexofSecondTab!=-1){
+						elementName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
+						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+					}
+					
+					// debug starts
+					if( mixedNumber < 0){
+						if( GlanetRunner.shouldLog()) logger.error( "There is a situation 1");
+						if( GlanetRunner.shouldLog()) logger.error( mixedNumber);
+					}
+					// debug ends
+
+					// mixedNumber can be in one of these formats
+					// INT_10DIGIT_DNASECELLLINENUMBER
+					// INT_10DIGIT_GENENUMBER
+					// INT_10DIGIT_USERDEFINEDGENESETNUMBER
+					// INT_10DIGIT_KEGGPATHWAYNUMBER
+					// INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER
+					// INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER
+					// LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER
+
+					
+					// Write numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps to map
+					if( elementNumber2ElementMap.get(mixedNumber) == null){
+						element = new FunctionalElement();
+
+						element.setNumber(mixedNumber);
+
+						element.setName(elementName);
+
+						// In case of element contains a KEGG PATHWAY
+						// We are setting keggPathwayNumber for KEGGPATHWAY
+						// INFORMATION augmentation such as KEGGPathway description, 
+						// geneID List of genes, hugoSymbols of genes in this KEGG Pathway
+						if( generatedMixedNumberDescriptionOrderLength.is_INT_10DIGIT_KEGGPATHWAYNUMBER() || 
+								generatedMixedNumberDescriptionOrderLength.is_INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER() || 
+								generatedMixedNumberDescriptionOrderLength.is_LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER()){
+
+							keggPathwayNumber = IntervalTree.getGeneSetNumber(mixedNumber,generatedMixedNumberDescriptionOrderLength);
+							// Set KEGGPathwayNumber
+							element.setKeggPathwayNumber(keggPathwayNumber);
+
+						}
+						element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps(numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
+						elementNumber2ElementMap.put( mixedNumber, element);
+					}else{
+
+						element = elementNumber2ElementMap.get( mixedNumber);
+						//Accumulate
+						element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps( element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
+
+					}
+
+				}// End of Outer WHILE loop: Read all lines of a run
+
+				// Close bufferedReader
+				bufferedReader.close();
+				fileReader.close();
+
+			}// End of for: each run
+			/************************************************************************************/
+			/*********************** FOR EACH RUN ENDS ******************************************/
+			/************************************************************************************/
+			
+			
+			
+			/************************************************************************************/
+			/******* COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE STARTS***********/
+			/************************************************************************************/
+			// Now compute empirical pValue and Bonferroni Corrected pValue and write
+			for( Map.Entry<Long, FunctionalElement> entry : elementNumber2ElementMap.entrySet()){
+
+				mixedNumber = entry.getKey();
+				element = entry.getValue();
+
+				numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps();
+
+				empiricalPValue = ( numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps * 1.0f) / numberofPermutations;
+				bonferroniCorrectedEmpiricalPValue = empiricalPValue * numberofComparisons;
+
+				if( bonferroniCorrectedEmpiricalPValue > 1.0f){
+					bonferroniCorrectedEmpiricalPValue = 1.0f;
+				}
+
+				element.setEmpiricalPValue(empiricalPValue);
+				element.setBonferroniCorrectedPValue(bonferroniCorrectedEmpiricalPValue);
+
+			}
+			/************************************************************************************/
+			/****** COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE ENDS *************/
+			/************************************************************************************/
+
+			
+			/************************************************************************************/
+			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE STARTS ****************/
+			/************************************************************************************/
+			// convert map.values() into a list
+			// sort w.r.t. empirical p value
+			// Before calculating BH FDR adjusted p values
+			list = new ArrayList<FunctionalElement>( elementNumber2ElementMap.values());
+
+			Collections.sort( list, FunctionalElement.EMPIRICAL_P_VALUE);
+			BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValues( list, FDR);
+			/************************************************************************************/
+			/************ COMPUTE BENJAMINI HOCHBERG FDR ADJUSTED P VALUE ENDS ******************/
+			/************************************************************************************/
+
+			
+			/************************************************************************************/
+			/***************** AUGMENT WITH USERDEFINEDGENESET INFORMATION STARTS ***************/
+			/************************************************************************************/
+			if( annotationType.doUserDefinedGeneSetAnnotation() && userDefinedGeneSetOptionalDescriptionInputFile != null && !userDefinedGeneSetOptionalDescriptionInputFile.equals( Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED)){
+
+				UserDefinedGeneSetUtility.augmentUserDefinedGeneSetIDwithTerm(userDefinedGeneSetOptionalDescriptionInputFile, list);
+
+			}
+			/************************************************************************************/
+			/***************** AUGMENT WITH USERDEFINEDGENESET INFORMATION ENDS *****************/
+			/************************************************************************************/
+
+			
+			/************************************************************************************/
+			/***************** AUGMENT WITH KEGG PATHWAY INFORMATION STARTS *********************/
+			/************************************************************************************/
+			if( annotationType.doKEGGPathwayAnnotation()){
+
+				// Augment KeggPathwayNumber with KeggPathwayEntry
+				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
+				// Augment KeggPathwayEntry with KeggPathwayName starts
+				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayName( dataFolder, list, null, null);
+				// Augment with Kegg Pathway Gene List and Alternate Gene Name
+				// List
+				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder, list,
+						null, null);
+
+			}else if( annotationType.doTFKEGGPathwayAnnotation()){
+				// Augment KeggPathwayNumber with KeggPathwayEntry
+				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
+				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayName( dataFolder, list, null, null);
+				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder,
+						list, null, null);
+
+			}else if( annotationType.doTFCellLineKEGGPathwayAnnotation()){
+				// Augment KeggPathwayNumber with KeggPathwayEntry
+				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
+				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName( dataFolder, list,
+						null, null);
+				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder,
+						outputFolder, list, null, null);
+
+			}
+			/************************************************************************************/
+			/***************** AUGMENT WITH KEGG PATHWAY INFORMATION ENDS ***********************/
+			/************************************************************************************/
+			
+			writeResults_WRT_MultipleTestingParameter_WithZScores(
+					outputFolder, 
+					allFileName, 
+					jobName, 
+					list, 
+					annotationType,
+					multipleTestingParameter, 
+					bonferroniCorrectionSignigicanceLevel, 
+					FDR, 
+					numberofPermutations,
+					numberofComparisons);
+
+
+			
+		}catch( FileNotFoundException e){
+			e.printStackTrace();
+		}catch( IOException e){
+			e.printStackTrace();
+		}
 	
-		
-		//@todo
 		
 	}
 	
@@ -1165,32 +1543,14 @@ public class CollectionofPermutationsResults {
 			AnnotationType annotationType,
 			String userDefinedGeneSetOptionalDescriptionInputFile, 
 			String elementType,
-			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength,
-			//@todo 	GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLengthForWithoutZScoreMode,
+			GeneratedMixedNumberDescriptionOrderLength mixedNumberDescriptionOrderLengthWithZScores,
+			GeneratedMixedNumberDescriptionOrderLength mixedNumberDescriptionOrderLengthWithoutZScores,
 			EnrichmentZScoreMode enrichmentZScoreMode) {
 		
 		/*************************************************************************/
 		/*******************Common Variable Starts********************************/
 		/******************WithZScores and WithoutZScores*************************/
 		/*************************************************************************/
-//		Map<Long, FunctionalElement> elementNumber2ElementMap = new HashMap<Long, FunctionalElement>();
-//		FunctionalElement element;
-//		long mixedNumber;
-//		long elementNumber;
-//		String tforHistoneNameCellLineNameKeggPathwayNameGeneHugoSymbol;
-//
-//		// In case of functionalElement contains KEGG Pathway
-//		int keggPathwayNumber;
-//
-//		FileReader fileReader = null;
-//		BufferedReader bufferedReader = null;
-//		
-//		String strLine;
-//		String tempRunName;
-//		
-//		int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
-//		float empiricalPValue;
-//		float bonferroniCorrectedEmpiricalPValue;
 		
 		int numberofPermutations;		
 		/*************************************************************************/
@@ -1213,34 +1573,6 @@ public class CollectionofPermutationsResults {
 		/*************************************************************************/
 
 				
-//		/*************************************************************************/
-//		/*******************Variables for WithZScores starts**********************/
-//		/*************************************************************************/
-//		// 13 May 2015 starts
-//		TLongObjectMap<DescriptiveStatistics> elementNumber2StatsMap = new TLongObjectHashMap<DescriptiveStatistics>();
-//		TLongIntMap elementNumber2OriginalNumberofOverlaps = new TLongIntHashMap();
-//		DescriptiveStatistics statsPerElement = null;
-//
-//		Double mean = 0.0;
-//		Double stdDev = 0.0;
-//		Double zScore = 0.0;
-//		Double empiricalPValueCalculatedFromZScore = 0.0;
-//		Double bonferroniCorrectedPValueCalculatedFromZScore = 0.0;
-//		// 13 May 2015 ends
-//
-//		
-//		int indexofTab;
-//		int indexofPipe;
-//		int indexofFormerComma;
-//		int indexofLatterComma;
-//
-//		int originalNumberofOverlaps = 0;
-//		int permutationNumberofOverlaps = Integer.MAX_VALUE;
-//		/*************************************************************************/
-//		/*******************Variables for WithZScores ends************************/
-//		/*************************************************************************/
-
-
 
 		/************************************************************************************/
 		/*********************** FILL NUMBER TO NAME MAP STARTS *****************************/
@@ -1272,8 +1604,8 @@ public class CollectionofPermutationsResults {
 
 		
 		
-		
 		switch(enrichmentZScoreMode){
+		
 			case PerformEnrichmentWithZScore: 
 				CollectionofPermutationsResults.collectEnrichmentResultsWithZScores(
 						numberofPermutationsInEachRun,
@@ -1291,7 +1623,7 @@ public class CollectionofPermutationsResults {
 						annotationType,
 						userDefinedGeneSetOptionalDescriptionInputFile, 
 						elementType,
-						generatedMixedNumberDescriptionOrderLength,
+						mixedNumberDescriptionOrderLengthWithZScores,
 						cellLineNumber2NameMap,
 						tfNumber2NameMap,
 						histoneNumber2NameMap,
@@ -1320,7 +1652,7 @@ public class CollectionofPermutationsResults {
 						annotationType,
 						userDefinedGeneSetOptionalDescriptionInputFile, 
 						elementType,
-						generatedMixedNumberDescriptionOrderLength,
+						mixedNumberDescriptionOrderLengthWithoutZScores,
 						cellLineNumber2NameMap,
 						tfNumber2NameMap,
 						histoneNumber2NameMap,
@@ -1331,6 +1663,7 @@ public class CollectionofPermutationsResults {
 						geneID2GeneHugoSymbolMap,
 						numberofPermutations);
 				break;
+				
 		}//End of SWITCH
 
 
@@ -1538,6 +1871,7 @@ public class CollectionofPermutationsResults {
 					null, 
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_DNASECELLLINENUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_DNASECELLLINENUMBER,
 					enrichmentZScoreMode);
 		}
 		/************ Collection of DNASE RESULTS ends **************/
@@ -1564,6 +1898,7 @@ public class CollectionofPermutationsResults {
 					null, 
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER,
 					enrichmentZScoreMode);
 		}
 		/************ Collection of HISTONE RESULTS ends ************/
@@ -1592,6 +1927,7 @@ public class CollectionofPermutationsResults {
 					null, 
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER,
 					enrichmentZScoreMode);
 		}
 		/************ Collection of TF RESULTS ends *****************/
@@ -1615,6 +1951,7 @@ public class CollectionofPermutationsResults {
 					AnnotationType.DO_GENE_ANNOTATION, 
 					null, 
 					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GENENUMBER,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GENENUMBER,
 					enrichmentZScoreMode);
 		}
@@ -1640,6 +1977,7 @@ public class CollectionofPermutationsResults {
 					userDefinedGeneSetDescriptionOptionalInputFile, 
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER,
 					enrichmentZScoreMode);
 
 			CollectionofPermutationsResults.collectPermutationResults(
@@ -1655,6 +1993,7 @@ public class CollectionofPermutationsResults {
 					numberofComparisons.getRegulationBasedUserDefinedGeneSetNumberofComparison(),
 					userDefinedGeneSetAnnotationType, userDefinedGeneSetDescriptionOptionalInputFile, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER,
 					enrichmentZScoreMode);
 
 			CollectionofPermutationsResults.collectPermutationResults(
@@ -1669,6 +2008,7 @@ public class CollectionofPermutationsResults {
 					jobName, numberofRuns, numberofRemainders,
 					numberofComparisons.getAllBasedUserDefinedGeneSetNumberofComparison(),
 					userDefinedGeneSetAnnotationType, userDefinedGeneSetDescriptionOptionalInputFile, null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_USERDEFINEDGENESETNUMBER,
 					enrichmentZScoreMode);
 
@@ -1713,6 +2053,7 @@ public class CollectionofPermutationsResults {
 						null, 
 						elementType,
 						GeneratedMixedNumberDescriptionOrderLength.INT_6DIGIT_ELEMENTNUMBER,
+						GeneratedMixedNumberDescriptionOrderLength.INT_6DIGIT_ELEMENTNUMBER,
 						enrichmentZScoreMode);
 
 			}// End of for each elementTypeNumber
@@ -1734,6 +2075,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getExonBasedKEGGPathwayNumberofComparison(),
 					keggPathwayAnnotationType, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
@@ -1743,6 +2085,8 @@ public class CollectionofPermutationsResults {
 					numberofRuns, numberofRemainders,
 					numberofComparisons.getRegulationBasedKEGGPathwayNumberofComparison(), keggPathwayAnnotationType,
 					null, null, GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
+
 					enrichmentZScoreMode);
 
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
@@ -1752,6 +2096,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getAllBasedKEGGPathwayNumberofComparison(),
 					keggPathwayAnnotationType, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 		}
 		/************ Collection of KEGG Pathway RESULTS ends ***********************/
@@ -1762,14 +2107,17 @@ public class CollectionofPermutationsResults {
 		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 				!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
+			//TF
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF,
 					jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(),
 					AnnotationType.DO_TF_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER,
 					enrichmentZScoreMode);
 
+			//KEGG Pathway
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
@@ -1777,6 +2125,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getExonBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1786,6 +2135,7 @@ public class CollectionofPermutationsResults {
 					numberofComparisons.getRegulationBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1794,8 +2144,10 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getAllBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 
+			//TF and KEGG Pathway
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
 					Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
@@ -1803,6 +2155,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getTfExonBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1812,6 +2165,7 @@ public class CollectionofPermutationsResults {
 					numberofComparisons.getTfRegulationBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1820,6 +2174,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getTfAllBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 
 		}
@@ -1837,6 +2192,7 @@ public class CollectionofPermutationsResults {
 					jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(),
 					AnnotationType.DO_TF_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER,
 					enrichmentZScoreMode);
 
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
@@ -1846,6 +2202,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getExonBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1855,6 +2212,7 @@ public class CollectionofPermutationsResults {
 					numberofComparisons.getRegulationBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1863,6 +2221,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getAllBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 
 			CollectionofPermutationsResults.collectPermutationResults(
@@ -1882,6 +2241,7 @@ public class CollectionofPermutationsResults {
 					null,
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
@@ -1900,6 +2260,7 @@ public class CollectionofPermutationsResults {
 					null,
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
@@ -1918,6 +2279,7 @@ public class CollectionofPermutationsResults {
 					null,
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 
 		}
@@ -1930,14 +2292,17 @@ public class CollectionofPermutationsResults {
 		/************ Collection of TF CellLine KEGG Pathway RESULTS starts *********/
 		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
+			//TF
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS, Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_TF,
 					jobName, numberofRuns, numberofRemainders, numberofComparisons.getTfCellLineNumberofComparison(),
 					AnnotationType.DO_TF_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER,
 					enrichmentZScoreMode);
 
+			//KEGG Pathway
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
@@ -1945,6 +2310,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getExonBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,					
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1954,6 +2320,7 @@ public class CollectionofPermutationsResults {
 					numberofComparisons.getRegulationBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1962,8 +2329,10 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getAllBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_KEGGPATHWAYNUMBER,				
 					enrichmentZScoreMode);
 
+			//TF and KEGG Pathway
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
 					Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
@@ -1971,6 +2340,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getTfExonBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1980,6 +2350,7 @@ public class CollectionofPermutationsResults {
 					numberofComparisons.getTfRegulationBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults( numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel, FDR, multipleTestingParameter, dataFolder, outputFolder,
@@ -1988,6 +2359,7 @@ public class CollectionofPermutationsResults {
 					numberofRemainders, numberofComparisons.getTfAllBasedKEGGPathwayNumberofComparison(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION, null, null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 
 			CollectionofPermutationsResults.collectPermutationResults(
@@ -2007,6 +2379,7 @@ public class CollectionofPermutationsResults {
 					null,
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
@@ -2025,6 +2398,8 @@ public class CollectionofPermutationsResults {
 					null,
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER,
+
 					enrichmentZScoreMode);
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
@@ -2043,6 +2418,7 @@ public class CollectionofPermutationsResults {
 					null,
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER,
 					enrichmentZScoreMode);
 
 		}

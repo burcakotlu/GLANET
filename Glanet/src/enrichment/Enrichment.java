@@ -8539,7 +8539,10 @@ public class Enrichment {
 		/***********************************************************************************************/
 
 		// Perform Enrichment WITHOUT ZSCORES (Without Keeping Number of Overlaps Coming from Each Permutation starts)
-		// Consumes Less Memory when the number of elements is in tens of thousands
+		// WITHOUT ZSCORES requires less memory since we don't keep number of overlaps coming from each permutation
+		// WITHOUT ZSCORES requires more memory since we generate the interval trees for all chromosomes all at once
+		// Therefore WITHOUT ZSCORES
+		// Consumes Less Memory when the number of elements is in tens of thousands 
 		// Consumes More Memory when the number of elements is in hundreds
 		if( enrichmentZScoreMode.isPerformEnrichmentWithoutZScore()){
 

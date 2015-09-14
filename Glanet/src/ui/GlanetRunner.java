@@ -88,7 +88,7 @@ public class GlanetRunner implements Runnable {
 				/******************* Collection of Permutations Results starts *******************/
 				setCurrentProcessInfo("Collection of Permutations Results Without ZScores...");
 
-				CollectionofPermutationsResults.main( args);
+				CollectionofPermutationsResults.main(args);
 				/******************* Collection of Permutations Results ends *********************/
 			}
 			
