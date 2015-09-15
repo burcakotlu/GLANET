@@ -643,7 +643,7 @@ public class CollectionofPermutationsResults {
 			}
 			case INT_10DIGIT_GENENUMBER:{
 				geneID = IntervalTree.getElementNumber( modifiedMixedNumber, generatedMixedNumberDescriptionOrderLength);;
-				geneHugoSymbol = geneID2GeneHugoSymbolMap.get( geneID);
+				geneHugoSymbol = geneID2GeneHugoSymbolMap.get(geneID);
 				return geneHugoSymbol;
 			}
 			default:{
@@ -1131,7 +1131,9 @@ public class CollectionofPermutationsResults {
 		
 		String strLine;
 
+		int originalNumberofOverlaps;
 		int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
+		
 		float empiricalPValue;
 		float bonferroniCorrectedEmpiricalPValue;
 
@@ -1150,9 +1152,9 @@ public class CollectionofPermutationsResults {
 		int indexofSecondTab;
 		int indexofThirdTab;
 		int indexofFourthTab;
+		int indexofFifthTab;
 		
 		List<FunctionalElement> list = null;
-		
 		
 		try{
 
@@ -1174,25 +1176,30 @@ public class CollectionofPermutationsResults {
 				while( ( strLine = bufferedReader.readLine()) != null){
 
 					// Initialize numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps to zero
+					originalNumberofOverlaps = 0;
 					numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = 0;
 
 					indexofFirstTab  = strLine.indexOf('\t');
 					indexofSecondTab = (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) : -1;
 					indexofThirdTab  = (indexofSecondTab>0) ? strLine.indexOf('\t', indexofSecondTab+1): -1;
 					indexofFourthTab = (indexofThirdTab>0) ? strLine.indexOf('\t', indexofThirdTab+1) : -1;
+					indexofFifthTab =  (indexofFourthTab>0) ? strLine.indexOf('\t', indexofFourthTab+1) : -1;
 					
 					
 					// PermutationNumber does not exists
 					mixedNumber = Long.parseLong( strLine.substring( 0, indexofFirstTab));
-					if(indexofFourthTab!=-1){
+					if(indexofFifthTab!=-1){
 						elementName = strLine.substring(indexofFirstTab+1,indexofFourthTab);
+						originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofFourthTab+1,indexofFifthTab));
+						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofFifthTab+1));
+					}else if (indexofFourthTab!=-1){
+						elementName = strLine.substring(indexofFirstTab+1,indexofThirdTab);
+						originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofThirdTab+1,indexofFourthTab));
 						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofFourthTab+1));
 					}else if (indexofThirdTab!=-1){
-						elementName = strLine.substring(indexofFirstTab+1,indexofThirdTab);
-						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofThirdTab+1));
-					}else if (indexofSecondTab!=-1){
 						elementName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
-						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+						originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
+						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofThirdTab+1));
 					}
 					
 					// debug starts
@@ -1219,6 +1226,8 @@ public class CollectionofPermutationsResults {
 						element.setNumber(mixedNumber);
 
 						element.setName(elementName);
+						
+						element.setOriginalNumberofOverlaps(originalNumberofOverlaps);
 
 						// In case of element contains a KEGG PATHWAY
 						// We are setting keggPathwayNumber for KEGGPATHWAY
@@ -1380,7 +1389,7 @@ public class CollectionofPermutationsResults {
 			TIntObjectMap<String> keggPathwayNumber2NameMap,
 			TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
 			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap,
-			TIntObjectMap<String>geneID2GeneHugoSymbolMap){
+			TIntObjectMap<String> geneID2GeneHugoSymbolMap){
 		
 		// Here using same variable name "cellLineNumber2NameMap" for case
 		// DO_DNASE_ENRICHMENT and case DO_TF_ENRICHMENT is not important
@@ -1586,6 +1595,7 @@ public class CollectionofPermutationsResults {
 		TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = null;
 		TIntObjectMap<String> geneID2GeneHugoSymbolMap = null;
 		
+		//meaningless
 		fillNumberToNameMaps(
 				annotationType,
 				dataFolder,
@@ -1948,7 +1958,7 @@ public class CollectionofPermutationsResults {
 					numberofRuns, 
 					numberofRemainders,
 					numberofComparisons.getGeneNumberofComparison(), 
-					AnnotationType.DO_GENE_ANNOTATION, 
+					geneAnnotationType, 
 					null, 
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GENENUMBER,

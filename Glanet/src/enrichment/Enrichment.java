@@ -72,6 +72,7 @@ import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
 import annotation.Annotation;
+import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
 
@@ -3678,6 +3679,7 @@ public class Enrichment {
 			String outputFolder, 
 			String outputFileName,
 			String runName,
+			TLongIntMap elementNumber2OriginalKMap,
 			TLongIntMap elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap,
 			AnnotationType annotationType,
 			TIntObjectMap<String> elementNumber2NameMap,
@@ -3694,13 +3696,14 @@ public class Enrichment {
 		int keggPathwayNumber;
 		
 		int numberofPermutations;
+		int originalNumberofOverlaps;
 
 		try{
 			fileWriter = FileOperations.createFileWriter( outputFolder + outputFileName + "_" + runName + ".txt");
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Header Line
-			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "ElementName" + "\t" + 	"CellLineName" + "\t" + "KEGGPathwayName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "ElementName" + "\t" + 	"CellLineName" + "\t" + "KEGGPathwayName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
 
 			for( TLongIntIterator itr = elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.iterator(); itr.hasNext();){
 
@@ -3709,11 +3712,13 @@ public class Enrichment {
 				mixedNumber = itr.key();
 				numberofPermutations = itr.value();
 				
+				originalNumberofOverlaps = elementNumber2OriginalKMap.get(mixedNumber);
+				
 				elementNumber = IntervalTree.getElementNumber(mixedNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				cellLineNumber = IntervalTree.getCellLineNumber(mixedNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(mixedNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				
-				bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) +  "\t" + cellLineNumber2NameMap.get(cellLineNumber)  + "\t" + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+				bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) +  "\t" + cellLineNumber2NameMap.get(cellLineNumber)  + "\t" + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" +  originalNumberofOverlaps + "\t" + numberofPermutations + System.getProperty( "line.separator"));
 
 			}// End of FOR
 
@@ -3733,6 +3738,7 @@ public class Enrichment {
 			String outputFolder, 
 			String outputFileName,
 			String runName,
+			TIntIntMap elementNumber2OriginalKMap,
 			TIntIntMap elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap,
 			AnnotationType annotationType,
 			TIntObjectMap<String> elementNumber2NameMap,
@@ -3749,6 +3755,7 @@ public class Enrichment {
 		int cellLineNumber;
 		int keggPathwayNumber;
 	
+		int originalNumberofOverlaps;
 		int numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps;
 		
 		
@@ -3757,44 +3764,58 @@ public class Enrichment {
 			fileWriter = FileOperations.createFileWriter( outputFolder + outputFileName + "_" + runName + ".txt");
 			bufferedWriter = new BufferedWriter( fileWriter);
 
-			// Write header line starts here
+			/**********************************************************************************************************/
+			/***************************************HeaderLine Starts *************************************************/
+			/**********************************************************************************************************/
 			switch(annotationType){
 			
 				case DO_DNASE_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "DnaseCellLineNumber" + "\t" + "DnaseCellLineName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "DnaseCellLineNumber" + "\t" + "DnaseCellLineName" + "\t");
 					break;
 					
 				case DO_TF_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "\t" + "CellLineName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "\t" + "CellLineName" + "\t");
 					break;
 					
 				case DO_HISTONE_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "HistoneName" + "\t" + "CellLineName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "HistoneName" + "\t" + "CellLineName" + "\t");
 					break;
 					
+				case DO_GENE_ANNOTATION:
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "GeneAlternateName" + "\t");
+					break;
+										
 				case DO_USER_DEFINED_LIBRARY_ANNOTATION:	
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "ElementName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "ElementNumber" + "\t" + "ElementName" + "\t");
 					break;
 					
 				case DO_USER_DEFINED_GENESET_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "UserDefinedGeneSetName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "UserDefinedGeneSetName" + "\t");
 					break;
 				
 				case DO_KEGGPATHWAY_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "KEGGPathwayName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "KEGGPathwayName" + "\t");
 					break;
 					
 				case DO_TF_KEGGPATHWAY_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "\t"  + "KEGGPathwayName" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "\t"  + "KEGGPathwayName" + "\t");
 					break;
 					
-	
 				default:
 					break;
 
 			}//End of SWITCH
-			//Write header line ends here
+				
+			//Common Header Line
+			bufferedWriter.write("OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+			/**********************************************************************************************************/
+			/***************************************HeaderLine Ends ***************************************************/
+			/**********************************************************************************************************/
+
 			
+			/**********************************************************************************************************/
+			/**************************************Information Line Starts*********************************************/
+			/**********************************************************************************************************/
 			for( TIntIntIterator itr = elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.iterator(); itr.hasNext();){
 
 				itr.advance();
@@ -3802,41 +3823,47 @@ public class Enrichment {
 				mixedNumber = itr.key();
 				numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps = itr.value();
 				
+				//We might need to get rid of elementTypeNumber first for User Defined Library case
+				//@to be tested
+				originalNumberofOverlaps = elementNumber2OriginalKMap.get(mixedNumber);
+				
 				switch(annotationType){
 				
 					case DO_DNASE_ANNOTATION:
 						
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(mixedNumber) + "\t" + originalNumberofOverlaps + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					case DO_TF_ANNOTATION:
 						elementNumber = mixedNumber / 100000;
 						cellLineNumber = mixedNumber % 100000;
 						
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					case DO_HISTONE_ANNOTATION:
 						elementNumber = mixedNumber / 100000;
 						cellLineNumber = mixedNumber % 100000;
 						
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
+					case DO_GENE_ANNOTATION:
+						bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(mixedNumber) + "\t" + originalNumberofOverlaps + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						break;
 
-					case DO_USER_DEFINED_LIBRARY_ANNOTATION:	
-						
-						bufferedWriter.write(mixedNumber + "\t" + userDefinedLibraryElementNumber2ElementNameMap.get(mixedNumber) + "\t" + elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.get(mixedNumber) + System.getProperty( "line.separator"));
+					case DO_USER_DEFINED_LIBRARY_ANNOTATION:							
+						bufferedWriter.write(mixedNumber + "\t" + userDefinedLibraryElementNumber2ElementNameMap.get(mixedNumber) + "\t" + originalNumberofOverlaps + "\t"  + elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.get(mixedNumber) + System.getProperty( "line.separator"));
 						break;	
 						
 					case DO_USER_DEFINED_GENESET_ANNOTATION:
 						
-						bufferedWriter.write( mixedNumber + "\t" + userDefinedGeneSetNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write( mixedNumber + "\t" + userDefinedGeneSetNumber2NameMap.get(mixedNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 	
 					case DO_KEGGPATHWAY_ANNOTATION:
 						
-						bufferedWriter.write( mixedNumber + "\t" + keggPathwayNumber2NameMap.get(mixedNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write( mixedNumber + "\t" + keggPathwayNumber2NameMap.get(mixedNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 	
 					case DO_TF_KEGGPATHWAY_ANNOTATION:
@@ -3847,7 +3874,7 @@ public class Enrichment {
 							System.out.println("stop here");	
 						}
 						
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t"  + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t"  + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					default:
@@ -3855,8 +3882,13 @@ public class Enrichment {
 
 				
 				}// End of SWITCH
+				
 					
 			}// End of FOR
+			/**********************************************************************************************************/
+			/**************************************Information Line Ends***********************************************/
+			/**********************************************************************************************************/
+
 
 			// Close bufferedWriter
 			bufferedWriter.close();
@@ -3986,7 +4018,7 @@ public class Enrichment {
 			TIntIntMap dnaseCellLineNumber2OriginalKMap, 
 			TIntIntMap tfNumberCellLineNumber2OriginalKMap,
 			TIntIntMap histoneNumberCellLineNumber2OriginalKMap, 
-			TIntIntMap gene2OriginalKMap,
+			TIntIntMap geneID2OriginalKMap,
 			TIntIntMap exonBasedUserDefinedGeneSet2OriginalKMap,
 			TIntIntMap regulationBasedUserDefinedGeneSet2OriginalKMap,
 			TIntIntMap allBasedUserDefinedGeneSet2OriginalKMap,
@@ -4020,6 +4052,7 @@ public class Enrichment {
 			TIntObjectMap<String> cellLineNumber2NameMap,
 			TIntObjectMap<String> tfNumber2NameMap,
 			TIntObjectMap<String> histoneNumber2NameMap,
+			TIntObjectMap<String> geneID2GeneHugoSymbolMap,
 			TIntObjectMap<String> keggPathwayNumber2NameMap,
 			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap
 			) {
@@ -4431,11 +4464,11 @@ public class Enrichment {
 
 			allMapsWithNumbersForAllChromosomes = pool.invoke( annotateWithNumbersForAllChromosomes);
 
-			//@todo pass dnaseCellLineNumber2OriginalKMap
 			writeToBeCollectedWithoutZScore(
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_DNASE_NUMBER_OF_OVERLAPS,
 					runName, 
+					dnaseCellLineNumber2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getDnaseCellLineNumber2NumberofPermutations(),
 					dnaseAnnotationType,
 					dnaseCellLineNumber2NameMap,
@@ -4537,6 +4570,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
 					runName, 
+					tfNumberCellLineNumber2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
 					tfAnnotationType,
 					tfNumber2NameMap,
@@ -4636,6 +4670,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_HISTONE_NUMBER_OF_OVERLAPS,
 					runName,
+					histoneNumberCellLineNumber2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getHistoneNumberCellLineNumber2NumberofPermutations(),
 					histoneAnnotationType,
 					histoneNumber2NameMap,
@@ -4665,6 +4700,106 @@ public class Enrichment {
 		/********************************************************************************************************/
 		/***************************** HISTONE ANNOTATION OF PERMUTATIONS ENDS **********************************/
 		/********************************************************************************************************/
+		
+		/********************************************************************************************************/
+		/***************************** GENE ANNOTATION OF PERMUTATIONS STARTS ***********************************/
+		/********************************************************************************************************/
+		if (geneAnnotationType.doGeneAnnotation()){
+			
+			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+			GlanetRunner.appendLog("GENE Annotation of Permutations has started.");
+			if( GlanetRunner.shouldLog()) logger.info("GENE Annotation of Permutations has started.");
+			
+			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
+
+			// Fill chrNumber2IntervalTreeMap
+			// For each chromosome, generate intervalTree and fill intervalTreeMap
+			for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
+
+				chromName = GRCh37Hg19Chromosome.getChromosomeName(chrNumber);
+				chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get(chromName);
+
+				if( chromosomeBaseOriginalInputLines != null){
+
+					intervalTree = generateUcscRefSeqGeneIntervalTreeWithNumbers(dataFolder, chromName);
+					ucscRefSeqGenesIntervalTreeMap.put( chrNumber, intervalTree);
+
+				}// End of IF chromosomeBaseOriginalInputLines is NOT NULL
+
+			}// End of FOR each CHROMOSOME
+			
+			//geneId is entrezGeneID
+			fillElementNumber2OriginalKMap( 
+					geneID2OriginalKMap, 
+					outputFolder,
+					Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+
+			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
+					outputFolder,
+					chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap, 
+					runNumber, 
+					numberofPermutationsinThisRun,
+					writePermutationBasedandParametricBasedAnnotationResultMode, 
+					Commons.ZERO,
+					permutationNumberList.size(), 
+					permutationNumberList, 
+					ucscRefSeqGenesIntervalTreeMap, 
+					null,
+					null,
+					null,
+					AnnotationType.DO_GENE_ANNOTATION, 
+					null, 
+					overlapDefinition,
+					geneID2OriginalKMap,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null,
+					null);
+
+			allMapsWithNumbersForAllChromosomes = pool.invoke(annotateWithNumbersForAllChromosomes);
+			
+			writeToBeCollectedWithoutZScore( 
+					outputFolder, 
+					Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS,
+					runName,
+					geneID2OriginalKMap,
+					allMapsWithNumbersForAllChromosomes.getGeneNumber2NumberofPermutations(),
+					geneAnnotationType,
+					geneID2GeneHugoSymbolMap,
+					null,
+					null,
+					null,
+					null);
+
+			// Free memory
+			ucscRefSeqGenesIntervalTreeMap = null;
+
+			System.gc();
+			System.runFinalization();
+
+			GlanetRunner.appendLog("Gene Annotation of Permutations has ended.");
+			if( GlanetRunner.shouldLog()) logger.info("Gene Annotation of Permutations has ended.");
+
+			endTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
+
+			GlanetRunner.appendLog( "RunNumber: " + runNumber + "Gene Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			GlanetRunner.appendLog( "******************************************************************************************");
+
+			if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + "Gene Annotation of " + numberofPermutationsinThisRun + " permutations for all chromosomes" + " numberof intervals took  " + ( float)( ( endTimeOnlyAnnotationPermutationsForAllChromosome - startTimeOnlyAnnotationPermutationsForAllChromosome) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
+
+		}
+		/********************************************************************************************************/
+		/***************************** GENE ANNOTATION OF PERMUTATIONS ENDS *************************************/
+		/********************************************************************************************************/
+		
 
 		/********************************************************************************************************/
 		/*************************** KEGGPathway ANNOTATION OF PERMUTATIONS STARTS ******************************/
@@ -4745,6 +4880,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					exonBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
 					keggPathwayAnnotationType,
 					null,
@@ -4757,6 +4893,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					regulationBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					keggPathwayAnnotationType,
 					null,
@@ -4769,6 +4906,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					allBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
 					keggPathwayAnnotationType,
 					null,
@@ -4879,6 +5017,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
 					runName,
+					exonBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations(),
 					userDefinedGeneSetAnnotationType,
 					null,
@@ -4891,6 +5030,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
 					runName,
+					regulationBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations(),
 					userDefinedGeneSetAnnotationType,
 					null,
@@ -4903,6 +5043,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
 					runName,
+					allBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations(),
 					userDefinedGeneSetAnnotationType,
 					null,
@@ -5096,11 +5237,14 @@ public class Enrichment {
 
 				elementTypeName = userDefinedLibraryElementTypeNumber2ElementTypeNameMap.get(elementTypeNumber);
 
-				
+				//There can be problem here
+				//elementNumber2NumberofPermutationsMap contains elementNumber without elementTypeNumber
+				//userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap contains elementTypeNumber
 				writeToBeCollectedWithoutZScore( 
 						outputFolder, 
 						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementTypeName,
 						runName,
+						userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap,
 						elementNumber2NumberofPermutationsMap,
 						userDefinedLibraryAnnotationType,
 						null,
@@ -5248,6 +5392,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
 					runName, 
+					tfNumberCellLineNumber2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
@@ -5262,6 +5407,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					exonBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5274,6 +5420,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					regulationBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5286,6 +5433,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					allBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5299,6 +5447,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfExonBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
@@ -5311,6 +5460,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfRegulationBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
@@ -5323,6 +5473,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfAllBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
 					tfKeggPathwayAnnotationType,
 					tfNumber2NameMap,
@@ -5463,6 +5614,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
 					runName, 
+					tfNumberCellLineNumber2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
@@ -5477,6 +5629,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					exonBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5489,6 +5642,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					regulationBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5501,6 +5655,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					allBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5514,6 +5669,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfCellLineExonBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
 					tfCellLineKeggPathwayAnnotationType,
 					tfNumber2NameMap,
@@ -5524,6 +5680,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfCellLineRegulationBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					tfCellLineKeggPathwayAnnotationType,
 					tfNumber2NameMap,
@@ -5534,6 +5691,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfCellLineAllBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
 					tfCellLineKeggPathwayAnnotationType,
 					tfNumber2NameMap,
@@ -5692,6 +5850,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_NUMBER_OF_OVERLAPS,
 					runName, 
+					tfNumberCellLineNumber2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_ANNOTATION,
 					tfNumber2NameMap,
@@ -5706,6 +5865,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					exonBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5718,6 +5878,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					regulationBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5730,6 +5891,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					allBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_KEGGPATHWAY_ANNOTATION,
 					null,
@@ -5744,6 +5906,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfExonBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
@@ -5756,6 +5919,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfRegulationBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
@@ -5768,6 +5932,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfAllBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
@@ -5782,6 +5947,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfCellLineExonBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberExonBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
@@ -5792,6 +5958,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfCellLineRegulationBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
@@ -5802,6 +5969,7 @@ public class Enrichment {
 					outputFolder, 
 					Commons.TO_BE_COLLECTED_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_NUMBER_OF_OVERLAPS,
 					runName,
+					tfCellLineAllBasedKeggPathway2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getTfNumberCellLineNumberAllBasedKeggPathwayNumber2NumberofPermutations(),
 					AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 					tfNumber2NameMap,
@@ -8203,6 +8371,7 @@ public class Enrichment {
 		TIntObjectMap<String> cellLineNumber2NameMap 		= null;
 		TIntObjectMap<String> tfNumber2NameMap 				= null;
 		TIntObjectMap<String> histoneNumber2NameMap 		= null;
+		TIntObjectMap<String> geneID2GeneHugoSymbolMap 		= null;
 		TIntObjectMap<String> keggPathwayNumber2NameMap 	= null;
 		TIntObjectMap<String> userDefinedGeneSetNumber2NameMap = null;
 		
@@ -8223,7 +8392,7 @@ public class Enrichment {
 		TIntIntMap histoneNumberCellLineNumber2OriginalKMap = null;
 
 		// Gene
-		TIntIntMap gene2OriginalKMap = null;
+		TIntIntMap geneID2OriginalKMap = null;
 
 		// UserDefinedGeneSet
 		TIntIntMap exonBasedUserDefinedGeneSet2OriginalKMap = null;
@@ -8314,10 +8483,19 @@ public class Enrichment {
 						
 		}
 
+		//@todo
+		// geneID2OriginalKMap have to be filled?
+		// geneID2HugoSymbolMap have to be filled?
 		// Gene
 		if( geneAnnotationType.doGeneAnnotation()){
 			
-			gene2OriginalKMap = new TIntIntHashMap();
+			
+			geneID2GeneHugoSymbolMap = new TIntObjectHashMap<String>();
+			
+			//Fill geneID2GeneHugoSymbolMap
+			HumanGenesAugmentation.fillGeneId2GeneHugoSymbolMap( dataFolder, geneID2GeneHugoSymbolMap);
+			
+			geneID2OriginalKMap = new TIntIntHashMap();
 			
 		}
 
@@ -8587,7 +8765,7 @@ public class Enrichment {
 							dnaseCellLineNumber2OriginalKMap,
 							tfNumberCellLineNumber2OriginalKMap, 
 							histoneNumberCellLineNumber2OriginalKMap,
-							gene2OriginalKMap, 
+							geneID2OriginalKMap, 
 							exonBasedUserDefinedGeneSet2OriginalKMap,
 							regulationBasedUserDefinedGeneSet2OriginalKMap, 
 							allBasedUserDefinedGeneSet2OriginalKMap,
@@ -8621,6 +8799,7 @@ public class Enrichment {
 							cellLineNumber2NameMap,
 							tfNumber2NameMap,
 							histoneNumber2NameMap,
+							geneID2GeneHugoSymbolMap,
 							keggPathwayNumber2NameMap,
 							userDefinedGeneSetNumber2NameMap);
 
@@ -8646,7 +8825,7 @@ public class Enrichment {
 							dnaseCellLineNumber2OriginalKMap,
 							tfNumberCellLineNumber2OriginalKMap, 
 							histoneNumberCellLineNumber2OriginalKMap,
-							gene2OriginalKMap, 
+							geneID2OriginalKMap, 
 							exonBasedUserDefinedGeneSet2OriginalKMap,
 							regulationBasedUserDefinedGeneSet2OriginalKMap, 
 							allBasedUserDefinedGeneSet2OriginalKMap,
@@ -8680,6 +8859,7 @@ public class Enrichment {
 							cellLineNumber2NameMap,
 							tfNumber2NameMap,
 							histoneNumber2NameMap,
+							geneID2GeneHugoSymbolMap,
 							keggPathwayNumber2NameMap,
 							userDefinedGeneSetNumber2NameMap);
 				}
@@ -8913,14 +9093,18 @@ public class Enrichment {
 							dnaseCellLineNumber2OriginalKMap,
 							tfNumberCellLineNumber2OriginalKMap, 
 							histoneNumberCellLineNumber2OriginalKMap,
-							gene2OriginalKMap, 
+							geneID2OriginalKMap, 
 							exonBasedUserDefinedGeneSet2OriginalKMap,
 							regulationBasedUserDefinedGeneSet2OriginalKMap, 
 							allBasedUserDefinedGeneSet2OriginalKMap,
-							elementTypeNumberElementNumber2OriginalKMap, exonBasedKeggPathway2OriginalKMap,
-							regulationBasedKeggPathway2OriginalKMap, allBasedKeggPathway2OriginalKMap,
-							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
-							tfAllBasedKeggPathway2OriginalKMap, tfCellLineExonBasedKeggPathway2OriginalKMap,
+							elementTypeNumberElementNumber2OriginalKMap, 
+							exonBasedKeggPathway2OriginalKMap,
+							regulationBasedKeggPathway2OriginalKMap, 
+							allBasedKeggPathway2OriginalKMap,
+							tfExonBasedKeggPathway2OriginalKMap, 
+							tfRegulationBasedKeggPathway2OriginalKMap,
+							tfAllBasedKeggPathway2OriginalKMap, 
+							tfCellLineExonBasedKeggPathway2OriginalKMap,
 							tfCellLineRegulationBasedKeggPathway2OriginalKMap,
 							tfCellLineAllBasedKeggPathway2OriginalKMap, 
 							dnaseAnnotationType, 
@@ -8972,16 +9156,28 @@ public class Enrichment {
 							dnaseCellLineNumber2OriginalKMap,
 							tfNumberCellLineNumber2OriginalKMap, 
 							histoneNumberCellLineNumber2OriginalKMap,
-							gene2OriginalKMap, exonBasedUserDefinedGeneSet2OriginalKMap,
-							regulationBasedUserDefinedGeneSet2OriginalKMap, allBasedUserDefinedGeneSet2OriginalKMap,
-							elementTypeNumberElementNumber2OriginalKMap, exonBasedKeggPathway2OriginalKMap,
-							regulationBasedKeggPathway2OriginalKMap, allBasedKeggPathway2OriginalKMap,
-							tfExonBasedKeggPathway2OriginalKMap, tfRegulationBasedKeggPathway2OriginalKMap,
-							tfAllBasedKeggPathway2OriginalKMap, tfCellLineExonBasedKeggPathway2OriginalKMap,
+							geneID2OriginalKMap, 
+							exonBasedUserDefinedGeneSet2OriginalKMap,
+							regulationBasedUserDefinedGeneSet2OriginalKMap, 
+							allBasedUserDefinedGeneSet2OriginalKMap,
+							elementTypeNumberElementNumber2OriginalKMap, 
+							exonBasedKeggPathway2OriginalKMap,
+							regulationBasedKeggPathway2OriginalKMap, 
+							allBasedKeggPathway2OriginalKMap,
+							tfExonBasedKeggPathway2OriginalKMap, 
+							tfRegulationBasedKeggPathway2OriginalKMap,
+							tfAllBasedKeggPathway2OriginalKMap, 
+							tfCellLineExonBasedKeggPathway2OriginalKMap,
 							tfCellLineRegulationBasedKeggPathway2OriginalKMap,
-							tfCellLineAllBasedKeggPathway2OriginalKMap, dnaseAnnotationType, histoneAnnotationType,
-							tfAnnotationType, geneAnnotationType, userDefinedGeneSetAnnotationType,
-							userDefinedLibraryAnnotationType, keggPathwayAnnotationType, tfKeggPathwayAnnotationType,
+							tfCellLineAllBasedKeggPathway2OriginalKMap, 
+							dnaseAnnotationType, 
+							histoneAnnotationType,
+							tfAnnotationType, 
+							geneAnnotationType, 
+							userDefinedGeneSetAnnotationType,
+							userDefinedLibraryAnnotationType, 
+							keggPathwayAnnotationType, 
+							tfKeggPathwayAnnotationType,
 							tfCellLineKeggPathwayAnnotationType,
 							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
 							overlapDefinition, geneId2KeggPathwayNumberMap,
@@ -9017,7 +9213,7 @@ public class Enrichment {
 
 				// Gene
 				if( geneAnnotationType.doGeneAnnotation()){
-					writeToBeCollectedNumberofOverlaps( outputFolder, gene2OriginalKMap, gene2AllKMap,
+					writeToBeCollectedNumberofOverlaps( outputFolder, geneID2OriginalKMap, gene2AllKMap,
 							Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, runName);
 				}
 
@@ -9243,7 +9439,7 @@ public class Enrichment {
 		histoneNumberCellLineNumber2OriginalKMap = null;
 
 		// Gene
-		gene2OriginalKMap = null;
+		geneID2OriginalKMap = null;
 
 		// USERDEFINEDGENESET
 		exonBasedUserDefinedGeneSet2OriginalKMap = null;

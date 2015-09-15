@@ -7,7 +7,7 @@ import gnu.trove.map.TIntByteMap;
 import gnu.trove.map.TLongByteMap;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Jun 29, 2015
  * @project Glanet 
  *

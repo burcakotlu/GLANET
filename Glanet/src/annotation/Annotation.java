@@ -7233,6 +7233,8 @@ public class Annotation {
 		return elementList;
 	}
 
+	// KEGGPathway Annotation (GeneSet Annotation)
+	// UserDefined GeneSet Annotation
 	// Gene Annotation
 	// UserDefinedLibrary Annotation
 	public void writeResultsWithNumbers( 
@@ -7268,10 +7270,10 @@ public class Annotation {
 
 				elementNumber = element.getElementIntNumber();
 
-				elementName = number2NameMap.get( elementNumber);
+				elementName = number2NameMap.get(elementNumber);
 				numberofOverlaps = element.getElementNumberofOverlaps();
 
-				bufferedWriter.write( elementNumber + "\t" + elementName + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
+				bufferedWriter.write(elementNumber + "\t" + elementName + "\t" + numberofOverlaps + System.getProperty( "line.separator"));
 
 			}// End of FOR
 
@@ -7416,7 +7418,7 @@ public class Annotation {
 
 				elementNumber = IntervalTree.getElementNumber(
 						elementNumberKEGGPathwayNumber,
-						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				
 				elementName = elementNumber2ElementNameMap.get( elementNumber);
 				
@@ -9499,9 +9501,16 @@ public class Annotation {
 				// 13 February 2015
 				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
 
-				searchGeneWithNumbers( dataFolder, outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
-						givenIntervalNumber2GivenIntervalNameMap, givenIntervalNumber2OverlapInformationMap,
-						chromosomeName2CountMap, entrezGeneId2KMap, overlapDefinition, geneHugoSymbolNumber2NameMap,
+				searchGeneWithNumbers(
+						dataFolder, 
+						outputFolder, 
+						writeElementBasedAnnotationFoundOverlapsMode,
+						givenIntervalNumber2GivenIntervalNameMap, 
+						givenIntervalNumber2OverlapInformationMap,
+						chromosomeName2CountMap, 
+						entrezGeneId2KMap, 
+						overlapDefinition, 
+						geneHugoSymbolNumber2NameMap,
 						refSeqRNANucleotideAccessionNumber2NameMap);
 
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
@@ -9514,8 +9523,9 @@ public class Annotation {
 
 				writeResultsWithNumbers( 
 						entrezGeneId2KMap, 
-						geneEntrezId2GeneOfficialSymbolMap, outputFolder,
-						Commons.ANNOTATE_INTERVALS_GENE_ALTERNATE_NAME_RESULTS_GIVEN_SEARCH_INPUT);
+						geneEntrezId2GeneOfficialSymbolMap, 
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 				dateAfter = System.currentTimeMillis();
 
 				GlanetRunner.appendLog( "Hg19 RefSeq Gene Annotation ends: " + new Date());
@@ -11087,6 +11097,48 @@ public class Annotation {
 			// Free space
 			histoneNumberCellLineNumber2PermutationKMap = null;
 		}
+		
+		//@todo
+		//GENE
+		//15 September 2015
+		if (annotationType.doGeneAnnotation()){
+			
+			// This will be filled and set.
+			// 1 means that permutation has numberofOverlaps greaterThanOrEqualTo originalNumberofOverlaps
+			// 0 means that permutation has numberofOverlaps lessThan originalNumberofOverlaps
+			TIntByteMap geneID2PermutationOneorZeroMap = new TIntByteHashMap();
+
+			// This will be filled during search method call, after setting tfNumberCellLineNumber2PermutationOneorZeroMap, then it will be set to null.
+			TIntIntMap geneID2PermutationKMap = new TIntIntHashMap();
+
+			searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
+					chrNumber2RandomlyGeneratedData, 
+					chrNumber2IntervalTreeMap,
+					null, 
+					null,
+					null,
+					geneID2PermutationKMap, 
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.NO_GENESET_ANALYSIS_TYPE_IS_DEFINED, 
+					GeneSetType.NO_GENESET_TYPE_IS_DEFINED,
+					overlapDefinition);
+			
+			
+			// Fill geneID2PermutationOneorZeroMap using geneID2PermutationKMap and elementNumber2OriginalKMap
+			fillPermutationOneorZeroMap(
+					elementNumber2OriginalKMap, 
+					geneID2PermutationKMap,
+					geneID2PermutationOneorZeroMap);
+
+			// Set GeneNumber2PermutationOneorZeroMap
+			// Here geneNumber is geneEntrezID
+			allMapsKeysWithNumbersAndValuesOneorZero.setGeneNumber2PermutationOneorZeroMap(geneID2PermutationOneorZeroMap);
+
+			// Free space
+			geneID2PermutationKMap = null;
+			
+		}
+		
 
 		//22 July 2015
 		//UserDefinedGeneSet

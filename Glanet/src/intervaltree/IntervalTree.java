@@ -3489,7 +3489,9 @@ public class IntervalTree {
 				break;
 				
 			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
+			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
 				elementNumber = mixedNumber / Commons.INT_5DIGITS;
+				break;
 	
 			default:
 				break;
