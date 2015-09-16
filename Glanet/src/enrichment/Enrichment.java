@@ -3703,7 +3703,7 @@ public class Enrichment {
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Header Line
-			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "ElementName" + "\t" + 	"CellLineName" + "\t" + "KEGGPathwayName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "ElementName" + "_" + 	"CellLineName" + "_" + "KEGGPathwayName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
 
 			for( TLongIntIterator itr = elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.iterator(); itr.hasNext();){
 
@@ -3718,7 +3718,7 @@ public class Enrichment {
 				cellLineNumber = IntervalTree.getCellLineNumber(mixedNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				keggPathwayNumber = IntervalTree.getKeggPathwayNumber(mixedNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
 				
-				bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) +  "\t" + cellLineNumber2NameMap.get(cellLineNumber)  + "\t" + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" +  originalNumberofOverlaps + "\t" + numberofPermutations + System.getProperty( "line.separator"));
+				bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) +  "_" + cellLineNumber2NameMap.get(cellLineNumber)  + "_" + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" +  originalNumberofOverlaps + "\t" + numberofPermutations + System.getProperty( "line.separator"));
 
 			}// End of FOR
 
@@ -3774,11 +3774,11 @@ public class Enrichment {
 					break;
 					
 				case DO_TF_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "\t" + "CellLineName" + "\t");
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "_" + "CellLineName" + "\t");
 					break;
 					
 				case DO_HISTONE_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "HistoneName" + "\t" + "CellLineName" + "\t");
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "HistoneName" + "_" + "CellLineName" + "\t");
 					break;
 					
 				case DO_GENE_ANNOTATION:
@@ -3798,7 +3798,7 @@ public class Enrichment {
 					break;
 					
 				case DO_TF_KEGGPATHWAY_ANNOTATION:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "\t"  + "KEGGPathwayName" + "\t");
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "TFName" + "_"  + "KEGGPathwayName" + "\t");
 					break;
 					
 				default:
@@ -3838,14 +3838,14 @@ public class Enrichment {
 						elementNumber = mixedNumber / 100000;
 						cellLineNumber = mixedNumber % 100000;
 						
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "_" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					case DO_HISTONE_ANNOTATION:
 						elementNumber = mixedNumber / 100000;
 						cellLineNumber = mixedNumber % 100000;
 						
-						bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write(mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "_" +  cellLineNumber2NameMap.get(cellLineNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					case DO_GENE_ANNOTATION:
@@ -3874,7 +3874,7 @@ public class Enrichment {
 							System.out.println("stop here");	
 						}
 						
-						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "\t"  + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
+						bufferedWriter.write( mixedNumber + "\t" + elementNumber2NameMap.get(elementNumber) + "_"  + keggPathwayNumber2NameMap.get(keggPathwayNumber) + "\t" + originalNumberofOverlaps + "\t"  + numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps + System.getProperty( "line.separator"));
 						break;
 						
 					default:

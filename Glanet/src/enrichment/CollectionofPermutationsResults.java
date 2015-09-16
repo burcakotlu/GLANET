@@ -59,6 +59,23 @@ import gnu.trove.map.hash.TLongObjectHashMap;
 public class CollectionofPermutationsResults {
 
 	final static Logger logger = Logger.getLogger(CollectionofPermutationsResults.class);
+	
+	private static TIntObjectMap<String> keggPathwayNumber2NameMap = null;
+
+	public static TIntObjectMap<String> getKeggPathwayNumber2NameMapInstance(
+			String dataFolder) {
+		
+	      if(keggPathwayNumber2NameMap == null) {
+	    	  
+	    	  keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
+	    	  FileOperations.fillNumber2NameMap( 
+	    			  keggPathwayNumber2NameMap,
+						dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
+						Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
+	      }
+	      
+	      return keggPathwayNumber2NameMap;
+	  }
 
 	public static void writeResults_WRT_ZScores_WithMultipleTestingParameter( 
 			String outputFolder, 
@@ -416,7 +433,9 @@ public class CollectionofPermutationsResults {
 		while( itr.hasNext()){
 			element = itr.next();
 
-			if( annotationType.doKEGGPathwayAnnotation() || annotationType.doTFKEGGPathwayAnnotation() || annotationType.doTFCellLineKEGGPathwayAnnotation()){
+			if( annotationType.doKEGGPathwayAnnotation() || 
+					annotationType.doTFKEGGPathwayAnnotation() || 
+					annotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 				// line per element in output file
 				bufferedWriter.write( element.getNumber() + "\t" + element.getName() + "\t" + element.getOriginalNumberofOverlaps() + "\t" + element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t" + numberofPermutations + "\t" + numberofComparisons + "\t" + element.getMean() + "\t" + element.getStdDev() + "\t" + element.getZScore() + "\t" + ( element.getEmpiricalPValueCalculatedFromZScore() == null?element.getEmpiricalPValueCalculatedFromZScore():df.format( element.getEmpiricalPValueCalculatedFromZScore())) + "\t" + ( element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?element.getBonferroniCorrectedPValueCalculatedFromZScore():df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t" + ( element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?element.getBHFDRAdjustedPValueCalculatedFromZScore():df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t" + element.getRejectNullHypothesisCalculatedFromZScore() + "\t" + df.format( element.getEmpiricalPValue()) + "\t" + df.format( element.getBonferroniCorrectedPValue()) + "\t" + df.format( element.getBHFDRAdjustedPValue()) + "\t" + element.isRejectNullHypothesis() + "\t");
@@ -673,16 +692,11 @@ public class CollectionofPermutationsResults {
 			String userDefinedGeneSetOptionalDescriptionInputFile, 
 			String elementType,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLengthForWithZScoreMode,
-			TIntObjectMap<String> cellLineNumber2NameMap,
-			TIntObjectMap<String> tfNumber2NameMap,
-			TIntObjectMap<String> histoneNumber2NameMap,
-			TIntObjectMap<String> geneHugoSymbolNumber2NameMap,
-			TIntObjectMap<String> keggPathwayNumber2NameMap,
-			TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
-			TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap,
-			TIntObjectMap<String> geneID2GeneHugoSymbolMap,
 			int numberofPermutations
 		){
+		
+		
+		
 				
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -725,6 +739,15 @@ public class CollectionofPermutationsResults {
 		// In case of functionalElement contains KEGG Pathway
 		int keggPathwayNumber;
 		
+		//@todo To be Filled
+		TIntObjectMap<String> cellLineNumber2NameMap = null;
+		TIntObjectMap<String> tfNumber2NameMap = null;
+		TIntObjectMap<String> histoneNumber2NameMap = null;
+		TIntObjectMap<String> keggPathwayNumber2NameMap = null;
+		TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = null;
+		TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = null;
+		TIntObjectMap<String> geneID2GeneHugoSymbolMap = null;
+
 		
 		try{
 
@@ -1018,27 +1041,22 @@ public class CollectionofPermutationsResults {
 
 				// Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
-				// Augment KeggPathwayEntry with KeggPathwayName starts
+				// Augment KEGGPathwayEntry with KeggPathwayName starts
 				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayName( dataFolder, list, null, null);
-				// Augment with Kegg Pathway Gene List and Alternate Gene Name
-				// List
-				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder, list,
-						null, null);
+				// Augment with KEGGPathway Gene List and Alternate Gene Name List
+				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder, list,null, null);
 
 			}else if( annotationType.doTFKEGGPathwayAnnotation()){
 				// Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
 				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayName( dataFolder, list, null, null);
-				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder,
-						list, null, null);
+				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder,list, null, null);
 
 			}else if( annotationType.doTFCellLineKEGGPathwayAnnotation()){
 				// Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
-				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName( dataFolder, list,
-						null, null);
-				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder,
-						outputFolder, list, null, null);
+				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName( dataFolder, list,null, null);
+				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder,outputFolder, list, null, null);
 
 			}
 			/************************************************************************************/
@@ -1116,14 +1134,6 @@ public class CollectionofPermutationsResults {
 			String userDefinedGeneSetOptionalDescriptionInputFile, 
 			String elementType,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength,
-			TIntObjectMap<String> cellLineNumber2NameMap,
-			TIntObjectMap<String> tfNumber2NameMap,
-			TIntObjectMap<String> histoneNumber2NameMap,
-			TIntObjectMap<String> geneHugoSymbolNumber2NameMap,
-			TIntObjectMap<String> keggPathwayNumber2NameMap,
-			TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
-			TIntObjectMap<String>userDefinedLibraryElementNumber2ElementNameMap,
-			TIntObjectMap<String> geneID2GeneHugoSymbolMap,
 			int numberofPermutations){
 		
 		FileReader fileReader = null;
@@ -1151,10 +1161,9 @@ public class CollectionofPermutationsResults {
 		int indexofFirstTab;
 		int indexofSecondTab;
 		int indexofThirdTab;
-		int indexofFourthTab;
-		int indexofFifthTab;
 		
 		List<FunctionalElement> list = null;
+		
 		
 		try{
 
@@ -1182,21 +1191,11 @@ public class CollectionofPermutationsResults {
 					indexofFirstTab  = strLine.indexOf('\t');
 					indexofSecondTab = (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) : -1;
 					indexofThirdTab  = (indexofSecondTab>0) ? strLine.indexOf('\t', indexofSecondTab+1): -1;
-					indexofFourthTab = (indexofThirdTab>0) ? strLine.indexOf('\t', indexofThirdTab+1) : -1;
-					indexofFifthTab =  (indexofFourthTab>0) ? strLine.indexOf('\t', indexofFourthTab+1) : -1;
-					
+				
 					
 					// PermutationNumber does not exists
 					mixedNumber = Long.parseLong( strLine.substring( 0, indexofFirstTab));
-					if(indexofFifthTab!=-1){
-						elementName = strLine.substring(indexofFirstTab+1,indexofFourthTab);
-						originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofFourthTab+1,indexofFifthTab));
-						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofFifthTab+1));
-					}else if (indexofFourthTab!=-1){
-						elementName = strLine.substring(indexofFirstTab+1,indexofThirdTab);
-						originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofThirdTab+1,indexofFourthTab));
-						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofFourthTab+1));
-					}else if (indexofThirdTab!=-1){
+					if (indexofThirdTab!=-1){
 						elementName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
 						originalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
 						numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps = Integer.parseInt(strLine.substring(indexofThirdTab+1));
@@ -1244,7 +1243,9 @@ public class CollectionofPermutationsResults {
 						}
 						element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps(numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
 						elementNumber2ElementMap.put( mixedNumber, element);
-					}else{
+					}
+					//There are more than one runs
+					else{
 
 						element = elementNumber2ElementMap.get( mixedNumber);
 						//Accumulate
@@ -1323,31 +1324,35 @@ public class CollectionofPermutationsResults {
 			/************************************************************************************/
 			/***************** AUGMENT WITH KEGG PATHWAY INFORMATION STARTS *********************/
 			/************************************************************************************/
+			if (annotationType.doKEGGPathwayAnnotation() ||
+				annotationType.doTFKEGGPathwayAnnotation() ||
+				annotationType.doTFCellLineKEGGPathwayAnnotation()){
+				
+				keggPathwayNumber2NameMap = getKeggPathwayNumber2NameMapInstance(dataFolder);
+		
+			}
+			
+			
 			if( annotationType.doKEGGPathwayAnnotation()){
 
 				// Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
 				// Augment KeggPathwayEntry with KeggPathwayName starts
 				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayName( dataFolder, list, null, null);
-				// Augment with Kegg Pathway Gene List and Alternate Gene Name
-				// List
-				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder, list,
-						null, null);
+				// Augment with Kegg Pathway Gene List and Alternate Gene Name List
+				KeggPathwayAugmentation.augmentKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder, list,null, null);
 
 			}else if( annotationType.doTFKEGGPathwayAnnotation()){
 				// Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
 				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayName( dataFolder, list, null, null);
-				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder,
-						list, null, null);
+				KeggPathwayAugmentation.augmentTfNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder, outputFolder,list, null, null);
 
 			}else if( annotationType.doTFCellLineKEGGPathwayAnnotation()){
 				// Augment KeggPathwayNumber with KeggPathwayEntry
 				KeggPathwayAugmentation.augmentKeggPathwayNumberWithKeggPathwayEntry( keggPathwayNumber2NameMap, list);
-				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName( dataFolder, list,
-						null, null);
-				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder,
-						outputFolder, list, null, null);
+				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayName( dataFolder, list,null, null);
+				KeggPathwayAugmentation.augmentTfNameCellLineNameKeggPathwayEntrywithKeggPathwayGeneList( dataFolder,outputFolder, list, null, null);
 
 			}
 			/************************************************************************************/
@@ -1377,6 +1382,8 @@ public class CollectionofPermutationsResults {
 		
 	}
 	
+
+	
 	//11 Sep 2015
 	public static void fillNumberToNameMaps(
 			AnnotationType annotationType,
@@ -1402,7 +1409,6 @@ public class CollectionofPermutationsResults {
 		switch( annotationType){
 
 			case DO_DNASE_ANNOTATION:{
-				cellLineNumber2NameMap = new TIntObjectHashMap<String>();
 				FileOperations.fillNumber2NameMap( cellLineNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_ENCODE_DNASE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
@@ -1410,8 +1416,6 @@ public class CollectionofPermutationsResults {
 			}
 		
 			case DO_TF_ANNOTATION:{
-				cellLineNumber2NameMap = new TIntObjectHashMap<String>();
-				tfNumber2NameMap = new TIntObjectHashMap<String>();
 				FileOperations.fillNumber2NameMap( cellLineNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
@@ -1422,8 +1426,6 @@ public class CollectionofPermutationsResults {
 			}
 		
 			case DO_HISTONE_ANNOTATION:{
-				cellLineNumber2NameMap = new TIntObjectHashMap<String>();
-				histoneNumber2NameMap = new TIntObjectHashMap<String>();
 				FileOperations.fillNumber2NameMap( cellLineNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
@@ -1434,8 +1436,6 @@ public class CollectionofPermutationsResults {
 			}
 		
 			case DO_KEGGPATHWAY_ANNOTATION:{
-				geneHugoSymbolNumber2NameMap = new TIntObjectHashMap<String>();
-				keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
 				FileOperations.fillNumber2NameMap( geneHugoSymbolNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME);
@@ -1445,9 +1445,6 @@ public class CollectionofPermutationsResults {
 				break;
 			}
 			case DO_TF_KEGGPATHWAY_ANNOTATION:{
-				tfNumber2NameMap = new TIntObjectHashMap<String>();
-				geneHugoSymbolNumber2NameMap = new TIntObjectHashMap<String>();
-				keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
 				FileOperations.fillNumber2NameMap( tfNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
@@ -1461,10 +1458,6 @@ public class CollectionofPermutationsResults {
 			}
 		
 			case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:{
-				cellLineNumber2NameMap = new TIntObjectHashMap<String>();
-				tfNumber2NameMap = new TIntObjectHashMap<String>();
-				geneHugoSymbolNumber2NameMap = new TIntObjectHashMap<String>();
-				keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
 				FileOperations.fillNumber2NameMap( cellLineNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
@@ -1480,10 +1473,6 @@ public class CollectionofPermutationsResults {
 				break;
 			}
 			case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:{
-				cellLineNumber2NameMap = new TIntObjectHashMap<String>();
-				tfNumber2NameMap = new TIntObjectHashMap<String>();
-				geneHugoSymbolNumber2NameMap = new TIntObjectHashMap<String>();
-				keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
 				FileOperations.fillNumber2NameMap( cellLineNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
@@ -1499,7 +1488,6 @@ public class CollectionofPermutationsResults {
 				break;
 			}
 			case DO_USER_DEFINED_GENESET_ANNOTATION:{
-				userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = new TIntObjectHashMap<String>();
 				FileOperations.fillNumber2NameMap( userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
@@ -1507,8 +1495,7 @@ public class CollectionofPermutationsResults {
 			}
 		
 			case DO_USER_DEFINED_LIBRARY_ANNOTATION:{
-				userDefinedLibraryElementNumber2ElementNameMap = new TIntObjectHashMap<String>();
-		
+				
 				// Fill elmentType based elementNumber2ElementNameMap
 				UserDefinedLibraryUtility.fillNumber2NameMap(
 						userDefinedLibraryElementNumber2ElementNameMap,
@@ -1520,7 +1507,6 @@ public class CollectionofPermutationsResults {
 			}
 		
 			case DO_GENE_ANNOTATION:{
-				geneID2GeneHugoSymbolMap = new TIntObjectHashMap<String>();
 				HumanGenesAugmentation.fillGeneId2GeneHugoSymbolMap( dataFolder, geneID2GeneHugoSymbolMap);
 				break;
 			}
@@ -1560,7 +1546,6 @@ public class CollectionofPermutationsResults {
 		/*******************Common Variable Starts********************************/
 		/******************WithZScores and WithoutZScores*************************/
 		/*************************************************************************/
-		
 		int numberofPermutations;		
 		/*************************************************************************/
 		/*******************Common Variable Ends**********************************/
@@ -1583,36 +1568,6 @@ public class CollectionofPermutationsResults {
 
 				
 
-		/************************************************************************************/
-		/*********************** FILL NUMBER TO NAME MAP STARTS *****************************/
-		/************************************************************************************/
-		TIntObjectMap<String> cellLineNumber2NameMap = null;
-		TIntObjectMap<String> tfNumber2NameMap = null;
-		TIntObjectMap<String> histoneNumber2NameMap = null;
-		TIntObjectMap<String> geneHugoSymbolNumber2NameMap = null;
-		TIntObjectMap<String> keggPathwayNumber2NameMap = null;
-		TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = null;
-		TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = null;
-		TIntObjectMap<String> geneID2GeneHugoSymbolMap = null;
-		
-		//meaningless
-		fillNumberToNameMaps(
-				annotationType,
-				dataFolder,
-				elementType,
-				cellLineNumber2NameMap,
-				tfNumber2NameMap,
-				histoneNumber2NameMap,
-				geneHugoSymbolNumber2NameMap,
-				keggPathwayNumber2NameMap,
-				userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
-				userDefinedLibraryElementNumber2ElementNameMap,
-				geneID2GeneHugoSymbolMap);
-		/************************************************************************************/
-		/*********************** FILL NUMBER TO NAME MAP ENDS *******************************/
-		/************************************************************************************/
-
-		
 		
 		switch(enrichmentZScoreMode){
 		
@@ -1634,14 +1589,6 @@ public class CollectionofPermutationsResults {
 						userDefinedGeneSetOptionalDescriptionInputFile, 
 						elementType,
 						mixedNumberDescriptionOrderLengthWithZScores,
-						cellLineNumber2NameMap,
-						tfNumber2NameMap,
-						histoneNumber2NameMap,
-						geneHugoSymbolNumber2NameMap,
-						keggPathwayNumber2NameMap,
-						userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
-						userDefinedLibraryElementNumber2ElementNameMap,
-						geneID2GeneHugoSymbolMap,
 						numberofPermutations);
 				break;
 				
@@ -1663,14 +1610,6 @@ public class CollectionofPermutationsResults {
 						userDefinedGeneSetOptionalDescriptionInputFile, 
 						elementType,
 						mixedNumberDescriptionOrderLengthWithoutZScores,
-						cellLineNumber2NameMap,
-						tfNumber2NameMap,
-						histoneNumber2NameMap,
-						geneHugoSymbolNumber2NameMap,
-						keggPathwayNumber2NameMap,
-						userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
-						userDefinedLibraryElementNumber2ElementNameMap,
-						geneID2GeneHugoSymbolMap,
 						numberofPermutations);
 				break;
 				
@@ -1858,7 +1797,6 @@ public class CollectionofPermutationsResults {
 			numberofRuns += 1;
 		}
 
-		
 		EnrichmentZScoreMode enrichmentZScoreMode = EnrichmentZScoreMode.convertStringtoEnum(args[CommandLineArguments.EnrichmentZScoreMode.value()]);
 		
 		/************************************************************/

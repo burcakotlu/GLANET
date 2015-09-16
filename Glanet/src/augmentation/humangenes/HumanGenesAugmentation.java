@@ -463,7 +463,8 @@ public class HumanGenesAugmentation {
 	}
 
 	// 1 March 2015
-	public static void fillGeneId2GeneHugoSymbolMap( String dataFolder,
+	public static void fillGeneId2GeneHugoSymbolMap( 
+			String dataFolder,
 			TIntObjectMap<String> geneID2ListofGeneHugoSymbolMap) {
 
 		FileReader fileReader;

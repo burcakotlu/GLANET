@@ -3161,6 +3161,8 @@ public class IntervalTree {
 				break;
 			
 			case INT_10DIGIT_KEGGPATHWAYNUMBER:
+				geneSetNumber = (int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
+				break;
 			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
 				geneSetNumber = (int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000L);
