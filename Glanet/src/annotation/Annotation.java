@@ -70,9 +70,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsKeysWithNumbersAndValuesOneorZero;
@@ -9660,17 +9658,17 @@ public class Annotation {
 						exonBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
 						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY  + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
+						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY  + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
 				writeResultsWithNumbers(
 						regulationBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
 						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
+						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
 				writeResultsWithNumbers(
 						allBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
 						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
+						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
 
 				dateAfter = System.currentTimeMillis();
 

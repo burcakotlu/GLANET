@@ -921,9 +921,9 @@ public class Commons {
 	public static final String ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE = "KEGGPathway_All_Based_number_of_k_out_of_n_search_input_lines.txt";
 
 	public static final String ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.RESULTS + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator");
-	public static final String ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE = "_Exon_Based_number_of_k_out_of_n_search_input_lines.txt";
-	public static final String ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE = "_Regulation_Based_number_of_k_out_of_n_search_input_lines.txt";
-	public static final String ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE = "_All_Based_number_of_k_out_of_n_search_input_lines.txt";
+	public static final String ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE = "Exon_Based_number_of_k_out_of_n_search_input_lines.txt";
+	public static final String ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE = "Regulation_Based_number_of_k_out_of_n_search_input_lines.txt";
+	public static final String ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE = "All_Based_number_of_k_out_of_n_search_input_lines.txt";
 
 	public static final String GENESET_RESULTS = "_results.txt";
 
@@ -1111,9 +1111,9 @@ public class Commons {
 	public static final String ALL_BASED = "AllBased";
 	public static final String NO_GENESET_ANALYSIS_TYPE_IS_DEFINED = "NoGeneSetAnalysisTypeIsDefined";
 
-	public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBased_UserDefinedGeneSet";
-	public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBased_UserDefinedGeneSet";
-	public static final String ALL_BASED_USER_DEFINED_GENESET = "AllBased_UserDefinedGeneSet";
+	public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBased_UDGS";
+	public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBased_UDGS";
+	public static final String ALL_BASED_USER_DEFINED_GENESET = "AllBased_UDGS";
 
 	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBased_KEGGPathway";
 	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBased_KEGGPathway";

@@ -75,7 +75,6 @@ import annotation.Annotation;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 /**
@@ -4970,17 +4969,17 @@ public class Enrichment {
 			fillElementNumber2OriginalKMap( 
 					exonBasedUserDefinedGeneSet2OriginalKMap, 
 					outputFolder,
-					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
 			
 			fillElementNumber2OriginalKMap( 
 					regulationBasedUserDefinedGeneSet2OriginalKMap, 
 					outputFolder,
-					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
 			
 			fillElementNumber2OriginalKMap( 
 					allBasedUserDefinedGeneSet2OriginalKMap, 
 					outputFolder,
-					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
+					Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty("file.separator") + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
 
 
 			annotateWithNumbersForAllChromosomes = new AnnotateWithNumbersForAllChromosomes( 
@@ -5015,7 +5014,8 @@ public class Enrichment {
 
 			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
-					Commons.TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					//Commons.TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET,
 					runName,
 					exonBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations(),
@@ -5028,7 +5028,8 @@ public class Enrichment {
 
 			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
-					Commons.TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					//Commons.TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET,
 					runName,
 					regulationBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations(),
@@ -5041,7 +5042,8 @@ public class Enrichment {
 
 			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
-					Commons.TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					//Commons.TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET,
 					runName,
 					allBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations(),

@@ -1180,7 +1180,6 @@ public class CollectionofPermutationsResults {
 				//Skip Header Line
 				bufferedReader.readLine();
 				
-
 				// Outer While
 				while( ( strLine = bufferedReader.readLine()) != null){
 
@@ -1192,7 +1191,6 @@ public class CollectionofPermutationsResults {
 					indexofSecondTab = (indexofFirstTab>0) ? strLine.indexOf('\t', indexofFirstTab+1) : -1;
 					indexofThirdTab  = (indexofSecondTab>0) ? strLine.indexOf('\t', indexofSecondTab+1): -1;
 				
-					
 					// PermutationNumber does not exists
 					mixedNumber = Long.parseLong( strLine.substring( 0, indexofFirstTab));
 					if (indexofThirdTab!=-1){
@@ -1263,8 +1261,6 @@ public class CollectionofPermutationsResults {
 			/************************************************************************************/
 			/*********************** FOR EACH RUN ENDS ******************************************/
 			/************************************************************************************/
-			
-			
 			
 			/************************************************************************************/
 			/******* COMPUTE EMPIRICAL P VALUE AND BONFERRONI CORRECTED P VALUE STARTS***********/
@@ -1917,8 +1913,8 @@ public class CollectionofPermutationsResults {
 					multipleTestingParameter,
 					dataFolder,
 					outputFolder,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET + "_" + userDefinedGeneSetName,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET + "_" + userDefinedGeneSetName,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET,
 					jobName, numberofRuns, numberofRemainders,
 					numberofComparisons.getExonBasedUserDefinedGeneSetNumberofComparison(),
 					userDefinedGeneSetAnnotationType, 
@@ -1935,8 +1931,8 @@ public class CollectionofPermutationsResults {
 					multipleTestingParameter,
 					dataFolder,
 					outputFolder,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET + "_" + userDefinedGeneSetName,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET + "_" + userDefinedGeneSetName,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET,
 					jobName, numberofRuns, numberofRemainders,
 					numberofComparisons.getRegulationBasedUserDefinedGeneSetNumberofComparison(),
 					userDefinedGeneSetAnnotationType, userDefinedGeneSetDescriptionOptionalInputFile, null,
@@ -1951,8 +1947,8 @@ public class CollectionofPermutationsResults {
 					multipleTestingParameter,
 					dataFolder,
 					outputFolder,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET + "_" + userDefinedGeneSetName,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET + "_" + userDefinedGeneSetName,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET,
 					jobName, numberofRuns, numberofRemainders,
 					numberofComparisons.getAllBasedUserDefinedGeneSetNumberofComparison(),
 					userDefinedGeneSetAnnotationType, userDefinedGeneSetDescriptionOptionalInputFile, null,
