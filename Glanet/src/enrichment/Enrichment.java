@@ -3822,8 +3822,6 @@ public class Enrichment {
 				mixedNumber = itr.key();
 				numberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlaps = itr.value();
 				
-				//We might need to get rid of elementTypeNumber first for User Defined Library case
-				//@to be tested
 				originalNumberofOverlaps = elementNumber2OriginalKMap.get(mixedNumber);
 				
 				switch(annotationType){
@@ -5100,6 +5098,11 @@ public class Enrichment {
 			TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap = new TIntObjectHashMap<TIntObjectMap<IntervalTree>>();
 			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap = null;
 			
+			//17 Sep 2015
+			//Will be used in WriteToBeCollectedWithoutZscores method
+			TIntObjectMap<TIntIntMap> userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap = new TIntObjectHashMap<TIntIntMap>();
+			TIntIntMap userDefinedLibraryElementNumber2OriginalKMap = null;
+			
 			// For each elementTypeNumber
 			for( TIntObjectIterator<String> it = userDefinedLibraryElementTypeNumber2ElementTypeNameMap.iterator(); it.hasNext();){
 
@@ -5149,7 +5152,7 @@ public class Enrichment {
 				elementTypeNumber = it.key();
 				elementTypeName = it.value();
 				
-				TIntIntMap userDefinedLibraryElementNumber2OriginalKMap = new TIntIntHashMap();
+				userDefinedLibraryElementNumber2OriginalKMap = new TIntIntHashMap();
 				
 				// Why don't we fill it before?
 				fillElementNumber2OriginalKMap( 
@@ -5157,8 +5160,11 @@ public class Enrichment {
 						outputFolder,
 						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_DIRECTORY + elementTypeName + Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_FILE);
 				
-				//I should use userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap.
+				//Will be used in writeToBeCollectedWithoutZScores method
+				userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap.put(elementTypeNumber, userDefinedLibraryElementNumber2OriginalKMap);
 				
+				//Will be used in AnnotateWithNumbersForAllChromosomes
+				//I should use userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap.
 				for(TIntIntIterator itr=userDefinedLibraryElementNumber2OriginalKMap.iterator(); itr.hasNext();){
 					
 					itr.advance();
@@ -5238,15 +5244,15 @@ public class Enrichment {
 				TIntIntMap elementNumber2NumberofPermutationsMap = it.value();
 
 				elementTypeName = userDefinedLibraryElementTypeNumber2ElementTypeNameMap.get(elementTypeNumber);
+				
+				
+				userDefinedLibraryElementNumber2OriginalKMap = userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap.get(elementTypeNumber);
 
-				//There can be problem here
-				//elementNumber2NumberofPermutationsMap contains elementNumber without elementTypeNumber
-				//userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap contains elementTypeNumber
-				writeToBeCollectedWithoutZScore( 
+					writeToBeCollectedWithoutZScore( 
 						outputFolder, 
-						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementTypeName,
+						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + Commons.RUNS_DIRECTORY + elementTypeName,
 						runName,
-						userDefinedLibraryElementTypeNumberElementNumber2OriginalKMap,
+						userDefinedLibraryElementNumber2OriginalKMap,
 						elementNumber2NumberofPermutationsMap,
 						userDefinedLibraryAnnotationType,
 						null,
@@ -8485,9 +8491,9 @@ public class Enrichment {
 						
 		}
 
-		//@todo
-		// geneID2OriginalKMap have to be filled?
-		// geneID2HugoSymbolMap have to be filled?
+		
+		
+		
 		// Gene
 		if( geneAnnotationType.doGeneAnnotation()){
 			
