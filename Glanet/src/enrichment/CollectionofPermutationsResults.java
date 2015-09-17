@@ -846,7 +846,6 @@ public class CollectionofPermutationsResults {
 		// In case of functionalElement contains KEGG Pathway
 		int keggPathwayNumber;
 		
-	
 		cellLineNumber2NameMap = getCellLineNumber2NameMapInstance(dataFolder);
 		tfNumber2NameMap = getTFNumber2NameMapInstance(dataFolder);
 		histoneNumber2NameMap = getHistoneNumber2NameMapInstance(dataFolder);
@@ -855,8 +854,67 @@ public class CollectionofPermutationsResults {
 		userDefinedLibraryElementNumber2ElementNameMap = getUserDefinedLibraryElementNumber2ElementNameMapInstance(dataFolder, elementType);
 		geneID2GeneHugoSymbolMap = getGeneID2GeneHugoSymbolMapInstance(dataFolder);
 		
+		switch( annotationType){
+
+			case DO_DNASE_ANNOTATION:{
+				cellLineNumber2NameMap = getCellLineNumber2NameMapInstance(dataFolder);
+				break;
+			}
 		
+			case DO_TF_ANNOTATION:{
+				cellLineNumber2NameMap = getCellLineNumber2NameMapInstance(dataFolder);
+				tfNumber2NameMap = getTFNumber2NameMapInstance(dataFolder);
+				break;
+			}
 		
+			case DO_HISTONE_ANNOTATION:{
+				cellLineNumber2NameMap = getCellLineNumber2NameMapInstance(dataFolder);
+				histoneNumber2NameMap = getHistoneNumber2NameMapInstance(dataFolder);
+				break;
+			}
+		
+			case DO_KEGGPATHWAY_ANNOTATION:{
+				keggPathwayNumber2NameMap = getKeggPathwayNumber2NameMapInstance(dataFolder);
+				break;
+			}
+			case DO_TF_KEGGPATHWAY_ANNOTATION:{
+				tfNumber2NameMap = getTFNumber2NameMapInstance(dataFolder);
+				keggPathwayNumber2NameMap = getKeggPathwayNumber2NameMapInstance(dataFolder);
+				break;
+			}
+		
+			case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:{
+				cellLineNumber2NameMap = getCellLineNumber2NameMapInstance(dataFolder);
+				tfNumber2NameMap = getTFNumber2NameMapInstance(dataFolder);
+				keggPathwayNumber2NameMap = getKeggPathwayNumber2NameMapInstance(dataFolder);
+				break;
+			}
+			case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:{
+				cellLineNumber2NameMap = getCellLineNumber2NameMapInstance(dataFolder);
+				tfNumber2NameMap = getTFNumber2NameMapInstance(dataFolder);
+				keggPathwayNumber2NameMap = getKeggPathwayNumber2NameMapInstance(dataFolder);
+				break;
+			}
+			case DO_USER_DEFINED_GENESET_ANNOTATION:{
+				userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = getUserDefinedGeneSetNumber2UserDefinedGeneSetEntryMapInstance(dataFolder);
+				break;
+			}
+		
+			case DO_USER_DEFINED_LIBRARY_ANNOTATION:{
+				userDefinedLibraryElementNumber2ElementNameMap = getUserDefinedLibraryElementNumber2ElementNameMapInstance(dataFolder, elementType);
+				break;
+			}
+		
+			case DO_GENE_ANNOTATION:{
+				geneID2GeneHugoSymbolMap = getGeneID2GeneHugoSymbolMapInstance(dataFolder);
+				break;
+			}
+			default:{
+				break;
+			}
+	
+		}// End of Switch AnnotationType
+			
 		try{
 
 			/************************************************************************************/
