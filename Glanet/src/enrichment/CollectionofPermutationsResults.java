@@ -61,7 +61,15 @@ public class CollectionofPermutationsResults {
 	final static Logger logger = Logger.getLogger(CollectionofPermutationsResults.class);
 	
 	private static TIntObjectMap<String> keggPathwayNumber2NameMap = null;
+	private static TIntObjectMap<String> cellLineNumber2NameMap = null;
+	private static TIntObjectMap<String> tfNumber2NameMap = null;
+	private static TIntObjectMap<String> histoneNumber2NameMap = null;
+	private static TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = null;
+	private static TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = null;
+	private static TIntObjectMap<String> geneID2GeneHugoSymbolMap = null;
 
+
+	//keggPathwayNumber2NameMap
 	public static TIntObjectMap<String> getKeggPathwayNumber2NameMapInstance(
 			String dataFolder) {
 		
@@ -70,13 +78,114 @@ public class CollectionofPermutationsResults {
 	    	  keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
 	    	  FileOperations.fillNumber2NameMap( 
 	    			  keggPathwayNumber2NameMap,
-						dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
-						Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
+	    			  dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
+	    			  Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
 	      }
 	      
 	      return keggPathwayNumber2NameMap;
-	  }
-
+	 }
+	
+	//cellLineNumber2NameMap
+	public static TIntObjectMap<String> getCellLineNumber2NameMapInstance(
+			String dataFolder) {
+		
+	      if(cellLineNumber2NameMap == null) {
+	    	  
+	    	  cellLineNumber2NameMap = new TIntObjectHashMap<String>();
+	    	  FileOperations.fillNumber2NameMap(
+	    			  cellLineNumber2NameMap,
+						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+						Commons.ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			
+	      }
+	      
+	      return cellLineNumber2NameMap;
+	 }
+	
+	
+	//tfNumber2NameMap
+	public static TIntObjectMap<String> getTFNumber2NameMapInstance(
+			String dataFolder) {
+		
+	      if(tfNumber2NameMap == null) {
+	    	  
+	    	  tfNumber2NameMap = new TIntObjectHashMap<String>();
+	    	  FileOperations.fillNumber2NameMap( 
+	    			  tfNumber2NameMap,
+	    			  dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+	    			  Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
+							
+	      }
+	      
+	      return tfNumber2NameMap;
+	 }
+	
+	
+	//histoneNumber2NameMap
+	public static TIntObjectMap<String> getHistoneNumber2NameMapInstance(
+			String dataFolder) {
+		
+	      if(histoneNumber2NameMap == null) {
+	    	  
+	    	  histoneNumber2NameMap = new TIntObjectHashMap<String>();
+	    	  FileOperations.fillNumber2NameMap( histoneNumber2NameMap,
+						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
+						Commons.ALL_POSSIBLE_ENCODE_HISTONE_NUMBER_2_NAME_OUTPUT_FILENAME);
+									
+	      }
+	      
+	      return histoneNumber2NameMap;
+	 }
+	
+	//userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap
+	public static TIntObjectMap<String> getUserDefinedGeneSetNumber2UserDefinedGeneSetEntryMapInstance(
+			String dataFolder) {
+		
+	      if(userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap == null) {
+	    	  
+	    	  userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = new TIntObjectHashMap<String>();
+	    	  FileOperations.fillNumber2NameMap( userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
+						dataFolder + Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
+						Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
+										
+	      }
+	      
+	      return userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap;
+	 }
+	
+	//userDefinedLibraryElementNumber2ElementNameMap
+	public static TIntObjectMap<String> getUserDefinedLibraryElementNumber2ElementNameMapInstance(
+			String dataFolder,
+			String elementType) {
+		
+	      if(userDefinedLibraryElementNumber2ElementNameMap == null) {
+	    	  
+	    	  userDefinedLibraryElementNumber2ElementNameMap = new TIntObjectHashMap<String>();
+	    	  UserDefinedLibraryUtility.fillNumber2NameMap(
+						userDefinedLibraryElementNumber2ElementNameMap,
+						dataFolder,
+						Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + elementType + System.getProperty( "file.separator"),
+						Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);						
+	      }
+	      
+	      return userDefinedLibraryElementNumber2ElementNameMap;
+	 }
+	
+	//geneID2GeneHugoSymbolMap
+	public static TIntObjectMap<String> getGeneID2GeneHugoSymbolMapInstance(
+			String dataFolder) {
+		
+	      if(geneID2GeneHugoSymbolMap == null) {
+	    	  
+	    	  geneID2GeneHugoSymbolMap = new TIntObjectHashMap<String>();
+	    	  HumanGenesAugmentation.fillGeneId2GeneHugoSymbolMap( dataFolder, geneID2GeneHugoSymbolMap);
+											
+	      }
+	      
+	      return geneID2GeneHugoSymbolMap;
+	 }
+	
+	
 	public static void writeResults_WRT_ZScores_WithMultipleTestingParameter( 
 			String outputFolder, 
 			String fileName, 
@@ -695,8 +804,6 @@ public class CollectionofPermutationsResults {
 			int numberofPermutations
 		){
 		
-		
-		
 				
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -739,15 +846,16 @@ public class CollectionofPermutationsResults {
 		// In case of functionalElement contains KEGG Pathway
 		int keggPathwayNumber;
 		
-		//@todo To be Filled
-		TIntObjectMap<String> cellLineNumber2NameMap = null;
-		TIntObjectMap<String> tfNumber2NameMap = null;
-		TIntObjectMap<String> histoneNumber2NameMap = null;
-		TIntObjectMap<String> keggPathwayNumber2NameMap = null;
-		TIntObjectMap<String> userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = null;
-		TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = null;
-		TIntObjectMap<String> geneID2GeneHugoSymbolMap = null;
-
+	
+		cellLineNumber2NameMap = getCellLineNumber2NameMapInstance(dataFolder);
+		tfNumber2NameMap = getTFNumber2NameMapInstance(dataFolder);
+		histoneNumber2NameMap = getHistoneNumber2NameMapInstance(dataFolder);
+		keggPathwayNumber2NameMap = getKeggPathwayNumber2NameMapInstance(dataFolder);
+		userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = getUserDefinedGeneSetNumber2UserDefinedGeneSetEntryMapInstance(dataFolder);
+		userDefinedLibraryElementNumber2ElementNameMap = getUserDefinedLibraryElementNumber2ElementNameMapInstance(dataFolder, elementType);
+		geneID2GeneHugoSymbolMap = getGeneID2GeneHugoSymbolMapInstance(dataFolder);
+		
+		
 		
 		try{
 
