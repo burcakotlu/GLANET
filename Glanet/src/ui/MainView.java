@@ -572,7 +572,7 @@ public class MainView extends JPanel {
 
 		performEnrichmentPanel.add( performEnrichmentCheckBox);
 
-		performEnrichmentWithZScoresCheckBox = new JCheckBox( "Enrichment With ZScores (requires more memory)");
+		performEnrichmentWithZScoresCheckBox = new JCheckBox( "Enrichment With ZScores");
 		performEnrichmentWithZScoresCheckBox.setSelected(true);
 		performEnrichmentPanel.add( performEnrichmentWithZScoresCheckBox);
 

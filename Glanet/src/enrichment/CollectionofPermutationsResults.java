@@ -845,15 +845,7 @@ public class CollectionofPermutationsResults {
 		
 		// In case of functionalElement contains KEGG Pathway
 		int keggPathwayNumber;
-		
-		cellLineNumber2NameMap = getCellLineNumber2NameMapInstance(dataFolder);
-		tfNumber2NameMap = getTFNumber2NameMapInstance(dataFolder);
-		histoneNumber2NameMap = getHistoneNumber2NameMapInstance(dataFolder);
-		keggPathwayNumber2NameMap = getKeggPathwayNumber2NameMapInstance(dataFolder);
-		userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = getUserDefinedGeneSetNumber2UserDefinedGeneSetEntryMapInstance(dataFolder);
-		userDefinedLibraryElementNumber2ElementNameMap = getUserDefinedLibraryElementNumber2ElementNameMapInstance(dataFolder, elementType);
-		geneID2GeneHugoSymbolMap = getGeneID2GeneHugoSymbolMapInstance(dataFolder);
-		
+				
 		switch( annotationType){
 
 			case DO_DNASE_ANNOTATION:{
