@@ -76,6 +76,11 @@ public class Step4_DDE_GLANETRuns {
 						fileExtension = ".sh";
 						break;
 					}
+					
+					case TRUBA:{
+						fileExtension = ".slurm";
+						break;
+					}
 								
 				}//End of SWITCH
 				
@@ -150,6 +155,29 @@ public class Step4_DDE_GLANETRuns {
 						
 					}
 					
+					case TRUBA:{
+						bufferedWriter.write("#!/bin/bash" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -M truba" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -p mid2" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -J GLANETDeneme" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -N 1" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -n 8" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --time=8:00:00" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --mail-type=ALL" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
+
+						bufferedWriter.write(System.getProperty("line.separator"));
+						
+						bufferedWriter.write("which java" + System.getProperty("line.separator"));
+						bufferedWriter.write("echo \"SLURM_NODELIST $SLURM_NODELIST\"" + System.getProperty("line.separator"));
+						bufferedWriter.write("echo \"NUMBER OF CORES $SLURM_NTASKS\"" + System.getProperty("line.separator"));
+						
+						bufferedWriter.write(System.getProperty("line.separator"));
+
+						break;
+					}
+					
 					default: 
 						break;
 					
@@ -184,6 +212,20 @@ public class Step4_DDE_GLANETRuns {
 				bufferedWriter.write(System.getProperty("line.separator"));
 				call_Runs_WithGCM_BufferedWriter.write(System.getProperty("line.separator"));
 				call_Runs_WithoutGCM_BufferedWriter.write(System.getProperty("line.separator"));
+				
+				
+				//Adding Exit line
+				switch(operatingSystem){
+				
+					case TRUBA:
+						bufferedWriter.write("exit");
+						break;
+						
+					default: 
+						break;
+				
+				}
+				
 				
 				//Close bufferedWriters
 				bufferedWriter.close();

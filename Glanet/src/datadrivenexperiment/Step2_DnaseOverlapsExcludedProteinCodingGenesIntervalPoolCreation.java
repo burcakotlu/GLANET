@@ -272,33 +272,33 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 
 			// CASE2
 			// Partially Discard NonExpressingGenesIntervals Remain All The Intervals If There Is Dnase Overlaps
-			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalTakeAllTheRemainingIntervals()){
-
-				// Should I merge the intervals in overlappingIntervalList?
-				// Not so important for the time being.
-
-				// There is overlap, so put overlappingIntervalsExcludedIntervalList into
-				// dnaseOverlapsExcludedIntervalList
-				if( overlappingIntervalList.size() > 0){
-
-					overlappingIntervalsExcludedIntervalList = excludeOverlaps( originalInterval,
-							overlappingIntervalList);
-
-					// Add only intervals which is not removed!
-					for( int i = 0; i < overlappingIntervalsExcludedIntervalList.size(); i++){
-
-						if( !overlappingIntervalsExcludedIntervalList.get( i).isRemoved()){
-							dnaseOverlapsExcludedIntervalList.add( overlappingIntervalsExcludedIntervalList.get( i));
-						}// End of IF
-
-					}// End of for
-
-				}
-				// There is no overlap, so put original interval into dnaseOverlapsExcludedIntervalList
-				else{
-					dnaseOverlapsExcludedIntervalList.add( originalInterval);
-				}
-			}// END OF CASE2
+//			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalTakeAllTheRemainingIntervals()){
+//
+//				// Should I merge the intervals in overlappingIntervalList?
+//				// Not so important for the time being.
+//
+//				// There is overlap, so put overlappingIntervalsExcludedIntervalList into
+//				// dnaseOverlapsExcludedIntervalList
+//				if( overlappingIntervalList.size() > 0){
+//
+//					overlappingIntervalsExcludedIntervalList = excludeOverlaps( originalInterval,
+//							overlappingIntervalList);
+//
+//					// Add only intervals which is not removed!
+//					for( int i = 0; i < overlappingIntervalsExcludedIntervalList.size(); i++){
+//
+//						if( !overlappingIntervalsExcludedIntervalList.get( i).isRemoved()){
+//							dnaseOverlapsExcludedIntervalList.add( overlappingIntervalsExcludedIntervalList.get( i));
+//						}// End of IF
+//
+//					}// End of for
+//
+//				}
+//				// There is no overlap, so put original interval into dnaseOverlapsExcludedIntervalList
+//				else{
+//					dnaseOverlapsExcludedIntervalList.add( originalInterval);
+//				}
+//			}// END OF CASE2
 
 			// CASE3
 			// Partially Discard NonExpressingGenesIntervals Remain Only The Longest Interval If There Is Dnase Overlaps
@@ -525,7 +525,6 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		// float tpmThreshold = 0.1f;
 		float tpmThreshold = Float.parseFloat( args[3]);
 
-		
 		String tpmString = DataDrivenExperimentCommon.getTPMString(tpmThreshold);
 
 		System.out.println("CellLineType is: " + cellLineType);
@@ -570,7 +569,7 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 			
 				}//End of IF
 				
-			}//End of for DataDrivenExperimentDnaseOverlapExclusionType
+			}//End of for each DataDrivenExperimentDnaseOverlapExclusionType
 						
 		}
 		

@@ -15,7 +15,8 @@ public enum DataDrivenExperimentOperatingSystem {
 	
 	WINDOWS(1),
 	LINUX(2),
-	TURENG_MACHINE(3);
+	TURENG_MACHINE(3),
+	TRUBA(4);
 	
 	private final int dataDrivenExperimentOperatingSystem;
 
@@ -46,20 +47,27 @@ public enum DataDrivenExperimentOperatingSystem {
 			return TURENG_MACHINE;
 		}
 		
+		else if (Commons.TRUBA.equals(dataDrivenExperimentOperatingSystem)){
+			return TRUBA;
+		}
+		
 		else
 			return null;
 	}
 
 	public String convertEnumtoString() {
 
-		if( this.equals( DataDrivenExperimentOperatingSystem.WINDOWS))
+		if( this.equals(DataDrivenExperimentOperatingSystem.WINDOWS))
 			return Commons.WINDOWS;
 		
-		else if( this.equals( DataDrivenExperimentOperatingSystem.LINUX))
+		else if( this.equals(DataDrivenExperimentOperatingSystem.LINUX))
 			return Commons.LINUX;
 		
-		else if( this.equals( DataDrivenExperimentOperatingSystem.TURENG_MACHINE))
+		else if( this.equals(DataDrivenExperimentOperatingSystem.TURENG_MACHINE))
 			return Commons.TURENG_MACHINE;
+		
+		else if( this.equals(DataDrivenExperimentOperatingSystem.TRUBA))
+			return Commons.TRUBA;
 		
 		else
 			return null;
@@ -76,6 +84,11 @@ public enum DataDrivenExperimentOperatingSystem {
 	
 	public boolean isTurengMachine() {
 		return ( this == DataDrivenExperimentOperatingSystem.TURENG_MACHINE);
+	}
+
+	
+	public boolean isTRUBA() {
+		return ( this == DataDrivenExperimentOperatingSystem.TRUBA);
 	}
 
 

@@ -17,10 +17,14 @@ public enum DataDrivenExperimentDnaseOverlapExclusionType {
 
 	COMPLETELY_DISCARD_INTERVAL(1), 
 	PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL(2),
-	PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS(3),
-	NO_DISCARD(4);
+	NO_DISCARD(3);
 	
 
+	//We decided not to use this DnaseOverlapExclusion
+	//Since we will create more than one interval from the given interval
+	//And this may create unnecessary dependency among intervals 
+	//PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS(2),
+		
 	private final int dnaseOverlapExclusionType;
 
 	/*
@@ -48,10 +52,11 @@ public enum DataDrivenExperimentDnaseOverlapExclusionType {
 				return PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL;
 		}
 		
-		else if( Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP.equals( dnaseOverlapExclusionType)){
-			return PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS;
-
-		}else if( Commons.NO_DISCARD.equals( dnaseOverlapExclusionType)){
+//		else if( Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP.equals( dnaseOverlapExclusionType)){
+//			return PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS;
+//		}
+		
+		else if( Commons.NO_DISCARD.equals( dnaseOverlapExclusionType)){
 			return NO_DISCARD;
 			
 		}else
@@ -66,8 +71,8 @@ public enum DataDrivenExperimentDnaseOverlapExclusionType {
 		else if( this.equals( DataDrivenExperimentDnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL))
 			return Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP;
 		
-		else if( this.equals( DataDrivenExperimentDnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS))
-			return Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP;
+//		else if( this.equals( DataDrivenExperimentDnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS))
+//			return Commons.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS_IN_CASE_OF_DNASE_OVERLAP;
 		
 		else if( this.equals( DataDrivenExperimentDnaseOverlapExclusionType.NO_DISCARD))
 			return Commons.NO_DISCARD;
@@ -84,9 +89,9 @@ public enum DataDrivenExperimentDnaseOverlapExclusionType {
 		return ( this == DataDrivenExperimentDnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL);
 	}
 
-	public boolean isPartiallyDiscardIntervalTakeAllTheRemainingIntervals() {
-		return ( this == DataDrivenExperimentDnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS);
-	}
+//	public boolean isPartiallyDiscardIntervalTakeAllTheRemainingIntervals() {
+//		return ( this == DataDrivenExperimentDnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_ALL_THE_REMAINING_INTERVALS);
+//	}
 
 	public boolean isNoDiscard() {
 		return ( this == DataDrivenExperimentDnaseOverlapExclusionType.NO_DISCARD);

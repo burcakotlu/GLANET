@@ -6231,8 +6231,7 @@ public class Enrichment {
 		/******************************* GET HG19 CHROMOSOME SIZES STARTS ***************************************/
 		hg19.GRCh37Hg19Chromosome.initializeChromosomeSizes( hg19ChromosomeSizes);
 		// get the hg19 chromosome sizes
-		hg19.GRCh37Hg19Chromosome.getHg19ChromosomeSizes( hg19ChromosomeSizes, dataFolder,
-				Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		hg19.GRCh37Hg19Chromosome.getHg19ChromosomeSizes( hg19ChromosomeSizes, dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
 		/******************************* GET HG19 CHROMOSOME SIZES ENDS *****************************************/
 		/********************************************************************************************************/
 
@@ -6434,6 +6433,13 @@ public class Enrichment {
 				// First generate Random Data
 
 				startTimeGenerateRandomData = System.currentTimeMillis();
+				
+				//for debug starts
+				if (chromName.equals(ChromosomeName.CHROMOSOME17)){
+					System.out.println("stop here");
+					
+				}
+				//for debug ends
 
 				generateRandomData = new GenerateRandomData(
 						outputFolder, 
@@ -8409,7 +8415,6 @@ public class Enrichment {
 
 		// UserDefinedLibrary
 		TIntIntMap elementTypeNumberElementNumber2OriginalKMap = null;
-		//TIntObjectMap<TIntIntMap> userDefinedLibraryElementTypeNumber2ElementNumber2OriginalKMap = null;
 		
 
 		// KEGGPathway
@@ -8492,12 +8497,9 @@ public class Enrichment {
 		}
 
 		
-		
-		
 		// Gene
 		if( geneAnnotationType.doGeneAnnotation()){
-			
-			
+					
 			geneID2GeneHugoSymbolMap = new TIntObjectHashMap<String>();
 			
 			//Fill geneID2GeneHugoSymbolMap
@@ -8568,7 +8570,6 @@ public class Enrichment {
 		}
 		
 		
-
 		// KEGGPathway
 		if( keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
 
@@ -8588,7 +8589,6 @@ public class Enrichment {
 		}
 		
 		
-
 		// TF KEGGPathway Enrichment
 		if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 				!tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
