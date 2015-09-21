@@ -6434,13 +6434,6 @@ public class Enrichment {
 
 				startTimeGenerateRandomData = System.currentTimeMillis();
 				
-				//for debug starts
-				if (chromName.equals(ChromosomeName.CHROMOSOME17)){
-					System.out.println("stop here");
-					
-				}
-				//for debug ends
-
 				generateRandomData = new GenerateRandomData(
 						outputFolder, 
 						chromSize, 
