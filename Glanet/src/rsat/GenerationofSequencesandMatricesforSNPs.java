@@ -1125,9 +1125,12 @@ public class GenerationofSequencesandMatricesforSNPs {
 	public static void readAllTFAnnotationsWriteSequencesandMatrices(
 			AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs,
 			AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation,
-			Map<String, String> chrName2RefSeqIdforGrch38Map, String forRSAFolder,
-			String all_TF_Annotations_File_1Based_Start_End_GRCh38, Map<String, String> tfName2PfmMatrices,
-			Map<String, String> tfName2LogoMatrices, String enrichmentType) {
+			Map<String, String> chrName2RefSeqIdforGrch38Map, 
+			String forRSAFolder,
+			String all_TF_Annotations_File_1Based_Start_End_GRCh38, 
+			Map<String, String> tfName2PfmMatrices,
+			Map<String, String> tfName2LogoMatrices, 
+			String enrichmentType) {
 
 		FileReader allTFAnnotationsFileReader;
 		BufferedReader allTFAnnotationsBufferedReader;
@@ -1919,6 +1922,17 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		// @todo We have to update this file regularly
 		// Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
+		// BookKeeeping is missing
+		// Where did I download this file from? 
+		// http://www.ncbi.nlm.nih.gov/assembly/organism/9606/all/
+		// Click on the latest assembly
+		// Click on the Download the full sequence report
+		//ftp://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/All/GCF_000001405.30.assembly.txt
+		//ftp://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/All/GCF_000001405.28.assembly.txt
+		//Please note that ncbi eutils does not always returns the latest assembly
+		//ncbi eutils returns its latest assembly stored in the db
+		// so we must first learn the latest assembly returned by ncbi eutils
+		// then load the corresponding chrName2RefSeqId text
 		String refSeqIdsforGRCh38InputFile = Commons.REFSEQ_IDS_FOR_GRCH38_INPUT_FILE;
 		fillMap( dataFolder, refSeqIdsforGRCh38InputFile, chrName2RefSeqIdforGrch38Map);
 
@@ -1938,7 +1952,10 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		// Construct position frequency matrices from Jaspar Core
 		// Construct logo matrices from Jaspar Core
-		constructPfmMatricesandLogoMatricesfromJasparCore( dataFolder, jasparCoreInputFileName, tfName2PfmMatrices,
+		constructPfmMatricesandLogoMatricesfromJasparCore(
+				dataFolder, 
+				jasparCoreInputFileName, 
+				tfName2PfmMatrices,
 				tfName2LogoMatrices);
 
 		AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs;
@@ -1952,9 +1969,14 @@ public class GenerationofSequencesandMatricesforSNPs {
 			if( tfAnnotationType.doTFAnnotation()){
 
 				// Generate Sequences and Matrices for Annotated TF Elements
-				readAllTFAnnotationsWriteSequencesandMatrices( augmentationOfAGivenIntervalWithRsIDs,
-						augmentationOfAGivenRsIdWithInformation, chrName2RefSeqIdforGrch38Map, forRSAFolder,
-						all_TF_Annotations_File_1Based_Start_End_GRCh38, tfName2PfmMatrices, tfName2LogoMatrices,
+				readAllTFAnnotationsWriteSequencesandMatrices(
+						augmentationOfAGivenIntervalWithRsIDs,
+						augmentationOfAGivenRsIdWithInformation, 
+						chrName2RefSeqIdforGrch38Map, 
+						forRSAFolder,
+						all_TF_Annotations_File_1Based_Start_End_GRCh38, 
+						tfName2PfmMatrices, 
+						tfName2LogoMatrices,
 						Commons.TF);
 
 			}

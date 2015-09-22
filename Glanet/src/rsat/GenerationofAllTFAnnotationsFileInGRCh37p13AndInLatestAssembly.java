@@ -39,10 +39,12 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 		String forRSA_REMAP_Folder = outputFolder + Commons.FOR_RSA + System.getProperty( "file.separator") + Commons.NCBI_REMAP + System.getProperty( "file.separator");
 
 		String sourceReferenceAssemblyID = "GCF_000001405.25";
-		// In fact targetReferenceAssemblyID must be the assemblyName that NCBI
-		// ETILS returns (groupLabel)
+		// In fact targetReferenceAssemblyID must be the assemblyName that NCBI EUTILS returns (groupLabel)
 		// args must be augmented with latestNCBIAssemblyName
-		String targetReferenceAssemblyID = "GCF_000001405.26";
+		// String targetReferenceAssemblyID = "GCF_000001405.26";
+		String targetReferenceAssemblyID = "GCF_000001405.28";
+		
+		
 
 		String merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
 		String allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
