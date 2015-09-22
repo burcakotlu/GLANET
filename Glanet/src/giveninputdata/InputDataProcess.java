@@ -94,7 +94,10 @@ public class InputDataProcess {
 	}
 
 	// eutil efetch returns 0-based coordinates for given dbSNP ids
-	public static void readDBSNPIDs( String dataFolder, String inputFileName, Assembly inputFileAssembly,
+	public static void readDBSNPIDs(
+			String dataFolder, 
+			String inputFileName, 
+			Assembly inputFileAssembly,
 			String givenDataFolder) {
 
 		// read the file line by line
@@ -295,7 +298,9 @@ public class InputDataProcess {
 			Remap.remap_show_batches( dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
-			Remap.fillAssemblyName2RefSeqAssemblyIDMap( dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
+			Remap.fillAssemblyName2RefSeqAssemblyIDMap(
+					dataFolder, 
+					Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
 					assemblyName2RefSeqAssemblyIDMap);
 
 			if( !sourceAssemblyName.equals( Commons.EMPTY_STRING)){

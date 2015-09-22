@@ -831,8 +831,12 @@ public class GenerationofSequencesandMatricesforSNPs {
 	}
 
 	public static boolean checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(
-			List<String> snpAlteredSequenceNames, List<String> snpAlteredSequences, List<String> usedObservedAlleles,
-			String snpForwardReferenceSequence, int rsId, List<String> observedAllelesList) {
+			List<String> snpAlteredSequenceNames, 
+			List<String> snpAlteredSequences, 
+			List<String> usedObservedAlleles,
+			String snpForwardReferenceSequence, 
+			int rsId, 
+			List<String> observedAllelesList) {
 
 		boolean contains = false;
 		String formerSNPReferenceSequence = null;

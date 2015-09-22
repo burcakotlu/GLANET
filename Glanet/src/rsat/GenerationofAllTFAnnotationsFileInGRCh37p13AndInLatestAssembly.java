@@ -53,20 +53,33 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
-		Remap.remap( dataFolder, sourceReferenceAssemblyID, targetReferenceAssemblyID,
+		Remap.remap(
+				dataFolder, 
+				sourceReferenceAssemblyID, 
+				targetReferenceAssemblyID,
 				forRSA_REMAP_Folder + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13_BED_FILE,
 				forRSA_REMAP_Folder + Commons.REMAP_DUMMY_OUTPUT_FILE,
 				forRSA_REMAP_Folder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-				forRSA_REMAP_Folder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, merge, allowMultipleLocation,
-				minimumRatioOfBasesThatMustBeRemapped, maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
-				inputFormat, Commons.REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS);
+				forRSA_REMAP_Folder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 
+				merge, 
+				allowMultipleLocation,
+				minimumRatioOfBasesThatMustBeRemapped, 
+				maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+				inputFormat, 
+				Commons.REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS);
 
-		Remap.fillConversionMap( forRSA_REMAP_Folder, Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-				lineNumber2SourceGenomicLociMap, lineNumber2TargetGenomicLociMap);
+		Remap.fillConversionMap(
+				forRSA_REMAP_Folder, 
+				Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
+				lineNumber2SourceGenomicLociMap, 
+				lineNumber2TargetGenomicLociMap);
 
-		Remap.convertTwoGenomicLociPerLineUsingMap( forRSA_Folder,
-				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38, lineNumber2SourceGenomicLociMap,
-				lineNumber2SourceInformationMap, lineNumber2TargetGenomicLociMap, headerLine);
+		Remap.convertTwoGenomicLociPerLineUsingMap( 
+				forRSA_Folder,
+				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38, 
+				lineNumber2SourceGenomicLociMap,
+				lineNumber2SourceInformationMap, 
+				lineNumber2TargetGenomicLociMap, headerLine);
 
 		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
@@ -255,8 +268,12 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 				lineNumber2SourceInformationMap,
 				Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE);
 
-		callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly( dataFolder, outputFolder,
-				lineNumber2SourceGenomicLociMap, lineNumber2SourceInformationMap, lineNumber2TargetGenomicLociMap,
+		callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
+				dataFolder, 
+				outputFolder,
+				lineNumber2SourceGenomicLociMap, 
+				lineNumber2SourceInformationMap, 
+				lineNumber2TargetGenomicLociMap,
 				Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE,
 				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38);
 

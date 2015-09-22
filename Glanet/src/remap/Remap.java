@@ -10,8 +10,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+
 import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.AssemblySource;
@@ -30,7 +33,9 @@ import ui.GlanetRunner;
 public class Remap {
 
 	final static Logger logger = Logger.getLogger(Remap.class);
-	public static void fillAssemblyName2RefSeqAssemblyIDMap( String dataFolder, String supportedAssembliesFileName,
+	public static void fillAssemblyName2RefSeqAssemblyIDMap(
+			String dataFolder, 
+			String supportedAssembliesFileName,
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap) {
 
 		FileReader fileReader = null;
@@ -129,11 +134,11 @@ public class Remap {
 		String line;
 
 		try{
-			bufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + supportedAssembliesFileName));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + supportedAssembliesFileName));
 
 			process = runtime.exec( new String[]{"perl", remapFile, "--mode", "batches"});
 
+			
 			// System.out.println("perl " + remapFile + "--mode batches");
 
 			// here we use Thread.sleep instead of waitFor() because
@@ -149,7 +154,9 @@ public class Remap {
 			// than 10 secs. It is not suggested it you decrease sleep
 			// amount. It might cause that the file won't be written
 			try{
-				Thread.sleep( 10000);
+				//process.waitFor();
+
+				Thread.sleep(10000);
 			}catch( InterruptedException ex){
 				Thread.currentThread().interrupt();
 			}
@@ -353,10 +360,20 @@ public class Remap {
 	 * Pay attention Previous Report File must not be opened in Excel Otherwise
 	 * New Report File can not be updated
 	 */
-	public static void remap( String dataFolder, String sourceAssembly, String targetAssembly, String sourceFileName,
-			String outputFileName, String reportFileName, String genomeWorkbenchProjectFile, String merge,
-			String allowMultipleLocation, double minimumRatioOfBasesThatMustBeRemapped,
-			double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength, String inputFormat, String information) {
+	public static void remap(
+			String dataFolder, 
+			String sourceAssembly, 
+			String targetAssembly, 
+			String sourceFileName,
+			String outputFileName, 
+			String reportFileName, 
+			String genomeWorkbenchProjectFile, 
+			String merge,
+			String allowMultipleLocation, 
+			double minimumRatioOfBasesThatMustBeRemapped,
+			double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength, 
+			String inputFormat, 
+			String information) {
 
 		String remapFile = dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + "remap_api.pl";
 
@@ -408,6 +425,8 @@ public class Remap {
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 
+		Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
+		
 		// remap(dataFolder,"GCF_000001405.25","GCF_000001405.26","C:\\Users\\Bur�ak\\Google Drive\\Output\\NoName\\GivenInputData\\chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed","C:\\Users\\Bur�ak\\Google Drive\\Output\\NoName\\GivenInputData\\chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed");
 		// remap(dataFolder,"GCF_000001405.26","GCF_000001405.25","C:\\Users\\Bur�ak\\Developer\\Java\\GLANET\\Glanet\\src\\remap\\chrName_0Based_StartInclusive_EndExclusive_hg38_coordinates.bed","C:\\Users\\Bur�ak\\Developer\\Java\\GLANET\\Glanet\\src\\remap\\chrName_0Based_StartInclusive_EndExclusive_hg19_coordinates.bed",
 		// Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON,
@@ -419,6 +438,14 @@ public class Remap {
 		// GCF_000001405.25 <----> GRCh37.p13
 		// GCF_000001405.26 <------> GRCh38
 		// GCF_000001405.27 <------> GRCh38.p1
+		
+		Remap.fillAssemblyName2RefSeqAssemblyIDMap(
+				dataFolder, 
+				Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
+				assemblyName2RefSeqAssemblyIDMap);
+		
+		System.out.println("Have a look at assemblyName2RefSeqAssemblyIDMap");
+
 
 	}
 

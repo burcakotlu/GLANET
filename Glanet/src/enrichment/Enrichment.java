@@ -8161,6 +8161,21 @@ public class Enrichment {
 		}
 		// jobName ends
 
+		
+		/***********************************************************************************/
+		/********************FOR SLURM Output starts ***************************************/
+		/***********************************************************************************/
+		//Write if this is a commandLine DataDrivenExperiment Run
+		String glanetRunType = args[CommandLineArguments.GLANETRun.value()];
+		
+		if(glanetRunType.equalsIgnoreCase(Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN)){
+			System.out.println("JobName: " + jobName + "\t" + "Number of processors: " + numberofProcessors); 
+		}
+		/***********************************************************************************/
+		/********************FOR SLURM Output ends *****************************************/
+		/***********************************************************************************/
+	
+		
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
 		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");

@@ -164,7 +164,9 @@ public class InputDataNCBIRemap {
 		Remap.remap_show_batches( dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 
 		Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
-		Remap.fillAssemblyName2RefSeqAssemblyIDMap( dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
+		Remap.fillAssemblyName2RefSeqAssemblyIDMap(
+				dataFolder, 
+				Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
 				assemblyName2RefSeqAssemblyIDMap);
 
 		// sourceReferenceAssemblyID = "GCF_000001405.26";

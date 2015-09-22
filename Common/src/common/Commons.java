@@ -117,6 +117,7 @@ public class Commons {
 	public static final String OUTPUT = "Output";
 	public static final String DATA = "Data";
 	
+	public static final String GLANET = "GLANET";
 	public static final String DDE = "DDE";
 
 	// Sub Folders, Internal Folders

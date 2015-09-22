@@ -30,7 +30,7 @@ import enumtypes.GenerateRandomDataMode;
  */
 public class Step4_DDE_GLANETRuns {
 
-	//For NonExpressingGenes, all of the DataDrivenExperimentDnaseOverlapExclusionType: CompletelyDiscard, NoDiscard, TakeAll, TakeTheLongest
+	//For NonExpressingGenes, all of the DataDrivenExperimentDnaseOverlapExclusionType: CompletelyDiscard, NoDiscard, TakeTheLongest
 	//For ExpressingGenes, only NoDiscard
 	public static void writeGLANETRuns( 
 			int numberofSimulations, 
@@ -57,8 +57,17 @@ public class Step4_DDE_GLANETRuns {
 		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
 		
 		String fileExtension = null;
+		
+		String SBATCH_JOBNAME = null;
 			
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
+			
+			
+			if (withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){
+				SBATCH_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_wGCM"; 
+			}else if (withorWithoutGCandMapability.isGenerateRandomDataModeWithoutMapabilityandGc()){
+				SBATCH_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmString + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_woGCM"; 
+			}
 			
 			if (geneType.isNonExpressingProteinCodingGenes() || 
 				geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard()){
@@ -84,10 +93,10 @@ public class Step4_DDE_GLANETRuns {
 								
 				}//End of SWITCH
 				
-				call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + "call_Runs_withGCM" + fileExtension, true);
+				call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + "sbatch_Calls_" + cellLineType.convertEnumtoString() +  "_wGCM" + fileExtension, true);
 				call_Runs_WithGCM_BufferedWriter = new BufferedWriter(call_Runs_WithGCM_FileWriter);
 				
-				call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + "call_Runs_withoutGCM" + fileExtension, true);
+				call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + "sbatch_Calls_" + cellLineType.convertEnumtoString() + "_woGCM" + fileExtension, true);
 				call_Runs_WithoutGCM_BufferedWriter = new BufferedWriter(call_Runs_WithoutGCM_FileWriter);
 
 				
@@ -122,7 +131,7 @@ public class Step4_DDE_GLANETRuns {
 					
 					case LINUX:{ 
 						bufferedWriter.write("#!/bin/sh" + System.getProperty("line.separator"));
-						bufferedWriter.write("#PBS -l nodes=1:ppn=8" + System.getProperty("line.separator"));
+						bufferedWriter.write("#PBS -l nodes=1:ppn=16" + System.getProperty("line.separator"));
 						bufferedWriter.write("# name of the queue that the job will be sent" + System.getProperty("line.separator"));
 						bufferedWriter.write("#PBS -q cenga" + System.getProperty("line.separator"));
 						bufferedWriter.write("# to use the environment variables of the shell that the job sent" + System.getProperty("line.separator"));
@@ -159,18 +168,17 @@ public class Step4_DDE_GLANETRuns {
 						bufferedWriter.write("#!/bin/bash" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -M truba" + System.getProperty("line.separator"));
 						
-						
-						if(withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){
+						if(withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){	
 							bufferedWriter.write("#SBATCH -p mid1" + System.getProperty("line.separator"));
 						}else if (withorWithoutGCandMapability.isGenerateRandomDataModeWithoutMapabilityandGc()){
 							bufferedWriter.write("#SBATCH -p mid2" + System.getProperty("line.separator"));
 						}
 						
 						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
-						bufferedWriter.write("#SBATCH -J GLANETDeneme" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -J " + SBATCH_JOBNAME + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -N 1" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -n 8" + System.getProperty("line.separator"));
-						bufferedWriter.write("#SBATCH --time=8:00:00" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --time=8-00:00:00" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH --mail-type=ALL" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
 						bufferedWriter.write(System.getProperty("line.separator"));
@@ -216,7 +224,7 @@ public class Step4_DDE_GLANETRuns {
 
 					}// End of SWITCH
 
-				}// End of FOR
+				}// End of FOR each simulation
 				
 				//Add Line Separator
 				bufferedWriter.write(System.getProperty("line.separator"));
