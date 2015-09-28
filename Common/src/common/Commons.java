@@ -82,6 +82,7 @@ public class Commons {
 	public static final String DDE_RUN = "Run";
 	public static final String SCRIPT_FILES = "ScriptFiles";
 	
+	public static final String GLANET_DDE_RESULTS_FILE = "GLANET_DDE_Results.txt";
 	
 	
 	public static final String WINDOWS 	= "WINDOWS";

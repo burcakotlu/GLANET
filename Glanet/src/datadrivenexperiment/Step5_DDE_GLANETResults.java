@@ -336,7 +336,8 @@ public class Step5_DDE_GLANETResults {
 			Float FDR,
 			MultipleTestingType multipleTestingParameter,
 			EnrichmentDecisionType enrichmentDecisionType,
-			GenerateRandomDataMode generateRandomDataMode) {
+			GenerateRandomDataMode generateRandomDataMode,
+			BufferedWriter bufferedWriter) {
 
 		int numberofSimulationsThatHasElementNameCellLineNameEnriched = 0;
 
@@ -473,7 +474,8 @@ public class Step5_DDE_GLANETResults {
 			}// End of FOR each simulation
 
 			System.out.println("Number of simulations that has " + elementNameType.convertEnumtoString() + "_" + cellLineType.convertEnumtoString() + " is enriched " + numberofSimulationsThatHasElementNameCellLineNameEnriched + " out of " + numberofSimulations + " simulations.");
-
+			bufferedWriter.write(elementNameType.convertEnumtoString() +  "_" + cellLineType.convertEnumtoString() + "\t" + numberofSimulationsThatHasElementNameCellLineNameEnriched + "/" +  numberofSimulations + System.getProperty("line.separator"));
+			
 		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -512,6 +514,7 @@ public class Step5_DDE_GLANETResults {
 		String glanetFolder = args[0];
 		String dataFolder 	= glanetFolder + System.getProperty( "file.separator") + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = glanetFolder + System.getProperty( "file.separator") + Commons.OUTPUT + System.getProperty( "file.separator");
+		String ddeFolder 	= glanetFolder + System.getProperty( "file.separator") + Commons.DDE + System.getProperty( "file.separator");
 		
 		//cellLineType
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
@@ -538,143 +541,174 @@ public class Step5_DDE_GLANETResults {
 		int numberofTFElementsInThisCellLine = 0;
 		int numberofHistoneElementsInThisCellLine = 0;
 		
-		switch(cellLineType){
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
 		
-			case GM12878: {
-				numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.GM12878);
-				numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.GM12878);
-				break;				
-			}
+		try {
+			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.GLANET_DDE_RESULTS_FILE, true);
+			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			case K562: {
-				numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.K562);
-				numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.K562);
-				break;				
-			}
+		
+		
+			switch(cellLineType){
+			
+				case GM12878: {
+					numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.GM12878);
+					numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.GM12878);
+					break;				
+				}
 				
-			default: 
-				break;
+				case K562: {
+					numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.K562);
+					numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.K562);
+					break;				
+				}
+					
+				default: 
+					break;
+			
+			
+			}//end of SWITCH
+			
+	
+			//enrichmentDecisionType
+			//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_ZSCORE
+			//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_ZSCORE
+			//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
+			//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
+			EnrichmentDecisionType enrichmentDecisionType = EnrichmentDecisionType.convertStringtoEnum(args[8]);
+	
+			//numberofSimulations
+			int numberofSimulations = ( args.length > 9)?Integer.parseInt(args[9]):0;
+	
+			//generateRandomDataMode
+			GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[10]);
+			
+			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString() + "\t" + tpmString  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
+			
+			bufferedWriter.write("Expressors" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
+			
+			//Expressor
+			readSimulationGLANETResults(
+					outputFolder, 
+					tpmString, 
+					dnaseOverlapExclusionType, 
+					numberofSimulations,
+					numberofTFElementsInThisCellLine, 
+					ElementType.TF, 
+					cellLineType, 
+					geneType,
+					DataDrivenExperimentElementNameType.POL2,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					enrichmentDecisionType,
+					generateRandomDataMode,
+					bufferedWriter);
+			
+			//Expressor
+			readSimulationGLANETResults(
+					outputFolder, 
+					tpmString, 
+					dnaseOverlapExclusionType, 
+					numberofSimulations,
+					numberofHistoneElementsInThisCellLine, 
+					ElementType.HISTONE, 
+					cellLineType,
+					geneType,
+					DataDrivenExperimentElementNameType.H3K4ME1,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					enrichmentDecisionType,
+					generateRandomDataMode,
+					bufferedWriter);
+			
+			//Expressor
+			readSimulationGLANETResults(
+					outputFolder, 
+					tpmString, 
+					dnaseOverlapExclusionType, 
+					numberofSimulations,
+					numberofHistoneElementsInThisCellLine, 
+					ElementType.HISTONE, 
+					cellLineType, 
+					geneType,
+					DataDrivenExperimentElementNameType.H3K4ME2,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					enrichmentDecisionType,
+					generateRandomDataMode,
+					bufferedWriter);
+	
+	
+			
+			//Expressor
+			readSimulationGLANETResults(
+					outputFolder, 
+					tpmString, 
+					dnaseOverlapExclusionType, 
+					numberofSimulations,
+					numberofHistoneElementsInThisCellLine, 
+					ElementType.HISTONE, 
+					cellLineType, 
+					geneType,
+					DataDrivenExperimentElementNameType.H3K4ME3,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					enrichmentDecisionType,
+					generateRandomDataMode,
+					bufferedWriter);
+			
+			bufferedWriter.write("Repressors" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
+			
+			//Repressor
+			readSimulationGLANETResults(
+					outputFolder, 
+					tpmString, 
+					dnaseOverlapExclusionType, 
+					numberofSimulations,
+					numberofHistoneElementsInThisCellLine, 
+					ElementType.HISTONE, 
+					cellLineType, 
+					geneType,
+					DataDrivenExperimentElementNameType.H3K27ME3,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					enrichmentDecisionType,
+					generateRandomDataMode,
+					bufferedWriter);
+			
+			//Repressor
+			readSimulationGLANETResults(
+					outputFolder, 
+					tpmString, 
+					dnaseOverlapExclusionType, 
+					numberofSimulations,
+					numberofHistoneElementsInThisCellLine, 
+					ElementType.HISTONE, 
+					cellLineType, 
+					geneType,
+					DataDrivenExperimentElementNameType.H3K9ME3,
+					bonferroniCorrectionSignificanceLevel, 
+					FDR, 
+					multipleTestingParameter, 
+					enrichmentDecisionType,
+					generateRandomDataMode,
+					bufferedWriter);
+			
+			bufferedWriter.write(System.getProperty("line.separator"));
+			
+			//Close BufferedWriter
+			bufferedWriter.close();
 		
-		
-		}//end of SWITCH
-		
-
-		//enrichmentDecisionType
-		//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_ZSCORE
-		//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_ZSCORE
-		//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
-		//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
-		EnrichmentDecisionType enrichmentDecisionType = EnrichmentDecisionType.convertStringtoEnum(args[8]);
-
-		//numberofSimulations
-		int numberofSimulations = ( args.length > 9)?Integer.parseInt(args[9]):0;
-
-		//generateRandomDataMode
-		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[10]);
-		
-		//Expressor
-		readSimulationGLANETResults(
-				outputFolder, 
-				tpmString, 
-				dnaseOverlapExclusionType, 
-				numberofSimulations,
-				numberofTFElementsInThisCellLine, 
-				ElementType.TF, 
-				cellLineType, 
-				geneType,
-				DataDrivenExperimentElementNameType.POL2,
-				bonferroniCorrectionSignificanceLevel, 
-				FDR, 
-				multipleTestingParameter, 
-				enrichmentDecisionType,
-				generateRandomDataMode);
-		
-		//Expressor
-		readSimulationGLANETResults(
-				outputFolder, 
-				tpmString, 
-				dnaseOverlapExclusionType, 
-				numberofSimulations,
-				numberofHistoneElementsInThisCellLine, 
-				ElementType.HISTONE, 
-				cellLineType,
-				geneType,
-				DataDrivenExperimentElementNameType.H3K4ME1,
-				bonferroniCorrectionSignificanceLevel, 
-				FDR, 
-				multipleTestingParameter, 
-				enrichmentDecisionType,
-				generateRandomDataMode);
-		
-		//Expressor
-		readSimulationGLANETResults(
-				outputFolder, 
-				tpmString, 
-				dnaseOverlapExclusionType, 
-				numberofSimulations,
-				numberofHistoneElementsInThisCellLine, 
-				ElementType.HISTONE, 
-				cellLineType, 
-				geneType,
-				DataDrivenExperimentElementNameType.H3K4ME2,
-				bonferroniCorrectionSignificanceLevel, 
-				FDR, 
-				multipleTestingParameter, 
-				enrichmentDecisionType,
-				generateRandomDataMode);
-
-
-		
-		//Expressor
-		readSimulationGLANETResults(
-				outputFolder, 
-				tpmString, 
-				dnaseOverlapExclusionType, 
-				numberofSimulations,
-				numberofHistoneElementsInThisCellLine, 
-				ElementType.HISTONE, 
-				cellLineType, 
-				geneType,
-				DataDrivenExperimentElementNameType.H3K4ME3,
-				bonferroniCorrectionSignificanceLevel, 
-				FDR, 
-				multipleTestingParameter, 
-				enrichmentDecisionType,
-				generateRandomDataMode);
-		
-		//Repressor
-		readSimulationGLANETResults(
-				outputFolder, 
-				tpmString, 
-				dnaseOverlapExclusionType, 
-				numberofSimulations,
-				numberofHistoneElementsInThisCellLine, 
-				ElementType.HISTONE, 
-				cellLineType, 
-				geneType,
-				DataDrivenExperimentElementNameType.H3K27ME3,
-				bonferroniCorrectionSignificanceLevel, 
-				FDR, 
-				multipleTestingParameter, 
-				enrichmentDecisionType,
-				generateRandomDataMode);
-		
-		//Repressor
-		readSimulationGLANETResults(
-				outputFolder, 
-				tpmString, 
-				dnaseOverlapExclusionType, 
-				numberofSimulations,
-				numberofHistoneElementsInThisCellLine, 
-				ElementType.HISTONE, 
-				cellLineType, 
-				geneType,
-				DataDrivenExperimentElementNameType.H3K9ME3,
-				bonferroniCorrectionSignificanceLevel, 
-				FDR, 
-				multipleTestingParameter, 
-				enrichmentDecisionType,
-				generateRandomDataMode);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 				
 				
 	}

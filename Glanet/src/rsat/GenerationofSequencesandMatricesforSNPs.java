@@ -1062,7 +1062,10 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	// Requires chrName without preceeding "chr" string
 	// Requires oneBased coordinates
-	public static String getDNASequence( String chrNamewithoutPreceedingChr, int oneBasedStart, int oneBasedEnd,
+	public static String getDNASequence( 
+			String chrNamewithoutPreceedingChr, 
+			int oneBasedStart, 
+			int oneBasedEnd,
 			Map<String, String> chrName2RefSeqIdforGrch38Map) {
 
 		String sourceHTML = null;
@@ -1933,6 +1936,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 		//ncbi eutils returns its latest assembly stored in the db
 		// so we must first learn the latest assembly returned by ncbi eutils
 		// then load the corresponding chrName2RefSeqId text
+		// snp reference sequence getiriken latest assembly returned by ncbi eutils geliyor.
+		// look at getDNASequence method
 		String refSeqIdsforGRCh38InputFile = Commons.REFSEQ_IDS_FOR_GRCH38_INPUT_FILE;
 		fillMap( dataFolder, refSeqIdsforGRCh38InputFile, chrName2RefSeqIdforGrch38Map);
 
