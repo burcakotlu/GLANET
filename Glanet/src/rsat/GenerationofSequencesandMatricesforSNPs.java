@@ -18,13 +18,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import jaxbxjctool.AugmentationofGivenIntervalwithRsIds;
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
+import jaxbxjctool.NCBIEutils;
 import jaxbxjctool.PositionFrequency;
 import jaxbxjctool.RsInformation;
+import remap.Remap;
 import ui.GlanetRunner;
 
 import org.apache.log4j.Logger;
+
 import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.AnnotationType;
@@ -673,9 +677,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 		}
 	}
 
-	public static void writeTFBasedTFOverlapsFileAndTFPeakSequenceFile( String snpDirectory,
-			Map<String, TFOverlaps> tfName2TFOverlapMap, String chrNameWithoutPreceedingChr,
-			Map<String, String> chrName2RefSeqIdforGrch38Map) {
+	public static void writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(
+			String snpDirectory,
+			Map<String, TFOverlaps> tfName2TFOverlapMap, 
+			String chrNameWithoutPreceedingChr,
+			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap) {
 
 		String tfName;
 		TFOverlaps tfOverlap;
@@ -720,9 +726,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 				TFNameBasedTFOverlapsBufferedWriter.close();
 
 				// Get TF Name Based TFOverlap Peak Sequence
-				tfOverlap.setPeakSequence( getDNASequence( chrNameWithoutPreceedingChr,
-						tfOverlap.getMinimumOneBasedStart(), tfOverlap.getMaximumOneBasedEnd(),
-						chrName2RefSeqIdforGrch38Map));
+				tfOverlap.setPeakSequence( getDNASequence( 
+						chrNameWithoutPreceedingChr,
+						tfOverlap.getMinimumOneBasedStart(), 
+						tfOverlap.getMaximumOneBasedEnd(),
+						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap));
 
 				// Write TF Name Based TFOverlap Peak Sequence
 				writeSequenceFile( snpDirectory, Commons.TF_EXTENDED_PEAK_SEQUENCE + Commons.UNDERSCORE + tfName,
@@ -1066,12 +1074,12 @@ public class GenerationofSequencesandMatricesforSNPs {
 			String chrNamewithoutPreceedingChr, 
 			int oneBasedStart, 
 			int oneBasedEnd,
-			Map<String, String> chrName2RefSeqIdforGrch38Map) {
+			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap) {
 
 		String sourceHTML = null;
 		String refSeqId;
 
-		refSeqId = chrName2RefSeqIdforGrch38Map.get( chrNamewithoutPreceedingChr);
+		refSeqId = chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap.get( chrNamewithoutPreceedingChr);
 
 		// GlanetRunner.appendLog("EFETCH RESULT:");
 		// Read from the URL
@@ -1128,9 +1136,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 	public static void readAllTFAnnotationsWriteSequencesandMatrices(
 			AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs,
 			AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation,
-			Map<String, String> chrName2RefSeqIdforGrch38Map, 
+			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap, 
 			String forRSAFolder,
-			String all_TF_Annotations_File_1Based_Start_End_GRCh38, 
+			String all_TF_Annotations_File_1Based_Start_End_LatestAssemblyReturnedFromNCBIEutils, 
 			Map<String, String> tfName2PfmMatrices,
 			Map<String, String> tfName2LogoMatrices, 
 			String enrichmentType) {
@@ -1234,7 +1242,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// rare but it is possible.
 
 		try{
-			allTFAnnotationsFileReader = new FileReader( forRSAFolder + all_TF_Annotations_File_1Based_Start_End_GRCh38);
+			allTFAnnotationsFileReader = new FileReader( forRSAFolder + all_TF_Annotations_File_1Based_Start_End_LatestAssemblyReturnedFromNCBIEutils);
 			allTFAnnotationsBufferedReader = new BufferedReader( allTFAnnotationsFileReader);
 
 			/****************************************************************************************/
@@ -1552,10 +1560,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 				// Get Fasta File for each SNP
 				// Get SNP Reference DNA Sequence from fasta file for each SNP
-				fastaFile = getDNASequence( snpInformation.getChrNameWithoutPreceedingChr(),
+				fastaFile = getDNASequence(
+						snpInformation.getChrNameWithoutPreceedingChr(),
 						snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,
 						snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,
-						chrName2RefSeqIdforGrch38Map);
+						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 
 				snpInformation.setFastaFile( fastaFile);
 				snpReferenceSequence = getDNASequenceFromFastaFile( fastaFile);
@@ -1633,8 +1642,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 				/************** Write TF PEAK Sequence starts ***************************************/
 				/**********************************************************************************/
 				tfName2TFOverlapsMap = givenSNP2TFName2TFOverlapsMapMap.get( givenSNPKey);
-				writeTFBasedTFOverlapsFileAndTFPeakSequenceFile( snpDirectory, tfName2TFOverlapsMap,
-						snpInformation.getChrNameWithoutPreceedingChr(), chrName2RefSeqIdforGrch38Map);
+				writeTFBasedTFOverlapsFileAndTFPeakSequenceFile( 
+						snpDirectory, 
+						tfName2TFOverlapsMap,
+						snpInformation.getChrNameWithoutPreceedingChr(), 
+						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 				/**********************************************************************************/
 				/************** Write TF Name Based TF Overlaps File ends ***************************/
 				/************** Write TF PEAK Sequence ends *****************************************/
@@ -1667,69 +1679,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 	// Contains X for chrX
 	// Contains 1 for chr1
 
-	// # Sequence-Name Sequence-Role Assigned-Molecule
-	// Assigned-Molecule-Location/Type GenBank-Accn Relationship RefSeq-Accn
-	// Assembly-Unit
-	// 1 assembled-molecule 1 Chromosome CM000663.1 = NC_000001.10 Primary
-	// Assembly
-	// X assembled-molecule X Chromosome CM000685.1 = NC_000023.10 Primary
-	// Assembly
-	public static void fillMap( String dataFolder, String refSeqIdsforGRChXXInputFile,
-			Map<String, String> chrName2RefSeqIdforGrchXXMap) {
-
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-
-		String strLine = null;
-		int numberofChromosomesinHomoSapiens = 24;
-		int count = 0;
-
-		int indexofFirstTab;
-		int indexofSecondTab;
-		int indexofThirdTab;
-		int indexofFourthTab;
-		int indexofFifthTab;
-		int indexofSixthTab;
-		int indexofSeventhTab;
-
-		String chrName;
-		String refSeqId;
-
-		try{
-			fileReader = new FileReader( dataFolder + refSeqIdsforGRChXXInputFile);
-			bufferedReader = new BufferedReader( fileReader);
-
-			while( ( strLine = bufferedReader.readLine()) != null){
-				if( strLine.startsWith( "#")){
-					continue;
-				}else{
-					if( count < numberofChromosomesinHomoSapiens){
-						count++;
-
-						indexofFirstTab = strLine.indexOf( '\t');
-						indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
-						indexofThirdTab = strLine.indexOf( '\t', indexofSecondTab + 1);
-						indexofFourthTab = strLine.indexOf( '\t', indexofThirdTab + 1);
-						indexofFifthTab = strLine.indexOf( '\t', indexofFourthTab + 1);
-						indexofSixthTab = strLine.indexOf( '\t', indexofFifthTab + 1);
-						indexofSeventhTab = strLine.indexOf( '\t', indexofSixthTab + 1);
-
-						chrName = strLine.substring( 0, indexofFirstTab);
-						refSeqId = strLine.substring( indexofSixthTab + 1, indexofSeventhTab);
-
-						chrName2RefSeqIdforGrchXXMap.put( chrName, refSeqId);
-						continue;
-
-					}
-				}
-
-				break;
-			}
-		}catch( IOException e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 
 	// Pay Attention
 	// Contains X for chrX
@@ -1916,30 +1866,71 @@ public class GenerationofSequencesandMatricesforSNPs {
 		String jasparCoreInputFileName = Commons.JASPAR_CORE;
 
 		// TF
-		String all_TF_Annotations_File_1Based_Start_End_GRCh38 = Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38;
+		String all_TF_Annotations_File_1Based_Start_End_LatestAssemblyReturnedByNCBIEutils = Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_LATEST_ASSEMBLY_RETURNED_BY_NCBI_EUTILS;
 
 		// Example Data
 		// 7 NC_000007.13 GRCh37
 		// Chromosome 7 CM000669.2 = NC_000007.14 0 GRCh37
-		Map<String, String> chrName2RefSeqIdforGrch38Map = new HashMap<String, String>();
+		Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap = new HashMap<String, String>();
 
-		// @todo We have to update this file regularly
-		// Construct map for refSeq Ids of homo sapiens chromosomes for GRCh37
-		// BookKeeeping is missing
-		// Where did I download this file from? 
-		// http://www.ncbi.nlm.nih.gov/assembly/organism/9606/all/
-		// Click on the latest assembly
-		// Click on the Download the full sequence report
-		//ftp://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/All/GCF_000001405.30.assembly.txt
-		//ftp://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/All/GCF_000001405.28.assembly.txt
-		//Please note that ncbi eutils does not always returns the latest assembly
-		//ncbi eutils returns its latest assembly stored in the db
-		// so we must first learn the latest assembly returned by ncbi eutils
-		// then load the corresponding chrName2RefSeqId text
-		// snp reference sequence getiriken latest assembly returned by ncbi eutils geliyor.
-		// look at getDNASequence method
-		String refSeqIdsforGRCh38InputFile = Commons.REFSEQ_IDS_FOR_GRCH38_INPUT_FILE;
-		fillMap( dataFolder, refSeqIdsforGRCh38InputFile, chrName2RefSeqIdforGrch38Map);
+			
+		
+		/***************************************************************************************/
+		/***********************************Part1 starts****************************************/
+		/***************************************************************************************/
+		String latestAssemblyNameReturnedByNCBIEutils = null;
+		latestAssemblyNameReturnedByNCBIEutils = NCBIEutils.getLatestAssemblyNameReturnedByNCBIEutils();
+		/***************************************************************************************/
+		/***********************************Part1 ends******************************************/
+		/***************************************************************************************/
+		
+		
+		
+		/***************************************************************************************/
+		/***********************************Part2 starts****************************************/
+		/***************************************************************************************/
+		Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
+		
+		Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+		
+		Remap.fillAssemblyName2RefSeqAssemblyIDMap(
+				dataFolder, 
+				Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
+				assemblyName2RefSeqAssemblyIDMap);
+		/***************************************************************************************/
+		/***********************************Part2 ends******************************************/
+		/***************************************************************************************/
+	
+
+		/***************************************************************************************/
+		/***********************************Part3 starts****************************************/
+		/***************************************************************************************/
+		String refSeqAssemblyID = NCBIEutils.getRefSeqAssemblyID(latestAssemblyNameReturnedByNCBIEutils, assemblyName2RefSeqAssemblyIDMap);
+		/***************************************************************************************/
+		/***********************************Part3 ends******************************************/
+		/***************************************************************************************/
+		
+		
+		
+		/***************************************************************************************/
+		/***********************************Part4 starts****************************************/
+		/***************************************************************************************/
+		// Download from  ftp://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/All/RefSeqAssemblyID.assembly.txt
+		String assemblyReportFileName = Commons.ASSEMBLY_REPORTS +  refSeqAssemblyID + Commons.ASSEMBLY_REPORTS_FILE_EXTENSION ;
+		NCBIEutils.getAssemblyReport(refSeqAssemblyID, dataFolder, assemblyReportFileName);
+		/***************************************************************************************/
+		/***********************************Part4 ends******************************************/
+		/***************************************************************************************/
+		
+		
+		
+		/***************************************************************************************/
+		/***********************************Part5 starts****************************************/
+		/***************************************************************************************/
+		NCBIEutils.fillChrName2RefSeqIDMap( dataFolder, assemblyReportFileName, chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
+		/***************************************************************************************/
+		/***********************************Part5 ends******************************************/
+		/***************************************************************************************/
 
 		// Construct pfm matrices from encode-motif.txt file
 		// A tf can have more than one pfm matrices
@@ -1977,9 +1968,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 				readAllTFAnnotationsWriteSequencesandMatrices(
 						augmentationOfAGivenIntervalWithRsIDs,
 						augmentationOfAGivenRsIdWithInformation, 
-						chrName2RefSeqIdforGrch38Map, 
+						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap, 
 						forRSAFolder,
-						all_TF_Annotations_File_1Based_Start_End_GRCh38, 
+						all_TF_Annotations_File_1Based_Start_End_LatestAssemblyReturnedByNCBIEutils, 
 						tfName2PfmMatrices, 
 						tfName2LogoMatrices,
 						Commons.TF);

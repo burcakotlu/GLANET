@@ -25,7 +25,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 import ui.GlanetRunner;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Nov 25, 2014
  * @project Glanet
  *
@@ -33,6 +33,7 @@ import ui.GlanetRunner;
 public class Remap {
 
 	final static Logger logger = Logger.getLogger(Remap.class);
+	
 	public static void fillAssemblyName2RefSeqAssemblyIDMap(
 			String dataFolder, 
 			String supportedAssembliesFileName,
@@ -92,7 +93,7 @@ public class Remap {
 
 						species = strLine.substring( indexofFirstTab + 1, indexofSecondTab);
 
-						if( species.equals( "Homo sapiens")){
+						if( species.equals(Commons.NCBI_REMAP_HOMO_SAPIENS)){
 							sourceAssemblyName = strLine.substring( indexofSecondTab + 1, indexofThirdTab);
 							sourceRefSeqAssemblyId = strLine.substring( indexofFourthTab + 1, indexofFifthTab);
 
@@ -119,12 +120,15 @@ public class Remap {
 
 		}catch( IOException e){
 
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
+			if( GlanetRunner.shouldLog()) logger.error( e.toString());
 		}
 
 	}
 
-	public static void remap_show_batches( String dataFolder, String supportedAssembliesFileName) {
+	//Fill NCBI_REMAP_Supported_Assemblies
+	public static void remap_show_batches( 
+			String dataFolder, 
+			String supportedAssembliesFileName) {
 
 		String remapFile = dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + "remap_api.pl";
 		Runtime runtime = Runtime.getRuntime();
@@ -516,7 +520,9 @@ public class Remap {
 	/*
 	 * InputFileSourceAssembly contains two genomic loci per line.
 	 */
-	public static void convertTwoGenomicLociPerLineUsingMap( String outputFolder, String outputFileInTargetAssembly,
+	public static void convertTwoGenomicLociPerLineUsingMap( 
+			String outputFolder, 
+			String outputFileInTargetAssembly,
 			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 			TIntObjectMap<String> lineNumber2SourceInformationMap,
 			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, String headerLine) {
@@ -593,8 +599,11 @@ public class Remap {
 
 	}
 
-	public static void fillConversionMap( String outputFolder, String remapReportFile,
-			TIntObjectMap<String> lineNumber2SourceGenomicLociMap, TIntObjectMap<String> lineNumber2TargetGenomicLociMap) {
+	public static void fillConversionMap(
+			String outputFolder, 
+			String remapReportFile,
+			TIntObjectMap<String> lineNumber2SourceGenomicLociMap, 
+			TIntObjectMap<String> lineNumber2TargetGenomicLociMap) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;

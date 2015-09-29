@@ -67,7 +67,9 @@ public class AugmentationofGivenIntervalwithRsIds {
 
 	// Requires oneBased positions
 	// Requires chrName without preceeding "chr" string
-	public List<Integer> getRsIdsInAGivenInterval( String chrNamewithoutPreceedingChr, int givenIntervalStartOneBased,
+	public List<Integer> getRsIdsInAGivenInterval(
+			String chrNamewithoutPreceedingChr, 
+			int givenIntervalStartOneBased,
 			int givenIntervalEndOneBased) {
 
 		List<Integer> rsIdList = new ArrayList<Integer>();
@@ -76,8 +78,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 		// esearch default retmode is xml or it can be set to json
 		// chrName is without "chr", ex: 1, X, Y, 17...
 
-		// Old way
-		// String
+		// Old way String
 		// eSearchString="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=snp&term="+
 		// givenIntervalStartOneBased + ":" + givenIntervalEndOneBased +
 		// "[Base Position] AND "+ chrNamewithoutPreceedingChr

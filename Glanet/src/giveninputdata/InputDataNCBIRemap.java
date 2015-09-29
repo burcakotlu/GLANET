@@ -131,8 +131,13 @@ public class InputDataNCBIRemap {
 
 	}
 
-	public static void convertGivenInputCoordinatesFromGRCh38toGRCh37p13UsingRemap( String givenInputDataFolder,
-			String dataFolder, String inputFile, Assembly sourceAssembly, String outputFile, Assembly targetAssembly) {
+	public static void convertGivenInputCoordinatesFromGRCh38toGRCh37p13UsingRemap(
+			String givenInputDataFolder,
+			String dataFolder, 
+			String inputFile, 
+			Assembly sourceAssembly, 
+			String outputFile, 
+			Assembly targetAssembly) {
 
 		/**********************************************************/
 		/********** NCBI REMAP PARAMETERS starts ******************/
@@ -144,26 +149,27 @@ public class InputDataNCBIRemap {
 		String targetReferenceAssemblyID = null;
 
 		switch( sourceAssembly){
-		case GRCh37_p13:
-			sourceAssemblyName = Commons.GRCH37_P13;
-			break;
-		case GRCh38:
-			sourceAssemblyName = Commons.GRCH38;
-			break;
+			case GRCh37_p13:
+				sourceAssemblyName = Commons.GRCH37_P13;
+				break;
+			case GRCh38:
+				sourceAssemblyName = Commons.GRCH38;
+				break;
 		}// End of Switch
-
+	
 		switch( targetAssembly){
-		case GRCh37_p13:
-			targetAssemblyName = Commons.GRCH37_P13;
-			break;
-		case GRCh38:
-			targetAssemblyName = Commons.GRCH38;
-			break;
+			case GRCh37_p13:
+				targetAssemblyName = Commons.GRCH37_P13;
+				break;
+			case GRCh38:
+				targetAssemblyName = Commons.GRCH38;
+				break;
 		}// End of Switch
 
 		Remap.remap_show_batches( dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 
 		Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
+		
 		Remap.fillAssemblyName2RefSeqAssemblyIDMap(
 				dataFolder, 
 				Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
@@ -270,8 +276,13 @@ public class InputDataNCBIRemap {
 				inputFileName = Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38;
 				outputFileName = Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
 
-				convertGivenInputCoordinatesFromGRCh38toGRCh37p13UsingRemap( givenInputDataFolder, dataFolder,
-						inputFileName, Assembly.GRCh38, outputFileName, Assembly.GRCh37_p13);
+				convertGivenInputCoordinatesFromGRCh38toGRCh37p13UsingRemap( 
+						givenInputDataFolder, 
+						dataFolder,
+						inputFileName,
+						Assembly.GRCh38, 
+						outputFileName, 
+						Assembly.GRCh37_p13);
 				break;
 			case GRCh37_p13:
 				break;

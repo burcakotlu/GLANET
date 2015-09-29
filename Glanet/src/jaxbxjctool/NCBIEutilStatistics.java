@@ -4,7 +4,7 @@
 package jaxbxjctool;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Jan 16, 2015
  * @project Glanet
  *

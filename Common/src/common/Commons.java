@@ -43,7 +43,9 @@ public class Commons {
 	public static final String NCBI = "NCBI";
 	public static final String FTP = "FTP";
 	public static final String NCBI_REMAP = "REMAP";
-
+	
+	public static final String NCBI_REMAP_HOMO_SAPIENS = "Homo sapiens";
+	
 	// GLANET DATA Driven starts
 	public static final String RNA_SEQ_GM12878_K562 = "RNA_seq_GM12878_K562";
 	public static final String Gm12878Rep1_genes_results = "Gm12878Rep1.genes.results";
@@ -443,7 +445,10 @@ public class Commons {
 	// RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter
 	public static final String REFSEQ_IDS_FOR_GRCH37_INPUT_FILE = "RefSeqIdsforGRCh37" + System.getProperty( "file.separator") + "GCF_000001405.25.assembly.txt";
 	public static final String REFSEQ_IDS_FOR_GRCH38_INPUT_FILE = "RefSeqIdsforGRCh38" + System.getProperty( "file.separator") + "GCF_000001405.26.assembly.txt";
-
+	public static final String LATEST_ASSEMBLY_RETURNED_FROM_NCBI_EUTILS_REPORT_FILE = "RefSeqIds" + System.getProperty( "file.separator") + "LatestAssemblyReturnedFromNCBIEutils.assembly.txt";
+	public static final String ASSEMBLY_REPORTS = "AssemblyReports" + System.getProperty("file.separator");
+	public static final String ASSEMBLY_REPORTS_FILE_EXTENSION = ".assembly.txt";
+	
 	// dbSNP
 	public static final String NUCLEOTIDE_A = "A";
 	public static final String NUCLEOTIDE_C = "C";
@@ -487,7 +492,7 @@ public class Commons {
 
 	public static final String REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13 = "REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13";
 	public static final String REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13 = "REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13";
-	public static final String REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS = "REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_GRCh38_FOR_REGULATORY_SEQUENCE_ANALYSIS";
+	public static final String REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_LATEST_ASSEMBLY_RETURNED_BY_NCBIEUTILS_FOR_RSA = "REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_LatestAssemblyReturnedByNCBIEutils_FOR_RSA";
 
 	/*************************************************************************************/
 	/********************** REMAP OUTPUT FILE starts *************************************/
@@ -529,7 +534,7 @@ public class Commons {
 
 	public static final String ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13 = "All_TF_Annotations_1Based_Start_End_GRCh37_p13.txt";
 	public static final String REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE = "All_TF_Annotations_RemapInput_0Based_Start_EndExclusive_GRCh37_P13_Coordinates.bed";
-	public static final String ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCH38 = "All_TF_Annotations_1Based_Start_End_GRCh38.txt";
+	public static final String ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_LATEST_ASSEMBLY_RETURNED_BY_NCBI_EUTILS = "All_TF_Annotations_1Based_Start_End_LatestAssemblyReturnedByNCBIEutils.txt";
 	/***************************************************************************************/
 	/***************************REMAP ALL TF Annotations case ends**************************/
 	/***************************************************************************************/

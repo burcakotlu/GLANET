@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/httpclient-cache-4.3.6.jar"/>
 	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/httpcore-4.3.3.jar"/>
 	<classpathentry kind="lib" path="lib/httpcomponents-client-4.3.6/lib/httpmime-4.3.6.jar"/>
+	<classpathentry kind="lib" path="lib/commons-net-3.3.jar" sourcepath="lib/commons-net-3.3-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
