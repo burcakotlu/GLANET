@@ -6,8 +6,10 @@ package datadrivenexperiment;
 import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
+import enumtypes.DataDrivenExperimentTopPercentageType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
+import gnu.trove.map.hash.TObjectFloatHashMap;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -448,6 +450,8 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 	public static void main( String[] args) {
 
 		String glanetFolder = args[0];
+		String dataDrivenExperimentFolder = glanetFolder + Commons.DDE + System.getProperty("file.separator");
+
 		
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
 		
@@ -457,10 +461,22 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		// Such as 0.1f, 0.01f, 0.001f for nonExpressing proteinCoding genes
 		// Such as 1f, 10f, 100f for expressing proteinCoding genes
 		// float tpmThreshold = 0.1f;
-		float tpmThreshold = Float.parseFloat( args[3]);
 
-		String dataDrivenExperimentFolder = glanetFolder + Commons.DDE + System.getProperty("file.separator");
-
+		// Get the TPM Values from cellLine and geneType specific file
+		// For NonExpressingGenes use TOP2 and TOP60
+		// For ExpressingGenes use TOP2, TOP10, and TOP25
+		// The order of TPMs are as follows: TOP1, TOP2, TOP5, TOP10, TOP25, TOP50, TOP55, TOP60
+		//float tpmThreshold = Float.parseFloat( args[3]);
+		
+		/*************************************************************************************************/
+		/******************************Get the tpmValues starts*******************************************/
+		/*************************************************************************************************/
+		TObjectFloatMap<DataDrivenExperimentTopPercentageType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTopPercentageType>();
+		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmValueMap);
+		/*************************************************************************************************/
+		/******************************Get the tpmValues ends*********************************************/
+		/*************************************************************************************************/
+		
 		// This will be filled while reading cellLineRep1
 		TObjectFloatMap<String> ensemblGeneID2TPMMapforRep1;
 
@@ -506,7 +522,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 			default: 
 				break;
 		
-		
 		}//End of Switch cellLineType
 				
 
@@ -515,32 +530,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		// We will get the  gene symbol from this input file.
 		// Former input files and female.gtf file will be matched w.r.t. geneID attribute
 		String femaleGTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.female_gtf;
-
-		// Output File
-		// End Inclusive
-		// Set NonExpressingProteinCodingGenesIntervalsFile
-		// Set ExpressingProteinCodingGenesIntervalsFile
-		String TPMString = DataDrivenExperimentCommon.getTPMString(tpmThreshold);
-		String nonExpressingProteinCodingGenesIntervalsFile = null;
-		String expressingProteinCodingGenesIntervalsFile = null;
 		
-		switch(geneType){
-
-			case NONEXPRESSING_PROTEINCODING_GENES: {
-				nonExpressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.NONEXPRESSING_PROTEINCODING_GENES + "_IntervalPool.txt";
-				break;
-			}
-			case EXPRESSING_PROTEINCODING_GENES:{
-				expressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + TPMString + "_" + Commons.EXPRESSING_PROTEINCODING_GENES + "_IntervalPool.txt";
-				break;
-			}
-			
-			default: 
-				break;
-				
-		}//End of SWITCH geneType
-		
-	
 		// Read cellLineRep1Results file and fill ensemblGeneID2TPMMapRep1
 		ensemblGeneID2TPMMapforRep1 = DataDrivenExperimentCommon.fillMapUsingGTFFile(cellLineRep1GTFFileName);
 
@@ -550,46 +540,91 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 				ensemblGeneID2TPMMapforRep1,
 				geneType);
 
-		// Just for information
-		// Otherwise no need
-		// Find the number of nonExpressing genes or expressing genes
-		switch(geneType){
 		
-			case NONEXPRESSING_PROTEINCODING_GENES: {
-				numberofNonExpressingGenes = findNonExpressingGenes( ensemblGeneID2TPMMapforUnionofRep1andRep2, tpmThreshold);
-				System.out.println("Number of NonExpressing Genes: " + numberofNonExpressingGenes + " for tmpThreshod: " + tpmThreshold);
-				
-				// Generate Intervals for the nonExpressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
-				// the tmpThreshold using female.gtf to nonExpressingGenesIntervalsFile
-				generateIntervalsFromFemaleGTFFile(
-						ensemblGeneID2TPMMapforUnionofRep1andRep2, 
-						femaleGTFFileName, 
-						tpmThreshold,
-						nonExpressingProteinCodingGenesIntervalsFile,
-						geneType);
-
-
-				break;
-			}
-			case EXPRESSING_PROTEINCODING_GENES: {
-				numberofExpressingGenes = findExpressingGenes( ensemblGeneID2TPMMapforUnionofRep1andRep2, tpmThreshold);
-				System.out.println("Number of Expressing Genes: " + numberofExpressingGenes + " for tmpThreshod: " + tpmThreshold);
-				
-				// Generate Intervals for the expressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
-				// the tmpThreshold using female.gtf to expressingGenesIntervalsFile
-				generateIntervalsFromFemaleGTFFile(
-						ensemblGeneID2TPMMapforUnionofRep1andRep2, 
-						femaleGTFFileName, 
-						tpmThreshold,
-						expressingProteinCodingGenesIntervalsFile,
-						geneType);
-
-
-				break;
-			}
-			default: break;
+		//30 SEP 2015 starts
+		DataDrivenExperimentTopPercentageType tpmPercentageType = null;
+		Float tpmValue = null;
 		
-		}//End of SWITCH
+		// Output File
+		// End Inclusive
+		// Set NonExpressingProteinCodingGenesIntervalsFile
+		// Set ExpressingProteinCodingGenesIntervalsFile
+		String nonExpressingProteinCodingGenesIntervalsFile = null;
+		String expressingProteinCodingGenesIntervalsFile = null;
+		
+		//For each tpmValue in tpmValueList
+		for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
+			
+			itr.advance();
+			
+			tpmPercentageType = itr.key();
+			tpmValue = itr.value();
+			
+			switch(geneType){
+
+				case NONEXPRESSING_PROTEINCODING_GENES: {
+					nonExpressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" +  tpmPercentageType.convertEnumtoString() +  "_IntervalPool.txt";
+					break;
+				}
+				case EXPRESSING_PROTEINCODING_GENES:{
+					expressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmPercentageType.convertEnumtoString() +  "_IntervalPool.txt";
+					break;
+				}
+			
+				default: 
+					break;
+				
+			}//End of SWITCH geneType
+			
+			
+			
+			switch(geneType){
+			
+				case NONEXPRESSING_PROTEINCODING_GENES: {
+					// Just for information
+					// Otherwise no need
+					// Find the number of nonExpressing genes or expressing genes	
+					numberofNonExpressingGenes = findNonExpressingGenes( ensemblGeneID2TPMMapforUnionofRep1andRep2, tpmValue);
+					System.out.println("Number of NonExpressing Genes: " + numberofNonExpressingGenes + " for tmpThreshod: " + tpmValue);
+					
+					// Generate Intervals for the nonExpressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
+					// the tmpThreshold using female.gtf to nonExpressingGenesIntervalsFile
+					generateIntervalsFromFemaleGTFFile(
+							ensemblGeneID2TPMMapforUnionofRep1andRep2, 
+							femaleGTFFileName, 
+							tpmValue,
+							nonExpressingProteinCodingGenesIntervalsFile,
+							geneType);
+
+
+					break;
+				}
+				case EXPRESSING_PROTEINCODING_GENES: {
+					numberofExpressingGenes = findExpressingGenes( ensemblGeneID2TPMMapforUnionofRep1andRep2, tpmValue);
+					System.out.println("Number of Expressing Genes: " + numberofExpressingGenes + " for tmpThreshod: " + tpmValue);
+					
+					// Generate Intervals for the expressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
+					// the tmpThreshold using female.gtf to expressingGenesIntervalsFile
+					generateIntervalsFromFemaleGTFFile(
+							ensemblGeneID2TPMMapforUnionofRep1andRep2, 
+							femaleGTFFileName, 
+							tpmValue,
+							expressingProteinCodingGenesIntervalsFile,
+							geneType);
+
+
+					break;
+				}
+				default: break;
+			
+			}//End of SWITCH	
+			
+			
+		}//End of FOR each TPMValue
+		//30 SEP 2015 ends
+
+		
+	
 		
 
 	}//End of main

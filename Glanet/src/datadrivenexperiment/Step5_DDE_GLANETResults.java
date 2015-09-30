@@ -25,10 +25,14 @@ import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentElementNameType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
+import enumtypes.DataDrivenExperimentTopPercentageType;
 import enumtypes.ElementType;
 import enumtypes.EnrichmentDecisionType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.MultipleTestingType;
+import gnu.trove.iterator.TObjectFloatIterator;
+import gnu.trove.map.TObjectFloatMap;
+import gnu.trove.map.hash.TObjectFloatHashMap;
 
 /**
  * @author Burcak Otlu
@@ -324,7 +328,7 @@ public class Step5_DDE_GLANETResults {
 
 	public static void readSimulationGLANETResults(
 			String outputFolder, 
-			String tpmString,
+			DataDrivenExperimentTopPercentageType topPercentageType,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			int numberofSimulations, 
 			int numberofComparisons,
@@ -365,12 +369,12 @@ public class Step5_DDE_GLANETResults {
 				switch(generateRandomDataMode){
 					
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  tpmString + "_" + geneType.convertEnumtoString() + "_" +  dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  topPercentageType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 						break;
 						
 					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" + tpmString + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" + geneType.convertEnumtoString() + "_" + topPercentageType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 						break;
 				
@@ -522,21 +526,28 @@ public class Step5_DDE_GLANETResults {
 		//geneType
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[2]);
 		
-		//tpm
-		float tpm = Float.parseFloat(args[3]);
-		String tpmString = DataDrivenExperimentCommon.getTPMString(tpm);
+		
+		/*************************************************************************************************/
+		/******************************Get the tpmValues starts*******************************************/
+		/*************************************************************************************************/
+		TObjectFloatMap<DataDrivenExperimentTopPercentageType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTopPercentageType>();
+		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmValueMap);
+		/*************************************************************************************************/
+		/******************************Get the tpmValues ends*********************************************/
+		/*************************************************************************************************/
+
 
 		//dnaseOverlapExclusionType
-		DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(args[4]);
+		DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(args[3]);
 		
 		//FDR
-		float FDR = (args.length > 5)?Float.parseFloat(args[5]):0.05f;
+		float FDR = (args.length > 5)?Float.parseFloat(args[4]):0.05f;
 		
 		//bonferroniCorrectionSignificanceLevel
-		float bonferroniCorrectionSignificanceLevel = (args.length > 6)?Float.parseFloat(args[6]):0.05f;
+		float bonferroniCorrectionSignificanceLevel = (args.length > 6)?Float.parseFloat(args[5]):0.05f;
 		
 		//multipleTestingParameter
-		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[7]);
+		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
 		
 		int numberofTFElementsInThisCellLine = 0;
 		int numberofHistoneElementsInThisCellLine = 0;
@@ -548,8 +559,6 @@ public class Step5_DDE_GLANETResults {
 			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.GLANET_DDE_RESULTS_FILE, true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-		
-		
 			switch(cellLineType){
 			
 				case GM12878: {
@@ -584,126 +593,140 @@ public class Step5_DDE_GLANETResults {
 			//generateRandomDataMode
 			GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[10]);
 			
-			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString() + "\t" + tpmString  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
+			DataDrivenExperimentTopPercentageType topPercentageType = null;
 			
-			bufferedWriter.write("Expressors" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
+			for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
+				
+				itr.advance();
+				
+				topPercentageType = itr.key();
+				//tpmValue = itr.value();
+				
+				
+				bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString() + "\t" + topPercentageType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
+				
+				bufferedWriter.write("Expressors" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
+				
+				//Expressor
+				readSimulationGLANETResults(
+						outputFolder, 
+						topPercentageType, 
+						dnaseOverlapExclusionType, 
+						numberofSimulations,
+						numberofTFElementsInThisCellLine, 
+						ElementType.TF, 
+						cellLineType, 
+						geneType,
+						DataDrivenExperimentElementNameType.POL2,
+						bonferroniCorrectionSignificanceLevel, 
+						FDR, 
+						multipleTestingParameter, 
+						enrichmentDecisionType,
+						generateRandomDataMode,
+						bufferedWriter);
+				
+				//Expressor
+				readSimulationGLANETResults(
+						outputFolder, 
+						topPercentageType, 
+						dnaseOverlapExclusionType, 
+						numberofSimulations,
+						numberofHistoneElementsInThisCellLine, 
+						ElementType.HISTONE, 
+						cellLineType,
+						geneType,
+						DataDrivenExperimentElementNameType.H3K4ME1,
+						bonferroniCorrectionSignificanceLevel, 
+						FDR, 
+						multipleTestingParameter, 
+						enrichmentDecisionType,
+						generateRandomDataMode,
+						bufferedWriter);
+				
+				//Expressor
+				readSimulationGLANETResults(
+						outputFolder, 
+						topPercentageType, 
+						dnaseOverlapExclusionType, 
+						numberofSimulations,
+						numberofHistoneElementsInThisCellLine, 
+						ElementType.HISTONE, 
+						cellLineType, 
+						geneType,
+						DataDrivenExperimentElementNameType.H3K4ME2,
+						bonferroniCorrectionSignificanceLevel, 
+						FDR, 
+						multipleTestingParameter, 
+						enrichmentDecisionType,
+						generateRandomDataMode,
+						bufferedWriter);
+		
+		
+				
+				//Expressor
+				readSimulationGLANETResults(
+						outputFolder, 
+						topPercentageType, 
+						dnaseOverlapExclusionType, 
+						numberofSimulations,
+						numberofHistoneElementsInThisCellLine, 
+						ElementType.HISTONE, 
+						cellLineType, 
+						geneType,
+						DataDrivenExperimentElementNameType.H3K4ME3,
+						bonferroniCorrectionSignificanceLevel, 
+						FDR, 
+						multipleTestingParameter, 
+						enrichmentDecisionType,
+						generateRandomDataMode,
+						bufferedWriter);
+				
+				bufferedWriter.write("Repressors" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
+				
+				//Repressor
+				readSimulationGLANETResults(
+						outputFolder, 
+						topPercentageType, 
+						dnaseOverlapExclusionType, 
+						numberofSimulations,
+						numberofHistoneElementsInThisCellLine, 
+						ElementType.HISTONE, 
+						cellLineType, 
+						geneType,
+						DataDrivenExperimentElementNameType.H3K27ME3,
+						bonferroniCorrectionSignificanceLevel, 
+						FDR, 
+						multipleTestingParameter, 
+						enrichmentDecisionType,
+						generateRandomDataMode,
+						bufferedWriter);
+				
+				//Repressor
+				readSimulationGLANETResults(
+						outputFolder, 
+						topPercentageType, 
+						dnaseOverlapExclusionType, 
+						numberofSimulations,
+						numberofHistoneElementsInThisCellLine, 
+						ElementType.HISTONE, 
+						cellLineType, 
+						geneType,
+						DataDrivenExperimentElementNameType.H3K9ME3,
+						bonferroniCorrectionSignificanceLevel, 
+						FDR, 
+						multipleTestingParameter, 
+						enrichmentDecisionType,
+						generateRandomDataMode,
+						bufferedWriter);
+				
+				bufferedWriter.write(System.getProperty("line.separator"));
+				
+				//Close BufferedWriter
+				bufferedWriter.close();
+
+			}//End of FOR tpmValue
 			
-			//Expressor
-			readSimulationGLANETResults(
-					outputFolder, 
-					tpmString, 
-					dnaseOverlapExclusionType, 
-					numberofSimulations,
-					numberofTFElementsInThisCellLine, 
-					ElementType.TF, 
-					cellLineType, 
-					geneType,
-					DataDrivenExperimentElementNameType.POL2,
-					bonferroniCorrectionSignificanceLevel, 
-					FDR, 
-					multipleTestingParameter, 
-					enrichmentDecisionType,
-					generateRandomDataMode,
-					bufferedWriter);
 			
-			//Expressor
-			readSimulationGLANETResults(
-					outputFolder, 
-					tpmString, 
-					dnaseOverlapExclusionType, 
-					numberofSimulations,
-					numberofHistoneElementsInThisCellLine, 
-					ElementType.HISTONE, 
-					cellLineType,
-					geneType,
-					DataDrivenExperimentElementNameType.H3K4ME1,
-					bonferroniCorrectionSignificanceLevel, 
-					FDR, 
-					multipleTestingParameter, 
-					enrichmentDecisionType,
-					generateRandomDataMode,
-					bufferedWriter);
-			
-			//Expressor
-			readSimulationGLANETResults(
-					outputFolder, 
-					tpmString, 
-					dnaseOverlapExclusionType, 
-					numberofSimulations,
-					numberofHistoneElementsInThisCellLine, 
-					ElementType.HISTONE, 
-					cellLineType, 
-					geneType,
-					DataDrivenExperimentElementNameType.H3K4ME2,
-					bonferroniCorrectionSignificanceLevel, 
-					FDR, 
-					multipleTestingParameter, 
-					enrichmentDecisionType,
-					generateRandomDataMode,
-					bufferedWriter);
-	
-	
-			
-			//Expressor
-			readSimulationGLANETResults(
-					outputFolder, 
-					tpmString, 
-					dnaseOverlapExclusionType, 
-					numberofSimulations,
-					numberofHistoneElementsInThisCellLine, 
-					ElementType.HISTONE, 
-					cellLineType, 
-					geneType,
-					DataDrivenExperimentElementNameType.H3K4ME3,
-					bonferroniCorrectionSignificanceLevel, 
-					FDR, 
-					multipleTestingParameter, 
-					enrichmentDecisionType,
-					generateRandomDataMode,
-					bufferedWriter);
-			
-			bufferedWriter.write("Repressors" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
-			
-			//Repressor
-			readSimulationGLANETResults(
-					outputFolder, 
-					tpmString, 
-					dnaseOverlapExclusionType, 
-					numberofSimulations,
-					numberofHistoneElementsInThisCellLine, 
-					ElementType.HISTONE, 
-					cellLineType, 
-					geneType,
-					DataDrivenExperimentElementNameType.H3K27ME3,
-					bonferroniCorrectionSignificanceLevel, 
-					FDR, 
-					multipleTestingParameter, 
-					enrichmentDecisionType,
-					generateRandomDataMode,
-					bufferedWriter);
-			
-			//Repressor
-			readSimulationGLANETResults(
-					outputFolder, 
-					tpmString, 
-					dnaseOverlapExclusionType, 
-					numberofSimulations,
-					numberofHistoneElementsInThisCellLine, 
-					ElementType.HISTONE, 
-					cellLineType, 
-					geneType,
-					DataDrivenExperimentElementNameType.H3K9ME3,
-					bonferroniCorrectionSignificanceLevel, 
-					FDR, 
-					multipleTestingParameter, 
-					enrichmentDecisionType,
-					generateRandomDataMode,
-					bufferedWriter);
-			
-			bufferedWriter.write(System.getProperty("line.separator"));
-			
-			//Close BufferedWriter
-			bufferedWriter.close();
 		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

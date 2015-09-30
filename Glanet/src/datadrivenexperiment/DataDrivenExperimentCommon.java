@@ -3,12 +3,8 @@
  */
 package datadrivenexperiment;
 
-import enumtypes.DataDrivenExperimentGeneType;
-import gnu.trove.iterator.TObjectFloatIterator;
-import gnu.trove.map.TObjectFloatMap;
-import gnu.trove.map.hash.TObjectFloatHashMap;
-
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collections;
@@ -21,6 +17,13 @@ import auxiliary.FileOperations;
 
 import common.Commons;
 
+import enumtypes.DataDrivenExperimentCellLineType;
+import enumtypes.DataDrivenExperimentGeneType;
+import enumtypes.DataDrivenExperimentTopPercentageType;
+import gnu.trove.iterator.TObjectFloatIterator;
+import gnu.trove.map.TObjectFloatMap;
+import gnu.trove.map.hash.TObjectFloatHashMap;
+
 /**
  * @author Burçak Otlu
  * @date Aug 16, 2015
@@ -28,6 +31,92 @@ import common.Commons;
  *
  */
 public class DataDrivenExperimentCommon {
+	
+	public static void getTPMValues(
+			String glanetFolder,
+			DataDrivenExperimentCellLineType cellLineType,
+			DataDrivenExperimentGeneType geneType,
+			TObjectFloatMap<DataDrivenExperimentTopPercentageType> tpmValueMap){
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		String tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
+		String strLine = null;
+		
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		
+//		Top1PercentageTPM	Top2PercentageTPM	Top5PercentageTPM	Top10PercentageTPM	Top25PercentageTPM	Top50PercentageTPM	Top55PercentageTPM	Top60PercentageTPM
+//		0E0	0E0	0E0	0E0	0E0	0E0	0E0	2E-2
+
+		Float top2TPMValue;
+		Float top10TPMValue;
+		Float top25TPMValue;
+		Float top60TPMValue;
+		
+		try {
+			
+			fileReader = FileOperations.createFileReader(tpmValuesFileName);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			//Skip header line
+			strLine = bufferedReader.readLine();
+			
+			//Get the tpmValues from the second line
+			strLine = bufferedReader.readLine();
+				
+			indexofFirstTab = strLine.indexOf("\t");
+			indexofSecondTab = (indexofFirstTab>0) ? strLine.indexOf("\t",indexofFirstTab+1) : -1;
+			indexofThirdTab = (indexofSecondTab>0) ? strLine.indexOf("\t",indexofSecondTab+1) : -1;
+			indexofFourthTab = (indexofThirdTab>0) ? strLine.indexOf("\t",indexofThirdTab+1) : -1;
+			indexofFifthTab = (indexofFourthTab>0) ? strLine.indexOf("\t",indexofFourthTab+1) : -1;
+			indexofSixthTab = (indexofFifthTab>0) ? strLine.indexOf("\t",indexofFifthTab+1) : -1;
+			indexofSeventhTab = (indexofSixthTab>0) ? strLine.indexOf("\t",indexofSixthTab+1) : -1;
+			
+			//top1TPMValue = Float.parseFloat(strLine.substring(0, indexofFirstTab));
+			top2TPMValue = Float.parseFloat(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+			//top5TPMValue = Float.parseFloat(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+			top10TPMValue = Float.parseFloat(strLine.substring(indexofThirdTab+1, indexofFourthTab));
+			top25TPMValue = Float.parseFloat(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+			//top50TPMValue = Float.parseFloat(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+			//top55TPMValue = Float.parseFloat(strLine.substring(indexofSixthTab+1, indexofSeventhTab));
+			top60TPMValue = Float.parseFloat(strLine.substring(indexofSeventhTab+1));
+				
+			switch(geneType){
+			
+				case EXPRESSING_PROTEINCODING_GENES:
+					//TOP2 
+					//TOP10 
+					//TOP25
+					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP2PERCENTAGE, top2TPMValue);
+					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP10PERCENTAGE, top10TPMValue);
+					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP25PERCENTAGE, top25TPMValue);
+					break;
+					
+				case NONEXPRESSING_PROTEINCODING_GENES:
+					//TOP2
+					//TOP60
+					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP2PERCENTAGE, top2TPMValue);
+					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP60PERCENTAGE, top60TPMValue);
+					break;
+			
+			}//End of SWITCH
+			
+			//close
+			bufferedReader.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	public static TObjectFloatMap<String> fillMapUsingGTFFile(
 			String gtfFileNameWithPath,
@@ -144,11 +233,15 @@ public class DataDrivenExperimentCommon {
 	public static float getPercentile(
 			List<Map.Entry<String, Float>> list,
 			DataDrivenExperimentGeneType geneType,
-			float tpm){
+			float tpm,
+			BufferedWriter bufferedWriter){
 		
 		int index = 0;
 		int savedIndex= 0;
 		float distance = Float.MAX_VALUE;
+		
+		//Dummy initialization
+		float percentile  = -1;
 		
 		for(Iterator<Map.Entry<String, Float>> itr = list.iterator(); itr.hasNext();){
 			
@@ -163,10 +256,16 @@ public class DataDrivenExperimentCommon {
 			
 		}//End of for traversing the list 
 		
-		System.out.println("savedIndex is " + "\t" + savedIndex);
-		float percentile = ((float)savedIndex/list.size())*100;
-		System.out.println("TPM Value at percentile is " + "\t" + list.get(savedIndex).getValue());
-		System.out.println("TPM Value at percentile+1 is " + "\t" + list.get(savedIndex+1).getValue());
+		try {
+			bufferedWriter.write("savedIndex is " + "\t" + savedIndex + System.getProperty("line.separator"));
+			percentile = ((float)savedIndex/list.size())*100;
+			bufferedWriter.write("TPM Value at percentile is " + "\t" + list.get(savedIndex).getValue() + System.getProperty("line.separator"));
+			bufferedWriter.write("TPM Value at percentile+1 is " + "\t" + list.get(savedIndex+1).getValue() + System.getProperty("line.separator"));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		return percentile;
@@ -211,33 +310,41 @@ public class DataDrivenExperimentCommon {
 	
 	public static Float getTopPercentage(
 			List<Map.Entry<String, Float>> list,
-			String topPercentage){
+			DataDrivenExperimentTopPercentageType topPercentage){
 		
 		int  index = 0;
 				
 		if (topPercentage.equals("FIRST_GENE_TPM")){
 			index = 0;
 		}
-		else if (topPercentage.equals("TOP_1_PERCENTAGE")){
+		else if (topPercentage.isTOP1PERCENTAGE()){
 			index = list.size()*1/100;
 			
 		}
-		else if (topPercentage.equals("TOP_2_PERCENTAGE")){
+		else if (topPercentage.isTOP2PERCENTAGE()){
 			index = list.size()*2/100;
 			
 		}
-		else if (topPercentage.equals("TOP_5_PERCENTAGE")){
+		else if (topPercentage.isTOP5PERCENTAGE()){
 			index = list.size()*5/100;
 			
 		}
-		else if (topPercentage.equals("TOP_10_PERCENTAGE")){
+		else if (topPercentage.isTOP10PERCENTAGE()){
 			index = list.size()*10/100;
 			
-		}else 	if (topPercentage.equals("TOP_25_PERCENTAGE")){
+		}else 	if (topPercentage.isTOP25PERCENTAGE()){
 			index = list.size()*25/100;
 			
-		}else 	if (topPercentage.equals("TOP_50_PERCENTAGE")){
+		}else 	if (topPercentage.isTOP50PERCENTAGE()){
 			index = list.size()*50/100;
+			
+		}
+		else 	if (topPercentage.isTOP55PERCENTAGE()){
+			index = list.size()*55/100;
+			
+		}
+		else 	if (topPercentage.isTOP60PERCENTAGE()){
+			index = list.size()*60/100;
 			
 		}else if (topPercentage.equals("LAST_GENE_TPM")){
 			index = list.size()-1;
@@ -366,46 +473,46 @@ public class DataDrivenExperimentCommon {
 	}
 
 	
-	public static String getTPMString( float tpmThreshold) {
-
-		//TPM values for Expressing Genes
-		if( tpmThreshold == 1f)
-			return Commons.TPM_1;
-		
-		else if (tpmThreshold == 10f)
-			return Commons.TPM_10;
-		
-		else if (tpmThreshold == 100f)
-			return Commons.TPM_100;
-		
-		
-		//TPM values for NonExpressing Genes
-		else if( tpmThreshold == 0f)
-			return Commons.TPM_0;
-
-		else if( tpmThreshold == 0.1f)
-			return Commons.TPM_0_1;
-
-		else if( tpmThreshold == 0.01f)
-			return Commons.TPM_0_01;
-
-		else if( tpmThreshold == 0.001f)
-			return Commons.TPM_0_001;
-
-		else if( tpmThreshold == 0.0001f)
-			return Commons.TPM_0_0001;
-
-		else if( tpmThreshold == 0.00001f)
-			return Commons.TPM_0_00001;
-
-		else if( tpmThreshold == 0.000001f)
-			return Commons.TPM_0_000001;
-		
-		//TPM Unknown
-		else
-			return Commons.TPM_UNKNOWN;
-
-	}
+//	public static String getTPMString( float tpmThreshold) {
+//
+//		//TPM values for Expressing Genes
+//		if( tpmThreshold == 1f)
+//			return Commons.TPM_1;
+//		
+//		else if (tpmThreshold == 10f)
+//			return Commons.TPM_10;
+//		
+//		else if (tpmThreshold == 100f)
+//			return Commons.TPM_100;
+//		
+//		
+//		//TPM values for NonExpressing Genes
+//		else if( tpmThreshold == 0f)
+//			return Commons.TPM_0;
+//
+//		else if( tpmThreshold == 0.1f)
+//			return Commons.TPM_0_1;
+//
+//		else if( tpmThreshold == 0.01f)
+//			return Commons.TPM_0_01;
+//
+//		else if( tpmThreshold == 0.001f)
+//			return Commons.TPM_0_001;
+//
+//		else if( tpmThreshold == 0.0001f)
+//			return Commons.TPM_0_0001;
+//
+//		else if( tpmThreshold == 0.00001f)
+//			return Commons.TPM_0_00001;
+//
+//		else if( tpmThreshold == 0.000001f)
+//			return Commons.TPM_0_000001;
+//		
+//		//TPM Unknown
+//		else
+//			return Commons.TPM_UNKNOWN;
+//
+//	}
 
 	/**
 	 * @param args

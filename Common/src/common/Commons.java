@@ -80,18 +80,29 @@ public class Commons {
 	
 	public static final String DDE_DATA = "DDEData";
 	public static final String DDE_INTERVAL_POOL = "IntervalPool";
+	public static final String DDE_TPM_VALUES = "TPMValues";
+	
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL = "DnaseOverlapsExcludedIntervalPool";
 	public static final String DDE_RUN = "Run";
 	public static final String SCRIPT_FILES = "ScriptFiles";
 	
 	public static final String GLANET_DDE_RESULTS_FILE = "GLANET_DDE_Results.txt";
 	
+	public static final String TOP1PERCENTAGE 	= "Top1";
+	public static final String TOP2PERCENTAGE 	= "Top2";
+	public static final String TOP5PERCENTAGE 	= "Top5";
+	public static final String TOP10PERCENTAGE 	= "Top10";
+	public static final String TOP25PERCENTAGE 	= "Top25";
+	public static final String TOP50PERCENTAGE 	= "Top50";
+	public static final String TOP55PERCENTAGE 	= "Top55";
+	public static final String TOP60PERCENTAGE 	= "Top60";
+	public static final String FIRSTELEMENT = "FIRSTELEMENT";
+	public static final String LASTELEMENT = "LASTELEMENT";
 	
 	public static final String WINDOWS 	= "WINDOWS";
 	public static final String LINUX 	= "LINUX";
 	public static final String TURENG_MACHINE 	= "TURENG_MACHINE";
 	public static final String TRUBA 	= "TRUBA";
-	
 	
 	public static final String GM12878 = "GM12878";
 	public static final String K562 = "K562";
