@@ -87,6 +87,8 @@ public class Commons {
 	public static final String SCRIPT_FILES = "ScriptFiles";
 	
 	public static final String GLANET_DDE_RESULTS_FILE = "GLANET_DDE_Results.txt";
+	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL_STATISTICS_FILE = "DnaseOverlapsExcludedIntervalPoolStatistics.txt";
+	
 	
 	public static final String TOP1PERCENTAGE 	= "Top1";
 	public static final String TOP2PERCENTAGE 	= "Top2";

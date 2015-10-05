@@ -15,9 +15,7 @@ import java.util.List;
 
 import annotation.Annotation;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
@@ -413,7 +411,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 	public static void writeDnaseOverlapsExcludedIntervals( 
 			String outputFileName,
 			TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2DnaseOverlapsExcludedIntervalsListMap,
-			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType) {
+			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType,
+			BufferedWriter dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -423,10 +422,14 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		List<IntervalDataDrivenExperiment> intervals;
 
 		int numberofIntervals = 0;
+		float avgIntervalLength = 0f;
 
 		try{
 			fileWriter = FileOperations.createFileWriter( outputFileName);
 			bufferedWriter = new BufferedWriter( fileWriter);
+			
+			dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter.write("NumberofIntervals" + "\t" + "AvgIntervalLength" + System.getProperty("line.separator"));
+			
 
 			for( TIntObjectIterator<List<IntervalDataDrivenExperiment>> it = chrNumber2DnaseOverlapsExcludedIntervalsListMap.iterator(); it.hasNext();){
 
@@ -441,6 +444,7 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 
 					if( !interval.isRemoved()){
 						numberofIntervals++;
+						avgIntervalLength = avgIntervalLength + interval.getHigh() - interval.getLow() +1;
 						bufferedWriter.write( ChromosomeName.convertEnumtoString( chrName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + System.getProperty( "line.separator"));
 					}// End of IF interval is not removed
 
@@ -450,6 +454,9 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 
 			System.out.println(dnaseOverlapExclusionType.convertEnumtoString() + "\t" +  "numberofIntervals after dnase overlap exclusion is: " + numberofIntervals);
 
+			avgIntervalLength = avgIntervalLength/numberofIntervals;
+			dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter.write(numberofIntervals + "\t" + avgIntervalLength + System.getProperty("line.separator"));
+			
 			// Close
 			bufferedWriter.close();
 
@@ -465,7 +472,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 			String inputFileName,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			String outputFileName, 
-			TIntList dnaseCellLineNumberList) {
+			TIntList dnaseCellLineNumberList,
+			BufferedWriter dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter) {
 
 		TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2OriginalIntervalsListMap = new TIntObjectHashMap<List<IntervalDataDrivenExperiment>>();
 		TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2DnaseOverlapsExcludedIntervalsListMap = new TIntObjectHashMap<List<IntervalDataDrivenExperiment>>();
@@ -484,7 +492,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		writeDnaseOverlapsExcludedIntervals(
 				outputFileName, 
 				chrNumber2DnaseOverlapsExcludedIntervalsListMap,
-				dnaseOverlapExclusionType);
+				dnaseOverlapExclusionType,
+				dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter);
 	}
 
 	public static void fillDnaseCellLineNumberList(
@@ -568,53 +577,76 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		Float tpmValue = null;
 		
 		
-		/*************************************************************************************************/
-		/******************************For each tpmValue starts*******************************************/
-		/*************************************************************************************************/
-		for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
-			
-			itr.advance();
-			
-			percentageType = itr.key();
-			tpmValue = itr.value();
-			
-			System.out.println("CellLineType is: " + cellLineType);
-			System.out.println("GeneType is: " + geneType);
-			System.out.println("TopPercentageType is: "  + percentageType.convertEnumtoString()  + "\t" + "TPM Value is: " + tpmValue);
-			
-			// Input Intervals Pool File
-			// EndInclusive
-			// Considers cellLineType
-			// tpmString
-			// geneType
-			String intervals_pool_inputFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() +  "_" + geneType.convertEnumtoString() + "_" + percentageType.convertEnumtoString() + "_IntervalPool.txt";
-			String dnaseIntervalsExcluded_interval_pool_outputFile = null;
-			
-			for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
-				
-				if (	geneType.isNonExpressingProteinCodingGenes() ||
-						(geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard())){
-					
-					// Output File
-					// EndInclusive
-					dnaseIntervalsExcluded_interval_pool_outputFile = dataDrivenExperimentFolder + Commons.DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL+ System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + percentageType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
+		FileWriter fileWriter = null;
+		BufferedWriter dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter = null;
 		
-					excludeDnaseIntervalsWriteToOutputFile(
-							dataFolder, 
-							intervals_pool_inputFile, 
-							dnaseOverlapExclusionType,
-							dnaseIntervalsExcluded_interval_pool_outputFile, 
-							dnaseCellLineNumberList);
+		
+		try {
 			
-				}//End of IF
+			fileWriter  = FileOperations.createFileWriter(dataDrivenExperimentFolder + Commons.DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL+ System.getProperty( "file.separator") + Commons.DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL_STATISTICS_FILE, true);
+					
+			dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter = new BufferedWriter(fileWriter);
+			
+			/*************************************************************************************************/
+			/******************************For each tpmValue starts*******************************************/
+			/*************************************************************************************************/
+			for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
 				
-			}//End of for each DataDrivenExperimentDnaseOverlapExclusionType
-
+				itr.advance();
+				
+				percentageType = itr.key();
+				tpmValue = itr.value();
+				
+				System.out.println("CellLineType is: " + cellLineType);
+				System.out.println("GeneType is: " + geneType);
+				System.out.println("TopPercentageType is: "  + percentageType.convertEnumtoString()  + "\t" + "TPM Value is: " + tpmValue);
+				
+				
+				// Input Intervals Pool File
+				// EndInclusive
+				// Considers cellLineType
+				// tpmString
+				// geneType
+				String intervals_pool_inputFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() +  "_" + geneType.convertEnumtoString() + "_" + percentageType.convertEnumtoString() + "_IntervalPool.txt";
+				String dnaseIntervalsExcluded_interval_pool_outputFile = null;
+				
+				for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
+					
+					if (	geneType.isNonExpressingProteinCodingGenes() ||
+							(geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard())){
+						
+						dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter.write(cellLineType + "\t" + geneType.convertEnumtoString() + "\t" + percentageType.convertEnumtoString() + "\t" +  tpmValue + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + System.getProperty("line.separator"));
+						
+						
+						// Output File
+						// EndInclusive
+						dnaseIntervalsExcluded_interval_pool_outputFile = dataDrivenExperimentFolder + Commons.DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL+ System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + percentageType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
 			
-		}//End of FOR each TPMValue
-		/*************************************************************************************************/
-		/******************************For each tpmValue ends*********************************************/
-		/*************************************************************************************************/
+						excludeDnaseIntervalsWriteToOutputFile(
+								dataFolder, 
+								intervals_pool_inputFile, 
+								dnaseOverlapExclusionType,
+								dnaseIntervalsExcluded_interval_pool_outputFile, 
+								dnaseCellLineNumberList,
+								dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter);
+				
+					}//End of IF
+					
+				}//End of for each DataDrivenExperimentDnaseOverlapExclusionType
+	
+				
+			}//End of FOR each TPMValue
+			/*************************************************************************************************/
+			/******************************For each tpmValue ends*********************************************/
+			/*************************************************************************************************/
+			
+			dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter.flush();
+			
+			dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter.close();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 							
 	}		
 

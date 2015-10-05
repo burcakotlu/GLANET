@@ -286,8 +286,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 					
 					}//End of SWITCH expressing or nonExpressing geneType
 
-
-
 				}// End of IF: Exon Number is 1
 
 			}// End of While

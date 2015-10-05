@@ -125,7 +125,9 @@ public class Step3_DDE_DataCreation {
 
 	}
 
-	public static void writeSimulationData( int[] randomIntervalIndexes, List<InputLine> intervalPoolData,
+	public static void writeSimulationData(
+			int[] randomIntervalIndexes, 
+			List<InputLine> intervalPoolData,
 			String simulationDataFile) {
 
 		InputLine inputLine = null;
@@ -185,11 +187,16 @@ public class Step3_DDE_DataCreation {
 			randomIntervalIndexes = new int[numberofIntervalsInEachSimulation];
 
 			// Get random indexes for each simulation
-			fillRandomIntervalIndexes( randomIntervalIndexes, numberofIntervalsInEachSimulation,
+			fillRandomIntervalIndexes(
+					randomIntervalIndexes, 
+					numberofIntervalsInEachSimulation,
 					intervalPoolData.size());
 
 			// Write Simulation Data
-			writeSimulationData( randomIntervalIndexes, intervalPoolData, simulationDataFile);
+			writeSimulationData(
+					randomIntervalIndexes, 
+					intervalPoolData, 
+					simulationDataFile);
 
 		}// End of for each simulation
 

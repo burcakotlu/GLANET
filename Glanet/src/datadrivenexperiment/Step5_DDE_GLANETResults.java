@@ -504,7 +504,6 @@ public class Step5_DDE_GLANETResults {
 	 * "//Volumes//External//Documents//GLANET//"
 	 * GM12878
 	 * NonExpressingGenes
-	 * "0.001"
 	 * NoDiscard, CompletelyDiscard, PartiallyDiscardTakeAllTheRemainingIntervals, PartiallyDiscardTakeTheLongestInterval
 	 * "0.05"
 	 * "0.05'
@@ -585,13 +584,13 @@ public class Step5_DDE_GLANETResults {
 			//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_ZSCORE
 			//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
 			//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
-			EnrichmentDecisionType enrichmentDecisionType = EnrichmentDecisionType.convertStringtoEnum(args[8]);
+			EnrichmentDecisionType enrichmentDecisionType = EnrichmentDecisionType.convertStringtoEnum(args[7]);
 	
 			//numberofSimulations
-			int numberofSimulations = ( args.length > 9)?Integer.parseInt(args[9]):0;
+			int numberofSimulations = ( args.length > 9)?Integer.parseInt(args[8]):0;
 	
 			//generateRandomDataMode
-			GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[10]);
+			GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[9]);
 			
 			DataDrivenExperimentTopPercentageType topPercentageType = null;
 			
@@ -601,7 +600,6 @@ public class Step5_DDE_GLANETResults {
 				
 				topPercentageType = itr.key();
 				//tpmValue = itr.value();
-				
 				
 				bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString() + "\t" + topPercentageType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
 				
@@ -721,15 +719,17 @@ public class Step5_DDE_GLANETResults {
 				
 				bufferedWriter.write(System.getProperty("line.separator"));
 				
-				//Close BufferedWriter
-				bufferedWriter.close();
+				
 
-			}//End of FOR tpmValue
+			}//End of FOR each tpmValue
 			
+			//Flush BufferedWriter
+			bufferedWriter.flush();
 			
+			//Close BufferedWriter
+			bufferedWriter.close();
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 				
