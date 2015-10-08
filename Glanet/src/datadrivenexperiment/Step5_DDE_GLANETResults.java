@@ -20,19 +20,24 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElementMinimal;
 import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
+
 import common.Commons;
+
 import enumtypes.DataDrivenExperimentCellLineType;
+import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentElementNameType;
 import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentTopPercentageType;
 import enumtypes.ElementType;
 import enumtypes.EnrichmentDecisionType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.MultipleTestingType;
 import gnu.trove.iterator.TObjectFloatIterator;
+import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.map.TObjectFloatMap;
+import gnu.trove.map.TObjectIntMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 
 /**
  * @author Burcak Otlu
@@ -194,26 +199,27 @@ public class Step5_DDE_GLANETResults {
 			
 		}
 		
-		//for a special case
-		//remove this else part later
-		else if (strLine.substring(indexofNinethTab + 1,indexofTenthTab).equals("nullnullnullnull")){
-			
-			if(indexofTenthTab>=0 && indexofEleventhTab>=0){
-				empiricalPValue = Float.parseFloat( strLine.substring(indexofTenthTab + 1, indexofEleventhTab));
-				element.setEmpiricalPValue(empiricalPValue);
-			}
-			
-		}
+//		//for a special case
+//		//remove this else part later
+//		else if (strLine.substring(indexofNinethTab + 1,indexofTenthTab).equals("nullnullnullnull")){
+//			
+//			if(indexofTenthTab>=0 && indexofEleventhTab>=0){
+//				empiricalPValue = Float.parseFloat( strLine.substring(indexofTenthTab + 1, indexofEleventhTab));
+//				element.setEmpiricalPValue(empiricalPValue);
+//			}
+//			
+//		}
 		
 					
 		return element;
 	}
 
-	public static int writeCellLineFilteredEnrichmentFile(
+	public static void writeCellLineFilteredEnrichmentFile(
+			DataDrivenExperimentCellLineType cellLineType,
 			List<FunctionalElementMinimal> elementList,
 			BufferedWriter cellLineFilteredEnrichmentBufferedWriter, 
 			MultipleTestingType multipleTestingParameter,
-			String elementNameCellLineName, 
+			TObjectIntMap<DataDrivenExperimentElementNameType> elementName2NumberofEnrichmentMap, 
 			Float bonferroniCorrectionSignificanceLevel, 
 			Float FDR,
 			EnrichmentDecisionType enrichmentDecisionType) {
@@ -222,7 +228,9 @@ public class Step5_DDE_GLANETResults {
 
 		FunctionalElementMinimal element = null;
 
-		int numberofSimulationsThatHasElementNameCellLineNameEnriched = 0;
+		
+		DataDrivenExperimentElementNameType elementNameType = null;
+		String elementNameCellLineName = null;
 
 		// Write new enrichmentFile
 		// while writing count the numberofSimulations that has found the elementNameCellLineName enriched wrt the enrichmentDecisionType 
@@ -250,53 +258,45 @@ public class Step5_DDE_GLANETResults {
 
 				//Get each element
 				element = elementList.get(j);
-
-				if( element.getName().contains(elementNameCellLineName)){
-
-					// BH FDR Adjusted PValue from numberofPermutationsRatio starts
-					if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromRatioofPermutations()){
-						
-						if( element.getBHFDRAdjustedPValue() <= FDR){
-							numberofSimulationsThatHasElementNameCellLineNameEnriched++;
-						}
-						
-					}// BH FDR Adjusted PValue from numberofPermutationsRatio ends
-		
-//Right now it is meaningless, since BHFDRAdjustedPValueCalculatedFromZScore is not set.				
-//					// BH FDR Adjusted PValue from zScore starts
-//					else if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromZscore()){
-//						
-//						if( element.getBHFDRAdjustedPValueCalculatedFromZScore() != null && 
-//								element.getBHFDRAdjustedPValueCalculatedFromZScore() <= FDR){
-//							numberofSimulationsThatHasElementNameCellLineNameEnriched++;
-//						}
-//						
-//					}// BH FDR Adjusted PValue from zScore ends
-					
-					// Bonferroni Corrected PValue from numberofPermutationsRatio starts
-					else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromRatioofPermutations()){
-						
-						if( element.getBonferroniCorrectedPValue() <= bonferroniCorrectionSignificanceLevel){
-							numberofSimulationsThatHasElementNameCellLineNameEnriched++;
-						}
-					}// Bonferroni Corrected PValue from numberofPermutationsRatio ends
-
-					
-//Right now it is meaningless, since BonferroniCorrectedPValueCalculatedFromZScore is not set.				
-//					// Bonferroni Corrected PValue from zScore starts
-//					else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromZscore()){
-//						
-//						if( element.getBonferroniCorrectedPValueCalculatedFromZScore() != null && 
-//								element.getBonferroniCorrectedPValueCalculatedFromZScore() <= bonferroniCorrectionSignificanceLevel){
-//							numberofSimulationsThatHasElementNameCellLineNameEnriched++;
-//						}
-//						
-//					}// Bonferroni Corrected PValue from zScore ends
-	
-						
-				}// End of IF elementName contains elementNameCellLineName
-
 				
+				//8 OCT 2015 starts
+				for(TObjectIntIterator<DataDrivenExperimentElementNameType>  itr = elementName2NumberofEnrichmentMap.iterator(); itr.hasNext();){
+					
+					itr.advance();
+					
+					elementNameType = itr.key();
+					elementNameCellLineName = elementNameType.convertEnumtoString() + "_" + cellLineType.convertEnumtoString();
+					
+					if( element.getName().contains(elementNameCellLineName)){
+
+						// BH FDR Adjusted PValue from numberofPermutationsRatio starts
+						if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromRatioofPermutations()){
+							
+							if( element.getBHFDRAdjustedPValue() <= FDR){
+								elementName2NumberofEnrichmentMap.put(elementNameType, elementName2NumberofEnrichmentMap.get(elementNameType)+1);
+							}
+							
+						}// BH FDR Adjusted PValue from numberofPermutationsRatio ends
+			
+						
+						// Bonferroni Corrected PValue from numberofPermutationsRatio starts
+						else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromRatioofPermutations()){
+							
+							if( element.getBonferroniCorrectedPValue() <= bonferroniCorrectionSignificanceLevel){
+								elementName2NumberofEnrichmentMap.put(elementNameType, elementName2NumberofEnrichmentMap.get(elementNameType)+1);
+							}
+						}// Bonferroni Corrected PValue from numberofPermutationsRatio ends
+
+						break;	
+							
+					}// End of IF elementName contains elementNameCellLineName
+					
+
+					
+				}//end of for each elementName in the elementName2NumberofEnrichmentMap
+				//8 OCT 2015 ends
+				
+
 				//Write CellLine Filtered Enrichment Result Line
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getName() + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
@@ -312,18 +312,16 @@ public class Step5_DDE_GLANETResults {
 				cellLineFilteredEnrichmentBufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
-					
 
 				
-			}// End of FOR each element
+			}// End of FOR each element in the elementList
 
 		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		return numberofSimulationsThatHasElementNameCellLineNameEnriched;
-
+	
 	}
 
 	public static void readSimulationGLANETResults(
@@ -335,7 +333,7 @@ public class Step5_DDE_GLANETResults {
 			ElementType elementType, 
 			DataDrivenExperimentCellLineType cellLineType, 
 			DataDrivenExperimentGeneType geneType,
-			DataDrivenExperimentElementNameType elementNameType,
+			TObjectIntMap<DataDrivenExperimentElementNameType> elementName2NumberofEnrichmentMap,
 			Float bonferroniCorrectionSignificanceLevel, 
 			Float FDR,
 			MultipleTestingType multipleTestingParameter,
@@ -343,8 +341,7 @@ public class Step5_DDE_GLANETResults {
 			GenerateRandomDataMode generateRandomDataMode,
 			BufferedWriter bufferedWriter) {
 
-		int numberofSimulationsThatHasElementNameCellLineNameEnriched = 0;
-
+		
 		String strLine = null;
 
 		String enrichmentFile = null;
@@ -356,7 +353,10 @@ public class Step5_DDE_GLANETResults {
 		FileWriter cellLineFilteredEnrichmentFileWriter = null;
 		BufferedWriter cellLineFilteredEnrichmentBufferedWriter = null;
 
-		List<FunctionalElementMinimal> elementList = null;
+		List<FunctionalElementMinimal> cellLineSpecificElementList = null;
+		
+		DataDrivenExperimentElementNameType elementNameType = null;
+		int numberofSimulationsThatHasElementNameCellLineNameEnriched = 0;
 
 		try{
 
@@ -364,7 +364,7 @@ public class Step5_DDE_GLANETResults {
 			for( int i = 0; i < numberofSimulations; i++){
 
 				// Initialize elementList
-				elementList = new ArrayList<FunctionalElementMinimal>();
+				cellLineSpecificElementList = new ArrayList<FunctionalElementMinimal>();
 				
 				switch(generateRandomDataMode){
 					
@@ -417,73 +417,144 @@ public class Step5_DDE_GLANETResults {
 
 					if( strLine.contains(cellLineType.convertEnumtoString())){
 						// Fill elementList
-						elementList.add(getElement(strLine, numberofComparisons));
+						cellLineSpecificElementList.add(getElement(strLine, numberofComparisons));
 					}
 
 				}// End of WHILE
 
 				/**********************************************************************************/
 				// Calculate Bonferroni Corrected P Value
-				BonferroniCorrection.calculateBonferroniCorrectedPValue( elementList);
+				// Number of comparisons is used here
+				BonferroniCorrection.calculateBonferroniCorrectedPValue( cellLineSpecificElementList);
 
 				// Sort w.r.t. empiricalPValue
-				Collections.sort( elementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE);
+				Collections.sort( cellLineSpecificElementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE);
 
 				// Calculate BH FDR Adjusted PValue
-				BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValue( elementList, FDR);
+				BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValue( cellLineSpecificElementList, FDR);
 				/**********************************************************************************/
 
 				/**********************************************************************************/
+				//By the way do we need this calculation?
 				// Calculate BonferroniCorrectedPValue Calculated From ZScore
-				BonferroniCorrection.calculateBonferroniCorrectedPValueCalculatedFromZScore( elementList);
+				// Number of comparisons is used here
+				BonferroniCorrection.calculateBonferroniCorrectedPValueCalculatedFromZScore(cellLineSpecificElementList);
 
 				// Sort w.r.t. empiricalPValue Calculated From ZScore
-				Collections.sort( elementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
+				Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
 
 				// Calculate BH FDR Adjusted PValue Calculated From ZScore
-				BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValueCalculatedFromZScore( elementList, FDR);
+				BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValueCalculatedFromZScore(cellLineSpecificElementList, FDR);
 				/**********************************************************************************/
 
 				// sort w.r.t. BH or BonferroniCorrection
 				switch( multipleTestingParameter){
 
 					case BONFERRONI_CORRECTION:
-						Collections.sort( elementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
+						Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
 						break;
 	
 					case BENJAMINI_HOCHBERG_FDR:
-						Collections.sort( elementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
+						Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
 						break;
 	
 					default:
 						break;
 
 				}// End of switch
+				
+				
+				//8 OCT 2015 starts
+				writeCellLineFilteredEnrichmentFile(cellLineType, 
+													cellLineSpecificElementList,
+													cellLineFilteredEnrichmentBufferedWriter, 
+													multipleTestingParameter, 
+													elementName2NumberofEnrichmentMap,
+													bonferroniCorrectionSignificanceLevel, 
+													FDR, 
+													enrichmentDecisionType);
 
-				// Write new Enrichment File
-				// We have to accumulate the number of simulations whether simulation has returned 1 or 0.
-				numberofSimulationsThatHasElementNameCellLineNameEnriched += writeCellLineFilteredEnrichmentFile(elementList,
-																									cellLineFilteredEnrichmentBufferedWriter, 
-																									multipleTestingParameter, 
-																									elementNameType.convertEnumtoString() + "_" + cellLineType.convertEnumtoString(),
-																									bonferroniCorrectionSignificanceLevel, 
-																									FDR, 
-																									enrichmentDecisionType);
+					
+			
 
+			
 				// Close
 				enrichmentBufferedReader.close();
 				cellLineFilteredEnrichmentBufferedWriter.close();
 
-				elementList = null;
+				cellLineSpecificElementList = null;
+				
 			}// End of FOR each simulation
+			
+			//Now write the results
+			for(TObjectIntIterator<DataDrivenExperimentElementNameType>  itr = elementName2NumberofEnrichmentMap.iterator(); itr.hasNext();){
+				
+				itr.advance();
+				
+				elementNameType = itr.key();
+				numberofSimulationsThatHasElementNameCellLineNameEnriched = itr.value();
+				
+				
+				bufferedWriter.write(elementNameType.convertEnumtoString() +  "_" + cellLineType.convertEnumtoString() + "\t" + numberofSimulationsThatHasElementNameCellLineNameEnriched + "/" +  numberofSimulations + System.getProperty("line.separator"));
+				
+			}//End for each elementNameType 
+			
 
-			System.out.println("Number of simulations that has " + elementNameType.convertEnumtoString() + "_" + cellLineType.convertEnumtoString() + " is enriched " + numberofSimulationsThatHasElementNameCellLineNameEnriched + " out of " + numberofSimulations + " simulations.");
-			bufferedWriter.write(elementNameType.convertEnumtoString() +  "_" + cellLineType.convertEnumtoString() + "\t" + numberofSimulationsThatHasElementNameCellLineNameEnriched + "/" +  numberofSimulations + System.getProperty("line.separator"));
 			
 		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public static void initializeElementName2NumberofEnrichmentMap(
+			//ElementType elementType,
+			TObjectIntMap<DataDrivenExperimentElementNameType> elementName2NumberofEnrichmentMap){
+		
+		for(TObjectIntIterator<DataDrivenExperimentElementNameType> itr = elementName2NumberofEnrichmentMap.iterator();itr.hasNext();){
+			
+			itr.advance();
+			
+			//Can we put while traversing?
+			elementName2NumberofEnrichmentMap.put(itr.key(), 0);
+			
+		}//End of for each entry in the map
+		
+	}
+	
+	public static void initializeElementName2NumberofEnrichmentMap(
+			ElementType elementType,
+			TObjectIntMap<DataDrivenExperimentElementNameType> elementName2NumberofEnrichmentMap){
+		
+		switch(elementType){
+		
+			case TF: 
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.POL2, 0);
+				break;
+				
+			case HISTONE: 
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K4ME1, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K4ME2, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K4ME3, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K27ME3, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K9ME3, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K27AC, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H2AZ, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K36ME3, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K79ME2, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K9AC, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H4K20ME1, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K9ME1, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K9ACB, 0);
+				elementName2NumberofEnrichmentMap.put(DataDrivenExperimentElementNameType.H3K36ME3B, 0);
+				break;
+		
+		
+			default:
+				break;
+		
+		}//End of SWITCH
+		
 	}
 
 	/*
@@ -594,6 +665,10 @@ public class Step5_DDE_GLANETResults {
 			
 			DataDrivenExperimentTopPercentageType topPercentageType = null;
 			
+			//Initialization
+			TObjectIntMap<DataDrivenExperimentElementNameType> histoneElementName2NumberofEnrichmentMap  = new TObjectIntHashMap<DataDrivenExperimentElementNameType>();
+			TObjectIntMap<DataDrivenExperimentElementNameType> tfElementName2NumberofEnrichmentMap  = new TObjectIntHashMap<DataDrivenExperimentElementNameType>();
+			
 			for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
 				
 				itr.advance();
@@ -601,11 +676,15 @@ public class Step5_DDE_GLANETResults {
 				topPercentageType = itr.key();
 				//tpmValue = itr.value();
 				
+				initializeElementName2NumberofEnrichmentMap(ElementType.TF, tfElementName2NumberofEnrichmentMap);
+				initializeElementName2NumberofEnrichmentMap(ElementType.HISTONE, histoneElementName2NumberofEnrichmentMap);
+				
 				bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString() + "\t" + topPercentageType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
 				
-				bufferedWriter.write("Expressors" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
+				bufferedWriter.write("TF" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
 				
-				//Expressor
+				
+				//TF
 				readSimulationGLANETResults(
 						outputFolder, 
 						topPercentageType, 
@@ -615,7 +694,7 @@ public class Step5_DDE_GLANETResults {
 						ElementType.TF, 
 						cellLineType, 
 						geneType,
-						DataDrivenExperimentElementNameType.POL2,
+						tfElementName2NumberofEnrichmentMap,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
 						multipleTestingParameter, 
@@ -623,7 +702,11 @@ public class Step5_DDE_GLANETResults {
 						generateRandomDataMode,
 						bufferedWriter);
 				
-				//Expressor
+				
+				bufferedWriter.write("HISTONE" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
+				
+				
+				//HISTONE
 				readSimulationGLANETResults(
 						outputFolder, 
 						topPercentageType, 
@@ -633,7 +716,7 @@ public class Step5_DDE_GLANETResults {
 						ElementType.HISTONE, 
 						cellLineType,
 						geneType,
-						DataDrivenExperimentElementNameType.H3K4ME1,
+						histoneElementName2NumberofEnrichmentMap,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
 						multipleTestingParameter, 
@@ -641,81 +724,7 @@ public class Step5_DDE_GLANETResults {
 						generateRandomDataMode,
 						bufferedWriter);
 				
-				//Expressor
-				readSimulationGLANETResults(
-						outputFolder, 
-						topPercentageType, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K4ME2,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode,
-						bufferedWriter);
-		
-		
 				
-				//Expressor
-				readSimulationGLANETResults(
-						outputFolder, 
-						topPercentageType, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K4ME3,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode,
-						bufferedWriter);
-				
-				bufferedWriter.write("Repressors" + "\t"+ "NumberofEnrichedElements/" + numberofSimulations + " Simulations" + System.getProperty("line.separator"));
-				
-				//Repressor
-				readSimulationGLANETResults(
-						outputFolder, 
-						topPercentageType, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K27ME3,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode,
-						bufferedWriter);
-				
-				//Repressor
-				readSimulationGLANETResults(
-						outputFolder, 
-						topPercentageType, 
-						dnaseOverlapExclusionType, 
-						numberofSimulations,
-						numberofHistoneElementsInThisCellLine, 
-						ElementType.HISTONE, 
-						cellLineType, 
-						geneType,
-						DataDrivenExperimentElementNameType.H3K9ME3,
-						bonferroniCorrectionSignificanceLevel, 
-						FDR, 
-						multipleTestingParameter, 
-						enrichmentDecisionType,
-						generateRandomDataMode,
-						bufferedWriter);
 				
 				bufferedWriter.write(System.getProperty("line.separator"));
 				

@@ -123,7 +123,15 @@ public class Commons {
 	public static final String H3K4ME3 	= "H3K4ME3";
 	public static final String H3K27ME3 = "H3K27ME3";
 	public static final String H3K9ME3  = "H3K9ME3";
-	
+	public static final String H3K27AC = "H3K27AC";
+	public static final String H2AZ = "H2AZ";
+	public static final String H3K36ME3 = "H3K36ME3";
+	public static final String H3K79ME2 = "H3K79ME2";
+	public static final String H3K9AC = "H3K9AC";
+	public static final String H4K20ME1 = "H4K20ME1";
+	public static final String H3K9ME1 = "H3K9ME1";
+	public static final String H3K9ACB = "H3K9ACB";
+	public static final String H3K36ME3B = "H3K36ME3B";
 	
 
 	// GLANET DATA Driven ends

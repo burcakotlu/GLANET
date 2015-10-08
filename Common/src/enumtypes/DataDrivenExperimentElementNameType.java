@@ -14,11 +14,22 @@ import common.Commons;
 public enum DataDrivenExperimentElementNameType {
 	
 	POL2(1), 		//expressor
-	H3K4ME3(2), 	//expressor
-	H3K4ME1(3), 	//expressor
-	H3K4ME2(4), 	//expressor
+	
+	H3K4ME1(2), 	//expressor
+	H3K4ME2(3), 	//expressor
+	H3K4ME3(4), 	//expressor
 	H3K27ME3(5), 	//repressor
-	H3K9ME3(6);		//repressor
+	H3K9ME3(6),		//repressor
+	H3K27AC(7),		//repressor
+	
+	H2AZ(8),	
+	H3K36ME3(9),
+	H3K79ME2(10),
+	H3K9AC(11),
+	H4K20ME1(12),
+	H3K9ME1(13),
+	H3K9ACB(14),
+	H3K36ME3B(15);
 	
 	
 	private final int dataDrivenExperimentElementNameType;
@@ -52,7 +63,41 @@ public enum DataDrivenExperimentElementNameType {
 			return H3K27ME3;
 		}else if( Commons.H3K9ME3.equals(dataDrivenExperimentElementNameType)){
 			return H3K9ME3;
-		}else
+		}else if( Commons.H3K27AC.equals(dataDrivenExperimentElementNameType)){
+			return H3K27AC;
+		}
+		
+		
+		
+		else if( Commons.H2AZ.equals(dataDrivenExperimentElementNameType)){
+			return H2AZ;
+		}
+		else if( Commons.H3K36ME3.equals(dataDrivenExperimentElementNameType)){
+			return H3K36ME3;
+		}
+		else if( Commons.H3K79ME2.equals(dataDrivenExperimentElementNameType)){
+			return H3K79ME2;
+		}
+		else if( Commons.H3K9AC.equals(dataDrivenExperimentElementNameType)){
+			return H3K9AC;
+		}
+		else if( Commons.H4K20ME1.equals(dataDrivenExperimentElementNameType)){
+			return H4K20ME1;
+		}
+		else if( Commons.H3K9ME1.equals(dataDrivenExperimentElementNameType)){
+			return H3K9ME1;
+		}
+		else if( Commons.H3K9ACB.equals(dataDrivenExperimentElementNameType)){
+			return H3K9ACB;
+		}
+		else if( Commons.H3K36ME3B.equals(dataDrivenExperimentElementNameType)){
+			return H3K36ME3B;
+		}
+		
+		
+	
+		
+		else
 			return null;
 	}
 
@@ -75,6 +120,39 @@ public enum DataDrivenExperimentElementNameType {
 		
 		else if( this.equals( DataDrivenExperimentElementNameType.H3K9ME3))
 			return Commons.H3K9ME3;
+		
+		else if( this.equals( DataDrivenExperimentElementNameType.H3K27AC))
+			return Commons.H3K27AC;
+		
+		
+		
+		else if( this.equals(DataDrivenExperimentElementNameType.H2AZ)){
+			return Commons.H2AZ;
+		}
+		else if( this.equals(DataDrivenExperimentElementNameType.H3K36ME3)){
+			return Commons.H3K36ME3;
+		}
+		else if( this.equals(DataDrivenExperimentElementNameType.H3K79ME2)){
+			return Commons.H3K79ME2;
+		}
+		else if( this.equals(DataDrivenExperimentElementNameType.H3K9AC)){
+			return Commons.H3K9AC;
+		}
+		else if( this.equals(DataDrivenExperimentElementNameType.H4K20ME1)){
+			return Commons.H4K20ME1;
+		}
+		else if( this.equals(DataDrivenExperimentElementNameType.H3K9ME1)){
+			return Commons.H3K9ME1;
+		}
+		else if( this.equals(DataDrivenExperimentElementNameType.H3K9ACB)){
+			return Commons.H3K9ACB;
+		}
+		else if( this.equals(DataDrivenExperimentElementNameType.H3K36ME3B)){
+			return Commons.H3K36ME3B;
+		}
+		
+		
+
 		
 		else
 			return null;
@@ -103,4 +181,9 @@ public enum DataDrivenExperimentElementNameType {
 	public boolean isH3K9ME3() {
 		return ( this == DataDrivenExperimentElementNameType.H3K9ME3);
 	}
+	
+	public boolean isH3K27AC() {
+		return ( this == DataDrivenExperimentElementNameType.H3K27AC);
+	}
+	
 }
