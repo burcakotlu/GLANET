@@ -21,7 +21,7 @@ import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DataDrivenExperimentTopPercentageType;
+import enumtypes.DataDrivenExperimentTPMType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
@@ -51,7 +51,7 @@ public class Step3_DDE_DataCreation {
 	public static String getIntervalPoolFileName(
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
-			DataDrivenExperimentTopPercentageType topPercentageType,
+			DataDrivenExperimentTPMType topPercentageType,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			String dataDrivenExperimentFolder) {
 
@@ -159,7 +159,7 @@ public class Step3_DDE_DataCreation {
 			String dataDrivenExperimentFolder, 
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
-			DataDrivenExperimentTopPercentageType topPercentageType,
+			DataDrivenExperimentTPMType topPercentageType,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			String intervalPoolFileName, 
 			int numberofSimulations,
@@ -228,7 +228,7 @@ public class Step3_DDE_DataCreation {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTopPercentageType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTopPercentageType>();
+		TObjectFloatMap<DataDrivenExperimentTPMType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
 		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmValueMap);
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
@@ -237,12 +237,12 @@ public class Step3_DDE_DataCreation {
 		/*************************************************************************************************/
 		/******************************For each tpmValue starts*******************************************/
 		/*************************************************************************************************/
-		DataDrivenExperimentTopPercentageType topPercentageType = null;
+		DataDrivenExperimentTPMType topPercentageType = null;
 		//Float tpmValue = null;
 		
 		String intervalPoolFileName = null;
 
-		for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
+		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmValueMap.iterator();itr.hasNext();){
 			
 			itr.advance();
 			

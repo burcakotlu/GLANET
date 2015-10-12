@@ -20,7 +20,7 @@ import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DataDrivenExperimentTopPercentageType;
+import enumtypes.DataDrivenExperimentTPMType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.list.TIntList;
@@ -566,14 +566,14 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTopPercentageType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTopPercentageType>();
+		TObjectFloatMap<DataDrivenExperimentTPMType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
 		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmValueMap);
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
 
 
-		DataDrivenExperimentTopPercentageType percentageType = null;
+		DataDrivenExperimentTPMType percentageType = null;
 		Float tpmValue = null;
 		
 		
@@ -590,7 +590,7 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 			/*************************************************************************************************/
 			/******************************For each tpmValue starts*******************************************/
 			/*************************************************************************************************/
-			for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
+			for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmValueMap.iterator();itr.hasNext();){
 				
 				itr.advance();
 				

@@ -13,7 +13,7 @@ import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentOperatingSystem;
-import enumtypes.DataDrivenExperimentTopPercentageType;
+import enumtypes.DataDrivenExperimentTPMType;
 import enumtypes.GenerateRandomDataMode;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
@@ -40,7 +40,7 @@ public class Step4_DDE_GLANETRuns {
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			DataDrivenExperimentOperatingSystem operatingSystem,
-			DataDrivenExperimentTopPercentageType topPercentageType,
+			DataDrivenExperimentTPMType topPercentageType,
 			GenerateRandomDataMode withorWithoutGCandMapability, 
 			String args[],
 			String dataDrivenExperimentScriptFolder) throws IOException {
@@ -300,7 +300,7 @@ public class Step4_DDE_GLANETRuns {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTopPercentageType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTopPercentageType>();
+		TObjectFloatMap<DataDrivenExperimentTPMType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
 		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmValueMap);
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
@@ -316,7 +316,7 @@ public class Step4_DDE_GLANETRuns {
 		//Operating System where the Data Driven Experiment will run
 		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[5]);
 		
-		DataDrivenExperimentTopPercentageType topPercentageType = null;
+		DataDrivenExperimentTPMType topPercentageType = null;
 
 		try{
 			
@@ -327,7 +327,7 @@ public class Step4_DDE_GLANETRuns {
 			//**************************************************GLANET RUNS************************************************//
 			//*************************************************************************************************************//
 			
-			for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
+			for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmValueMap.iterator();itr.hasNext();){
 				
 				itr.advance();
 				

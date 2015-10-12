@@ -16,7 +16,7 @@ import auxiliary.GlanetDecimalFormat;
 import common.Commons;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DataDrivenExperimentTopPercentageType;
+import enumtypes.DataDrivenExperimentTPMType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 
@@ -160,16 +160,16 @@ public class Step0_TPMValuesGathering {
 			//In Descending order for ExpressingGenes
 			list = DataDrivenExperimentCommon.sortList(list,geneType);
 			
-			float tpmFirstElement 	= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.FIRSTELEMENT);			
-			float tpmTop1		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.TOP1PERCENTAGE);
-			float tpmTop2		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.TOP2PERCENTAGE);
-			float tpmTop5 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.TOP5PERCENTAGE);
-			float tpmTop10 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.TOP10PERCENTAGE);
-			float tpmTop25 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.TOP25PERCENTAGE);
-			float tpmTop50 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.TOP50PERCENTAGE);
-			float tpmTop55 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.TOP55PERCENTAGE);
-			float tpmTop60 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.TOP60PERCENTAGE);
-			float tpmLastElement 	= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTopPercentageType.LASTELEMENT);
+			float tpmFirstElement 	= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.FIRSTELEMENT);			
+			float tpmTop1		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP1PERCENTAGE);
+			float tpmTop2		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP2PERCENTAGE);
+			float tpmTop5 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP5PERCENTAGE);
+			float tpmTop10 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP10PERCENTAGE);
+			float tpmTop25 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP25PERCENTAGE);
+			float tpmTop50 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP50PERCENTAGE);
+			float tpmTop55 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP55PERCENTAGE);
+			float tpmTop60 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP60PERCENTAGE);
+			float tpmLastElement 	= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.LASTELEMENT);
 			
 			DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 			

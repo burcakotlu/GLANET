@@ -14,24 +14,24 @@ import common.Commons;
 public enum DataDrivenExperimentElementNameType {
 	
 	POL2(1), 		//expressor
-	
 	H3K4ME1(2), 	//expressor
 	H3K4ME2(3), 	//expressor
 	H3K4ME3(4), 	//expressor
-	H3K27ME3(5), 	//repressor
-	H3K9ME3(6),		//repressor
-	H3K27AC(7),		//repressor
+	H3K79ME2(5), 	//expressor ?
+	H4K20ME1(6), 	//expressor
+	H3K9ACB(7), 	//expressor ?
 	
-	H2AZ(8),	
-	H3K36ME3(9),
-	H3K79ME2(10),
-	H3K9AC(11),
-	H4K20ME1(12),
-	H3K9ME1(13),
-	H3K9ACB(14),
-	H3K36ME3B(15);
-	
-	
+	H3K27ME3(8), 	//repressor
+	H3K27AC(9),		//repressor
+	H3K36ME3B(10), 	//repressor
+	H3K9ME1(11), 	//repressor
+
+	H3K9ME3(12),	//bivalent
+	H2AZ(13),		//bivalent
+	H3K36ME3(14), 	//bivalent
+	H3K9AC(15);		//bivalent
+		
+
 	private final int dataDrivenExperimentElementNameType;
 
 	/*
@@ -173,17 +173,91 @@ public enum DataDrivenExperimentElementNameType {
 	public boolean isH3K4ME3() {
 		return ( this == DataDrivenExperimentElementNameType.H3K4ME3);
 	}
+
+	
+	
+	public boolean isH3K79ME2() {
+		return ( this == DataDrivenExperimentElementNameType.H3K79ME2);
+	}
+	
+	public boolean isH4K20ME1() {
+		return ( this == DataDrivenExperimentElementNameType.H4K20ME1);
+	}
+	
+	public boolean isH3K9ACB() {
+		return ( this == DataDrivenExperimentElementNameType.H3K9ACB);
+	}
 	
 	public boolean isH3K27ME3() {
 		return ( this == DataDrivenExperimentElementNameType.H3K27ME3);
 	}
 	
+	public boolean isH3K27AC() {
+		return ( this == DataDrivenExperimentElementNameType.H3K27AC);
+	}
+	
+	public boolean isH3K36ME3B() {
+		return ( this == DataDrivenExperimentElementNameType.H3K36ME3B);
+	}
+	
+	public boolean isH3K9ME1() {
+		return ( this == DataDrivenExperimentElementNameType.H3K9ME1);
+	}
+	
+	
 	public boolean isH3K9ME3() {
 		return ( this == DataDrivenExperimentElementNameType.H3K9ME3);
 	}
 	
-	public boolean isH3K27AC() {
-		return ( this == DataDrivenExperimentElementNameType.H3K27AC);
+	public boolean isH2AZ() {
+		return ( this == DataDrivenExperimentElementNameType.H2AZ);
 	}
+	
+	public boolean isH3K36ME3() {
+		return ( this == DataDrivenExperimentElementNameType.H3K36ME3);
+	}
+	
+	public boolean isH3K9AC() {
+		return ( this == DataDrivenExperimentElementNameType.H3K9AC);
+	}
+
+	
+	public boolean isExpressor() {
+		
+		if (this == DataDrivenExperimentElementNameType.POL2 ||
+			this == DataDrivenExperimentElementNameType.H3K4ME1 ||
+			this == DataDrivenExperimentElementNameType.H3K4ME2 ||
+			this == DataDrivenExperimentElementNameType.H3K4ME3 ||
+			this == DataDrivenExperimentElementNameType.H3K79ME2 ||
+			this == DataDrivenExperimentElementNameType.H4K20ME1 ||
+			this == DataDrivenExperimentElementNameType.H3K9ACB){
+			
+		}
+		return true;
+	}
+
+	public boolean isRepressor() {
+		
+		if (this == DataDrivenExperimentElementNameType.H3K27ME3 ||
+			this == DataDrivenExperimentElementNameType.H3K27AC ||
+			this == DataDrivenExperimentElementNameType.H3K36ME3B ||
+			this == DataDrivenExperimentElementNameType.H3K9ME1){
+			
+		}
+		return true;
+	}
+	
+	public boolean isBivalent() {
+		
+		if (this == DataDrivenExperimentElementNameType.H3K9ME3 ||
+			this == DataDrivenExperimentElementNameType.H2AZ ||
+			this == DataDrivenExperimentElementNameType.H3K36ME3 ||
+			this == DataDrivenExperimentElementNameType.H3K9AC){
+			
+		}
+		return true;
+	}
+	
+	
 	
 }

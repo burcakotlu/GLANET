@@ -6,7 +6,7 @@ package datadrivenexperiment;
 import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DataDrivenExperimentTopPercentageType;
+import enumtypes.DataDrivenExperimentTPMType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
@@ -469,7 +469,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTopPercentageType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTopPercentageType>();
+		TObjectFloatMap<DataDrivenExperimentTPMType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
 		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmValueMap);
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
@@ -540,7 +540,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 
 		
 		//30 SEP 2015 starts
-		DataDrivenExperimentTopPercentageType tpmPercentageType = null;
+		DataDrivenExperimentTPMType tpmPercentageType = null;
 		Float tpmValue = null;
 		
 		// Output File
@@ -551,7 +551,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		String expressingProteinCodingGenesIntervalsFile = null;
 		
 		//For each tpmValue in tpmValueList
-		for(TObjectFloatIterator<DataDrivenExperimentTopPercentageType> itr = tpmValueMap.iterator();itr.hasNext();){
+		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmValueMap.iterator();itr.hasNext();){
 			
 			itr.advance();
 			

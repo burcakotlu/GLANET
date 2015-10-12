@@ -72,6 +72,10 @@ public class Commons {
 	public static final String DNASE_OVERLAPS_EXCLUDED 				= "DnaseOverlapsExcluded";
 	public static final String NONEXPRESSING_PROTEINCODING_GENES 	= "NonExpressingGenes";
 	public static final String EXPRESSING_PROTEINCODING_GENES 		= "ExpressingGenes";
+	
+	public static final String EXPRESSOR = "Expressor";
+	public static final String REPRESSOR = "Repressor";
+	public static final String BIVALENT = "BIVALENT";
 
 	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscard";
 	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "TakeTheLongest";
@@ -88,7 +92,6 @@ public class Commons {
 	
 	public static final String GLANET_DDE_RESULTS_FILE = "GLANET_DDE_Results.txt";
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL_STATISTICS_FILE = "DnaseOverlapsExcludedIntervalPoolStatistics.txt";
-	
 	
 	public static final String TOP1PERCENTAGE 	= "Top1";
 	public static final String TOP2PERCENTAGE 	= "Top2";

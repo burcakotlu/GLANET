@@ -19,7 +19,7 @@ import common.Commons;
 
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DataDrivenExperimentTopPercentageType;
+import enumtypes.DataDrivenExperimentTPMType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
@@ -36,7 +36,7 @@ public class DataDrivenExperimentCommon {
 			String glanetFolder,
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
-			TObjectFloatMap<DataDrivenExperimentTopPercentageType> tpmValueMap){
+			TObjectFloatMap<DataDrivenExperimentTPMType> tpmValueMap){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -94,16 +94,16 @@ public class DataDrivenExperimentCommon {
 					//TOP2 
 					//TOP10 
 					//TOP25
-					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP2PERCENTAGE, top2TPMValue);
-					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP10PERCENTAGE, top10TPMValue);
-					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP25PERCENTAGE, top25TPMValue);
+					tpmValueMap.put(DataDrivenExperimentTPMType.TOP2PERCENTAGE, top2TPMValue);
+					tpmValueMap.put(DataDrivenExperimentTPMType.TOP10PERCENTAGE, top10TPMValue);
+					tpmValueMap.put(DataDrivenExperimentTPMType.TOP25PERCENTAGE, top25TPMValue);
 					break;
 					
 				case NONEXPRESSING_PROTEINCODING_GENES:
 					//TOP2
 					//TOP60
-					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP2PERCENTAGE, top2TPMValue);
-					tpmValueMap.put(DataDrivenExperimentTopPercentageType.TOP60PERCENTAGE, top60TPMValue);
+					tpmValueMap.put(DataDrivenExperimentTPMType.TOP2PERCENTAGE, top2TPMValue);
+					tpmValueMap.put(DataDrivenExperimentTPMType.TOP60PERCENTAGE, top60TPMValue);
 					break;
 			
 			}//End of SWITCH
@@ -310,7 +310,7 @@ public class DataDrivenExperimentCommon {
 	
 	public static Float getTopPercentage(
 			List<Map.Entry<String, Float>> list,
-			DataDrivenExperimentTopPercentageType topPercentage){
+			DataDrivenExperimentTPMType topPercentage){
 		
 		int  index = 0;
 				
