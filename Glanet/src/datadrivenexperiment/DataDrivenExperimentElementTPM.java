@@ -100,8 +100,14 @@ public class DataDrivenExperimentElementTPM {
 		public int compare(DataDrivenExperimentElementTPM elementTPM1, DataDrivenExperimentElementTPM elementTPM2)
 	    {
 	        // Assume no nulls, and simple ordinal comparisons
+			
+			// First by elementType
+			int elementTypeResult = elementTPM1.getElementType().convertEnumtoString().compareTo(elementTPM2.getElementType().convertEnumtoString());
+		    if (elementTypeResult!=0){
+		    	return elementTypeResult;
+		    }
 
-	        // First by elementName
+	        // Second by elementName
 	        int elementNameTypeResult = elementTPM1.getElementNameType().convertEnumtoString().compareTo(elementTPM2.getElementNameType().convertEnumtoString());
 	        if (elementNameTypeResult != 0)
 	        {

@@ -668,6 +668,8 @@ public class Step5_DDE_GLANETResults {
 		//First Header Line ends
 		
 		//Second Header Line starts
+		bufferedWriter.write("ElementType" + "\t" + "ElementName" + "\t");
+		
 		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
 			
 			itr.advance();
@@ -675,7 +677,7 @@ public class Step5_DDE_GLANETResults {
 			tpmType = itr.key();
 			tpmValue = itr.value();
 			
-			bufferedWriter.write("ElementType" + "\t" + "ElementName" + "\t" + "NumberofEnrichment"+ "\t" + "TypeIError" + "\t" + "TypeIIError" + "\t" + "Power" + "\t");
+			bufferedWriter.write("NumberofEnrichment"+ "\t" + "TypeIError" + "\t" + "TypeIIError" + "\t" + "Power" + "\t");
 		
 		}
 		bufferedWriter.write(System.getProperty("line.separator"));

@@ -231,9 +231,10 @@ public enum DataDrivenExperimentElementNameType {
 			this == DataDrivenExperimentElementNameType.H3K79ME2 ||
 			this == DataDrivenExperimentElementNameType.H4K20ME1 ||
 			this == DataDrivenExperimentElementNameType.H3K9ACB){
-			
+			return true;
 		}
-		return true;
+		return false;
+		
 	}
 
 	public boolean isRepressor() {
@@ -242,9 +243,9 @@ public enum DataDrivenExperimentElementNameType {
 			this == DataDrivenExperimentElementNameType.H3K27AC ||
 			this == DataDrivenExperimentElementNameType.H3K36ME3B ||
 			this == DataDrivenExperimentElementNameType.H3K9ME1){
-			
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	public boolean isBivalent() {
@@ -253,9 +254,9 @@ public enum DataDrivenExperimentElementNameType {
 			this == DataDrivenExperimentElementNameType.H2AZ ||
 			this == DataDrivenExperimentElementNameType.H3K36ME3 ||
 			this == DataDrivenExperimentElementNameType.H3K9AC){
-			
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 	
