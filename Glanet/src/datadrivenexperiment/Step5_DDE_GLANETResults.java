@@ -606,7 +606,7 @@ public class Step5_DDE_GLANETResults {
 			
 			//Evaluate Type I Error
 			if ((geneType.isExpressingProteinCodingGenes() && elementType.isExpressor()) ||
-				(geneType.isNonExpressingProteinCodingGenes() && elementType.isRepressor())){
+				(geneType.isNonExpressingProteinCodingGenes() && elementType.isRepressor()) ){
 				
 				typeOneError = ((float) (numberofGLANETRuns-numberofEnrichment))/numberofGLANETRuns;
 				
@@ -618,7 +618,7 @@ public class Step5_DDE_GLANETResults {
 			
 			//Evaluate Type II Error and Power
 			if ((geneType.isExpressingProteinCodingGenes() && elementType.isRepressor()) ||
-					(geneType.isNonExpressingProteinCodingGenes() && elementType.isExpressor())){
+					(geneType.isNonExpressingProteinCodingGenes() && elementType.isExpressor()) ){
 					
 					typeTwoError = ((float) (numberofEnrichment))/numberofGLANETRuns;
 					power = 1-typeTwoError;
@@ -627,6 +627,22 @@ public class Step5_DDE_GLANETResults {
 					ddeElementTPM.setTypeTwoError(typeTwoError);
 					ddeElementTPM.setPower(power);
 					
+			}
+			
+			//FOR BIVALENT Elements
+			//Evaluate Type I Error
+			//Evaluate Type II Error and Power
+			//In this way of evaluating typeOneError and power are always the same
+			if (elementType.isBivalent()){
+					
+					typeOneError = ((float) (numberofGLANETRuns-numberofEnrichment))/numberofGLANETRuns;
+					ddeElementTPM.setTypeOneError(typeOneError);
+					
+					typeTwoError = ((float) (numberofEnrichment))/numberofGLANETRuns;
+					power = 1-typeTwoError;
+					
+					ddeElementTPM.setTypeTwoError(typeTwoError);
+					ddeElementTPM.setPower(power);
 			}
 			
 			
@@ -857,8 +873,6 @@ public class Step5_DDE_GLANETResults {
 			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + System.getProperty("line.separator"));
 			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
 			
-			System.out.println(elementNameTPMName2NumberofEnrichmentMap.size());
-			
 			for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
 				
 				itr.advance();
@@ -907,8 +921,6 @@ public class Step5_DDE_GLANETResults {
 				
 
 			}//End of FOR each tpmValue
-			
-			System.out.println("After for each tpm Type" + "\t" + elementNameTPMName2NumberofEnrichmentMap.size());
 			
 			//Convert elementNameTPMName2NumberofEnrichmentMap to List
 			List<DataDrivenExperimentElementTPM> ddeElementList = new ArrayList<DataDrivenExperimentElementTPM>();
