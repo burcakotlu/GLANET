@@ -3,9 +3,7 @@
  */
 package datadrivenexperiment;
 
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.List;
 
 import enumtypes.DataDrivenExperimentElementNameType;
 import enumtypes.DataDrivenExperimentElementType;
@@ -99,42 +97,23 @@ public class DataDrivenExperimentElementTPM {
 	 */
 	public static class DDEElementTPMChainedComparator implements Comparator<DataDrivenExperimentElementTPM> {
 	 
-	    private List<Comparator<DataDrivenExperimentElementTPM>> listComparators;
-	 
-	    @SafeVarargs
-	    public DDEElementTPMChainedComparator(Comparator<DataDrivenExperimentElementTPM>... comparators) {
-	        this.listComparators = Arrays.asList(comparators);
-	    }
-	 
-	    @Override
-	    public int compare(DataDrivenExperimentElementTPM e1, DataDrivenExperimentElementTPM e2) {
-	        for (Comparator<DataDrivenExperimentElementTPM> comparator : listComparators) {
-	            int result = comparator.compare(e1, e2);
-	            if (result != 0) {
-	                return result;
-	            }
+		public int compare(DataDrivenExperimentElementTPM elementTPM1, DataDrivenExperimentElementTPM elementTPM2)
+	    {
+	        // Assume no nulls, and simple ordinal comparisons
+
+	        // First by elementName
+	        int elementNameTypeResult = elementTPM1.getElementNameType().convertEnumtoString().compareTo(elementTPM2.getElementNameType().convertEnumtoString());
+	        if (elementNameTypeResult != 0)
+	        {
+	            return elementNameTypeResult;
 	        }
-	        return 0;
+
+	        // Next by TPMName
+	        return elementTPM1.getTpmType().convertEnumtoString().compareTo(elementTPM2.getTpmType().convertEnumtoString());
+	        
+	       
 	    }
 	}
 	
-	//Comparator
-	public static class ElementNameTypeComparator implements Comparator<DataDrivenExperimentElementTPM> {
-		 
-	    @Override
-	    public int compare(DataDrivenExperimentElementTPM e1, DataDrivenExperimentElementTPM e2) {
-	        return e1.getElementNameType().compareTo(e2.getElementNameType());
-	    }
-	}
-
-
-	//Comparator
-	public static class TPMTypeComparator implements Comparator<DataDrivenExperimentElementTPM> {
-		 
-	    @Override
-	    public int compare(DataDrivenExperimentElementTPM e1, DataDrivenExperimentElementTPM e2) {
-	        return e1.getTpmType().compareTo(e2.getTpmType());
-	    }
-	}
 
 }

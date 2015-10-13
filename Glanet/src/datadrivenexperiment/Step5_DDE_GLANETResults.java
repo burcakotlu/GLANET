@@ -24,8 +24,6 @@ import auxiliary.NumberofComparisons;
 import common.Commons;
 
 import datadrivenexperiment.DataDrivenExperimentElementTPM.DDEElementTPMChainedComparator;
-import datadrivenexperiment.DataDrivenExperimentElementTPM.ElementNameTypeComparator;
-import datadrivenexperiment.DataDrivenExperimentElementTPM.TPMTypeComparator;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentElementNameType;
@@ -221,9 +219,10 @@ public class Step5_DDE_GLANETResults {
 	public static void writeCellLineFilteredEnrichmentFile(
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentTPMType TPMType,
-			List<FunctionalElementMinimal> elementList,
+			List<FunctionalElementMinimal> cellLineSpecificElementList,
 			BufferedWriter cellLineFilteredEnrichmentBufferedWriter, 
 			MultipleTestingType multipleTestingParameter,
+			List<DataDrivenExperimentElementNameType> elementNameTypeList,
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap, 
 			Float bonferroniCorrectionSignificanceLevel, 
 			Float FDR,
@@ -234,6 +233,10 @@ public class Step5_DDE_GLANETResults {
 		FunctionalElementMinimal element = null;
 	
 		String elementNameTPMName = null;
+		
+		int indexofUnderscore = 0;
+		String elementName = null;
+		DataDrivenExperimentElementNameType elementNameType  = null;
 		
 		// Write new enrichmentFile
 		// while writing count the numberofSimulations that has found the elementNameCellLineName enriched wrt the enrichmentDecisionType 
@@ -257,43 +260,11 @@ public class Step5_DDE_GLANETResults {
 			cellLineFilteredEnrichmentBufferedWriter.write("isRejectNullHypothesis" + System.getProperty( "line.separator"));
 				
 			// Write each element in elementList
-			for( int i = 0; i < elementList.size(); i++){
+			for( int i = 0; i < cellLineSpecificElementList.size(); i++){
 
 				//Get each element
-				element = elementList.get(i);
+				element = cellLineSpecificElementList.get(i);
 				
-				elementNameTPMName = element.getName().substring(0, element.getName().indexOf('_')) + "_" + TPMType.convertEnumtoString();
-				
-				// BH FDR Adjusted PValue from numberofPermutationsRatio starts
-				if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromRatioofPermutations()){
-					
-					if( element.getBHFDRAdjustedPValue() <= FDR){
-						
-						if (elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName) == 0){
-							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, 1);
-	
-						}else{
-							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
-							
-						}
-					}
-					
-				}// BH FDR Adjusted PValue from numberofPermutationsRatio ends
-	
-				// Bonferroni Corrected PValue from numberofPermutationsRatio starts
-				else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromRatioofPermutations()){
-					
-					if( element.getBonferroniCorrectedPValue() <= bonferroniCorrectionSignificanceLevel){
-						
-						if (elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName) == 0){
-							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, 1);
-
-						}else{
-							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
-						}
-					}
-				}// Bonferroni Corrected PValue from numberofPermutationsRatio ends
-
 				//Write CellLine Filtered Enrichment Result Line
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getName() + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
@@ -310,10 +281,53 @@ public class Step5_DDE_GLANETResults {
 				cellLineFilteredEnrichmentBufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
 
+
+				/*****************************************************************************************/
+				/**********************GLANET DDE considered elementNameList starts***********************/
+				/*****************************************************************************************/
+				indexofUnderscore = element.getName().indexOf('_');
+				
+				elementName = element.getName().substring(0, indexofUnderscore);
+				elementNameType = DataDrivenExperimentElementNameType.convertStringtoEnum(elementName);
+				
+				if (elementNameTypeList.contains(elementNameType)){
+					
+					elementNameTPMName = elementName + "_" + TPMType.convertEnumtoString();
+					
+					//Just put if not put before
+					//But set the numberofEnrichment to zero
+					//Since we don't know whether it is enriched or not yet.
+					if (elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName) == 0){
+						elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, 0);
+					}
+					
+					// BH FDR Adjusted PValue from numberofPermutationsRatio starts
+					if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromRatioofPermutations()){
+						
+						if( element.getBHFDRAdjustedPValue() <= FDR){
+							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
+						}
+						
+					}// BH FDR Adjusted PValue from numberofPermutationsRatio ends
+		
+					// Bonferroni Corrected PValue from numberofPermutationsRatio starts
+					else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromRatioofPermutations()){
+						
+						if( element.getBonferroniCorrectedPValue() <= bonferroniCorrectionSignificanceLevel){
+								elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
+						}
+						
+					}// Bonferroni Corrected PValue from numberofPermutationsRatio ends
+					
+				}//End of IF
+				/*****************************************************************************************/
+				/**********************GLANET DDE considered elementNameList ends*************************/
+				/*****************************************************************************************/
+
+
 			}// End of FOR each element in the elementList
 
 		}catch( IOException e){
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -329,6 +343,7 @@ public class Step5_DDE_GLANETResults {
 			ElementType elementType, 
 			DataDrivenExperimentCellLineType cellLineType, 
 			DataDrivenExperimentGeneType geneType,
+			List<DataDrivenExperimentElementNameType> elementNameTypeList,
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap,
 			Float bonferroniCorrectionSignificanceLevel, 
 			Float FDR,
@@ -464,6 +479,7 @@ public class Step5_DDE_GLANETResults {
 													cellLineSpecificElementList,
 													cellLineFilteredEnrichmentBufferedWriter, 
 													multipleTestingParameter, 
+													elementNameTypeList,
 													elementNameTPMName2NumberofEnrichmentMap,
 													bonferroniCorrectionSignificanceLevel, 
 													FDR, 
@@ -501,36 +517,23 @@ public class Step5_DDE_GLANETResults {
 	}
 	
 	public static void initializeElementName2NumberofEnrichmentMap(
-			ElementType elementType,
 			List<DataDrivenExperimentElementNameType> elementNameList){
 		
-		switch(elementType){
-		
-			case TF: 
-				elementNameList.add(DataDrivenExperimentElementNameType.POL2);
-				break;
-				
-			case HISTONE: 
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME1);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME2);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME3);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K27ME3);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K9ME3);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K27AC);
-				elementNameList.add(DataDrivenExperimentElementNameType.H2AZ);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K36ME3);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K79ME2);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K9AC);
-				elementNameList.add(DataDrivenExperimentElementNameType.H4K20ME1);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K9ME1);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K9ACB);
-				elementNameList.add(DataDrivenExperimentElementNameType.H3K36ME3B);
-				break;
-		
-			default:
-				break;
-		
-		}//End of SWITCH
+		elementNameList.add(DataDrivenExperimentElementNameType.POL2);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME1);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME2);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME3);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K27ME3);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K9ME3);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K27AC);
+		elementNameList.add(DataDrivenExperimentElementNameType.H2AZ);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K36ME3);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K79ME2);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K9AC);
+		elementNameList.add(DataDrivenExperimentElementNameType.H4K20ME1);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K9ME1);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K9ACB);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K36ME3B);
 		
 	}
 	
@@ -549,7 +552,7 @@ public class Step5_DDE_GLANETResults {
 		
 		int numberofEnrichment = 0;
 		
-		DataDrivenExperimentElementTPM ddeElementTPM = new DataDrivenExperimentElementTPM();
+		DataDrivenExperimentElementTPM ddeElementTPM = null;
 		
 		DataDrivenExperimentElementNameType elementNameType = null;
 		DataDrivenExperimentElementType elementType = null;
@@ -572,6 +575,8 @@ public class Step5_DDE_GLANETResults {
 			
 			elementName = elementNameTPMName.substring(0, indexofUnderscore);
 			elementNameType = DataDrivenExperimentElementNameType.convertStringtoEnum(elementName);
+			
+			ddeElementTPM = new DataDrivenExperimentElementTPM();
 			
 			ddeElementTPM.setElementNameType(elementNameType);
 			
@@ -642,9 +647,13 @@ public class Step5_DDE_GLANETResults {
 		DataDrivenExperimentTPMType tpmType = null;
 		Float tpmValue  = null;
 		
+		Float typeOneError = null;
+		Float typeTwoError = null;
+		Float power = null;
 		
-		//Header Line
-		bufferedWriter.write("Element" + "\t");
+		
+		//First Header Line starts
+		bufferedWriter.write("   " + "\t" + "   " + "\t");
 		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
 			
 			itr.advance();
@@ -652,24 +661,70 @@ public class Step5_DDE_GLANETResults {
 			tpmType = itr.key();
 			tpmValue = itr.value();
 			
-			bufferedWriter.write(tpmType.convertEnumtoString() + ":" + tpmValue + "\t");
+			bufferedWriter.write(tpmType.convertEnumtoString() + ":" + tpmValue + "\t" + "   " + "\t" + "   " + "\t" +"   "+ "\t");
 		
 		}
 		bufferedWriter.write(System.getProperty("line.separator"));
+		//First Header Line ends
 		
+		//Second Header Line starts
+		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+			
+			itr.advance();
+			
+			tpmType = itr.key();
+			tpmValue = itr.value();
+			
+			bufferedWriter.write("ElementType" + "\t" + "ElementName" + "\t" + "NumberofEnrichment"+ "\t" + "TypeIError" + "\t" + "TypeIIError" + "\t" + "Power" + "\t");
+		
+		}
+		bufferedWriter.write(System.getProperty("line.separator"));
+		//Second Header Line ends
+
 		
 		//Subsequent Lines
 		for(int i= 0; i<ddeElementList.size(); ){
 			
 			elementTPM = ddeElementList.get(i);
 			
-			bufferedWriter.write(elementTPM.getElementNameType() + "\t");
+			//ElementType
+			bufferedWriter.write(elementTPM.getElementType()+ "\t");
+			
+			//ElementName
+			bufferedWriter.write(elementTPM.getElementNameType()+ "\t");
 			
 			for(int j= 0; j<tpmType2TPMValueMap.size(); j++){
 				
+				typeOneError = ddeElementList.get(i+j).getTypeOneError();
+				typeTwoError = ddeElementList.get(i+j).getTypeTwoError();
+				power = ddeElementList.get(i+j).getPower();
+				
+				//NumberofEnrichment
 				bufferedWriter.write(ddeElementList.get(i+j).getNumberofEnrichment()+ "\t");
 				
-			}//End of for each 
+				//TypeIError
+				if (typeOneError!=null){
+					bufferedWriter.write(typeOneError + "\t");	
+				}else{
+					bufferedWriter.write("NA" + "\t");	
+				}
+				
+				//TypeIIError
+				if (typeTwoError!=null){
+					bufferedWriter.write(typeTwoError + "\t");	
+				}else{
+					bufferedWriter.write("NA" + "\t");	
+				}
+				
+				//POWER
+				if (power!=null){
+					bufferedWriter.write(power + "\t");	
+				}else{
+					bufferedWriter.write("NA" + "\t");	
+				}
+				
+				
+			}//End of for each  TPM Value
 			
 			bufferedWriter.write(System.getProperty("line.separator"));
 			
@@ -709,9 +764,9 @@ public class Step5_DDE_GLANETResults {
 
 		//glanetFolder
 		String glanetFolder = args[0];
-		String dataFolder 	= glanetFolder + System.getProperty( "file.separator") + Commons.DATA + System.getProperty( "file.separator");
-		String outputFolder = glanetFolder + System.getProperty( "file.separator") + Commons.OUTPUT + System.getProperty( "file.separator");
-		String ddeFolder 	= glanetFolder + System.getProperty( "file.separator") + Commons.DDE + System.getProperty( "file.separator");
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
+		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator");
+		String ddeFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator");
 		
 		//cellLineType
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
@@ -790,28 +845,23 @@ public class Step5_DDE_GLANETResults {
 			DataDrivenExperimentTPMType TPMType = null;
 			
 			//Initialization
-			List<DataDrivenExperimentElementNameType> tfElementNameList  = new ArrayList<DataDrivenExperimentElementNameType>();
-			List<DataDrivenExperimentElementNameType> histoneElementNameList = new ArrayList<DataDrivenExperimentElementNameType>();
+			//Elements that we will gonna consider in GALNET DDE
+			List<DataDrivenExperimentElementNameType> elementNameTypeList  = new ArrayList<DataDrivenExperimentElementNameType>();
 			
-			initializeElementName2NumberofEnrichmentMap(ElementType.TF, tfElementNameList);
-			initializeElementName2NumberofEnrichmentMap(ElementType.HISTONE, histoneElementNameList);
+			initializeElementName2NumberofEnrichmentMap(elementNameTypeList);
 			
-			
-			//11 OCT 2015  starts
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap = new TObjectIntHashMap<String>();
-			//11 OCT 2015  ends
 			
 			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + System.getProperty("line.separator"));
 			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
 			
-			
+			System.out.println(elementNameTPMName2NumberofEnrichmentMap.size());
 			
 			for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
 				
 				itr.advance();
 				
 				TPMType = itr.key();
-				//tpmValue = itr.value();
 				
 				//TF
 				readSimulationGLANETResults(
@@ -823,6 +873,7 @@ public class Step5_DDE_GLANETResults {
 						ElementType.TF, 
 						cellLineType, 
 						geneType,
+						elementNameTypeList,
 						elementNameTPMName2NumberofEnrichmentMap,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -830,8 +881,6 @@ public class Step5_DDE_GLANETResults {
 						enrichmentDecisionType,
 						generateRandomDataMode,
 						bufferedWriter);
-				
-				
 				
 				
 				//HISTONE
@@ -844,6 +893,7 @@ public class Step5_DDE_GLANETResults {
 						ElementType.HISTONE, 
 						cellLineType,
 						geneType,
+						elementNameTypeList,
 						elementNameTPMName2NumberofEnrichmentMap,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
@@ -853,9 +903,10 @@ public class Step5_DDE_GLANETResults {
 						bufferedWriter);
 				
 				
-				
 
 			}//End of FOR each tpmValue
+			
+			System.out.println("After for each tpm Type" + "\t" + elementNameTPMName2NumberofEnrichmentMap.size());
 			
 			//Convert elementNameTPMName2NumberofEnrichmentMap to List
 			List<DataDrivenExperimentElementTPM> ddeElementList = new ArrayList<DataDrivenExperimentElementTPM>();
@@ -867,10 +918,7 @@ public class Step5_DDE_GLANETResults {
 			//Sort w.r.t. multiple attributes
 			//First, Sort ddeElementList w.r.t. elementName
 			//Second, Sort ddeElementList w.r.t. tpmValue
-			Collections.sort(ddeElementList, new DDEElementTPMChainedComparator(
-		                new ElementNameTypeComparator(),
-		                new TPMTypeComparator())
-			);
+			Collections.sort(ddeElementList, new DDEElementTPMChainedComparator());
 			
 			//Now, We have to write results here for each TPM
 			writeResults(bufferedWriter,ddeElementList,tpmType2TPMValueMap);
