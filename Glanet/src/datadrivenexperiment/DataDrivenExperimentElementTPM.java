@@ -7,6 +7,7 @@ import java.util.Comparator;
 
 import enumtypes.DataDrivenExperimentElementNameType;
 import enumtypes.DataDrivenExperimentElementType;
+import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
 
 /**
@@ -28,8 +29,6 @@ public class DataDrivenExperimentElementTPM {
 	DataDrivenExperimentTPMType tpmType;
 	Float tpmValue;
 	int numberofEnrichment;
-	
-	
 	
 	public int getNumberofEnrichment() {
 		return numberofEnrichment;
@@ -96,7 +95,18 @@ public class DataDrivenExperimentElementTPM {
 	 *
 	 */
 	public static class DDEElementTPMChainedComparator implements Comparator<DataDrivenExperimentElementTPM> {
+		
+		DataDrivenExperimentGeneType geneType = null;
+		
+		
 	 
+		public DDEElementTPMChainedComparator(DataDrivenExperimentGeneType geneType) {
+			super();
+			this.geneType = geneType;
+		}
+
+
+
 		public int compare(DataDrivenExperimentElementTPM elementTPM1, DataDrivenExperimentElementTPM elementTPM2)
 	    {
 	        // Assume no nulls, and simple ordinal comparisons
@@ -114,8 +124,22 @@ public class DataDrivenExperimentElementTPM {
 	            return elementNameTypeResult;
 	        }
 
-	        // Next by TPMName
-	        return elementTPM1.getTpmType().convertEnumtoString().compareTo(elementTPM2.getTpmType().convertEnumtoString());
+	        // Next by TPMValue
+	        switch(geneType){
+	        
+		        case EXPRESSING_PROTEINCODING_GENES:
+		        	//TPMValues must be in the descending order
+		        	return elementTPM2.getTpmValue().compareTo(elementTPM1.getTpmValue());
+		  	       
+		        case NONEXPRESSING_PROTEINCODING_GENES:
+		        	//TPMValues must be in the ascending order
+		        	return elementTPM1.getTpmValue().compareTo(elementTPM2.getTpmValue());
+		        
+		        default:
+		        	//In ascending order
+		        	return elementTPM1.getTpmValue().compareTo(elementTPM2.getTpmValue());
+			        
+	        }//End of SWITCH for geneType
 	        
 	       
 	    }

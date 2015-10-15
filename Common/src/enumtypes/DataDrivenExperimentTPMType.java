@@ -13,17 +13,18 @@ import common.Commons;
  */
 public enum DataDrivenExperimentTPMType {
 	
-	TOP1PERCENTAGE(1),
-	TOP2PERCENTAGE(2),
-	TOP5PERCENTAGE(3),
-	TOP10PERCENTAGE(4),
-	TOP25PERCENTAGE(5),
-	TOP50PERCENTAGE(6),
-	TOP55PERCENTAGE(7),
-	TOP60PERCENTAGE(8),
-	
-	FIRSTELEMENT(9),
-	LASTELEMENT(10);
+	TOP1(1),
+	TOP2(2),
+	TOP5(3),
+	TOP10(4),
+	TOP20(5),
+	TOP25(6),
+	TOP50(7),
+	TOP55(8),
+	TOP60(9),
+
+	FIRSTELEMENT(10),
+	LASTELEMENT(11);
 	
 	
 	private final int tpmType;
@@ -43,36 +44,40 @@ public enum DataDrivenExperimentTPMType {
 
 	public static DataDrivenExperimentTPMType convertStringtoEnum( String dataDrivenExperimentTopPercentageType) {
 
-		if( Commons.TOP1PERCENTAGE.equals(dataDrivenExperimentTopPercentageType)){
-			return TOP1PERCENTAGE;
+		if( Commons.TOP1.equals(dataDrivenExperimentTopPercentageType)){
+			return TOP1;
 		}
 		
-		else if( Commons.TOP2PERCENTAGE.equals(dataDrivenExperimentTopPercentageType)){
-				return TOP2PERCENTAGE;
+		else if( Commons.TOP2.equals(dataDrivenExperimentTopPercentageType)){
+				return TOP2;
 		}
 		
-		else if (Commons.TOP5PERCENTAGE.equals(dataDrivenExperimentTopPercentageType)){
-			return TOP5PERCENTAGE;
+		else if (Commons.TOP5.equals(dataDrivenExperimentTopPercentageType)){
+			return TOP5;
 		}
 		
-		else if (Commons.TOP10PERCENTAGE.equals(dataDrivenExperimentTopPercentageType)){
-			return TOP10PERCENTAGE;
+		else if (Commons.TOP10.equals(dataDrivenExperimentTopPercentageType)){
+			return TOP10;
 		}
 		
-		else if (Commons.TOP25PERCENTAGE.equals(dataDrivenExperimentTopPercentageType)){
-			return TOP25PERCENTAGE;
+		else if (Commons.TOP20.equals(dataDrivenExperimentTopPercentageType)){
+			return TOP20;
 		}
 		
-		else if (Commons.TOP50PERCENTAGE.equals(dataDrivenExperimentTopPercentageType)){
-			return TOP50PERCENTAGE;
+		else if (Commons.TOP25.equals(dataDrivenExperimentTopPercentageType)){
+			return TOP25;
 		}
 		
-		else if (Commons.TOP55PERCENTAGE.equals(dataDrivenExperimentTopPercentageType)){
-			return TOP55PERCENTAGE;
+		else if (Commons.TOP50.equals(dataDrivenExperimentTopPercentageType)){
+			return TOP50;
 		}
 		
-		else if (Commons.TOP60PERCENTAGE.equals(dataDrivenExperimentTopPercentageType)){
-			return TOP60PERCENTAGE;
+		else if (Commons.TOP55.equals(dataDrivenExperimentTopPercentageType)){
+			return TOP55;
+		}
+		
+		else if (Commons.TOP60.equals(dataDrivenExperimentTopPercentageType)){
+			return TOP60;
 		}
 
 		else if (Commons.FIRSTELEMENT.equals(dataDrivenExperimentTopPercentageType)){
@@ -89,60 +94,70 @@ public enum DataDrivenExperimentTPMType {
 
 	public String convertEnumtoString() {
 
-		if( this.equals(DataDrivenExperimentTPMType.TOP1PERCENTAGE))
-			return Commons.TOP1PERCENTAGE;
+		if( this.equals(DataDrivenExperimentTPMType.TOP1))
+			return Commons.TOP1;
 		
-		else if( this.equals(DataDrivenExperimentTPMType.TOP2PERCENTAGE))
-			return Commons.TOP2PERCENTAGE;
+		else if( this.equals(DataDrivenExperimentTPMType.TOP2))
+			return Commons.TOP2;
 		
-		else if( this.equals(DataDrivenExperimentTPMType.TOP5PERCENTAGE))
-			return Commons.TOP5PERCENTAGE;
+		else if( this.equals(DataDrivenExperimentTPMType.TOP5))
+			return Commons.TOP5;
 		
-		else if( this.equals(DataDrivenExperimentTPMType.TOP10PERCENTAGE))
-			return Commons.TOP10PERCENTAGE;
+		else if( this.equals(DataDrivenExperimentTPMType.TOP10))
+			return Commons.TOP10;
 		
-		else if( this.equals(DataDrivenExperimentTPMType.TOP25PERCENTAGE))
-			return Commons.TOP25PERCENTAGE;
+		else if( this.equals(DataDrivenExperimentTPMType.TOP20))
+			return Commons.TOP20;
+		
+		else if( this.equals(DataDrivenExperimentTPMType.TOP25))
+			return Commons.TOP25;
 
-		else if( this.equals(DataDrivenExperimentTPMType.TOP50PERCENTAGE))
-			return Commons.TOP50PERCENTAGE;
+		else if( this.equals(DataDrivenExperimentTPMType.TOP50))
+			return Commons.TOP50;
+		
+		else if( this.equals(DataDrivenExperimentTPMType.TOP55))
+			return Commons.TOP55;
 	
-		else if( this.equals(DataDrivenExperimentTPMType.TOP60PERCENTAGE))
-			return Commons.TOP60PERCENTAGE;
+		else if( this.equals(DataDrivenExperimentTPMType.TOP60))
+			return Commons.TOP60;
 
 		else
 			return null;
 	}
 
-	public boolean isTOP1PERCENTAGE() {
-		return ( this == DataDrivenExperimentTPMType.TOP1PERCENTAGE);
+	public boolean isTOP1() {
+		return ( this == DataDrivenExperimentTPMType.TOP1);
 	}
 
-	public boolean isTOP2PERCENTAGE() {
-		return ( this == DataDrivenExperimentTPMType.TOP2PERCENTAGE);
+	public boolean isTOP2() {
+		return ( this == DataDrivenExperimentTPMType.TOP2);
 	}
 
-	public boolean isTOP5PERCENTAGE() {
-		return ( this == DataDrivenExperimentTPMType.TOP5PERCENTAGE);
+	public boolean isTOP5() {
+		return ( this == DataDrivenExperimentTPMType.TOP5);
 	}
 
-	public boolean isTOP10PERCENTAGE() {
-		return ( this == DataDrivenExperimentTPMType.TOP10PERCENTAGE);
-	}
-
-	public boolean isTOP25PERCENTAGE() {
-		return ( this == DataDrivenExperimentTPMType.TOP25PERCENTAGE);
+	public boolean isTOP10() {
+		return ( this == DataDrivenExperimentTPMType.TOP10);
 	}
 	
-	public boolean isTOP50PERCENTAGE() {
-		return ( this == DataDrivenExperimentTPMType.TOP50PERCENTAGE);
+	public boolean isTOP20() {
+		return ( this == DataDrivenExperimentTPMType.TOP20);
 	}
 
-	public boolean isTOP55PERCENTAGE() {
-		return ( this == DataDrivenExperimentTPMType.TOP55PERCENTAGE);
+	public boolean isTOP25() {
+		return ( this == DataDrivenExperimentTPMType.TOP25);
 	}
-	public boolean isTOP60PERCENTAGE() {
-		return ( this == DataDrivenExperimentTPMType.TOP60PERCENTAGE);
+	
+	public boolean isTOP50() {
+		return ( this == DataDrivenExperimentTPMType.TOP50);
+	}
+
+	public boolean isTOP55() {
+		return ( this == DataDrivenExperimentTPMType.TOP55);
+	}
+	public boolean isTOP60() {
+		return ( this == DataDrivenExperimentTPMType.TOP60);
 	}
 
 	public boolean isFIRSTELEMENT() {

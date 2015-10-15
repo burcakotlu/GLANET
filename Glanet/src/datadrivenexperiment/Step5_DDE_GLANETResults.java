@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import multipletesting.BenjaminiandHochberg;
@@ -537,6 +538,24 @@ public class Step5_DDE_GLANETResults {
 		
 	}
 	
+	public static void convertMapToList(
+			TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap,
+			List<Float> tpmValues){
+		
+		Float tpmValue = null;
+		
+		for (TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+			
+			itr.advance();
+			tpmValue =itr.value();
+			
+			tpmValues.add(tpmValue);
+			
+		}//End of for each TPMType2TPMValue
+		
+	}
+	
+	
 	
 	public static void convertMapToList(
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap,
@@ -656,7 +675,9 @@ public class Step5_DDE_GLANETResults {
 	public static void writeResults(
 			BufferedWriter bufferedWriter,
 			List<DataDrivenExperimentElementTPM> ddeElementList,
-			TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap) throws IOException{
+			TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap,
+			List<Float> tpmValues) throws IOException{
+		
 		
 		DataDrivenExperimentElementTPM elementTPM = null;
 		
@@ -667,19 +688,37 @@ public class Step5_DDE_GLANETResults {
 		Float typeTwoError = null;
 		Float power = null;
 		
-		
 		//First Header Line starts
+		//The order of writing TPMType:TPMValue must match the order we put elements in the ddeElementList
+		//For ExpressingElements, TPMValues in descending order
+		//For NonExpressingElments, TPMValues in ascending order
 		bufferedWriter.write("   " + "\t" + "   " + "\t");
-		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+		
+		// tpmValues are sorted in descending order for ExpressingGenes
+		// tpmValues are sorted in ascending order for NonExpressingGenes
+		// get the corresponding tpmType
+		for(int i=0; i<tpmValues.size();i++){
 			
-			itr.advance();
+			tpmValue = (Float) tpmValues.get(i);
+			tpmType = null;
 			
-			tpmType = itr.key();
-			tpmValue = itr.value();
+			//get the corresponding tpmType
+			for (TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+				
+				itr.advance();
+				
+				tpmType = itr.key();
+				
+				if (tpmValue.equals(itr.value())){
+					tpmType = itr.key();
+					break;
+				}
+			}//End of for getting the corresponding tpmType
 			
 			bufferedWriter.write(tpmType.convertEnumtoString() + ":" + tpmValue + "\t" + "   " + "\t" + "   " + "\t" +"   "+ "\t");
 		
-		}
+		}//End of for writing tpmType:tpmValue header line
+		
 		bufferedWriter.write(System.getProperty("line.separator"));
 		//First Header Line ends
 		
@@ -689,10 +728,7 @@ public class Step5_DDE_GLANETResults {
 		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
 			
 			itr.advance();
-			
-			tpmType = itr.key();
-			tpmValue = itr.value();
-			
+						
 			bufferedWriter.write("NumberofEnrichment"+ "\t" + "TypeIError" + "\t" + "TypeIIError" + "\t" + "Power" + "\t");
 		
 		}
@@ -929,13 +965,36 @@ public class Step5_DDE_GLANETResults {
 			//Evaluate TypeIError, TypeIIError and Power if applicable depending on the geneType and elementType
 			convertMapToList(elementNameTPMName2NumberofEnrichmentMap,ddeElementList,tpmType2TPMValueMap, geneType,numberofGLANETRuns);
 			
-			//Sort w.r.t. multiple attributes
-			//First, Sort ddeElementList w.r.t. elementName
-			//Second, Sort ddeElementList w.r.t. tpmValue
-			Collections.sort(ddeElementList, new DDEElementTPMChainedComparator());
+			// Sort w.r.t. multiple attributes
+			// First by elementType
+			// Second, Sort ddeElementList w.r.t. elementName
+			// Lastly, Sort ddeElementList w.r.t. tpmValue
+			Collections.sort(ddeElementList, new DDEElementTPMChainedComparator(geneType));
+			
+			List<Float> tpmValues = new ArrayList<Float>();
+			convertMapToList(tpmType2TPMValueMap,tpmValues);
+			
+			Comparator<Float> comparatorDescending = Collections.reverseOrder();
+			
+			switch(geneType){
+			
+				case EXPRESSING_PROTEINCODING_GENES:
+					//In descendig order
+					Collections.sort(tpmValues,comparatorDescending);
+					break;
+					
+				case NONEXPRESSING_PROTEINCODING_GENES:
+					//In ascending order
+					Collections.sort(tpmValues);
+					break;
+			
+			}//End of SWITCH for geneType
+			
 			
 			//Now, We have to write results here for each TPM
-			writeResults(bufferedWriter,ddeElementList,tpmType2TPMValueMap);
+			//What is the order of TPM?
+			writeResults(bufferedWriter,ddeElementList,tpmType2TPMValueMap,tpmValues);
+			
 			
 			//Flush BufferedWriter
 			bufferedWriter.flush();

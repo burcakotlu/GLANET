@@ -148,6 +148,7 @@ public class Step0_TPMValuesGathering {
 			Map.Entry<String, Float> entry = null;
 			
 			for(TObjectFloatIterator<String> itr = ensemblGeneID2TPMMapforUnionofRep1andRep2.iterator();itr.hasNext();){
+				
 				itr.advance();
 				
 				entry = new MyEntry<String,Float>(itr.key(),itr.value());
@@ -161,14 +162,15 @@ public class Step0_TPMValuesGathering {
 			list = DataDrivenExperimentCommon.sortList(list,geneType);
 			
 			float tpmFirstElement 	= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.FIRSTELEMENT);			
-			float tpmTop1		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP1PERCENTAGE);
-			float tpmTop2		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP2PERCENTAGE);
-			float tpmTop5 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP5PERCENTAGE);
-			float tpmTop10 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP10PERCENTAGE);
-			float tpmTop25 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP25PERCENTAGE);
-			float tpmTop50 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP50PERCENTAGE);
-			float tpmTop55 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP55PERCENTAGE);
-			float tpmTop60 		= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP60PERCENTAGE);
+			float tpmTop1			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP1);
+			float tpmTop2			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP2);
+			float tpmTop5 			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP5);
+			float tpmTop10 			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP10);
+			float tpmTop20 			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP20);
+			float tpmTop25 			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP25);
+			float tpmTop50 			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP50);
+			float tpmTop55 			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP55);
+			float tpmTop60 			= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.TOP60);
 			float tpmLastElement 	= DataDrivenExperimentCommon.getTopPercentage(list,DataDrivenExperimentTPMType.LASTELEMENT);
 			
 			DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
@@ -176,8 +178,8 @@ public class Step0_TPMValuesGathering {
 			//No need for this information line
 			//bufferedWriter.write("CellLineType" + "\t" + cellLineType.convertEnumtoString() +  "\t" + "GeneType" + "\t" + geneType.convertEnumtoString() + System.getProperty("line.separator"));
 			
-			bufferedWriter.write("Top1PercentageTPM"  + "\t" + "Top2PercentageTPM"  + "\t" + "Top5PercentageTPM"  + "\t" + "Top10PercentageTPM"  + "\t" + "Top25PercentageTPM"  + "\t" + "Top50PercentageTPM"  +  "\t" + "Top55PercentageTPM"  +  "\t" +"Top60PercentageTPM"  +System.getProperty("line.separator"));		
-			bufferedWriter.write(df.format(tpmTop1)  + "\t" + df.format(tpmTop2)  + "\t" + df.format(tpmTop5) + "\t" + df.format(tpmTop10) + "\t" + df.format(tpmTop25)  + "\t" + df.format(tpmTop50)  + "\t" + df.format(tpmTop55) + "\t" +df.format(tpmTop60)  +System.getProperty("line.separator"));		
+			bufferedWriter.write("Top1PercentageTPM"  + "\t" + "Top2PercentageTPM"  + "\t" + "Top5PercentageTPM"  + "\t" + "Top10PercentageTPM"  + "\t" + "Top20PercentageTPM"  + "\t" + "Top25PercentageTPM"  + "\t" + "Top50PercentageTPM"  +  "\t" + "Top55PercentageTPM"  +  "\t" +"Top60PercentageTPM"  +System.getProperty("line.separator"));		
+			bufferedWriter.write(df.format(tpmTop1)  + "\t" + df.format(tpmTop2)  + "\t" + df.format(tpmTop5) + "\t" + df.format(tpmTop10) + "\t" + df.format(tpmTop20) + "\t" + df.format(tpmTop25)  + "\t" + df.format(tpmTop50)  + "\t" + df.format(tpmTop55) + "\t" +df.format(tpmTop60)  +System.getProperty("line.separator"));		
 			
 			bufferedWriter.write("First Gene TPM:"  + "\t" + df.format(tpmFirstElement) + System.getProperty("line.separator"));	
 			bufferedWriter.write("Last Gene TPM:"  + "\t" + df.format(tpmLastElement) + System.getProperty("line.separator"));	

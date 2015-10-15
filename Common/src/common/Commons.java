@@ -93,14 +93,15 @@ public class Commons {
 	public static final String GLANET_DDE_RESULTS_FILE = "GLANET_DDE_Results.txt";
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL_STATISTICS_FILE = "DnaseOverlapsExcludedIntervalPoolStatistics.txt";
 	
-	public static final String TOP1PERCENTAGE 	= "Top1";
-	public static final String TOP2PERCENTAGE 	= "Top2";
-	public static final String TOP5PERCENTAGE 	= "Top5";
-	public static final String TOP10PERCENTAGE 	= "Top10";
-	public static final String TOP25PERCENTAGE 	= "Top25";
-	public static final String TOP50PERCENTAGE 	= "Top50";
-	public static final String TOP55PERCENTAGE 	= "Top55";
-	public static final String TOP60PERCENTAGE 	= "Top60";
+	public static final String TOP1		= "Top1";
+	public static final String TOP2 	= "Top2";
+	public static final String TOP5 	= "Top5";
+	public static final String TOP10 	= "Top10";
+	public static final String TOP20 	= "Top20";
+	public static final String TOP25 	= "Top25";
+	public static final String TOP50 	= "Top50";
+	public static final String TOP55 	= "Top55";
+	public static final String TOP60 	= "Top60";
 	public static final String FIRSTELEMENT = "FIRSTELEMENT";
 	public static final String LASTELEMENT = "LASTELEMENT";
 	

@@ -185,6 +185,11 @@ public class Step3_DDE_DataCreation {
 			simulationDataFile = baseFolderName + "_" +  Commons.DDE_RUN + i + ".txt";
 
 			randomIntervalIndexes = new int[numberofIntervalsInEachSimulation];
+			
+			if (numberofIntervalsInEachSimulation > intervalPoolData.size()){
+				System.out.println("There is a situation, numberofIntervalsInEachSimulation" + "\t" + numberofIntervalsInEachSimulation + "\t" + "is greater than" + "\t" + "numberofTotalIntervals in the intervalPool which is" + intervalPoolData.size());
+				
+			}
 
 			// Get random indexes for each simulation
 			fillRandomIntervalIndexes(
@@ -228,8 +233,8 @@ public class Step3_DDE_DataCreation {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTPMType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
-		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmValueMap);
+		TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
+		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmType2TPMValueMap);
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
@@ -237,28 +242,28 @@ public class Step3_DDE_DataCreation {
 		/*************************************************************************************************/
 		/******************************For each tpmValue starts*******************************************/
 		/*************************************************************************************************/
-		DataDrivenExperimentTPMType topPercentageType = null;
+		DataDrivenExperimentTPMType tpmType = null;
 		//Float tpmValue = null;
 		
 		String intervalPoolFileName = null;
 
-		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmValueMap.iterator();itr.hasNext();){
+		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
 			
 			itr.advance();
 			
-			topPercentageType = itr.key();
+			tpmType = itr.key();
 			//tpmValue = itr.value();
 			
 			intervalPoolFileName = null;
 
 			for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType : DataDrivenExperimentDnaseOverlapExclusionType.values() ){
 				
-				if (	geneType.isNonExpressingProteinCodingGenes() ||
+				if (	(geneType.isNonExpressingProteinCodingGenes() && !dnaseOverlapExclusionType.isNoDiscard()) ||
 						(geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard())){
 					
 					// Depending on tpmString and dnaseOverlapsExcluded
 					// Set IntervalPoolFile
-					intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,topPercentageType, dnaseOverlapExclusionType, dataDrivenExperimentFolder);
+					intervalPoolFileName = getIntervalPoolFileName(cellLineType, geneType,tpmType, dnaseOverlapExclusionType, dataDrivenExperimentFolder);
 
 					// Generate Simulations Data
 					// Get random numberofIntervalsInEachSimulation intervals from intervalPool for each simulation
@@ -266,7 +271,7 @@ public class Step3_DDE_DataCreation {
 							dataDrivenExperimentFolder, 
 							cellLineType,
 							geneType,
-							topPercentageType, 
+							tpmType, 
 							dnaseOverlapExclusionType, 
 							intervalPoolFileName,
 							numberofSimulations, 

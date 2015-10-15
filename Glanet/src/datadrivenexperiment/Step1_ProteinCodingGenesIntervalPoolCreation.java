@@ -17,12 +17,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -46,21 +46,20 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 	public static void generateIntervalsFromFemaleGTFFile(
 			TObjectFloatMap<String> ensemblGeneID2TPMMap,
 			String femaleGTFFileName, 
-			float tpmThreshold, 
+			DataDrivenExperimentTPMType tpmType, 
+			BufferedWriter tpmBufferedWriter,
 			String proteinCodingGenesIntervalsFileName,
-			DataDrivenExperimentGeneType expressingorNonExpressiongGeneType) {
+			DataDrivenExperimentGeneType expressingorNonExpressiongGeneType) throws IOException {
 
-		Map<String, List<ProteinCodingGeneExonNumberOneInterval>> geneId2GeneExonNumberOneIntervalsMap = new HashMap<String, List<ProteinCodingGeneExonNumberOneInterval>>();
+		Map<String, List<ProteinCodingGeneExonNumberOneInterval>> proteinCodingGeneId2GeneExonNumberOneIntervalsMap = new HashMap<String, List<ProteinCodingGeneExonNumberOneInterval>>();
 		List<ProteinCodingGeneExonNumberOneInterval> proteinCodingGeneExonNumberOneIntervalList = null;
-		ProteinCodingGeneExonNumberOneInterval geneExonNumberOneInterval = null;
+		ProteinCodingGeneExonNumberOneInterval proteinCodingGeneExonNumberOneInterval = null;
 
 		int minLow = Integer.MAX_VALUE;
 		int maxHigh = Integer.MIN_VALUE;
 		int savedIndex = 0;
 
 		List<String> geneTypesList = new ArrayList<String>();
-
-		int numberofIntervalsCreated = 0;
 
 		int minusOneHundredFromTSS;
 		int plusFiveHundredFromTSS;
@@ -108,277 +107,309 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		int indexofEigthSemiColon;
 		int indexofNinethSemiColon;
 
-		try{
 
-			FileReader fileReader = FileOperations.createFileReader( femaleGTFFileName);
-			BufferedReader bufferedReader = new BufferedReader( fileReader);
+		FileReader fileReader = FileOperations.createFileReader( femaleGTFFileName);
+		BufferedReader bufferedReader = new BufferedReader( fileReader);
 
-			FileWriter fileWriter = FileOperations.createFileWriter(proteinCodingGenesIntervalsFileName);
-			BufferedWriter bufferedWriter = new BufferedWriter( fileWriter);
+		FileWriter proteinCodingGenesIntervalsFileWriter = FileOperations.createFileWriter(proteinCodingGenesIntervalsFileName);
+		BufferedWriter proteinCodingGenesIntervalsBufferedWriter = new BufferedWriter(proteinCodingGenesIntervalsFileWriter);
+		
+		// chr1 HAVANA exon 11869 12227 . + . gene_id "ENSG00000223972.4"; transcript_id "ENST00000456328.2";
+		// gene_type "pseudogene"; gene_status "KNOWN"; gene_name "DDX11L1"; transcript_type "processed_transcript";
+		// transcript_status "KNOWN"; transcript_name "DDX11L1-002"; exon_number 1; exon_id "ENSE00002234944.1";
+		// level 2; tag "basic"; havana_gene "OTTHUMG00000000961.2"; havana_transcript "OTTHUMT00000362751.1";
 
-			// chr1 HAVANA exon 11869 12227 . + . gene_id "ENSG00000223972.4"; transcript_id "ENST00000456328.2";
-			// gene_type "pseudogene"; gene_status "KNOWN"; gene_name "DDX11L1"; transcript_type "processed_transcript";
-			// transcript_status "KNOWN"; transcript_name "DDX11L1-002"; exon_number 1; exon_id "ENSE00002234944.1";
-			// level 2; tag "basic"; havana_gene "OTTHUMG00000000961.2"; havana_transcript "OTTHUMT00000362751.1";
+		// First Read the femaleGTFFile
+		while( ( strLine = bufferedReader.readLine()) != null){
 
-			// First Read the femaleGTFFile
-			while( ( strLine = bufferedReader.readLine()) != null){
+			indexofFirstTab 	= strLine.indexOf( '\t');
+			indexofSecondTab 	= ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
+			indexofThirdTab 	= ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
+			indexofFourthTab 	= ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
+			indexofFifthTab 	= ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
+			indexofSixthTab 	= ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
+			indexofSeventhTab 	= ( indexofSixthTab > 0)?strLine.indexOf( '\t', indexofSixthTab + 1):-1;
+			indexofEigthTab 	= ( indexofSeventhTab > 0)?strLine.indexOf( '\t', indexofSeventhTab + 1):-1;
 
-				indexofFirstTab 	= strLine.indexOf( '\t');
-				indexofSecondTab 	= ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
-				indexofThirdTab 	= ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
-				indexofFourthTab 	= ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
-				indexofFifthTab 	= ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
-				indexofSixthTab 	= ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
-				indexofSeventhTab 	= ( indexofSixthTab > 0)?strLine.indexOf( '\t', indexofSixthTab + 1):-1;
-				indexofEigthTab 	= ( indexofSeventhTab > 0)?strLine.indexOf( '\t', indexofSeventhTab + 1):-1;
+			chrName = ChromosomeName.convertStringtoEnum( strLine.substring( 0, indexofFirstTab));
 
-				chrName = ChromosomeName.convertStringtoEnum( strLine.substring( 0, indexofFirstTab));
+			low = Integer.parseInt( strLine.substring( indexofThirdTab + 1, indexofFourthTab));
+			high = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
 
-				low = Integer.parseInt( strLine.substring( indexofThirdTab + 1, indexofFourthTab));
-				high = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
+			// For debug purposes starts
+			if( low > high){
+				System.out.println( "There is a situation. Low: " + low + " High: " + high);
+			}
 
-				// For debug purposes starts
-				if( low > high){
-					System.out.println( "There is a situation. Low: " + low + " High: " + high);
-				}
+			if( low == high){
+				// System.out.println("Female.gtf has End Inclusive Coordinates. 0-based or 1-based, I don't know. Low: "
+				// + low + " High: " + high);
+			}
+			// For debug purposes ends
 
-				if( low == high){
-					// System.out.println("Female.gtf has End Inclusive Coordinates. 0-based or 1-based, I don't know. Low: "
-					// + low + " High: " + high);
-				}
-				// For debug purposes ends
+			strand = strLine.substring( indexofSixthTab + 1, indexofSeventhTab).charAt( 0);
 
-				strand = strLine.substring( indexofSixthTab + 1, indexofSeventhTab).charAt( 0);
+			attribute = strLine.substring( indexofEigthTab + 1);
 
-				attribute = strLine.substring( indexofEigthTab + 1);
+			indexofFirstSemiColon 	= attribute.indexOf( ';');
+			indexofSecondSemiColon 	= ( indexofFirstSemiColon > 0)?attribute.indexOf( ';', indexofFirstSemiColon + 1):-1;
+			indexofThirdSemiColon 	= ( indexofSecondSemiColon > 0)?attribute.indexOf( ';',indexofSecondSemiColon + 1):-1;
+			indexofFourthSemiColon 	= ( indexofThirdSemiColon > 0)?attribute.indexOf( ';', indexofThirdSemiColon + 1):-1;
+			indexofFifthSemiColon 	= ( indexofFourthSemiColon > 0)?attribute.indexOf( ';',indexofFourthSemiColon + 1):-1;
+			indexofSixthSemiColon 	= ( indexofFifthSemiColon > 0)?attribute.indexOf( ';', indexofFifthSemiColon + 1):-1;
+			indexofSeventhSemiColon = ( indexofSixthSemiColon > 0)?attribute.indexOf( ';',indexofSixthSemiColon + 1):-1;
+			indexofEigthSemiColon 	= ( indexofSeventhSemiColon > 0)?attribute.indexOf( ';',indexofSeventhSemiColon + 1):-1;
+			indexofNinethSemiColon 	= ( indexofEigthSemiColon > 0)?attribute.indexOf( ';', indexofEigthSemiColon + 1):-1;
 
-				indexofFirstSemiColon 	= attribute.indexOf( ';');
-				indexofSecondSemiColon 	= ( indexofFirstSemiColon > 0)?attribute.indexOf( ';', indexofFirstSemiColon + 1):-1;
-				indexofThirdSemiColon 	= ( indexofSecondSemiColon > 0)?attribute.indexOf( ';',indexofSecondSemiColon + 1):-1;
-				indexofFourthSemiColon 	= ( indexofThirdSemiColon > 0)?attribute.indexOf( ';', indexofThirdSemiColon + 1):-1;
-				indexofFifthSemiColon 	= ( indexofFourthSemiColon > 0)?attribute.indexOf( ';',indexofFourthSemiColon + 1):-1;
-				indexofSixthSemiColon 	= ( indexofFifthSemiColon > 0)?attribute.indexOf( ';', indexofFifthSemiColon + 1):-1;
-				indexofSeventhSemiColon = ( indexofSixthSemiColon > 0)?attribute.indexOf( ';',indexofSixthSemiColon + 1):-1;
-				indexofEigthSemiColon 	= ( indexofSeventhSemiColon > 0)?attribute.indexOf( ';',indexofSeventhSemiColon + 1):-1;
-				indexofNinethSemiColon 	= ( indexofEigthSemiColon > 0)?attribute.indexOf( ';', indexofEigthSemiColon + 1):-1;
+			// geneID
+			ensemblGeneIDWithPair = attribute.substring( 0, indexofFirstSemiColon);
+			ensemblGeneID = ensemblGeneIDWithPair.substring( ensemblGeneIDWithPair.indexOf( ' ') + 1).replace("\"", "");
 
-				// geneID
-				ensemblGeneIDWithPair = attribute.substring( 0, indexofFirstSemiColon);
-				ensemblGeneID = ensemblGeneIDWithPair.substring( ensemblGeneIDWithPair.indexOf( ' ') + 1).replace("\"", "");
+			// transcriptID
+			ensemblTranscriptIDWithPair = attribute.substring( indexofFirstSemiColon + 1, indexofSecondSemiColon).trim();
+			ensemblTranscriptID = ensemblTranscriptIDWithPair.substring(ensemblTranscriptIDWithPair.indexOf( ' ') + 1).replace( "\"", "");
 
-				// transcriptID
-				ensemblTranscriptIDWithPair = attribute.substring( indexofFirstSemiColon + 1, indexofSecondSemiColon).trim();
-				ensemblTranscriptID = ensemblTranscriptIDWithPair.substring(ensemblTranscriptIDWithPair.indexOf( ' ') + 1).replace( "\"", "");
+			// geneSymbol
+			geneSymbolWithPair = attribute.substring( indexofFourthSemiColon + 1, indexofFifthSemiColon);
+			geneSymbol = geneSymbolWithPair.replace( "gene_name", "").trim();
 
-				// geneSymbol
-				geneSymbolWithPair = attribute.substring( indexofFourthSemiColon + 1, indexofFifthSemiColon);
-				geneSymbol = geneSymbolWithPair.replace( "gene_name", "").trim();
+			geneTypeWithPair = attribute.substring( indexofSecondSemiColon + 1, indexofThirdSemiColon);
+			geneType = geneTypeWithPair.replace( "gene_type", "").trim();
 
-				geneTypeWithPair = attribute.substring( indexofSecondSemiColon + 1, indexofThirdSemiColon);
-				geneType = geneTypeWithPair.replace( "gene_type", "").trim();
+			if( !geneTypesList.contains( geneType)){
+				geneTypesList.add( geneType);
+			}
 
-				if( !geneTypesList.contains( geneType)){
-					geneTypesList.add( geneType);
-				}
+			exonNumberWithPair = attribute.substring( indexofEigthSemiColon + 1, indexofNinethSemiColon);
 
-				exonNumberWithPair = attribute.substring( indexofEigthSemiColon + 1, indexofNinethSemiColon);
+			exonNumber = Integer.parseInt( exonNumberWithPair.replace( "exon_number", "").trim());
 
-				exonNumber = Integer.parseInt( exonNumberWithPair.replace( "exon_number", "").trim());
-
-				if(exonNumber == 1){
-					
-					switch(expressingorNonExpressiongGeneType){
-					
-						case NONEXPRESSING_PROTEINCODING_GENES: {
-							
-							if( ensemblGeneID2TPMMap.containsKey(ensemblGeneID) && 
-									( ensemblGeneID2TPMMap.get(ensemblGeneID) <= tpmThreshold) && 
-									geneType.equals( "\"protein_coding\"")){
-
-								switch(strand){
-
-									case '+':{
-												minusOneHundredFromTSS = low - 500;
-												plusFiveHundredFromTSS = low + 100;
-												geneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( strand,
-														minusOneHundredFromTSS, plusFiveHundredFromTSS, chrName, ensemblTranscriptID,
-														geneSymbol);
-												break;
-									}
-			
-									case '-':{
-											minusOneHundredFromTSS = high + 500;
-											plusFiveHundredFromTSS = high - 100;
-											geneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( strand,
-													plusFiveHundredFromTSS, minusOneHundredFromTSS, chrName, ensemblTranscriptID,
-													geneSymbol);
-											break;
-									
-									}
-
-								} // End of SWITCH
-
-								proteinCodingGeneExonNumberOneIntervalList = geneId2GeneExonNumberOneIntervalsMap.get( ensemblGeneID);
-
-								if( proteinCodingGeneExonNumberOneIntervalList == null){
-									proteinCodingGeneExonNumberOneIntervalList = new ArrayList<ProteinCodingGeneExonNumberOneInterval>();
-									proteinCodingGeneExonNumberOneIntervalList.add( geneExonNumberOneInterval);
-									geneId2GeneExonNumberOneIntervalsMap.put( ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
-								}else{
-									proteinCodingGeneExonNumberOneIntervalList.add( geneExonNumberOneInterval);
-								}
-
-								// In order to generate only one interval for the first occurrence of exon number 1 of a certain ensemblGeneID
-								// geneIDList.add(ensemblGeneID);
-
-							}// End of IF: For this geneId, interval will be created.
-							
-							break;
-						}
-							
-						case EXPRESSING_PROTEINCODING_GENES:{
-							
-							if( ensemblGeneID2TPMMap.containsKey(ensemblGeneID) && 
-									( ensemblGeneID2TPMMap.get(ensemblGeneID) >= tpmThreshold) && 
-									geneType.equals( "\"protein_coding\"")){
-
-								switch(strand){
-
-									case '+':{
-												minusOneHundredFromTSS = low - 500;
-												plusFiveHundredFromTSS = low + 100;
-												geneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( strand,
-														minusOneHundredFromTSS, plusFiveHundredFromTSS, chrName, ensemblTranscriptID,
-														geneSymbol);
-												break;
-									}
-			
-									case '-':{
-											minusOneHundredFromTSS = high + 500;
-											plusFiveHundredFromTSS = high - 100;
-											geneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( strand,
-													plusFiveHundredFromTSS, minusOneHundredFromTSS, chrName, ensemblTranscriptID,
-													geneSymbol);
-											break;
-									
-									}
-
-								} // End of SWITCH
-
-								proteinCodingGeneExonNumberOneIntervalList = geneId2GeneExonNumberOneIntervalsMap.get( ensemblGeneID);
-
-								if( proteinCodingGeneExonNumberOneIntervalList == null){
-									proteinCodingGeneExonNumberOneIntervalList = new ArrayList<ProteinCodingGeneExonNumberOneInterval>();
-									proteinCodingGeneExonNumberOneIntervalList.add( geneExonNumberOneInterval);
-									geneId2GeneExonNumberOneIntervalsMap.put( ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
-								}else{
-									proteinCodingGeneExonNumberOneIntervalList.add( geneExonNumberOneInterval);
-								}
-
-								
-							}// End of IF: For this geneId, interval will be created.
-							break;
-						}
-						
-						default: 
-							break;
-					
-					}//End of SWITCH expressing or nonExpressing geneType
-
-				}// End of IF: Exon Number is 1
-
-			}// End of While
-			// Reading female.gtf file is accomplished
-
-			// Writing ExpressingGenes or nonExpressingGenes Intervals starts
-			// For "+" strand, generate only one interval for  exon number 1 of a certain ensemblGeneID with the lowest low
-			// For "-" strand, generate only one interval for  exon number 1 of a certain ensemblGeneID with the highest high
-			// geneIDList.add(ensemblGeneID);
-
-			for( Map.Entry<String, List<ProteinCodingGeneExonNumberOneInterval>> entry : geneId2GeneExonNumberOneIntervalsMap.entrySet()){
-
-				numberofIntervalsCreated++;
-
-				minLow = Integer.MAX_VALUE;
-				maxHigh = Integer.MIN_VALUE;
-				savedIndex = 0;
-
-				// entry.getKey()
-				proteinCodingGeneExonNumberOneIntervalList = entry.getValue();
-
-				// get the strand
-				// there is at least one interval
-				strand = proteinCodingGeneExonNumberOneIntervalList.get(0).getStrand();
-
-				// Select which transcript to write
-				// Find the lowest low for "+" genes
-				// Find the highest high for "-" genes
-				switch( strand){
+			if(exonNumber == 1){
 				
-					case '+':
-						for( int i = 0; i < proteinCodingGeneExonNumberOneIntervalList.size(); i++){
-	
-							geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( i);
-	
-							if( geneExonNumberOneInterval.getLow() < minLow){
-								minLow = geneExonNumberOneInterval.getLow();
-								savedIndex = i;
-							}// End of IF
-	
-						}// End of FOR
+				switch(expressingorNonExpressiongGeneType){
+				
+					case NONEXPRESSING_PROTEINCODING_GENES: {
+						
+						if( ensemblGeneID2TPMMap.containsKey(ensemblGeneID) && 
+								geneType.equals( "\"protein_coding\"")){
+
+							switch(strand){
+
+								case '+':{
+											minusOneHundredFromTSS = low - 500;
+											plusFiveHundredFromTSS = low + 100;
+											proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( 
+													strand,
+													minusOneHundredFromTSS, 
+													plusFiveHundredFromTSS, 
+													chrName, 
+													ensemblGeneID2TPMMap.get(ensemblGeneID),
+													ensemblGeneID,
+													ensemblTranscriptID,
+													geneSymbol);
+											break;
+								}
+		
+								case '-':{
+										minusOneHundredFromTSS = high + 500;
+										plusFiveHundredFromTSS = high - 100;
+										proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( 
+												strand,
+												plusFiveHundredFromTSS, 
+												minusOneHundredFromTSS, 
+												chrName, 
+												ensemblGeneID2TPMMap.get(ensemblGeneID),
+												ensemblGeneID,
+												ensemblTranscriptID,
+												geneSymbol);
+										break;
+								
+								}
+
+							} // End of SWITCH for strand
+
+							proteinCodingGeneExonNumberOneIntervalList = proteinCodingGeneId2GeneExonNumberOneIntervalsMap.get(ensemblGeneID);
+
+							if( proteinCodingGeneExonNumberOneIntervalList == null){
+								proteinCodingGeneExonNumberOneIntervalList = new ArrayList<ProteinCodingGeneExonNumberOneInterval>();
+								proteinCodingGeneExonNumberOneIntervalList.add( proteinCodingGeneExonNumberOneInterval);
+								proteinCodingGeneId2GeneExonNumberOneIntervalsMap.put( ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
+							}else{
+								proteinCodingGeneExonNumberOneIntervalList.add( proteinCodingGeneExonNumberOneInterval);
+							}
+
+						
+						}// End of IF: For this geneId, interval will be created.
+						
 						break;
-	
-					case '-':
-						for( int i = 0; i < proteinCodingGeneExonNumberOneIntervalList.size(); i++){
-	
-							geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( i);
-	
-							if( geneExonNumberOneInterval.getHigh() > maxHigh){
-								maxHigh = geneExonNumberOneInterval.getHigh();
-								savedIndex = i;
-							}// End of IF
-	
-						}// End of FOR
-	
+					}
+						
+					case EXPRESSING_PROTEINCODING_GENES:{
+						
+						if( ensemblGeneID2TPMMap.containsKey(ensemblGeneID) && 
+								geneType.equals( "\"protein_coding\"")){
+
+							switch(strand){
+
+								case '+':{
+											minusOneHundredFromTSS = low - 500;
+											plusFiveHundredFromTSS = low + 100;
+											proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( 
+													strand,
+													minusOneHundredFromTSS, 
+													plusFiveHundredFromTSS, 
+													chrName,
+													ensemblGeneID2TPMMap.get(ensemblGeneID),
+													ensemblGeneID,
+													ensemblTranscriptID,
+													geneSymbol);
+											break;
+								}
+		
+								case '-':{
+										minusOneHundredFromTSS = high + 500;
+										plusFiveHundredFromTSS = high - 100;
+										proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval(
+												strand,
+												plusFiveHundredFromTSS, 
+												minusOneHundredFromTSS, 
+												chrName,
+												ensemblGeneID2TPMMap.get(ensemblGeneID),
+												ensemblGeneID,
+												ensemblTranscriptID,
+												geneSymbol);
+										break;
+								
+								}
+
+							} // End of SWITCH for strand
+
+							proteinCodingGeneExonNumberOneIntervalList = proteinCodingGeneId2GeneExonNumberOneIntervalsMap.get( ensemblGeneID);
+
+							if( proteinCodingGeneExonNumberOneIntervalList == null){
+								proteinCodingGeneExonNumberOneIntervalList = new ArrayList<ProteinCodingGeneExonNumberOneInterval>();
+								proteinCodingGeneExonNumberOneIntervalList.add( proteinCodingGeneExonNumberOneInterval);
+								proteinCodingGeneId2GeneExonNumberOneIntervalsMap.put( ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
+							}else{
+								proteinCodingGeneExonNumberOneIntervalList.add( proteinCodingGeneExonNumberOneInterval);
+							}
+
+							
+						}// End of IF: For this geneId, interval will be created.
 						break;
+					}
 					
-				}// End of SWITCH
+					default: 
+						break;
+				
+				}//End of SWITCH expressing or nonExpressing geneType
 
-				// Now write
-				geneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get(savedIndex);
-				bufferedWriter.write( geneExonNumberOneInterval.getChrName().convertEnumtoString() + "\t" + geneExonNumberOneInterval.getLow() + "\t" + geneExonNumberOneInterval.getHigh() + "\t" + geneExonNumberOneInterval.getGeneSymbol() + System.getProperty( "line.separator"));
+			}// End of IF: Exon Number is 1
 
-			}// End of for
-			// Writing proteinCodingGenes Intervals ends
+		}// End of While
+		// Reading female.gtf file is accomplished
 
+		
+		//for debug purposes
+		System.out.println("Size of proteinCodingGeneId2GeneExonNumberOneIntervalsMap" + "\t" + proteinCodingGeneId2GeneExonNumberOneIntervalsMap.size());
+		
+		List<ProteinCodingGeneExonNumberOneInterval> allProteinCodingGenesExonNumberOneIntervalsList  = new ArrayList<ProteinCodingGeneExonNumberOneInterval>(); 
+		
+		//Select only one of the exonNumber1 intervals if there are more than one starts.
+		// For "+" strand, generate only one interval for  exon number 1 of a certain ensemblGeneID with the lowest low
+		// For "-" strand, generate only one interval for  exon number 1 of a certain ensemblGeneID with the highest high			
+		for( Map.Entry<String, List<ProteinCodingGeneExonNumberOneInterval>> entry : proteinCodingGeneId2GeneExonNumberOneIntervalsMap.entrySet()){
+
+			minLow = Integer.MAX_VALUE;
+			maxHigh = Integer.MIN_VALUE;
+			savedIndex = 0;
+
+			// entry.getKey()
+			proteinCodingGeneExonNumberOneIntervalList = entry.getValue();
+
+			// get the strand
+			// there is at least one interval
+			strand = proteinCodingGeneExonNumberOneIntervalList.get(0).getStrand();
+
+			// Select which transcript to write
+			// Find the lowest low for "+" genes
+			// Find the highest high for "-" genes
+			switch(strand){
 			
-			switch(expressingorNonExpressiongGeneType){
-			
-				case NONEXPRESSING_PROTEINCODING_GENES: {
-					System.out.println("Number of NonExpressing Protein Coding Genes intervals created: " + numberofIntervalsCreated + " under " +  proteinCodingGenesIntervalsFileName);
+				case '+':
+					for( int i = 0; i < proteinCodingGeneExonNumberOneIntervalList.size(); i++){
+
+						proteinCodingGeneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( i);
+
+						if( proteinCodingGeneExonNumberOneInterval.getLow() < minLow){
+							minLow = proteinCodingGeneExonNumberOneInterval.getLow();
+							savedIndex = i;
+						}// End of IF
+
+					}// End of FOR
 					break;
-				}
-				case EXPRESSING_PROTEINCODING_GENES: {
-					System.out.println("Number of Expressing Protein Coding Genes intervals created: " + numberofIntervalsCreated + " under " +  proteinCodingGenesIntervalsFileName);
+
+				case '-':
+					for( int i = 0; i < proteinCodingGeneExonNumberOneIntervalList.size(); i++){
+
+						proteinCodingGeneExonNumberOneInterval = proteinCodingGeneExonNumberOneIntervalList.get( i);
+
+						if( proteinCodingGeneExonNumberOneInterval.getHigh() > maxHigh){
+							maxHigh = proteinCodingGeneExonNumberOneInterval.getHigh();
+							savedIndex = i;
+						}// End of IF
+
+					}// End of FOR
+
 					break;
-				}
+				
+			}// End of SWITCH for setting savedIndex
 			
-			}//End of SWITCH
+			//Fill this list
+			allProteinCodingGenesExonNumberOneIntervalsList.add(proteinCodingGeneExonNumberOneIntervalList.get(savedIndex));
 			
 			
-			// Close BufferedReader
-			bufferedReader.close();
-			bufferedWriter.close();
+		}// End of for
+		//Select only one of the exonNumber1 intervals if there are more than one ends.
+		
+		
+			
+		// Now sort the list
+		// For ExpressingGenes in DescendingOrder
+		// For NonExpressingGenes in AscendingOrder
+		switch(expressingorNonExpressiongGeneType){
+		
+			case NONEXPRESSING_PROTEINCODING_GENES: {
+				Collections.sort(allProteinCodingGenesExonNumberOneIntervalsList,ProteinCodingGeneExonNumberOneInterval.TPM_VALUE_ASCENDING);
+				break;
+			}
+			case EXPRESSING_PROTEINCODING_GENES: {
+				Collections.sort(allProteinCodingGenesExonNumberOneIntervalsList,ProteinCodingGeneExonNumberOneInterval.TPM_VALUE_DESCENDING);
+				break;
+			}
+	
+		}//End of SWITCH for sorting proteinCodingGenesExonNumberOneIntervals w.r.t. TPN values
+		
+		
+		// Get the topX elements from allProteinCodingGenesExonNumberOneIntervalsList
+		// Writing ExpressingGenes or nonExpressingGenes Intervals starts
+		writeTopXProteinCodingGenesExonNumberOneIntervals(
+				tpmType,
+				allProteinCodingGenesExonNumberOneIntervalsList,
+				ensemblGeneID2TPMMap,
+				proteinCodingGenesIntervalsBufferedWriter,
+				tpmBufferedWriter);
 
-		}catch( IOException e){
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		
+		// Close BufferedReader
+		bufferedReader.close();
+		proteinCodingGenesIntervalsBufferedWriter.close();
+	
+		//Pay attention: tpmBufferedWriter stream is closed in the main function
 	}
 
 	
+	//Depreceated
 	public static int findNonExpressingGenes( 
 			TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2,
 			float tpmThreshold) {
@@ -426,7 +457,61 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 
 	}
 	
+	//14 OCT 215
+	public static void writeTopXProteinCodingGenesExonNumberOneIntervals(
+			DataDrivenExperimentTPMType tpmType,
+			List<ProteinCodingGeneExonNumberOneInterval> allProteinCodingGenesExonNumberOneIntervalsList,
+			TObjectFloatMap<String> ensemblGeneID2TPMMap,
+			BufferedWriter proteinCodingGenesIntervalsBufferedWriter,
+			BufferedWriter tpmBufferedWriter ) throws IOException{
+		
+		int numberofIntervals = allProteinCodingGenesExonNumberOneIntervalsList.size();
+		int index = 0;
+		
+		ProteinCodingGeneExonNumberOneInterval  proteinCodingGeneExonNumberOneInterval = null;
+		Float tpmValue = null;
+		
+		switch(tpmType){
+		
+			case TOP2:
+				index = numberofIntervals*2/100;
+				break;
+			case TOP5:
+				index = numberofIntervals*5/100;
+				break;
+			case TOP10:
+				index = numberofIntervals*10/100;
+				break;
+			case TOP20:
+				index = numberofIntervals*20/100;
+				break;
+			case TOP25:
+				index = numberofIntervals*25/100;
+				break;
+			default:
+				break;
+		
+		}//End of SWITCH for selecting index
+		
+		//Write tpmType  and tpmValue to TPMFile
+		tpmValue = allProteinCodingGenesExonNumberOneIntervalsList.get(index).getTpm();
+		tpmBufferedWriter.write(tpmType.convertEnumtoString() + "\t" + tpmValue + System.getProperty( "line.separator"));
+		
+		for(int i=0; i<index; i++){
+			
+			proteinCodingGeneExonNumberOneInterval = allProteinCodingGenesExonNumberOneIntervalsList.get(i);
+			proteinCodingGenesIntervalsBufferedWriter.write( proteinCodingGeneExonNumberOneInterval.getChrName().convertEnumtoString() + "\t" + proteinCodingGeneExonNumberOneInterval.getLow() + "\t" + proteinCodingGeneExonNumberOneInterval.getHigh() + "\t" + proteinCodingGeneExonNumberOneInterval.getGeneSymbol() + System.getProperty( "line.separator"));
 
+			
+		}//End of for each interval from 0 to index
+		
+		//For debug purposes
+		System.out.println("Number of protein coding genes intervals:" + "\t" + index + " for tpmType " + tpmType.convertEnumtoString() + "\t" +" for tpmValue " + tpmValue  );
+		
+	}
+
+	
+	
 	/*
 	 * This class takes 4 arguments.
 	 * 
@@ -450,7 +535,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		String glanetFolder = args[0];
 		String dataDrivenExperimentFolder = glanetFolder + Commons.DDE + System.getProperty("file.separator");
 
-		
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
 		
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[2]);
@@ -466,164 +550,171 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		// The order of TPMs are as follows: TOP1, TOP2, TOP5, TOP10, TOP25, TOP50, TOP55, TOP60
 		//float tpmThreshold = Float.parseFloat( args[3]);
 		
-		/*************************************************************************************************/
-		/******************************Get the tpmValues starts*******************************************/
-		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTPMType> tpmValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
-		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmValueMap);
-		/*************************************************************************************************/
-		/******************************Get the tpmValues ends*********************************************/
-		/*************************************************************************************************/
+		//14 OCT 2015 
+		//Here we set the topX of the protein coding genes that we will consider in DDE
+		//TPM Values will be decided in this class
+		//And will be written to an output file.
+		//Here we put dummy TPM Values
+		//But in the upcoming part of the code real TPM Values will be filled.
+		TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
+		tpmType2TPMValueMap.put(DataDrivenExperimentTPMType.TOP5, 0);
+		tpmType2TPMValueMap.put(DataDrivenExperimentTPMType.TOP10, 0);
+		tpmType2TPMValueMap.put(DataDrivenExperimentTPMType.TOP20, 0);
 		
-		// This will be filled while reading cellLineRep1
-		TObjectFloatMap<String> ensemblGeneID2TPMMapforRep1;
-
-		// This will be filled while reading cellLineRep2
-		TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
-
-		int numberofNonExpressingGenes = 0;
-		int numberofExpressingGenes = 0;
-
-		String cellLineRep1GTFFileName = null;
-		String cellLineRep2GTFFileName = null;
+		String tpmFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
 		
-		switch(cellLineType){
+		FileWriter tpmFileWriter = null;
+		BufferedWriter tpmBufferedWriter = null;
 		
-			case GM12878: {
-				// Input File
-				// Set cellLine Replicate1 gtf file with path
-				// We will get the TPM values from this input file.
-				cellLineRep1GTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.Gm12878Rep1_genes_results;
-
-				// Input File
-				// Set cellLine Replicate2 gtf file with path
-				// We will get the TPM values from this input file.
-				cellLineRep2GTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.Gm12878Rep2_genes_results;
-
-				break;
-			}
+		try {
 			
-			case K562: {
-				// Input File
-				// Set cellLine Replicate1 gtf file with path
-				// We will get the TPM values from this input file.
-				cellLineRep1GTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.K562Rep1_genes_results;
-
-				// Input File
-				// Set cellLine Replicate2 gtf file with path
-				// We will get the TPM values from this input file.
-				cellLineRep2GTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.K562Rep2_genes_results;
-
-				break;
-			}
-			
-			default: 
-				break;
-		
-		}//End of Switch cellLineType
+			tpmFileWriter = FileOperations.createFileWriter(tpmFileName);
+			tpmBufferedWriter = new BufferedWriter(tpmFileWriter);
 				
-
-		// Input File
-		// Set female.gtf file with path
-		// We will get the  gene symbol from this input file.
-		// Former input files and female.gtf file will be matched w.r.t. geneID attribute
-		String femaleGTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.female_gtf;
-		
-		// Read cellLineRep1Results file and fill ensemblGeneID2TPMMapRep1
-		ensemblGeneID2TPMMapforRep1 = DataDrivenExperimentCommon.fillMapUsingGTFFile(cellLineRep1GTFFileName);
-
-		// Read cellLineRep2 results file and fill ensemblGeneID2TPMMapforUnionofRep1andRep2
-		ensemblGeneID2TPMMapforUnionofRep1andRep2 = DataDrivenExperimentCommon.fillMapUsingGTFFile(
-				cellLineRep2GTFFileName,
-				ensemblGeneID2TPMMapforRep1,
-				geneType);
-
-		
-		//30 SEP 2015 starts
-		DataDrivenExperimentTPMType tpmPercentageType = null;
-		Float tpmValue = null;
-		
-		// Output File
-		// End Inclusive
-		// Set NonExpressingProteinCodingGenesIntervalsFile
-		// Set ExpressingProteinCodingGenesIntervalsFile
-		String nonExpressingProteinCodingGenesIntervalsFile = null;
-		String expressingProteinCodingGenesIntervalsFile = null;
-		
-		//For each tpmValue in tpmValueList
-		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmValueMap.iterator();itr.hasNext();){
+			// This will be filled while reading cellLineRep1
+			TObjectFloatMap<String> ensemblGeneID2TPMMapforRep1;
+	
+			// This will be filled while reading cellLineRep2
+			TObjectFloatMap<String> ensemblGeneID2TPMMapforUnionofRep1andRep2;
+	
+			String cellLineRep1GTFFileName = null;
+			String cellLineRep2GTFFileName = null;
 			
-			itr.advance();
+			switch(cellLineType){
 			
-			tpmPercentageType = itr.key();
-			tpmValue = itr.value();
-			
-			switch(geneType){
-
-				case NONEXPRESSING_PROTEINCODING_GENES: {
-					nonExpressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" +  tpmPercentageType.convertEnumtoString() +  "_IntervalPool.txt";
+				case GM12878: {
+					// Input File
+					// Set cellLine Replicate1 gtf file with path
+					// We will get the TPM values from this input file.
+					cellLineRep1GTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.Gm12878Rep1_genes_results;
+	
+					// Input File
+					// Set cellLine Replicate2 gtf file with path
+					// We will get the TPM values from this input file.
+					cellLineRep2GTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.Gm12878Rep2_genes_results;
+	
 					break;
 				}
-				case EXPRESSING_PROTEINCODING_GENES:{
-					expressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmPercentageType.convertEnumtoString() +  "_IntervalPool.txt";
+				
+				case K562: {
+					// Input File
+					// Set cellLine Replicate1 gtf file with path
+					// We will get the TPM values from this input file.
+					cellLineRep1GTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.K562Rep1_genes_results;
+	
+					// Input File
+					// Set cellLine Replicate2 gtf file with path
+					// We will get the TPM values from this input file.
+					cellLineRep2GTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.K562Rep2_genes_results;
+	
 					break;
 				}
-			
+				
 				default: 
 					break;
-				
-			}//End of SWITCH geneType
 			
-			
-			
-			switch(geneType){
-			
-				case NONEXPRESSING_PROTEINCODING_GENES: {
-					// Just for information
-					// Otherwise no need
-					// Find the number of nonExpressing genes or expressing genes	
-					numberofNonExpressingGenes = findNonExpressingGenes( ensemblGeneID2TPMMapforUnionofRep1andRep2, tpmValue);
-					System.out.println("Number of NonExpressing Genes: " + numberofNonExpressingGenes + " for tmpThreshod: " + tpmValue);
+			}//End of Switch cellLineType
 					
-					// Generate Intervals for the nonExpressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
-					// the tmpThreshold using female.gtf to nonExpressingGenesIntervalsFile
-					generateIntervalsFromFemaleGTFFile(
-							ensemblGeneID2TPMMapforUnionofRep1andRep2, 
-							femaleGTFFileName, 
-							tpmValue,
-							nonExpressingProteinCodingGenesIntervalsFile,
-							geneType);
-
-
-					break;
-				}
-				case EXPRESSING_PROTEINCODING_GENES: {
-					numberofExpressingGenes = findExpressingGenes( ensemblGeneID2TPMMapforUnionofRep1andRep2, tpmValue);
-					System.out.println("Number of Expressing Genes: " + numberofExpressingGenes + " for tmpThreshod: " + tpmValue);
-					
-					// Generate Intervals for the expressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
-					// the tmpThreshold using female.gtf to expressingGenesIntervalsFile
-					generateIntervalsFromFemaleGTFFile(
-							ensemblGeneID2TPMMapforUnionofRep1andRep2, 
-							femaleGTFFileName, 
-							tpmValue,
-							expressingProteinCodingGenesIntervalsFile,
-							geneType);
-
-
-					break;
-				}
-				default: break;
-			
-			}//End of SWITCH	
-			
-			
-		}//End of FOR each TPMValue
-		//30 SEP 2015 ends
-
-		
 	
+			// Input File
+			// Set female.gtf file with path
+			// We will get the  gene symbol from this input file.
+			// Former input files and female.gtf file will be matched w.r.t. geneID attribute
+			String femaleGTFFileName = glanetFolder + Commons.RNA_SEQ_GM12878_K562 + System.getProperty( "file.separator") + Commons.female_gtf;
+			
+			// Read cellLineRep1Results file and fill ensemblGeneID2TPMMapRep1
+			ensemblGeneID2TPMMapforRep1 = DataDrivenExperimentCommon.fillMapUsingGTFFile(cellLineRep1GTFFileName);
+	
+			// Read cellLineRep2 results file and fill ensemblGeneID2TPMMapforUnionofRep1andRep2
+			ensemblGeneID2TPMMapforUnionofRep1andRep2 = DataDrivenExperimentCommon.fillMapUsingGTFFile(
+					cellLineRep2GTFFileName,
+					ensemblGeneID2TPMMapforRep1,
+					geneType);
+	
+			
+			//30 SEP 2015 starts
+			DataDrivenExperimentTPMType tpmType = null;
+			
+			// Output File
+			// End Inclusive
+			// Set NonExpressingProteinCodingGenesIntervalsFile
+			// Set ExpressingProteinCodingGenesIntervalsFile
+			String nonExpressingProteinCodingGenesIntervalsFile = null;
+			String expressingProteinCodingGenesIntervalsFile = null;
+			
+			//For each tpmType in tpmType2TPMValueMap
+			for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+				
+				itr.advance();
+				
+				tpmType = itr.key();
+				
+				switch(geneType){
+	
+					case NONEXPRESSING_PROTEINCODING_GENES: {
+						nonExpressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" +  tpmType.convertEnumtoString() +  "_IntervalPool.txt";
+						break;
+					}
+					case EXPRESSING_PROTEINCODING_GENES:{
+						expressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() +  "_IntervalPool.txt";
+						break;
+					}
+				
+					default: 
+						break;
+					
+				}//End of SWITCH geneType
+				
+				
+				
+				switch(geneType){
+				
+					case NONEXPRESSING_PROTEINCODING_GENES: {
+						
+						// Generate Intervals for the nonExpressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
+						// the Top tpmType using female.gtf to nonExpressingGenesIntervalsFile
+						generateIntervalsFromFemaleGTFFile(
+								ensemblGeneID2TPMMapforUnionofRep1andRep2, 
+								femaleGTFFileName, 
+								tpmType,
+								tpmBufferedWriter,
+								nonExpressingProteinCodingGenesIntervalsFile,
+								geneType);
+	
+	
+						break;
+					}
+					case EXPRESSING_PROTEINCODING_GENES: {
+						
+						// Generate Intervals for the expressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
+						// the Top tmpType using female.gtf to expressingGenesIntervalsFile
+						generateIntervalsFromFemaleGTFFile(
+								ensemblGeneID2TPMMapforUnionofRep1andRep2, 
+								femaleGTFFileName, 
+								tpmType,
+								tpmBufferedWriter,
+								expressingProteinCodingGenesIntervalsFile,
+								geneType);
+	
+	
+						break;
+					}
+					default: 
+						break;
+				
+				}//End of SWITCH	
+				
+				
+			}//End of FOR each tpmType2TPMValueMap
+			//30 SEP 2015 ends
+			
+			//Close the tpmBufferedWriter
+			tpmBufferedWriter.close();
 		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}//End of main
 
