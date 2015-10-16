@@ -13,23 +13,23 @@ import common.Commons;
  */
 public enum DataDrivenExperimentElementNameType {
 	
-	POL2(1), 		//expressor
-	H3K4ME1(2), 	//expressor
-	H3K4ME2(3), 	//expressor
-	H3K4ME3(4), 	//expressor
-	H3K79ME2(5), 	//expressor ?
-	H4K20ME1(6), 	//expressor
-	H3K9ACB(7), 	//expressor ?
+	POL2(1), 		//activator
+	H3K4ME1(2), 	//activator
+	H3K4ME2(3), 	//activator
+	H3K4ME3(4), 	//activator
+	H3K79ME2(5), 	//activator
+	H4K20ME1(6), 	//activator
+	H3K9ACB(7), 	//activator
+	H3K27AC(8),		//activator
+	H2AZ(9),		//activator
+	H3K9AC(10),		//activator
 	
-	H3K27ME3(8), 	//repressor
-	H3K27AC(9),		//repressor
-	H3K36ME3B(10), 	//repressor
-	H3K9ME1(11), 	//repressor
-
-	H3K9ME3(12),	//bivalent
-	H2AZ(13),		//bivalent
-	H3K36ME3(14), 	//bivalent
-	H3K9AC(15);		//bivalent
+	H3K27ME3(11), 	//repressor
+	
+	H3K36ME3B(12), 	//unknown
+	H3K9ME1(13), 	//unknown
+	H3K9ME3(14),	//unknown
+	H3K36ME3(15); 	//unknown
 		
 
 	private final int dataDrivenExperimentElementNameType;
@@ -222,15 +222,20 @@ public enum DataDrivenExperimentElementNameType {
 	}
 
 	
-	public boolean isExpressor() {
+	public boolean isActivator() {
 		
+
+	
 		if (this == DataDrivenExperimentElementNameType.POL2 ||
 			this == DataDrivenExperimentElementNameType.H3K4ME1 ||
 			this == DataDrivenExperimentElementNameType.H3K4ME2 ||
 			this == DataDrivenExperimentElementNameType.H3K4ME3 ||
 			this == DataDrivenExperimentElementNameType.H3K79ME2 ||
 			this == DataDrivenExperimentElementNameType.H4K20ME1 ||
-			this == DataDrivenExperimentElementNameType.H3K9ACB){
+			this == DataDrivenExperimentElementNameType.H3K9ACB ||
+			this == DataDrivenExperimentElementNameType.H3K27AC  ||
+			this == DataDrivenExperimentElementNameType.H2AZ ||
+			this == DataDrivenExperimentElementNameType.H3K9AC){
 			return true;
 		}
 		return false;
@@ -239,21 +244,18 @@ public enum DataDrivenExperimentElementNameType {
 
 	public boolean isRepressor() {
 		
-		if (this == DataDrivenExperimentElementNameType.H3K27ME3 ||
-			this == DataDrivenExperimentElementNameType.H3K27AC ||
-			this == DataDrivenExperimentElementNameType.H3K36ME3B ||
-			this == DataDrivenExperimentElementNameType.H3K9ME1){
+		if (this == DataDrivenExperimentElementNameType.H3K27ME3){
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean isBivalent() {
+	public boolean isUnknown() {
 		
-		if (this == DataDrivenExperimentElementNameType.H3K9ME3 ||
-			this == DataDrivenExperimentElementNameType.H2AZ ||
-			this == DataDrivenExperimentElementNameType.H3K36ME3 ||
-			this == DataDrivenExperimentElementNameType.H3K9AC){
+		if (this == DataDrivenExperimentElementNameType.H3K36ME3B ||
+			this == DataDrivenExperimentElementNameType.H3K9ME1 ||
+			this == DataDrivenExperimentElementNameType.H3K9ME3 ||
+			this == DataDrivenExperimentElementNameType.H3K36ME3){
 			return true;
 		}
 		return false;

@@ -22,7 +22,6 @@ public class DataDrivenExperimentElementTPM {
 	DataDrivenExperimentElementNameType elementNameType;
 	DataDrivenExperimentElementType elementType;
 	Float typeOneError;
-	Float typeTwoError;
 	Float power;
 	
 	//For TPM
@@ -57,12 +56,7 @@ public class DataDrivenExperimentElementTPM {
 	public void setTypeOneError(Float typeOneError) {
 		this.typeOneError = typeOneError;
 	}
-	public Float getTypeTwoError() {
-		return typeTwoError;
-	}
-	public void setTypeTwoError(Float typeTwoError) {
-		this.typeTwoError = typeTwoError;
-	}
+
 	public Float getPower() {
 		return power;
 	}

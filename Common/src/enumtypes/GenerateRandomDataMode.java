@@ -54,6 +54,18 @@ public enum GenerateRandomDataMode {
 			return null;
 
 	}
+	
+	
+	public String convertEnumtoShortString() {
+
+		if( this.equals( GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT))
+			return Commons.WGCM;
+		else if( this.equals( GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT))
+			return Commons.WOGCM;
+		else
+			return null;
+
+	}
 
 	/** An added method.  */
 	public boolean isGenerateRandomDataModeWithMapabilityandGc() {

@@ -13,9 +13,9 @@ import common.Commons;
  */
 public enum DataDrivenExperimentElementType {
 	
-	EXPRESSOR(1),
+	ACTIVATOR(1),
 	REPRESSOR(2),
-	BIVALENT(3);
+	UNKNOWN(3);
 	
 	private final int dataDrivenExperimentElementType;
 
@@ -34,16 +34,16 @@ public enum DataDrivenExperimentElementType {
 
 	public static DataDrivenExperimentElementType convertStringtoEnum(String dataDrivenExperimentElementType) {
 
-		if( Commons.EXPRESSOR.equals(dataDrivenExperimentElementType)){
-			return EXPRESSOR;
+		if( Commons.ACTIVATOR.equals(dataDrivenExperimentElementType)){
+			return ACTIVATOR;
 		}
 		
 		else if( Commons.REPRESSOR.equals(dataDrivenExperimentElementType)){
 				return REPRESSOR;
 		}
 		
-		else if( Commons.BIVALENT.equals(dataDrivenExperimentElementType)){
-			return BIVALENT;
+		else if( Commons.UNKNOWN.equals(dataDrivenExperimentElementType)){
+			return UNKNOWN;
 	}
 		else
 			return null;
@@ -51,22 +51,22 @@ public enum DataDrivenExperimentElementType {
 
 	public String convertEnumtoString() {
 
-		if( this.equals( DataDrivenExperimentElementType.EXPRESSOR))
-			return Commons.EXPRESSOR;
+		if( this.equals( DataDrivenExperimentElementType.ACTIVATOR))
+			return Commons.ACTIVATOR;
 		
 		else if( this.equals( DataDrivenExperimentElementType.REPRESSOR))
 			return Commons.REPRESSOR;
 		
-		else if( this.equals( DataDrivenExperimentElementType.BIVALENT))
-			return Commons.BIVALENT;
+		else if( this.equals( DataDrivenExperimentElementType.UNKNOWN))
+			return Commons.UNKNOWN;
 		
 		else
 			return null;
 	}
 
 	
-	public boolean isExpressor() {
-		return ( this == DataDrivenExperimentElementType.EXPRESSOR);
+	public boolean isActivator() {
+		return ( this == DataDrivenExperimentElementType.ACTIVATOR);
 	}
 	
 	
@@ -75,8 +75,8 @@ public enum DataDrivenExperimentElementType {
 	}
 	
 	
-	public boolean isBivalent() {
-		return ( this == DataDrivenExperimentElementType.BIVALENT);
+	public boolean isUnknown() {
+		return ( this == DataDrivenExperimentElementType.UNKNOWN);
 	}
 	
 

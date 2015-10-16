@@ -579,7 +579,6 @@ public class Step5_DDE_GLANETResults {
 		Float tpmValue = null;
 		
 		Float typeOneError = null;
-		Float typeTwoError = null;
 		Float power = null;
 		
 		
@@ -599,12 +598,12 @@ public class Step5_DDE_GLANETResults {
 			
 			ddeElementTPM.setElementNameType(elementNameType);
 			
-			if (elementNameType.isExpressor()){
-				elementType = DataDrivenExperimentElementType.EXPRESSOR;
+			if (elementNameType.isActivator()){
+				elementType = DataDrivenExperimentElementType.ACTIVATOR;
 			}else if (elementNameType.isRepressor()){
 				elementType = DataDrivenExperimentElementType.REPRESSOR;
-			}else if (elementNameType.isBivalent()){
-				elementType = DataDrivenExperimentElementType.BIVALENT;
+			}else if (elementNameType.isUnknown()){
+				elementType = DataDrivenExperimentElementType.UNKNOWN;
 			}
 			
 			ddeElementTPM.setElementType(elementType);
@@ -623,45 +622,54 @@ public class Step5_DDE_GLANETResults {
 			
 			//Evaluate One of these
 			
-			//Evaluate Type I Error
-			if ((geneType.isExpressingProteinCodingGenes() && elementType.isExpressor()) ||
+			//Null: No Enrichment
+			//Alternatice : Enrichment
+			
+			//Type I Error: Rejecting Null when it is true
+			//Type II Error: Not rejecting Null when it was false
+			//Power : 1 - Type II Error
+			
+			//Null is false here
+			//We have rejected null as the number of enrichment
+			//Type II Error and power can be calculated
+			//Type II Error  is (numberofGLANETRuns-numberofEnrichment)/numberofGLANETRuns
+			//Power is 1 - Type II Error
+			//Therefore Power is numberofEnrichment/numberofGLANETRuns
+			if ((geneType.isExpressingProteinCodingGenes() && elementType.isActivator()) ||
 				(geneType.isNonExpressingProteinCodingGenes() && elementType.isRepressor()) ){
 				
-				typeOneError = ((float) (numberofGLANETRuns-numberofEnrichment))/numberofGLANETRuns;
+				power = ((float) (numberofEnrichment))/numberofGLANETRuns;
 				
-				ddeElementTPM.setTypeOneError(typeOneError);
-				ddeElementTPM.setTypeTwoError(null);
-				ddeElementTPM.setPower(null);
+				ddeElementTPM.setPower(power);
+				ddeElementTPM.setTypeOneError(null);
 			}
 			
 			
-			//Evaluate Type II Error and Power
+			//Null is true here
+			//We have rejected null as the number of enrichment
+			//Type I Error can be calculated
+			//Type I Error is the numberofEnrichment/numberofGLANETRuns
 			if ((geneType.isExpressingProteinCodingGenes() && elementType.isRepressor()) ||
-					(geneType.isNonExpressingProteinCodingGenes() && elementType.isExpressor()) ){
+					(geneType.isNonExpressingProteinCodingGenes() && elementType.isActivator()) ){
 					
-					typeTwoError = ((float) (numberofEnrichment))/numberofGLANETRuns;
-					power = 1-typeTwoError;
+					typeOneError = ((float) (numberofEnrichment))/numberofGLANETRuns;
 					
-					ddeElementTPM.setTypeOneError(null);
-					ddeElementTPM.setTypeTwoError(typeTwoError);
-					ddeElementTPM.setPower(power);
+					ddeElementTPM.setTypeOneError(typeOneError);
+					ddeElementTPM.setPower(null);
 					
 			}
 			
-			//FOR BIVALENT Elements
+			//FOR Unknown Elements
 			//Evaluate Type I Error
-			//Evaluate Type II Error and Power
+			//Evaluate Power
 			//In this way of evaluating typeOneError and power are always the same
-			if (elementType.isBivalent()){
+			if (elementType.isUnknown()){
 					
-					typeOneError = ((float) (numberofGLANETRuns-numberofEnrichment))/numberofGLANETRuns;
-					ddeElementTPM.setTypeOneError(typeOneError);
-					
-					typeTwoError = ((float) (numberofEnrichment))/numberofGLANETRuns;
-					power = 1-typeTwoError;
-					
-					ddeElementTPM.setTypeTwoError(typeTwoError);
-					ddeElementTPM.setPower(power);
+				typeOneError = ((float) (numberofEnrichment))/numberofGLANETRuns;
+				power = ((float) (numberofEnrichment))/numberofGLANETRuns;
+				
+				ddeElementTPM.setTypeOneError(null);
+				ddeElementTPM.setPower(null);
 			}
 			
 			
@@ -676,7 +684,8 @@ public class Step5_DDE_GLANETResults {
 			BufferedWriter bufferedWriter,
 			List<DataDrivenExperimentElementTPM> ddeElementList,
 			TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap,
-			List<Float> tpmValues) throws IOException{
+			List<Float> tpmValues,
+			GenerateRandomDataMode generateRandomDataMode) throws IOException{
 		
 		
 		DataDrivenExperimentElementTPM elementTPM = null;
@@ -685,7 +694,6 @@ public class Step5_DDE_GLANETResults {
 		Float tpmValue  = null;
 		
 		Float typeOneError = null;
-		Float typeTwoError = null;
 		Float power = null;
 		
 		//First Header Line starts
@@ -715,9 +723,9 @@ public class Step5_DDE_GLANETResults {
 				}
 			}//End of for getting the corresponding tpmType
 			
-			bufferedWriter.write(tpmType.convertEnumtoString() + ":" + tpmValue + "\t" + "   " + "\t" + "   " + "\t" +"   "+ "\t");
+			bufferedWriter.write(tpmType.convertEnumtoString() + ":" + tpmValue + "\t" + "   " + "\t" + "   " + "\t");
 		
-		}//End of for writing tpmType:tpmValue header line
+		}//End of for writing tpmType:tpmValue in header line
 		
 		bufferedWriter.write(System.getProperty("line.separator"));
 		//First Header Line ends
@@ -729,14 +737,14 @@ public class Step5_DDE_GLANETResults {
 			
 			itr.advance();
 						
-			bufferedWriter.write("NumberofEnrichment"+ "\t" + "TypeIError" + "\t" + "TypeIIError" + "\t" + "Power" + "\t");
+			bufferedWriter.write("NumberofEnrichment"+ "\t" + "TypeIError" + generateRandomDataMode.convertEnumtoShortString() + "\t" + "Power" + generateRandomDataMode.convertEnumtoShortString()+ "\t");
 		
 		}
 		bufferedWriter.write(System.getProperty("line.separator"));
 		//Second Header Line ends
 
 		
-		//Subsequent Lines
+		//Subsequent Lines starts
 		for(int i= 0; i<ddeElementList.size(); ){
 			
 			elementTPM = ddeElementList.get(i);
@@ -750,7 +758,6 @@ public class Step5_DDE_GLANETResults {
 			for(int j= 0; j<tpmType2TPMValueMap.size(); j++){
 				
 				typeOneError = ddeElementList.get(i+j).getTypeOneError();
-				typeTwoError = ddeElementList.get(i+j).getTypeTwoError();
 				power = ddeElementList.get(i+j).getPower();
 				
 				//NumberofEnrichment
@@ -762,14 +769,7 @@ public class Step5_DDE_GLANETResults {
 				}else{
 					bufferedWriter.write("NA" + "\t");	
 				}
-				
-				//TypeIIError
-				if (typeTwoError!=null){
-					bufferedWriter.write(typeTwoError + "\t");	
-				}else{
-					bufferedWriter.write("NA" + "\t");	
-				}
-				
+			
 				//POWER
 				if (power!=null){
 					bufferedWriter.write(power + "\t");	
@@ -785,6 +785,10 @@ public class Step5_DDE_GLANETResults {
 			i = i + tpmType2TPMValueMap.size();
 		
 		}//End of for each element
+		//Subsequent Lines ends
+
+		//Add one more line between results
+		bufferedWriter.write(System.getProperty("line.separator"));
 		
 	}
 	
@@ -967,8 +971,8 @@ public class Step5_DDE_GLANETResults {
 			
 			// Sort w.r.t. multiple attributes
 			// First by elementType
-			// Second, Sort ddeElementList w.r.t. elementName
-			// Lastly, Sort ddeElementList w.r.t. tpmValue
+			// Second by elementName
+			// Lastly by tpmValue
 			Collections.sort(ddeElementList, new DDEElementTPMChainedComparator(geneType));
 			
 			List<Float> tpmValues = new ArrayList<Float>();
@@ -993,7 +997,7 @@ public class Step5_DDE_GLANETResults {
 			
 			//Now, We have to write results here for each TPM
 			//What is the order of TPM?
-			writeResults(bufferedWriter,ddeElementList,tpmType2TPMValueMap,tpmValues);
+			writeResults(bufferedWriter,ddeElementList,tpmType2TPMValueMap,tpmValues,generateRandomDataMode);
 			
 			
 			//Flush BufferedWriter

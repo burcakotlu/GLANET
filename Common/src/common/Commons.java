@@ -73,9 +73,9 @@ public class Commons {
 	public static final String NONEXPRESSING_PROTEINCODING_GENES 	= "NonExpressingGenes";
 	public static final String EXPRESSING_PROTEINCODING_GENES 		= "ExpressingGenes";
 	
-	public static final String EXPRESSOR = "Expressor";
+	public static final String ACTIVATOR = "Activator";
 	public static final String REPRESSOR = "Repressor";
-	public static final String BIVALENT = "BIVALENT";
+	public static final String UNKNOWN = "Unknown";
 
 	public static final String COMPLETELY_DISCARD_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "CompletelyDiscard";
 	public static final String PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_INTERVAL_IN_CASE_OF_DNASE_OVERLAP = "TakeTheLongest";
@@ -275,6 +275,10 @@ public class Commons {
 	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mappability";
 	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mappability";
 
+	public static final String WOGCM = "woGCM";
+	public static final String WGCM = "wGCM";
+
+	
 	// EnumType RegulatorySequenceAnalysisType
 	// RSAT PARAMETER
 	public static final String DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT";
