@@ -11,9 +11,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import multipletesting.BenjaminiandHochberg;
 import multipletesting.BonferroniCorrection;
@@ -39,7 +46,6 @@ import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.TObjectIntMap;
-import gnu.trove.map.hash.TObjectFloatHashMap;
 import gnu.trove.map.hash.TObjectIntHashMap;
 
 /**
@@ -560,7 +566,7 @@ public class Step5_DDE_GLANETResults {
 	public static void convertMapToList(
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap,
 			List<DataDrivenExperimentElementTPM> ddeElementList,
-			TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap,
+			Map<DataDrivenExperimentTPMType,Float> tpmType2TPMValueMap,
 			DataDrivenExperimentGeneType geneType,
 			int numberofGLANETRuns){
 		
@@ -623,7 +629,7 @@ public class Step5_DDE_GLANETResults {
 			//Evaluate One of these
 			
 			//Null: No Enrichment
-			//Alternatice : Enrichment
+			//Alternative : Enrichment
 			
 			//Type I Error: Rejecting Null when it is true
 			//Type II Error: Not rejecting Null when it was false
@@ -683,8 +689,8 @@ public class Step5_DDE_GLANETResults {
 	public static void writeResults(
 			BufferedWriter bufferedWriter,
 			List<DataDrivenExperimentElementTPM> ddeElementList,
-			TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap,
-			List<Float> tpmValues,
+			Set<Float> tpmValues,
+			Collection<DataDrivenExperimentTPMType> tpmTypes,
 			GenerateRandomDataMode generateRandomDataMode) throws IOException{
 		
 		
@@ -704,24 +710,11 @@ public class Step5_DDE_GLANETResults {
 		
 		// tpmValues are sorted in descending order for ExpressingGenes
 		// tpmValues are sorted in ascending order for NonExpressingGenes
-		// get the corresponding tpmType
+		// tpmTypes are already sorted in the order corresponding the tpmValue
 		for(int i=0; i<tpmValues.size();i++){
 			
-			tpmValue = (Float) tpmValues.get(i);
-			tpmType = null;
-			
-			//get the corresponding tpmType
-			for (TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
-				
-				itr.advance();
-				
-				tpmType = itr.key();
-				
-				if (tpmValue.equals(itr.value())){
-					tpmType = itr.key();
-					break;
-				}
-			}//End of for getting the corresponding tpmType
+			tpmValue = (Float) tpmValues.toArray()[i];
+			tpmType = (DataDrivenExperimentTPMType) tpmTypes.toArray()[i];
 			
 			bufferedWriter.write(tpmType.convertEnumtoString() + ":" + tpmValue + "\t" + "   " + "\t" + "   " + "\t");
 		
@@ -733,9 +726,9 @@ public class Step5_DDE_GLANETResults {
 		//Second Header Line starts
 		bufferedWriter.write("ElementType" + "\t" + "ElementName" + "\t");
 		
-		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+		for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
 			
-			itr.advance();
+			itr.next();
 						
 			bufferedWriter.write("NumberofEnrichment"+ "\t" + "TypeIError" + generateRandomDataMode.convertEnumtoShortString() + "\t" + "Power" + generateRandomDataMode.convertEnumtoShortString()+ "\t");
 		
@@ -755,7 +748,7 @@ public class Step5_DDE_GLANETResults {
 			//ElementName
 			bufferedWriter.write(elementTPM.getElementNameType()+ "\t");
 			
-			for(int j= 0; j<tpmType2TPMValueMap.size(); j++){
+			for(int j= 0; j<tpmTypes.size(); j++){
 				
 				typeOneError = ddeElementList.get(i+j).getTypeOneError();
 				power = ddeElementList.get(i+j).getPower();
@@ -777,12 +770,11 @@ public class Step5_DDE_GLANETResults {
 					bufferedWriter.write("NA" + "\t");	
 				}
 				
-				
-			}//End of for each  TPM Value
+			}//End of for each TPM Value
 			
 			bufferedWriter.write(System.getProperty("line.separator"));
 			
-			i = i + tpmType2TPMValueMap.size();
+			i = i + tpmTypes.size();
 		
 		}//End of for each element
 		//Subsequent Lines ends
@@ -836,12 +828,37 @@ public class Step5_DDE_GLANETResults {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
-		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmType2TPMValueMap);
+		//For expressingGenes tpmValues are sorted in descending order
+		SortedMap<Float,DataDrivenExperimentTPMType> expGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>(Comparator.reverseOrder());
+		//For nonExpressingGenes tpmValues are sorted in ascending order
+		SortedMap<Float,DataDrivenExperimentTPMType> nonExpGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>();
+		
+		Set<Float> tpmValues = null;
+		Collection<DataDrivenExperimentTPMType> tpmTypes = null;
+		
+		Map<DataDrivenExperimentTPMType,Float> tpmType2TPMValueMap = new HashMap<DataDrivenExperimentTPMType,Float>();
+		
+		switch(geneType){
+		
+			case EXPRESSING_PROTEINCODING_GENES:
+				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,expGenesTPMValue2TPMTypeSortedMap,tpmType2TPMValueMap);
+				tpmValues = expGenesTPMValue2TPMTypeSortedMap.keySet();
+				tpmTypes = expGenesTPMValue2TPMTypeSortedMap.values();
+				
+				break;
+				
+			case NONEXPRESSING_PROTEINCODING_GENES:
+				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,nonExpGenesTPMValue2TPMTypeSortedMap,tpmType2TPMValueMap);
+				tpmValues = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
+				tpmTypes = nonExpGenesTPMValue2TPMTypeSortedMap.values();
+				break;
+				
+		}//End of SWITCH for geneType
+		
+		
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
-
 
 		//dnaseOverlapExclusionType
 		DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(args[3]);
@@ -903,7 +920,7 @@ public class Step5_DDE_GLANETResults {
 			DataDrivenExperimentTPMType TPMType = null;
 			
 			//Initialization
-			//Elements that we will gonna consider in GALNET DDE
+			//Elements that we will gonna consider in GLANET DDE
 			List<DataDrivenExperimentElementNameType> elementNameTypeList  = new ArrayList<DataDrivenExperimentElementNameType>();
 			
 			initializeElementName2NumberofEnrichmentMap(elementNameTypeList);
@@ -913,11 +930,9 @@ public class Step5_DDE_GLANETResults {
 			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + System.getProperty("line.separator"));
 			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
 			
-			for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+			for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
 				
-				itr.advance();
-				
-				TPMType = itr.key();
+				TPMType = itr.next();
 				
 				//TF
 				readSimulationGLANETResults(
@@ -966,8 +981,13 @@ public class Step5_DDE_GLANETResults {
 			List<DataDrivenExperimentElementTPM> ddeElementList = new ArrayList<DataDrivenExperimentElementTPM>();
 			
 			//Fill ddeElementList
-			//Evaluate TypeIError, TypeIIError and Power if applicable depending on the geneType and elementType
-			convertMapToList(elementNameTPMName2NumberofEnrichmentMap,ddeElementList,tpmType2TPMValueMap, geneType,numberofGLANETRuns);
+			//Evaluate TypeIError and Power if applicable depending on the geneType and elementType
+			convertMapToList(
+					elementNameTPMName2NumberofEnrichmentMap,
+					ddeElementList,
+					tpmType2TPMValueMap,
+					geneType,
+					numberofGLANETRuns);
 			
 			// Sort w.r.t. multiple attributes
 			// First by elementType
@@ -975,29 +995,9 @@ public class Step5_DDE_GLANETResults {
 			// Lastly by tpmValue
 			Collections.sort(ddeElementList, new DDEElementTPMChainedComparator(geneType));
 			
-			List<Float> tpmValues = new ArrayList<Float>();
-			convertMapToList(tpmType2TPMValueMap,tpmValues);
-			
-			Comparator<Float> comparatorDescending = Collections.reverseOrder();
-			
-			switch(geneType){
-			
-				case EXPRESSING_PROTEINCODING_GENES:
-					//In descendig order
-					Collections.sort(tpmValues,comparatorDescending);
-					break;
-					
-				case NONEXPRESSING_PROTEINCODING_GENES:
-					//In ascending order
-					Collections.sort(tpmValues);
-					break;
-			
-			}//End of SWITCH for geneType
-			
-			
 			//Now, We have to write results here for each TPM
 			//What is the order of TPM?
-			writeResults(bufferedWriter,ddeElementList,tpmType2TPMValueMap,tpmValues,generateRandomDataMode);
+			writeResults(bufferedWriter,ddeElementList,tpmValues,tpmTypes,generateRandomDataMode);
 			
 			
 			//Flush BufferedWriter

@@ -22,9 +22,11 @@ public enum DataDrivenExperimentTPMType {
 	TOP50(7),
 	TOP55(8),
 	TOP60(9),
+	
+	TOPUNKNOWN(10),
 
-	FIRSTELEMENT(10),
-	LASTELEMENT(11);
+	FIRSTELEMENT(11),
+	LASTELEMENT(12);
 	
 	
 	private final int tpmType;
@@ -79,6 +81,10 @@ public enum DataDrivenExperimentTPMType {
 		else if (Commons.TOP60.equals(dataDrivenExperimentTopPercentageType)){
 			return TOP60;
 		}
+		
+		else if (Commons.TOPUNKNOWN.equals(dataDrivenExperimentTopPercentageType)){
+			return TOPUNKNOWN;
+		}
 
 		else if (Commons.FIRSTELEMENT.equals(dataDrivenExperimentTopPercentageType)){
 			return FIRSTELEMENT;
@@ -120,6 +126,10 @@ public enum DataDrivenExperimentTPMType {
 	
 		else if( this.equals(DataDrivenExperimentTPMType.TOP60))
 			return Commons.TOP60;
+		
+		else if( this.equals(DataDrivenExperimentTPMType.TOPUNKNOWN))
+			return Commons.TOPUNKNOWN;
+
 
 		else
 			return null;
@@ -158,6 +168,10 @@ public enum DataDrivenExperimentTPMType {
 	}
 	public boolean isTOP60() {
 		return ( this == DataDrivenExperimentTPMType.TOP60);
+	}
+	
+	public boolean isTOPUnknown() {
+		return ( this == DataDrivenExperimentTPMType.TOPUNKNOWN);
 	}
 
 	public boolean isFIRSTELEMENT() {

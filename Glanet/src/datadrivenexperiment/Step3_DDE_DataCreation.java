@@ -9,8 +9,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import auxiliary.FileOperations;
 
@@ -22,9 +27,6 @@ import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
-import gnu.trove.iterator.TObjectFloatIterator;
-import gnu.trove.map.TObjectFloatMap;
-import gnu.trove.map.hash.TObjectFloatHashMap;
 
 /**
  * @author Burcak Otlu
@@ -233,12 +235,37 @@ public class Step3_DDE_DataCreation {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
-		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmType2TPMValueMap);
+		//For expressingGenes tpmValues are sorted in descending order
+		SortedMap<Float,DataDrivenExperimentTPMType> expGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>(Comparator.reverseOrder());
+		//For nonExpressingGenes tpmValues are sorted in ascending order
+		SortedMap<Float,DataDrivenExperimentTPMType> nonExpGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>();
+		
+		//Set<Float> tpmValues = null;
+		Collection<DataDrivenExperimentTPMType> tpmTypes = null;
+		
+		switch(geneType){
+		
+			case EXPRESSING_PROTEINCODING_GENES:
+				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,expGenesTPMValue2TPMTypeSortedMap);
+				//tpmValues = expGenesTPMValue2TPMTypeSortedMap.keySet();
+				tpmTypes = expGenesTPMValue2TPMTypeSortedMap.values();
+				
+				break;
+				
+			case NONEXPRESSING_PROTEINCODING_GENES:
+				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,nonExpGenesTPMValue2TPMTypeSortedMap);
+				//tpmValues = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
+				tpmTypes = nonExpGenesTPMValue2TPMTypeSortedMap.values();
+				break;
+				
+		}//End of SWITCH for geneType
+		
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
-
+		
+		
+		
 		/*************************************************************************************************/
 		/******************************For each tpmValue starts*******************************************/
 		/*************************************************************************************************/
@@ -247,11 +274,9 @@ public class Step3_DDE_DataCreation {
 		
 		String intervalPoolFileName = null;
 
-		for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+		for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
 			
-			itr.advance();
-			
-			tpmType = itr.key();
+			tpmType = itr.next(); 
 			//tpmValue = itr.value();
 			
 			intervalPoolFileName = null;
@@ -283,7 +308,7 @@ public class Step3_DDE_DataCreation {
 			}//End of for each dnaseOverlapExclusionType
 			
 			
-		}//End of for each tpmValue
+		}//End of for each tpmType
 		/*************************************************************************************************/
 		/******************************For each tpmValue ends*********************************************/
 		/*************************************************************************************************/

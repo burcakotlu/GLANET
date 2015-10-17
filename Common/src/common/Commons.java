@@ -102,6 +102,9 @@ public class Commons {
 	public static final String TOP50 	= "Top50";
 	public static final String TOP55 	= "Top55";
 	public static final String TOP60 	= "Top60";
+	
+	public static final String TOPUNKNOWN 	= "TopUnknown";
+	
 	public static final String FIRSTELEMENT = "FIRSTELEMENT";
 	public static final String LASTELEMENT = "LASTELEMENT";
 	

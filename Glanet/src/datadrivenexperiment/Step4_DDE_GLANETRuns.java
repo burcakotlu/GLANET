@@ -6,18 +6,22 @@ package datadrivenexperiment;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import auxiliary.FileOperations;
 
 import common.Commons;
-import auxiliary.FileOperations;
+
 import enumtypes.DataDrivenExperimentCellLineType;
-import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
+import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentOperatingSystem;
 import enumtypes.DataDrivenExperimentTPMType;
 import enumtypes.GenerateRandomDataMode;
-import gnu.trove.iterator.TObjectFloatIterator;
-import gnu.trove.map.TObjectFloatMap;
-import gnu.trove.map.hash.TObjectFloatHashMap;
 
 /**
  * @author Burcak Otlu
@@ -301,8 +305,30 @@ public class Step4_DDE_GLANETRuns {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
-		TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
-		DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,tpmType2TPMValueMap);
+		//For expressingGenes tpmValues are sorted in descending order
+		SortedMap<Float,DataDrivenExperimentTPMType> expGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>(Comparator.reverseOrder());
+		//For nonExpressingGenes tpmValues are sorted in ascending order
+		SortedMap<Float,DataDrivenExperimentTPMType> nonExpGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>();
+		
+		//Set<Float> tpmValues = null;
+		Collection<DataDrivenExperimentTPMType> tpmTypes = null;
+		
+		switch(geneType){
+		
+			case EXPRESSING_PROTEINCODING_GENES:
+				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,expGenesTPMValue2TPMTypeSortedMap);
+				//tpmValues = expGenesTPMValue2TPMTypeSortedMap.keySet();
+				tpmTypes = expGenesTPMValue2TPMTypeSortedMap.values();
+				
+				break;
+				
+			case NONEXPRESSING_PROTEINCODING_GENES:
+				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,nonExpGenesTPMValue2TPMTypeSortedMap);
+				//tpmValues = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
+				tpmTypes = nonExpGenesTPMValue2TPMTypeSortedMap.values();
+				break;
+				
+		}//End of SWITCH for geneType
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
@@ -327,12 +353,10 @@ public class Step4_DDE_GLANETRuns {
 			//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
 			//**************************************************GLANET RUNS************************************************//
 			//*************************************************************************************************************//
-			
-			for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
+			for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
 				
-				itr.advance();
 				
-				tpmType = itr.key();
+				tpmType = itr.next();
 				//tpmValue = itr.value();
 				
 				//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//

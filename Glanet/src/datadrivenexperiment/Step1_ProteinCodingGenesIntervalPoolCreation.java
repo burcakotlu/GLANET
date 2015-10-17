@@ -9,7 +9,6 @@ import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
-import gnu.trove.map.hash.TObjectFloatHashMap;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -17,12 +16,18 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**
@@ -46,7 +51,9 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 	public static void generateIntervalsFromFemaleGTFFile(
 			TObjectFloatMap<String> ensemblGeneID2TPMMap,
 			String femaleGTFFileName, 
+			Float tpmValue,
 			DataDrivenExperimentTPMType tpmType, 
+			SortedMap<Float,DataDrivenExperimentTPMType> tpmValue2TPMTypeSortedMap,
 			BufferedWriter tpmBufferedWriter,
 			String proteinCodingGenesIntervalsFileName,
 			DataDrivenExperimentGeneType expressingorNonExpressiongGeneType) throws IOException {
@@ -106,7 +113,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		int indexofSeventhSemiColon;
 		int indexofEigthSemiColon;
 		int indexofNinethSemiColon;
-
 
 		FileReader fileReader = FileOperations.createFileReader( femaleGTFFileName);
 		BufferedReader bufferedReader = new BufferedReader( fileReader);
@@ -191,6 +197,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 					case NONEXPRESSING_PROTEINCODING_GENES: {
 						
 						if( ensemblGeneID2TPMMap.containsKey(ensemblGeneID) && 
+								(ensemblGeneID2TPMMap.get(ensemblGeneID) <= tpmValue) &&
 								geneType.equals( "\"protein_coding\"")){
 
 							switch(strand){
@@ -236,6 +243,8 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 								proteinCodingGeneId2GeneExonNumberOneIntervalsMap.put( ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
 							}else{
 								proteinCodingGeneExonNumberOneIntervalList.add( proteinCodingGeneExonNumberOneInterval);
+								proteinCodingGeneId2GeneExonNumberOneIntervalsMap.put( ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
+								
 							}
 
 						
@@ -292,6 +301,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 								proteinCodingGeneId2GeneExonNumberOneIntervalsMap.put( ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
 							}else{
 								proteinCodingGeneExonNumberOneIntervalList.add( proteinCodingGeneExonNumberOneInterval);
+								proteinCodingGeneId2GeneExonNumberOneIntervalsMap.put( ensemblGeneID,proteinCodingGeneExonNumberOneIntervalList);
 							}
 
 							
@@ -394,7 +404,10 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		// Get the topX elements from allProteinCodingGenesExonNumberOneIntervalsList
 		// Writing ExpressingGenes or nonExpressingGenes Intervals starts
 		writeTopXProteinCodingGenesExonNumberOneIntervals(
+				tpmValue,
 				tpmType,
+				tpmValue2TPMTypeSortedMap,
+				expressingorNonExpressiongGeneType,
 				allProteinCodingGenesExonNumberOneIntervalsList,
 				ensemblGeneID2TPMMap,
 				proteinCodingGenesIntervalsBufferedWriter,
@@ -459,7 +472,10 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 	
 	//14 OCT 215
 	public static void writeTopXProteinCodingGenesExonNumberOneIntervals(
+			Float tpmValue,
 			DataDrivenExperimentTPMType tpmType,
+			SortedMap<Float,DataDrivenExperimentTPMType> tpmValue2TPMTypeSortedMap,
+			DataDrivenExperimentGeneType geneType,
 			List<ProteinCodingGeneExonNumberOneInterval> allProteinCodingGenesExonNumberOneIntervalsList,
 			TObjectFloatMap<String> ensemblGeneID2TPMMap,
 			BufferedWriter proteinCodingGenesIntervalsBufferedWriter,
@@ -469,10 +485,8 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		int index = 0;
 		
 		ProteinCodingGeneExonNumberOneInterval  proteinCodingGeneExonNumberOneInterval = null;
-		Float tpmValue = null;
 		
 		switch(tpmType){
-		
 			case TOP2:
 				index = numberofIntervals*2/100;
 				break;
@@ -488,21 +502,20 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 			case TOP25:
 				index = numberofIntervals*25/100;
 				break;
+			case TOPUNKNOWN:
+				index = numberofIntervals;
 			default:
 				break;
 		
 		}//End of SWITCH for selecting index
 		
 		//Write tpmType  and tpmValue to TPMFile
-		tpmValue = allProteinCodingGenesExonNumberOneIntervalsList.get(index).getTpm();
+		tpmValue = allProteinCodingGenesExonNumberOneIntervalsList.get(index-1).getTpm();
 		tpmBufferedWriter.write(tpmType.convertEnumtoString() + "\t" + tpmValue + System.getProperty( "line.separator"));
 		
-		for(int i=0; i<index; i++){
-			
+		for(int i=0; i<index; i++){			
 			proteinCodingGeneExonNumberOneInterval = allProteinCodingGenesExonNumberOneIntervalsList.get(i);
-			proteinCodingGenesIntervalsBufferedWriter.write( proteinCodingGeneExonNumberOneInterval.getChrName().convertEnumtoString() + "\t" + proteinCodingGeneExonNumberOneInterval.getLow() + "\t" + proteinCodingGeneExonNumberOneInterval.getHigh() + "\t" + proteinCodingGeneExonNumberOneInterval.getGeneSymbol() + System.getProperty( "line.separator"));
-
-			
+			proteinCodingGenesIntervalsBufferedWriter.write( proteinCodingGeneExonNumberOneInterval.getChrName().convertEnumtoString() + "\t" + proteinCodingGeneExonNumberOneInterval.getLow() + "\t" + proteinCodingGeneExonNumberOneInterval.getHigh() + "\t" + proteinCodingGeneExonNumberOneInterval.getGeneSymbol() + System.getProperty( "line.separator"));			
 		}//End of for each interval from 0 to index
 		
 		//For debug purposes
@@ -556,10 +569,29 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		//And will be written to an output file.
 		//Here we put dummy TPM Values
 		//But in the upcoming part of the code real TPM Values will be filled.
-		TObjectFloatMap<DataDrivenExperimentTPMType> tpmType2TPMValueMap = new TObjectFloatHashMap<DataDrivenExperimentTPMType>();
-		tpmType2TPMValueMap.put(DataDrivenExperimentTPMType.TOP5, 0);
-		tpmType2TPMValueMap.put(DataDrivenExperimentTPMType.TOP10, 0);
-		tpmType2TPMValueMap.put(DataDrivenExperimentTPMType.TOP20, 0);
+		//For ExpressingGenes and For NonExpressingGenes this map can be different
+		
+		//For expressingGenes we need tpmValues in descending order, so map uses comparator with reverse order.
+		//TPMTypes are known and tpmValues are unknown and they will be found
+		//Here dummy tpmValues are inserted, they have to be distinct..
+		SortedMap<Float,DataDrivenExperimentTPMType> expGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>(Comparator.reverseOrder());
+		expGenesTPMValue2TPMTypeSortedMap.put(2f,DataDrivenExperimentTPMType.TOP5);
+		expGenesTPMValue2TPMTypeSortedMap.put(1f,DataDrivenExperimentTPMType.TOP10);
+		expGenesTPMValue2TPMTypeSortedMap.put(0f,DataDrivenExperimentTPMType.TOP20);
+	
+		//For nonExpressingGenes we need tpmValues in ascending order, so map uses comparator with natural order
+		//Here we give the tpmValue we are interested in, therefore tpmType is unknown.
+		//TPMValue is known and tpmTypes are unknown.
+		SortedMap<Float,DataDrivenExperimentTPMType> nonExpGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>();
+		nonExpGenesTPMValue2TPMTypeSortedMap.put(0f,DataDrivenExperimentTPMType.TOPUNKNOWN);
+		
+		//ExpGenes will use tpmTypes
+		Collection<DataDrivenExperimentTPMType> tpmTypes = null;
+		DataDrivenExperimentTPMType tpmType = null;
+		
+		//NonExpGenes will use tpmValues
+		Collection<Float> tpmValues = null;
+		Float tpmValue = null;
 		
 		String tpmFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
 		
@@ -613,7 +645,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 				default: 
 					break;
 			
-			}//End of Switch cellLineType
+			}//End of SWITCH cellLineType
 					
 	
 			// Input File
@@ -632,8 +664,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 					geneType);
 	
 			
-			//30 SEP 2015 starts
-			DataDrivenExperimentTPMType tpmType = null;
 			
 			// Output File
 			// End Inclusive
@@ -642,77 +672,89 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 			String nonExpressingProteinCodingGenesIntervalsFile = null;
 			String expressingProteinCodingGenesIntervalsFile = null;
 			
-			//For each tpmType in tpmType2TPMValueMap
-			for(TObjectFloatIterator<DataDrivenExperimentTPMType> itr = tpmType2TPMValueMap.iterator();itr.hasNext();){
-				
-				itr.advance();
-				
-				tpmType = itr.key();
-				
-				switch(geneType){
-	
-					case NONEXPRESSING_PROTEINCODING_GENES: {
-						nonExpressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" +  tpmType.convertEnumtoString() +  "_IntervalPool.txt";
-						break;
-					}
-					case EXPRESSING_PROTEINCODING_GENES:{
-						expressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() +  "_IntervalPool.txt";
-						break;
-					}
-				
-					default: 
-						break;
+			//17 OCT 2015 starts
+			switch(geneType){
+			
+				case NONEXPRESSING_PROTEINCODING_GENES: {
 					
-				}//End of SWITCH geneType
-				
-				
-				
-				switch(geneType){
-				
-					case NONEXPRESSING_PROTEINCODING_GENES: {
+					//keys are sorted in ascending order
+					//values are in ascending order of corresponding keys
+					tpmValues  = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
+					tpmTypes = nonExpGenesTPMValue2TPMTypeSortedMap.values();
+					
+					int i = 0;
+					
+					//We know tpmValues so traverse using its iterator
+					for(Iterator<Float> itr = tpmValues.iterator();itr.hasNext(); ) {
+						 
+						tpmValue = itr.next();
+						tpmType = (DataDrivenExperimentTPMType)(tpmTypes.toArray())[i++];
+						
+						nonExpressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" +  tpmType.convertEnumtoString() +  "_IntervalPool.txt";
 						
 						// Generate Intervals for the nonExpressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
 						// the Top tpmType using female.gtf to nonExpressingGenesIntervalsFile
 						generateIntervalsFromFemaleGTFFile(
 								ensemblGeneID2TPMMapforUnionofRep1andRep2, 
 								femaleGTFFileName, 
+								tpmValue,
 								tpmType,
+								nonExpGenesTPMValue2TPMTypeSortedMap,
 								tpmBufferedWriter,
 								nonExpressingProteinCodingGenesIntervalsFile,
 								geneType);
-	
-	
-						break;
-					}
-					case EXPRESSING_PROTEINCODING_GENES: {
+
+					}//End of for each tpmType
+					
+					break;
+				}
+				case EXPRESSING_PROTEINCODING_GENES:{
+					
+					//tpmValues are sorted in descending order
+					//tpmTypes are in descending order of corresponding tpmValues
+					tpmValues  =expGenesTPMValue2TPMTypeSortedMap.keySet();
+					tpmTypes  =expGenesTPMValue2TPMTypeSortedMap.values();
+					
+					int i = 0;
+					
+					//We know tpmTypes so traverse using its iterator
+					for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext(); ) {
+						
+						tpmType = itr.next();
+						tpmValue = (Float)(tpmValues.toArray())[i++];
+						
+						expressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() +  "_IntervalPool.txt";
 						
 						// Generate Intervals for the expressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
 						// the Top tmpType using female.gtf to expressingGenesIntervalsFile
 						generateIntervalsFromFemaleGTFFile(
 								ensemblGeneID2TPMMapforUnionofRep1andRep2, 
 								femaleGTFFileName, 
+								tpmValue,
 								tpmType,
+								expGenesTPMValue2TPMTypeSortedMap,
 								tpmBufferedWriter,
 								expressingProteinCodingGenesIntervalsFile,
 								geneType);
-	
-	
-						break;
-					}
-					default: 
-						break;
-				
-				}//End of SWITCH	
-				
-				
-			}//End of FOR each tpmType2TPMValueMap
-			//30 SEP 2015 ends
+
+					}//End of for each tpmType
+						 
+					
+					break;
+				}
+			
+				default: 
+					break;
+					
+			}//End of SWITCH for geneType
+			//17 OCT 
+			
+			
 			
 			//Close the tpmBufferedWriter
 			tpmBufferedWriter.close();
 		
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
