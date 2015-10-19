@@ -12,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -572,30 +571,28 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
 		//For expressingGenes tpmValues are sorted in descending order
-		SortedMap<Float,DataDrivenExperimentTPMType> expGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>(Comparator.reverseOrder());
+		SortedMap<DataDrivenExperimentTPMType,Float> expGenesTPMType2TPMValueSortedMap = new TreeMap<DataDrivenExperimentTPMType,Float>(DataDrivenExperimentTPMType.TPM_TYPE);
 		//For nonExpressingGenes tpmValues are sorted in ascending order
-		SortedMap<Float,DataDrivenExperimentTPMType> nonExpGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>();
+		SortedMap<DataDrivenExperimentTPMType,Float> nonExpGenesTPMType2TPMValueSortedMap = new TreeMap<DataDrivenExperimentTPMType,Float>(DataDrivenExperimentTPMType.TPM_TYPE);
 		
-		Set<Float> tpmValues = null;
-		Collection<DataDrivenExperimentTPMType> tpmTypes = null;
+		Set<DataDrivenExperimentTPMType> tpmTypes = null;
+		Collection<Float> tpmValues = null;
 		
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,expGenesTPMValue2TPMTypeSortedMap);
-				tpmValues = expGenesTPMValue2TPMTypeSortedMap.keySet();
-				tpmTypes = expGenesTPMValue2TPMTypeSortedMap.values();
-				
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
+				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
+				tpmValues = expGenesTPMType2TPMValueSortedMap.values();
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,nonExpGenesTPMValue2TPMTypeSortedMap);
-				tpmValues = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
-				tpmTypes = nonExpGenesTPMValue2TPMTypeSortedMap.values();
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
+				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
+				tpmValues = nonExpGenesTPMType2TPMValueSortedMap.values();
 				break;
 				
 		}//End of SWITCH for geneType
-		
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
@@ -615,7 +612,7 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 			dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter = new BufferedWriter(fileWriter);
 						
 			/*************************************************************************************************/
-			/******************************For each tpmValue starts*******************************************/
+			/******************************For each tpmType starts********************************************/
 			/*************************************************************************************************/
 			int i = 0;
 			
@@ -662,9 +659,9 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 				}//End of for each DataDrivenExperimentDnaseOverlapExclusionType
 	
 				
-			}//End of FOR each TPMValue
+			}//End of FOR each TPMType
 			/*************************************************************************************************/
-			/******************************For each tpmValue ends*********************************************/
+			/******************************For each tpmType ends**********************************************/
 			/*************************************************************************************************/
 			
 			dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter.flush();

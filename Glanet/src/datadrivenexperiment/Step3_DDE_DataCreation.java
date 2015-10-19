@@ -9,11 +9,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -58,7 +57,6 @@ public class Step3_DDE_DataCreation {
 			String dataDrivenExperimentFolder) {
 
 		String intervalPoolFileName = dataDrivenExperimentFolder + Commons.DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_" + topPercentageType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_IntervalPool.txt";
-
 		return intervalPoolFileName;
 	}
 
@@ -161,7 +159,7 @@ public class Step3_DDE_DataCreation {
 			String dataDrivenExperimentFolder, 
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
-			DataDrivenExperimentTPMType topPercentageType,
+			DataDrivenExperimentTPMType tpmType,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			String intervalPoolFileName, 
 			int numberofSimulations,
@@ -179,7 +177,7 @@ public class Step3_DDE_DataCreation {
 		String baseFolderName = null;
 
 		// Set baseFolderName
-		baseFolderName = dataDrivenExperimentFolder + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_" + topPercentageType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString();
+		baseFolderName = dataDrivenExperimentFolder + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString();
 
 		for( int i = 0; i < numberofSimulations; i++){
 
@@ -236,26 +234,25 @@ public class Step3_DDE_DataCreation {
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
 		//For expressingGenes tpmValues are sorted in descending order
-		SortedMap<Float,DataDrivenExperimentTPMType> expGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>(Comparator.reverseOrder());
+		SortedMap<DataDrivenExperimentTPMType,Float> expGenesTPMType2TPMValueSortedMap = new TreeMap<DataDrivenExperimentTPMType,Float>(DataDrivenExperimentTPMType.TPM_TYPE);
 		//For nonExpressingGenes tpmValues are sorted in ascending order
-		SortedMap<Float,DataDrivenExperimentTPMType> nonExpGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>();
+		SortedMap<DataDrivenExperimentTPMType,Float> nonExpGenesTPMType2TPMValueSortedMap = new TreeMap<DataDrivenExperimentTPMType,Float>(DataDrivenExperimentTPMType.TPM_TYPE);
 		
-		//Set<Float> tpmValues = null;
-		Collection<DataDrivenExperimentTPMType> tpmTypes = null;
+		Set<DataDrivenExperimentTPMType> tpmTypes = null;
 		
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,expGenesTPMValue2TPMTypeSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
 				//tpmValues = expGenesTPMValue2TPMTypeSortedMap.keySet();
-				tpmTypes = expGenesTPMValue2TPMTypeSortedMap.values();
+				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,nonExpGenesTPMValue2TPMTypeSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
 				//tpmValues = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
-				tpmTypes = nonExpGenesTPMValue2TPMTypeSortedMap.values();
+				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				break;
 				
 		}//End of SWITCH for geneType
@@ -270,14 +267,12 @@ public class Step3_DDE_DataCreation {
 		/******************************For each tpmValue starts*******************************************/
 		/*************************************************************************************************/
 		DataDrivenExperimentTPMType tpmType = null;
-		//Float tpmValue = null;
 		
 		String intervalPoolFileName = null;
 
 		for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
 			
 			tpmType = itr.next(); 
-			//tpmValue = itr.value();
 			
 			intervalPoolFileName = null;
 

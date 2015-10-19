@@ -31,12 +31,11 @@ import gnu.trove.map.hash.TObjectFloatHashMap;
  */
 public class DataDrivenExperimentCommon {
 	
-	public static void getTPMValues(
+	public static void fillTPMType2TPMValueMap(
 			String glanetFolder,
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
-			SortedMap<Float,DataDrivenExperimentTPMType> tpmValue2TPMTypeSortedMap,
-			Map<DataDrivenExperimentTPMType,Float> tpmType2TPMValueMap){
+			SortedMap<DataDrivenExperimentTPMType,Float> tpmType2TPMValueSortedMap){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -66,9 +65,8 @@ public class DataDrivenExperimentCommon {
 				tpmType = DataDrivenExperimentTPMType.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
 				tpmValue = Float.valueOf(strLine.substring(indexofFirstTab+1));
 				
-				tpmValue2TPMTypeSortedMap.put(tpmValue,tpmType);
-				tpmType2TPMValueMap.put(tpmType, tpmValue);
-				
+				tpmType2TPMValueSortedMap.put(tpmType,tpmValue);
+					
 			}//End of WHILE reading tpmType2TPMValue file
 			
 				
@@ -81,53 +79,53 @@ public class DataDrivenExperimentCommon {
 		
 	}
 	
-	public static void getTPMValues(
-			String glanetFolder,
-			DataDrivenExperimentCellLineType cellLineType,
-			DataDrivenExperimentGeneType geneType,
-			SortedMap<Float,DataDrivenExperimentTPMType> tpmValue2TPMTypeSortedMap){
-		
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-		
-		String tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
-		String strLine = null;
-		
-		int indexofFirstTab;
-		
-		
-//		Top20	0.0
-//		Top10	0.0
-//		Top5	0.0
-
-		DataDrivenExperimentTPMType tpmType = null;
-		Float tpmValue = null;
-		
-		try {
-			
-			fileReader = FileOperations.createFileReader(tpmValuesFileName);
-			bufferedReader = new BufferedReader(fileReader);
-			
-			
-			while((strLine = bufferedReader.readLine())!=null){
-				indexofFirstTab = strLine.indexOf("\t");
-				
-				tpmType = DataDrivenExperimentTPMType.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
-				tpmValue = Float.valueOf(strLine.substring(indexofFirstTab+1));
-				
-				tpmValue2TPMTypeSortedMap.put(tpmValue,tpmType);
-				
-			}//End of WHILE reading tpmType2TPMValue file
-			
-				
-			//Close the stream
-			bufferedReader.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
+//	public static void getTPMValues(
+//			String glanetFolder,
+//			DataDrivenExperimentCellLineType cellLineType,
+//			DataDrivenExperimentGeneType geneType,
+//			SortedMap<Float,DataDrivenExperimentTPMType> tpmValue2TPMTypeSortedMap){
+//		
+//		FileReader fileReader = null;
+//		BufferedReader bufferedReader = null;
+//		
+//		String tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
+//		String strLine = null;
+//		
+//		int indexofFirstTab;
+//		
+//		
+////		Top20	0.0
+////		Top10	0.0
+////		Top5	0.0
+//
+//		DataDrivenExperimentTPMType tpmType = null;
+//		Float tpmValue = null;
+//		
+//		try {
+//			
+//			fileReader = FileOperations.createFileReader(tpmValuesFileName);
+//			bufferedReader = new BufferedReader(fileReader);
+//			
+//			
+//			while((strLine = bufferedReader.readLine())!=null){
+//				indexofFirstTab = strLine.indexOf("\t");
+//				
+//				tpmType = DataDrivenExperimentTPMType.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
+//				tpmValue = Float.valueOf(strLine.substring(indexofFirstTab+1));
+//				
+//				tpmValue2TPMTypeSortedMap.put(tpmValue,tpmType);
+//				
+//			}//End of WHILE reading tpmType2TPMValue file
+//			
+//				
+//			//Close the stream
+//			bufferedReader.close();
+//			
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	
 	
 	public static TObjectFloatMap<String> fillMapUsingGTFFile(

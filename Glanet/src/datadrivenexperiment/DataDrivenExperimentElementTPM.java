@@ -94,10 +94,7 @@ public class DataDrivenExperimentElementTPM {
 		
 		
 	 
-		public DDEElementTPMChainedComparator(DataDrivenExperimentGeneType geneType) {
-			super();
-			this.geneType = geneType;
-		}
+		
 
 
 
@@ -117,25 +114,11 @@ public class DataDrivenExperimentElementTPM {
 	        {
 	            return elementNameTypeResult;
 	        }
-
-	        // Next by TPMValue
-	        switch(geneType){
 	        
-		        case EXPRESSING_PROTEINCODING_GENES:
-		        	//TPMValues must be in the descending order
-		        	return elementTPM2.getTpmValue().compareTo(elementTPM1.getTpmValue());
-		  	       
-		        case NONEXPRESSING_PROTEINCODING_GENES:
-		        	//TPMValues must be in the ascending order
-		        	return elementTPM1.getTpmValue().compareTo(elementTPM2.getTpmValue());
-		        
-		        default:
-		        	//In ascending order
-		        	return elementTPM1.getTpmValue().compareTo(elementTPM2.getTpmValue());
-			        
-	        }//End of SWITCH for geneType
 	        
-	       
+	        //Next by tpmType
+			return ((Integer)Integer.parseInt(elementTPM1.getTpmType().convertEnumtoString().substring(3))).compareTo(Integer.parseInt(elementTPM2.getTpmType().convertEnumtoString().substring(3)));
+		
 	    }
 	}
 	

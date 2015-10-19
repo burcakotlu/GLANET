@@ -3,6 +3,8 @@
  */
 package enumtypes;
 
+import java.util.Comparator;
+
 import common.Commons;
 
 /**
@@ -181,5 +183,17 @@ public enum DataDrivenExperimentTPMType {
 	public boolean isLASTELEMENT() {
 		return ( this == DataDrivenExperimentTPMType.LASTELEMENT);
 	}
+	
+	
+	public static Comparator<DataDrivenExperimentTPMType> TPM_TYPE = new Comparator<DataDrivenExperimentTPMType>() {
 
+		//Get the integer after TOP
+		//Therefore it is set to 3
+		public int compare(DataDrivenExperimentTPMType e1,DataDrivenExperimentTPMType e2) {
+			return ((Integer)Integer.parseInt(e1.convertEnumtoString().substring(3))).compareTo(Integer.parseInt(e2.convertEnumtoString().substring(3)));
+		}
+	};
+	
 }
+	
+

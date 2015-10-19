@@ -6,9 +6,8 @@ package datadrivenexperiment;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -182,8 +181,8 @@ public class Step4_DDE_GLANETRuns {
 						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -J " + SBATCH_JOBNAME + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -N 1" + System.getProperty("line.separator"));
-//						bufferedWriter.write("#SBATCH -n 8" + System.getProperty("line.separator"));
-						bufferedWriter.write("#SBATCH -n 4" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -n 8" + System.getProperty("line.separator"));
+//						bufferedWriter.write("#SBATCH -n 4" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH --time=8-00:00:00" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH --mail-type=ALL" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
@@ -306,26 +305,23 @@ public class Step4_DDE_GLANETRuns {
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
 		//For expressingGenes tpmValues are sorted in descending order
-		SortedMap<Float,DataDrivenExperimentTPMType> expGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>(Comparator.reverseOrder());
+		SortedMap<DataDrivenExperimentTPMType,Float> expGenesTPMType2TPMValueSortedMap = new TreeMap<DataDrivenExperimentTPMType,Float>(DataDrivenExperimentTPMType.TPM_TYPE);
 		//For nonExpressingGenes tpmValues are sorted in ascending order
-		SortedMap<Float,DataDrivenExperimentTPMType> nonExpGenesTPMValue2TPMTypeSortedMap = new TreeMap<Float,DataDrivenExperimentTPMType>();
+		SortedMap<DataDrivenExperimentTPMType,Float> nonExpGenesTPMType2TPMValueSortedMap = new TreeMap<DataDrivenExperimentTPMType,Float>(DataDrivenExperimentTPMType.TPM_TYPE);
 		
-		//Set<Float> tpmValues = null;
-		Collection<DataDrivenExperimentTPMType> tpmTypes = null;
+		Set<DataDrivenExperimentTPMType> tpmTypes = null;
 		
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,expGenesTPMValue2TPMTypeSortedMap);
-				//tpmValues = expGenesTPMValue2TPMTypeSortedMap.keySet();
-				tpmTypes = expGenesTPMValue2TPMTypeSortedMap.values();
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
+				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.getTPMValues(glanetFolder,cellLineType,geneType,nonExpGenesTPMValue2TPMTypeSortedMap);
-				//tpmValues = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
-				tpmTypes = nonExpGenesTPMValue2TPMTypeSortedMap.values();
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
+				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				break;
 				
 		}//End of SWITCH for geneType
@@ -347,7 +343,6 @@ public class Step4_DDE_GLANETRuns {
 
 		try{
 			
-			
 			//*************************************************************************************************************//
 			//****************************************************SIMULATIONS**********************************************//
 			//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
@@ -357,7 +352,6 @@ public class Step4_DDE_GLANETRuns {
 				
 				
 				tpmType = itr.next();
-				//tpmValue = itr.value();
 				
 				//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
 				// With GC and Mapability
