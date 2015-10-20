@@ -25,9 +25,7 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElementMinimal;
 import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
-
 import common.Commons;
-
 import datadrivenexperiment.DataDrivenExperimentElementTPM.DDEElementTPMChainedComparator;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
@@ -39,6 +37,7 @@ import enumtypes.ElementType;
 import enumtypes.EnrichmentDecisionType;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.MultipleTestingType;
+import enumtypes.SignificanceLevel;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.map.TObjectFloatMap;
@@ -898,6 +897,7 @@ public class Step5_DDE_GLANETResults {
 		
 		//bonferroniCorrectionSignificanceLevel
 		float bonferroniCorrectionSignificanceLevel = (args.length > 6)?Float.parseFloat(args[5]):0.05f;
+		SignificanceLevel significanceLevel = SignificanceLevel.convertStringtoEnum(args[5]);
 		
 		//multipleTestingParameter
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
@@ -910,7 +910,7 @@ public class Step5_DDE_GLANETResults {
 		
 		try {
 			
-			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.GLANET_DDE_RESULTS_FILE, true);
+			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.GLANET_DDE_RESULTS_FILE_START + significanceLevel.convertEnumtoString() + Commons.GLANET_DDE_RESULTS_FILE_END, true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			switch(cellLineType){

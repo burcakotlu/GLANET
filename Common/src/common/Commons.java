@@ -90,7 +90,8 @@ public class Commons {
 	public static final String DDE_RUN = "Run";
 	public static final String SCRIPT_FILES = "ScriptFiles";
 	
-	public static final String GLANET_DDE_RESULTS_FILE = "GLANET_DDE_Results.txt";
+	public static final String GLANET_DDE_RESULTS_FILE_START = "GLANET_DDE_Results_";
+	public static final String GLANET_DDE_RESULTS_FILE_END = ".txt";
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL_STATISTICS_FILE = "DnaseOverlapsExcludedIntervalPoolStatistics.txt";
 	
 	public static final String TOP1		= "Top1";
@@ -140,6 +141,14 @@ public class Commons {
 	public static final String H3K9ACB = "H3K9ACB";
 	public static final String H3K36ME3B = "H3K36ME3B";
 	
+	public static final String SIG_LEVEL_0POINT001 = "0.001";
+	public static final String SIG_LEVEL_0POINT01  = "0.01";
+	public static final String SIG_LEVEL_0POINT05  = "0.05";
+
+	
+	public static final String SIG_LEVEL_0_001 = "SIG_LEVEL_0_001";
+	public static final String SIG_LEVEL_0_01 = "SIG_LEVEL_0_01";
+	public static final String SIG_LEVEL_0_05 = "SIG_LEVEL_0_05";
 
 	// GLANET DATA Driven ends
 

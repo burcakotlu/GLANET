@@ -190,6 +190,10 @@ public enum DataDrivenExperimentTPMType {
 		//Get the integer after TOP
 		//Therefore it is set to 3
 		public int compare(DataDrivenExperimentTPMType e1,DataDrivenExperimentTPMType e2) {
+			if (e1.isTOPUnknown() || e2.isTOPUnknown()){
+				return -1;
+			}
+			
 			return ((Integer)Integer.parseInt(e1.convertEnumtoString().substring(3))).compareTo(Integer.parseInt(e2.convertEnumtoString().substring(3)));
 		}
 	};
