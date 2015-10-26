@@ -85,7 +85,7 @@ public enum DataDrivenExperimentDnaseOverlapExclusionType {
 		return ( this == DataDrivenExperimentDnaseOverlapExclusionType.COMPLETELY_DISCARD_INTERVAL);
 	}
 
-	public boolean isPartiallyDiscardIntervalTakeTheLongestRemainingInterval() {
+	public boolean isTakeTheLongestRemainingInterval() {
 		return ( this == DataDrivenExperimentDnaseOverlapExclusionType.PARTIALLY_DISCARD_INTERVAL_TAKE_THE_LONGEST_REMAINING_INTERVAL);
 	}
 

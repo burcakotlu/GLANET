@@ -86,6 +86,8 @@ public class Commons {
 	public static final String DDE_INTERVAL_POOL = "IntervalPool";
 	public static final String DDE_TPM_VALUES = "TPMValues";
 	
+	public static final String ANALYSIS_OF_DDE_DATA_FILE = "AnalysisofDDEData.txt";
+	
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL = "DnaseOverlapsExcludedIntervalPool";
 	public static final String DDE_RUN = "Run";
 	public static final String SCRIPT_FILES = "ScriptFiles";
@@ -159,7 +161,7 @@ public class Commons {
 	
 	public static final String GLANET = "GLANET";
 	public static final String DDE = "DDE";
-
+	
 	// Sub Folders, Internal Folders
 	public static final String RESULTS = "Results";
 
@@ -393,6 +395,13 @@ public class Commons {
 	public static final String H1 = "H1";
 	public static final String H2 = "H2";
 	public static final String H3 = "H3";
+	
+	
+	//AssociationMeasureType
+	public static final String NUMBER_OF_OVERLAPPING_BASES = "NUMBER_OF_OVERLAPPING_BASES";
+	public static final String NUMBER_OF_OVERLAPPING_INTERVALS = "NUMBER_OF_OVERLAPPING_INTERVALS";
+	public static final String EXISTENCE_OF_OVERLAP = "EXISTENCE_OF_OVERLAP";
+	
 
 	// EnumType CalculateGC
 	public static final String CALCULATE_GC_USING_GC_BYTE_LIST = "CALCULATE_GC_USING_GC_BYTE_LIST";

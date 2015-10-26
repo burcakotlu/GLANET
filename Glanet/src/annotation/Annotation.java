@@ -1284,7 +1284,9 @@ public class Annotation {
 	}
 
 	// Generate Interval Tree with numbers for the given cellLines only starts
-	public static IntervalTree createDnaseIntervalTreeWithNumbers( String dataFolder, ChromosomeName chromName,
+	public static IntervalTree createDnaseIntervalTreeWithNumbers( 
+			String dataFolder, 
+			ChromosomeName chromName,
 			TIntList cellLineNumberList) {
 
 		IntervalTree dnaseIntervalTree = null;

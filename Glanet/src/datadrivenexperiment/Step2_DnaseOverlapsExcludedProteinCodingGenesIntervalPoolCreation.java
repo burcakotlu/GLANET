@@ -244,7 +244,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 			IntervalTree dnaseIntervalTree,
 			List<IntervalDataDrivenExperiment> originalIntervalList,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType,
-			List<IntervalDataDrivenExperiment> dnaseOverlapsExcludedIntervalList) {
+			List<IntervalDataDrivenExperiment> dnaseOverlapsExcludedIntervalList,
+			int minimumRequiredIntervalLength) {
 
 		int overlapDefinition = 1;
 
@@ -256,6 +257,9 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 
 		int savedIndexWithLongestInterval = -1;
 		int theLongestIntervalLength = Integer.MIN_VALUE;
+		
+		IntervalDataDrivenExperiment interval = null;
+		int intervalLength = 0;
 
 		/*************************************************************/
 		for( IntervalDataDrivenExperiment originalInterval : originalIntervalList){
@@ -310,7 +314,7 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 
 			// CASE3
 			// Partially Discard NonExpressingGenesIntervals Remain Only The Longest Interval If There Is Dnase Overlaps
-			else if( dnaseOverlapExclusionType.isPartiallyDiscardIntervalTakeTheLongestRemainingInterval()){
+			else if( dnaseOverlapExclusionType.isTakeTheLongestRemainingInterval()){
 
 				// There is overlap, so put overlappingIntervalsExcludedIntervalList into
 				// dnaseOverlapsExcludedIntervalList
@@ -339,10 +343,17 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 					}// End of FOR
 
 					if( savedIndexWithLongestInterval != -1){
-						dnaseOverlapsExcludedIntervalList.add( overlappingIntervalsExcludedIntervalList.get( savedIndexWithLongestInterval));
+						
+						interval = overlappingIntervalsExcludedIntervalList.get(savedIndexWithLongestInterval);
+						intervalLength = interval.getHigh() - interval.getLow() + 1;
+						
+						if ( intervalLength > minimumRequiredIntervalLength){
+							dnaseOverlapsExcludedIntervalList.add(interval);							
+						}//End of IF length of the Interval is less than THRESHOLD
+						
 					}// End of IF
 
-				}
+				}// End of IF
 				// There is no overlap, so put original interval into dnaseOverlapsExcludedIntervalList
 				else{
 					dnaseOverlapsExcludedIntervalList.add( originalInterval);
@@ -367,7 +378,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 			TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2OriginalIntervalsListMap,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType,
 			TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2DnaseOverlapsExcludedIntervalsListMap,
-			String outputFileName) {
+			String outputFileName,
+			int minimumRequiredIntervalLength) {
 
 		int chrNumber;
 		ChromosomeName chrName = null;
@@ -387,7 +399,7 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 			// For a certain chromosome
 			dnaseOverlapsExcludedIntervalList = new ArrayList<IntervalDataDrivenExperiment>();
 
-			chrName = ChromosomeName.convertInttoEnum( chrNumber);
+			chrName = ChromosomeName.convertInttoEnum(chrNumber);
 
 			// Create dnaseIntervalTree only for the given dnaseCellLineNumbers in the dnaseCellLineNumberList
 			dnaseIntervalTree = Annotation.createDnaseIntervalTreeWithNumbers(
@@ -400,7 +412,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 					dnaseIntervalTree, 
 					originalIntervalList, 
 					dnaseOverlapExclusionType,
-					dnaseOverlapsExcludedIntervalList);
+					dnaseOverlapsExcludedIntervalList,
+					minimumRequiredIntervalLength);
 
 			// Set chromosomeBased dnaseOverlapsExcludedIntervalsListMap
 			chrNumber2DnaseOverlapsExcludedIntervalsListMap.put(chrNumber, dnaseOverlapsExcludedIntervalList);
@@ -477,7 +490,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			String outputFileName, 
 			TIntList dnaseCellLineNumberList,
-			BufferedWriter dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter) {
+			BufferedWriter dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter,
+			int minimumRequiredIntervalLength) {
 
 		TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2OriginalIntervalsListMap = new TIntObjectHashMap<List<IntervalDataDrivenExperiment>>();
 		TIntObjectMap<List<IntervalDataDrivenExperiment>> chrNumber2DnaseOverlapsExcludedIntervalsListMap = new TIntObjectHashMap<List<IntervalDataDrivenExperiment>>();
@@ -491,7 +505,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 				chrNumber2OriginalIntervalsListMap, 
 				dnaseOverlapExclusionType,
 				chrNumber2DnaseOverlapsExcludedIntervalsListMap, 
-				outputFileName);
+				outputFileName,
+				minimumRequiredIntervalLength);
 
 		writeDnaseOverlapsExcludedIntervals(
 				outputFileName, 
@@ -539,6 +554,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[2]);
+		
+		int minimumRequiredIntervalLength = Integer.parseInt(args[3]);
 		
 		// We will create the interval pool of nonExpressingGenes intervals (of 601 base long) for various TPM Values
 		// Such as Top2Percentage, Top60Percentage for nonExpressing proteinCoding genes
@@ -652,7 +669,8 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 								dnaseOverlapExclusionType,
 								dnaseIntervalsExcluded_interval_pool_outputFile, 
 								dnaseCellLineNumberList,
-								dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter);
+								dnaseOverlapExcludedIntervalPoolStatisticsBufferedWriter,
+								minimumRequiredIntervalLength);
 				
 					}//End of IF
 					
