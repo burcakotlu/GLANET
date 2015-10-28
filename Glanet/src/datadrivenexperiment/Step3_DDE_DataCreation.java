@@ -162,16 +162,16 @@ public class Step3_DDE_DataCreation {
 				
 				List<IntervalTreeNode>  overlappedNodeList = new ArrayList<IntervalTreeNode>();
 				
-				intervalTree.findAllOverlappingIntervalsCheckingChrName(
+				IntervalTree.findAllOverlappingIntervalsCheckingChrName(
 						overlappedNodeList, 
 						intervalTree.getRoot(),
 						intervalTreeNode);
 				
 				
-				// there is NO overlap
-				// then add this interval
+				// There is NO overlap
+				// Then add this interval
 				if(overlappedNodeList != null && overlappedNodeList.size() == 0){
-					// insert interval
+					// insert this interval
 					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 					randomIntervalIndexes.add(index);
 					i++;

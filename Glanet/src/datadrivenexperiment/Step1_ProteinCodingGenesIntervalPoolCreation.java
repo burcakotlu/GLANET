@@ -3,14 +3,8 @@
  */
 package datadrivenexperiment;
 
-import enumtypes.ChromosomeName;
-import enumtypes.DataDrivenExperimentCellLineType;
-import enumtypes.DataDrivenExperimentGeneType;
-import enumtypes.DataDrivenExperimentTPMType;
-import enumtypes.NodeType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
-import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 
 import java.io.BufferedReader;
@@ -30,7 +24,14 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
+
+import enumtypes.ChromosomeName;
+import enumtypes.DataDrivenExperimentCellLineType;
+import enumtypes.DataDrivenExperimentGeneType;
+import enumtypes.DataDrivenExperimentTPMType;
+import enumtypes.NodeType;
 
 /**
  * @author Burçak Otlu

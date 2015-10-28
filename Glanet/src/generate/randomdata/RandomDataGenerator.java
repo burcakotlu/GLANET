@@ -19,14 +19,20 @@ import gnu.trove.map.hash.TIntIntHashMap;
 import intervaltree.GCIsochoreIntervalTreeHitNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
 import mapability.Mapability;
-import ui.GlanetRunner;
 
 import org.apache.log4j.Logger;
+
+import ui.GlanetRunner;
+
 import common.Commons;
+
 import enrichment.InputLineMinimal;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
@@ -250,19 +256,45 @@ public class RandomDataGenerator {
 		if( generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
 
 			randomlyGeneratedInputLines = new ArrayList<InputLineMinimal>();
+			
+			//28 OCT 2015 starts
+			IntervalTree intervalTree = new IntervalTree();
+			IntervalTreeNode intervalTreeNode = null;
+			List<IntervalTreeNode> overlappedNodeList  = null;
+			//28 OCT 2015 ends
+			
 
 			for( int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++){
 
 				originalInputLine = chromosomeBasedOriginalInputLines.get( j);
 				originalInputLineLength = originalInputLine.getHigh() - originalInputLine.getLow() + 1;
 
-				// low must be greater than or equal to zero
-				// high must be less than chromSize
-				low = threadLocalRandom.nextInt( chromSize - originalInputLineLength + 1);
-				high = low + originalInputLineLength - 1;
+				
+				do{
+					// low must be greater than or equal to zero
+					// high must be less than chromSize
+					low = threadLocalRandom.nextInt( chromSize - originalInputLineLength + 1);
+					high = low + originalInputLineLength - 1;
 
-				randomlyGeneratedLine = new InputLineMinimal( low, high);
-				randomlyGeneratedInputLines.add( randomlyGeneratedLine);
+					randomlyGeneratedLine = new InputLineMinimal(low, high);
+					
+					//28 OCT 2015 starts
+					intervalTreeNode = new IntervalTreeNode(chromName,low,high);
+					
+					overlappedNodeList = new ArrayList<IntervalTreeNode>();
+					
+					IntervalTree.findAllOverlappingIntervalsCheckingChrName(
+							overlappedNodeList, 
+							intervalTree.getRoot(),
+							intervalTreeNode);
+					
+				}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
+				
+				
+				// insert this interval
+				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
+				
 			}// End of for: each original input line
 
 		}
@@ -276,6 +308,12 @@ public class RandomDataGenerator {
 		else if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 
 			randomlyGeneratedInputLines = new ArrayList<InputLineMinimal>();
+			
+			//28 OCT 2015 starts
+			IntervalTree intervalTree = new IntervalTree();
+			IntervalTreeNode intervalTreeNode = null;
+			List<IntervalTreeNode> overlappedNodeList  = null;
+			//28 OCT 2015 ends
 
 			// For Each Original InputLine starts
 			for( int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++){
@@ -352,17 +390,28 @@ public class RandomDataGenerator {
 					/********************************************************************************************************************************************************/
 					/**********************Generate a random line depending on the isochore family of originalInputLine starts***********************************************/
 					/********************************************************************************************************************************************************/
-					// Randomly generated interval will have the isochore family of the original interval
-					randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
-							chromSize,
-							threadLocalRandom, 
-							originalInputLineLength, 
-							originalInputLineIsochoreFamily,
-							gcIsochoreFamilyL1Pool, 
-							gcIsochoreFamilyL2Pool, 
-							gcIsochoreFamilyH1Pool,
-							gcIsochoreFamilyH2Pool, 
-							gcIsochoreFamilyH3Pool);
+					
+					do{
+						// Randomly generated interval will have the same isochore family of the original interval
+						randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
+								chromSize,
+								threadLocalRandom, 
+								originalInputLineLength, 
+								originalInputLineIsochoreFamily,
+								gcIsochoreFamilyL1Pool, 
+								gcIsochoreFamilyL2Pool, 
+								gcIsochoreFamilyH1Pool,
+								gcIsochoreFamilyH2Pool, 
+								gcIsochoreFamilyH3Pool);
+						
+						intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
+						overlappedNodeList = new ArrayList<IntervalTreeNode>();
+						
+						IntervalTree.findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, intervalTree.getRoot(), intervalTreeNode);
+						
+					}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
+					
+					
 					/********************************************************************************************************************************************************/
 					/**********************Generate a random line depending on the isochore family of originalInputLine ends*************************************************/
 					/********************************************************************************************************************************************************/
@@ -463,8 +512,9 @@ public class RandomDataGenerator {
 
 					
 				}while( differencebetweenGCs > dynamicGCThreshold || differencebetweenMapabilities > dynamicMapabilityThreshold);
-
+				
 				randomlyGeneratedInputLines.add( randomlyGeneratedLine);
+				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 
 			}// End of for: each original input line
 			// For Each Original InputLine ends

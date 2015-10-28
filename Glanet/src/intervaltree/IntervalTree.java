@@ -1273,7 +1273,7 @@ public class IntervalTree {
 	
 	// IntervalTree has nodes with mixed chromosome names
 	// So we need to check the equality of chromosome names of nodes in addition to normal overlap check
-	public void findAllOverlappingIntervalsCheckingChrName(
+	public static void findAllOverlappingIntervalsCheckingChrName(
 			List<IntervalTreeNode> overlappedNodeList, 
 			IntervalTreeNode root,
 			IntervalTreeNode newNode) {
@@ -1436,7 +1436,7 @@ public class IntervalTree {
 				
 				List<IntervalTreeNode>  overlappedNodeList = new ArrayList<IntervalTreeNode>();
 				
-				intervalTree.findAllOverlappingIntervalsCheckingChrName(
+				IntervalTree.findAllOverlappingIntervalsCheckingChrName(
 						overlappedNodeList, 
 						intervalTree.getRoot(),
 						intervalTreeNode);

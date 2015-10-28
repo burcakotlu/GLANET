@@ -4,7 +4,7 @@
 package enrichment;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Mar 31, 2015
  * @project Glanet 
  *
