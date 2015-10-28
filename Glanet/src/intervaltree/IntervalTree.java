@@ -31,6 +31,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -49,19 +50,20 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
+import datadrivenexperiment.DataDrivenExperimentIntervalTreeNode;
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enrichment.InputLineMinimal;
 import enumtypes.AnnotationType;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
+import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeName;
+import enumtypes.NodeType;
 import enumtypes.RegulatorySequenceAnalysisType;
 import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
 import gc.GCIsochoreIntervalTreeFindAllOverlapsResult;
@@ -531,8 +533,7 @@ public class IntervalTree {
 		// Decrement the number of nodes by one
 		tree.setNumberofNodes( tree.getNumberofNodes() - 1);
 
-		// Decrease the number of non overlapping bases by size of the deleted
-		// node z
+		// Decrease the number of non overlapping bases by size of the deleted node z
 		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() - z.getNumberofBases());
 
 		// Start by doing regular binary search tree
@@ -557,10 +558,8 @@ public class IntervalTree {
 		}
 
 		// The node y is spliced out here by modifying pointers in p[y] and x.
-		// Splicing out y is somewhat complicated by the need for proper
-		// handling of the boundary conditions,
+		// Splicing out y is somewhat complicated by the need for proper handling of the boundary conditions,
 		// which occur when x = null or when y is the root.
-		//
 
 		x.setParent( y.getParent());
 
@@ -587,8 +586,7 @@ public class IntervalTree {
 		}
 
 		// If the successor of z was the node spliced out,
-		// the contents of z are moved from y to z, overwriting the previous
-		// contents.
+		// the contents of z are moved from y to z, overwriting the previous contents.
 		// data fields of node y is copied into node z.
 		// node y takes place of node z.
 		if( y != z){
@@ -616,6 +614,14 @@ public class IntervalTree {
 				( ( UcscRefSeqGeneIntervalTreeNode)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
 				( ( UcscRefSeqGeneIntervalTreeNode)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNode)y).getStrand());
 			}
+			
+			//28 OCTOBER 2015 starts
+			else if ((z instanceof DataDrivenExperimentIntervalTreeNode) && (y instanceof DataDrivenExperimentIntervalTreeNode)){
+				((DataDrivenExperimentIntervalTreeNode)z).setGeneSymbol(((DataDrivenExperimentIntervalTreeNode) y).getGeneSymbol());
+				((DataDrivenExperimentIntervalTreeNode)z).setTpm(((DataDrivenExperimentIntervalTreeNode) y).getTpm());
+			}
+			//28 OCTOBER 2015 ends
+			
 
 			// Burcak commented only the data has been changed
 			// Left, Right and Parent does not change.
@@ -1222,9 +1228,10 @@ public class IntervalTree {
 		}
 	}
 
-	// Normal: for calculation of non overlapping base pairs in whole genome
-	// using interval tree
-	public void findAllOverlappingIntervals( List<IntervalTreeNode> overlappedNodeList, IntervalTreeNode root,
+	// Normal: for calculation of non overlapping base pairs in whole genome using interval tree
+	public void findAllOverlappingIntervals(
+			List<IntervalTreeNode> overlappedNodeList, 
+			IntervalTreeNode root,
 			IntervalTreeNode newNode) {
 
 		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
@@ -1243,6 +1250,301 @@ public class IntervalTree {
 		}
 
 	}
+	
+	//27 OCTOBER 2015 starts
+	//Test it
+	public static List<IntervalTreeNode> getIntervalNodeList(IntervalTreeNode node){
+		
+		List<IntervalTreeNode> intervalTreeNodeList = new ArrayList<IntervalTreeNode>();
+		
+		if( node.getLeft().getNodeName().isNotSentinel())
+			intervalTreeNodeList.addAll(getIntervalNodeList( node.getLeft()));
+
+		if( node.getNodeName().isNotSentinel()){
+			intervalTreeNodeList.add(node);
+		}
+
+		if( node.getRight().getNodeName().isNotSentinel())
+			intervalTreeNodeList.addAll(getIntervalNodeList(node.getRight()));
+
+		return intervalTreeNodeList;
+		
+	}
+	
+	// IntervalTree has nodes with mixed chromosome names
+	// So we need to check the equality of chromosome names of nodes in addition to normal overlap check
+	public void findAllOverlappingIntervalsCheckingChrName(
+			List<IntervalTreeNode> overlappedNodeList, 
+			IntervalTreeNode root,
+			IntervalTreeNode newNode) {
+
+		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
+			
+			if( root.getChromName().equals(newNode.getChromName()) && overlaps( root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
+				overlappedNodeList.add( root);
+			}
+
+			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
+				findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, root.getLeft(), newNode);
+			}
+
+			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
+				findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, root.getRight(), newNode);
+
+			}
+		}
+
+	}
+		
+	public static int findNumberofOverlappingBases(
+			List<IntervalTreeNode> overlappedNodeList, 
+			IntervalTreeNode root,
+			IntervalTreeNode newNode) {
+		
+		int numberofOverlappingBases = 0;
+
+		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
+			
+			numberofOverlappingBases = findNumberofOverlapingBases(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh());
+			
+			if(numberofOverlappingBases>0){
+				
+				overlappedNodeList.add(root);
+			}
+
+			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
+				numberofOverlappingBases += findNumberofOverlappingBases( overlappedNodeList,root.getLeft(), newNode);
+			}
+
+			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
+				numberofOverlappingBases += findNumberofOverlappingBases( overlappedNodeList, root.getRight(), newNode);
+
+			}
+		}
+		
+		return numberofOverlappingBases;
+
+	}
+	
+	
+	public static int findNumberofOverlappingBases(
+			IntervalTreeNode root,
+			IntervalTreeNode newNode) {
+		
+		int numberofOverlappingBases = 0;
+
+		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
+			
+			numberofOverlappingBases = findNumberofOverlapingBases(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh());
+			
+			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
+				numberofOverlappingBases += findNumberofOverlappingBases(root.getLeft(), newNode);
+			}
+
+			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
+				numberofOverlappingBases += findNumberofOverlappingBases(root.getRight(), newNode);
+
+			}
+		}
+		
+		return numberofOverlappingBases;
+
+	}
+	
+	public static void updateMergedNode(IntervalTreeNode mergedNode, IntervalTreeNode overlappedNode) {
+
+		if( overlappedNode.getLow() < mergedNode.getLow()){
+			mergedNode.setLow( overlappedNode.getLow());
+		}
+
+		if( overlappedNode.getHigh() > mergedNode.getHigh()){
+			mergedNode.setHigh( overlappedNode.getHigh());
+		}
+
+		mergedNode.setNumberofBases( mergedNode.getHigh() - mergedNode.getLow() + 1);
+	}
+	
+	
+	public static void updateMergedNode( DataDrivenExperimentIntervalTreeNode mergedNode, DataDrivenExperimentIntervalTreeNode overlappedNode, DataDrivenExperimentGeneType geneType) {
+
+		if( overlappedNode.getLow() < mergedNode.getLow()){
+			mergedNode.setLow( overlappedNode.getLow());
+		}
+
+		if( overlappedNode.getHigh() > mergedNode.getHigh()){
+			mergedNode.setHigh( overlappedNode.getHigh());
+		}
+
+		mergedNode.setNumberofBases( mergedNode.getHigh() - mergedNode.getLow() + 1);
+		mergedNode.setGeneSymbol(mergedNode.getGeneSymbol() + "_" + overlappedNode.getGeneSymbol());
+		
+		//Set TPM
+		switch(geneType){
+			case EXPRESSING_PROTEINCODING_GENES:
+				mergedNode.setTpm(Math.min(mergedNode.getTpm(), overlappedNode.getTpm()));
+				break;
+			case NONEXPRESSING_PROTEINCODING_GENES:
+				mergedNode.setTpm(Math.max(mergedNode.getTpm(), overlappedNode.getTpm()));
+				break;
+			
+		}//End of SWITCH
+		
+	}
+
+	public static IntervalTreeNode compute( Map<IntervalTreeNode, IntervalTreeNode> splicedNode2CopiedNodeMap,
+			IntervalTreeNode overlappedNode) {
+
+		IntervalTreeNode node = splicedNode2CopiedNodeMap.get( overlappedNode);
+		IntervalTreeNode savedPreviousNode = null;
+
+		while( node != null){
+			savedPreviousNode = node;
+			node = splicedNode2CopiedNodeMap.get( node);
+		}
+
+		return savedPreviousNode;
+	}
+	
+	
+	//Given an intervalNodeList 
+	//Construct an interval tree
+	//By inserting intervals in the given intervalNodeList one by one into the interval tree
+	//While inserting if there is any overlap
+	//Merge them and delete the unnecessary node
+	//At the end, get an interval tree with nonOverlapping nodes
+	//Pay attention the resulting interval tree keeps interval nodes from any chrname
+	//Mixed interval tree w.r.t. chrName
+	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(List<IntervalTreeNode> intervalNodeList, DataDrivenExperimentGeneType geneType){
+		
+		//Construct an interval tree consisting of nonOverlapping intervals
+		IntervalTree intervalTree = null;
+		IntervalTreeNode  intervalTreeNode = null;
+		
+		//Get each interval in the overlappedNodeList
+		//Insert one by one into the interval tree
+		for(int i = 0; i < intervalNodeList.size(); i++){
+			
+			intervalTreeNode =  intervalNodeList.get(i);
+			
+			//Insertion for the first time
+			if (intervalTree == null){
+				intervalTree = new IntervalTree();
+				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+			}//End of IF 
+			
+			else{
+				
+				List<IntervalTreeNode>  overlappedNodeList = new ArrayList<IntervalTreeNode>();
+				
+				intervalTree.findAllOverlappingIntervalsCheckingChrName(
+						overlappedNodeList, 
+						intervalTree.getRoot(),
+						intervalTreeNode);
+				
+				
+				// there is overlap
+				if( overlappedNodeList != null && overlappedNodeList.size() > 0){
+					IntervalTreeNode mergedNode  = null;
+
+					//Initialize the mergedNode from the concerned intervalTreeNode
+					 if(intervalTreeNode instanceof DataDrivenExperimentIntervalTreeNode){
+					
+								mergedNode = new DataDrivenExperimentIntervalTreeNode(
+								intervalTreeNode.getChromName(),
+								intervalTreeNode.getLow(), 
+								intervalTreeNode.getHigh(), 
+								((DataDrivenExperimentIntervalTreeNode) intervalTreeNode).getGeneSymbol(),
+								((DataDrivenExperimentIntervalTreeNode) intervalTreeNode).getTpm(),
+								NodeType.MERGED);
+								
+					}else if(intervalTreeNode instanceof IntervalTreeNode){
+						
+						mergedNode = new IntervalTreeNode(
+						intervalTreeNode.getChromName(),
+						intervalTreeNode.getLow(), 
+						intervalTreeNode.getHigh(), 
+						NodeType.MERGED);
+					}
+					
+					
+					
+					IntervalTreeNode splicedoutNode = null;
+					IntervalTreeNode nodetoBeDeleted = null;
+					// you may try to delete a node which is already spliced out by former deletions
+					// therefore you must keep track of the real node to be deleted in case of trial of deletion of an already spliced out node.
+					Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
+
+					for( int j = 0; j < overlappedNodeList.size(); j++){
+
+						IntervalTreeNode overlappedNode = overlappedNodeList.get(j);
+
+						//Update the mergedNode with the overlappedNode
+						if (mergedNode instanceof DataDrivenExperimentIntervalTreeNode){
+							IntervalTree.updateMergedNode((DataDrivenExperimentIntervalTreeNode)mergedNode, (DataDrivenExperimentIntervalTreeNode)overlappedNode,geneType);
+						}else if (mergedNode instanceof IntervalTreeNode){
+							IntervalTree.updateMergedNode(mergedNode,overlappedNode);
+						}
+						
+						// if the to be deleted, intended interval tree node is an already spliced out node
+						// (By the way spliced out node means that a node that is no more valid, a death node)
+						// (Spliced out node  is the node that's content has been copied to a formerly deleted node)
+						// (Since formerly deleted node has one or two children and one of its children (spliced out one) took its place by being copied)
+						// in other words if it is copied into another interval tree node
+						// then you have to delete that node, not the already spliced out node
+
+						//Since we have updated the mergedNode with the overlappedNode
+						//we don't need overlappedNode anymore
+						//Now delete the overlappedNode
+						// If overlappedNode is already an splicedout node
+						// which means that it is no more a valid node of the interval tree
+						// then we need to find the node where the overlapped node is copied into
+						// and delete that node
+						nodetoBeDeleted = IntervalTree.compute(splicedoutNode2CopiedNodeMap, overlappedNode);
+
+						if( nodetoBeDeleted != null){
+							// they are the same
+							// current overlapped node to_be_deleted has been copied to the previously deleted overlapped node
+							// in other words, current overlapped node to_be_deleted is spliced out by the previous delete operation
+							// so delete that previously deleted overlapped node in order to delete the current overlapped node
+							// since current overlapped node is copied to the previously deleted overlapped node
+							// Now we can delete this overlappedNode
+							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, nodetoBeDeleted);
+
+							if( splicedoutNode != nodetoBeDeleted)
+								splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
+							
+						}else{
+							
+							// Now we can delete this overlappedNode
+							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
+
+							if( splicedoutNode != overlappedNode)
+								splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
+
+						}//End of ELSE
+
+					}// end of FOR: each overlapped node in the list
+					
+					intervalTree.intervalTreeInsert( intervalTree, mergedNode);
+
+				}// overlappedNodeList is not null
+				
+				// there is no overlap
+				else{
+					// insert interval
+					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+				}//End of ELSE
+				
+				
+			}//End of ELSE intervalTree is not null
+			
+		}//End of FOR each interval node to be inserted
+		
+		return intervalTree;
+				
+	}
+	//27 OCTOBER 2015 ends
+	
 
 	// Normal
 	// First argument is the root of the interval tree
@@ -4310,8 +4612,11 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// without overlappedNodeList
-	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( int permutationNumber, IntervalTreeNode node,
-			InputLineMinimal interval, ChromosomeName chromName,
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+			int permutationNumber, 
+			IntervalTreeNode node,
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
 			TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap, int overlapDefinition) {
 
 		int permutationNumberDnaseCellLineNumber;

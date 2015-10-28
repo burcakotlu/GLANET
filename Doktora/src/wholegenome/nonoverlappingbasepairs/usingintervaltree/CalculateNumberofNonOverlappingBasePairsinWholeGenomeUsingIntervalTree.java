@@ -250,7 +250,10 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 
 	}
 	
-	public IntervalTreeNode compute(Map<IntervalTreeNode,IntervalTreeNode> splicedNode2CopiedNodeMap,IntervalTreeNode overlappedNode){
+	public IntervalTreeNode compute(
+			Map<IntervalTreeNode,IntervalTreeNode> splicedNode2CopiedNodeMap,
+			IntervalTreeNode overlappedNode){
+		
 		IntervalTreeNode node = splicedNode2CopiedNodeMap.get(overlappedNode);
 		IntervalTreeNode savedPreviousNode = null;
 		
@@ -428,14 +431,18 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 								
 							updateMergedNode(mergedNode, overlappedNode);
 							
+							//spliced out node is no more a valid node of an interval tree
+							//spliced out node is a death interval node and its content has been copied into another node, valid node is that another node.
+							
 							//if the to be deleted, intended interval tree node is an already spliced out node
-							//in other words if it is copied into another interval tree node
+							//in other words if its content is copied into another interval tree node
 							//then you have to delete that node
 							//not the already spliced out node
 							
 							nodetoBeDeleted =compute(splicedoutNode2CopiedNodeMap,overlappedNode) ;
 							
 							if 	(nodetoBeDeleted!=null){
+									
 									//they are the same
 									//current overlapped node has been copied to the previously deleted overlapped node
 									//current overlapped node is spliced out by the previous delete operation
@@ -477,8 +484,6 @@ public class CalculateNumberofNonOverlappingBasePairsinWholeGenomeUsingIntervalT
 			//for this chromosome and all dnase cell line names, the interval trees are constructed.
 			//now accumulate the number of non overlapping base pairs in dnaseCellLine2IntervalTreeHashMap into dnaseCellLine2NumberofNonOverlappingBasePairsHashMap
 			accumulateNumberofNonOverlappingBasePairs(dnaseCellLine2IntervalTreeHashMap,dnaseCellLine2NumberofNonOverlappingBasePairsHashMap);
-			
-			
 			
 			bufferedReader.close();
 			

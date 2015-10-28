@@ -3,6 +3,9 @@
  */
 package datadrivenexperiment;
 
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -114,19 +117,89 @@ public class Step3_DDE_DataCreation {
 
 	}
 
-	public static void fillRandomIntervalIndexes( int[] randomIntervalIndexes, int numberofIntervalsInEachSimulation,
-			int numberofIntervalsInIntervalPool) {
-
+	
+	//28 OCT 2015 starts
+	public static void selectSimulationDataOneByOne(
+			int numberofIntervalsInEachSimulation,
+			List<InputLine> intervalPoolData,
+			int numberofIntervalsInTheIntervalPool,
+			List<Integer> randomIntervalIndexes){
+		
+		IntervalTree intervalTree = null;
+		IntervalTreeNode intervalTreeNode = null;
+		InputLine inputLine = null;
+		
 		Random rand = new Random();
+		int index = 0;
+		
+		int i= 0;
 
-		for( int i = 0; i < numberofIntervalsInEachSimulation; i++){
-			randomIntervalIndexes[i] = rand.nextInt( numberofIntervalsInIntervalPool);
-		}// End of For
-
+		while( i < numberofIntervalsInEachSimulation){
+			
+			//Get a random index
+			index = rand.nextInt(numberofIntervalsInTheIntervalPool);
+			
+			//Get another random index as soon as it is already selected
+			while(randomIntervalIndexes.contains(index)){
+				index = rand.nextInt(numberofIntervalsInTheIntervalPool);
+			}//End of WHILE
+			
+			//Get the corresponding inputLine
+			inputLine = intervalPoolData.get(index);
+			
+			//Create intervalTreeNode from this inputLine
+			intervalTreeNode = new IntervalTreeNode(inputLine.getChrName(),inputLine.getLow(),inputLine.getHigh());
+			
+			//Insertion for the first time
+			if (intervalTree == null){
+				
+				intervalTree = new IntervalTree();
+				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+				randomIntervalIndexes.add(index);
+				i++;
+				
+			}else{
+				
+				List<IntervalTreeNode>  overlappedNodeList = new ArrayList<IntervalTreeNode>();
+				
+				intervalTree.findAllOverlappingIntervalsCheckingChrName(
+						overlappedNodeList, 
+						intervalTree.getRoot(),
+						intervalTreeNode);
+				
+				
+				// there is NO overlap
+				// then add this interval
+				if(overlappedNodeList != null && overlappedNodeList.size() == 0){
+					// insert interval
+					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+					randomIntervalIndexes.add(index);
+					i++;
+				}
+				
+				
+			}//End of ELSE
+			
+		}// End of WHILE 
+		
 	}
+	//28 OCT 2015 ends
+	
+//	public static void fillRandomIntervalIndexes(
+//			int[] randomIntervalIndexes, 
+//			int numberofIntervalsInEachSimulation,
+//			int numberofIntervalsInIntervalPool) {
+//
+//		Random rand = new Random();
+//
+//		for( int i = 0; i < numberofIntervalsInEachSimulation; i++){
+//			randomIntervalIndexes[i] = rand.nextInt( numberofIntervalsInIntervalPool);
+//		}// End of For
+//
+//	}
 
 	public static void writeSimulationData(
-			int[] randomIntervalIndexes, 
+			List<Integer> randomIntervalIndexes, 
 			List<InputLine> intervalPoolData,
 			String simulationDataFile) {
 
@@ -139,8 +212,8 @@ public class Step3_DDE_DataCreation {
 			fileWriter = FileOperations.createFileWriter( simulationDataFile);
 			bufferedWriter = new BufferedWriter( fileWriter);
 
-			for( int i = 0; i < randomIntervalIndexes.length; i++){
-				inputLine = intervalPoolData.get( randomIntervalIndexes[i]);
+			for( int i = 0; i < randomIntervalIndexes.size(); i++){
+				inputLine = intervalPoolData.get(randomIntervalIndexes.get(i));
 
 				bufferedWriter.write( inputLine.getChrName().convertEnumtoString() + "\t" + inputLine.getLow() + "\t" + inputLine.getHigh() + System.getProperty( "line.separator"));
 			}
@@ -170,32 +243,35 @@ public class Step3_DDE_DataCreation {
 
 		// There will be one for each simulation
 		String simulationDataFile = null;
-		int[] randomIntervalIndexes = null;
+		List<Integer> randomIntervalIndexes = null;
 
-		fillIntervalPoolData( intervalPoolFileName, intervalPoolData);
+		fillIntervalPoolData(intervalPoolFileName, intervalPoolData);
 
 		String baseFolderName = null;
 
 		// Set baseFolderName
 		baseFolderName = dataDrivenExperimentFolder + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty( "file.separator") + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString();
 
+		//Pick intervals for each Simulation
 		for( int i = 0; i < numberofSimulations; i++){
 
 			// Set simulationDataFile
 			simulationDataFile = baseFolderName + "_" +  Commons.DDE_RUN + i + ".txt";
 
-			randomIntervalIndexes = new int[numberofIntervalsInEachSimulation];
-			
 			if (numberofIntervalsInEachSimulation > intervalPoolData.size()){
 				System.out.println("There is a situation, numberofIntervalsInEachSimulation" + "\t" + numberofIntervalsInEachSimulation + "\t" + "is greater than" + "\t" + "numberofTotalIntervals in the intervalPool which is" + intervalPoolData.size());
-				
 			}
-
-			// Get random indexes for each simulation
-			fillRandomIntervalIndexes(
-					randomIntervalIndexes, 
+			
+			//Initialize for each simulation
+			randomIntervalIndexes = new ArrayList<Integer>();
+			
+			//Select intervals from interval pool one by one
+			//So that there is no overlap between the selected intervals
+			selectSimulationDataOneByOne(
 					numberofIntervalsInEachSimulation,
-					intervalPoolData.size());
+					intervalPoolData,
+					intervalPoolData.size(),
+					randomIntervalIndexes);
 
 			// Write Simulation Data
 			writeSimulationData(

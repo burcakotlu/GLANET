@@ -162,8 +162,8 @@ public class InputDataRemoveOverlaps {
 					high = low;
 				}
 
-				intervalTree = chromosome2IntervalTree.get( chromosomeName);
-				intervalTreeNode = new IntervalTreeNode( chromosomeName, low, high);
+				intervalTree = chromosome2IntervalTree.get(chromosomeName);
+				intervalTreeNode = new IntervalTreeNode(chromosomeName, low, high);
 
 				// create chromosome based interval tree
 				if( intervalTree == null){

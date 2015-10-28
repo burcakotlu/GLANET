@@ -7,8 +7,11 @@ import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
+import enumtypes.NodeType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,7 +30,6 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -46,6 +48,72 @@ import common.Commons;
  *
  */
 public class Step1_ProteinCodingGenesIntervalPoolCreation {
+	
+	
+	public static void convertIntervalTreeNode2ProteinCodingGeneInterval(
+			List<IntervalTreeNode> nonOverlappingIntervalNodeList,
+			List<ProteinCodingGeneExonNumberOneInterval> nonOverlappingAllProteinCodingGenesExonNumberOneIntervalsList){
+		
+		DataDrivenExperimentIntervalTreeNode ddeIntervalNode = null;
+		ProteinCodingGeneExonNumberOneInterval proteinCodingGeneExonNumberOneInterval = null;
+		
+		ChromosomeName chrName;
+		int low;
+		int high;
+		
+		String geneSymbol;
+		Float tpm;
+		
+		for(int i = 0; i<nonOverlappingIntervalNodeList.size(); i++ ){
+			
+			ddeIntervalNode = (DataDrivenExperimentIntervalTreeNode) nonOverlappingIntervalNodeList.get(i);
+			
+			chrName = ddeIntervalNode.getChromName();
+			low = ddeIntervalNode.getLow();
+			high = ddeIntervalNode.getHigh();
+			
+			geneSymbol = ddeIntervalNode.getGeneSymbol();
+			tpm = ddeIntervalNode.getTpm();
+			
+			proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval(chrName,low,high,geneSymbol,tpm);
+			nonOverlappingAllProteinCodingGenesExonNumberOneIntervalsList.add(proteinCodingGeneExonNumberOneInterval);
+			
+		}//End of FOR
+		
+	}
+	
+	
+	public static void convertProteinCodingGeneInterval2IntervalTreeNode(
+			List<ProteinCodingGeneExonNumberOneInterval> allProteinCodingGenesExonNumberOneIntervalsList,
+			List<IntervalTreeNode> intervalNodeList){
+		
+		DataDrivenExperimentIntervalTreeNode ddeIntervalNode = null;
+		ProteinCodingGeneExonNumberOneInterval proteinCodingGeneExonNumberOneInterval = null;
+		
+		ChromosomeName chrName;
+		int low;
+		int high;
+		
+		String geneSymbol;
+		Float tpm;
+		
+		for(int i = 0; i<allProteinCodingGenesExonNumberOneIntervalsList.size(); i++ ){
+			
+			proteinCodingGeneExonNumberOneInterval = allProteinCodingGenesExonNumberOneIntervalsList.get(i);
+			
+			chrName =proteinCodingGeneExonNumberOneInterval.getChrName();
+			low = proteinCodingGeneExonNumberOneInterval.getLow();
+			high = proteinCodingGeneExonNumberOneInterval.getHigh();
+			
+			geneSymbol = proteinCodingGeneExonNumberOneInterval.getGeneSymbol();
+			tpm = proteinCodingGeneExonNumberOneInterval.getTpm();
+			
+			ddeIntervalNode = new DataDrivenExperimentIntervalTreeNode(chrName,low,high,geneSymbol,tpm,NodeType.ORIGINAL);
+			intervalNodeList.add(ddeIntervalNode);
+			
+		}//End of FOR
+		
+	}
 	
 	
 	public static void generateIntervalsFromFemaleGTFFile(
@@ -382,8 +450,35 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		//Select only one of the exonNumber1 intervals if there are more than one ends.
 		
 		
+		//My Decision
+		//Let fill the interval pool with protein coding genes exon number one intervals which may overlap within
+		//Let's permit this in the sake of keeping the intervals in the pool with the same length
+		//However let's choose the interval from this pool such that, current selected interval doesn't overlap with the already selected intervals.
+		//If it overlaps let's re select from the pool.
+		
+		//27 OCT 2015 starts
+		//Here shall we check whether there are any overlapping intervals among allProteinCodingGenesExonNumberOneIntervalsList
+		//And shall we merge in intervals in case of any overlap?
+		//Please notice that intervals have mixed chromosomeName
+//		List<IntervalTreeNode> intervalNodeList = new ArrayList<IntervalTreeNode>();
+//		List<IntervalTreeNode> nonOverlappingIntervalNodeList = new ArrayList<IntervalTreeNode>();
+//		
+//		List<ProteinCodingGeneExonNumberOneInterval> nonOverlappingAllProteinCodingGenesExonNumberOneIntervalsList  = new ArrayList<ProteinCodingGeneExonNumberOneInterval>(); 
+//		convertProteinCodingGeneInterval2IntervalTreeNode(allProteinCodingGenesExonNumberOneIntervalsList,intervalNodeList);
+//		
+//		IntervalTree intervalTree = new IntervalTree();
+//		intervalTree = IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(intervalNodeList,expressingorNonExpressiongGeneType);
+//	
+//		nonOverlappingIntervalNodeList = IntervalTree.getIntervalNodeList(intervalTree.getRoot());
+//		convertIntervalTreeNode2ProteinCodingGeneInterval(nonOverlappingIntervalNodeList,nonOverlappingAllProteinCodingGenesExonNumberOneIntervalsList);
+//		
+//		//for debug purposes
+//		System.out.println("Size of allProteinCodingGenesExonNumberOneIntervalsList" + "\t" + allProteinCodingGenesExonNumberOneIntervalsList.size());
+//		System.out.println("Size of nonOverlappingAllProteinCodingGenesExonNumberOneIntervalsList" + "\t" + nonOverlappingAllProteinCodingGenesExonNumberOneIntervalsList.size());
+		//27 OCT 2015 ends
+		
 			
-		// Now sort the list
+		// Now sort the list w.r.t. tpmValue
 		// For ExpressingGenes in DescendingOrder
 		// For NonExpressingGenes in AscendingOrder
 		switch(expressingorNonExpressiongGeneType){
@@ -729,7 +824,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 
 					}//End of for each tpmType
 						 
-					
 					break;
 				}
 			

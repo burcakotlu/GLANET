@@ -104,6 +104,23 @@ public class ProteinCodingGeneExonNumberOneInterval {
 
 		this.geneSymbol = geneSymbol;
 	}
+	
+	public ProteinCodingGeneExonNumberOneInterval(
+			ChromosomeName chrName,
+			int low,
+			int high,
+			String geneSymbol,
+			float tpm){
+		
+		super();
+		
+		this.chrName = chrName;
+		this.low = low;
+		this.high = high;
+		this.geneSymbol = geneSymbol;
+		this.tpm = tpm;
+		
+	}
 
 	public ProteinCodingGeneExonNumberOneInterval(
 			char strand, 
