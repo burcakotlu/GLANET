@@ -78,6 +78,7 @@ import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
 import enrichment.InputLineMinimal;
 import enumtypes.AnnotationType;
+import enumtypes.AssociationMeasureType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.GeneInformationType;
@@ -1693,25 +1694,34 @@ public class Annotation {
 	// Without IO
 	// With Numbers
 	// Empirical P Value Calculation
-	public static void searchDnaseWithoutIOWithNumbers( int permutationNumber, ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, IntervalTree dnaseIntervalTree,
-			TIntIntMap permutationNumberDnaseCellLineName2KMap, int overlapDefinition) {
+	public static void searchDnaseWithoutIOWithNumbers( 
+			int permutationNumber, 
+			ChromosomeName chromName,
+			List<InputLineMinimal> inputLines, 
+			IntervalTree dnaseIntervalTree,
+			TIntIntMap permutationNumberDnaseCellLineName2KMap, 
+			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
 
 		for( int i = 0; i < inputLines.size(); i++){
+			
 			TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap = new TIntIntHashMap();
 
 			inputLine = inputLines.get( i);
 
 			if( dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
-				dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( permutationNumber,
-						dnaseIntervalTree.getRoot(), inputLine, chromName,
-						permutationNumberDnaseCellLineName2ZeroorOneMap, overlapDefinition);
+				
+				dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+						permutationNumber,
+						dnaseIntervalTree.getRoot(), 
+						inputLine, 
+						chromName,
+						permutationNumberDnaseCellLineName2ZeroorOneMap, 
+						overlapDefinition);
 			}
 
-			// accumulate search results of dnaseCellLine2OneorZeroMap in
-			// permutationNumberDnaseCellLineName2KMap
+			// accumulate search results of dnaseCellLine2OneorZeroMap in permutationNumberDnaseCellLineName2KMap
 			for( TIntIntIterator it = permutationNumberDnaseCellLineName2ZeroorOneMap.iterator(); it.hasNext();){
 
 				it.advance();
@@ -4226,41 +4236,135 @@ public class Annotation {
 	// Without IO
 	// With Numbers
 	// Empirical P Value Calculation
-	public static void searchHistoneWithoutIOWithNumbers( int permutationNumber, ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, IntervalTree histoneIntervalTree,
-			TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap, int overlapDefinition) {
-
+	public static void searchHistoneWithoutIOWithNumbers(
+			int permutationNumber, 
+			ChromosomeName chromName,
+			List<InputLineMinimal> inputLines, 
+			IntervalTree histoneIntervalTree,
+			TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap, 
+			int overlapDefinition) {
+		
 		InputLineMinimal inputLine;
 
+		//30 OCT 2015
+		//This will be provided as a parameter
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+		
 		for( int i = 0; i < inputLines.size(); i++){
 
-			TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap = new TLongIntHashMap();
-
 			inputLine = inputLines.get( i);
+			
+			
+			switch(associationMeasureType){
+			
+				case EXISTENCE_OF_OVERLAP: 
+				
+					/*************************************************************************************************/
+					/***********************************EXISTENCE_OF_OVERLAP starts***********************************/
+					/*************************************************************************************************/
+					TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap = new TLongIntHashMap();
 
-			if( histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
-				histoneIntervalTree.findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( permutationNumber,
-						histoneIntervalTree.getRoot(), inputLine, chromName,
-						permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition);
-			}
+					if( histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						histoneIntervalTree.findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+								permutationNumber,
+								histoneIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, 
+								overlapDefinition);
+						
+					}//End of IF
 
-			// accumulate search results of dnaseCellLine2OneorZeroMap in
-			// dnaseCellLine2KMap
-			for( TLongIntIterator it = permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
+					// Accumulate search results of permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap in permutationNumberHistoneNumberCellLineNumber2KMap
+					for( TLongIntIterator it = permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
 
-				it.advance();
+						it.advance();
 
-				if( !( permutationNumberHistoneNumberCellLineNumber2KMap.containsKey( it.key()))){
-					permutationNumberHistoneNumberCellLineNumber2KMap.put( it.key(), it.value());
-				}else{
-					permutationNumberHistoneNumberCellLineNumber2KMap.put( it.key(),
-							permutationNumberHistoneNumberCellLineNumber2KMap.get( it.key()) + it.value());
+						if( !(permutationNumberHistoneNumberCellLineNumber2KMap.containsKey(it.key()))){
+							permutationNumberHistoneNumberCellLineNumber2KMap.put(it.key(), it.value());
+						}else{
+							permutationNumberHistoneNumberCellLineNumber2KMap.put(it.key(),
+									permutationNumberHistoneNumberCellLineNumber2KMap.get(it.key()) + it.value());
+						}
 
-				}
+					}// End of FOR
+					
+					//Free memory
+					permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap = null;
+					/*************************************************************************************************/
+					/***********************************EXISTENCE_OF_OVERLAP ends*************************************/
+					/*************************************************************************************************/
 
-			}// End of for
+					break;
+					
+					
+				case NUMBER_OF_OVERLAPPING_BASES: 
+					
+					/*************************************************************************************************/
+					/*******************************NUMBER_OF_OVERLAPPING_BASES starts********************************/
+					/*************************************************************************************************/
+					TLongObjectMap<List<IntervalTreeNode>> permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap = new TLongObjectHashMap<List<IntervalTreeNode>>();
+					TLongObjectMap<IntervalTree> permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap = new TLongObjectHashMap<IntervalTree>();
+					TLongIntMap permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
 
-		}// End of for
+					if( histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						//Step1: Get all the overlappingIntervals with the inputLine
+						histoneIntervalTree.findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+								permutationNumber,
+								histoneIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
+								overlapDefinition);
+						
+						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no nonoverlapping intervals 
+						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+								permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
+								permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap);
+						
+						//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine and intervalTree
+						//permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+						IntervalTree.findNumberofOverlappingBases(
+								inputLine,
+								permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap,
+								permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap);
+						
+					}//End of IF
+
+					// Accumulate search results of permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap in permutationNumberHistoneNumberCellLineNumber2KMap
+					for( TLongIntIterator it = permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+						it.advance();
+
+						if( !( permutationNumberHistoneNumberCellLineNumber2KMap.containsKey( it.key()))){
+							permutationNumberHistoneNumberCellLineNumber2KMap.put( it.key(), it.value());
+						}else{
+							permutationNumberHistoneNumberCellLineNumber2KMap.put( it.key(),
+									permutationNumberHistoneNumberCellLineNumber2KMap.get( it.key()) + it.value());
+
+						}
+
+					}// End of FOR
+					
+					//Free memory
+					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap = null;
+					permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap = null;
+					permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap = null;
+					/*************************************************************************************************/
+					/*******************************NUMBER_OF_OVERLAPPING_BASES ends**********************************/
+					/*************************************************************************************************/
+
+					break;
+					
+				default: 
+					break;
+	
+			}//End of SWITCH
+			
+
+		}// End of FOR each inputline
 
 	}
 
@@ -11886,10 +11990,15 @@ public class Annotation {
 	// each time one interval tree EXCEPT NEW FUNCTIONALITY
 	// Using fork join framework
 	// Empirical P Value Calculation
-	public static AllMapsWithNumbers annotatePermutationWithoutIOWithNumbers( int permutationNumber,
-			ChromosomeName chrName, List<InputLineMinimal> randomlyGeneratedData, IntervalTree intervalTree,
-			IntervalTree ucscRefSeqGenesIntervalTree, AnnotationType annotationType,
-			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, int overlapDefinition) {
+	public static AllMapsWithNumbers annotatePermutationWithoutIOWithNumbers(
+			int permutationNumber,
+			ChromosomeName chrName, 
+			List<InputLineMinimal> randomlyGeneratedData, 
+			IntervalTree intervalTree,
+			IntervalTree ucscRefSeqGenesIntervalTree, 
+			AnnotationType annotationType,
+			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, 
+			int overlapDefinition) {
 
 		AllMapsWithNumbers allMapsWithNumbers = new AllMapsWithNumbers();
 
@@ -11899,8 +12008,13 @@ public class Annotation {
 			// name to number of dnase cell line:k for the given search input
 			// size:n
 			TIntIntMap permutationNumberDnaseCellLineNumber2KMap = new TIntIntHashMap();
-			searchDnaseWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					permutationNumberDnaseCellLineNumber2KMap, overlapDefinition);
+			searchDnaseWithoutIOWithNumbers(
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					permutationNumberDnaseCellLineNumber2KMap, 
+					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberDnaseCellLineNumber2KMap( permutationNumberDnaseCellLineNumber2KMap);
 
 		}else if( annotationType.doTFAnnotation()){
@@ -11919,8 +12033,13 @@ public class Annotation {
 			// histoneNameandCellLineName to number of
 			// histoneNameandCellLineName: k for the given search input size: n
 			TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap = new TLongIntHashMap();
-			searchHistoneWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					permutationNumberHistoneNumberCellLineNumber2KMap, overlapDefinition);
+			searchHistoneWithoutIOWithNumbers(
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					permutationNumberHistoneNumberCellLineNumber2KMap, 
+					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberHistoneNumberCellLineNumber2KMap( permutationNumberHistoneNumberCellLineNumber2KMap);
 
 		}else if( annotationType.doGeneAnnotation()){

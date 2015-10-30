@@ -68,6 +68,7 @@ import enumtypes.RegulatorySequenceAnalysisType;
 import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
 import gc.GCIsochoreIntervalTreeFindAllOverlapsResult;
 import gnu.trove.iterator.TIntIterator;
+import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.list.TIntList;
 import gnu.trove.map.TIntByteMap;
 import gnu.trove.map.TIntIntMap;
@@ -1270,7 +1271,10 @@ public class IntervalTree {
 		return intervalTreeNodeList;
 		
 	}
+	//27 OCTOBER 2015 ends
 	
+	
+	//27 OCTOBER 2015 starts
 	// IntervalTree has nodes with mixed chromosome names
 	// So we need to check the equality of chromosome names of nodes in addition to normal overlap check
 	public static void findAllOverlappingIntervalsCheckingChrName(
@@ -1295,7 +1299,10 @@ public class IntervalTree {
 		}
 
 	}
-		
+	//27 OCTOBER 2015 ends
+
+	
+	//27 OCTOBER 2015 starts
 	public static int findNumberofOverlappingBases(
 			List<IntervalTreeNode> overlappedNodeList, 
 			IntervalTreeNode root,
@@ -1325,8 +1332,10 @@ public class IntervalTree {
 		return numberofOverlappingBases;
 
 	}
+	//27 OCTOBER 2015 ends
 	
 	
+	//27 OCTOBER 2015 starts
 	public static int findNumberofOverlappingBases(
 			IntervalTreeNode root,
 			IntervalTreeNode newNode) {
@@ -1350,7 +1359,10 @@ public class IntervalTree {
 		return numberofOverlappingBases;
 
 	}
+	//27 OCTOBER 2015 ends
+
 	
+	//27 OCTOBER 2015 starts
 	public static void updateMergedNode(IntervalTreeNode mergedNode, IntervalTreeNode overlappedNode) {
 
 		if( overlappedNode.getLow() < mergedNode.getLow()){
@@ -1363,8 +1375,10 @@ public class IntervalTree {
 
 		mergedNode.setNumberofBases( mergedNode.getHigh() - mergedNode.getLow() + 1);
 	}
+	//27 OCTOBER 2015 ends
 	
 	
+	//27 OCTOBER 2015 starts
 	public static void updateMergedNode( DataDrivenExperimentIntervalTreeNode mergedNode, DataDrivenExperimentIntervalTreeNode overlappedNode, DataDrivenExperimentGeneType geneType) {
 
 		if( overlappedNode.getLow() < mergedNode.getLow()){
@@ -1390,7 +1404,9 @@ public class IntervalTree {
 		}//End of SWITCH
 		
 	}
+	//27 OCTOBER 2015 ends
 
+	//27 OCTOBER 2015 starts
 	public static IntervalTreeNode compute( Map<IntervalTreeNode, IntervalTreeNode> splicedNode2CopiedNodeMap,
 			IntervalTreeNode overlappedNode) {
 
@@ -1404,6 +1420,221 @@ public class IntervalTree {
 
 		return savedPreviousNode;
 	}
+	//27 OCTOBER 2015 ends
+	
+	//30 OCTOBER 2015 starts
+	public static int findNumberofOverlappingBases(
+			IntervalTreeNode root,
+			InputLineMinimal newNode) {
+		
+		int numberofOverlappingBases = 0;
+
+		if( root.getNodeName().isNotSentinel()){
+			
+			numberofOverlappingBases = findNumberofOverlapingBases(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh());
+			
+			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
+				numberofOverlappingBases += findNumberofOverlappingBases(root.getLeft(), newNode);
+			}
+
+			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
+				numberofOverlappingBases += findNumberofOverlappingBases(root.getRight(), newNode);
+
+			}
+		}
+		
+		return numberofOverlappingBases;
+
+	}
+	//30 OCTOBER 2015 ends
+	
+	//30 OCT 2015 starts
+	public static void findNumberofOverlappingBases(
+			InputLineMinimal inputLine,
+			TLongObjectMap<IntervalTree> permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap,
+			TLongIntMap permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap){
+		
+		long permutationNumberHistoneNumberCellLineNumber;
+		IntervalTree intervalTree = null;
+		int numberofOverlappingBases = 0;
+		
+		for(TLongObjectIterator<IntervalTree> itr = permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap.iterator(); itr.hasNext(); ){
+		
+			itr.advance();
+			
+			permutationNumberHistoneNumberCellLineNumber = itr.key();
+			intervalTree = itr.value();
+			
+		
+			numberofOverlappingBases = findNumberofOverlappingBases(intervalTree.getRoot(),inputLine);
+			
+			permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap.put(permutationNumberHistoneNumberCellLineNumber, numberofOverlappingBases);
+		
+		}//End of FOR each permutationNumberHistoneNumberCellLineNumber
+		
+		
+	}
+	//30 OCT 2015 ends
+	
+	//30 OCT 2015 starts
+	public static void constructAnIntervalTreeWithNonOverlappingNodes(
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap,
+			TLongObjectMap<IntervalTree> permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap){
+		
+		long permutationNumberHistoneNumberCellLineNumber;
+		List<IntervalTreeNode> overlappingNodeList = null;
+		IntervalTree intervalTree = null;
+		
+		for(TLongObjectIterator<List<IntervalTreeNode>> itr = permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap.iterator();itr.hasNext();){
+			
+			itr.advance();
+			
+			permutationNumberHistoneNumberCellLineNumber = itr.key();
+			overlappingNodeList = itr.value();
+			
+			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(overlappingNodeList);
+			
+			permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap.put(permutationNumberHistoneNumberCellLineNumber, intervalTree);
+			
+		}//End of FOR each permutationNumberHistoneNumberCellLineNumber in the map
+		
+	}
+	//30 OCT 2015 ends
+	
+	//30 OCT 2015 starts
+	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(List<IntervalTreeNode> intervalNodeList){
+		
+		//Construct an interval tree consisting of nonOverlapping intervals
+		IntervalTree intervalTree = null;
+		IntervalTreeNode  intervalTreeNode = null;
+		
+		//Get each interval in the overlappedNodeList
+		//Insert one by one into the interval tree
+		for(int i = 0; i < intervalNodeList.size(); i++){
+			
+			intervalTreeNode =  intervalNodeList.get(i);
+			
+			//Insertion for the first time
+			if (intervalTree == null){
+				intervalTree = new IntervalTree();
+				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+			}//End of IF 
+			
+			else{
+				
+				List<IntervalTreeNode>  overlappedNodeList = new ArrayList<IntervalTreeNode>();
+				
+				IntervalTree.findAllOverlappingIntervalsCheckingChrName(
+						overlappedNodeList, 
+						intervalTree.getRoot(),
+						intervalTreeNode);
+				
+				
+				// there is an overlap
+				if( overlappedNodeList != null && overlappedNodeList.size() > 0){
+					
+					IntervalTreeNode mergedNode  = null;
+
+					//Initialize the mergedNode from the concerned intervalTreeNode
+					if (intervalTreeNode instanceof TforHistoneIntervalTreeNodeWithNumbers){
+						
+						mergedNode = new TforHistoneIntervalTreeNodeWithNumbers(
+								intervalTreeNode.getChromName(), 
+								intervalTreeNode.getLow(), 
+								intervalTreeNode.getHigh(), 
+								((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getTforHistoneNumber(),
+								((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getCellLineNumber(), 
+								((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getFileNumber(), 
+								NodeType.MERGED);
+						
+					}
+					
+					else if(intervalTreeNode instanceof IntervalTreeNode){
+						
+						mergedNode = new IntervalTreeNode(
+						intervalTreeNode.getChromName(),
+						intervalTreeNode.getLow(), 
+						intervalTreeNode.getHigh(), 
+						NodeType.MERGED);
+					}
+					
+					
+					
+					IntervalTreeNode splicedoutNode = null;
+					IntervalTreeNode nodetoBeDeleted = null;
+					// you may try to delete a node which is already spliced out by former deletions
+					// therefore you must keep track of the real node to be deleted in case of trial of deletion of an already spliced out node.
+					Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
+
+					for( int j = 0; j < overlappedNodeList.size(); j++){
+
+						IntervalTreeNode overlappedNode = overlappedNodeList.get(j);
+
+						//Update the mergedNode with the overlappedNode
+						if (mergedNode instanceof IntervalTreeNode){
+							IntervalTree.updateMergedNode(mergedNode,overlappedNode);
+						}
+						
+						// if the to be deleted, intended interval tree node is an already spliced out node
+						// (By the way spliced out node means that a node that is no more valid, a death node)
+						// (Spliced out node  is the node that's content has been copied to a formerly deleted node)
+						// (Since formerly deleted node has one or two children and one of its children (spliced out one) took its place by being copied)
+						// in other words if it is copied into another interval tree node
+						// then you have to delete that node, not the already spliced out node
+
+						//Since we have updated the mergedNode with the overlappedNode
+						//we don't need overlappedNode anymore
+						//Now delete the overlappedNode
+						// If overlappedNode is already an splicedout node
+						// which means that it is no more a valid node of the interval tree
+						// then we need to find the node where the overlapped node is copied into
+						// and delete that node
+						nodetoBeDeleted = IntervalTree.compute(splicedoutNode2CopiedNodeMap, overlappedNode);
+
+						if( nodetoBeDeleted != null){
+							// they are the same
+							// current overlapped node to_be_deleted has been copied to the previously deleted overlapped node
+							// in other words, current overlapped node to_be_deleted is spliced out by the previous delete operation
+							// so delete that previously deleted overlapped node in order to delete the current overlapped node
+							// since current overlapped node is copied to the previously deleted overlapped node
+							// Now we can delete this overlappedNode
+							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, nodetoBeDeleted);
+
+							if( splicedoutNode != nodetoBeDeleted)
+								splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
+							
+						}else{
+							
+							// Now we can delete this overlappedNode
+							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
+
+							if( splicedoutNode != overlappedNode)
+								splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
+
+						}//End of ELSE
+
+					}// end of FOR: each overlapped node in the list
+					
+					intervalTree.intervalTreeInsert( intervalTree, mergedNode);
+
+				}// overlappedNodeList is not null
+				
+				// there is no overlap
+				else{
+					// insert interval
+					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+				}//End of ELSE
+				
+				
+			}//End of ELSE intervalTree is not null
+			
+		}//End of FOR each interval node to be inserted one by one into the intervalTree
+		
+		return intervalTree;
+	}
+	//30 OCT 2015 ends
+	
+	
 	
 	
 	//Given an intervalNodeList 
@@ -1444,6 +1675,7 @@ public class IntervalTree {
 				
 				// there is overlap
 				if( overlappedNodeList != null && overlappedNodeList.size() > 0){
+					
 					IntervalTreeNode mergedNode  = null;
 
 					//Initialize the mergedNode from the concerned intervalTreeNode
@@ -1746,15 +1978,89 @@ public class IntervalTree {
 		}
 
 	}
+	
+	//30 OCTOBER 2015 starts
+	//Without IO
+	//WithNumbers
+	//WithOverlappingNodeList
+	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+			int permutationNumber, 
+			IntervalTreeNode node,
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
+			int overlapDefinition) {
 
-	// @todo
+		long permutationNumberHistoneNumberCellLineNumber;
+
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		List<IntervalTreeNode> overlappingNodeList = null;
+
+		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+
+			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
+			}
+
+			permutationNumberHistoneNumberCellLineNumber = generateMixedNumber(
+					permutationNumber,
+					castedNode.getTforHistoneNumber(),
+					castedNode.getCellLineNumber(),
+					(short)0,
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			
+			overlappingNodeList = permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap.get(permutationNumberHistoneNumberCellLineNumber);
+			
+			if (overlappingNodeList == null){
+				overlappingNodeList = new ArrayList<IntervalTreeNode>();
+				overlappingNodeList.add(castedNode);
+				permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap.put(permutationNumberHistoneNumberCellLineNumber, overlappingNodeList);
+			}else{
+				overlappingNodeList.add(castedNode);
+			}
+
+			
+		}//End of IF there is an overlap
+
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getLeft(), 
+					interval,
+					chromName, 
+					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
+					overlapDefinition);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getRight(), 
+					interval,
+					chromName, 
+					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
+					overlapDefinition);
+
+		}
+
+	}	
+	//30 OCTOBER 2015 ends
+
+
 	// Empirical P Value Calculation
 	// without IO
 	// without overlappedNodeList
 	// with Numbers
-	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( int permutationNumber, IntervalTreeNode node,
-			InputLineMinimal interval, ChromosomeName chromName,
-			TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+			int permutationNumber, 
+			IntervalTreeNode node,
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, 
+			int overlapDefinition) {
 
 		long permutationNumberHistoneNumberCellLineNumber;
 
@@ -1774,19 +2080,28 @@ public class IntervalTree {
 					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
 			if( !( permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.containsKey( permutationNumberHistoneNumberCellLineNumber))){
-				permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.put(
-						permutationNumberHistoneNumberCellLineNumber, 1);
+				permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.put(permutationNumberHistoneNumberCellLineNumber, 1);
 			}
 		}
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( permutationNumber, node.getLeft(), interval,
-					chromName, permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition);
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(), 
+					interval,
+					chromName, 
+					permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, 
+					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( permutationNumber, node.getRight(), interval,
-					chromName, permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition);
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getRight(), 
+					interval,
+					chromName, 
+					permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, 
+					overlapDefinition);
 
 		}
 
@@ -1832,8 +2147,13 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// with overlappedNodeList
-	public void findAllOverlappingHistoneIntervals( int repeatNumber, int permutationNumber,
-			int NUMBER_OF_PERMUTATIONS, IntervalTreeNode node, Interval interval, String chromName,
+	public void findAllOverlappingHistoneIntervals( 
+			int repeatNumber, 
+			int permutationNumber,
+			int NUMBER_OF_PERMUTATIONS, 
+			IntervalTreeNode node, 
+			Interval interval, 
+			String chromName,
 			Map<String, Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap,
 			List<IntervalTreeNode> overlappingNodeList) {
 
@@ -4617,7 +4937,8 @@ public class IntervalTree {
 			IntervalTreeNode node,
 			InputLineMinimal interval, 
 			ChromosomeName chromName,
-			TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap, int overlapDefinition) {
+			TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap, 
+			int overlapDefinition) {
 
 		int permutationNumberDnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;

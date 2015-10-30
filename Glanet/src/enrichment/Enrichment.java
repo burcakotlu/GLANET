@@ -6,6 +6,7 @@
 package enrichment;
 
 import enumtypes.AnnotationType;
+import enumtypes.AssociationMeasureType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentPermutationDivisionType;
@@ -2270,17 +2271,28 @@ public class Enrichment {
 						// WITHOUT IO WithNumbers
 						if( writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
 							listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithoutIOWithNumbers(
-									permutationNumber, chromName, randomlyGeneratedDataMap.get( permutationNumber),
-									intervalTree, ucscRefSeqGenesIntervalTree, annotationType,
-									geneId2ListofGeneSetNumberMap, overlapDefinition));
+									permutationNumber, 
+									chromName, 
+									randomlyGeneratedDataMap.get( permutationNumber),
+									intervalTree, 
+									ucscRefSeqGenesIntervalTree, 
+									annotationType,
+									geneId2ListofGeneSetNumberMap, 
+									overlapDefinition));
 						}
 
 						// WITH IO WithNumbers
 						else if( writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
-							listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithIOWithNumbers( outputFolder,
-									permutationNumber, chromName, randomlyGeneratedDataMap.get( permutationNumber),
-									intervalTree, ucscRefSeqGenesIntervalTree, annotationType,
-									geneId2ListofGeneSetNumberMap, overlapDefinition));
+							listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithIOWithNumbers( 
+									outputFolder,
+									permutationNumber, 
+									chromName, 
+									randomlyGeneratedDataMap.get( permutationNumber),
+									intervalTree, 
+									ucscRefSeqGenesIntervalTree, 
+									annotationType,
+									geneId2ListofGeneSetNumberMap, 
+									overlapDefinition));
 						}
 					}// End of FOR
 
@@ -8228,6 +8240,11 @@ public class Enrichment {
 
 		// 23 May 2015
 		EnrichmentZScoreMode enrichmentZScoreMode = EnrichmentZScoreMode.convertStringtoEnum(args[CommandLineArguments.EnrichmentZScoreMode.value()]);
+		
+		//30 OCTOBER 2015 
+		//TODO This parameter has to be filled from arguments 
+		//But for the time being it is set in Enrichment class
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_INTERVALS;
 
 		// 18 FEB 2015
 		// performEnrichment is not used since GLANETRunner calls

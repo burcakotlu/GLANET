@@ -26,8 +26,14 @@ public class TforHistoneIntervalTreeNodeWithNumbers extends DnaseIntervalTreeNod
 		this.tforHistoneNumber = tforHistoneNumber;
 	}
 
-	public TforHistoneIntervalTreeNodeWithNumbers( ChromosomeName chromName, int low, int high,
-			short tforHistoneNumber, short cellLineNumber, short fileNumber, NodeType nodeType) {
+	public TforHistoneIntervalTreeNodeWithNumbers( 
+			ChromosomeName chromName, 
+			int low, 
+			int high,
+			short tforHistoneNumber, 
+			short cellLineNumber, 
+			short fileNumber, 
+			NodeType nodeType) {
 
 		super( chromName, low, high, cellLineNumber, fileNumber, nodeType);
 
