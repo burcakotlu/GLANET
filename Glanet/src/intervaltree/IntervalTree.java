@@ -50,7 +50,9 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import datadrivenexperiment.DataDrivenExperimentIntervalTreeNode;
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enrichment.InputLineMinimal;
@@ -68,6 +70,7 @@ import enumtypes.RegulatorySequenceAnalysisType;
 import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
 import gc.GCIsochoreIntervalTreeFindAllOverlapsResult;
 import gnu.trove.iterator.TIntIterator;
+import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.iterator.TLongObjectIterator;
 import gnu.trove.list.TIntList;
 import gnu.trove.map.TIntByteMap;
@@ -1465,7 +1468,6 @@ public class IntervalTree {
 			
 			permutationNumberElementNumberCellLineNumber = itr.key();
 			intervalTree = itr.value();
-			
 		
 			numberofOverlappingBases = findNumberofOverlappingBases(intervalTree.getRoot(),inputLine);
 			
@@ -1476,9 +1478,38 @@ public class IntervalTree {
 		
 		}//End of FOR each permutationNumberElementNumberCellLineNumber
 		
-		
 	}
 	//30 OCT 2015 ends
+	
+	
+	//1 NOV 2015 starts
+	public static void findNumberofOverlappingBases(
+			InputLineMinimal inputLine,
+			TIntObjectMap<IntervalTree> permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+			TIntIntMap permutationNumberElementNumberCellLineNumber2NumberofOverlappingBasesMap){
+		
+		int permutationNumberElementNumberCellLineNumber;
+		IntervalTree intervalTree = null;
+		int numberofOverlappingBases = 0;
+		
+		for(TIntObjectIterator<IntervalTree> itr = permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.iterator(); itr.hasNext(); ){
+		
+			itr.advance();
+			
+			permutationNumberElementNumberCellLineNumber = itr.key();
+			intervalTree = itr.value();
+		
+			numberofOverlappingBases = findNumberofOverlappingBases(intervalTree.getRoot(),inputLine);
+			
+			//Do we need accumulation here?
+			//There must be no need for accumulation
+			//There must be one interval tree per permutationNumberHistoneNumberCellLineNumber
+			permutationNumberElementNumberCellLineNumber2NumberofOverlappingBasesMap.put(permutationNumberElementNumberCellLineNumber, numberofOverlappingBases);
+		
+		}//End of FOR each permutationNumberElementNumberCellLineNumber
+		
+	}
+	//1 NOV 2015 ends
 	
 	//30 OCT 2015 starts
 	public static void constructAnIntervalTreeWithNonOverlappingNodes(
@@ -1504,6 +1535,31 @@ public class IntervalTree {
 		
 	}
 	//30 OCT 2015 ends
+	
+	//1 NOV 2015 starts
+	public static void constructAnIntervalTreeWithNonOverlappingNodes(
+			TIntObjectMap<List<IntervalTreeNode>> permutationNumberElementNumberCellLineNumber2OverlappingNodeListMap,
+			TIntObjectMap<IntervalTree> permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap){
+		
+		int permutationNumberElementNumberCellLineNumber;
+		List<IntervalTreeNode> overlappingNodeList = null;
+		IntervalTree intervalTree = null;
+		
+		for(TIntObjectIterator<List<IntervalTreeNode>> itr = permutationNumberElementNumberCellLineNumber2OverlappingNodeListMap.iterator();itr.hasNext();){
+			
+			itr.advance();
+			
+			permutationNumberElementNumberCellLineNumber = itr.key();
+			overlappingNodeList = itr.value();
+			
+			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(overlappingNodeList);
+			
+			permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.put(permutationNumberElementNumberCellLineNumber, intervalTree);
+			
+		}//End of FOR each permutationNumberHistoneNumberCellLineNumber in the map
+		
+	}
+	//1 NOV 2015 ends
 	
 	//30 OCT 2015 starts
 	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(List<IntervalTreeNode> intervalNodeList){
@@ -5011,8 +5067,74 @@ public class IntervalTree {
 		}
 
 	}
-
 	// 1 June 2015
+	
+	
+	//1 NOV 2015 starts
+	//Without IO
+	//With Numbers
+	//With OverlappingNodelist
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+			int permutationNumber, 
+			IntervalTreeNode node,
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<List<IntervalTreeNode>> permutationNumberDnaseCellLineNumber2OverlappingNodeListMap, 
+			int overlapDefinition) {
+		
+		int permutationNumberDnaseCellLineNumber;
+		DnaseIntervalTreeNodeWithNumbers castedNode = null;
+		List<IntervalTreeNode> overlappingNodeList = null;
+
+		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+
+			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
+				castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			}
+
+			permutationNumberDnaseCellLineNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
+					permutationNumber, 
+					castedNode.getCellLineNumber(),
+					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
+			
+			overlappingNodeList = permutationNumberDnaseCellLineNumber2OverlappingNodeListMap.get(permutationNumberDnaseCellLineNumber);
+			
+			//Pay attention: you have to add castedNode to the list
+			//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+			if (overlappingNodeList == null){
+				overlappingNodeList = new ArrayList<IntervalTreeNode>();
+				overlappingNodeList.add(castedNode);
+				permutationNumberDnaseCellLineNumber2OverlappingNodeListMap.put(permutationNumberDnaseCellLineNumber, overlappingNodeList);
+			}else{
+				overlappingNodeList.add(castedNode);
+			}
+
+		}// End of IF OVERLAPS
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(), 
+					interval,
+					chromName, 
+					permutationNumberDnaseCellLineNumber2OverlappingNodeListMap, 
+					overlapDefinition);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getRight(), 
+					interval,
+					chromName, 
+					permutationNumberDnaseCellLineNumber2OverlappingNodeListMap, 
+					overlapDefinition);
+
+		}
+
+	}
+	//1 NOV 2015 ends
+	
 
 	// with Numbers starts
 	// Empirical P Value Calculation
@@ -5036,7 +5158,8 @@ public class IntervalTree {
 			}
 
 			permutationNumberDnaseCellLineNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
-					permutationNumber, castedNode.getCellLineNumber(),
+					permutationNumber, 
+					castedNode.getCellLineNumber(),
 					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
 
 			if( !( permutationNumberDnaseCellLineName2ZeroorOneMap.containsKey( permutationNumberDnaseCellLineNumber))){
