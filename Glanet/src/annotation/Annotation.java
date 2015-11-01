@@ -2329,46 +2329,139 @@ public class Annotation {
 	// with Numbers
 	// @todo
 
+	
+	
 	// Enrichment
 	// Without IO
 	// With Numbers
 	// Empirical P Value Calculation
-	public static void searchTfbsWithoutIOWithNumbers( int permutationNumber, ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, IntervalTree tfbsIntervalTree,
-			TLongIntMap permutationNumberTfbsNameCellLineName2KMap, int overlapDefinition) {
+	public static void searchTfbsWithoutIOWithNumbers(
+			int permutationNumber, 
+			ChromosomeName chromName,
+			List<InputLineMinimal> inputLines, 
+			IntervalTree tfbsIntervalTree,
+			TLongIntMap permutationNumberTFNumberCellLineNumber2KMap, 
+			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
+		
+		//1 NOV 2015
+		//This will be provided as a parameter
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+
 
 		for( int i = 0; i < inputLines.size(); i++){
-			TLongIntMap permutationNumberTfbsNameCellLineName2ZeroorOneMap = new TLongIntHashMap();
-
+			
 			inputLine = inputLines.get( i);
+			
+			
+			switch(associationMeasureType){
+			
+				case EXISTENCE_OF_OVERLAP: 
+					
+					/*************************************************************************************************/
+					/***********************************EXISTENCE_OF_OVERLAP starts***********************************/
+					/*************************************************************************************************/					
+					TLongIntMap permutationNumberTfbsNameCellLineName2ZeroorOneMap = new TLongIntHashMap();
 
-			if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
-				tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( permutationNumber,
-						tfbsIntervalTree.getRoot(), inputLine, chromName,
-						permutationNumberTfbsNameCellLineName2ZeroorOneMap, overlapDefinition);
-			}
+					
+					if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
+								permutationNumber,
+								tfbsIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								permutationNumberTfbsNameCellLineName2ZeroorOneMap, 
+								overlapDefinition);
+					}
 
-			// accumulate search results of tfbsNameandCellLineName2ZeroorOneMap
-			// in tfbsNameandCellLineName2KMap
-			for( TLongIntIterator it = permutationNumberTfbsNameCellLineName2ZeroorOneMap.iterator(); it.hasNext();){
-				it.advance();
+					// accumulate search results of tfbsNameandCellLineName2ZeroorOneMap in tfbsNameandCellLineName2KMap
+					for(TLongIntIterator it = permutationNumberTfbsNameCellLineName2ZeroorOneMap.iterator(); it.hasNext();){
+						it.advance();
 
-				if( !( permutationNumberTfbsNameCellLineName2KMap.containsKey( it.key()))){
-					permutationNumberTfbsNameCellLineName2KMap.put( it.key(), it.value());
-				}else{
-					permutationNumberTfbsNameCellLineName2KMap.put( it.key(),
-							permutationNumberTfbsNameCellLineName2KMap.get( it.key()) + it.value());
+						if( !( permutationNumberTFNumberCellLineNumber2KMap.containsKey(it.key()))){
+							permutationNumberTFNumberCellLineNumber2KMap.put(it.key(), it.value());
+						}else{
+							permutationNumberTFNumberCellLineNumber2KMap.put(it.key(),
+									permutationNumberTFNumberCellLineNumber2KMap.get( it.key()) + it.value());
 
-				}
+						}
 
-			}// End of for
+					}// End of for
+					
+					//Free memory
+					permutationNumberTfbsNameCellLineName2ZeroorOneMap = null;
+					/*************************************************************************************************/
+					/***********************************EXISTENCE_OF_OVERLAP ends*************************************/
+					/*************************************************************************************************/
 
-		}// End of for
+					break;
+					
+				case NUMBER_OF_OVERLAPPING_BASES:
+					
+					/*************************************************************************************************/
+					/*******************************NUMBER_OF_OVERLAPPING_BASES starts********************************/
+					/*************************************************************************************************/
+					TLongObjectMap<List<IntervalTreeNode>> permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap = new TLongObjectHashMap<List<IntervalTreeNode>>();
+					TLongObjectMap<IntervalTree> permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TLongObjectHashMap<IntervalTree>();
+					TLongIntMap permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+
+					if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						//Step1: Get all the overlappingIntervals with the inputLine
+						tfbsIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers(
+								permutationNumber,
+								tfbsIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap, 
+								overlapDefinition);
+						
+						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+								permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap, 
+								permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap);
+						
+						//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+						//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+						IntervalTree.findNumberofOverlappingBases(
+								inputLine,
+								permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+								permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap);
+						
+					}//End of IF
+
+					// Accumulate search results of permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberTFNumberCellLineNumber2KMap
+					for( TLongIntIterator it = permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+						it.advance();
+
+						if( !(permutationNumberTFNumberCellLineNumber2KMap.containsKey(it.key()))){
+							permutationNumberTFNumberCellLineNumber2KMap.put(it.key(), it.value());
+						}else{
+							permutationNumberTFNumberCellLineNumber2KMap.put( it.key(),
+									permutationNumberTFNumberCellLineNumber2KMap.get( it.key()) + it.value());
+
+						}
+
+					}// End of FOR
+					
+					//Free memory
+					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap = null;
+					permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+					permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap = null;
+					/*************************************************************************************************/
+					/*******************************NUMBER_OF_OVERLAPPING_BASES ends**********************************/
+					/*************************************************************************************************/
+					break;
+					
+				default:
+					break;
+					
+			}//End of SWITCH for associationMeasureType
+
+		}// End of FOR each inputLine
 	}
-
-	// @todo
 
 	// Gene
 	// Annotation
@@ -4252,8 +4345,7 @@ public class Annotation {
 		
 		for( int i = 0; i < inputLines.size(); i++){
 
-			inputLine = inputLines.get( i);
-			
+			inputLine = inputLines.get(i);
 			
 			switch(associationMeasureType){
 			
@@ -4277,11 +4369,11 @@ public class Annotation {
 					}//End of IF
 
 					// Accumulate search results of permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap in permutationNumberHistoneNumberCellLineNumber2KMap
-					for( TLongIntIterator it = permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
+					for(TLongIntIterator it = permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
 
 						it.advance();
 
-						if( !(permutationNumberHistoneNumberCellLineNumber2KMap.containsKey(it.key()))){
+						if(!(permutationNumberHistoneNumberCellLineNumber2KMap.containsKey(it.key()))){
 							permutationNumberHistoneNumberCellLineNumber2KMap.put(it.key(), it.value());
 						}else{
 							permutationNumberHistoneNumberCellLineNumber2KMap.put(it.key(),
@@ -4305,7 +4397,7 @@ public class Annotation {
 					/*******************************NUMBER_OF_OVERLAPPING_BASES starts********************************/
 					/*************************************************************************************************/
 					TLongObjectMap<List<IntervalTreeNode>> permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap = new TLongObjectHashMap<List<IntervalTreeNode>>();
-					TLongObjectMap<IntervalTree> permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap = new TLongObjectHashMap<IntervalTree>();
+					TLongObjectMap<IntervalTree> permutationNumberHistoneNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TLongObjectHashMap<IntervalTree>();
 					TLongIntMap permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
 
 					if( histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
@@ -4319,27 +4411,27 @@ public class Annotation {
 								permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
 								overlapDefinition);
 						
-						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no nonoverlapping intervals 
+						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
 						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
 								permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
-								permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap);
+								permutationNumberHistoneNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap);
 						
-						//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine and intervalTree
-						//permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+						//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+						//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
 						IntervalTree.findNumberofOverlappingBases(
 								inputLine,
-								permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap,
+								permutationNumberHistoneNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
 								permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap);
 						
 					}//End of IF
 
-					// Accumulate search results of permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap in permutationNumberHistoneNumberCellLineNumber2KMap
+					// Accumulate search results of permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberHistoneNumberCellLineNumber2KMap
 					for( TLongIntIterator it = permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
 
 						it.advance();
 
-						if( !( permutationNumberHistoneNumberCellLineNumber2KMap.containsKey( it.key()))){
-							permutationNumberHistoneNumberCellLineNumber2KMap.put( it.key(), it.value());
+						if( !(permutationNumberHistoneNumberCellLineNumber2KMap.containsKey(it.key()))){
+							permutationNumberHistoneNumberCellLineNumber2KMap.put(it.key(), it.value());
 						}else{
 							permutationNumberHistoneNumberCellLineNumber2KMap.put( it.key(),
 									permutationNumberHistoneNumberCellLineNumber2KMap.get( it.key()) + it.value());
@@ -4350,7 +4442,7 @@ public class Annotation {
 					
 					//Free memory
 					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap = null;
-					permutationNumberHistoneNumberCellLineNumber2IntervalTreeMap = null;
+					permutationNumberHistoneNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = null;
 					permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap = null;
 					/*************************************************************************************************/
 					/*******************************NUMBER_OF_OVERLAPPING_BASES ends**********************************/
@@ -12023,8 +12115,13 @@ public class Annotation {
 			// tfbsNameandCellLineName to number of tfbsNameandCellLineName: k
 			// for the given search input size: n
 			TLongIntMap permutationNumberTfNumberCellLineNumber2KMap = new TLongIntHashMap();
-			searchTfbsWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					permutationNumberTfNumberCellLineNumber2KMap, overlapDefinition);
+			searchTfbsWithoutIOWithNumbers(
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					permutationNumberTfNumberCellLineNumber2KMap, 
+					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberTfNumberCellLineNumber2KMap( permutationNumberTfNumberCellLineNumber2KMap);
 
 		}else if( annotationType.doHistoneAnnotation()){

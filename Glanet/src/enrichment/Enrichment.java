@@ -2253,7 +2253,7 @@ public class Enrichment {
 					left.fork();
 					rightAllMapsWithNumbers = right.compute();
 					leftAllMapsWithNumbers = left.join();
-					combineLeftAllMapsandRightAllMaps( leftAllMapsWithNumbers, rightAllMapsWithNumbers);
+					combineLeftAllMapsandRightAllMaps(leftAllMapsWithNumbers, rightAllMapsWithNumbers);
 					leftAllMapsWithNumbers = null;
 					return rightAllMapsWithNumbers;
 					
@@ -6272,8 +6272,7 @@ public class Enrichment {
 
 		GlanetRunner.appendLog( "PermutationNumberList is filled.");
 		if( GlanetRunner.shouldLog())logger.info( "PermutationNumberList is filled.");
-		fillPermutationNumberList( permutationNumberList, runNumber, numberofPermutationsinThisRun,
-				numberofPermutationsinEachRun);
+		fillPermutationNumberList( permutationNumberList, runNumber, numberofPermutationsinThisRun,numberofPermutationsinEachRun);
 		/********************************************************************************************************/
 		/****************************** GENERATE PERMUTATION NUMBER LIST ENDS ***********************************/
 		/********************************************************************************************************/
@@ -6468,7 +6467,7 @@ public class Enrichment {
 						mapabilityChromosomePositionList, 
 						mapabilityShortValueList);
 				
-				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke( generateRandomData);
+				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
 
 				// //For testing average number of trials mapabilityByteList versus mapabilityShortList starts
 				// float totalNumberofTrialsPerPermutation = 0;
@@ -6513,9 +6512,7 @@ public class Enrichment {
 				/**********************************Add the original data starts************************** ***************/
 				/********************************************************************************************************/
 				// Add the original data to permutationNumber2RandomlyGeneratedDataHashMap
-				permutationNumber2RandomlyGeneratedDataHashMap.put(
-						Commons.ORIGINAL_DATA_PERMUTATION_NUMBER,
-						chromosomeBaseOriginalInputLines);
+				permutationNumber2RandomlyGeneratedDataHashMap.put(Commons.ORIGINAL_DATA_PERMUTATION_NUMBER,chromosomeBaseOriginalInputLines);
 				/********************************************************************************************************/
 				/**********************************Add the original data ends**************************** ***************/
 				/********************************************************************************************************/
