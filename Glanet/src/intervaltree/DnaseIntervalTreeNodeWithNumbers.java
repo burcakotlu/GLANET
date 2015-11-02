@@ -38,8 +38,13 @@ public class DnaseIntervalTreeNodeWithNumbers extends IntervalTreeNode {
 	}
 
 	// For Encode dnase
-	public DnaseIntervalTreeNodeWithNumbers( ChromosomeName chromName, int low, int high, short cellLineNumber,
-			short fileNumber, NodeType nodeType) {
+	public DnaseIntervalTreeNodeWithNumbers(
+			ChromosomeName chromName, 
+			int low, 
+			int high, 
+			short cellLineNumber,
+			short fileNumber, 
+			NodeType nodeType) {
 
 		super( chromName, low, high, nodeType);
 

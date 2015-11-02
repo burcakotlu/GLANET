@@ -392,7 +392,11 @@ public class IntervalTree {
 		x.setColor( Commons.BLACK);
 	}
 
-	public void intervalTreeInsertFixUp( IntervalTree tree, IntervalTreeNode z) {
+	//To guarantee red black tree properties
+	//We fix up the modified tree by recoloring nodes and performing rotations
+	public void intervalTreeInsertFixUp(
+			IntervalTree tree, 
+			IntervalTreeNode z) {
 
 		IntervalTreeNode y;
 
@@ -680,8 +684,7 @@ public class IntervalTree {
 		// Increment the number of nodes by one
 		tree.setNumberofNodes( tree.getNumberofNodes() + 1);
 
-		// Increase the number of non overlapping bases by size of the inserted
-		// node z
+		// Increase the number of non overlapping bases by size of the inserted node z
 		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() + z.getNumberofBases());
 
 		// Set y to SENTINEL node
@@ -1594,6 +1597,10 @@ public class IntervalTree {
 				if( overlappedNodeList != null && overlappedNodeList.size() > 0){
 					
 					IntervalTreeNode mergedNode  = null;
+					
+					//Question what must be the color of the merged node?
+					//Merged node is inserted to the interval tree.
+					//Color of the newly insertedNode is set in the intervalTreeInsert method of IntervalTree class
 
 					//Initialize the mergedNode from the concerned intervalTreeNode
 					if (intervalTreeNode instanceof TforHistoneIntervalTreeNodeWithNumbers){
@@ -1605,6 +1612,18 @@ public class IntervalTree {
 								((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getTforHistoneNumber(),
 								((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getCellLineNumber(), 
 								((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getFileNumber(), 
+								NodeType.MERGED);
+						
+					}
+					
+					else if (intervalTreeNode instanceof DnaseIntervalTreeNodeWithNumbers){
+						
+						mergedNode = new DnaseIntervalTreeNodeWithNumbers(
+								intervalTreeNode.getChromName(), 
+								intervalTreeNode.getLow(), 
+								intervalTreeNode.getHigh(),
+								((DnaseIntervalTreeNodeWithNumbers) intervalTreeNode).getCellLineNumber(), 
+								((DnaseIntervalTreeNodeWithNumbers) intervalTreeNode).getFileNumber(), 
 								NodeType.MERGED);
 						
 					}
@@ -1632,6 +1651,7 @@ public class IntervalTree {
 
 						//Update the mergedNode with the overlappedNode
 						//Just update low, high and numberofBases
+						//Therefore checking being instanceof IntervalTreeNode is enough
 						if (mergedNode instanceof IntervalTreeNode){
 							IntervalTree.updateMergedNode(mergedNode,overlappedNode);
 						}

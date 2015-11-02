@@ -1786,7 +1786,7 @@ public class Annotation {
 						
 					}//End of IF
 
-					// Accumulate search results of permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberTFNumberCellLineNumber2KMap
+					// Accumulate search results of permutationNumberDnaseCellLineNumber2NumberofOverlappingBasesMap in permutationNumberDnaseCellLineNumber2KMap
 					for( TIntIntIterator it = permutationNumberDnaseCellLineNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
 
 						it.advance();
@@ -12177,8 +12177,7 @@ public class Annotation {
 		if( annotationType.doDnaseAnnotation()){
 			// DNASE
 			// This dnaseCellLine2KMap hash map will contain the dnase cell line
-			// name to number of dnase cell line:k for the given search input
-			// size:n
+			// name to number of dnase cell line:k for the given search input size:n
 			TIntIntMap permutationNumberDnaseCellLineNumber2KMap = new TIntIntHashMap();
 			searchDnaseWithoutIOWithNumbers(
 					permutationNumber, 
@@ -12192,8 +12191,7 @@ public class Annotation {
 		}else if( annotationType.doTFAnnotation()){
 			// TFBS
 			// This tfbsNameandCellLineName2KMap hash map will contain the
-			// tfbsNameandCellLineName to number of tfbsNameandCellLineName: k
-			// for the given search input size: n
+			// tfbsNameandCellLineName to number of tfbsNameandCellLineName: k for the given search input size: n
 			TLongIntMap permutationNumberTfNumberCellLineNumber2KMap = new TLongIntHashMap();
 			searchTfbsWithoutIOWithNumbers(
 					permutationNumber, 
@@ -12225,9 +12223,18 @@ public class Annotation {
 			TLongIntMap permutationNumberGeneNumber2KMap = new TLongIntHashMap();
 			// searchGeneWithoutIOWithNumbers(permutationNumber, chrName, randomlyGeneratedData, intervalTree,
 			// permutationNumberGeneNumber2KMap, overlapDefinition);
-			searchUcscRefSeqGenesWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					null, null, null, permutationNumberGeneNumber2KMap, Commons.NCBI_GENE_ID,
-					GeneSetAnalysisType.NO_GENESET_ANALYSIS_TYPE_IS_DEFINED, GeneSetType.NO_GENESET_TYPE_IS_DEFINED,
+			searchUcscRefSeqGenesWithoutIOWithNumbers(
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					null, 
+					null, 
+					null, 
+					permutationNumberGeneNumber2KMap, 
+					Commons.NCBI_GENE_ID,
+					GeneSetAnalysisType.NO_GENESET_ANALYSIS_TYPE_IS_DEFINED, 
+					GeneSetType.NO_GENESET_TYPE_IS_DEFINED,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberGeneNumber2KMap( permutationNumberGeneNumber2KMap);
 
