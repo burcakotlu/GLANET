@@ -9,7 +9,7 @@ import java.util.Properties;
 import org.apache.log4j.PropertyConfigurator;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Dec 8, 2014
  * @project Common
  *

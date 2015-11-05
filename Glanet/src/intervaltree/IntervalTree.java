@@ -206,21 +206,122 @@ public class IntervalTree {
 		}
 
 	}
+	
+	//later on delete this method
+	//debug starts
+	public void intervalTreeLeftRotate(long permutationNumberMixedNumber, IntervalTree tree, IntervalTreeNode x) {
+
+		
+		//debug starts
+		logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+					"root of the tree" + "\t" + tree.getRoot().getChromName() + "\t" + tree.getRoot().getColor() + "\t" + tree.getRoot().getLow() + "\t" + tree.getRoot().getHigh());
+		
+		logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+				"node x" + "\t" + x.getChromName() + "\t" + x.getColor() + "\t" + x.getLow() + "\t" + x.getHigh());
+
+		logger.info( "permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "InfixTraversalofTheTree Before the LeftRotate");
+		
+		logger.info( "permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "Root of the tree is: " + tree.getRoot().getChromName() + " " +  tree.getRoot().getColor() + " " + tree.getRoot().getLow() + " "+ tree.getRoot().getHigh());
+		
+		tree.intervalTreeInfixTraversal(permutationNumberMixedNumber, tree.getRoot());
+		//debug ends
+		
+		IntervalTreeNode y = x.getRight();
+		
+		//debug starts
+		if (y == null){
+			logger.error("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "STOP here LeftRotate1");
+			logger.error("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +" x: " + x.getChromName() + "\t" + x.getColor() + "\t" + x.getLow() + "\t" + x.getHigh());
+		}
+		//debug ends
+
+		x.setRight( y.getLeft());
+		
+		//debug starts
+		if (y.getLeft() == null){
+			logger.error("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "STOP here LeftRotate2");
+			logger.error("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + " y: " + y.getChromName() + "\t" + y.getColor() + "\t" + y.getLow() + "\t" + y.getHigh());
+		}
+		//debug ends
+		
+		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
+			y.getLeft().setParent( x);
+		}
+		y.setParent( x.getParent());
+
+		if( NodeName.SENTINEL.equals( x.getParent().getNodeName())){
+			tree.setRoot( y);
+		}else{
+			if( x == ( x.getParent().getLeft())){
+				x.getParent().setLeft( y);
+			}else{
+				x.getParent().setRight( y);
+			}
+		}
+
+		y.setLeft( x);
+		x.setParent( y);
+
+		// update max attributes
+		x.setMax( max( x));
+		y.setMax( max( y));
+
+		// update min attributes
+		if( x instanceof OtherIntervalTreeNode && y instanceof OtherIntervalTreeNode){
+			( ( OtherIntervalTreeNode)x).setMin( min( x));
+			( ( OtherIntervalTreeNode)y).setMin( min( y));
+
+			// update height attributes
+			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)x).getHeight() + 1);
+			if( x.getLeft().getNodeName().isNotSentinel()){
+				incrementHeightByOne( x.getLeft());
+			}
+
+			( ( OtherIntervalTreeNode)y).setHeight( ( ( OtherIntervalTreeNode)y).getHeight() - 1);
+			if( y.getRight().getNodeName().isNotSentinel()){
+				decrementHeightByOne( y.getRight());
+			}
+
+		}
+		
+		//debug starts
+		logger.info( "permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "InfixTraversalofTheTree After the LeftRotate");
+		logger.info( "permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "Root of the tree is: " + tree.getRoot().getChromName() + " " +  tree.getRoot().getColor() + " " + tree.getRoot().getLow() + " "+ tree.getRoot().getHigh());
+		
+		tree.intervalTreeInfixTraversal(permutationNumberMixedNumber, tree.getRoot());
+		//debug ends
+
+	}
+	//debug ends
+	
 
 	// We change the pointer structure with Rotation
 	// When we do a left rotation on a node x,
 	// we assume that its right child y is not null.
 	// Left rotation pivots around the link from x to y.
-	// It makes the y the new root of the subtree, with x as the new left child
-	// of y
+	// It makes the y the new root of the subtree, with x as the new left child of y
 	// and y's left child becomes x's right child
-	// burcak: left rotate edilen node x, right child'inin y diyelim, left
-	// child'i oluyor
+	// burcak: left rotated node x, becomes its formerly right child's (let's call it y)'s left  child.
 	public void intervalTreeLeftRotate( IntervalTree tree, IntervalTreeNode x) {
 
 		IntervalTreeNode y = x.getRight();
+		
+		//debug starts
+		if (y == null){
+			logger.error("STOP here LeftRotate1");
+			logger.error(x.getChromName() + "\t" + x.getColor() + "\t" + x.getLow() + "\t" + x.getHigh());
+		}
+		//debug ends
 
 		x.setRight( y.getLeft());
+		
+		//debug starts
+		if (y.getLeft() == null){
+			logger.error("STOP here LeftRotate2");
+			logger.error(y.getChromName() + "\t" + y.getColor() + "\t" + y.getLow() + "\t" + y.getHigh());
+		}
+		//debug ends
+		
 		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
 			y.getLeft().setParent( x);
 		}
@@ -263,8 +364,7 @@ public class IntervalTree {
 
 	}
 
-	// burcak: right rotate edilen node x left child'inin y diyelim, right
-	// child'i oluyor
+	// burcak: right rotate edilen node x left child'inin y diyelim, right child'i oluyor
 	public void intervalTreeRightRotate( IntervalTree tree, IntervalTreeNode x) {
 
 		IntervalTreeNode y = x.getLeft();
@@ -391,6 +491,85 @@ public class IntervalTree {
 
 		x.setColor( Commons.BLACK);
 	}
+	
+	
+	//later on delete this method
+	//debug starts
+	public void intervalTreeInsertFixUp(
+			long permutationNumberMixedNumber,
+			IntervalTree tree, 
+			IntervalTreeNode z) {
+
+		IntervalTreeNode y;
+
+		while( z.getParent().getColor() == Commons.RED){
+			if( ( z.getParent().getParent().getLeft()) == z.getParent()){
+				y = z.getParent().getParent().getRight();
+				if( y.getColor() == Commons.RED){
+					// Case1 y is red
+					z.getParent().setColor( Commons.BLACK); // Case1
+					y.setColor( Commons.BLACK); // Case1
+					z.getParent().getParent().setColor( Commons.RED); // Case1
+					z = z.getParent().getParent(); // Case1
+				}else{
+					if( z == z.getParent().getRight()){
+						// Case2 y is black, z is a right child
+						z = z.getParent(); // Case2
+						
+						//debug starts
+						logger.info("For permutationNumberMixedNumber " + permutationNumberMixedNumber + "\t" + " intervalTreeLeftRotate for z " + z.getChromName() + " " + z.getColor() + " "+ z.getLow() + " "+ z.getHigh());
+						//debug ends
+						
+						intervalTreeLeftRotate(permutationNumberMixedNumber, tree, z); // Case2
+					}
+					// Case3 y is black, z is a left child
+					z.getParent().setColor( Commons.BLACK); // Case3
+					z.getParent().getParent().setColor( Commons.RED); // Case3
+					intervalTreeRightRotate( tree, z.getParent().getParent()); // Case3
+
+				}
+			}else{
+				
+				//Debug starts
+				if (z == null || z.getParent() == null || z.getParent().getParent()==null){
+					logger.error("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "stop here insertFixUp1");
+				}
+				//debug ends
+				
+				y = z.getParent().getParent().getLeft();
+				
+				//debug starts
+				if (y==null){
+					logger.error("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "stop here insertFixUp2");
+				}
+				//debug ends
+				
+				if( y.getColor() == Commons.RED){
+					z.getParent().setColor( Commons.BLACK); // Case1
+					y.setColor( Commons.BLACK); // Case1
+					z.getParent().getParent().setColor( Commons.RED); // Case1
+					z = z.getParent().getParent(); // Case1
+				}else{
+					if( z == z.getParent().getLeft()){
+						z = z.getParent(); // Case2
+						intervalTreeRightRotate( tree, z); // Case2
+					}
+					z.getParent().setColor( Commons.BLACK); // Case3
+					z.getParent().getParent().setColor( Commons.RED); // Case3
+					
+					//debug starts
+					logger.info("For permutationNumberMixedNumber " + permutationNumberMixedNumber + "\t" + " z is " +  z.getChromName() + " " +  z.getColor() + " "+ z.getLow() + " "+  z.getHigh());
+					logger.info("For permutationNumberMixedNumber " + permutationNumberMixedNumber + "\t" + " intervalTreeLeftRotate for  z.getParent().getParent() " +  z.getParent().getParent().getChromName() + " " +  z.getParent().getParent().getColor() + " "+ z.getParent().getParent().getLow() + " "+  z.getParent().getParent().getHigh());
+					//debug ends
+					intervalTreeLeftRotate(permutationNumberMixedNumber, tree, z.getParent().getParent()); // Case3
+
+				}
+			}
+
+		}
+		tree.getRoot().setColor( Commons.BLACK);
+	}
+	//debug ends
 
 	//To guarantee red black tree properties
 	//We fix up the modified tree by recoloring nodes and performing rotations
@@ -422,7 +601,21 @@ public class IntervalTree {
 
 				}
 			}else{
+				
+				//Debug starts
+				if (z == null || z.getParent() == null || z.getParent().getParent()==null){
+					logger.error("stop here insertFixUp1");
+				}
+				//debug ends
+				
 				y = z.getParent().getParent().getLeft();
+				
+				//debug starts
+				if (y==null){
+					logger.error("stop here insertFixUp2");
+				}
+				//debug ends
+				
 				if( y.getColor() == Commons.RED){
 					z.getParent().setColor( Commons.BLACK); // Case1
 					y.setColor( Commons.BLACK); // Case1
@@ -509,7 +702,11 @@ public class IntervalTree {
 
 		IntervalTreeNode y;
 
-		if( !NodeName.SENTINEL.equals( x.getRight().getNodeName())){ return intervalTreeMinimum( x.getRight()); }
+		if( !NodeName.SENTINEL.equals( x.getRight().getNodeName())){ 
+			
+			return intervalTreeMinimum( x.getRight()); 
+			
+		}
 
 		y = x.getParent();
 
@@ -521,6 +718,194 @@ public class IntervalTree {
 		return y;
 	}
 
+	
+	//Later on delete this method  starts
+	//4 NOV 2015
+	/*
+	 * If we delete, thus removing a node, what color was the node that was
+	 * removed?
+	 * 
+	 * RED? Ok, since we won't have changed any black-heights, nor will we have
+	 * created two red nodes in a row. Also, cannot cause a violation of
+	 * property 2, since if the removed node was red, it could not have been the
+	 * root.
+	 * 
+	 * BLACK? Could cause there to be two reds in a row(violating property 4),
+	 * and can also cause a violation of property 5. Could also cause a
+	 * violation of property 2, if the removed node was the root and its
+	 * child-which becomes the new root -was red.
+	 */
+	public IntervalTreeNode intervalTreeDelete(long permutationNumberMixedNumber, IntervalTree tree, IntervalTreeNode z) {
+
+		// since z might be changed, do the decrements before
+		// Decrement the number of nodes by one
+		tree.setNumberofNodes( tree.getNumberofNodes() - 1);
+
+		// Decrease the number of non overlapping bases by size of the deleted node z
+		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() - z.getNumberofBases());
+
+		// Start by doing regular binary search tree
+		IntervalTreeNode y;
+		IntervalTreeNode x;
+
+		// Determine a node y to splice out.
+		// The node y is either the input node z (if z has at most 1 child) or
+		// the successor of z if z has two children.
+		if( NodeName.SENTINEL.equals( z.getLeft().getNodeName()) || NodeName.SENTINEL.equals( z.getRight().getNodeName())){
+			y = z;
+			logger.info("For permutationNumberMixedNumber: " +  permutationNumberMixedNumber + " Node to be spliced out is: " + y.getChromName() + " " + y.getColor() + " " + y.getLow() + " " + y.getHigh());
+		}else{
+			y = intervalTreeSuccessor( z);
+			logger.info("For permutationNumberMixedNumber: " +  permutationNumberMixedNumber + " Node to be spliced out is: " + y.getChromName() + " " + y.getColor() + " " + y.getLow() + " " + y.getHigh());
+		}
+
+		// x is set to the not null child of the y or
+		// x is set to nil[T] if y has no children.
+		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
+			x = y.getLeft();
+		}else{
+			x = y.getRight();
+		}
+
+		// The node y is spliced out here by modifying pointers in p[y] and x.
+		// Splicing out y is somewhat complicated by the need for proper handling of the boundary conditions,
+		// which occur when x = null or when y is the root.
+
+		x.setParent( y.getParent());
+
+		if( ( x instanceof OtherIntervalTreeNode) && ( y instanceof OtherIntervalTreeNode)){
+			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)( y.getParent())).getHeight() + 1);
+		}
+
+		if( NodeName.SENTINEL.equals( y.getParent().getNodeName())){
+			tree.setRoot( x);
+		}else{
+			if( y == ( y.getParent()).getLeft()){
+				( y.getParent()).setLeft( x);
+			}else{
+				( y.getParent()).setRight( x);
+			}
+		}
+
+		// set max value of parent of x
+		updateMaxAttribute( x.getParent());
+
+		// set min value of parent of x
+		if( x instanceof OtherIntervalTreeNode){
+			updateMinAttribute( x.getParent());
+		}
+
+		// If the successor of z was the node spliced out,
+		// the contents of z are moved from y to z, overwriting the previous contents.
+		// data fields of node y is copied into node z.
+		// node y takes place of node z.
+		if( y != z){
+			// copy y's satellite data into z
+			z.setChromName( y.getChromName());
+			z.setLow( y.getLow());
+			z.setHigh( y.getHigh());
+			z.setNumberofBases( y.getNumberofBases());
+			
+			//2 NOV 2015 starts
+			if( ( z instanceof TforHistoneIntervalTreeNodeWithNumbers) && ( y instanceof TforHistoneIntervalTreeNodeWithNumbers)){
+				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setTforHistoneNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getTforHistoneNumber());
+				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( TforHistoneIntervalTreeNodeWithNumbers)y).getFileNumber());
+			}
+			else if ((z instanceof DnaseIntervalTreeNodeWithNumbers) && (y instanceof DnaseIntervalTreeNodeWithNumbers)){
+				( ( DnaseIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+				( ( DnaseIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getFileNumber());
+			}
+			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) && ( y instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers)){
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setRefSeqGeneNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getRefSeqGeneNumber());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneEntrezId());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneHugoSymbolNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneHugoSymbolNumber());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalName());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalNumber());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getStrand());
+			}
+			//2 NOV 2015 ends
+			
+
+			else if( ( z instanceof DnaseIntervalTreeNode) && ( y instanceof DnaseIntervalTreeNode)){
+				( ( DnaseIntervalTreeNode)z).setCellLineName( ( ( DnaseIntervalTreeNode)y).getCellLineName());
+				( ( DnaseIntervalTreeNode)z).setFileName( ( ( DnaseIntervalTreeNode)y).getFileName());
+			}
+
+			else if( ( z instanceof TforHistoneIntervalTreeNode) && ( y instanceof TforHistoneIntervalTreeNode)){
+				( ( TforHistoneIntervalTreeNode)z).setTfbsorHistoneName( ( ( TforHistoneIntervalTreeNode)y).getTfbsorHistoneName());
+				( ( TforHistoneIntervalTreeNode)z).setCellLineName( ( ( TforHistoneIntervalTreeNode)y).getCellLineName());
+				( ( TforHistoneIntervalTreeNode)z).setFileName( ( ( TforHistoneIntervalTreeNode)y).getFileName());
+			}
+
+			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNode) && ( y instanceof UcscRefSeqGeneIntervalTreeNode)){
+				( ( UcscRefSeqGeneIntervalTreeNode)z).setRefSeqGeneName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getRefSeqGeneName());
+				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneEntrezId());
+				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneHugoSymbol( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneHugoSymbol());
+				( ( UcscRefSeqGeneIntervalTreeNode)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
+				( ( UcscRefSeqGeneIntervalTreeNode)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNode)y).getStrand());
+			}
+			
+			//28 OCTOBER 2015 starts
+			else if ((z instanceof DataDrivenExperimentIntervalTreeNode) && (y instanceof DataDrivenExperimentIntervalTreeNode)){
+				((DataDrivenExperimentIntervalTreeNode)z).setGeneSymbol(((DataDrivenExperimentIntervalTreeNode) y).getGeneSymbol());
+				((DataDrivenExperimentIntervalTreeNode)z).setTpm(((DataDrivenExperimentIntervalTreeNode) y).getTpm());
+			}
+			//28 OCTOBER 2015 ends
+			
+
+			// Burcak commented only the data has been changed
+			// Left, Right and Parent does not change.
+			// height does not change
+			// z.setLeft(y.getLeft());
+			// z.setRight(y.getRight());
+			// z.setParent(y.getParent());
+			// z.setColor(y.getColor());
+
+			// set the max of node z
+			updateMaxAttribute( z);
+
+			if( z instanceof OtherIntervalTreeNode){
+				// set the min of node z
+				updateMinAttribute( z);
+			}
+
+		}
+
+		// If y is black, we could have violations of red-black properties:
+		// 1. Every node is either black or red. Ok.
+		// 2. The root is black. If y is the root and x is red, then the root
+		// has become red.
+		// 3. Every leaf is black. Ok.
+		// 4. If a node is red, then both of its children are black. (Hence no
+		// two reds in a row on a simple path from the root to a leaf.)
+		// Violation if p[y] and x are both red.
+		// 5. For each node, all paths from the node to descendant leaves
+		// contain the same number of black nodes. Any path containing y now has
+		// 1 fewer black node.
+		// 5. 5.1 correct by giving x an "extra black".
+		// 5. 5.2 Add 1 to count of black nodes on paths containing x.
+		// 5. 5.3 Now property 5 is Ok, but property 1 is not.
+		// 5. 5.4 x is either doubly black (if color[x] = BLACK) or red&black
+		// (if color[x] = RED) .
+		// 5. 5.4 The attribute color [x] is still either RED or BLACK. No new
+		// values for color attribute.
+		// 5. 5.4 In other words, the extra blackness on a node is by virtue of
+		// x pointing to the node.
+		if( y.getColor() == Commons.BLACK){
+			intervalTreeDeleteFixUp( tree, x);
+		}
+
+		// The node y is returned so that calling procedure can recyle it via  the free list.
+		return y;
+
+	}
+	//intervalTreeDelete Ends
+	//4 NOV 2015
+	//Later on delete this method ends
+	
+	
+	
 	/*
 	 * If we delete, thus removing a node, what color was the node that was
 	 * removed?
@@ -603,8 +988,29 @@ public class IntervalTree {
 			z.setLow( y.getLow());
 			z.setHigh( y.getHigh());
 			z.setNumberofBases( y.getNumberofBases());
+			
+			//2 NOV 2015 starts
+			if( ( z instanceof TforHistoneIntervalTreeNodeWithNumbers) && ( y instanceof TforHistoneIntervalTreeNodeWithNumbers)){
+				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setTforHistoneNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getTforHistoneNumber());
+				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( TforHistoneIntervalTreeNodeWithNumbers)y).getFileNumber());
+			}
+			else if ((z instanceof DnaseIntervalTreeNodeWithNumbers) && (y instanceof DnaseIntervalTreeNodeWithNumbers)){
+				( ( DnaseIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+				( ( DnaseIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getFileNumber());
+			}
+			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) && ( y instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers)){
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setRefSeqGeneNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getRefSeqGeneNumber());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneEntrezId());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneHugoSymbolNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneHugoSymbolNumber());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalName());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalNumber());
+				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getStrand());
+			}
+			//2 NOV 2015 ends
+			
 
-			if( ( z instanceof DnaseIntervalTreeNode) && ( y instanceof DnaseIntervalTreeNode)){
+			else if( ( z instanceof DnaseIntervalTreeNode) && ( y instanceof DnaseIntervalTreeNode)){
 				( ( DnaseIntervalTreeNode)z).setCellLineName( ( ( DnaseIntervalTreeNode)y).getCellLineName());
 				( ( DnaseIntervalTreeNode)z).setFileName( ( ( DnaseIntervalTreeNode)y).getFileName());
 			}
@@ -673,13 +1079,15 @@ public class IntervalTree {
 			intervalTreeDeleteFixUp( tree, x);
 		}
 
-		// The node y is returned so that calling procedure can recyle it via
-		// the free list.
+		// The node y is returned so that calling procedure can recyle it via  the free list.
 		return y;
 
 	}
-
-	public void intervalTreeInsert( IntervalTree tree, IntervalTreeNode z) {
+	//intervalTreeDelete Ends
+	
+	//later on delete this method
+	//debug version starts
+	public void intervalTreeInsert(long permutationNumberMixedNumber, IntervalTree tree, IntervalTreeNode z) {
 
 		// Increment the number of nodes by one
 		tree.setNumberofNodes( tree.getNumberofNodes() + 1);
@@ -703,8 +1111,7 @@ public class IntervalTree {
 
 		z.setParent( y);
 
-		// This part sets whether the new inserted node is the left or right
-		// child of parent
+		// This part sets whether the new inserted node is the left or right child of parent
 		if( NodeName.SENTINEL.equals( y.getNodeName())){// enters for the first
 			// insert
 			tree.setRoot( z);
@@ -734,21 +1141,106 @@ public class IntervalTree {
 			updateMinAttribute( z.getParent());
 		}
 
-		intervalTreeInsertFixUp( tree, z);
+		//debug starts
+		logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + " InsertFixUp for z " + z.getChromName() + " " +z.getColor() + " " +z.getLow() + " " +z.getHigh() );
+		//debug ends
+		intervalTreeInsertFixUp(permutationNumberMixedNumber,tree, z);
 
-	}
+	}	
+	//debug version ends
 
-	public void intervalTreeInfixTraversal( IntervalTreeNode node) {
+	public void intervalTreeInsert( IntervalTree tree, IntervalTreeNode z) {
 
-		if( node.getLeft().getNodeName().isNotSentinel())
-			intervalTreeInfixTraversal( node.getLeft());
+		// Increment the number of nodes by one
+		tree.setNumberofNodes( tree.getNumberofNodes() + 1);
 
-		if( node.getNodeName().isNotSentinel()){
-			GlanetRunner.appendLog( node.getLow() + "\t" + node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
+		// Increase the number of non overlapping bases by size of the inserted node z
+		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() + z.getNumberofBases());
+
+		// Set y to SENTINEL node
+		IntervalTreeNode y = new IntervalTreeNode();
+		// Set x to the root
+		IntervalTreeNode x = tree.getRoot();
+
+		// This while sets the parent for the new inserted node z
+		while( !( NodeName.SENTINEL.equals( x.getNodeName()))){
+			y = x;
+			if( z.getLow() < x.getLow())
+				x = x.getLeft();
+			else
+				x = x.getRight();
 		}
 
-		if( node.getRight().getNodeName().isNotSentinel())
-			intervalTreeInfixTraversal( node.getRight());
+		z.setParent( y);
+
+		// This part sets whether the new inserted node is the left or right child of parent
+		if( NodeName.SENTINEL.equals( y.getNodeName())){// enters for the first
+			// insert
+			tree.setRoot( z);
+		}else{
+			if( z.getLow() < y.getLow()){
+				y.setLeft( z);
+			}else{
+				y.setRight( z);
+			}
+		}
+
+		// sets the left right color attributes of the new inserted node
+		z.setLeft( new IntervalTreeNode());
+		z.setRight( new IntervalTreeNode());
+		z.setColor( Commons.RED);
+		z.setMax( z.getHigh());
+
+		if( z instanceof OtherIntervalTreeNode){
+			( ( OtherIntervalTreeNode)z).setMin( z.getLow());
+			( ( OtherIntervalTreeNode)z).setHeight( ( ( OtherIntervalTreeNode)( z.getParent())).getHeight() + 1);
+
+		}
+
+		updateMaxAttribute( z.getParent());
+
+		if( z instanceof OtherIntervalTreeNode){
+			updateMinAttribute( z.getParent());
+		}
+
+		
+		intervalTreeInsertFixUp(tree, z);
+
+	}
+	
+	//for debug purposes starts
+	public void intervalTreeInfixTraversal(long permutationNumberMixedNumber,IntervalTreeNode node) {
+
+		if( node.getLeft()!= null && node.getLeft().getNodeName().isNotSentinel())
+			intervalTreeInfixTraversal(permutationNumberMixedNumber,node.getLeft());
+
+		if( node.getNodeName().isNotSentinel()){
+			//GlanetRunner.appendLog( node.getLow() + "\t" + node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
+			logger.info("For permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + 
+					node.getChromName() + "\t" + 
+					node.getColor() + "\t" + 
+					node.getLow() + "\t" + 
+					node.getHigh());
+		}
+
+		if( node.getRight()!= null && node.getRight().getNodeName().isNotSentinel())
+			intervalTreeInfixTraversal(permutationNumberMixedNumber,node.getRight());
+
+	}
+	//for debug purposes ends
+
+	public void intervalTreeInfixTraversal(IntervalTreeNode node) {
+
+		if( node.getLeft()!= null && node.getLeft().getNodeName().isNotSentinel())
+			intervalTreeInfixTraversal(node.getLeft());
+
+		if( node.getNodeName().isNotSentinel()){
+			//GlanetRunner.appendLog( node.getLow() + "\t" + node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
+			logger.info(node.getChromName() + "\t" + node.getColor() + "\t" + node.getLow() + "\t" + node.getHigh());
+		}
+
+		if( node.getRight()!= null && node.getRight().getNodeName().isNotSentinel())
+			intervalTreeInfixTraversal(node.getRight());
 
 	}
 
@@ -1530,8 +2022,33 @@ public class IntervalTree {
 			permutationNumberElementNumberCellLineNumber = itr.key();
 			overlappingNodeList = itr.value();
 			
-			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(overlappingNodeList);
+//			//debug starts
+//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
+//					"Constructing the interval tree  from the" + "\t" +
+//					overlappingNodeList.size() + " nodes below starts.");
+//	
+//			for(int i = 0; i<overlappingNodeList.size(); i++){
+//				logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
+//								"ChromName: " + overlappingNodeList.get(i).getChromName() + "\t" + 
+//								"Low: " + overlappingNodeList.get(i).getLow() + "\t" + 
+//								"High: " +  overlappingNodeList.get(i).getHigh() + "\t" + 
+//								"NumberofBases:" + (overlappingNodeList.get(i).getHigh() - overlappingNodeList.get(i).getLow() + 1));				
+//			}//End of FOR
+//			//debug ends
 			
+		
+		
+			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(permutationNumberElementNumberCellLineNumber,overlappingNodeList);
+		
+//			//debug starts
+//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  
+//					+"Constructed tree has these many NumberofNodes: " + intervalTree.getNumberofNodes() +  "\t" +
+//					"NumberofNonOverlappingBases: " + intervalTree.getNumberofNonOverlappingBases());
+//	
+//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
+//					"Constructing the interval tree ends." );			
+//			//debug ends
+		
 			permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.put(permutationNumberElementNumberCellLineNumber, intervalTree);
 			
 		}//End of FOR each permutationNumberHistoneNumberCellLineNumber in the map
@@ -1555,7 +2072,30 @@ public class IntervalTree {
 			permutationNumberElementNumberCellLineNumber = itr.key();
 			overlappingNodeList = itr.value();
 			
-			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(overlappingNodeList);
+//			//debug starts	
+//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
+//					"Constructing the interval tree  from the" + "\t" +
+//					overlappingNodeList.size() + " nodes below starts.");
+//	
+//			for(int i = 0; i<overlappingNodeList.size(); i++){
+//				logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
+//								"ChromName: " + overlappingNodeList.get(i).getChromName() + "\t" + 
+//								"Low: " + overlappingNodeList.get(i).getLow() + "\t" + 
+//								"High: " +  overlappingNodeList.get(i).getHigh() + "\t" + 
+//								"NumberofBases:" + (overlappingNodeList.get(i).getHigh() - overlappingNodeList.get(i).getLow() + 1));				
+//			}//End of FOR				
+//			//debug ends
+	
+			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes((long)permutationNumberElementNumberCellLineNumber,overlappingNodeList);
+			
+//			//debug starts
+//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  
+//					+"Constructed tree has these many NumberofNodes: " + intervalTree.getNumberofNodes() +  "\t" +
+//					"NumberofNonOverlappingBases: " + intervalTree.getNumberofNonOverlappingBases());
+//	
+//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
+//					"Constructing the interval tree ends." );			
+//			//debug ends
 			
 			permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.put(permutationNumberElementNumberCellLineNumber, intervalTree);
 			
@@ -1565,7 +2105,9 @@ public class IntervalTree {
 	//1 NOV 2015 ends
 	
 	//30 OCT 2015 starts
-	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(List<IntervalTreeNode> intervalNodeList){
+	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(
+			Long permutationNumberMixedNumber,
+			List<IntervalTreeNode> intervalNodeList){
 		
 		//Construct an interval tree consisting of nonOverlapping intervals
 		IntervalTree intervalTree = null;
@@ -1577,10 +2119,24 @@ public class IntervalTree {
 			
 			intervalTreeNode =  intervalNodeList.get(i);
 			
+//			//debug starts
+//			logger.info("For permutationNumberMixedNumber: " + permutationNumberMixedNumber + " intervalTreeNode to be inserted: " + intervalTreeNode.getChromName() + " " + intervalTreeNode.getColor() + " " +intervalTreeNode.getLow() + " " + intervalTreeNode.getHigh());
+//			//debug ends
+			
+			
 			//Insertion for the first time
 			if (intervalTree == null){
 				intervalTree = new IntervalTree();
 				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+				//intervalTree.intervalTreeInsert(permutationNumberMixedNumber,intervalTree, intervalTreeNode);
+				
+//				//debug starts
+//				logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//								"Infix traversal of the interval tree before inserting intervalTreeNode");
+//				
+//				intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
+//				//debug ends
+				
 			}//End of IF 
 			
 			else{
@@ -1644,10 +2200,34 @@ public class IntervalTree {
 					// therefore you must keep track of the real node to be deleted in case of trial of deletion of an already spliced out node.
 					Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
 
+//					//debug starts
+//					logger.info( 		"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//										"This node will be merged:" + "\t" + 
+//										mergedNode.getColor() + "\t" +
+//										mergedNode.getChromName() + "\t" +
+//										mergedNode.getLow() + "\t" + 
+//										mergedNode.getHigh() );
+//					
+//					logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//									"Infix traversal of the interval tree before inserting mergedNode");
+//					
+//					intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
+//					//debug ends
+					
+					
 					//Delete each overlappedNode in the overlappedNodeList
 					for( int j = 0; j < overlappedNodeList.size(); j++){
-
+						
 						IntervalTreeNode overlappedNode = overlappedNodeList.get(j);
+						
+//						//debug starts
+//						logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//											"there is overlappedNode:" + "\t" +
+//											overlappedNode.getColor() + "\t" +
+//											overlappedNode.getChromName() + "\t" + 
+//											overlappedNode.getLow() + "\t" + 
+//											overlappedNode.getHigh());
+//						//debug ends
 
 						//Update the mergedNode with the overlappedNode
 						//Just update low, high and numberofBases
@@ -1673,6 +2253,12 @@ public class IntervalTree {
 						nodetoBeDeleted = IntervalTree.compute(splicedoutNode2CopiedNodeMap, overlappedNode);
 
 						if( nodetoBeDeleted != null){
+							
+//							//debug starts
+//							logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + 
+//										"This nodetoBeDeleted will be deleted " + nodetoBeDeleted.getChromName() + " " + nodetoBeDeleted.getColor() + " " + nodetoBeDeleted.getLow() + " " + nodetoBeDeleted.getHigh());
+//							//debug ends
+							
 							// they are the same
 							// current overlapped node to_be_deleted has been copied to the previously deleted overlapped node
 							// in other words, current overlapped node to_be_deleted is spliced out by the previous delete operation
@@ -1680,14 +2266,38 @@ public class IntervalTree {
 							// since current overlapped node is copied to the previously deleted overlapped node
 							// Now we can delete this overlappedNode
 							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, nodetoBeDeleted);
+							//splicedoutNode = intervalTree.intervalTreeDelete(permutationNumberMixedNumber,intervalTree, nodetoBeDeleted);
+							
+//							//debug starts
+//							logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//											"Infix traversal of the interval tree after deleting nodetoBeDeleted");
+//							
+//							
+//							intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
+//							//debug ends
+
 
 							if( splicedoutNode != nodetoBeDeleted)
 								splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
 							
 						}else{
 							
+//							//debug starts
+//							logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + 
+//										"This overlappedNode will be deleted " + overlappedNode.getChromName() + " " + overlappedNode.getColor() + " " + overlappedNode.getLow() + " " + overlappedNode.getHigh());
+//							//debug ends
+							
 							// Now we can delete this overlappedNode
 							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
+							//splicedoutNode = intervalTree.intervalTreeDelete(permutationNumberMixedNumber,intervalTree, overlappedNode);
+							
+//							//debug starts
+//							logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//											"Infix traversal of the interval tree after deleting overlappedNode");
+//							
+//							
+//							intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
+//							//debug ends
 
 							if( splicedoutNode != overlappedNode)
 								splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
@@ -1696,15 +2306,40 @@ public class IntervalTree {
 
 					}// end of FOR: each overlapped node in the list
 					
+					
+//					//debug starts
+//					logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//									"This mergedNode is inserted: " + mergedNode.getChromName() + " " + mergedNode.getColor() + " " + mergedNode.getLow() + " " + mergedNode.getHigh());
+//					//debug ends
+					
 					//Insert the mergedNode
-					intervalTree.intervalTreeInsert( intervalTree, mergedNode);
+					intervalTree.intervalTreeInsert(intervalTree, mergedNode);
+					//intervalTree.intervalTreeInsert(permutationNumberMixedNumber,intervalTree, mergedNode);
+					
+//					//debug starts
+//					logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//									"Infix traversal of the interval tree after inserting mergedNode");
+//					intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
+//					//debug ends
+
 
 				}// overlappedNodeList is not null
 				
 				// there is no overlap
 				else{
+					
+					
 					// insert interval
 					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+					//intervalTree.intervalTreeInsert(permutationNumberMixedNumber,intervalTree, intervalTreeNode);
+					
+//					//debug starts
+//					logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
+//									"Infix traversal of the interval tree after inserting intervalTreeNode");
+//					
+//					intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
+//					//debug ends
+					
 				}//End of ELSE
 				
 				
@@ -2864,7 +3499,17 @@ public class IntervalTree {
 		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
 			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
+				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
+				//castedNode must be newly created and there must be no color assigned at first.
+				castedNode = new TforHistoneIntervalTreeNodeWithNumbers(
+						node.getChromName(),
+						node.getLow(),
+						node.getHigh(),
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getTforHistoneNumber(), 
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getCellLineNumber(), 
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getFileNumber(),
+						NodeType.ORIGINAL);
+				
 			}
 
 			permutationNumberTFNumberCellLineNumber = generateMixedNumber(
@@ -5109,7 +5754,9 @@ public class IntervalTree {
 		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
 			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
-				castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+				//castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+				//castedNode must be newly created and We must not use the color of the node that comes from the chromosomeBased DnaseIntervalTree
+				castedNode = new DnaseIntervalTreeNodeWithNumbers(node.getChromName(), node.getLow(), node.getHigh(), ((DnaseIntervalTreeNodeWithNumbers) node).getCellLineNumber(), ((DnaseIntervalTreeNodeWithNumbers) node).getFileNumber(), NodeType.ORIGINAL);
 			}
 
 			permutationNumberDnaseCellLineNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(

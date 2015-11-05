@@ -14,7 +14,7 @@ import common.Commons;
 import ui.GlanetRunner;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Dec 9, 2014
  * @project Glanet
  *
