@@ -76,6 +76,7 @@ import annotation.Annotation;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
 import common.Commons;
 
 /**
@@ -2309,6 +2310,7 @@ public class Enrichment {
 				
 				// DIVIDE
 				// As Much As Number of Processors
+				//Each thread will have sequential task as much as number of processors
 				if (highIndex-lowIndex > numberofPermutationsForEachProcessor){
 					
 					AnnotateWithNumbers left = new AnnotateWithNumbers(
@@ -2882,7 +2884,7 @@ public class Enrichment {
 			// example permutationNumber PERMUTATION0
 
 			// @todo check this zero value for permutation of original data
-			if( Commons.ZERO.equals( permutationNumber)){
+			if( Commons.ORIGINAL_DATA_PERMUTATION_NUMBER.equals( permutationNumber)){
 				cellLineNumberorGeneSetNumber2OriginalKMap.put( cellLineNumberOrGeneSetNumber, numberofOverlaps);
 			}else{
 				list = cellLineNumberorGeneSetNumber2AllKMap.get( cellLineNumberOrGeneSetNumber);
@@ -3450,12 +3452,18 @@ public class Enrichment {
 	// TIntIntMap version ends
 
 	// Accumulate chromosomeBasedName2KMap results in accumulatedName2KMap
-	// Accumulate number of overlaps coming from each chromosome
-	// based on permutationNumber and ElementName
+	// Accumulate number of overlaps coming from each chromosome based on permutationNumber and ElementName
 	public static void accumulate( TLongIntMap chromosomeBasedName2KMap, TLongIntMap accumulatedName2KMap) {
 
 		Long permutationNumberElementNumber;
 		Integer numberofOverlaps;
+		
+		//debug starts
+		long permutationNumberRemovedElementNumberCellLineNumberKEGGPathwayNumber;
+		long elementNumberCellLineNumberKEGGPathwayNumberRemoved;
+		
+		int permutationNumber;
+		//debug ends
 
 		// accessing keys/values through an iterator:
 		for( TLongIntIterator it = chromosomeBasedName2KMap.iterator(); it.hasNext();){
@@ -3472,8 +3480,20 @@ public class Enrichment {
 						accumulatedName2KMap.get( permutationNumberElementNumber) + numberofOverlaps);
 
 			}
+			
+			//debug starts
+			permutationNumber = IntervalTree.getPermutationNumber(permutationNumberElementNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			permutationNumberRemovedElementNumberCellLineNumberKEGGPathwayNumber = IntervalTree.getPermutationNumberRemovedLongMixedNumber(permutationNumberElementNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			elementNumberCellLineNumberKEGGPathwayNumberRemoved = IntervalTree.getKEGGPathwayNumberRemovedMixedNumber(permutationNumberRemovedElementNumberCellLineNumberKEGGPathwayNumber,GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+			
+			if (permutationNumber == Commons.ORIGINAL_DATA_PERMUTATION_NUMBER && elementNumberCellLineNumberKEGGPathwayNumberRemoved == 30004){
+				
+				logger.info("permutationNumber: " + permutationNumber + " elementNumberCellLineNumber: " + elementNumberCellLineNumberKEGGPathwayNumberRemoved +  " numberofOverlaps" + "\t" + numberofOverlaps);
+				
+			}
+			//debug ends
 
-		}
+		}//End of FOR
 
 	}
 
@@ -3505,7 +3525,9 @@ public class Enrichment {
 
 	// Accumulate chromosomeBasedAllMaps in accumulatedAllMaps
 	// Coming from each chromosome
-	public static void accumulate( AllMapsWithNumbers chromosomeBasedAllMaps, AllMapsWithNumbers accumulatedAllMaps,
+	public static void accumulate( 
+			AllMapsWithNumbers chromosomeBasedAllMaps, 
+			AllMapsWithNumbers accumulatedAllMaps,
 			AnnotationType annotationType) {
 
 		switch( annotationType){
@@ -3529,13 +3551,16 @@ public class Enrichment {
 					accumulatedAllMaps.getPermutationNumberGeneNumber2KMap());
 			break;
 
-		case DO_USER_DEFINED_GENESET_ANNOTATION: // Exon Based User Defined
-													// GeneSet
+		case DO_USER_DEFINED_GENESET_ANNOTATION: 
+			
+			// Exon Based User Defined GeneSet
 			accumulate( chromosomeBasedAllMaps.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap(),
 					accumulatedAllMaps.getPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap());
+			
 			// Regulation Based User Defined GeneSet
 			accumulate( chromosomeBasedAllMaps.getPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap(),
 					accumulatedAllMaps.getPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap());
+			
 			// All Based User Defined GeneSet
 			accumulate( chromosomeBasedAllMaps.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap(),
 					accumulatedAllMaps.getPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap());

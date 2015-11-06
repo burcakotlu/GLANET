@@ -2714,12 +2714,25 @@ public class IntervalTree {
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 		
 		List<IntervalTreeNode> overlappingNodeList = null;
+		
 
 		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
+			
 			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
+				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
+				//castedNode must be newly created and there must be no color assigned at first.
+				castedNode = new TforHistoneIntervalTreeNodeWithNumbers(
+						node.getChromName(),
+						node.getLow(),
+						node.getHigh(),
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getTforHistoneNumber(), 
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getCellLineNumber(), 
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getFileNumber(),
+						NodeType.ORIGINAL);
+				
 			}
+
 
 			permutationNumberHistoneNumberCellLineNumber = generateMixedNumber(
 					permutationNumber,
@@ -2802,6 +2815,17 @@ public class IntervalTree {
 
 			if( !( permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.containsKey( permutationNumberHistoneNumberCellLineNumber))){
 				permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.put(permutationNumberHistoneNumberCellLineNumber, 1);
+				
+				//debug starts
+				if (chromName.equals(ChromosomeName.CHROMOSOME4) && 
+						permutationNumber == Commons.ORIGINAL_DATA_PERMUTATION_NUMBER &&
+						castedNode.getTforHistoneNumber() == 3 &&
+						castedNode.getCellLineNumber() == 4){
+					
+					logger.info("GivenInputLine " + " Low: " + interval.getLow() + " High: " + interval.getHigh());
+					
+				}
+				//debug ends
 			}
 		}
 
@@ -5049,6 +5073,31 @@ public class IntervalTree {
 
 		return elementNumberCellLineNumberOrKeggPathwayNumber;
 	}
+	
+	//For Debug purposes starts
+	//11 NOVEMBER 2015
+	public static long getKEGGPathwayNumberRemovedMixedNumber(
+			long permutationNumberElementNumberCellLineNumberKEGGPathwayNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength){
+		
+		long elementNumberCellLineNumber = Long.MIN_VALUE;
+
+		switch( generatedMixedNumberDescriptionOrderLength){
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				elementNumberCellLineNumber = permutationNumberElementNumberCellLineNumberKEGGPathwayNumber / 10000L;
+				break;
+			}
+			default:{
+				break;
+			}
+
+		}// End of SWITCH
+
+		return elementNumberCellLineNumber;
+		
+	}
+	//For Debug purposes ends
+	
 
 	// 17.OCT.2014
 	// Called from convert methods in AnnotatePermutations
@@ -5060,13 +5109,13 @@ public class IntervalTree {
 		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 
 		switch( generatedMixedNumberDescriptionOrderLength){
-		case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			elementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 1000000000000L;
-			break;
-		}
-		default:{
-			break;
-		}
+			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
+				elementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 1000000000000L;
+				break;
+			}
+			default:{
+				break;
+			}
 
 		}// End of SWITCH
 

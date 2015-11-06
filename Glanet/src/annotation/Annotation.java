@@ -2427,7 +2427,8 @@ public class Annotation {
 		
 		//1 NOV 2015
 		//This will be provided as a parameter
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+//		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
 
 
 		for( int i = 0; i < inputLines.size(); i++){
@@ -4422,6 +4423,7 @@ public class Annotation {
 		//30 OCT 2015
 		//This will be provided as a parameter
 		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
 		
 		for( int i = 0; i < inputLines.size(); i++){
 
@@ -12250,9 +12252,18 @@ public class Annotation {
 			// kegg pathway name to number of kegg pathway:k for the given
 			// search input size:n
 			TLongIntMap permutationNumberExonBasedUserDefinedGeneSetNumber2KMap = new TLongIntHashMap();
-			searchUcscRefSeqGenesWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					geneId2ListofGeneSetNumberMap, null, permutationNumberExonBasedUserDefinedGeneSetNumber2KMap, null,
-					Commons.NCBI_GENE_ID, GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, GeneSetType.USERDEFINEDGENESET,
+			searchUcscRefSeqGenesWithoutIOWithNumbers(
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					geneId2ListofGeneSetNumberMap, 
+					null, 
+					permutationNumberExonBasedUserDefinedGeneSetNumber2KMap, 
+					null,
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, 
+					GeneSetType.USERDEFINEDGENESET,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap( permutationNumberExonBasedUserDefinedGeneSetNumber2KMap);
 
@@ -12298,8 +12309,13 @@ public class Annotation {
 		}else if( annotationType.doUserDefinedLibraryAnnotation()){
 			// USER DEFINED LIBRARY
 			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap = new TLongIntHashMap();
-			searchUserDefinedLibraryWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData,
-					intervalTree, permutationNumberElementTypeNumberElementNumber2KMap, overlapDefinition);
+			searchUserDefinedLibraryWithoutIOWithNumbers(
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData,
+					intervalTree, 
+					permutationNumberElementTypeNumberElementNumber2KMap, 
+					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberElementTypeNumberElementNumber2KMap( permutationNumberElementTypeNumberElementNumber2KMap);
 
 		}else if( annotationType.doKEGGPathwayAnnotation()){
@@ -12331,9 +12347,18 @@ public class Annotation {
 			// kegg pathway name to number of kegg pathway:k for the given
 			// search input size:n
 			TIntIntMap permutationNumberRegulationBasedKeggPathwayNumber2KMap = new TIntIntHashMap();
-			searchUcscRefSeqGenesWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					geneId2ListofGeneSetNumberMap, permutationNumberRegulationBasedKeggPathwayNumber2KMap, null, null,
-					Commons.NCBI_GENE_ID, GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, GeneSetType.KEGGPATHWAY,
+			searchUcscRefSeqGenesWithoutIOWithNumbers(
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					geneId2ListofGeneSetNumberMap, 
+					permutationNumberRegulationBasedKeggPathwayNumber2KMap, 
+					null, 
+					null,
+					Commons.NCBI_GENE_ID, 
+					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, 
+					GeneSetType.KEGGPATHWAY,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberRegulationBasedKeggPathwayNumber2KMap( permutationNumberRegulationBasedKeggPathwayNumber2KMap);
 
@@ -12342,9 +12367,18 @@ public class Annotation {
 			// pathway name to number of kegg pathway:k for the given search
 			// input size:n
 			TIntIntMap permutationNumberAllBasedKeggPathwayNumber2KMap = new TIntIntHashMap();
-			searchUcscRefSeqGenesWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					geneId2ListofGeneSetNumberMap, permutationNumberAllBasedKeggPathwayNumber2KMap, null, null,
-					Commons.NCBI_GENE_ID, GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, GeneSetType.KEGGPATHWAY,
+			searchUcscRefSeqGenesWithoutIOWithNumbers(
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					geneId2ListofGeneSetNumberMap, 
+					permutationNumberAllBasedKeggPathwayNumber2KMap, 
+					null, 
+					null,
+					Commons.NCBI_GENE_ID,
+					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, 
+					GeneSetType.KEGGPATHWAY,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberAllBasedKeggPathwayNumber2KMap( permutationNumberAllBasedKeggPathwayNumber2KMap);
 

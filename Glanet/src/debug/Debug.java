@@ -67,9 +67,10 @@ public class Debug {
 	 */
 	public static void main(String[] args) {
 	
-		String permutationNumberMixedNumber = "3736002400010000";
-		String inputFileName = "C:\\Users\\Burçak\\Developer\\Java\\GLANET\\Glanet\\GLANET-1446715245913.log";
-		String outputFileName = "C:\\Users\\Burçak\\Developer\\Java\\GLANET\\Glanet\\" + "filtered_" + permutationNumberMixedNumber + ".log";
+		String permutationNumberMixedNumber = "numberofOverlaps";
+		String logFile = "GLANET-1446798033669.log";
+		String inputFileName = "C:\\Users\\Burçak\\Developer\\Java\\GLANET\\Glanet\\" + logFile;
+		String outputFileName = "C:\\Users\\Burçak\\Developer\\Java\\GLANET\\Glanet\\" + "filtered_"  + permutationNumberMixedNumber + "_" +  logFile;
 		
 		readInputFileAndFilter(permutationNumberMixedNumber,inputFileName,outputFileName);
 		
