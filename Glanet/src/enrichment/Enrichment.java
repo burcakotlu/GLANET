@@ -3458,12 +3458,6 @@ public class Enrichment {
 		Long permutationNumberElementNumber;
 		Integer numberofOverlaps;
 		
-		//debug starts
-		long permutationNumberRemovedElementNumberCellLineNumberKEGGPathwayNumber;
-		long elementNumberCellLineNumberKEGGPathwayNumberRemoved;
-		
-		int permutationNumber;
-		//debug ends
 
 		// accessing keys/values through an iterator:
 		for( TLongIntIterator it = chromosomeBasedName2KMap.iterator(); it.hasNext();){
@@ -3481,17 +3475,6 @@ public class Enrichment {
 
 			}
 			
-			//debug starts
-			permutationNumber = IntervalTree.getPermutationNumber(permutationNumberElementNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
-			permutationNumberRemovedElementNumberCellLineNumberKEGGPathwayNumber = IntervalTree.getPermutationNumberRemovedLongMixedNumber(permutationNumberElementNumber, GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
-			elementNumberCellLineNumberKEGGPathwayNumberRemoved = IntervalTree.getKEGGPathwayNumberRemovedMixedNumber(permutationNumberRemovedElementNumberCellLineNumberKEGGPathwayNumber,GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
-			
-			if (permutationNumber == Commons.ORIGINAL_DATA_PERMUTATION_NUMBER && elementNumberCellLineNumberKEGGPathwayNumberRemoved == 30004){
-				
-				logger.info("permutationNumber: " + permutationNumber + " elementNumberCellLineNumber: " + elementNumberCellLineNumberKEGGPathwayNumberRemoved +  " numberofOverlaps" + "\t" + numberofOverlaps);
-				
-			}
-			//debug ends
 
 		}//End of FOR
 

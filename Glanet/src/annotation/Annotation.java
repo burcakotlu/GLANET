@@ -1707,7 +1707,8 @@ public class Annotation {
 		//1 NOV 2015
 		//This will be provided as a parameter
 		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
-
+		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
+		
 		for( int i = 0; i < inputLines.size(); i++){
 			
 			inputLine = inputLines.get( i);
@@ -2427,8 +2428,8 @@ public class Annotation {
 		
 		//1 NOV 2015
 		//This will be provided as a parameter
-//		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
 
 
 		for( int i = 0; i < inputLines.size(); i++){

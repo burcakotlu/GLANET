@@ -2816,16 +2816,6 @@ public class IntervalTree {
 			if( !( permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.containsKey( permutationNumberHistoneNumberCellLineNumber))){
 				permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.put(permutationNumberHistoneNumberCellLineNumber, 1);
 				
-				//debug starts
-				if (chromName.equals(ChromosomeName.CHROMOSOME4) && 
-						permutationNumber == Commons.ORIGINAL_DATA_PERMUTATION_NUMBER &&
-						castedNode.getTforHistoneNumber() == 3 &&
-						castedNode.getCellLineNumber() == 4){
-					
-					logger.info("GivenInputLine " + " Low: " + interval.getLow() + " High: " + interval.getHigh());
-					
-				}
-				//debug ends
 			}
 		}
 
@@ -5805,7 +5795,13 @@ public class IntervalTree {
 			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
 				//castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and We must not use the color of the node that comes from the chromosomeBased DnaseIntervalTree
-				castedNode = new DnaseIntervalTreeNodeWithNumbers(node.getChromName(), node.getLow(), node.getHigh(), ((DnaseIntervalTreeNodeWithNumbers) node).getCellLineNumber(), ((DnaseIntervalTreeNodeWithNumbers) node).getFileNumber(), NodeType.ORIGINAL);
+				castedNode = new DnaseIntervalTreeNodeWithNumbers(
+						node.getChromName(), 
+						node.getLow(), 
+						node.getHigh(), 
+						((DnaseIntervalTreeNodeWithNumbers) node).getCellLineNumber(), 
+						((DnaseIntervalTreeNodeWithNumbers) node).getFileNumber(), 
+						NodeType.ORIGINAL);
 			}
 
 			permutationNumberDnaseCellLineNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
