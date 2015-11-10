@@ -50,9 +50,7 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import datadrivenexperiment.DataDrivenExperimentIntervalTreeNode;
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enrichment.InputLineMinimal;
@@ -63,6 +61,7 @@ import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
+import enumtypes.IntervalName;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeName;
 import enumtypes.NodeType;
@@ -7071,6 +7070,363 @@ public class IntervalTree {
 
 	}
 	//8 July 2015
+	
+	//TODO
+	//10 NOV 2015 starts
+	//Without IO
+	//With Numbers
+	//With overlappingNodeList
+	//For AssociationMeasureType NUMBER_OF_OVERLAPPING_BASES
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+			int permutationNumber,
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
+			TIntObjectMap<List<IntervalTreeNode>> permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap,
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberGeneNumber2OverlappingNodeListMap, 
+			String type, 
+			GeneSetAnalysisType geneSetAnalysisType,
+			GeneSetType geneSetType, 
+			int overlapDefinition) {
+
+		int permutationNumberKeggPathwayNumber = Integer.MIN_VALUE;
+		long permutationNumberUserDefinedGeneSetNumber = Long.MIN_VALUE;
+		long permutationNumberGeneNumber = Long.MIN_VALUE;
+
+		Integer geneSetNumber = null;
+		TIntList ListofGeneSetNumberContainingThisGeneId = null;
+
+		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		List<IntervalTreeNode> overlappingNodeList = null;
+		
+
+		if( Commons.NCBI_GENE_ID.equals( type)){
+			
+			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+
+				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					//castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+					//castedNode must be newly created and there must be no color assigned at first.
+					castedNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
+							node.getChromName(),
+							node.getLow(),
+							node.getHigh(),
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getGeneEntrezId(),
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName(),
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalNumber(),
+							NodeType.ORIGINAL);
+					
+				}//End of IF
+
+				switch(geneSetAnalysisType){
+				
+					case NO_GENESET_ANALYSIS_TYPE_IS_DEFINED:
+						
+						//Maybe we should also check geneSetType
+						// Gene Enrichment
+						permutationNumberGeneNumber = generatePermutationNumberGeneNumber( 
+								permutationNumber,
+								castedNode.getGeneEntrezId(),
+								GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER);
+						
+						overlappingNodeList = permutationNumberGeneNumber2OverlappingNodeListMap.get(permutationNumberGeneNumber);
+						
+						//Pay attention: you have to add castedNode to the list
+						//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+						if (overlappingNodeList == null){
+							overlappingNodeList = new ArrayList<IntervalTreeNode>();
+							overlappingNodeList.add(castedNode);
+							permutationNumberGeneNumber2OverlappingNodeListMap.put(permutationNumberGeneNumber, overlappingNodeList);
+						}else{
+							overlappingNodeList.add(castedNode);
+						}					
+						break;
+						
+					case EXONBASEDGENESETANALYSIS:
+						
+						//EXON Based GeneSet Analysis
+						if( castedNode.getIntervalName().isExon()){
+
+							ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
+
+							if( ListofGeneSetNumberContainingThisGeneId != null){
+								for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+
+									geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get(i);
+									
+									switch(geneSetType) {
+									
+										case KEGGPATHWAY:
+											//KEGG Pathway starts
+											permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
+													permutationNumber,
+													geneSetNumber,
+													GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+											// Debug starts
+											if( permutationNumberKeggPathwayNumber < 0){
+												System.out.println( "there is a situation 4");
+											}
+											// Debug end
+
+											overlappingNodeList = permutationNumberKeggPathwayNumber2OverlappingNodeListMap.get(permutationNumberKeggPathwayNumber);
+											
+											//Pay attention: you have to add castedNode to the list
+											//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+											if (overlappingNodeList == null){
+												overlappingNodeList = new ArrayList<IntervalTreeNode>();
+												overlappingNodeList.add(castedNode);
+												permutationNumberKeggPathwayNumber2OverlappingNodeListMap.put(permutationNumberKeggPathwayNumber, overlappingNodeList);
+											}else{
+												overlappingNodeList.add(castedNode);
+											}
+											// Kegg Pathway ends
+											break;
+											
+										case USERDEFINEDGENESET:
+											// UserDefinedGeneSet starts
+											permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
+													permutationNumber,
+													Short.MIN_VALUE,
+													Short.MIN_VALUE,
+													geneSetNumber,
+													GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
+
+											// Debug starts
+											if( permutationNumberUserDefinedGeneSetNumber < 0){
+												System.out.println( "there is a situation 5");
+											}
+											// Debug end
+
+											overlappingNodeList = permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap.get(permutationNumberUserDefinedGeneSetNumber);
+											
+											//Pay attention: you have to add castedNode to the list
+											//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+											if (overlappingNodeList == null){
+												overlappingNodeList = new ArrayList<IntervalTreeNode>();
+												overlappingNodeList.add(castedNode);
+												permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap.put(permutationNumberUserDefinedGeneSetNumber, overlappingNodeList);
+											}else{
+												overlappingNodeList.add(castedNode);
+											}
+											// UserDefinedGeneSet ends
+											break;
+											
+										default:
+											break;
+										
+									}//End of SWITCH geneSetType
+
+								}// End of FOR: for all genesets having this gene in their gene list
+							} // End of IF: geneSetListContainingThisGeneId is not null
+						}// End of If: Exon Based GeneSet Analysis, Overlapped node is an exon
+						// write EXON based results ends
+						break;
+						
+					case REGULATIONBASEDGENESETANALYSIS:
+						// write REGULATION based results
+						// Regulation Based kegg pathway analysis
+						if( castedNode.getIntervalName().isIntron() || 
+								castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
+								castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+
+							ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+
+							if( ListofGeneSetNumberContainingThisGeneId != null){
+								
+								for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+
+									geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+									
+									switch(geneSetType) {
+									
+										case KEGGPATHWAY:
+											// KEGG Pathway starts
+											permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
+													permutationNumber,
+													geneSetNumber,
+													GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+											// Debug starts
+											if( permutationNumberKeggPathwayNumber < 0){
+												System.out.println( "there is a situation 6");
+											}
+											// Debug end
+
+											overlappingNodeList = permutationNumberKeggPathwayNumber2OverlappingNodeListMap.get(permutationNumberKeggPathwayNumber);
+											
+											//Pay attention: you have to add castedNode to the list
+											//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+											if (overlappingNodeList == null){
+												overlappingNodeList = new ArrayList<IntervalTreeNode>();
+												overlappingNodeList.add(castedNode);
+												permutationNumberKeggPathwayNumber2OverlappingNodeListMap.put(permutationNumberKeggPathwayNumber, overlappingNodeList);
+											}else{
+												overlappingNodeList.add(castedNode);
+											}
+											// KEGG Pathway ends
+											break;
+											
+										case USERDEFINEDGENESET:
+											// UserDefinedGeneSet starts
+											permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
+													permutationNumber,
+													Short.MIN_VALUE,
+													Short.MIN_VALUE,
+													geneSetNumber,
+													GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
+
+											// Debug starts
+											if( permutationNumberUserDefinedGeneSetNumber < 0){
+												System.out.println( "there is a situation 7");
+											}
+											// Debug end
+
+											overlappingNodeList = permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap.get(permutationNumberUserDefinedGeneSetNumber);
+											
+											//Pay attention: you have to add castedNode to the list
+											//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+											if (overlappingNodeList == null){
+												overlappingNodeList = new ArrayList<IntervalTreeNode>();
+												overlappingNodeList.add(castedNode);
+												permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap.put(permutationNumberUserDefinedGeneSetNumber, overlappingNodeList);
+											}else{
+												overlappingNodeList.add(castedNode);
+											}
+											// UserDefinedGeneSet ends
+											break;
+											
+										default:
+											break;
+											
+									}//End of SWITCH geneSetType
+
+								}// End of FOR: for all gene sets having this gene in their gene list
+							} // End of IF: geneSetListContainingThisGeneId is not null
+						}// End of IF: Regulation Based GeneSet Analysis, Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
+						// write REGULATION based results ends
+						break;
+						
+					case ALLBASEDGENESETANALYSIS:
+						// write ALL based results starts
+						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+
+						if( ListofGeneSetNumberContainingThisGeneId != null){
+							for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+
+								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+
+								switch(geneSetType) {
+								
+									case KEGGPATHWAY:
+										// KEGG Pathway starts
+										permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
+												permutationNumber,
+												geneSetNumber,
+												GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+	
+										// Debug starts
+										if( permutationNumberKeggPathwayNumber < 0){
+											System.out.println( "there is a situation 6");
+										}
+										// Debug end
+	
+										overlappingNodeList = permutationNumberKeggPathwayNumber2OverlappingNodeListMap.get(permutationNumberKeggPathwayNumber);
+										
+										//Pay attention: you have to add castedNode to the list
+										//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+										if (overlappingNodeList == null){
+											overlappingNodeList = new ArrayList<IntervalTreeNode>();
+											overlappingNodeList.add(castedNode);
+											permutationNumberKeggPathwayNumber2OverlappingNodeListMap.put(permutationNumberKeggPathwayNumber, overlappingNodeList);
+										}else{
+											overlappingNodeList.add(castedNode);
+										}
+										// KEGG Pathway ends
+										break;
+										
+									case USERDEFINEDGENESET:
+										// UserDefinedGeneSet starts
+										permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
+												permutationNumber,
+												Short.MIN_VALUE,
+												Short.MIN_VALUE,
+												geneSetNumber,
+												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
+	
+										// Debug starts
+										if( permutationNumberUserDefinedGeneSetNumber < 0){
+											System.out.println( "there is a situation 7");
+										}
+										// Debug end
+	
+										overlappingNodeList = permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap.get(permutationNumberUserDefinedGeneSetNumber);
+										
+										//Pay attention: you have to add castedNode to the list
+										//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+										if (overlappingNodeList == null){
+											overlappingNodeList = new ArrayList<IntervalTreeNode>();
+											overlappingNodeList.add(castedNode);
+											permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap.put(permutationNumberUserDefinedGeneSetNumber, overlappingNodeList);
+										}else{
+											overlappingNodeList.add(castedNode);
+										}
+										// UserDefinedGeneSet ends
+										break;
+										
+									default:
+										break;
+									
+							}//End of SWITCH geneSetType
+
+							}// End of FOR: for all genesets having this gene in their gene list
+						} // End of IF: geneSetListContainingThisGeneId is not null
+						// write ALL based results ends
+						break;
+				
+				}//End of SWITCH geneSetAnalysisType
+
+			}// End of IF there is overlap
+			
+		} // End of If: type is NCBI_GENE_ID
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(),
+					interval, 
+					chromName, 
+					geneId2ListofGeneSetNumberMap,
+					permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
+					permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap, 
+					permutationNumberGeneNumber2OverlappingNodeListMap,
+					type, 
+					geneSetAnalysisType, 
+					geneSetType, 
+					overlapDefinition);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getRight(),
+					interval, 
+					chromName, 
+					geneId2ListofGeneSetNumberMap,
+					permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
+					permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap, 
+					permutationNumberGeneNumber2OverlappingNodeListMap,
+					type, 
+					geneSetAnalysisType, 
+					geneSetType, 
+					overlapDefinition);
+		}
+		
+	}	
+	//10 NOV 2015 ends
 	
 
 	// 23 OCT 2014

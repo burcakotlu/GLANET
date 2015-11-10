@@ -4439,7 +4439,6 @@ public class Annotation {
 
 					if( userDefinedLibraryIntervalTree.getRoot().getNodeName().isNotSentinel()){
 						
-						// TODO
 						//Step1: Get all the overlappingIntervals with the inputLine
 						userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 								permutationNumber,
@@ -5106,107 +5105,347 @@ public class Annotation {
 	// Empirical P Value Calculation
 	// GeneSetType added 14.10.2014
 	// Search GeneSet
-	public static void searchUcscRefSeqGenesWithoutIOWithNumbers( int permutationNumber, ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, IntervalTree ucscRefSeqGenesIntervalTree,
+	public static void searchUcscRefSeqGenesWithoutIOWithNumbers( 
+			int permutationNumber, 
+			ChromosomeName chromName,
+			List<InputLineMinimal> inputLines, 
+			IntervalTree ucscRefSeqGenesIntervalTree,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
 			TIntIntMap permutationNumberKeggPathwayNumber2KMap,
-			TLongIntMap permutationNumberUserDefinedGeneSetNumber2KMap, TLongIntMap permutationNumberGeneNumber2KMap,
-			String type, GeneSetAnalysisType geneSetAnalysisType, GeneSetType geneSetType, int overlapDefinition) {
+			TLongIntMap permutationNumberUserDefinedGeneSetNumber2KMap, 
+			TLongIntMap permutationNumberGeneNumber2KMap,
+			String type, 
+			GeneSetAnalysisType geneSetAnalysisType, 
+			GeneSetType geneSetType, 
+			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
+		
+		//10 NOV 2015
+		//This will be provided as a parameter
+		//AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
+
 
 		for( int i = 0; i < inputLines.size(); i++){
-
-			TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap = null;
-			TLongIntMap permutationNumberUserDefinedGeneSetNumber2OneorZeroMap = null;
-			TLongIntMap permutationNumberGeneNumber2OneorZeroMap = null;
-
-			if( geneSetType.isKeggPathway()){
-				permutationNumberKeggPathwayNumber2OneorZeroMap = new TIntIntHashMap();
-			}else if( geneSetType.isUserDefinedGeneSet()){
-				permutationNumberUserDefinedGeneSetNumber2OneorZeroMap = new TLongIntHashMap();
-			}else if( geneSetType.isNoGeneSetTypeDefined()){
-				permutationNumberGeneNumber2OneorZeroMap = new TLongIntHashMap();
-			}
-
+			
+			//Get the inputLine
 			inputLine = inputLines.get( i);
+			
+			switch(associationMeasureType){
+				
+				case EXISTENCE_OF_OVERLAP:
 
-			if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
-				ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
-						permutationNumber, ucscRefSeqGenesIntervalTree.getRoot(), inputLine, chromName,
-						geneId2ListofGeneSetNumberMap, permutationNumberKeggPathwayNumber2OneorZeroMap,
-						permutationNumberUserDefinedGeneSetNumber2OneorZeroMap,
-						permutationNumberGeneNumber2OneorZeroMap, type, geneSetAnalysisType, geneSetType,
-						overlapDefinition);
-			}
+					/*************************************************************************************************/
+					/***********************************EXISTENCE_OF_OVERLAP starts***********************************/
+					/*************************************************************************************************/
+					TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap = null;
+					TLongIntMap permutationNumberUserDefinedGeneSetNumber2OneorZeroMap = null;
+					TLongIntMap permutationNumberGeneNumber2OneorZeroMap = null;
 
-			// KEGG Pathway starts
-			if( geneSetType.isKeggPathway()){
-
-				// accumulate search results of keggPathway2OneorZeroMap in
-				// keggPathway2KMap
-				for( TIntIntIterator it = permutationNumberKeggPathwayNumber2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					if( !( permutationNumberKeggPathwayNumber2KMap.containsKey( it.key()))){
-						permutationNumberKeggPathwayNumber2KMap.put( it.key(), it.value());
-					}else{
-						permutationNumberKeggPathwayNumber2KMap.put( it.key(),
-								permutationNumberKeggPathwayNumber2KMap.get( it.key()) + it.value());
-
+					if( geneSetType.isKeggPathway()){
+						permutationNumberKeggPathwayNumber2OneorZeroMap = new TIntIntHashMap();
+					}else if( geneSetType.isUserDefinedGeneSet()){
+						permutationNumberUserDefinedGeneSetNumber2OneorZeroMap = new TLongIntHashMap();
+					}else if( geneSetType.isNoGeneSetTypeDefined()){
+						permutationNumberGeneNumber2OneorZeroMap = new TLongIntHashMap();
 					}
 
-				}// End of for
-
-			}
-			// KEGG Pathway ends
-
-			// UserDefinedGeneSet starts
-			else if( geneSetType.isUserDefinedGeneSet()){
-
-				// accumulate search results of keggPathway2OneorZeroMap in
-				// keggPathway2KMap
-				for( TLongIntIterator it = permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					if( !( permutationNumberUserDefinedGeneSetNumber2KMap.containsKey( it.key()))){
-						permutationNumberUserDefinedGeneSetNumber2KMap.put( it.key(), it.value());
-					}else{
-						permutationNumberUserDefinedGeneSetNumber2KMap.put( it.key(),
-								permutationNumberUserDefinedGeneSetNumber2KMap.get( it.key()) + it.value());
-
+				
+					if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+								permutationNumber, 
+								ucscRefSeqGenesIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								geneId2ListofGeneSetNumberMap, 
+								permutationNumberKeggPathwayNumber2OneorZeroMap,
+								permutationNumberUserDefinedGeneSetNumber2OneorZeroMap,
+								permutationNumberGeneNumber2OneorZeroMap, 
+								type, 
+								geneSetAnalysisType, 
+								geneSetType,
+								overlapDefinition);
 					}
 
-				}// End of for
+					// KEGG Pathway starts
+					if( geneSetType.isKeggPathway()){
 
-			}
-			// UserDefinedGeneSet ends
+						// accumulate search results of keggPathway2OneorZeroMap in
+						// keggPathway2KMap
+						for( TIntIntIterator it = permutationNumberKeggPathwayNumber2OneorZeroMap.iterator(); it.hasNext();){
 
-			// Gene starts
-			else if( geneSetType.isNoGeneSetTypeDefined()){
+							it.advance();
 
-				// accumulate search results of keggPathway2OneorZeroMap in
-				// keggPathway2KMap
-				for( TLongIntIterator it = permutationNumberGeneNumber2OneorZeroMap.iterator(); it.hasNext();){
+							if( !( permutationNumberKeggPathwayNumber2KMap.containsKey( it.key()))){
+								permutationNumberKeggPathwayNumber2KMap.put( it.key(), it.value());
+							}else{
+								permutationNumberKeggPathwayNumber2KMap.put( it.key(),
+										permutationNumberKeggPathwayNumber2KMap.get( it.key()) + it.value());
 
-					it.advance();
+							}
 
-					if( !( permutationNumberGeneNumber2KMap.containsKey( it.key()))){
-						permutationNumberGeneNumber2KMap.put( it.key(), it.value());
-					}else{
-						permutationNumberGeneNumber2KMap.put( it.key(),
-								permutationNumberGeneNumber2KMap.get( it.key()) + it.value());
+						}// End of for
 
 					}
+					// KEGG Pathway ends
 
-				}// End of for
+					// UserDefinedGeneSet starts
+					else if( geneSetType.isUserDefinedGeneSet()){
 
-			}
-			// Gene ends
+						// accumulate search results of keggPathway2OneorZeroMap in
+						// keggPathway2KMap
+						for( TLongIntIterator it = permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.iterator(); it.hasNext();){
 
-		}// End of for each input line
+							it.advance();
+
+							if( !( permutationNumberUserDefinedGeneSetNumber2KMap.containsKey( it.key()))){
+								permutationNumberUserDefinedGeneSetNumber2KMap.put( it.key(), it.value());
+							}else{
+								permutationNumberUserDefinedGeneSetNumber2KMap.put( it.key(),
+										permutationNumberUserDefinedGeneSetNumber2KMap.get( it.key()) + it.value());
+
+							}
+
+						}// End of for
+
+					}
+					// UserDefinedGeneSet ends
+
+					// Gene starts
+					else if( geneSetType.isNoGeneSetTypeDefined()){
+
+						// accumulate search results of keggPathway2OneorZeroMap in
+						// keggPathway2KMap
+						for( TLongIntIterator it = permutationNumberGeneNumber2OneorZeroMap.iterator(); it.hasNext();){
+
+							it.advance();
+
+							if( !( permutationNumberGeneNumber2KMap.containsKey( it.key()))){
+								permutationNumberGeneNumber2KMap.put( it.key(), it.value());
+							}else{
+								permutationNumberGeneNumber2KMap.put( it.key(),
+										permutationNumberGeneNumber2KMap.get( it.key()) + it.value());
+
+							}
+
+						}// End of for
+
+					}
+					// Gene ends
+					
+					//Free memory
+					permutationNumberKeggPathwayNumber2OneorZeroMap = null;
+					permutationNumberUserDefinedGeneSetNumber2OneorZeroMap = null;
+					permutationNumberGeneNumber2OneorZeroMap = null;
+					/*************************************************************************************************/
+					/***********************************EXISTENCE_OF_OVERLAP ends*************************************/
+					/*************************************************************************************************/
+					break;
+					
+				case NUMBER_OF_OVERLAPPING_BASES:
+					
+					/*************************************************************************************************/
+					/***********************************NUMBER_OF_OVERLAPPING_BASES starts****************************/
+					/*************************************************************************************************/
+					TIntObjectMap<List<IntervalTreeNode>> permutationNumberKeggPathwayNumber2OverlappingNodeListMap = null;
+					TIntObjectMap<IntervalTree> permutationNumberKeggPathwayNumber2IntervalTreeWithNonOverlappingNodesMap =null;
+					TIntIntMap permutationNumberKeggPathwayNumber2NumberofOverlappingBasesMap = null;
+
+					TLongObjectMap<List<IntervalTreeNode>> permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap = null;
+					TLongObjectMap<IntervalTree> permutationNumberUserDefinedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+					TLongIntMap permutationNumberUserDefinedGeneSetNumber2NumberofOverlappingBasesMap = null;
+
+					TLongObjectMap<List<IntervalTreeNode>> permutationNumberGeneNumber2OverlappingNodeListMap = null;
+					TLongObjectMap<IntervalTree> permutationNumberGeneNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+					TLongIntMap permutationNumberGeneNumber2NumberofOverlappingBasesMap = null;
+					
+					
+					//Memory Allocation for maps
+					switch(geneSetType){
+						
+						case KEGGPATHWAY:
+							permutationNumberKeggPathwayNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+							permutationNumberKeggPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+							permutationNumberKeggPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+							break;
+							
+						case USERDEFINEDGENESET:
+							permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap = new TLongObjectHashMap<List<IntervalTreeNode>>();
+							permutationNumberUserDefinedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap =  new TLongObjectHashMap<IntervalTree>();
+							permutationNumberUserDefinedGeneSetNumber2NumberofOverlappingBasesMap =  new TLongIntHashMap();
+							break;
+							
+						case NO_GENESET_TYPE_IS_DEFINED:
+							permutationNumberGeneNumber2OverlappingNodeListMap = new TLongObjectHashMap<List<IntervalTreeNode>>();
+							permutationNumberGeneNumber2IntervalTreeWithNonOverlappingNodesMap = new TLongObjectHashMap<IntervalTree>();
+							permutationNumberGeneNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+							break;
+						
+					}//End of SWITCH
+					
+
+
+					if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						//Step1: Get all the overlappingIntervals with the inputLine
+						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+								permutationNumber, 
+								ucscRefSeqGenesIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								geneId2ListofGeneSetNumberMap, 
+								permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
+								permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap,
+								permutationNumberGeneNumber2OverlappingNodeListMap, 
+								type, 
+								geneSetAnalysisType, 
+								geneSetType,
+								overlapDefinition);
+						
+						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+						switch(geneSetType){
+							
+							case KEGGPATHWAY:
+								IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+										permutationNumberKeggPathwayNumber2OverlappingNodeListMap, 
+										permutationNumberKeggPathwayNumber2IntervalTreeWithNonOverlappingNodesMap);
+								break;
+								
+							case USERDEFINEDGENESET:
+								IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+										permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap, 
+										permutationNumberUserDefinedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap);
+								break;
+								
+							case NO_GENESET_TYPE_IS_DEFINED:
+								IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+										permutationNumberGeneNumber2OverlappingNodeListMap, 
+										permutationNumberGeneNumber2IntervalTreeWithNonOverlappingNodesMap);
+								break;
+							
+						}//End of SWITCH
+
+						
+						
+						//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+						//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+						switch(geneSetType){
+						
+							case KEGGPATHWAY:
+								IntervalTree.findNumberofOverlappingBases(
+										inputLine,
+										permutationNumberKeggPathwayNumber2IntervalTreeWithNonOverlappingNodesMap,
+										permutationNumberKeggPathwayNumber2NumberofOverlappingBasesMap);
+								break;
+								
+							case USERDEFINEDGENESET:
+								IntervalTree.findNumberofOverlappingBases(
+										inputLine,
+										permutationNumberUserDefinedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap, 
+										permutationNumberUserDefinedGeneSetNumber2NumberofOverlappingBasesMap);
+								break;
+								
+							case NO_GENESET_TYPE_IS_DEFINED:
+								IntervalTree.findNumberofOverlappingBases(
+										inputLine,
+										permutationNumberGeneNumber2IntervalTreeWithNonOverlappingNodesMap, 
+										permutationNumberGeneNumber2NumberofOverlappingBasesMap);
+								break;
+						
+						}//End of SWITCH
+
+						
+					}//End of IF intervalTree root node is NOT SENTINEL
+
+					// Accumulate search results of permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberHistoneNumberCellLineNumber2KMap
+					switch(geneSetType){
+						case KEGGPATHWAY:
+							
+							for( TIntIntIterator it = permutationNumberKeggPathwayNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+								it.advance();
+
+								if( !(permutationNumberKeggPathwayNumber2KMap.containsKey(it.key()))){
+									permutationNumberKeggPathwayNumber2KMap.put(it.key(), it.value());
+								}else{
+									permutationNumberKeggPathwayNumber2KMap.put( it.key(),
+											permutationNumberKeggPathwayNumber2KMap.get( it.key()) + it.value());
+
+								}
+
+							}// End of FOR
+							break;
+							
+						case USERDEFINEDGENESET:
+							
+							for( TLongIntIterator it = permutationNumberUserDefinedGeneSetNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+								it.advance();
+
+								if( !(permutationNumberUserDefinedGeneSetNumber2KMap.containsKey(it.key()))){
+									permutationNumberUserDefinedGeneSetNumber2KMap.put(it.key(), it.value());
+								}else{
+									permutationNumberUserDefinedGeneSetNumber2KMap.put( it.key(),
+											permutationNumberUserDefinedGeneSetNumber2KMap.get( it.key()) + it.value());
+
+								}
+
+							}// End of FOR
+							break;
+						case NO_GENESET_TYPE_IS_DEFINED:
+							
+							for( TLongIntIterator it = permutationNumberGeneNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+								it.advance();
+
+								if( !(permutationNumberGeneNumber2KMap.containsKey(it.key()))){
+									permutationNumberGeneNumber2KMap.put(it.key(), it.value());
+								}else{
+									permutationNumberGeneNumber2KMap.put( it.key(),
+											permutationNumberGeneNumber2KMap.get( it.key()) + it.value());
+
+								}
+
+							}// End of FOR
+							break;
+					
+					}//End of SWITCH
+					
+										
+					//Free memory
+					switch(geneSetType){
+						
+						case KEGGPATHWAY:
+							permutationNumberKeggPathwayNumber2OverlappingNodeListMap = null;
+							permutationNumberKeggPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+							permutationNumberKeggPathwayNumber2NumberofOverlappingBasesMap = null;
+							break;
+							
+						case USERDEFINEDGENESET:
+							permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap = null;
+							permutationNumberUserDefinedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap =  null;
+							permutationNumberUserDefinedGeneSetNumber2NumberofOverlappingBasesMap =  null;
+							break;
+							
+						case NO_GENESET_TYPE_IS_DEFINED:
+							permutationNumberGeneNumber2OverlappingNodeListMap = null;
+							permutationNumberGeneNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+							permutationNumberGeneNumber2NumberofOverlappingBasesMap = null;
+							break;
+						
+					}//End of SWITCH
+					/*************************************************************************************************/
+					/***********************************NUMBER_OF_OVERLAPPING_BASES ends******************************/
+					/*************************************************************************************************/
+					break;
+					
+				default:
+					break;
+			
+			}//End of SWITCH associationMeasureType
+
+		}// End of FOR each input line
 
 	}
 

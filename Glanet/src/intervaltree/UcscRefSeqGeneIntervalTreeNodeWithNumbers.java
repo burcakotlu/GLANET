@@ -79,8 +79,13 @@ public class UcscRefSeqGeneIntervalTreeNodeWithNumbers extends IntervalTreeNode 
 	}
 
 	// generated from Source
-	public UcscRefSeqGeneIntervalTreeNodeWithNumbers( char strand, int refSeqGeneNumber, int geneEntrezId,
-			int geneHugoSymbolNumber, IntervalName intervalName, int intervalNumber) {
+	public UcscRefSeqGeneIntervalTreeNodeWithNumbers( 
+			char strand, 
+			int refSeqGeneNumber, 
+			int geneEntrezId,
+			int geneHugoSymbolNumber, 
+			IntervalName intervalName, 
+			int intervalNumber) {
 
 		super();
 		this.strand = strand;
@@ -92,20 +97,34 @@ public class UcscRefSeqGeneIntervalTreeNodeWithNumbers extends IntervalTreeNode 
 	}
 
 	// For Exon Based Kegg Pathway Enrichment Analysis Ucsc gene
-	public UcscRefSeqGeneIntervalTreeNodeWithNumbers( ChromosomeName chromName, int low, int high,
-			Integer geneEntrezId, IntervalName intervalName, Integer intervalNumber, NodeType nodeType) {
+	public UcscRefSeqGeneIntervalTreeNodeWithNumbers(
+			ChromosomeName chromName, 
+			int low, 
+			int high,
+			Integer geneEntrezId, 
+			IntervalName intervalName, 
+			Integer intervalNumber, 
+			NodeType nodeType) {
 
 		super( chromName, low, high, nodeType);
 
 		this.geneEntrezId = geneEntrezId;
 		this.intervalName = intervalName;
+		this.intervalNumber = intervalNumber;
 
 	}
 
 	// For Ucsc gene without strand attribute
-	public UcscRefSeqGeneIntervalTreeNodeWithNumbers( ChromosomeName chromName, int low, int high,
-			Integer geneEntrezId, Integer refSeqGeneNumber, Integer geneHugoSymbolNumber, IntervalName intervalName,
-			Integer intervalNumber, NodeType nodeType) {
+	public UcscRefSeqGeneIntervalTreeNodeWithNumbers( 
+			ChromosomeName chromName, 
+			int low, 
+			int high,
+			Integer geneEntrezId, 
+			Integer refSeqGeneNumber, 
+			Integer geneHugoSymbolNumber, 
+			IntervalName intervalName,
+			Integer intervalNumber, 
+			NodeType nodeType) {
 
 		super( chromName, low, high, nodeType);
 
@@ -119,9 +138,16 @@ public class UcscRefSeqGeneIntervalTreeNodeWithNumbers extends IntervalTreeNode 
 	}
 
 	// For Ucsc gene with strand attribute
-	public UcscRefSeqGeneIntervalTreeNodeWithNumbers( ChromosomeName chromName, int low, int high,
-			Integer refSeqGeneNumber, Integer geneEntrezId, IntervalName intervalName, char strand,
-			Integer geneHugoSymbolNumber, NodeType nodeType) {
+	public UcscRefSeqGeneIntervalTreeNodeWithNumbers( 
+			ChromosomeName chromName,
+			int low, 
+			int high,
+			Integer refSeqGeneNumber, 
+			Integer geneEntrezId, 
+			IntervalName intervalName, 
+			char strand,
+			Integer geneHugoSymbolNumber, 
+			NodeType nodeType) {
 
 		super( chromName, low, high, nodeType);
 
