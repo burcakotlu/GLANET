@@ -47,17 +47,22 @@ public class GlanetRunner implements Runnable {
 		InputDataNCBIRemap.main( args);
 		/************************ NCBI REMAP ends ***********************************************/
 
+		/******************************************************************************************/
 		/************************ Annotation starts ***********************************************/
+		/******************************************************************************************/
 		setCurrentProcessInfo( "Annotate Given Input Data...");
 
 		Annotation.main( args);
+		/******************************************************************************************/
 		/************************ Annotation ends *************************************************/
+		/******************************************************************************************/
 
-		/************************ Annotation Binary Matrices starts *******************************/
-		setCurrentProcessInfo( "Annotation Binary Matrices...");
-
-		GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype.main( args);
-		/************************ Annotation Binary Matrices ends *********************************/
+		
+//		/************************ Annotation Binary Matrices starts *******************************/
+//		setCurrentProcessInfo( "Annotation Binary Matrices...");
+//
+//		GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype.main( args);
+//		/************************ Annotation Binary Matrices ends *********************************/
 
 		/******************************************************************************************/
 		/************************ Enrichment starts ***********************************************/

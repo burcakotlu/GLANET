@@ -7941,7 +7941,7 @@ public class Enrichment {
 					outputFolder,
 					elementNumber2KMap,
 					elementNumber2AllKMap,
-					Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementType + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY,
+					Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementType + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + elementType,
 					runName);
 
 		}// End of each elementTypeNumberMap

@@ -143,11 +143,16 @@ public class UserDefinedLibraryUtility {
 	}
 
 	public static void readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers(
-			String filePathFileName, String fileName, UserDefinedLibraryDataFormat userDefinedLibraryDataFormat,
-			TObjectIntMap<String> fileName2FileNumberMap, int elementTypeNumber,
-			TObjectIntMap<String> elementType2ElementTypeNumberMap, String elementName,
+			String filePathFileName, 
+			String fileName, 
+			UserDefinedLibraryDataFormat userDefinedLibraryDataFormat,
+			TObjectIntMap<String> fileName2FileNumberMap, 
+			int elementTypeNumber,
+			TObjectIntMap<String> elementType2ElementTypeNumberMap, 
+			String elementName,
 			TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap,
-			TIntObjectMap<List<BufferedWriter>> elementTypeNumber2BufferedWriterList, int windowAroundSummit,
+			TIntObjectMap<List<BufferedWriter>> elementTypeNumber2BufferedWriterList, 
+			int windowAroundSummit,
 			FileFormatType fileFormatType) {
 
 		FileReader fileReader = null;
@@ -187,91 +192,101 @@ public class UserDefinedLibraryUtility {
 			// Read each file written in UserDefinedLibraryInputFile
 			fileReader = FileOperations.createFileReader( filePathFileName);
 			bufferedReader = new BufferedReader( fileReader);
+			
+
 
 			while( ( strLine = bufferedReader.readLine()) != null){
+				
+				//Skip header line
+				if (!strLine.startsWith(Commons.GLANET_COMMENT_STRING)){
+					
+					// example strLine
+					// chr1 91852781 91853156 1 1 . 1728.25 7.867927 7.867927 187
 
-				// example strLine
-				// chr1 91852781 91853156 1 1 . 1728.25 7.867927 7.867927 187
+					indexofFirstTab = strLine.indexOf( '\t');
+					indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
+					indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
 
-				indexofFirstTab = strLine.indexOf( '\t');
-				indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
-				indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
-
-				if( indexofFirstTab > 0){
-					chrName = strLine.substring( 0, indexofFirstTab);
-				}
-
-				if( indexofFirstTab > 0 && indexofSecondTab > 0){
-					start = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-				}
-
-				if( indexofSecondTab > 0 && indexofThirdTab > 0){
-					end = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
-				}else if( indexofSecondTab > 0){
-					end = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
-				}
-
-				// SET startPosition and endPosition starts
-				switch( userDefinedLibraryDataFormat){
-				case USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES:
-					end = end - 1;
-					break;
-				case USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDINCLUSIVE_COORDINATES:
-					break;
-				case USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDEXCLUSIVE_COORDINATES:
-					start = start - 1;
-					end = end - 2;
-					break;
-				case USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDINCLUSIVE_COORDINATES:
-					start = start - 1;
-					end = end - 1;
-					break;
-				}
-				// SET startPosition and endPosition ends
-
-				// Consider intervalAroundSummit if fileFormatType is narrowPeak
-				// And windowAroundSummit > 0
-				// Otherwise don't care windowAroundSummit
-				if( fileFormatType.isNarrowPeak() && windowAroundSummit > 0){
-
-					// get summit position
-					indexofFourthTab = ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
-					indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
-					indexofSixthTab = ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
-					indexofSeventhTab = ( indexofSixthTab > 0)?strLine.indexOf( '\t', indexofSixthTab + 1):-1;
-					indexofEigthTab = ( indexofSeventhTab > 0)?strLine.indexOf( '\t', indexofSeventhTab + 1):-1;
-					indexofNinethTab = ( indexofEigthTab > 0)?strLine.indexOf( '\t', indexofEigthTab + 1):-1;
-
-					summitPositionWRTStart = Integer.parseInt( strLine.substring( indexofNinethTab + 1));
-					summitPosition = start + summitPositionWRTStart;
-
-					windowStart = summitPosition - windowAroundSummit;
-					windowEnd = summitPosition + windowAroundSummit;
-
-					// SET new startPosition and endPosition starts
-					if( ( windowStart > start) && ( windowStart <= end)){
-						start = windowStart;
+					if( indexofFirstTab > 0){
+						chrName = strLine.substring( 0, indexofFirstTab);
 					}
 
-					if( ( windowEnd < end) && ( windowEnd >= start)){
-						end = windowEnd;
+					if( indexofFirstTab > 0 && indexofSecondTab > 0){
+						start = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 					}
-					// SET new startPosition and endPosition ends
 
-				}// End of if fileFormatType is narrowPeak and
-					// windowAroundSummit is greater than zero
+					if( indexofSecondTab > 0 && indexofThirdTab > 0){
+						end = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
+					}else if( indexofSecondTab > 0){
+						end = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
+					}
 
-				// Get the bufferedWriterList for a certain elementTypeNumber
-				bufferedWriterList = elementTypeNumber2BufferedWriterList.get( elementTypeNumber);
+					// SET startPosition and endPosition starts
+					switch( userDefinedLibraryDataFormat){
+					case USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES:
+						end = end - 1;
+						break;
+					case USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDINCLUSIVE_COORDINATES:
+						break;
+					case USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDEXCLUSIVE_COORDINATES:
+						start = start - 1;
+						end = end - 2;
+						break;
+					case USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDINCLUSIVE_COORDINATES:
+						start = start - 1;
+						end = end - 1;
+						break;
+					}
+					// SET startPosition and endPosition ends
 
-				// Get elementName2ElementNumberMap for a certain
-				// elementTypeNumber
-				elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get( elementTypeNumber);
+					// Consider intervalAroundSummit if fileFormatType is narrowPeak
+					// And windowAroundSummit > 0
+					// Otherwise don't care windowAroundSummit
+					if( fileFormatType.isNarrowPeak() && windowAroundSummit > 0){
 
-				bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(
-						ChromosomeName.convertStringtoEnum( chrName), bufferedWriterList);
-				bufferedWriter.write( chrName + "\t" + start + "\t" + end + "\t" + elementTypeNumber + "\t" + elementName2ElementNumberMap.get( elementName) + "\t" + fileName2FileNumberMap.get( fileName) + System.getProperty( "line.separator"));
-			}
+						// get summit position
+						indexofFourthTab = ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
+						indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
+						indexofSixthTab = ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
+						indexofSeventhTab = ( indexofSixthTab > 0)?strLine.indexOf( '\t', indexofSixthTab + 1):-1;
+						indexofEigthTab = ( indexofSeventhTab > 0)?strLine.indexOf( '\t', indexofSeventhTab + 1):-1;
+						indexofNinethTab = ( indexofEigthTab > 0)?strLine.indexOf( '\t', indexofEigthTab + 1):-1;
+
+						summitPositionWRTStart = Integer.parseInt( strLine.substring( indexofNinethTab + 1));
+						summitPosition = start + summitPositionWRTStart;
+
+						windowStart = summitPosition - windowAroundSummit;
+						windowEnd = summitPosition + windowAroundSummit;
+
+						// SET new startPosition and endPosition starts
+						if( ( windowStart > start) && ( windowStart <= end)){
+							start = windowStart;
+						}
+
+						if( ( windowEnd < end) && ( windowEnd >= start)){
+							end = windowEnd;
+						}
+						// SET new startPosition and endPosition ends
+
+					}// End of if fileFormatType is narrowPeak and
+						// windowAroundSummit is greater than zero
+
+					// Get the bufferedWriterList for a certain elementTypeNumber
+					bufferedWriterList = elementTypeNumber2BufferedWriterList.get( elementTypeNumber);
+
+					// Get elementName2ElementNumberMap for a certain
+					// elementTypeNumber
+					elementName2ElementNumberMap = elementTypeNumber2ElementName2ElementNumberMapMap.get( elementTypeNumber);
+
+					bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(
+							ChromosomeName.convertStringtoEnum( chrName), bufferedWriterList);
+					bufferedWriter.write( chrName + "\t" + start + "\t" + end + "\t" + elementTypeNumber + "\t" + elementName2ElementNumberMap.get( elementName) + "\t" + fileName2FileNumberMap.get( fileName) + System.getProperty( "line.separator"));
+
+					
+				}//End of IF strLine does not start with GLANET_COMMENT_STRING
+
+			
+			}//End of WHILE reading from bufferedReader
 
 			// Close each file written in UserDefinedLibraryInputFile
 			bufferedReader.close();
@@ -446,11 +461,18 @@ public class UserDefinedLibraryUtility {
 					// Process each file written in UserDefinedLibraryInputFile
 					// Write ElementTypeBased ChromosomeBased Unsorted With
 					// Numbers Files
-					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers( filePathFileName,
-							fileName, userDefinedLibraryDataFormat, userDefinedLibraryFileName2FileNumberMap,
-							currentElementTypeNumber, userDefinedLibraryElementType2ElementTypeNumberMap, elementName,
+					readFileAndWriteElementTypeBasedChromosomeBasedUnsortedFilesWithNumbers( 
+							filePathFileName,
+							fileName, 
+							userDefinedLibraryDataFormat, 
+							userDefinedLibraryFileName2FileNumberMap,
+							currentElementTypeNumber, 
+							userDefinedLibraryElementType2ElementTypeNumberMap, 
+							elementName,
 							elementTypeNumber2ElementName2ElementNumberMapMap,
-							elementTypeNumber2ListofBufferedWritersMap, windowAroundSummit, fileFormatType);
+							elementTypeNumber2ListofBufferedWritersMap, 
+							windowAroundSummit, 
+							fileFormatType);
 
 				}// End of if it is not a comment line
 

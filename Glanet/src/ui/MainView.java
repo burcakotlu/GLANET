@@ -611,10 +611,10 @@ public class MainView extends JPanel {
 		JPanel permutationPanel = new JPanel( new GridLayout( 1, 2));
 
 		// numberOfPerCombo added to permutationPanel
-		String[] numberOfPermutations = {"5000", "10000", "50000", "100000"};
+		String[] numberOfPermutations = {"1000","5000", "10000", "50000", "100000"};
 		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
 		//Default number of permutations is 10000
-		numberOfPerCombo.setSelectedIndex(1);
+		numberOfPerCombo.setSelectedIndex(2);
 		permutationPanel.add( createBorderedPanel( "Number of Permutations",
 				createPanelWithHint( numberOfPerCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS)));
 

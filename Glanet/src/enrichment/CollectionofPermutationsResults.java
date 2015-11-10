@@ -39,9 +39,7 @@ import auxiliary.FunctionalElement;
 import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
 import auxiliary.StatisticsConversion;
-
 import common.Commons;
-
 import enumtypes.AnnotationType;
 import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentZScoreMode;
@@ -2145,7 +2143,7 @@ public class CollectionofPermutationsResults {
 						multipleTestingParameter,
 						dataFolder,
 						outputFolder,
-						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + Commons.RUNS_DIRECTORY + elementType,
+						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementType + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + elementType,
 						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementType,
 						jobName,
 						numberofRuns,

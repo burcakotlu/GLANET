@@ -12636,7 +12636,7 @@ public class Annotation {
 		
 		String glanetRunType = args[CommandLineArguments.GLANETRun.value()];
 		
-		//Annotate GLANET run is a normal run, not a GLANET Data Driven Experiment run
+		//Annotate GLANET normal run, do not annotate GLANET Data Driven Experiment run
 		if(!glanetRunType.equalsIgnoreCase(Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN)){
 			Annotation annotateIntervals = new Annotation();
 			annotateIntervals.annotate( args);

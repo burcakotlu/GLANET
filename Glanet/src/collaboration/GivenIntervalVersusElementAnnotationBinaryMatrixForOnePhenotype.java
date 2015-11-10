@@ -32,8 +32,10 @@ import enumtypes.WriteElementBasedAnnotationFoundOverlapsMode;
  */
 public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 
-	public static void readGivenIntervals( Map<String, Integer> givenIntervalName2ArrayXIndexMap,
-			String[] givenIntervalNames, String givenInputDataFolder) {
+	public static void readGivenIntervals( 
+			Map<String, Integer> givenIntervalName2ArrayXIndexMap,
+			String[] givenIntervalNames, 
+			String givenInputDataFolder) {
 
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -321,8 +323,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		/****************************************************************************/
 
 		// /************************************************************************************/
-		// /********************************FILL givenInterval2rsID
-		// starts**********************/
+		// /********************************FILL givenInterval2rsID starts**********************/
 		// /************************************************************************************/
 		// //File provided by Chen Yao
 		// String inputFileName = "C:"+ System.getProperty("file.separator")
