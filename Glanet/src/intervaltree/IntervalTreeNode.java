@@ -189,7 +189,11 @@ public class IntervalTreeNode {
 	// process input data
 	// remove overlaps
 	// merged interval tree node
-	public IntervalTreeNode( ChromosomeName chromName, int low, int high, NodeType nodeType) {
+	public IntervalTreeNode(
+			ChromosomeName chromName, 
+			int low, 
+			int high, 
+			NodeType nodeType) {
 
 		this.chromName = chromName;
 		this.low = low;

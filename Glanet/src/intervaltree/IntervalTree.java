@@ -3923,14 +3923,102 @@ public class IntervalTree {
 	}
 	//27 July 2015 ends
 	
+	
+	//10 NOV 2015 starts
+	//Enrichment 
+	//Without IO
+	//With Numbers
+	//With OverlappingNodeList
+	//For AssociationMeasureType NUMBER_OF_OVERLAPPING_BASES 
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+			int permutationNumber,
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap, 
+			int overlapDefinition) {
+	
+		long permutationNumberElementTypeNumberElementNumber;
+		
+		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
+		
+		List<IntervalTreeNode> overlappingNodeList = null;
+
+		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+
+			if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+				//castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+				//castedNode must be newly created and there must be no color assigned at first.
+				castedNode = new UserDefinedLibraryIntervalTreeNodeWithNumbers(
+						node.getChromName(),
+						node.getLow(),
+						node.getHigh(),
+						((UserDefinedLibraryIntervalTreeNodeWithNumbers) node).getElementTypeNumber(),
+						((UserDefinedLibraryIntervalTreeNodeWithNumbers) node).getElementNumber(),
+						((UserDefinedLibraryIntervalTreeNodeWithNumbers) node).getFileNumber(),
+						NodeType.ORIGINAL);
+				
+			}//End of IF
+
+			permutationNumberElementTypeNumberElementNumber = generateMixedNumber(
+					permutationNumber,
+					castedNode.getElementTypeNumber(),
+					castedNode.getElementNumber(),
+					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
+			
+			overlappingNodeList = permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap.get(permutationNumberElementTypeNumberElementNumber);
+			
+			//Pay attention: you have to add castedNode to the list
+			//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+			if (overlappingNodeList == null){
+				overlappingNodeList = new ArrayList<IntervalTreeNode>();
+				overlappingNodeList.add(castedNode);
+				permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap.put(permutationNumberElementTypeNumberElementNumber, overlappingNodeList);
+			}else{
+				overlappingNodeList.add(castedNode);
+			}
+
+			
+		}//End of IF overlaps
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(),
+					interval, 
+					chromName, 
+					permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap,
+					overlapDefinition);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getRight(),
+					interval, 
+					chromName, 
+					permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap,
+					overlapDefinition);
+
+		}
+
+	}
+	//10 NOV 2015 ends
+	
 
 	// 4 NOV 2014
 	// Enrichment
 	// Without IO
 	// With Numbers
-	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( int permutationNumber,
-			IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
-			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, int overlapDefinition) {
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+			int permutationNumber,
+			IntervalTreeNode node, 
+			InputLineMinimal interval, 
+			ChromosomeName chromName,
+			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, 
+			int overlapDefinition) {
 
 		long permutationNumberElementTypeNumberElementNumber;
 		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
@@ -3954,14 +4042,22 @@ public class IntervalTree {
 		}
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( permutationNumber, node.getLeft(),
-					interval, chromName, permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(),
+					interval, 
+					chromName, 
+					permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,
 					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( permutationNumber, node.getRight(),
-					interval, chromName, permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getRight(),
+					interval, 
+					chromName, 
+					permutationNumberElementTypeNumberElementNumber2ZeroorOneMap,
 					overlapDefinition);
 
 		}

@@ -4374,36 +4374,128 @@ public class Annotation {
 			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
-
+		
+		//10 NOV 2015
+		//This will be provided as a parameter
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
+		
 		for( int i = 0; i < inputLines.size(); i++){
+			
+			//Get each input line
+			inputLine = inputLines.get(i);
 
-			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap = new TLongIntHashMap();
+			switch(associationMeasureType){
+			
+				case EXISTENCE_OF_OVERLAP:
+				
+					/*************************************************************************************************/
+					/*******************************EXISTENCE_OF_OVERLAP starts***************************************/
+					/*************************************************************************************************/
+					TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap = new TLongIntHashMap();
+	
+					if( userDefinedLibraryIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+								permutationNumber, 
+								userDefinedLibraryIntervalTree.getRoot(), 
+								inputLine, chromName,
+								permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, 
+								overlapDefinition);
+					}//End of IF
 
-			inputLine = inputLines.get( i);
+					// accumulate search results of permutationNumberElementTypeNumberElementNumber2ZeroorOneMap in permutationNumberElementTypeNumberElementNumber2KMap
+					for( TLongIntIterator it = permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.iterator(); it.hasNext();){
 
-			if( userDefinedLibraryIntervalTree.getRoot().getNodeName().isNotSentinel()){
-				userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
-						permutationNumber, userDefinedLibraryIntervalTree.getRoot(), inputLine, chromName,
-						permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, overlapDefinition);
-			}
+						it.advance();
 
-			// accumulate search results of dnaseCellLine2OneorZeroMap in
-			// dnaseCellLine2KMap
-			for( TLongIntIterator it = permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.iterator(); it.hasNext();){
+						if( !( permutationNumberElementTypeNumberElementNumber2KMap.containsKey( it.key()))){
+							permutationNumberElementTypeNumberElementNumber2KMap.put( it.key(), it.value());
+						}else{
+							permutationNumberElementTypeNumberElementNumber2KMap.put( it.key(),
+									permutationNumberElementTypeNumberElementNumber2KMap.get( it.key()) + it.value());
 
-				it.advance();
+						}
 
-				if( !( permutationNumberElementTypeNumberElementNumber2KMap.containsKey( it.key()))){
-					permutationNumberElementTypeNumberElementNumber2KMap.put( it.key(), it.value());
-				}else{
-					permutationNumberElementTypeNumberElementNumber2KMap.put( it.key(),
-							permutationNumberElementTypeNumberElementNumber2KMap.get( it.key()) + it.value());
+					}// End of FOR
+					
+					//Free memory
+					permutationNumberElementTypeNumberElementNumber2ZeroorOneMap = null;
+					/*************************************************************************************************/
+					/*******************************EXISTENCE_OF_OVERLAP ends*****************************************/
+					/*************************************************************************************************/
 
-				}
+					break;
+					
+				case NUMBER_OF_OVERLAPPING_BASES:
+					
+					//10 NOV 2015 starts
+					/*************************************************************************************************/
+					/*******************************NUMBER_OF_OVERLAPPING_BASES starts********************************/
+					/*************************************************************************************************/
+					TLongObjectMap<List<IntervalTreeNode>> permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap = new TLongObjectHashMap<List<IntervalTreeNode>>();
+					TLongObjectMap<IntervalTree> permutationNumberElementTypeNumberElementNumber2IntervalTreeWithNonOverlappingNodesMap = new TLongObjectHashMap<IntervalTree>();
+					TLongIntMap permutationNumberElementTypeNumberElementNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
 
-			}// End of for
+					if( userDefinedLibraryIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						// TODO
+						//Step1: Get all the overlappingIntervals with the inputLine
+						userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+								permutationNumber,
+								userDefinedLibraryIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap, 
+								overlapDefinition);
+						
+						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+								permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap, 
+								permutationNumberElementTypeNumberElementNumber2IntervalTreeWithNonOverlappingNodesMap);
+						
+						//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+						//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+						IntervalTree.findNumberofOverlappingBases(
+								inputLine,
+								permutationNumberElementTypeNumberElementNumber2IntervalTreeWithNonOverlappingNodesMap,
+								permutationNumberElementTypeNumberElementNumber2NumberofOverlappingBasesMap);
+						
+					}//End of IF
 
-		}// End of for each inputLine
+					// Accumulate search results of permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberHistoneNumberCellLineNumber2KMap
+					for( TLongIntIterator it = permutationNumberElementTypeNumberElementNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+						it.advance();
+
+						if( !(permutationNumberElementTypeNumberElementNumber2KMap.containsKey(it.key()))){
+							permutationNumberElementTypeNumberElementNumber2KMap.put(it.key(), it.value());
+						}else{
+							permutationNumberElementTypeNumberElementNumber2KMap.put( it.key(),
+								permutationNumberElementTypeNumberElementNumber2KMap.get( it.key()) + it.value());
+
+						}
+
+					}// End of FOR
+					
+					//Free memory
+					permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap = null;
+					permutationNumberElementTypeNumberElementNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+					permutationNumberElementTypeNumberElementNumber2NumberofOverlappingBasesMap = null;
+					/*************************************************************************************************/
+					/*******************************NUMBER_OF_OVERLAPPING_BASES ends**********************************/
+					/*************************************************************************************************/
+					//10 NOV 2015 ends
+					
+					break;
+				
+				default:
+					break;
+				
+			
+			}//End of SWITCH
+	
+		}// End of FOR each inputLine
 
 	}
 
@@ -4426,7 +4518,7 @@ public class Annotation {
 		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
 		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
 		
-		for( int i = 0; i < inputLines.size(); i++){
+		for(int i = 0; i < inputLines.size(); i++){
 
 			inputLine = inputLines.get(i);
 			

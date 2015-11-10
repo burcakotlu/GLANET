@@ -6389,24 +6389,40 @@ public class Enrichment {
 
 					// Always fill Isochore Family Pools for random Isochore Interval selection depending on the
 					// Isochore Family of the original interval.
+					
 					// GC Isochore Family L1 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.L1,
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+							dataFolder, 
+							chromName, 
+							IsochoreFamily.L1,
 							gcIsochoreFamilyL1Pool);
 
 					// GC Isochore Family L2 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.L2,
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+							dataFolder, 
+							chromName, 
+							IsochoreFamily.L2,
 							gcIsochoreFamilyL2Pool);
 
 					// GC Isochore Family H1 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.H1,
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+							dataFolder, 
+							chromName, 
+							IsochoreFamily.H1,
 							gcIsochoreFamilyH1Pool);
 
 					// GC Isochore Family H2 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.H2,
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+							dataFolder, 
+							chromName, 
+							IsochoreFamily.H2,
 							gcIsochoreFamilyH2Pool);
 
 					// GC Isochore Family H3 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.H3,
+					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+							dataFolder, 
+							chromName, 
+							IsochoreFamily.H3,
 							gcIsochoreFamilyH3Pool);
 					/************************************************/
 					/*********************GC*************************/
@@ -6423,8 +6439,11 @@ public class Enrichment {
 					// Mapability
 					// mapabilityChromosomePositionList
 					// mapabilityShortValueList
-					ChromosomeBasedMappabilityTroveList.fillTroveList( dataFolder, chromName,
-							mapabilityChromosomePositionList, mapabilityShortValueList);
+					ChromosomeBasedMappabilityTroveList.fillTroveList( 
+							dataFolder, 
+							chromName,
+							mapabilityChromosomePositionList, 
+							mapabilityShortValueList);
 
 					// For testing purposes
 					// Mapability Interval Tree

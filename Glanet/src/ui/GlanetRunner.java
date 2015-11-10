@@ -12,7 +12,6 @@ import rsat.GenerationofSequencesandMatricesforSNPs;
 import rsat.RegulatorySequenceAnalysisUsingRSATMatrixScan;
 import annotation.Annotation;
 import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
-import collaboration.GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype;
 
 import common.Commons;
 

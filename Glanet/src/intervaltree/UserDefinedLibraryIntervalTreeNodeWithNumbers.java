@@ -51,10 +51,16 @@ public class UserDefinedLibraryIntervalTreeNodeWithNumbers extends IntervalTreeN
 		this.elementTypeNumber = elementTypeNumber;
 	}
 
-	public UserDefinedLibraryIntervalTreeNodeWithNumbers( ChromosomeName chromName, int low, int high,
-			int elementTypeNumber, int elementNumber, int fileNumber, NodeType nodeType) {
+	public UserDefinedLibraryIntervalTreeNodeWithNumbers(
+			ChromosomeName chromName, 
+			int low, 
+			int high,
+			int elementTypeNumber, 
+			int elementNumber, 
+			int fileNumber, 
+			NodeType nodeType) {
 
-		super( chromName, low, high, nodeType);
+		super(chromName,low,high,nodeType);
 
 		this.elementTypeNumber = elementTypeNumber;
 		this.elementNumber = elementNumber;
