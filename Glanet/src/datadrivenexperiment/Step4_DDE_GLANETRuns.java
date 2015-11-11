@@ -206,11 +206,14 @@ public class Step4_DDE_GLANETRuns {
 						bufferedWriter.write("#!/bin/bash" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -M truba" + System.getProperty("line.separator"));
 						
-						if(withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){	
-							bufferedWriter.write("#SBATCH -p mid1" + System.getProperty("line.separator"));
-						}else if (withorWithoutGCandMapability.isGenerateRandomDataModeWithoutMapabilityandGc()){
-							bufferedWriter.write("#SBATCH -p mid2" + System.getProperty("line.separator"));
-						}
+//						if(withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){	
+//							bufferedWriter.write("#SBATCH -p mid1" + System.getProperty("line.separator"));
+//						}else if (withorWithoutGCandMapability.isGenerateRandomDataModeWithoutMapabilityandGc()){
+//							bufferedWriter.write("#SBATCH -p mid2" + System.getProperty("line.separator"));
+//						}
+						
+						bufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
+						
 						
 						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -J " + SBATCH_JOBNAME + System.getProperty("line.separator"));
