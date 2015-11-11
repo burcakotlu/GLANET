@@ -16,7 +16,8 @@ public enum DataDrivenExperimentOperatingSystem {
 	WINDOWS(1),
 	LINUX(2),
 	TURENG_MACHINE(3),
-	TRUBA(4);
+	TRUBA(4),
+	TRUBA_FAST(5);
 	
 	private final int dataDrivenExperimentOperatingSystem;
 
@@ -51,6 +52,10 @@ public enum DataDrivenExperimentOperatingSystem {
 			return TRUBA;
 		}
 		
+		else if (Commons.TRUBA_FAST.equals(dataDrivenExperimentOperatingSystem)){
+			return TRUBA_FAST;
+		}
+		
 		else
 			return null;
 	}
@@ -68,6 +73,9 @@ public enum DataDrivenExperimentOperatingSystem {
 		
 		else if( this.equals(DataDrivenExperimentOperatingSystem.TRUBA))
 			return Commons.TRUBA;
+		
+			else if( this.equals(DataDrivenExperimentOperatingSystem.TRUBA_FAST))
+				return Commons.TRUBA_FAST;
 		
 		else
 			return null;
@@ -89,6 +97,10 @@ public enum DataDrivenExperimentOperatingSystem {
 	
 	public boolean isTRUBA() {
 		return ( this == DataDrivenExperimentOperatingSystem.TRUBA);
+	}
+	
+	public boolean isTRUBAFAST() {
+		return ( this == DataDrivenExperimentOperatingSystem.TRUBA_FAST);
 	}
 
 

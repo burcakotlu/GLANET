@@ -90,7 +90,8 @@ public class Step4_DDE_GLANETRuns {
 						break;
 					}
 					
-					case TRUBA:{
+					case TRUBA:
+					case TRUBA_FAST: {
 						fileExtension = ".slurm";
 						break;
 					}
@@ -201,35 +202,118 @@ public class Step4_DDE_GLANETRuns {
 						break;
 					}
 					
+					case TRUBA_FAST:	{					
+						bufferedWriter.write("#!/bin/bash" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -M truba" + System.getProperty("line.separator"));
+						
+						if(withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){	
+							bufferedWriter.write("#SBATCH -p mid1" + System.getProperty("line.separator"));
+						}else if (withorWithoutGCandMapability.isGenerateRandomDataModeWithoutMapabilityandGc()){
+							bufferedWriter.write("#SBATCH -p mid2" + System.getProperty("line.separator"));
+						}
+						
+						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -J " + SBATCH_JOBNAME + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -N 1" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -n 8" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --time=8-00:00:00" + System.getProperty("line.separator"));
+						
+						//newly added
+						bufferedWriter.write("#SBATCH --array=0-999" + System.getProperty("line.separator"));
+						
+						//We don't want to get email for each of the 1000 GLANET Runs
+						//bufferedWriter.write("#SBATCH --mail-type=ALL" + System.getProperty("line.separator"));
+						//bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
+						
+						bufferedWriter.write(System.getProperty("line.separator"));
+						bufferedWriter.write("which java" + System.getProperty("line.separator"));
+						bufferedWriter.write("echo \"SLURM_NODELIST $SLURM_NODELIST\"" + System.getProperty("line.separator"));
+						bufferedWriter.write("echo \"NUMBER OF CORES $SLURM_NTASKS\"" + System.getProperty("line.separator"));
+						bufferedWriter.write(System.getProperty("line.separator"));
+						
+						if(withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){
+							call_Runs_WithGCM_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
+						}else if (withorWithoutGCandMapability.isGenerateRandomDataModeWithoutMapabilityandGc()){
+							call_Runs_WithoutGCM_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
+						}
+	
+						break;
+					}
+
+					
 					default: 
 						break;
 					
-				}//End of SWITCH
+				}//End of SWITCH for writing header lines
 				
+				
+				
+				//rootCommand for GLANET.jar call
 				rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN;
 
-				for( int i = 0; i < numberofSimulations; i++){
+				
+				switch(operatingSystem){
+					case TRUBA_FAST:{
+						
+						
+						String command = rootCommand + "$SBATCH_ARRAY_INX" + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
 
-					String command = rootCommand + i + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
+						switch(withorWithoutGCandMapability){
 
-					switch(withorWithoutGCandMapability){
+							case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
+				
+								bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + Commons.DDE_RUN + "$SBATCH_ARRAY_INX" + System.getProperty( "line.separator"));
+								break;
+				
+							case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
+				
+								bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + Commons.DDE_RUN + "$SBATCH_ARRAY_INX" + System.getProperty( "line.separator"));
+								break;
+				
+							default:
+								break;
 
-						case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-			
-							bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + Commons.DDE_RUN + i + System.getProperty( "line.separator"));
-							break;
-			
-						case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-			
-							bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + Commons.DDE_RUN + i + System.getProperty( "line.separator"));
-							break;
-			
-						default:
-							break;
+						}// End of SWITCH for wGCM or woGCM
 
-					}// End of SWITCH
+						
+					}
+					break;
+						
+					case WINDOWS:
+					case LINUX:
+					case TURENG_MACHINE:
+					case TRUBA:
+					{
 
-				}// End of FOR each simulation
+						for( int i = 0; i < numberofSimulations; i++){
+
+							String command = rootCommand + i + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
+
+							switch(withorWithoutGCandMapability){
+
+								case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
+					
+									bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + Commons.DDE_RUN + i + System.getProperty( "line.separator"));
+									break;
+					
+								case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
+					
+									bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + Commons.DDE_RUN + i + System.getProperty( "line.separator"));
+									break;
+					
+								default:
+									break;
+
+							}// End of SWITCH
+
+						}// End of FOR each simulation
+					}
+					break;
+						
+						
+					
+				}//End of SWITCH for writing GLANET.jar calls
+							
 				
 				//Add Line Separator
 				bufferedWriter.write(System.getProperty("line.separator"));
@@ -241,13 +325,14 @@ public class Step4_DDE_GLANETRuns {
 				switch(operatingSystem){
 				
 					case TRUBA:
+					case TRUBA_FAST:
 						bufferedWriter.write("exit");
 						break;
 						
 					default: 
 						break;
 				
-				}
+				}//End of SWITCH for adding exit line.
 				
 				
 				//Close bufferedWriters
