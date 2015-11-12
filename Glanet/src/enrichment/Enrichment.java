@@ -2751,11 +2751,19 @@ public class Enrichment {
 					low = Integer.parseInt( strLine.substring( indexofFirstTab + 1));
 					high = low;
 				}
+				
+				//12 NOV 2015
+				//For running BroadEnrich input file
+				//Before there was no condition
+				//if((high-low+1) <= Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
+				//Simply since GLANET Convention is 0BasedStart and 0BasedEndInclusive
+				if((high-low) < Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
+					InputLine originalInputLine = new InputLine(chrName, low, high);
+					originalInputLines.add(originalInputLine);
+				}//End of IF
 
-				InputLine originalInputLine = new InputLine( chrName, low, high);
-				originalInputLines.add( originalInputLine);
-
-			}
+			}//End of WHILE
+			
 		}catch( FileNotFoundException e){
 			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( IOException e){

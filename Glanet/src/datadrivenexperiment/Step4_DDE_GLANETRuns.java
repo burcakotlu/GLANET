@@ -215,7 +215,6 @@ public class Step4_DDE_GLANETRuns {
 						//One core jobs can be sent to single and mercan.
 						bufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
 						
-						
 						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -J " + SBATCH_JOBNAME + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -N 1" + System.getProperty("line.separator"));

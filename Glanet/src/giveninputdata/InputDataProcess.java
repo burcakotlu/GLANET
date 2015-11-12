@@ -34,7 +34,9 @@ import common.Commons;
  */
 
 /**
- * 
+ *  GLANET Convention
+ *  0 Based Start
+ *  0 Based End (Inclusive)
  */
 public class InputDataProcess {
 

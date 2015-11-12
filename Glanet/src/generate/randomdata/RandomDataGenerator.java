@@ -115,11 +115,16 @@ public class RandomDataGenerator {
 	// ends
 
 	// IsochoreFamilyPoolHigh must not be greater than chromSize
-	public static InputLineMinimal getRandomLineDependingOnIsochoreFamilyofOriginalInputLine( int chromSize,
-			ThreadLocalRandom threadLocalRandom, int originalInputLineLength,
-			IsochoreFamily originalInputLineIsochoreFamily, List<Interval> gcIsochoreFamilyL1Pool,
-			List<Interval> gcIsochoreFamilyL2Pool, List<Interval> gcIsochoreFamilyH1Pool,
-			List<Interval> gcIsochoreFamilyH2Pool, List<Interval> gcIsochoreFamilyH3Pool) {
+	public static InputLineMinimal getRandomLineDependingOnIsochoreFamilyofOriginalInputLine( 
+			int chromSize,
+			ThreadLocalRandom threadLocalRandom, 
+			int originalInputLineLength,
+			IsochoreFamily originalInputLineIsochoreFamily, 
+			List<Interval> gcIsochoreFamilyL1Pool,
+			List<Interval> gcIsochoreFamilyL2Pool, 
+			List<Interval> gcIsochoreFamilyH1Pool,
+			List<Interval> gcIsochoreFamilyH2Pool, 
+			List<Interval> gcIsochoreFamilyH3Pool) {
 
 		int low;
 		int high;
@@ -136,35 +141,35 @@ public class RandomDataGenerator {
 			// Get a random isochoreFamilyInterval of 100 KB long from that isochoreFamilyPool
 			switch( originalInputLineIsochoreFamily){
 
-			case L1:
-				isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyL1Pool.size());
-				isochoreFamilyPoolLow = gcIsochoreFamilyL1Pool.get( isochoreFamilyPoolIndex).getLow();
-				isochoreFamilyPoolHigh = gcIsochoreFamilyL1Pool.get( isochoreFamilyPoolIndex).getHigh();
-				break;
-
-			case L2:
-				isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyL2Pool.size());
-				isochoreFamilyPoolLow = gcIsochoreFamilyL2Pool.get( isochoreFamilyPoolIndex).getLow();
-				isochoreFamilyPoolHigh = gcIsochoreFamilyL2Pool.get( isochoreFamilyPoolIndex).getHigh();
-				break;
-
-			case H1:
-				isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyH1Pool.size());
-				isochoreFamilyPoolLow = gcIsochoreFamilyH1Pool.get( isochoreFamilyPoolIndex).getLow();
-				isochoreFamilyPoolHigh = gcIsochoreFamilyH1Pool.get( isochoreFamilyPoolIndex).getHigh();
-				break;
-
-			case H2:
-				isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyH2Pool.size());
-				isochoreFamilyPoolLow = gcIsochoreFamilyH2Pool.get( isochoreFamilyPoolIndex).getLow();
-				isochoreFamilyPoolHigh = gcIsochoreFamilyH2Pool.get( isochoreFamilyPoolIndex).getHigh();
-				break;
-
-			case H3:
-				isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyH3Pool.size());
-				isochoreFamilyPoolLow = gcIsochoreFamilyH3Pool.get( isochoreFamilyPoolIndex).getLow();
-				isochoreFamilyPoolHigh = gcIsochoreFamilyH3Pool.get( isochoreFamilyPoolIndex).getHigh();
-				break;
+				case L1:
+					isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyL1Pool.size());
+					isochoreFamilyPoolLow = gcIsochoreFamilyL1Pool.get( isochoreFamilyPoolIndex).getLow();
+					isochoreFamilyPoolHigh = gcIsochoreFamilyL1Pool.get( isochoreFamilyPoolIndex).getHigh();
+					break;
+	
+				case L2:
+					isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyL2Pool.size());
+					isochoreFamilyPoolLow = gcIsochoreFamilyL2Pool.get( isochoreFamilyPoolIndex).getLow();
+					isochoreFamilyPoolHigh = gcIsochoreFamilyL2Pool.get( isochoreFamilyPoolIndex).getHigh();
+					break;
+	
+				case H1:
+					isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyH1Pool.size());
+					isochoreFamilyPoolLow = gcIsochoreFamilyH1Pool.get( isochoreFamilyPoolIndex).getLow();
+					isochoreFamilyPoolHigh = gcIsochoreFamilyH1Pool.get( isochoreFamilyPoolIndex).getHigh();
+					break;
+	
+				case H2:
+					isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyH2Pool.size());
+					isochoreFamilyPoolLow = gcIsochoreFamilyH2Pool.get( isochoreFamilyPoolIndex).getLow();
+					isochoreFamilyPoolHigh = gcIsochoreFamilyH2Pool.get( isochoreFamilyPoolIndex).getHigh();
+					break;
+	
+				case H3:
+					isochoreFamilyPoolIndex = threadLocalRandom.nextInt( gcIsochoreFamilyH3Pool.size());
+					isochoreFamilyPoolLow = gcIsochoreFamilyH3Pool.get( isochoreFamilyPoolIndex).getLow();
+					isochoreFamilyPoolHigh = gcIsochoreFamilyH3Pool.get( isochoreFamilyPoolIndex).getHigh();
+					break;
 
 			}// End of Switch
 
@@ -183,20 +188,14 @@ public class RandomDataGenerator {
 		// Randomization decreases
 		// For an interval of 100KB, there is only one choice.
 
-		// We don't accept interval of length greater than 100 KB
-		if( originalInputLineLength > Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
-			if( GlanetRunner.shouldLog())logger.error( "Interval of length greater than " + Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE + " is not accepted.");
-		}else{
+		// Now get a random low between isochoreFamilyPoolLow and isochoreFamilyPoolHigh
+		// Please note that isochoreFamilyPoolLow and isochoreFamilyPoolHigh are both zeroBased and Inclusive
+		isochoreFamilyPoolHighExclusive = isochoreFamilyPoolHigh + 1;
+		low = threadLocalRandom.nextInt( isochoreFamilyPoolHighExclusive - originalInputLineLength + 1 - isochoreFamilyPoolLow) + isochoreFamilyPoolLow;
+		high = low + originalInputLineLength - 1;
 
-			// Now get a random low between isochoreFamilyPoolLow and isochoreFamilyPoolHigh
-			// Please note that isochoreFamilyPoolLow and isochoreFamilyPoolHigh are both zeroBased and Inclusive
-			isochoreFamilyPoolHighExclusive = isochoreFamilyPoolHigh + 1;
-			low = threadLocalRandom.nextInt( isochoreFamilyPoolHighExclusive - originalInputLineLength + 1 - isochoreFamilyPoolLow) + isochoreFamilyPoolLow;
-			high = low + originalInputLineLength - 1;
-
-			randomlyGeneratedLine = new InputLineMinimal( low, high);
-		}
-
+		randomlyGeneratedLine = new InputLineMinimal(low, high);
+		
 		return randomlyGeneratedLine;
 
 	}
@@ -329,8 +328,15 @@ public class RandomDataGenerator {
 					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
 				}else if( originalInputLineLength <= Commons.SHORT_INTERVAL_LENGTH){
 					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-				}else{
+				}else if (originalInputLineLength <= Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
 					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+				}else{
+					//originalInputLineLength is greater than Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE
+					//So discard this originalInputLine in each permutation.
+					if( GlanetRunner.shouldLog())
+						logger.error( "Interval of length greater than " + Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE + " is not accepted. So discard it");
+					
+					continue;
 				}
 				/**************************************************************************************************/
 				/*****************Decide on how to GC Calculation per each original interval ends******************/
@@ -403,6 +409,7 @@ public class RandomDataGenerator {
 								gcIsochoreFamilyH1Pool,
 								gcIsochoreFamilyH2Pool, 
 								gcIsochoreFamilyH3Pool);
+						
 						
 						intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
 						overlappedNodeList = new ArrayList<IntervalTreeNode>();
@@ -516,7 +523,7 @@ public class RandomDataGenerator {
 				randomlyGeneratedInputLines.add( randomlyGeneratedLine);
 				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 
-			}// End of for: each original input line
+			}// End of FOR: each original input line
 			// For Each Original InputLine ends
 
 		}// End of IF generateRandomInterval with GC and Mapability
