@@ -212,6 +212,7 @@ public class Step4_DDE_GLANETRuns {
 //							bufferedWriter.write("#SBATCH -p mid2" + System.getProperty("line.separator"));
 //						}
 						
+						//One core jobs can be sent to single and mercan.
 						bufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
 						
 						
@@ -221,17 +222,21 @@ public class Step4_DDE_GLANETRuns {
 						bufferedWriter.write("#SBATCH -n 8" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH --time=8-00:00:00" + System.getProperty("line.separator"));
 						
+						
+						//We don't want to get email for each of the 1000 GLANET Runs begins and ends but fails
+						bufferedWriter.write("#SBATCH --mail-type=FAIL" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
+						
 						//newly added
 						bufferedWriter.write("#SBATCH --array=0-999" + System.getProperty("line.separator"));
 						
-						//We don't want to get email for each of the 1000 GLANET Runs
-						//bufferedWriter.write("#SBATCH --mail-type=ALL" + System.getProperty("line.separator"));
-						//bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
 						
 						bufferedWriter.write(System.getProperty("line.separator"));
 						bufferedWriter.write("which java" + System.getProperty("line.separator"));
 						bufferedWriter.write("echo \"SLURM_NODELIST $SLURM_NODELIST\"" + System.getProperty("line.separator"));
 						bufferedWriter.write("echo \"NUMBER OF CORES $SLURM_NTASKS\"" + System.getProperty("line.separator"));
+						bufferedWriter.write("echo \"SLURM_ARRAY_TASK_ID $SLURM_ARRAY_TASK_ID\"" + System.getProperty("line.separator"));
+				
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
 						if(withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){
@@ -259,18 +264,18 @@ public class Step4_DDE_GLANETRuns {
 					case TRUBA_FAST:{
 						
 						
-						String command = rootCommand + "$SBATCH_ARRAY_INX" + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
+						String command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
 
 						switch(withorWithoutGCandMapability){
 
 							case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
 				
-								bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + Commons.DDE_RUN + "$SBATCH_ARRAY_INX" + System.getProperty( "line.separator"));
+								bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
 								break;
 				
 							case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
 				
-								bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + Commons.DDE_RUN + "$SBATCH_ARRAY_INX" + System.getProperty( "line.separator"));
+								bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
 								break;
 				
 							default:
