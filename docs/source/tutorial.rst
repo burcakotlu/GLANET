@@ -662,3 +662,7 @@ GLANET Command-Line Sample Runs
  Example Annotation and Regulatory Sequence Analysis Run is as following::
 
 	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -histone -tf -rsat
+
+Example User Defined Gene Set Annotation and Enrichment Run is as following::	
+
+	$ java -jar "C:\\Users\\glanet\\Google Drive\\JarFiles\\GLANET.jar"  -Xms32G -Xmx32G -i "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\BroadEnrich_Comparison_Data\\wgEncodeBroadHistoneGm12878H3k27me3StdPk.broadPeak" -grch37 -g  "C:\\Users\\glanet\\Google Drive\\"  -fbed  -b 1 -udg  -udginput "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_gene_associations_human_ref.txt"  -udginfosym  -udgname "GO" -udgdfile  "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_ids2terms.txt" -e -ewz -rdgcm  -mtbhfdr -p 10000 -pe 1000 -j "GLANET_BroadEnrich_H3k27me3_GO" -l -c
