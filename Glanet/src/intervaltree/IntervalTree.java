@@ -3763,15 +3763,25 @@ public class IntervalTree {
 		}
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( permutationNumber, node.getLeft(), interval,
-					chromName, permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
-					permutationNumberTfNumberCellLineNumberOverlapList, overlapDefinition);
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getLeft(), 
+					interval,
+					chromName, 
+					permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
+					permutationNumberTfNumberCellLineNumberOverlapList, 
+					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( permutationNumber, node.getRight(), interval,
-					chromName, permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
-					permutationNumberTfNumberCellLineNumberOverlapList, overlapDefinition);
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getRight(), 
+					interval,
+					chromName, 
+					permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
+					permutationNumberTfNumberCellLineNumberOverlapList, 
+					overlapDefinition);
 
 		}
 
