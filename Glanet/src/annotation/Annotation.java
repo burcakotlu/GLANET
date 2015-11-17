@@ -1785,8 +1785,7 @@ public class Annotation {
 								dnaseIntervalTree.getRoot(), 
 								inputLine, 
 								chromName,
-								permutationNumberDnaseCellLineNumber2OverlappingNodeListMap, 
-								overlapDefinition);
+								permutationNumberDnaseCellLineNumber2OverlappingNodeListMap);
 						
 						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
 						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
@@ -2507,8 +2506,7 @@ public class Annotation {
 								tfbsIntervalTree.getRoot(), 
 								inputLine, 
 								chromName,
-								permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap, 
-								overlapDefinition);
+								permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap);
 						
 						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
 						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
@@ -4453,8 +4451,7 @@ public class Annotation {
 								userDefinedLibraryIntervalTree.getRoot(), 
 								inputLine, 
 								chromName,
-								permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap, 
-								overlapDefinition);
+								permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap);
 						
 						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
 						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
@@ -4586,8 +4583,7 @@ public class Annotation {
 								histoneIntervalTree.getRoot(), 
 								inputLine, 
 								chromName,
-								permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
-								overlapDefinition);
+								permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap);
 						
 						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
 						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
@@ -5300,8 +5296,7 @@ public class Annotation {
 								permutationNumberGeneNumber2OverlappingNodeListMap, 
 								type, 
 								geneSetAnalysisType, 
-								geneSetType,
-								overlapDefinition);
+								geneSetType);
 						
 						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
 						switch(geneSetType){

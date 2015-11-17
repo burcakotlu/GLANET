@@ -2706,8 +2706,7 @@ public class IntervalTree {
 			IntervalTreeNode node,
 			InputLineMinimal interval, 
 			ChromosomeName chromName,
-			TLongObjectMap<List<IntervalTreeNode>> permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
-			int overlapDefinition) {
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap) {
 
 		long permutationNumberHistoneNumberCellLineNumber;
 
@@ -2716,7 +2715,7 @@ public class IntervalTree {
 		List<IntervalTreeNode> overlappingNodeList = null;
 		
 
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
 			
 			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
@@ -2763,8 +2762,7 @@ public class IntervalTree {
 					node.getLeft(), 
 					interval,
 					chromName, 
-					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
-					overlapDefinition);
+					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
@@ -2774,8 +2772,7 @@ public class IntervalTree {
 					node.getRight(), 
 					interval,
 					chromName, 
-					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap, 
-					overlapDefinition);
+					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap);
 
 		}
 
@@ -3501,8 +3498,7 @@ public class IntervalTree {
 			IntervalTreeNode node,
 			InputLineMinimal interval, 
 			ChromosomeName chromName,
-			TLongObjectMap<List<IntervalTreeNode>> permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap, 
-			int overlapDefinition){
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap){
 		
 		long permutationNumberTFNumberCellLineNumber;
 
@@ -3510,7 +3506,7 @@ public class IntervalTree {
 		
 		List<IntervalTreeNode> overlappingNodeList = null;
 
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
 			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
 				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
@@ -3554,8 +3550,7 @@ public class IntervalTree {
 					node.getLeft(), 
 					interval,
 					chromName, 
-					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap, 
-					overlapDefinition);
+					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
@@ -3565,8 +3560,7 @@ public class IntervalTree {
 					node.getRight(), 
 					interval,
 					chromName, 
-					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap, 
-					overlapDefinition);
+					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap);
 		}
 	
 	}
@@ -3578,6 +3572,7 @@ public class IntervalTree {
 	// without IO
 	// without overlappedNodeList
 	// with numbers
+	// AssociationMeasureType EXISTENCE_OF_OVERLAP
 	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
@@ -3609,13 +3604,23 @@ public class IntervalTree {
 		}
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( permutationNumber, node.getLeft(), interval,
-					chromName, permutationNumberTfbsNameCellLineName2ZeroorOneMap, overlapDefinition);
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getLeft(), 
+					interval,
+					chromName, 
+					permutationNumberTfbsNameCellLineName2ZeroorOneMap, 
+					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( permutationNumber, node.getRight(), interval,
-					chromName, permutationNumberTfbsNameCellLineName2ZeroorOneMap, overlapDefinition);
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getRight(), 
+					interval,
+					chromName, 
+					permutationNumberTfbsNameCellLineName2ZeroorOneMap, 
+					overlapDefinition);
 		}
 
 	}
@@ -3935,8 +3940,7 @@ public class IntervalTree {
 			IntervalTreeNode node, 
 			InputLineMinimal interval, 
 			ChromosomeName chromName,
-			TLongObjectMap<List<IntervalTreeNode>> permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap, 
-			int overlapDefinition) {
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap) {
 	
 		long permutationNumberElementTypeNumberElementNumber;
 		
@@ -3944,7 +3948,7 @@ public class IntervalTree {
 		
 		List<IntervalTreeNode> overlappingNodeList = null;
 
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
 			if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
 				//castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
@@ -3988,8 +3992,7 @@ public class IntervalTree {
 					node.getLeft(),
 					interval, 
 					chromName, 
-					permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap,
-					overlapDefinition);
+					permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
@@ -3999,8 +4002,7 @@ public class IntervalTree {
 					node.getRight(),
 					interval, 
 					chromName, 
-					permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap,
-					overlapDefinition);
+					permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap);
 
 		}
 
@@ -4012,6 +4014,7 @@ public class IntervalTree {
 	// Enrichment
 	// Without IO
 	// With Numbers
+	// AssociationMeasureType EXISTENCE_OF_OVERLAP
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 			int permutationNumber,
 			IntervalTreeNode node, 
@@ -5874,19 +5877,19 @@ public class IntervalTree {
 	//Without IO
 	//With Numbers
 	//With OverlappingNodelist
+	//AssociationMeasureType NUMBER_OF_OVERLAPPING_BASES
 	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
 			int permutationNumber, 
 			IntervalTreeNode node,
 			InputLineMinimal interval, 
 			ChromosomeName chromName,
-			TIntObjectMap<List<IntervalTreeNode>> permutationNumberDnaseCellLineNumber2OverlappingNodeListMap, 
-			int overlapDefinition) {
+			TIntObjectMap<List<IntervalTreeNode>> permutationNumberDnaseCellLineNumber2OverlappingNodeListMap) {
 		
 		int permutationNumberDnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 		List<IntervalTreeNode> overlappingNodeList = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
 			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
 				//castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
@@ -5925,8 +5928,7 @@ public class IntervalTree {
 					node.getLeft(), 
 					interval,
 					chromName, 
-					permutationNumberDnaseCellLineNumber2OverlappingNodeListMap, 
-					overlapDefinition);
+					permutationNumberDnaseCellLineNumber2OverlappingNodeListMap);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
@@ -5935,8 +5937,7 @@ public class IntervalTree {
 					node.getRight(), 
 					interval,
 					chromName, 
-					permutationNumberDnaseCellLineNumber2OverlappingNodeListMap, 
-					overlapDefinition);
+					permutationNumberDnaseCellLineNumber2OverlappingNodeListMap);
 
 		}
 
@@ -5948,6 +5949,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// without overlappedNodeList
+	// AssociationMeasureType EXISTENCE_OF_OVERLAP
 	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
 			int permutationNumber, 
 			IntervalTreeNode node,
@@ -5976,13 +5978,23 @@ public class IntervalTree {
 		}// End of IF OVERLAPS
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( permutationNumber, node.getLeft(), interval,
-					chromName, permutationNumberDnaseCellLineName2ZeroorOneMap, overlapDefinition);
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(), 
+					interval,
+					chromName, 
+					permutationNumberDnaseCellLineName2ZeroorOneMap, 
+					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( permutationNumber, node.getRight(), interval,
-					chromName, permutationNumberDnaseCellLineName2ZeroorOneMap, overlapDefinition);
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+					permutationNumber, 
+					node.getRight(), 
+					interval,
+					chromName,
+					permutationNumberDnaseCellLineName2ZeroorOneMap, 
+					overlapDefinition);
 
 		}
 
@@ -7183,8 +7195,7 @@ public class IntervalTree {
 			TLongObjectMap<List<IntervalTreeNode>> permutationNumberGeneNumber2OverlappingNodeListMap, 
 			String type, 
 			GeneSetAnalysisType geneSetAnalysisType,
-			GeneSetType geneSetType, 
-			int overlapDefinition) {
+			GeneSetType geneSetType) {
 
 		long permutationNumberGeneNumber = Long.MIN_VALUE;
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
@@ -7192,7 +7203,7 @@ public class IntervalTree {
 		
 		if( Commons.NCBI_GENE_ID.equals( type)){
 			
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
 				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
 					//castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
@@ -7299,8 +7310,7 @@ public class IntervalTree {
 					permutationNumberGeneNumber2OverlappingNodeListMap,
 					type, 
 					geneSetAnalysisType, 
-					geneSetType, 
-					overlapDefinition);
+					geneSetType);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
@@ -7315,8 +7325,7 @@ public class IntervalTree {
 					permutationNumberGeneNumber2OverlappingNodeListMap,
 					type, 
 					geneSetAnalysisType, 
-					geneSetType, 
-					overlapDefinition);
+					geneSetType);
 		}
 		
 	}	
