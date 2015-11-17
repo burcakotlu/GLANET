@@ -313,6 +313,8 @@ public class Enrichment {
 		private final int highIndex;
 
 		private final String outputFolder;
+		
+		private final AssociationMeasureType associationMeasureType;
 
 		private final int overlapDefinition;
 
@@ -322,8 +324,14 @@ public class Enrichment {
 				int runNumber,
 				int numberofPermutations,
 				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
-				TIntList permutationNumberList, IntervalTree intervalTree, AnnotationType annotationType, int lowIndex,
-				int highIndex, String outputFolder, int overlapDefinition) {
+				TIntList permutationNumberList, 
+				IntervalTree intervalTree, 
+				AnnotationType annotationType, 
+				int lowIndex,
+				int highIndex, 
+				String outputFolder, 
+				AssociationMeasureType associationMeasureType,
+				int overlapDefinition) {
 
 			super();
 			this.chromName = chromName;
@@ -337,6 +345,7 @@ public class Enrichment {
 			this.lowIndex = lowIndex;
 			this.highIndex = highIndex;
 			this.outputFolder = outputFolder;
+			this.associationMeasureType = associationMeasureType;
 			this.overlapDefinition = overlapDefinition;
 		}
 
@@ -353,14 +362,34 @@ public class Enrichment {
 			// DIVIDE
 			if( highIndex - lowIndex > Commons.NUMBER_OF_ANNOTATE_RANDOM_DATA_TASK_DONE_IN_SEQUENTIALLY){
 				middleIndex = lowIndex + ( highIndex - lowIndex) / 2;
-				AnnotateDnaseTFHistoneWithNumbers left = new AnnotateDnaseTFHistoneWithNumbers( chromName,
-						randomlyGeneratedDataMap, runNumber, numberofPermutations,
-						writePermutationBasedandParametricBasedAnnotationResultMode, permutationNumberList,
-						intervalTree, annotationType, lowIndex, middleIndex, outputFolder, overlapDefinition);
-				AnnotateDnaseTFHistoneWithNumbers right = new AnnotateDnaseTFHistoneWithNumbers( chromName,
-						randomlyGeneratedDataMap, runNumber, numberofPermutations,
-						writePermutationBasedandParametricBasedAnnotationResultMode, permutationNumberList,
-						intervalTree, annotationType, middleIndex, highIndex, outputFolder, overlapDefinition);
+				AnnotateDnaseTFHistoneWithNumbers left = new AnnotateDnaseTFHistoneWithNumbers(
+						chromName,
+						randomlyGeneratedDataMap, 
+						runNumber, 
+						numberofPermutations,
+						writePermutationBasedandParametricBasedAnnotationResultMode, 
+						permutationNumberList,
+						intervalTree, 
+						annotationType, 
+						lowIndex, 
+						middleIndex, 
+						outputFolder, 
+						associationMeasureType, 
+						overlapDefinition);
+				AnnotateDnaseTFHistoneWithNumbers right = new AnnotateDnaseTFHistoneWithNumbers( 
+						chromName,
+						randomlyGeneratedDataMap, 
+						runNumber, 
+						numberofPermutations,
+						writePermutationBasedandParametricBasedAnnotationResultMode, 
+						permutationNumberList,
+						intervalTree, 
+						annotationType, 
+						middleIndex, 
+						highIndex, 
+						outputFolder, 
+						associationMeasureType, 
+						overlapDefinition);
 				left.fork();
 				rightAllMapsWithNumbers = right.compute();
 				leftAllMapsWithNumbers = left.join();
@@ -380,15 +409,24 @@ public class Enrichment {
 					// WITHOUT IO WithNumbers
 					if( writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
 						listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithoutIOWithNumbers_DnaseTFHistone(
-								permutationNumber, chromName, randomlyGeneratedDataMap.get( permutationNumber),
-								intervalTree, annotationType, overlapDefinition));
+								permutationNumber, 
+								chromName, 
+								randomlyGeneratedDataMap.get( permutationNumber),
+								intervalTree, 
+								annotationType, 
+								associationMeasureType,
+								overlapDefinition));
 					}
 
 					// WITH IO WithNumbers
 					else if( writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
 						listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithIOWithNumbers_DnaseTFHistone(
-								outputFolder, permutationNumber, chromName,
-								randomlyGeneratedDataMap.get( permutationNumber), intervalTree, annotationType,
+								outputFolder, 
+								permutationNumber, 
+								chromName,
+								randomlyGeneratedDataMap.get( permutationNumber), 
+								intervalTree, 
+								annotationType,
 								overlapDefinition));
 					}
 				}// End of FOR
@@ -2134,6 +2172,8 @@ public class Enrichment {
 		private final TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap;
 
 		private final String outputFolder;
+		
+		private final AssociationMeasureType associationMeasureType;
 
 		private final int overlapDefinition;
 		
@@ -2154,6 +2194,7 @@ public class Enrichment {
 				IntervalTree ucscRefSeqGenesIntervalTree, 
 				AnnotationType annotationType,
 				TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, 
+				AssociationMeasureType associationMeasureType,
 				int overlapDefinition,
 				EnrichmentPermutationDivisionType enrichmentPermutationDivisionType) {
 
@@ -2190,6 +2231,8 @@ public class Enrichment {
 			// sent full when annotationType is USER_DEFINED_GENE_SET_ANNOTATION
 			// otherwise sent null
 			this.geneId2ListofGeneSetNumberMap = geneId2ListofGeneSetNumberMap;
+			
+			this.associationMeasureType = associationMeasureType;
 
 			this.overlapDefinition = overlapDefinition;
 			
@@ -2230,6 +2273,7 @@ public class Enrichment {
 							ucscRefSeqGenesIntervalTree,
 							annotationType, 
 							geneId2ListofGeneSetNumberMap, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -2248,6 +2292,7 @@ public class Enrichment {
 							ucscRefSeqGenesIntervalTree,
 							annotationType, 
 							geneId2ListofGeneSetNumberMap, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -2279,6 +2324,7 @@ public class Enrichment {
 									ucscRefSeqGenesIntervalTree, 
 									annotationType,
 									geneId2ListofGeneSetNumberMap, 
+									associationMeasureType,
 									overlapDefinition));
 						}
 
@@ -2328,6 +2374,7 @@ public class Enrichment {
 							ucscRefSeqGenesIntervalTree,
 							annotationType, 
 							geneId2ListofGeneSetNumberMap, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 						
@@ -2346,6 +2393,7 @@ public class Enrichment {
 							ucscRefSeqGenesIntervalTree,
 							annotationType, 
 							geneId2ListofGeneSetNumberMap, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -2371,17 +2419,29 @@ public class Enrichment {
 						// WITHOUT IO WithNumbers
 						if( writePermutationBasedandParametricBasedAnnotationResultMode.isDoNotWritePermutationBasedandParametricBasedAnnotationResultMode()){
 							listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithoutIOWithNumbers(
-									permutationNumber, chromName, randomlyGeneratedDataMap.get( permutationNumber),
-									intervalTree, ucscRefSeqGenesIntervalTree, annotationType,
-									geneId2ListofGeneSetNumberMap, overlapDefinition));
+									permutationNumber, 
+									chromName, 
+									randomlyGeneratedDataMap.get( permutationNumber),
+									intervalTree, 
+									ucscRefSeqGenesIntervalTree, 
+									annotationType,
+									geneId2ListofGeneSetNumberMap, 
+									associationMeasureType,
+									overlapDefinition));
 						}
 
 						// WITH IO WithNumbers
 						else if( writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
-							listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithIOWithNumbers( outputFolder,
-									permutationNumber, chromName, randomlyGeneratedDataMap.get( permutationNumber),
-									intervalTree, ucscRefSeqGenesIntervalTree, annotationType,
-									geneId2ListofGeneSetNumberMap, overlapDefinition));
+							listofAllMapsWithNumbers.add( Annotation.annotatePermutationWithIOWithNumbers( 
+									outputFolder,
+									permutationNumber, 
+									chromName, 
+									randomlyGeneratedDataMap.get( permutationNumber),
+									intervalTree, 
+									ucscRefSeqGenesIntervalTree, 
+									annotationType,
+									geneId2ListofGeneSetNumberMap, 
+									overlapDefinition));
 						}
 					}// End of FOR
 
@@ -6151,6 +6211,7 @@ public class Enrichment {
 			AnnotationType tfKeggPathwayAnnotationType,
 			AnnotationType tfCellLineKeggPathwayAnnotationType, 
 			AnnotationType bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
+			AssociationMeasureType associationMeasureType,
 			int overlapDefinition,
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<TIntList> geneId2ListofUserDefinedGeneSetNumberMap,
@@ -6723,6 +6784,7 @@ public class Enrichment {
 							null,
 							AnnotationType.DO_DNASE_ANNOTATION, 
 							null, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 
@@ -6757,6 +6819,7 @@ public class Enrichment {
 							null,
 							AnnotationType.DO_HISTONE_ANNOTATION, 
 							null, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -6792,6 +6855,7 @@ public class Enrichment {
 							null,
 							AnnotationType.DO_TF_ANNOTATION, 
 							null, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -6830,6 +6894,7 @@ public class Enrichment {
 							null,
 							AnnotationType.DO_GENE_ANNOTATION, 
 							null, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 
@@ -6867,6 +6932,7 @@ public class Enrichment {
 							null,
 							AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION,
 							geneId2ListofUserDefinedGeneSetNumberMap, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -6911,6 +6977,7 @@ public class Enrichment {
 								null,
 								AnnotationType.DO_USER_DEFINED_LIBRARY_ANNOTATION, 
 								null, 
+								associationMeasureType,
 								overlapDefinition,
 								enrichmentPermutationDivisionType);
 						
@@ -6949,6 +7016,7 @@ public class Enrichment {
 							null,
 							AnnotationType.DO_KEGGPATHWAY_ANNOTATION, 
 							geneId2ListofKeggPathwayNumberMap,
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -6991,6 +7059,7 @@ public class Enrichment {
 							ucscRefSeqGenesIntervalTree, 
 							AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 							geneId2ListofKeggPathwayNumberMap, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -7039,6 +7108,7 @@ public class Enrichment {
 							ucscRefSeqGenesIntervalTree, 
 							AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 							geneId2ListofKeggPathwayNumberMap, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -7080,6 +7150,7 @@ public class Enrichment {
 							ucscRefSeqGenesIntervalTree,
 							AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 							geneId2ListofKeggPathwayNumberMap, 
+							associationMeasureType,
 							overlapDefinition,
 							enrichmentPermutationDivisionType);
 					
@@ -8276,7 +8347,7 @@ public class Enrichment {
 		//30 OCTOBER 2015 
 		//TODO This parameter has to be filled from arguments 
 		//But for the time being it is set in Enrichment class
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_INTERVALS;
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.convertStringtoEnum(args[CommandLineArguments.AssociationMeasureType.value()]);
 
 		// 18 FEB 2015
 		// performEnrichment is not used since GLANETRunner calls
@@ -9182,7 +9253,8 @@ public class Enrichment {
 							tfKeggPathwayAnnotationType,
 							tfCellLineKeggPathwayAnnotationType, 
 							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
-							overlapDefinition, 
+							associationMeasureType,
+							overlapDefinition,
 							geneId2KeggPathwayNumberMap,
 							geneId2ListofUserDefinedGeneSetNumberMap, 
 							userDefinedLibraryElementTypeNumber2NameMap);
@@ -9245,7 +9317,9 @@ public class Enrichment {
 							tfKeggPathwayAnnotationType,
 							tfCellLineKeggPathwayAnnotationType,
 							bothTFKEGGAndTFCellLineKEGGPathwayAnnotationType,
-							overlapDefinition, geneId2KeggPathwayNumberMap,
+							associationMeasureType,
+							overlapDefinition,
+							geneId2KeggPathwayNumberMap,
 							geneId2ListofUserDefinedGeneSetNumberMap, 
 							userDefinedLibraryElementTypeNumber2NameMap);
 				}

@@ -1718,14 +1718,11 @@ public class Annotation {
 			List<InputLineMinimal> inputLines, 
 			IntervalTree dnaseIntervalTree,
 			TIntIntMap permutationNumberDnaseCellLineNumber2KMap, 
+			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
 		
-		//1 NOV 2015
-		//This will be provided as a parameter
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
-		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
 		
 		for( int i = 0; i < inputLines.size(); i++){
 			
@@ -2440,16 +2437,12 @@ public class Annotation {
 			List<InputLineMinimal> inputLines, 
 			IntervalTree tfbsIntervalTree,
 			TLongIntMap permutationNumberTFNumberCellLineNumber2KMap, 
+			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
 		
-		//1 NOV 2015
-		//This will be provided as a parameter
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
-		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
-
-
+		
 		for( int i = 0; i < inputLines.size(); i++){
 			
 			inputLine = inputLines.get( i);
@@ -4389,15 +4382,12 @@ public class Annotation {
 			List<InputLineMinimal> inputLines, 
 			IntervalTree userDefinedLibraryIntervalTree,
 			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap, 
+			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
 		
-		//10 NOV 2015
-		//This will be provided as a parameter
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
-		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
-		
+			
 		for( int i = 0; i < inputLines.size(); i++){
 			
 			//Get each input line
@@ -4526,15 +4516,11 @@ public class Annotation {
 			List<InputLineMinimal> inputLines, 
 			IntervalTree histoneIntervalTree,
 			TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap, 
+			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 		
 		InputLineMinimal inputLine;
-
-		//30 OCT 2015
-		//This will be provided as a parameter
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
-		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
-		
+	
 		for(int i = 0; i < inputLines.size(); i++){
 
 			inputLine = inputLines.get(i);
@@ -5135,16 +5121,12 @@ public class Annotation {
 			String type, 
 			GeneSetAnalysisType geneSetAnalysisType, 
 			GeneSetType geneSetType, 
+			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
 		
-		//10 NOV 2015
-		//This will be provided as a parameter
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
-		//AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
-
-
+		
 		for( int i = 0; i < inputLines.size(); i++){
 			
 			//Get the inputLine
@@ -11559,8 +11541,13 @@ public class Annotation {
 	// Using fork join framework
 	// Empirical P Value Calculation
 	public static AllMapsDnaseTFHistoneWithNumbers annotatePermutationWithoutIOWithNumbers_DnaseTFHistone(
-			int permutationNumber, ChromosomeName chrName, List<InputLineMinimal> randomlyGeneratedData,
-			IntervalTree intervalTree, AnnotationType annotationType, int overlapDefinition) {
+			int permutationNumber, 
+			ChromosomeName chrName, 
+			List<InputLineMinimal> randomlyGeneratedData,
+			IntervalTree intervalTree, 
+			AnnotationType annotationType, 
+			AssociationMeasureType associationMeasureType,
+			int overlapDefinition) {
 
 		AllMapsDnaseTFHistoneWithNumbers allMapsWithNumbers = new AllMapsDnaseTFHistoneWithNumbers();
 
@@ -11570,8 +11557,14 @@ public class Annotation {
 			// name to number of dnase cell line:k for the given search input
 			// size:n
 			TIntIntMap permutationNumberDnaseCellLineNumber2KMap = new TIntIntHashMap();
-			searchDnaseWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					permutationNumberDnaseCellLineNumber2KMap, overlapDefinition);
+			searchDnaseWithoutIOWithNumbers( 
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					permutationNumberDnaseCellLineNumber2KMap, 
+					associationMeasureType,
+					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberDnaseCellLineNumber2KMap( permutationNumberDnaseCellLineNumber2KMap);
 
 		}else if( annotationType.doTFAnnotation()){
@@ -11580,8 +11573,14 @@ public class Annotation {
 			// tfbsNameandCellLineName to number of tfbsNameandCellLineName: k
 			// for the given search input size: n
 			TLongIntMap permutationNumberTfNumberCellLineNumber2KMap = new TLongIntHashMap();
-			searchTfbsWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					permutationNumberTfNumberCellLineNumber2KMap, overlapDefinition);
+			searchTfbsWithoutIOWithNumbers( 
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					permutationNumberTfNumberCellLineNumber2KMap, 
+					associationMeasureType,
+					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberTfNumberCellLineNumber2KMap( permutationNumberTfNumberCellLineNumber2KMap);
 
 		}else if( annotationType.doHistoneAnnotation()){
@@ -11590,8 +11589,14 @@ public class Annotation {
 			// histoneNameandCellLineName to number of
 			// histoneNameandCellLineName: k for the given search input size: n
 			TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap = new TLongIntHashMap();
-			searchHistoneWithoutIOWithNumbers( permutationNumber, chrName, randomlyGeneratedData, intervalTree,
-					permutationNumberHistoneNumberCellLineNumber2KMap, overlapDefinition);
+			searchHistoneWithoutIOWithNumbers( 
+					permutationNumber, 
+					chrName, 
+					randomlyGeneratedData, 
+					intervalTree,
+					permutationNumberHistoneNumberCellLineNumber2KMap, 
+					associationMeasureType,
+					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberHistoneNumberCellLineNumber2KMap( permutationNumberHistoneNumberCellLineNumber2KMap);
 
 		}
@@ -12522,6 +12527,7 @@ public class Annotation {
 			IntervalTree ucscRefSeqGenesIntervalTree, 
 			AnnotationType annotationType,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, 
+			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
 		AllMapsWithNumbers allMapsWithNumbers = new AllMapsWithNumbers();
@@ -12537,6 +12543,7 @@ public class Annotation {
 					randomlyGeneratedData, 
 					intervalTree,
 					permutationNumberDnaseCellLineNumber2KMap, 
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberDnaseCellLineNumber2KMap( permutationNumberDnaseCellLineNumber2KMap);
 
@@ -12551,6 +12558,7 @@ public class Annotation {
 					randomlyGeneratedData, 
 					intervalTree,
 					permutationNumberTfNumberCellLineNumber2KMap, 
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberTfNumberCellLineNumber2KMap( permutationNumberTfNumberCellLineNumber2KMap);
 
@@ -12566,6 +12574,7 @@ public class Annotation {
 					randomlyGeneratedData, 
 					intervalTree,
 					permutationNumberHistoneNumberCellLineNumber2KMap, 
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberHistoneNumberCellLineNumber2KMap( permutationNumberHistoneNumberCellLineNumber2KMap);
 
@@ -12587,6 +12596,7 @@ public class Annotation {
 					Commons.NCBI_GENE_ID,
 					GeneSetAnalysisType.NO_GENESET_ANALYSIS_TYPE_IS_DEFINED, 
 					GeneSetType.NO_GENESET_TYPE_IS_DEFINED,
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberGeneNumber2KMap( permutationNumberGeneNumber2KMap);
 
@@ -12614,6 +12624,7 @@ public class Annotation {
 					Commons.NCBI_GENE_ID, 
 					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, 
 					GeneSetType.USERDEFINEDGENESET,
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberExonBasedUserDefinedGeneSetNumber2KMap( permutationNumberExonBasedUserDefinedGeneSetNumber2KMap);
 
@@ -12633,7 +12644,9 @@ public class Annotation {
 					null, 
 					Commons.NCBI_GENE_ID, 
 					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS,
-					GeneSetType.USERDEFINEDGENESET, overlapDefinition);
+					GeneSetType.USERDEFINEDGENESET,
+					associationMeasureType,
+					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap( permutationNumberRegulationBasedUserDefinedGeneSetNumber2KMap);
 
 			// All Based USER DEFINED GENESET Analysis
@@ -12653,6 +12666,7 @@ public class Annotation {
 					Commons.NCBI_GENE_ID, 
 					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS,
 					GeneSetType.USERDEFINEDGENESET,
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberAllBasedUserDefinedGeneSetNumber2KMap( permutationNumberAllBasedUserDefinedGeneSetNumber2KMap);
 
@@ -12664,7 +12678,8 @@ public class Annotation {
 					chrName, 
 					randomlyGeneratedData,
 					intervalTree, 
-					permutationNumberElementTypeNumberElementNumber2KMap, 
+					permutationNumberElementTypeNumberElementNumber2KMap,
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberElementTypeNumberElementNumber2KMap( permutationNumberElementTypeNumberElementNumber2KMap);
 
@@ -12689,6 +12704,7 @@ public class Annotation {
 					Commons.NCBI_GENE_ID, 
 					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, 
 					GeneSetType.KEGGPATHWAY,
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberExonBasedKeggPathwayNumber2KMap( permutationNumberExonBasedKeggPathwayNumber2KMap);
 
@@ -12709,6 +12725,7 @@ public class Annotation {
 					Commons.NCBI_GENE_ID, 
 					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, 
 					GeneSetType.KEGGPATHWAY,
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberRegulationBasedKeggPathwayNumber2KMap( permutationNumberRegulationBasedKeggPathwayNumber2KMap);
 
@@ -12729,6 +12746,7 @@ public class Annotation {
 					Commons.NCBI_GENE_ID,
 					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, 
 					GeneSetType.KEGGPATHWAY,
+					associationMeasureType,
 					overlapDefinition);
 			allMapsWithNumbers.setPermutationNumberAllBasedKeggPathwayNumber2KMap( permutationNumberAllBasedKeggPathwayNumber2KMap);
 

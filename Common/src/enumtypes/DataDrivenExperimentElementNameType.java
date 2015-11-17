@@ -227,11 +227,9 @@ public enum DataDrivenExperimentElementNameType {
 
 	
 		if (this == DataDrivenExperimentElementNameType.POL2 ||
-			this == DataDrivenExperimentElementNameType.H3K4ME1 ||
 			this == DataDrivenExperimentElementNameType.H3K4ME2 ||
 			this == DataDrivenExperimentElementNameType.H3K4ME3 ||
 			this == DataDrivenExperimentElementNameType.H3K79ME2 ||
-			this == DataDrivenExperimentElementNameType.H4K20ME1 ||
 			this == DataDrivenExperimentElementNameType.H3K9ACB ||
 			this == DataDrivenExperimentElementNameType.H3K27AC  ||
 			this == DataDrivenExperimentElementNameType.H2AZ ||
@@ -250,12 +248,14 @@ public enum DataDrivenExperimentElementNameType {
 		return false;
 	}
 	
-	public boolean isUnknown() {
+	public boolean isAmbigious() {
 		
 		if (this == DataDrivenExperimentElementNameType.H3K36ME3B ||
 			this == DataDrivenExperimentElementNameType.H3K9ME1 ||
 			this == DataDrivenExperimentElementNameType.H3K9ME3 ||
-			this == DataDrivenExperimentElementNameType.H3K36ME3){
+			this == DataDrivenExperimentElementNameType.H3K36ME3 ||
+			this == DataDrivenExperimentElementNameType.H3K4ME1 ||
+			this == DataDrivenExperimentElementNameType.H4K20ME1){
 			return true;
 		}
 		return false;

@@ -604,8 +604,8 @@ public class Step5_DDE_GLANETResults {
 				elementType = DataDrivenExperimentElementType.ACTIVATOR;
 			}else if (elementNameType.isRepressor()){
 				elementType = DataDrivenExperimentElementType.REPRESSOR;
-			}else if (elementNameType.isUnknown()){
-				elementType = DataDrivenExperimentElementType.UNKNOWN;
+			}else if (elementNameType.isAmbigious()){
+				elementType = DataDrivenExperimentElementType.AMBIGIOUS;
 			}
 			
 			ddeElementTPM.setElementType(elementType);
@@ -676,7 +676,7 @@ public class Step5_DDE_GLANETResults {
 			//Evaluate Type I Error
 			//Evaluate Power
 			//In this way of evaluating typeOneError and power are always the same
-			if (elementType.isUnknown()){
+			if (elementType.isAmbigious()){
 					
 				typeOneError = ((float) (numberofEnrichment))/numberofGLANETRuns;
 				power = ((float) (numberofEnrichment))/numberofGLANETRuns;

@@ -15,7 +15,7 @@ public enum DataDrivenExperimentElementType {
 	
 	ACTIVATOR(1),
 	REPRESSOR(2),
-	UNKNOWN(3);
+	AMBIGIOUS(3);
 	
 	private final int dataDrivenExperimentElementType;
 
@@ -42,8 +42,8 @@ public enum DataDrivenExperimentElementType {
 				return REPRESSOR;
 		}
 		
-		else if( Commons.UNKNOWN.equals(dataDrivenExperimentElementType)){
-			return UNKNOWN;
+		else if( Commons.AMBIGIOUS.equals(dataDrivenExperimentElementType)){
+			return AMBIGIOUS;
 	}
 		else
 			return null;
@@ -51,14 +51,14 @@ public enum DataDrivenExperimentElementType {
 
 	public String convertEnumtoString() {
 
-		if( this.equals( DataDrivenExperimentElementType.ACTIVATOR))
+		if( this.equals(DataDrivenExperimentElementType.ACTIVATOR))
 			return Commons.ACTIVATOR;
 		
-		else if( this.equals( DataDrivenExperimentElementType.REPRESSOR))
+		else if( this.equals(DataDrivenExperimentElementType.REPRESSOR))
 			return Commons.REPRESSOR;
 		
-		else if( this.equals( DataDrivenExperimentElementType.UNKNOWN))
-			return Commons.UNKNOWN;
+		else if( this.equals(DataDrivenExperimentElementType.AMBIGIOUS))
+			return Commons.AMBIGIOUS;
 		
 		else
 			return null;
@@ -75,8 +75,8 @@ public enum DataDrivenExperimentElementType {
 	}
 	
 	
-	public boolean isUnknown() {
-		return ( this == DataDrivenExperimentElementType.UNKNOWN);
+	public boolean isAmbigious() {
+		return ( this == DataDrivenExperimentElementType.AMBIGIOUS);
 	}
 	
 
