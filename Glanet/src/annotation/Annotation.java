@@ -2386,10 +2386,15 @@ public class Annotation {
 	// With Numbers
 	// Empirical P Value Calculation
 	// with IO
-	public static void searchTfbsWithIOWithNumbers( String outputFolder, int permutationNumber,
-			ChromosomeName chromName, List<InputLineMinimal> inputLines, IntervalTree tfbsIntervalTree,
+	public static void searchTfbsWithIOWithNumbers( 
+			String outputFolder, 
+			int permutationNumber,
+			ChromosomeName chromName, 
+			List<InputLineMinimal> inputLines, 
+			IntervalTree tfbsIntervalTree,
 			TLongObjectMap<BufferedWriter> tfbsBufferedWriterHashMap,
-			TLongIntMap permutationNumberTfNumberCellLineNumber2KMap, int overlapDefinition) {
+			TLongIntMap permutationNumberTfNumberCellLineNumber2KMap, 
+			int overlapDefinition) {
 
 		InputLineMinimal inputLine;
 
@@ -2424,7 +2429,64 @@ public class Annotation {
 	// with Numbers
 	// @todo
 
-	
+	//18 NOV 2015 starts
+	public static void searchTFandFillMap(
+			int permutationNumber, 
+			ChromosomeName chromName,
+			InputLineMinimal inputLine,
+			IntervalTree tfbsIntervalTree,
+			TLongIntMap permutationNumberTFNumberCellLineNumber2KMap){
+		
+		TLongObjectMap<List<IntervalTreeNode>> permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap = new TLongObjectHashMap<List<IntervalTreeNode>>();
+		TLongObjectMap<IntervalTree> permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TLongObjectHashMap<IntervalTree>();
+		TLongIntMap permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+
+		if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
+			
+			//Step1: Get all the overlappingIntervals with the inputLine
+			tfbsIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers(
+					permutationNumber,
+					tfbsIntervalTree.getRoot(), 
+					inputLine, 
+					chromName,
+					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap);
+			
+			//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+			IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap, 
+					permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap);
+			
+			//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+			//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+			IntervalTree.findNumberofOverlappingBases(
+					inputLine,
+					permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+					permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap);
+			
+		}//End of IF
+
+		// Accumulate search results of permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberTFNumberCellLineNumber2KMap
+		for( TLongIntIterator it = permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+			it.advance();
+
+			if( !(permutationNumberTFNumberCellLineNumber2KMap.containsKey(it.key()))){
+				permutationNumberTFNumberCellLineNumber2KMap.put(it.key(), it.value());
+			}else{
+				permutationNumberTFNumberCellLineNumber2KMap.put( it.key(),
+						permutationNumberTFNumberCellLineNumber2KMap.get( it.key()) + it.value());
+
+			}
+
+		}// End of FOR
+		
+		//Free memory
+		permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap = null;
+		permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+		permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap = null;
+		
+	}
+	//18 NOV 2015 ends
 	
 	// Enrichment
 	// Without IO
@@ -2479,7 +2541,7 @@ public class Annotation {
 
 						}
 
-					}// End of for
+					}// End of FOR
 					
 					//Free memory
 					permutationNumberTfbsNameCellLineName2ZeroorOneMap = null;
@@ -2531,7 +2593,7 @@ public class Annotation {
 							permutationNumberTFNumberCellLineNumber2KMap.put(it.key(), it.value());
 						}else{
 							permutationNumberTFNumberCellLineNumber2KMap.put( it.key(),
-									permutationNumberTFNumberCellLineNumber2KMap.get( it.key()) + it.value());
+								permutationNumberTFNumberCellLineNumber2KMap.get( it.key()) + it.value());
 
 						}
 
@@ -5167,8 +5229,7 @@ public class Annotation {
 					// KEGG Pathway starts
 					if( geneSetType.isKeggPathway()){
 
-						// accumulate search results of keggPathway2OneorZeroMap in
-						// keggPathway2KMap
+						// accumulate search results of keggPathway2OneorZeroMap in keggPathway2KMap
 						for( TIntIntIterator it = permutationNumberKeggPathwayNumber2OneorZeroMap.iterator(); it.hasNext();){
 
 							it.advance();
@@ -5189,8 +5250,7 @@ public class Annotation {
 					// UserDefinedGeneSet starts
 					else if( geneSetType.isUserDefinedGeneSet()){
 
-						// accumulate search results of keggPathway2OneorZeroMap in
-						// keggPathway2KMap
+						// accumulate search results of keggPathway2OneorZeroMap in keggPathway2KMap
 						for( TLongIntIterator it = permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.iterator(); it.hasNext();){
 
 							it.advance();
@@ -6997,6 +7057,18 @@ public class Annotation {
 	}
 	//9 July 2015
 	
+	//18 NOV 2015
+	public static void addOneToOneorZeroMap(
+			TLongIntMap permutationNumberElementNumber2OneorZeroMap,
+			Long permutationNumberElementNumber){
+		
+		if( !( permutationNumberElementNumber2OneorZeroMap.containsKey( permutationNumberElementNumber))){
+			permutationNumberElementNumber2OneorZeroMap.put(permutationNumberElementNumber, 1);
+		}
+		
+	}
+	//18 NOV 2015
+	
 	
 	//17 NOV 2015 
 	public static void accumulateContentofOneorZeroMapInKMap(
@@ -7035,6 +7107,166 @@ public class Annotation {
 		}// End of FOR
 		
 	}
+
+	//19 NOV 2015
+	public static void accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+			int numberofOverlappingBases,
+			long permutationNumberMixedNumber,
+			TLongIntMap permutationNumberMixedNumber2NumberofOverlappingBasesMap){
+		
+			permutationNumberMixedNumber2NumberofOverlappingBasesMap.put(permutationNumberMixedNumber, 
+					permutationNumberMixedNumber2NumberofOverlappingBasesMap.get(permutationNumberMixedNumber) + numberofOverlappingBases);
+		
+	}
+	//19 NOV 2015
+	
+	//18 NOV 2015
+	public static void accumulateContentofNumberofOverlappingBasesinKMap(
+			TIntIntMap permutationNumberElementNumber2NumberofOverlappingBasesMap,
+			TIntIntMap permutationNumberElementNumber2KMap){
+		
+		for(TIntIntIterator it = permutationNumberElementNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+			it.advance();
+
+			if( !(permutationNumberElementNumber2KMap.containsKey(it.key()))){
+				permutationNumberElementNumber2KMap.put(it.key(), it.value());
+			}else{
+				permutationNumberElementNumber2KMap.put( it.key(),permutationNumberElementNumber2KMap.get( it.key()) + it.value());
+			}
+
+		}// End of FOR
+
+	}
+	//18 NOV 2015
+	
+	
+	//18 NOV 2015
+	public static void accumulateContentofNumberofOverlappingBasesinKMap(
+			TLongIntMap permutationNumberElementNumber2NumberofOverlappingBasesMap,
+			TLongIntMap permutationNumberElementNumber2KMap){
+		
+		for(TLongIntIterator it = permutationNumberElementNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+			it.advance();
+
+			if( !(permutationNumberElementNumber2KMap.containsKey(it.key()))){
+				permutationNumberElementNumber2KMap.put(it.key(), it.value());
+			}else{
+				permutationNumberElementNumber2KMap.put( it.key(),permutationNumberElementNumber2KMap.get( it.key()) + it.value());
+			}
+
+		}// End of FOR
+		
+	}
+	//18 NOV 2015
+	
+	
+	//19 NOV 2015
+	public static List<IntervalTreeNode> getIntervalTreeNodes(IntervalTree intervalTreeWithNonOverlappingNodes){
+		
+		List<IntervalTreeNode> intervalTreeNodeList = new ArrayList<IntervalTreeNode>();
+		
+		IntervalTree.intervalTreeInfixTraversal(intervalTreeWithNonOverlappingNodes.getRoot(),intervalTreeNodeList);
+		
+		return intervalTreeNodeList;
+	}
+	//19 NOV 2015
+	
+	//19 NOV 2015
+	public static void findCommonOverlaps(
+			long permutationNumberTFNumberCellLineNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLengthforTF,
+			IntervalTree TFIntervalTreeWithNonOverlappingNodes,
+			int permutationNumberKEGGPathwayNumber,
+			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLengthforKEGGPathway,
+			IntervalTree KEGGPathwayIntervalTreeWithNonOverlappingNodes,
+			AnnotationType annotationType,
+			TLongIntMap permutationNumberTFNumberKEGGPathwayNumber2NumberofOverlappingBasesMap,
+			TLongIntMap permutationNumberTFNumberCellLineNumberKEGGPathwayNumber2NumberofOverlappingBasesMap){
+		
+		
+		List<IntervalTreeNode> TFNonOverlappingNodes = null;
+		List<IntervalTreeNode> KEGGPathwayNonOverlappingNodes = null;
+		
+		int numberofOverlappingBases = 0;
+		int KEGGPathwayNumber;
+		
+		long permutationNumberTFNumberCellLineNumberKEGGPathwayNumber = Long.MIN_VALUE;
+		long permutationNumberTFNumberKEGGPathwayNumber = Long.MIN_VALUE;
+
+		KEGGPathwayNumber = IntervalTree.getCellLineNumberOrGeneSetNumber(permutationNumberKEGGPathwayNumber,generatedMixedNumberDescriptionOrderLengthforKEGGPathway);
+		
+		permutationNumberTFNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+				permutationNumberTFNumberCellLineNumber,
+				KEGGPathwayNumber,
+				GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+		
+		permutationNumberTFNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+				permutationNumberTFNumberCellLineNumber,
+				KEGGPathwayNumber,
+				GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
+
+		
+		TFNonOverlappingNodes = getIntervalTreeNodes(TFIntervalTreeWithNonOverlappingNodes);
+		KEGGPathwayNonOverlappingNodes = getIntervalTreeNodes(KEGGPathwayIntervalTreeWithNonOverlappingNodes);
+		
+		for(IntervalTreeNode TFNode : TFNonOverlappingNodes){
+		
+			for(IntervalTreeNode KEGGPathwayNode: KEGGPathwayNonOverlappingNodes){
+				
+				numberofOverlappingBases = IntervalTree.findNumberofOverlapingBases(TFNode.getLow(), TFNode.getHigh(), KEGGPathwayNode.getLow(), KEGGPathwayNode.getHigh());
+				
+				if (numberofOverlappingBases>0){
+					
+					switch(annotationType){
+					
+						case DO_TF_KEGGPATHWAY_ANNOTATION:
+
+							accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+									numberofOverlappingBases, 
+									permutationNumberTFNumberKEGGPathwayNumber, 
+									permutationNumberTFNumberKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+							break;
+							
+						case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+
+							accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+									numberofOverlappingBases, 
+									permutationNumberTFNumberCellLineNumberKEGGPathwayNumber, 
+									permutationNumberTFNumberCellLineNumberKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+							break;
+							
+						case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+							
+							accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+									numberofOverlappingBases, 
+									permutationNumberTFNumberKEGGPathwayNumber, 
+									permutationNumberTFNumberKEGGPathwayNumber2NumberofOverlappingBasesMap);
+
+							accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+									numberofOverlappingBases, 
+									permutationNumberTFNumberCellLineNumberKEGGPathwayNumber, 
+									permutationNumberTFNumberCellLineNumberKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+							break;
+							
+						default: 
+							break;
+						
+					}//End of SWITCH
+					
+				}//End of IF numberofOverlappingBases is greater than ZERO 
+				
+			}//End of FOR each KEGG Pathway Node
+			
+		}//End of FOR each TF Node
+		
+	}
+	//19 NOV 2015
 	
 
 	// Enrichment
@@ -7057,29 +7289,42 @@ public class Annotation {
 			IntervalTree tfIntervalTree, 
 			IntervalTree ucscRefSeqGenesIntervalTree,
 			TIntObjectMap<TIntList> geneId2KeggPathwayNumberMap,
-			TLongIntMap permutationNumberTfNumberCellLineNumber2KMap,
+			TLongIntMap permutationNumberTFNumberCellLineNumber2KMap,
 			TIntIntMap permutationNumberExonBasedKeggPathwayNumber2KMap,
 			TIntIntMap permutationNumberRegulationBasedKeggPathwayNumber2KMap,
 			TIntIntMap permutationNumberAllBasedKeggPathwayNumber2KMap,
-			TLongIntMap permutationNumberTfNumberExonBasedKeggPathwayNumber2KMap,
-			TLongIntMap permutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap,
-			TLongIntMap permutationNumberTfNumberAllBasedKeggPathwayNumber2KMap,
-			TLongIntMap permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
-			TLongIntMap permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
-			TLongIntMap permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, 
+			TLongIntMap permutationNumberTFNumberExonBasedKeggPathwayNumber2KMap,
+			TLongIntMap permutationNumberTFNumberRegulationBasedKeggPathwayNumber2KMap,
+			TLongIntMap permutationNumberTFNumberAllBasedKeggPathwayNumber2KMap,
+			TLongIntMap permutationNumberTFNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
+			TLongIntMap permutationNumberTFNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
+			TLongIntMap permutationNumberTFNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, 
 			String type,
 			AnnotationType annotationType, 
 			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
-		long permutationNumberTfNumberCellLineNumber;
-		long permutationNumberTfNumberKeggPathwayNumber;
-		long permutationNumberTfNumberCellLineNumberKeggPathwayNumber;
+		long permutationNumberTFNumberCellLineNumber;
+		long permutationNumberTFNumberKEGGPathwayNumber;
+		long permutationNumberTFNumberCellLineNumberKEGGPathwayNumber;
+		
+		IntervalTree tfIntervalTreeWithNonOverlappingNodes = null;
+		IntervalTree exonBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = null;
+		IntervalTree regulationBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = null;
+		IntervalTree allBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = null;
+		
+		int permutationNumberKEGGPathwayNumber;
 
 		int keggPathwayNumber;
 
-		for( InputLineMinimal inputLine : inputLines){
+		for(InputLineMinimal inputLine : inputLines){
 			
+			// Fill these lists during search for tfs and search for ucscRefSeqGenes
+			List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList = new ArrayList<PermutationNumberTfNumberCellLineNumberOverlap>();
+			List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberExonBasedKeggPathwayNumberOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneNumberOverlap>();
+			List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberRegulationBasedKeggPathwayNumberOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneNumberOverlap>();
+			List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberAllBasedKeggPathwayNumberOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneNumberOverlap>();
+
 			switch(associationMeasureType){
 			
 				case EXISTENCE_OF_OVERLAP:
@@ -7105,13 +7350,7 @@ public class Annotation {
 					TLongIntMap permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap = new TLongIntHashMap();
 					TLongIntMap permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap = new TLongIntHashMap();
 
-					// Fill these lists during search for tfs and search for
-					// ucscRefSeqGenes
-					List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList = new ArrayList<PermutationNumberTfNumberCellLineNumberOverlap>();
-					List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberExonBasedKeggPathwayNumberOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneNumberOverlap>();
-					List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberRegulationBasedKeggPathwayNumberOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneNumberOverlap>();
-					List<PermutationNumberUcscRefSeqGeneNumberOverlap> permutationNumberAllBasedKeggPathwayNumberOverlapList = new ArrayList<PermutationNumberUcscRefSeqGeneNumberOverlap>();
-
+	
 					// First TF Fill permutationNumberTfNumberCellLineNumber2ZeroorOneMap
 					if( tfIntervalTree.getRoot().getNodeName().isNotSentinel()){
 
@@ -7123,13 +7362,12 @@ public class Annotation {
 								permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
 								permutationNumberTfNumberCellLineNumberOverlapList, 
 								overlapDefinition);
-					}
+						
+					}//End of IF
 
-					// accumulate search results of permutationNumberTfNumberCellLineNumber2ZeroorOneMap in permutationNumberTfNameaCellLineName2KMap
-					accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberCellLineNumber2ZeroorOneMap,permutationNumberTfNumberCellLineNumber2KMap);
+					// Accumulate search results of permutationNumberTfNumberCellLineNumber2ZeroorOneMap in permutationNumberTfNameaCellLineName2KMap
+					accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberCellLineNumber2ZeroorOneMap,permutationNumberTFNumberCellLineNumber2KMap);
 					
-				
-
 					// Second UcscRefSeqGenes
 					// Fill permutationNumberExonBasedKeggPathway2ZeroorOneMap
 					// Fill permutationNumberRegulationBasedKeggPathway2ZeroorOneMap
@@ -7161,18 +7399,17 @@ public class Annotation {
 					// Accumulate search results of allBasedKeggPathway2ZeroorOneMap in permutationNumberAllBasedKeggPathway2KMap
 					accumulateContentofOneorZeroMapInKMap(permutationNumberAllBasedKeggPathwayNumber2ZeroorOneMap,permutationNumberAllBasedKeggPathwayNumber2KMap);
 					
-					// New search for given input SNP or interval case, does not matter.
-					// for each tf overlap
-					// for each ucscRefSeqGene overlap
+					// For each TF Overlap
+					// For each ucscRefSeqGene overlap
 					// if these overlaps overlaps
 					// then write common overlap to output files
 					// Fill permutationNumberTfNameCellLineNameExonBasedKeggPathway2OneorZeroMap
 					// Fill permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2OneorZeroMap
 					// Fill permutationNumberTfNameCellLineNameAllBasedKeggPathway2OneorZeroMap
-					// question will overlapDefition apply to here?
+					// Question will overlapDefition apply to here? Yes
 					for( PermutationNumberTfNumberCellLineNumberOverlap permutationNumberTfNumberCellLineNumberOverlap : permutationNumberTfNumberCellLineNumberOverlapList){
 
-						permutationNumberTfNumberCellLineNumber = permutationNumberTfNumberCellLineNumberOverlap.getPermutationNumberTfNumberCellLineNumber();
+						permutationNumberTFNumberCellLineNumber = permutationNumberTfNumberCellLineNumberOverlap.getPermutationNumberTfNumberCellLineNumber();
 
 						// TF and EXON Based Kegg Pathway
 						for( PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap : permutationNumberExonBasedKeggPathwayNumberOverlapList){
@@ -7190,53 +7427,45 @@ public class Annotation {
 									// TF EXONKEGG
 									if( annotationType.doTFKEGGPathwayAnnotation()){
 										/***********************************/
-										permutationNumberTfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberKeggPathwayNumber))){
-											permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap.put(
-													permutationNumberTfNumberKeggPathwayNumber, 1);
-										}
+										
+										addOneToOneorZeroMap(permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberKEGGPathwayNumber);
 										/***********************************/
 									}
 									// TF CELLLINE EXONKEGG
 									else if( annotationType.doTFCellLineKEGGPathwayAnnotation()){
 										/***********************************/
-										permutationNumberTfNumberCellLineNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberCellLineNumberKeggPathwayNumber))){
-											permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberCellLineNumberKEGGPathwayNumber);
 										/***********************************/
 									}
 									// TF EXONKEGG and TF CELLLINE EXONKEGG
 									else if( annotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
 
 										/***********************************/
-										permutationNumberTfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberKeggPathwayNumber))){
-											permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberKEGGPathwayNumber);										
 										/***********************************/
 
 										/***********************************/
-										permutationNumberTfNumberCellLineNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberCellLineNumberKeggPathwayNumber))){
-											permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberCellLineNumberKEGGPathwayNumber);
 										/***********************************/
 									}
 
@@ -7260,28 +7489,24 @@ public class Annotation {
 									// TF REGULATIONKEGG
 									if( annotationType.doTFKEGGPathwayAnnotation()){
 										/***********************************/
-										permutationNumberTfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberKeggPathwayNumber))){
-											permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberKEGGPathwayNumber);										
 										/***********************************/
 
 									}
 									// TF CELLLINE REGULATIONKEGG
 									else if( annotationType.doTFCellLineKEGGPathwayAnnotation()){
 										/***********************************/
-										permutationNumberTfNumberCellLineNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberCellLineNumberKeggPathwayNumber))){
-											permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberCellLineNumberKEGGPathwayNumber);										
 										/***********************************/
 
 									}
@@ -7289,25 +7514,21 @@ public class Annotation {
 									else if( annotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
 
 										/***********************************/
-										permutationNumberTfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberKeggPathwayNumber))){
-											permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberKEGGPathwayNumber);										
 										/***********************************/
 
 										/***********************************/
-										permutationNumberTfNumberCellLineNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberCellLineNumberKeggPathwayNumber))){
-											permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberCellLineNumberKEGGPathwayNumber);										
 										/***********************************/
 									}
 
@@ -7329,28 +7550,24 @@ public class Annotation {
 									// TF ALLKEGG
 									if( annotationType.doTFKEGGPathwayAnnotation()){
 										/***********************************/
-										permutationNumberTfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberKeggPathwayNumber))){
-											permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberKEGGPathwayNumber);
 										/***********************************/
 
 									}
 									// TF CELLLINE ALLKEGG
 									else if( annotationType.doTFCellLineKEGGPathwayAnnotation()){
 										/***********************************/
-										permutationNumberTfNumberCellLineNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberCellLineNumberKeggPathwayNumber))){
-											permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap,permutationNumberTFNumberCellLineNumberKEGGPathwayNumber);
 										/***********************************/
 
 									}
@@ -7358,32 +7575,29 @@ public class Annotation {
 									else if( annotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
 
 										/***********************************/
-										permutationNumberTfNumberKeggPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberKeggPathwayNumber))){
-											permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberKeggPathwayNumber, 1);
-										}
+										addOneToOneorZeroMap(permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberKEGGPathwayNumber);
+
 										/***********************************/
 
 										/***********************************/
-										permutationNumberTfNumberCellLineNumberKeggPathwayNumber = IntervalTree.addKeggPathwayNumber(
-												permutationNumberTfNumberCellLineNumber,
+										permutationNumberTFNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+												permutationNumberTFNumberCellLineNumber,
 												keggPathwayNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										if( !( permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberTfNumberCellLineNumberKeggPathwayNumber))){
-											permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberTfNumberCellLineNumberKeggPathwayNumber, 1);
-										}
-										/***********************************/
+									addOneToOneorZeroMap(permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap,permutationNumberTFNumberCellLineNumberKEGGPathwayNumber);
+									/***********************************/
 									}
 
 								} // End of FOR each KEGG pathway having this gene
 							}// End of IF tfOverlap and ucscRefSeqGeneOverlap overlaps
 						}// End of FOR each ucscRefSeqGeneOverlap for the given query
-					}// for each tfOverlap for the given query
+					}// End of FOR each tfOverlap for the given query
 
 					
 					//Accumulation of OneorZeroMaps in KMaps starts
@@ -7391,17 +7605,17 @@ public class Annotation {
 						
 						// TF EXON BASED
 						// Fill permutationNumberTfExonBasedKeggPathway2KMap using permutationNumberTfNameExonBasedKeggPathway2OneorZeroMap
-						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTfNumberExonBasedKeggPathwayNumber2KMap);
+						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberExonBasedKeggPathwayNumber2KMap);
 						
 
 						// TF REGULATION BASED
 						// Fill permutationNumberTfRegulationBasedKeggPathway2KMap using permutationNumberTfNameRegulationBasedKeggPathway2OneorZeroMap
-						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap);
+						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberRegulationBasedKeggPathwayNumber2KMap);
 						
 
 						// TF ALL BASED
 						// Fill permutationNumberTfAllBasedKeggPathway2KMap using permutationNumberTfNameAllBasedKeggPathway2OneorZeroMap
-						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTfNumberAllBasedKeggPathwayNumber2KMap);
+						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberAllBasedKeggPathwayNumber2KMap);
 									
 
 					}else if( annotationType.doTFCellLineKEGGPathwayAnnotation()){
@@ -7411,7 +7625,7 @@ public class Annotation {
 						// using permutationNumberTfNameCellLineNameExonBasedKeggPathway2OneorZeroMap
 						accumulateContentofOneorZeroMapInKMap(
 								permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2OneorZeroMap, 
-								permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
+								permutationNumberTFNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
 						
 
 						// TF CELLLINE REGULATION BASED
@@ -7419,7 +7633,7 @@ public class Annotation {
 						// using permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2OneorZeroMap
 						accumulateContentofOneorZeroMapInKMap(
 								permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, 
-								permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
+								permutationNumberTFNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
 						
 						
 						// TF CELLLINE ALL BASED
@@ -7427,24 +7641,23 @@ public class Annotation {
 						// using permutationNumberTfNameCellLineNameAllBasedKeggPathway2OneorZeroMap
 						accumulateContentofOneorZeroMapInKMap(
 								permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap, 
-								permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
+								permutationNumberTFNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
 
 
 					}else if( annotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
 
 						// TF EXON BASED
 						// Fill permutationNumberTfExonBasedKeggPathway2KMap using permutationNumberTfNameExonBasedKeggPathway2OneorZeroMap
-						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTfNumberExonBasedKeggPathwayNumber2KMap);
+						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberExonBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberExonBasedKeggPathwayNumber2KMap);
 						
 
 						// TF REGULATION BASED
 						// Fill permutationNumberTfRegulationBasedKeggPathway2KMap using permutationNumberTfNameRegulationBasedKeggPathway2OneorZeroMap
-						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTfNumberRegulationBasedKeggPathwayNumber2KMap);
+						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberRegulationBasedKeggPathwayNumber2KMap);
 						
-
 						// TF ALL BASED
 						// Fill permutationNumberTfAllBasedKeggPathway2KMap usingpermutationNumberTfNameAllBasedKeggPathway2OneorZeroMap
-						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTfNumberAllBasedKeggPathwayNumber2KMap);
+						accumulateContentofOneorZeroMapInKMap(permutationNumberTfNumberAllBasedKeggPathwayNumber2OneorZeroMap, permutationNumberTFNumberAllBasedKeggPathwayNumber2KMap);
 						
 
 						// TF CELLLINE EXON BASED
@@ -7452,7 +7665,7 @@ public class Annotation {
 						// using permutationNumberTfNameCellLineNameExonBasedKeggPathway2OneorZeroMap
 						accumulateContentofOneorZeroMapInKMap(
 								permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2OneorZeroMap, 
-								permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
+								permutationNumberTFNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
 
 
 						// TF CELLLINE REGULATION BASED
@@ -7460,7 +7673,7 @@ public class Annotation {
 						// using permutationNumberTfNameCellLineNameRegulationBasedKeggPathway2OneorZeroMap
 						accumulateContentofOneorZeroMapInKMap(
 								permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2OneorZeroMap, 
-								permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
+								permutationNumberTFNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
 
 
 						// TF CELLLINE ALL BASED
@@ -7468,7 +7681,7 @@ public class Annotation {
 						// using permutationNumberTfNameCellLineNameAllBasedKeggPathway2OneorZeroMap
 						accumulateContentofOneorZeroMapInKMap(
 								permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2OneorZeroMap, 
-								permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
+								permutationNumberTFNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
 
 					}
 					//Accumulation of OneorZeroMaps in KMaps ends
@@ -7478,13 +7691,273 @@ public class Annotation {
 					
 					
 				case NUMBER_OF_OVERLAPPING_BASES:
+					
+					//18 NOV 2015 starts
+					
+					//TF
+					TLongObjectMap<List<IntervalTreeNode>> permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap = new TLongObjectHashMap<List<IntervalTreeNode>>();
+					TLongObjectMap<IntervalTree> permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TLongObjectHashMap<IntervalTree>();
+					TLongIntMap permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+
+					//UCSC Refseq Genes
+					TIntObjectMap<List<IntervalTreeNode>> permutationNumberExonBasedKEGGPathwayNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+					TIntObjectMap<IntervalTree> permutationNumberExonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+					TIntIntMap permutationNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+					
+					TIntObjectMap<List<IntervalTreeNode>> permutationNumberRegulationBasedKEGGPathwayNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+					TIntObjectMap<IntervalTree> permutationNumberRegulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+					TIntIntMap permutationNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+					
+					TIntObjectMap<List<IntervalTreeNode>> permutationNumberAllBasedKEGGPathwayNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+					TIntObjectMap<IntervalTree> permutationNumberAllBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+					TIntIntMap permutationNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+									
+					// Will be filled in Common Overlap Check
+					// Will be used for TF and KEGG Pathway enrichment
+					TLongIntMap permutationNumberTfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+					TLongIntMap permutationNumberTfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+					TLongIntMap permutationNumberTfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+
+					// Will be filled in Common Overlap check
+					// Will be used for TF and CellLine and KEGG Pathway enrichment
+					TLongIntMap permutationNumberTfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+					TLongIntMap permutationNumberTfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+					TLongIntMap permutationNumberTfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+
+					
+					//TF starts
+					if( tfIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						//Step1: Get all the overlappingIntervals with the inputLine
+						tfIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers(
+								permutationNumber,
+								tfIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap);
+						
+						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+								permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap, 
+								permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap);
+						
+						//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+						//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+						IntervalTree.findNumberofOverlappingBases(
+								inputLine,
+								permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+								permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap);
+						
+					}//End of IF
+
+					// Accumulate search results of permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberTFNumberCellLineNumber2KMap
+					accumulateContentofNumberofOverlappingBasesinKMap(
+							permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap, 
+							permutationNumberTFNumberCellLineNumber2KMap);									
+					//TF ends
+					
+					
+					//UCSC RefSeq Genes starts		
+					//We are interested in KEGG Pathways since we are doing TF KEGG Pathway Joint Analysis
+					if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+						//Step1: Get all the overlappingIntervals with the inputLine
+						ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+								permutationNumber, 
+								ucscRefSeqGenesIntervalTree.getRoot(), 
+								inputLine, 
+								chromName,
+								geneId2KeggPathwayNumberMap, 
+								permutationNumberExonBasedKEGGPathwayNumber2OverlappingNodeListMap,
+								permutationNumberRegulationBasedKEGGPathwayNumber2OverlappingNodeListMap,
+								permutationNumberAllBasedKEGGPathwayNumber2OverlappingNodeListMap, 
+								type, 
+								GeneSetType.KEGGPATHWAY);
+						
+						//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+								permutationNumberExonBasedKEGGPathwayNumber2OverlappingNodeListMap, 
+								permutationNumberExonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap);
+								
+
+						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+								permutationNumberRegulationBasedKEGGPathwayNumber2OverlappingNodeListMap, 
+								permutationNumberRegulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap);
+
+							
+						IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+								permutationNumberAllBasedKEGGPathwayNumber2OverlappingNodeListMap, 
+								permutationNumberAllBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap);
+							
+						//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+						//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+						IntervalTree.findNumberofOverlappingBases(
+								inputLine,
+								permutationNumberExonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap,
+								permutationNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+
+						IntervalTree.findNumberofOverlappingBases(
+								inputLine,
+								permutationNumberRegulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap,
+								permutationNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+
+						IntervalTree.findNumberofOverlappingBases(
+								inputLine,
+								permutationNumberAllBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap,
+								permutationNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+
+					}//End of IF intervalTree root node is NOT SENTINEL
+					
+					//Accumulate numberofOverlappingBases in K Map
+					accumulateContentofNumberofOverlappingBasesinKMap(
+							permutationNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+							permutationNumberExonBasedKeggPathwayNumber2KMap);
+					
+					accumulateContentofNumberofOverlappingBasesinKMap(
+							permutationNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+							permutationNumberRegulationBasedKeggPathwayNumber2KMap);
+									
+					accumulateContentofNumberofOverlappingBasesinKMap(
+							permutationNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+							permutationNumberAllBasedKeggPathwayNumber2KMap);
+					//UCSC RefSeq Genes ends
+					
+					
+					//Now look for Joint Overlaps between TF and KEGGPathway
+					for (TLongObjectIterator<IntervalTree> itr = permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.iterator();itr.hasNext();){
+						
+						itr.advance();
+						
+						permutationNumberTFNumberCellLineNumber = itr.key();
+						tfIntervalTreeWithNonOverlappingNodes = itr.value();
+						
+						//EXON Based KEGG Pathway
+						for(TIntObjectIterator<IntervalTree> itrKEGG = permutationNumberExonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap.iterator();itrKEGG.hasNext();){
+							
+							itrKEGG.advance();
+							
+							permutationNumberKEGGPathwayNumber = itrKEGG.key();
+							exonBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
+							
+							findCommonOverlaps(
+									permutationNumberTFNumberCellLineNumber,
+									GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER,
+									tfIntervalTreeWithNonOverlappingNodes,
+									permutationNumberKEGGPathwayNumber,
+									GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER,
+									exonBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes,
+									annotationType,
+									permutationNumberTfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+									permutationNumberTfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+						}//End of for each EXON Based KEGG Pathway Overlap
+				
+						//Regulation Based KEGG Pathway
+						for(TIntObjectIterator<IntervalTree> itrKEGG = permutationNumberRegulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap.iterator();itrKEGG.hasNext();){
+							
+							itrKEGG.advance();
+							
+							permutationNumberKEGGPathwayNumber = itrKEGG.key();
+							regulationBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
+							
+							findCommonOverlaps(
+									permutationNumberTFNumberCellLineNumber,
+									GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER,
+									tfIntervalTreeWithNonOverlappingNodes,
+									permutationNumberKEGGPathwayNumber,
+									GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER,
+									regulationBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes,
+									annotationType,
+									permutationNumberTfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+									permutationNumberTfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+						}//End of for each Regulation Based KEGG Pathway Overlap
+
+						
+						//ALL Based KEGG Pathway
+						for(TIntObjectIterator<IntervalTree> itrKEGG = permutationNumberAllBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap.iterator();itrKEGG.hasNext();){
+							
+							itrKEGG.advance();
+							
+							permutationNumberKEGGPathwayNumber = itrKEGG.key();
+							allBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
+							
+							findCommonOverlaps(
+									permutationNumberTFNumberCellLineNumber,
+									GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER,
+									tfIntervalTreeWithNonOverlappingNodes,
+									permutationNumberKEGGPathwayNumber,
+									GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER,
+									allBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes,
+									annotationType,
+									permutationNumberTfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+									permutationNumberTfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+						}//End of for each ALL Based KEGG Pathway Overlap
+
+						
+					}//End of FOR each TF Overlap
+		
+					
+					//Accumulate mixedNumber2NumberofOverlappingBasesMap in mixedNumber2KMap
+					if( annotationType.doTFKEGGPathwayAnnotation()){
+					
+						//TF KEGG
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberExonBasedKeggPathwayNumber2KMap);
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberRegulationBasedKeggPathwayNumber2KMap);
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberAllBasedKeggPathwayNumber2KMap);
+
+					} else if (annotationType.doTFCellLineKEGGPathwayAnnotation()){
+						
+						//TF CellLine KEGG
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
+					
+					}else if(annotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
+						
+						//TF KEGG
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberExonBasedKeggPathwayNumber2KMap);
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberRegulationBasedKeggPathwayNumber2KMap);
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberAllBasedKeggPathwayNumber2KMap);
+						
+						//TF CellLine KEGG
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
+						accumulateContentofNumberofOverlappingBasesinKMap(permutationNumberTfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, permutationNumberTFNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
+					
+					}
+				
+				
+					//Lastly Free memory
+					//TF
+					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap = null;
+					permutationNumberTFNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+					permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap = null;
+					
+					//Exon Based KEGG Pathway
+					permutationNumberExonBasedKEGGPathwayNumber2OverlappingNodeListMap = null;
+					permutationNumberExonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+					permutationNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+					
+					//Regulation Based KEGG Pathway
+					permutationNumberRegulationBasedKEGGPathwayNumber2OverlappingNodeListMap = null;
+					permutationNumberRegulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+					permutationNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+					
+					//All Based KEGG Pathway
+					permutationNumberAllBasedKEGGPathwayNumber2OverlappingNodeListMap = null;
+					permutationNumberAllBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+					permutationNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+					
+					//18 NOV 2015 ends
+					
 					break;
 					
 				default:
 					break;
 			
 			}//End of SWITCH for AssociationMeasureType
-
 
 
 		}// End of FOR each input line
