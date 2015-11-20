@@ -7175,6 +7175,7 @@ public class Annotation {
 	
 	//19 NOV 2015
 	public static void findCommonOverlaps(
+			InputLineMinimal inputLine,
 			long permutationNumberTFNumberCellLineNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLengthforTF,
 			IntervalTree TFIntervalTreeWithNonOverlappingNodes,
@@ -7216,7 +7217,7 @@ public class Annotation {
 		
 			for(IntervalTreeNode KEGGPathwayNode: KEGGPathwayNonOverlappingNodes){
 				
-				numberofOverlappingBases = IntervalTree.findNumberofOverlapingBases(TFNode.getLow(), TFNode.getHigh(), KEGGPathwayNode.getLow(), KEGGPathwayNode.getHigh());
+				numberofOverlappingBases = IntervalTree.findNumberofOverlapingBases(TFNode.getLow(), TFNode.getHigh(), KEGGPathwayNode.getLow(), KEGGPathwayNode.getHigh(),inputLine.getLow(),inputLine.getHigh());
 				
 				if (numberofOverlappingBases>0){
 					
@@ -7840,6 +7841,7 @@ public class Annotation {
 							exonBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
 							
 							findCommonOverlaps(
+									inputLine,
 									permutationNumberTFNumberCellLineNumber,
 									GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER,
 									tfIntervalTreeWithNonOverlappingNodes,
@@ -7861,6 +7863,7 @@ public class Annotation {
 							regulationBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
 							
 							findCommonOverlaps(
+									inputLine,
 									permutationNumberTFNumberCellLineNumber,
 									GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER,
 									tfIntervalTreeWithNonOverlappingNodes,
@@ -7883,6 +7886,7 @@ public class Annotation {
 							allBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
 							
 							findCommonOverlaps(
+									inputLine,
 									permutationNumberTFNumberCellLineNumber,
 									GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER,
 									tfIntervalTreeWithNonOverlappingNodes,

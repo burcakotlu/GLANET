@@ -1345,8 +1345,20 @@ public class IntervalTree {
 			intervalTreeInfixTraversal( node.getRight(), bufferedWriter, type, givenInputDataSNPSorIntervals);
 
 	}
+	
+	//20 NOV 2015 starts
+	//There are three intervals
+	public static int findNumberofOverlapingBases( int low_x, int high_x, int low_y, int high_y, int givenInputLine_low, int givenInputLine_high) {
+
+		if( ( low_x <= high_y) && ( low_y <= high_x)){	
+			return findNumberofOverlapingBases(Math.max(low_x, low_y),Math.min(high_x, high_y),givenInputLine_low,givenInputLine_high);
+		}else
+			return 0;
+	}
+	//20 NOV 2015 ends
 
 	// Return number of overlapping base pairs
+	//There are two intervals
 	public static int findNumberofOverlapingBases( int low_x, int high_x, int low_y, int high_y) {
 
 		if( ( low_x <= high_y) && ( low_y <= high_x)){
