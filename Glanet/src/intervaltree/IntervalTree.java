@@ -7253,9 +7253,9 @@ public class IntervalTree {
 	
 				
 					// REGULATION Based  GeneSet Analysis
-					if( castedNode.getIntervalName().isIntron() || 
-						castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
-						castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+					if( ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isIntron() || 
+						((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isFivePOne() || ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isFivePTwo() || 
+						((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isThreePOne() || ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isThreePTwo()){
 						
 						castedNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
 								node.getChromName(),
