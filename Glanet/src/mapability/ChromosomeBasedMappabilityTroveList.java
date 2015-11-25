@@ -26,9 +26,12 @@ public class ChromosomeBasedMappabilityTroveList {
 
 	final static Logger logger = Logger.getLogger(ChromosomeBasedMappabilityTroveList.class);
 
-	public static void fillTroveList( String dataFolder, ChromosomeName chromName,
-			TIntList mapabilityChromosomePositionList, TShortList mapabilityShortValueList
-	// TByteList mapabilityByteValueList
+	public static void fillTroveList( 
+			String dataFolder, 
+			ChromosomeName chromName,
+			TIntList mapabilityChromosomePositionList, 
+			TShortList mapabilityShortValueList
+			// TByteList mapabilityByteValueList
 	) {
 
 		String fileName = Commons.MAPABILITY + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.MAPABILITY_HG19_FILE_END;
@@ -101,8 +104,8 @@ public class ChromosomeBasedMappabilityTroveList {
 			// Add the last chromosome position
 			// This is a dummy insertion
 			// We just want to know the last chromosome position with a mapability value
-			mapabilityChromosomePositionList.add( high);
-			mapabilityShortValueList.add( Commons.SHORT_0);
+			mapabilityChromosomePositionList.add(high);
+			mapabilityShortValueList.add(Commons.SHORT_0);
 			// mapabilityByteValueList.add(Commons.BYTE_0);
 
 			if( GlanetRunner.shouldLog())logger.info( "numberofGaps:" + numberofGaps);

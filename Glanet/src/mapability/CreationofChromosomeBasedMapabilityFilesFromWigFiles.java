@@ -29,7 +29,8 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 
 	final static Logger logger = Logger.getLogger(CreationofChromosomeBasedMapabilityFilesFromWigFiles.class);
 
-	public static void readMapabilityFileWriteChromBasedMapabilityFiles( String dataFolder,
+	public static void readMapabilityFileWriteChromBasedMapabilityFiles( 
+			String dataFolder,
 			TIntObjectMap<BufferedWriter> chromName2BufferedWriterMap) {
 
 		BufferedReader bufferedReader;
@@ -49,7 +50,8 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 		BufferedWriter correspondingBufferedWriter = null;
 
 		try{
-			bufferedReader = FileOperations.createBufferedReader( dataFolder,
+			bufferedReader = FileOperations.createBufferedReader( 
+					dataFolder,
 					Commons.WG_ENCODE_CRG_MAPABILITY_ALIGN_100_MER_WIG);
 
 			while( ( strLine = bufferedReader.readLine()) != null){

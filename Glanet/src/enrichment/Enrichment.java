@@ -76,7 +76,6 @@ import annotation.Annotation;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 /**
@@ -127,17 +126,29 @@ public class Enrichment {
 
 		private final String outputFolder;
 
-		public GenerateRandomData( String outputFolder, int chromSize, ChromosomeName chromName,
+		public GenerateRandomData( 
+				String outputFolder, 
+				int chromSize, 
+				ChromosomeName chromName,
 				List<InputLineMinimal> chromosomeBasedOriginalInputLines,
 				GenerateRandomDataMode generateRandomDataMode,
-				WriteGeneratedRandomDataMode writeGeneratedRandomDataMode, int lowIndex, int highIndex,
-				TIntList permutationNumberList, GivenInputDataType givenInputsSNPsorIntervals, TByteList gcByteList,
-				IntervalTree gcIntervaTree, IntervalTree gcIsochoreIntervalTree, List<Interval> gcIsochoreFamilyL1Pool,
-				List<Interval> gcIsochoreFamilyL2Pool, List<Interval> gcIsochoreFamilyH1Pool,
-				List<Interval> gcIsochoreFamilyH2Pool, List<Interval> gcIsochoreFamilyH3Pool,
+				WriteGeneratedRandomDataMode writeGeneratedRandomDataMode, 
+				int lowIndex, 
+				int highIndex,
+				TIntList permutationNumberList, 
+				GivenInputDataType givenInputsSNPsorIntervals, 
+				TByteList gcByteList,
+				IntervalTree gcIntervaTree, 
+				IntervalTree gcIsochoreIntervalTree, 
+				List<Interval> gcIsochoreFamilyL1Pool,
+				List<Interval> gcIsochoreFamilyL2Pool, 
+				List<Interval> gcIsochoreFamilyH1Pool,
+				List<Interval> gcIsochoreFamilyH2Pool, 
+				List<Interval> gcIsochoreFamilyH3Pool,
 				// IntervalTree mapabilityIntervalTree
-				TIntList mapabilityChromosomePositionList, TShortList mapabilityShortValueList
-		// TByteList mapabilityByteValueList
+				TIntList mapabilityChromosomePositionList, 
+				TShortList mapabilityShortValueList
+				// TByteList mapabilityByteValueList
 		) {
 
 			this.outputFolder = outputFolder;
@@ -5101,7 +5112,7 @@ public class Enrichment {
 			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					//Commons.TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED + "_" + userDefinedGeneSetName, 
 					runName,
 					exonBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getExonBasedUserDefinedGeneSetNumber2NumberofPermutations(),
@@ -5115,7 +5126,7 @@ public class Enrichment {
 			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					//Commons.TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED + "_" + userDefinedGeneSetName,
 					runName,
 					regulationBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getRegulationBasedUserDefinedGeneSetNumber2NumberofPermutations(),
@@ -5129,7 +5140,7 @@ public class Enrichment {
 			writeToBeCollectedWithoutZScore( 
 					outputFolder, 
 					//Commons.TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET,
+					Commons.ENRICHMENT_DIRECTORY + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED + "_" + userDefinedGeneSetName,
 					runName,
 					allBasedUserDefinedGeneSet2OriginalKMap,
 					allMapsWithNumbersForAllChromosomes.getAllBasedUserDefinedGeneSetNumber2NumberofPermutations(),
@@ -5338,7 +5349,7 @@ public class Enrichment {
 
 					writeToBeCollectedWithoutZScore( 
 						outputFolder, 
-						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + Commons.RUNS_DIRECTORY + elementTypeName,
+						Commons.TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS + elementTypeName +System.getProperty( "file.separator") + Commons.RUNS_DIRECTORY + elementTypeName,
 						runName,
 						userDefinedLibraryElementNumber2OriginalKMap,
 						elementNumber2NumberofPermutationsMap,
@@ -6453,8 +6464,7 @@ public class Enrichment {
 
 					// Always fill GC Isochore IntervalTree for classifying the Isochore Family of the interval
 					// GC Isochore IntervalTree
-					ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree( dataFolder, chromName,
-							gcIsochoreIntervalTree);
+					ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree( dataFolder, chromName,gcIsochoreIntervalTree);
 
 					// Always fill Isochore Family Pools for random Isochore Interval selection depending on the
 					// Isochore Family of the original interval.
@@ -9352,8 +9362,12 @@ public class Enrichment {
 
 				// Gene
 				if( geneAnnotationType.doGeneAnnotation()){
-					writeToBeCollectedNumberofOverlaps( outputFolder, geneID2OriginalKMap, gene2AllKMap,
-							Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, runName);
+					writeToBeCollectedNumberofOverlaps( 
+							outputFolder, 
+							geneID2OriginalKMap, 
+							gene2AllKMap,
+							Commons.TO_BE_COLLECTED_GENE_NUMBER_OF_OVERLAPS, 
+							runName);
 				}
 
 				// UserDefinedGeneset
@@ -9363,15 +9377,26 @@ public class Enrichment {
 					final String TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
 					final String TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS = Commons.ENRICHMENT_USERDEFINED_GENESET_COMMON + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ENRICHMENT_ALLBASED_USERDEFINED_GENESET + "_" + userDefinedGeneSetName;
 
-					writeToBeCollectedNumberofOverlaps( outputFolder, exonBasedUserDefinedGeneSet2OriginalKMap,
+					writeToBeCollectedNumberofOverlaps( 
+							outputFolder, 
+							exonBasedUserDefinedGeneSet2OriginalKMap,
 							exonBasedUserDefinedGeneSet2AllKMap,
-							TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
-					writeToBeCollectedNumberofOverlaps( outputFolder, regulationBasedUserDefinedGeneSet2OriginalKMap,
+							TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+							runName);
+					
+					writeToBeCollectedNumberofOverlaps(
+							outputFolder, 
+							regulationBasedUserDefinedGeneSet2OriginalKMap,
 							regulationBasedUserDefinedGeneSet2AllKMap,
-							TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
-					writeToBeCollectedNumberofOverlaps( outputFolder, allBasedUserDefinedGeneSet2OriginalKMap,
+							TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+							runName);
+					
+					writeToBeCollectedNumberofOverlaps( 
+							outputFolder, 
+							allBasedUserDefinedGeneSet2OriginalKMap,
 							allBasedUserDefinedGeneSet2AllKMap,
-							TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, runName);
+							TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS, 
+							runName);
 
 				}
 

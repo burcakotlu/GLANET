@@ -1017,9 +1017,9 @@ public class Commons {
 	public static final String ANNOTATE_PERMUTATIONS_FOR_TFBS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.TF + System.getProperty( "file.separator");
 	public static final String ANNOTATE_PERMUTATIONS_FOR_HISTONE = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.HISTONE + System.getProperty( "file.separator");
 
-	public static final String ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_USERDEFINED_GENESET_ANALYSIS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET + System.getProperty( "file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_USERDEFINED_GENESET_ANALYSIS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET + System.getProperty( "file.separator");
-	public static final String ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_USERDEFINED_GENESET_ANALYSIS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET + System.getProperty( "file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_USERDEFINED_GENESET_ANALYSIS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_USERDEFINED_GENESET_ANALYSIS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator");
+	public static final String ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_USERDEFINED_GENESET_ANALYSIS = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator");
 
 	public static final String ANNOTATE_PERMUTATIONS_FOR_USERDEFINEDLIBRARY = Commons.ANNOTATION_FOR_PERMUTATIONS + System.getProperty( "file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty( "file.separator");
 
@@ -1066,17 +1066,17 @@ public class Commons {
 	public static final String ENRICHMENT_USERDEFINED_GENESET_COMMON = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator");
 
 	// starts
-	public static final String ENRICHMENT_EXONBASED_USERDEFINED_GENESET = Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET;
-	public static final String TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_USER_DEFINED_GENESET;
-	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_EXONBASED_USERDEFINED_GENESET = Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.EXON_BASED_USER_DEFINED_GENESET;
+	public static final String ENRICHMENT_EXONBASED_USERDEFINED_GENESET = Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED;
+	public static final String TO_BE_COLLECTED_EXON_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED;
+	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_EXONBASED_USERDEFINED_GENESET = Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.EXON_BASED;
 
-	public static final String ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET = Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET;
-	public static final String TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_USER_DEFINED_GENESET;
-	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_REGULATIONBASED_USERDEFINED_GENESET = Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.REGULATION_BASED_USER_DEFINED_GENESET;
+	public static final String ENRICHMENT_REGULATIONBASED_USERDEFINED_GENESET = Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED;
+	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_REGULATIONBASED_USERDEFINED_GENESET = Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.REGULATION_BASED;
 
-	public static final String ENRICHMENT_ALLBASED_USERDEFINED_GENESET = Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET;
-	public static final String TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_USER_DEFINED_GENESET;
-	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_ALLBASED_USERDEFINED_GENESET = Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.ALL_BASED_USER_DEFINED_GENESET;
+	public static final String ENRICHMENT_ALLBASED_USERDEFINED_GENESET = Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED;
+	public static final String TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED;
+	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_ALLBASED_USERDEFINED_GENESET = Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.ALL_BASED;
 	// ends
 
 	public static final String TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_LIBRARY + System.getProperty( "file.separator");
@@ -1171,9 +1171,9 @@ public class Commons {
 	public static final String ALL_BASED = "AllBased";
 	public static final String NO_GENESET_ANALYSIS_TYPE_IS_DEFINED = "NoGeneSetAnalysisTypeIsDefined";
 
-	public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBased_UDGS";
-	public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBased_UDGS";
-	public static final String ALL_BASED_USER_DEFINED_GENESET = "AllBased_UDGS";
+	//public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBased_UDGS";
+	//public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBased_UDGS";
+	//public static final String ALL_BASED_USER_DEFINED_GENESET = "AllBased_UDGS";
 
 	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBased_KEGGPathway";
 	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBased_KEGGPathway";

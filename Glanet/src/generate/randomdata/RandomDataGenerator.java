@@ -200,17 +200,25 @@ public class RandomDataGenerator {
 
 	}
 
-	public static List<InputLineMinimal> generateRandomData( GivenInputDataType givenInputsSNPsorIntervals,
-			TByteList gcByteList, IntervalTree gcIntervalTree, IntervalTree gcIsochoreIntervalTree,
-			List<Interval> gcIsochoreFamilyL1Pool, List<Interval> gcIsochoreFamilyL2Pool,
-			List<Interval> gcIsochoreFamilyH1Pool, List<Interval> gcIsochoreFamilyH2Pool,
+	public static List<InputLineMinimal> generateRandomData( 
+			GivenInputDataType givenInputsSNPsorIntervals,
+			TByteList gcByteList, 
+			IntervalTree gcIntervalTree, 
+			IntervalTree gcIsochoreIntervalTree,
+			List<Interval> gcIsochoreFamilyL1Pool, 
+			List<Interval> gcIsochoreFamilyL2Pool,
+			List<Interval> gcIsochoreFamilyH1Pool, 
+			List<Interval> gcIsochoreFamilyH2Pool,
 			List<Interval> gcIsochoreFamilyH3Pool,
 			TIntList mapabilityChromosomePositionList,
 			TShortList mapabilityShortValueList,
 			// TByteList mapabilityByteValueList,
 			// IntervalTree mapabilityIntervalTree,
-			int chromSize, ChromosomeName chromName, List<InputLineMinimal> chromosomeBasedOriginalInputLines,
-			ThreadLocalRandom threadLocalRandom, GenerateRandomDataMode generateRandomDataMode) {
+			int chromSize, 
+			ChromosomeName chromName, 
+			List<InputLineMinimal> chromosomeBasedOriginalInputLines,
+			ThreadLocalRandom threadLocalRandom, 
+			GenerateRandomDataMode generateRandomDataMode) {
 
 		List<InputLineMinimal> randomlyGeneratedInputLines = null;
 

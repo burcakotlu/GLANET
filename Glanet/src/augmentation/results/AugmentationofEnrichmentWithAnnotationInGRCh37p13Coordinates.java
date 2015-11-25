@@ -17,11 +17,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import userdefined.library.UserDefinedLibraryUtility;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.AnnotationType;
 import enumtypes.CommandLineArguments;
+import enumtypes.GeneSetAnalysisType;
+import enumtypes.GeneSetType;
 import enumtypes.MultipleTestingType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
@@ -1176,9 +1181,16 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 	// read KeggPathwayall File
 	// Augment EnrichedKeggPathwayElements with original Overlapped Intervals
 	// and Write
-	public static void readKeggPathwayAllFileAugmentWrite( String outputFolder,
-			MultipleTestingType multipleTestingParameter, Float FDR, Float bonfCorrectionSignificanceLevel,
-			String inputFileName, String outputFileName, String type, String userDefinedGeneSetName) {
+	public static void readKeggPathwayAllFileAugmentWrite( 
+			String outputFolder,
+			MultipleTestingType multipleTestingParameter, 
+			Float FDR, 
+			Float bonfCorrectionSignificanceLevel,
+			String inputFileName, 
+			String outputFileName, 
+			GeneSetType geneSetType,
+			GeneSetAnalysisType geneSetAnalysisType,
+			String userDefinedGeneSetName) {
 
 		String strLine1;
 		String strLine2;
@@ -1310,24 +1322,27 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 						'_', indexofFirstUnderscore + 1):-1;
 
 				// KEGG PATHWAY
-				if( type.equals( Commons.EXON_BASED_KEGG_PATHWAY)){
+				if(geneSetType.isKeggPathway() && geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
+					
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring( 0, indexofFirstUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(
 							outputFolder + Commons.EXON_BASED_KEGG_PATHWAY_ANNOTATION + "_" + keggPathwayName + ".txt");
 
-				}else if( type.equals( Commons.REGULATION_BASED_KEGG_PATHWAY)){
+				}else if(geneSetType.isKeggPathway() && geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
+					
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring( 0, indexofFirstUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(
 							outputFolder + Commons.REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + "_" + keggPathwayName + ".txt");
 
-				}else if( type.equals( Commons.ALL_BASED_KEGG_PATHWAY)){
+				}else if(geneSetType.isKeggPathway() && geneSetAnalysisType.isAllBasedGeneSetAnalysis()){
+					
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring( 0, indexofFirstUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(
 							outputFolder + Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");
 				}
 
 				// USERDEFINED GENESET
-				else if( type.equals( Commons.EXON_BASED_USER_DEFINED_GENESET)){
+				else if(geneSetType.isUserDefinedGeneSet() && geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
 
 					if( indexofSecondUnderscore > 0){
 						keggPathwayName = enrichedKeggPathwayNameandDescription.substring( 0, indexofSecondUnderscore);
@@ -1339,7 +1354,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 								outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.EXONBASED_USERDEFINED_GENESET_ANNOTATION + "_" + keggPathwayName + ".txt");
 					}
 
-				}else if( type.equals( Commons.REGULATION_BASED_USER_DEFINED_GENESET)){
+				}else if(geneSetType.isUserDefinedGeneSet() && geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
 
 					if( indexofSecondUnderscore > 0){
 						keggPathwayName = enrichedKeggPathwayNameandDescription.substring( 0, indexofSecondUnderscore);
@@ -1352,7 +1367,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 								outputFolder + Commons.USER_DEFINED_GENESET_ANNOTATION_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.REGULATIONBASED_USERDEFINED_GENESET_ANNOTATION + "_" + keggPathwayName + ".txt");
 					}
 
-				}else if( type.equals( Commons.ALL_BASED_USER_DEFINED_GENESET)){
+				}else if(geneSetType.isUserDefinedGeneSet() && geneSetAnalysisType.isAllBasedGeneSetAnalysis()){
 
 					if( indexofSecondUnderscore > 0){
 						keggPathwayName = enrichedKeggPathwayNameandDescription.substring( 0, indexofSecondUnderscore);
@@ -1701,7 +1716,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					TO_BE_COLLECTED_EXON_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_EXON_BASED_USERDEFINED_GENESET_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.EXON_BASED_USER_DEFINED_GENESET, userDefinedGeneSetName);
+					GeneSetType.USERDEFINEDGENESET,
+					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS,
+					userDefinedGeneSetName);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1709,7 +1726,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					TO_BE_COLLECTED_REGULATION_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_REGULATION_BASED_USERDEFINED_GENESET_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.REGULATION_BASED_USER_DEFINED_GENESET, userDefinedGeneSetName);
+					GeneSetType.USERDEFINEDGENESET,
+					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS,
+					userDefinedGeneSetName);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1717,7 +1736,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					TO_BE_COLLECTED_ALL_BASED_USER_DEFINED_GENESET_NUMBER_OF_OVERLAPS + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_ALL_BASED_USERDEFINED_GENESET_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.ALL_BASED_USER_DEFINED_GENESET, userDefinedGeneSetName);
+					GeneSetType.USERDEFINEDGENESET,
+					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS,
+					userDefinedGeneSetName);
 		}
 		/********************************************************************************/
 		/********************* USER DEFINED GENESET ends ********************************/
@@ -1765,7 +1786,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.EXON_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS,					
+					null);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1773,7 +1796,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_REGULATION_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.REGULATION_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, 
+					null);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1781,7 +1806,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_ALL_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.ALL_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, 
+					null);
 		}
 		/********************* KEGG PATHWAY ends ****************************************/
 		/******************************************************************************/
@@ -1800,7 +1827,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.EXON_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, 
+					null);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1808,7 +1837,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_REGULATION_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.REGULATION_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, 
+					null);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1816,7 +1847,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_ALL_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.ALL_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, 
+					null);
 
 			readTfKeggPathwayAllAugmentWrite(
 					outputFolder,
@@ -1860,7 +1893,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.EXON_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, 
+					null);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1868,7 +1903,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_REGULATION_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.REGULATION_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, 
+					null);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1876,7 +1913,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_ALL_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.ALL_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, 
+					null);
 
 			readTfCellLineKeggPathwayAllFileAugmentWrite(
 					outputFolder,
@@ -1922,7 +1961,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_EXON_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_EXON_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.EXON_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.EXONBASEDGENESETANALYSIS, 
+					null);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1930,7 +1971,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_REGULATION_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_REGULATION_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.REGULATION_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS, 
+					null);
 			readKeggPathwayAllFileAugmentWrite(
 					outputFolder,
 					multipleTestingParameter,
@@ -1938,7 +1981,9 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					bonfCorrectionSignificanceLevel,
 					Commons.ALL_PERMUTATIONS_NUMBER_OF_OVERLAPS_FOR_ALL_BASED_KEGG_PATHWAY + "_" + jobName + withRespectToFileName,
 					Commons.AUGMENTED_ALL_BASED_KEGG_PATHWAY_RESULTS_1BASED_START_END_GRCH37_P13_COORDINATES,
-					Commons.ALL_BASED_KEGG_PATHWAY, null);
+					GeneSetType.KEGGPATHWAY,
+					GeneSetAnalysisType.ALLBASEDGENESETANALYSIS, 
+					null);
 
 			readTfKeggPathwayAllAugmentWrite(
 					outputFolder,
