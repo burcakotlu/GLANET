@@ -270,7 +270,7 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         +---------------+                   |              |                      |
 |                         | `-fdbsnp`_    |                   |              |                      |
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Association Measure Type| `-numOvBas`_  |  Required         | `-c`_        | `-numOvBas`_         |
+| Assoc. Measure Type     | `-numOvBas`_  |  Required         | `-c`_        | `-numOvBas`_         |
 |						  +---------------+-------------------+--------------+----------------------+
 |						  | `-existOv`_   |  Required         | `-c`_		 | `-numOvBas`_         |
 +-------------------------+---------------+-------------------+--------------+----------------------+
