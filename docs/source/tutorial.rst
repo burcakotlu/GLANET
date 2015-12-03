@@ -270,8 +270,8 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         +---------------+                   |              |                      |
 |                         | `-fdbsnp`_    |                   |              |                      |
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Annotation              | `-numOvBas`_  |  Required         | `-c`_        | `-numOvBas`_         |
-|                         +---------------+-------------------+--------------+----------------------+
+| Association Measure     | `-numOvBas`_  |  Required         | `-c`_        | `-numOvBas`_         |
+| Type                    +---------------+-------------------+--------------+----------------------+
 |                         | `-existOv`_   |  Required         | `-c`_        | `-numOvBas`_         |
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Number of Bases         | `-b`_         |  Required         | `-c`_        | 1 (Integer)          |
