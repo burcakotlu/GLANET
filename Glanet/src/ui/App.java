@@ -291,6 +291,27 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.InputFileAssembly))
 			return false;
 
+		//parsing assocationmeasuretype
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase( Commons.ARG_NUMBER_OF_OVERLAPPING_BASES)){
+				if( argsInOrder[CommandLineArguments.AssociationMeasureType.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.AssociationMeasureType.value()] = Commons.NUMBER_OF_OVERLAPPING_BASES;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}else if( args[i].equalsIgnoreCase( Commons.ARG_EXISTENCE_OF_OVERLAP)){
+				if( argsInOrder[CommandLineArguments.AssociationMeasureType.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.AssociationMeasureType.value()] = Commons.EXISTENCE_OF_OVERLAP;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+		
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.AssociationMeasureType))
+			return false;
+		
 		// parsing number of bases value
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase( Commons.ARG_NUMBER_OF_BASES)){

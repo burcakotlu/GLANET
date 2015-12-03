@@ -60,6 +60,7 @@ public class MainView extends JPanel {
 	private JPanel listPane;
 	private JButton runButton;
 	private JButton stopButton;
+	private JComboBox<String> associationMeasureTypeCombo;
 	private JComboBox<String> generateRandomDataModeCombo;
 	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
@@ -90,7 +91,7 @@ public class MainView extends JPanel {
 				String inputFileName, 
 				String inputFileAssembly, 
 				String outputFolder,
-				String inputFileFormat, 
+				String inputFileFormat, 				
 				String associationMeasureType,
 				String numberOfBases, 
 				String enrichmentEnabled,
@@ -212,7 +213,7 @@ public class MainView extends JPanel {
 						inputAssembly.getSelectedItem().toString(),
 						outputTextField.getText(),
 						inputFormatCombo.getSelectedItem().toString(),
-						Commons.NUMBER_OF_OVERLAPPING_BASES,
+						associationMeasureTypeCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
 						performEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
 						performEnrichmentWithZScoresCheckBox.isSelected()?Commons.PERFORM_ENRICHMENT_WITH_ZSCORE:Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE,
@@ -400,7 +401,15 @@ public class MainView extends JPanel {
 																			// annotationPanel
 		overlapDefinitionPanel.add( overlapDefinitionLabel);
 		annotationPanel.add( overlapDefinitionPanel);
-
+		
+		String[] associationMeasureTypes = {Commons.NUMBER_OF_OVERLAPPING_BASES, Commons.EXISTENCE_OF_OVERLAP};
+		associationMeasureTypeCombo = new JComboBox<String>( associationMeasureTypes);
+		
+		annotationPanel.add( createBorderedPanel(
+				"AssociationMeasureType",
+				createPanelWithHint( associationMeasureTypeCombo,
+						Commons.GUI_HINT_ASSOCIATION_MEASURE_TYPE)));
+		
 		// numberOfBasesPanel added to annotationPanel
 		JPanel numberOfBasesPanel = new JPanel( new FlowLayout( FlowLayout.LEFT));
 

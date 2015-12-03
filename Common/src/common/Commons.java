@@ -1449,6 +1449,7 @@ public class Commons {
 	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_ANNOTATION = "User Defined Gene Set Annotation";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE = "Select Gene Information Type In User Defined Gene Set Input File";
+	public static final String GUI_HINT_ASSOCIATION_MEASURE_TYPE = "Association Measure Type";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_INPUTFILE = "Choose User Defined Gene Set Input File";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_NAME = "User Defined Gene Set Name";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE = "User Defined Gene Set Description File (Optional)";
@@ -1487,6 +1488,8 @@ public class Commons {
 	public static final String ARG_INPUT_FILE = "-i";
 	public static final String ARG_ASSEMBLY_FORMAT_HG_19 = "-grch37";
 	public static final String ARG_ASSEMBLY_FORMAT_HG_38 = "-grch38";
+	public static final String ARG_NUMBER_OF_OVERLAPPING_BASES = "-numOvBas";
+	public static final String ARG_EXISTENCE_OF_OVERLAP = "-existOv";	
 	public static final String ARG_GLANET_FOLDER = "-g";
 	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
 	public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";

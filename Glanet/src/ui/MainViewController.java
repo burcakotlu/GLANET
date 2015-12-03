@@ -94,7 +94,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.InputFileNameWithFolder.value()] = inputFileName;
 		args[CommandLineArguments.InputFileAssembly.value()] = inputFileAssembly;
 		args[CommandLineArguments.GlanetFolder.value()] = outputFolder;
-		args[CommandLineArguments.InputFileDataFormat.value()] = inputFileFormat;		
+		args[CommandLineArguments.InputFileDataFormat.value()] = inputFileFormat;
 		args[CommandLineArguments.AssociationMeasureType.value()] = associationMeasureType;
 		args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()] = numberOfBases;
 		args[CommandLineArguments.PerformEnrichment.value()] = enrichmentEnabled;

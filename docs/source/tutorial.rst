@@ -270,6 +270,10 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         +---------------+                   |              |                      |
 |                         | `-fdbsnp`_    |                   |              |                      |
 +-------------------------+---------------+-------------------+--------------+----------------------+
+| Association Measure Type| `-numOvBas`_  |  Required         | `-c`_        | `-numOvBas`_         |
+|						  +---------------+-------------------+--------------+----------------------+
+|						  | `-existOv`_   |  Required         | `-c`_		 | `-numOvBas`_         |
++-------------------------+---------------+-------------------+--------------+----------------------+
 | Number of Bases         | `-b`_         |  Required         | `-c`_        | 1 (Integer)          |
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Annotation              | `-dnase`_     |  Optional         | `-c`_        | None                 |
@@ -425,6 +429,14 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 ^^^^^^^
 
 **Required** if :option:`-c` is set. This option specifies that input file contains dbSNP IDs per line. See also `-f1`_.
+
+-numOvBas
+^^^^^^^^^
+**Required** if :option:`-c` is set. More explanation for this parameter please.
+
+-existOv
+^^^^^^^^
+**Required** if :option:`-c` is set. More explanation for this parameter please.
 
 -b
 ^^
