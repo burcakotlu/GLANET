@@ -275,6 +275,15 @@ public class MainView extends JPanel {
 			enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
 		}
 	};
+	
+	ItemListener associationMeasureTypeChanged = new ItemListener() {
+
+		@Override
+		public void itemStateChanged( ItemEvent itemEvent) {
+
+			checkUsabilityOfNumberOfBases( associationMeasureTypeCombo.getSelectedItem().toString() == Commons.EXISTENCE_OF_OVERLAP);
+		}
+	};
 
 	ItemListener enableEnrichmentOptionsListener = new ItemListener() {
 
@@ -394,25 +403,15 @@ public class MainView extends JPanel {
 		JPanel annotationPanel = new JPanel();
 		annotationPanel.setLayout( new BoxLayout( annotationPanel, BoxLayout.PAGE_AXIS));
 
-		JPanel overlapDefinitionPanel = new JPanel( new FlowLayout( FlowLayout.LEFT));
-		JLabel overlapDefinitionLabel = new JLabel( "Overlap Definition"); // overlapDefinitionLabel
-																			// added
-																			// to
-																			// annotationPanel
-		overlapDefinitionPanel.add( overlapDefinitionLabel);
-		annotationPanel.add( overlapDefinitionPanel);
+		JPanel assocAndOverlapDefPanel = new JPanel( new GridLayout( 1, 2));
 		
 		String[] associationMeasureTypes = {Commons.NUMBER_OF_OVERLAPPING_BASES, Commons.EXISTENCE_OF_OVERLAP};
 		associationMeasureTypeCombo = new JComboBox<String>( associationMeasureTypes);
-		
-		annotationPanel.add( createBorderedPanel(
-				"AssociationMeasureType",
-				createPanelWithHint( associationMeasureTypeCombo,
-						Commons.GUI_HINT_ASSOCIATION_MEASURE_TYPE)));
+		associationMeasureTypeCombo.addItemListener( associationMeasureTypeChanged);
+		assocAndOverlapDefPanel.add( createBorderedPanel( "Association Measure Type", createPanelWithHint( associationMeasureTypeCombo, Commons.GUI_HINT_ASSOCIATION_MEASURE_TYPE)));
 		
 		// numberOfBasesPanel added to annotationPanel
 		JPanel numberOfBasesPanel = new JPanel( new FlowLayout( FlowLayout.LEFT));
-
 		// numberOfBasesLabel added to numberOfBasesPanel
 		JLabel numberOfBasesLabel = new JLabel( "Number of Bases");
 		numberOfBasesPanel.add( numberOfBasesLabel);
@@ -421,8 +420,10 @@ public class MainView extends JPanel {
 		numberOfBases = new JTextField( 30);
 		numberOfBases.setText( "1");
 		numberOfBasesPanel.add( createPanelWithHint( numberOfBases, Commons.GUI_HINT_NUMBER_OF_BASES));
-		annotationPanel.add( numberOfBasesPanel);
-
+		assocAndOverlapDefPanel.add( createBorderedPanel( "Overlap Definition", numberOfBasesPanel));
+		
+		annotationPanel.add( assocAndOverlapDefPanel);
+		
 		// annotationOptions added to annotationPanel
 		JPanel annotationOptions = new JPanel();
 		annotationOptions.setLayout( new BoxLayout( annotationOptions, BoxLayout.PAGE_AXIS));
@@ -700,6 +701,7 @@ public class MainView extends JPanel {
 		enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
 		checkUsabilityOfEnrichmentOptions();
 		checkUsabilityOfRegulatorySequenceAnalysis();
+		checkUsabilityOfNumberOfBases( associationMeasureTypeCombo.getSelectedItem().toString() == Commons.EXISTENCE_OF_OVERLAP);
 		enableUserDefinedGeneSetOptions( userDefinedGeneSetAnnotation.isSelected());
 		enableUserDefinedLibraryOptions( userDefinedLibraryAnnotation.isSelected());
 		enableInputAssembly();
@@ -856,6 +858,11 @@ public class MainView extends JPanel {
 		}
 
 		revalidate();
+	}
+	
+	public void checkUsabilityOfNumberOfBases( boolean isExistenceOfOverlapSelected){
+		
+		numberOfBases.setEnabled( isExistenceOfOverlapSelected);
 	}
 
 	public void appendNewTextToLogArea( String text) {
