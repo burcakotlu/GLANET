@@ -29,7 +29,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Nov 18, 2014
  * @project Glanet
  *
@@ -107,8 +107,15 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 			primes.set_3dEnd( 0);
 	}
 
-	public static void write5p3pIntervals( ChromosomeName chromName, int RNANucleotideAccessionNumber, int geneID,
-			int alternateGeneNameNumber, int txStart, int txEnd, char strand, BufferedWriter bufferedWriter,
+	public static void write5p3pIntervals( 
+			ChromosomeName chromName, 
+			int RNANucleotideAccessionNumber, 
+			int geneID,
+			int alternateGeneNameNumber, 
+			int txStart, 
+			int txEnd, 
+			char strand, 
+			BufferedWriter bufferedWriter,
 			RefSeqGeneIntervalsInformation information) {
 
 		FivePrimeThreePrime primes = new FivePrimeThreePrime();
@@ -252,14 +259,16 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 	}
 
 	public static void readUCSCGenomeHG19RefSeqGenesFileWriteUnsortedChromBasedFilesWithNumbers(
-			String UCSC_GENOME_HG19_REFSEQ_GENES_FILE, List<BufferedWriter> UCSCGENOMERefSeqGenesBufferedWriterList,
+			String UCSC_GENOME_HG19_REFSEQ_GENES_FILE, 
+			List<BufferedWriter> UCSCGENOMERefSeqGenesBufferedWriterList,
 			TObjectIntMap<String> rnaNucleotideAccession2GeneIDMap,
 			TObjectIntMap<String> UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap,
 			TIntObjectMap<String> UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Number2NameMap,
 			TObjectIntMap<String> UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap,
 			TIntObjectMap<String> UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Number2NameMap,
 			TIntIntMap UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap,
-			TIntIntMap UCSCGENOME_HG19_RefSeq_Genes_GeneIDNumber_2_GeneIDMap, RefSeqGeneIntervalsInformation information) {
+			TIntIntMap UCSCGENOME_HG19_RefSeq_Genes_GeneIDNumber_2_GeneIDMap, 
+			RefSeqGeneIntervalsInformation information) {
 
 		// Initialize alternateGeneNameNumber and RNANucleotideAccessionNumber and geneIDNumber
 		int alternateGeneNameNumber = 1;
@@ -391,8 +400,7 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 					indexofFormerComma = indexofLatterComma;
 					indexofLatterComma = exonStarts.indexOf( ',', indexofFormerComma + 1);
 
-					exonStartList.add( Integer.parseInt( exonStarts.substring( indexofFormerComma + 1,
-							indexofLatterComma)));
+					exonStartList.add( Integer.parseInt( exonStarts.substring( indexofFormerComma + 1,indexofLatterComma)));
 
 					// 28FEB2014
 					// Convert 1_based_end to 0_based_end
@@ -406,8 +414,7 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 				if( chromName != null){
 
 					// Get Unsorted ChromosomeBased bufferedWriter
-					bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter( chromName,
-							UCSCGENOMERefSeqGenesBufferedWriterList);
+					bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter( chromName,UCSCGENOMERefSeqGenesBufferedWriterList);
 
 					// Write to Unsorted ChromosomeBased WithNumbers File
 					if( bufferedWriter != null){
@@ -417,18 +424,14 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 
 						// Update maps starts
 						if( !UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap.containsKey( alternateGeneName)){
-							UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap.put( alternateGeneName,
-									alternateGeneNameNumber);
-							UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Number2NameMap.put( alternateGeneNameNumber,
-									alternateGeneName);
+							UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap.put( alternateGeneName,alternateGeneNameNumber);
+							UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Number2NameMap.put( alternateGeneNameNumber,alternateGeneName);
 							alternateGeneNameNumber++;
 						}
 
 						if( !UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap.containsKey( refSeqGeneName)){
-							UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap.put( refSeqGeneName,
-									RNANucleotideAccessionNumber);
-							UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Number2NameMap.put(
-									RNANucleotideAccessionNumber, refSeqGeneName);
+							UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap.put( refSeqGeneName,RNANucleotideAccessionNumber);
+							UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Number2NameMap.put(RNANucleotideAccessionNumber, refSeqGeneName);
 							RNANucleotideAccessionNumber++;
 						}
 
@@ -443,14 +446,30 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 						currentLineRNANucleotideAccessionNumber = UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap.get( refSeqGeneName);
 
 						// Write EXON and INTRON intervals starts
-						writeExonIntronIntervals( chromName, exonCounts, exonStartList, exonEndList,
-								currentLineRNANucleotideAccessionNumber, geneID, strand,
-								currentLineAlternateGeneNameNumber, bufferedWriter, information);
+						writeExonIntronIntervals( 
+								chromName, 
+								exonCounts, 
+								exonStartList, 
+								exonEndList,
+								currentLineRNANucleotideAccessionNumber, 
+								geneID, 
+								strand,
+								currentLineAlternateGeneNameNumber, 
+								bufferedWriter, 
+								information);
 						// Write EXON and INTRON intervals ends
 
 						// Write 5p1 5p2 5d 3p1 3p2 3d intervals starts
-						write5p3pIntervals( chromName, currentLineRNANucleotideAccessionNumber, geneID,
-								currentLineAlternateGeneNameNumber, txStart, txEnd, strand, bufferedWriter, information);
+						write5p3pIntervals(
+								chromName, 
+								currentLineRNANucleotideAccessionNumber, 
+								geneID,
+								currentLineAlternateGeneNameNumber, 
+								txStart, 
+								txEnd, 
+								strand, 
+								bufferedWriter, 
+								information);
 						// Write 5p1 5p2 5d 3p1 3p2 3d intervals ends
 
 						// Create and Write Exon, Intron, 5p1, 5p2, 5d, 3p1,
@@ -493,13 +512,11 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 		/***************************************************************************************************/
 		/*************************** SOURCE FILES starts ***************************************************/
 		/***************************************************************************************************/
-		// Downloaded from UCSC Genome Table Browser contains
-		// RNA_NUCLEOTIDE_ACCESSION and GENE_SYMBOL
+		// Downloaded from UCSC Genome Table Browser contains RNA_NUCLEOTIDE_ACCESSION and GENE_SYMBOL
 		String UCSC_GENOME_HG19_REFSEQ_GENES_FILE = dataFolder + Commons.UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014;
 
 		// THIS FILE IS IN GLANET DATA
-		// This file is prepared by HumanRefSeq2Gene.java which uses the
-		// downloaded file gene2RefSeq.txt from NCBI.
+		// This file is prepared by HumanRefSeq2Gene.java which uses the downloaded file gene2RefSeq.txt from NCBI.
 		String NCBI_HUMAN_RNANUCLEOTIDEACCESSION_2_GENEID_FILE = dataFolder + Commons.NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME + Commons.NCBI_RNANUCLEOTIDEACCESSION_TO_GENEID_18_NOV_2014;
 		/***************************************************************************************************/
 		/*************************** SOURCE FILES ends *****************************************************/
@@ -526,24 +543,24 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 		List<BufferedWriter> UCSCGENOMERefSeqGenesBufferedWriterList = new ArrayList<BufferedWriter>();
 
 		// Create BufferedWriters
-		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters( dataFolder,
-				ElementType.HG19_REFSEQ_GENE, UCSCGENOMERefSeqGenesBufferedWriterList);
+		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters( dataFolder,ElementType.HG19_REFSEQ_GENE, UCSCGENOMERefSeqGenesBufferedWriterList);
 
 		// Fill RNANucleotideAccession 2 GeneID Map
-		createRNANucleotideAccession2GeneIDMap( NCBI_HUMAN_RNANUCLEOTIDEACCESSION_2_GENEID_FILE,
-				rnaNucleotideAccession2GeneIDMap);
+		createRNANucleotideAccession2GeneIDMap( NCBI_HUMAN_RNANUCLEOTIDEACCESSION_2_GENEID_FILE,rnaNucleotideAccession2GeneIDMap);
 
 		// Read UCSC_GENOME_HG19_REFSEQ_GENES_FILE
-		// Write Unsorted Chromosome Based With Numbers UCSC HG19 REFSEQ Genes
-		// File
-		readUCSCGenomeHG19RefSeqGenesFileWriteUnsortedChromBasedFilesWithNumbers( UCSC_GENOME_HG19_REFSEQ_GENES_FILE,
-				UCSCGENOMERefSeqGenesBufferedWriterList, rnaNucleotideAccession2GeneIDMap,
+		// Write Unsorted Chromosome Based With Numbers UCSC HG19 REFSEQ Genes File
+		readUCSCGenomeHG19RefSeqGenesFileWriteUnsortedChromBasedFilesWithNumbers( 
+				UCSC_GENOME_HG19_REFSEQ_GENES_FILE,
+				UCSCGENOMERefSeqGenesBufferedWriterList, 
+				rnaNucleotideAccession2GeneIDMap,
 				UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Name2NumberMap,
 				UCSCGENOME_HG19_RefSeq_Genes_RNANucleotideAccession_Number2NameMap,
 				UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Name2NumberMap,
 				UCSCGENOME_HG19_RefSeq_Genes_GeneSymbol_Number2NameMap,
 				UCSCGENOME_HG19_RefSeq_Genes_GeneID_2_GeneIDNumberMap,
-				UCSCGENOME_HG19_RefSeq_Genes_GeneIDNumber_2_GeneIDMap, information);
+				UCSCGENOME_HG19_RefSeq_Genes_GeneIDNumber_2_GeneIDMap, 
+				information);
 
 		// Write UCSCGENOME HG19 REFSEQ GENES
 		// Write name2Number maps

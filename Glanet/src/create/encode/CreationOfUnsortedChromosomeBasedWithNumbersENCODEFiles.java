@@ -218,12 +218,23 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 
 	}
 
-	public static void readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers( File directory, ElementType elementType,
-			List<BufferedWriter> bufferedWriterList, TObjectIntMap<String> tforHistoneName2NumberMap,
-			TIntObjectMap<String> tforHistoneNumber2NameMap, TObjectIntMap<String> tforHistoneCellLineName2NumberMap,
-			TIntObjectMap<String> tforHistoneCellLineNumber2NameMap, TObjectIntMap<String> cellLineName2NumberMap,
-			TIntObjectMap<String> cellLineNumber2NameMap, TObjectIntMap<String> encodeFileName2NumberMap,
-			TIntObjectMap<String> encodeFileNumber2NameMap, ENCODENumbers encodeNumbers) {
+	public static void readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers( 
+			File directory, 
+			ElementType elementType,
+			List<BufferedWriter> bufferedWriterList, 
+			TObjectIntMap<String> tforHistoneName2NumberMap,
+			TIntObjectMap<String> tforHistoneNumber2NameMap, 
+			TObjectIntMap<String> tforHistoneCellLineName2NumberMap,
+			TIntObjectMap<String> tforHistoneCellLineNumber2NameMap, 
+			TObjectIntMap<String> cellLineName2NumberMap,
+			TIntObjectMap<String> cellLineNumber2NameMap, 
+			TObjectIntMap<String> encodeFileName2NumberMap,
+			TIntObjectMap<String> encodeFileNumber2NameMap, 
+			ENCODENumbers encodeNumbers) {
+		
+		//14 DEC 2015
+		float avgIntervalLength = 0;
+		int numberofIntervals = 0;
 
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -403,6 +414,10 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 								bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(
 										ChromosomeName.convertStringtoEnum( chromosomeName), bufferedWriterList);
 								bufferedWriter.write( chromosomeName + "\t" + start + "\t" + endInclusive + "\t" + tforHistoneName2NumberMap.get( tforHistone) + "\t" + cellLineName2NumberMap.get( cellLine) + "\t" + encodeFileName2NumberMap.get( fileName) + System.getProperty( "line.separator"));
+								
+								//14 DEC 2015
+								numberofIntervals++;
+								avgIntervalLength = avgIntervalLength + end -start;
 
 							}// End of while
 
@@ -434,16 +449,29 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 
 		encodeNumbers.setCellLineNumber( cellLineNumber);
 		encodeNumbers.setFileNumber( fileNumber);
+		
+		//14 DEC 2015 
+		System.out.println("Average Interval Length: " + elementType.convertEnumtoString()  + "\t" + avgIntervalLength/numberofIntervals);
+			
 
 	}
 
 	// Version for DNASE
-	public static void readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers( File directory, ElementType elementType,
-			List<BufferedWriter> bufferedWriterList, TObjectIntMap<String> encodeDnaseCellLineName2NumberMap,
+	public static void readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers( 
+			File directory, 
+			ElementType elementType,
+			List<BufferedWriter> bufferedWriterList, 
+			TObjectIntMap<String> encodeDnaseCellLineName2NumberMap,
 			TIntObjectMap<String> encodeDnaseCellLineNumber2NameMap,
-			TObjectIntMap<String> encodeCellLineName2NumberMap, TIntObjectMap<String> encodeCellLineNumber2NameMap,
-			TObjectIntMap<String> encodeFileName2NumberMap, TIntObjectMap<String> encodeFileNumber2NameMap,
+			TObjectIntMap<String> encodeCellLineName2NumberMap, 
+			TIntObjectMap<String> encodeCellLineNumber2NameMap,
+			TObjectIntMap<String> encodeFileName2NumberMap, 
+			TIntObjectMap<String> encodeFileNumber2NameMap,
 			ENCODENumbers encodeNumbers) {
+		
+		//14 DEC 2015
+		float avgIntervalLength = 0;
+		int numberofIntervals = 0;
 
 		int indexofFirstTab = 0;
 		int indexofSecondTab = 0;
@@ -527,6 +555,7 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 						try{
 
 							while( ( strLine = bufferedReader.readLine()) != null){
+								
 
 								// example line
 								// chr1 91852781 91853156 1 1 . 1728.25 7.867927
@@ -563,9 +592,13 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 
 								// Write to Unsorted Chromosome Based files with
 								// numbers
-								bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(
-										ChromosomeName.convertStringtoEnum( chromosomeName), bufferedWriterList);
+								bufferedWriter = FileOperations.getChromosomeBasedBufferedWriter(ChromosomeName.convertStringtoEnum( chromosomeName), bufferedWriterList);
 								bufferedWriter.write( chromosomeName + "\t" + start + "\t" + endInclusive + "\t" + encodeDnaseCellLineName2NumberMap.get( cellLineDnase) + "\t" + encodeFileName2NumberMap.get( fileName) + System.getProperty( "line.separator"));
+								
+								//14 DEC 2015
+								numberofIntervals++;
+								avgIntervalLength = avgIntervalLength + end -start;
+
 
 							}// End of while
 
@@ -592,6 +625,9 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		encodeNumbers.setDnaseCellLineNumber( dnaseCellLineNumber);
 		encodeNumbers.setCellLineNumber( cellLineNumber);
 		encodeNumbers.setFileNumber( fileNumber);
+		
+		//14 DEC 2015 
+		System.out.println("Average Interval Length: " + elementType.convertEnumtoString()  + "\t" + avgIntervalLength/numberofIntervals);
 	}
 
 	/**
@@ -603,12 +639,16 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		// Name2NumberMap is needed for writing chromosome based files with numbers.
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		
+		//String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		
+		//14 DEC 2015
+		String dataFolder = glanetFolder + System.getProperty( "file.separator");
 
-		File dnaseDir1 = new File( dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
-		File dnaseDir2 = new File( dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);
-		File tfDir = new File( dataFolder + common.Commons.ENCODE_TFBS_DIRECTORY);
-		File histoneDir = new File( dataFolder + common.Commons.ENCODE_HISTONE_DIRECTORY);
+		File dnaseDir1 = new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
+		File dnaseDir2 = new File(dataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);
+		File tfDir = new File(dataFolder + common.Commons.ENCODE_TFBS_DIRECTORY);
+		File histoneDir = new File(dataFolder + common.Commons.ENCODE_HISTONE_DIRECTORY);
 
 		List<BufferedWriter> ENCODEDnaseBufferedWriterList = new ArrayList<BufferedWriter>();
 		List<BufferedWriter> ENCODETFBufferedWriterList = new ArrayList<BufferedWriter>();
@@ -652,33 +692,63 @@ public class CreationOfUnsortedChromosomeBasedWithNumbersENCODEFiles {
 		ENCODENumbers encodeNumbers = new ENCODENumbers();
 
 		// Create BufferedWriters
-		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters( dataFolder, ElementType.DNASE,
-				ENCODEDnaseBufferedWriterList);
-		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters( dataFolder, ElementType.TF,
-				ENCODETFBufferedWriterList);
-		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters( dataFolder, ElementType.HISTONE,
-				ENCODEHistoneBufferedWriterList);
+		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters( dataFolder, ElementType.DNASE,ENCODEDnaseBufferedWriterList);
+		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters( dataFolder, ElementType.TF,ENCODETFBufferedWriterList);
+		FileOperations.createUnsortedChromosomeBasedWithNumbersBufferedWriters( dataFolder, ElementType.HISTONE,ENCODEHistoneBufferedWriterList);
 
 		// Version for DNASE
-		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers( dnaseDir1, ElementType.DNASE,
-				ENCODEDnaseBufferedWriterList, encodeDnaseCellLineName2NumberMap, encodeDnaseCellLineNumber2NameMap,
-				encodeCellLineName2NumberMap, encodeCellLineNumber2NameMap, encodeFileName2NumberMap,
-				encodeFileNumber2NameMap, encodeNumbers);
-		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers( dnaseDir2, ElementType.DNASE,
-				ENCODEDnaseBufferedWriterList, encodeDnaseCellLineName2NumberMap, encodeDnaseCellLineNumber2NameMap,
-				encodeCellLineName2NumberMap, encodeCellLineNumber2NameMap, encodeFileName2NumberMap,
-				encodeFileNumber2NameMap, encodeNumbers);
+		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(
+				dnaseDir1, 
+				ElementType.DNASE,
+				ENCODEDnaseBufferedWriterList, 
+				encodeDnaseCellLineName2NumberMap, 
+				encodeDnaseCellLineNumber2NameMap,
+				encodeCellLineName2NumberMap, 
+				encodeCellLineNumber2NameMap, 
+				encodeFileName2NumberMap,
+				encodeFileNumber2NameMap, 
+				encodeNumbers);
+		
+		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(
+				dnaseDir2, 
+				ElementType.DNASE,
+				ENCODEDnaseBufferedWriterList, 
+				encodeDnaseCellLineName2NumberMap, 
+				encodeDnaseCellLineNumber2NameMap,
+				encodeCellLineName2NumberMap, 
+				encodeCellLineNumber2NameMap, 
+				encodeFileName2NumberMap,
+				encodeFileNumber2NameMap, 
+				encodeNumbers);
 
 		// Version for TF and HISTONE
-		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers( tfDir, ElementType.TF, ENCODETFBufferedWriterList,
-				encodeTFName2NumberMap, encodeTFNumber2NameMap, encodeTFCellLineName2NumberMap,
-				encodeTFCellLineNumber2NameMap, encodeCellLineName2NumberMap, encodeCellLineNumber2NameMap,
-				encodeFileName2NumberMap, encodeFileNumber2NameMap, encodeNumbers);
+		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(
+				tfDir, 
+				ElementType.TF, 
+				ENCODETFBufferedWriterList,
+				encodeTFName2NumberMap, 
+				encodeTFNumber2NameMap, 
+				encodeTFCellLineName2NumberMap,
+				encodeTFCellLineNumber2NameMap, 
+				encodeCellLineName2NumberMap, 
+				encodeCellLineNumber2NameMap,
+				encodeFileName2NumberMap, 
+				encodeFileNumber2NameMap, 
+				encodeNumbers);
 
-		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers( histoneDir, ElementType.HISTONE,
-				ENCODEHistoneBufferedWriterList, encodeHistoneName2NumberMap, encodeHistoneNumber2NameMap,
-				encodeHistoneCellLineName2NumberMap, encodeHistoneCellLineNumber2NameMap, encodeCellLineName2NumberMap,
-				encodeCellLineNumber2NameMap, encodeFileName2NumberMap, encodeFileNumber2NameMap, encodeNumbers);
+		readEncodeFilesWriteUnsortedChromBasedFilesWithNumbers(
+				histoneDir, 
+				ElementType.HISTONE,
+				ENCODEHistoneBufferedWriterList, 
+				encodeHistoneName2NumberMap, 
+				encodeHistoneNumber2NameMap,
+				encodeHistoneCellLineName2NumberMap, 
+				encodeHistoneCellLineNumber2NameMap, 
+				encodeCellLineName2NumberMap,
+				encodeCellLineNumber2NameMap, 
+				encodeFileName2NumberMap, 
+				encodeFileNumber2NameMap, 
+				encodeNumbers);
 
 		// Write dnaseCellLineName2NumberMap
 		FileOperations.writeName2NumberMap( dataFolder, encodeDnaseCellLineName2NumberMap,
