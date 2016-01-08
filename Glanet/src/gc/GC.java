@@ -89,8 +89,7 @@ public class GC {
 
 		GCIsochoreIntervalTreeFindAllOverlapsResult result = new GCIsochoreIntervalTreeFindAllOverlapsResult();
 
-		gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals( gcIsochoreIntervalTree.getRoot(), givenInputLine,
-				result);
+		gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals( gcIsochoreIntervalTree.getRoot(), givenInputLine,result);
 		// gcContent = gcIsochoreIntervalTree.findAllOverlappingGCIntervals(gcIsochoreIntervalTree.getRoot(),
 		// givenInputLine,calculateGC);
 

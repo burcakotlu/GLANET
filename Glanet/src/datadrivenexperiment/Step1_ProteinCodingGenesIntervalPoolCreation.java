@@ -136,8 +136,8 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 
 		List<String> geneTypesList = new ArrayList<String>();
 
-		int minusOneHundredFromTSS;
-		int plusFiveHundredFromTSS;
+		int minusFiveHundredFromTSS;
+		int plusOneHundredFromTSS;
 
 		String strLine = null;
 		String attribute = null;
@@ -271,12 +271,12 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 							switch(strand){
 
 								case '+':{
-											minusOneHundredFromTSS = low - 500;
-											plusFiveHundredFromTSS = low + 100;
+											minusFiveHundredFromTSS = low - 500;
+											plusOneHundredFromTSS = low + 100;
 											proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( 
 													strand,
-													minusOneHundredFromTSS, 
-													plusFiveHundredFromTSS, 
+													minusFiveHundredFromTSS, 
+													plusOneHundredFromTSS, 
 													chrName, 
 													ensemblGeneID2TPMMap.get(ensemblGeneID),
 													ensemblGeneID,
@@ -286,12 +286,12 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 								}
 		
 								case '-':{
-										minusOneHundredFromTSS = high + 500;
-										plusFiveHundredFromTSS = high - 100;
+										minusFiveHundredFromTSS = high + 500;
+										plusOneHundredFromTSS = high - 100;
 										proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( 
 												strand,
-												plusFiveHundredFromTSS, 
-												minusOneHundredFromTSS, 
+												plusOneHundredFromTSS, 
+												minusFiveHundredFromTSS, 
 												chrName, 
 												ensemblGeneID2TPMMap.get(ensemblGeneID),
 												ensemblGeneID,
@@ -329,12 +329,12 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 							switch(strand){
 
 								case '+':{
-											minusOneHundredFromTSS = low - 500;
-											plusFiveHundredFromTSS = low + 100;
+											minusFiveHundredFromTSS = low - 500;
+											plusOneHundredFromTSS = low + 100;
 											proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval( 
 													strand,
-													minusOneHundredFromTSS, 
-													plusFiveHundredFromTSS, 
+													minusFiveHundredFromTSS, 
+													plusOneHundredFromTSS, 
 													chrName,
 													ensemblGeneID2TPMMap.get(ensemblGeneID),
 													ensemblGeneID,
@@ -344,12 +344,12 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 								}
 		
 								case '-':{
-										minusOneHundredFromTSS = high + 500;
-										plusFiveHundredFromTSS = high - 100;
+										minusFiveHundredFromTSS = high + 500;
+										plusOneHundredFromTSS = high - 100;
 										proteinCodingGeneExonNumberOneInterval = new ProteinCodingGeneExonNumberOneInterval(
 												strand,
-												plusFiveHundredFromTSS, 
-												minusOneHundredFromTSS, 
+												plusOneHundredFromTSS, 
+												minusFiveHundredFromTSS, 
 												chrName,
 												ensemblGeneID2TPMMap.get(ensemblGeneID),
 												ensemblGeneID,
@@ -393,7 +393,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		
 		List<ProteinCodingGeneExonNumberOneInterval> allProteinCodingGenesExonNumberOneIntervalsList  = new ArrayList<ProteinCodingGeneExonNumberOneInterval>(); 
 		
-		//Select only one of the exonNumber1 intervals if there are more than one starts.
+		// Select only one of the exonNumber1 intervals if there are more than one starts.
 		// For "+" strand, generate only one interval for  exon number 1 of a certain ensemblGeneID with the lowest low
 		// For "-" strand, generate only one interval for  exon number 1 of a certain ensemblGeneID with the highest high			
 		for( Map.Entry<String, List<ProteinCodingGeneExonNumberOneInterval>> entry : proteinCodingGeneId2GeneExonNumberOneIntervalsMap.entrySet()){

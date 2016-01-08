@@ -975,8 +975,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 		Map<String, String> tfExtendedPeakSequence2RSATResultMap = new HashMap<String, String>();
 
 		File mainSNPsDirectory = new File( outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.SNPs);
-		File mainTFPFMAndLogoMatricesDirectory = new File(
-				outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.TF_PFM_AND_LOGO_Matrices);
+		File mainTFPFMAndLogoMatricesDirectory = new File(outputFolder + forRSASNPTFSequencesMatricesDirectory + Commons.TF_PFM_AND_LOGO_Matrices);
 
 		String snpReferenceSequenceFile = null;
 		String snpAlteredSequenceFile = null;

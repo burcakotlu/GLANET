@@ -232,16 +232,26 @@ public class Enrichment {
 					permutationNumber = permutationNumberList.get( i);
 
 					randomlyGeneratedDataMap.put( permutationNumber, RandomDataGenerator.generateRandomData(
-							givenInputsSNPsorIntervals, gcByteList, gcIntervalTree, gcIsochoreIntervalTree,
-							gcIsochoreFamilyL1Pool, gcIsochoreFamilyL2Pool, gcIsochoreFamilyH1Pool,
-							gcIsochoreFamilyH2Pool, gcIsochoreFamilyH3Pool, mapabilityChromosomePositionList,
-							mapabilityShortValueList, chromSize, chromName, chromosomeBasedOriginalInputLines,
-							ThreadLocalRandom.current(), generateRandomDataMode));
+							givenInputsSNPsorIntervals, 
+							gcByteList, 
+							gcIntervalTree, 
+							gcIsochoreIntervalTree,
+							gcIsochoreFamilyL1Pool, 
+							gcIsochoreFamilyL2Pool, 
+							gcIsochoreFamilyH1Pool,
+							gcIsochoreFamilyH2Pool, 
+							gcIsochoreFamilyH3Pool, 
+							mapabilityChromosomePositionList,
+							mapabilityShortValueList, 
+							chromSize, 
+							chromName, 
+							chromosomeBasedOriginalInputLines,
+							ThreadLocalRandom.current(), 
+							generateRandomDataMode));
 
 					// Write Generated Random Data
 					if( writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()){
-						writeGeneratedRandomData( outputFolder, chromName,
-								randomlyGeneratedDataMap.get( permutationNumber), permutationNumber);
+						writeGeneratedRandomData( outputFolder, chromName,randomlyGeneratedDataMap.get( permutationNumber), permutationNumber);
 					}
 
 				}// End of FOR
@@ -6451,23 +6461,19 @@ public class Enrichment {
 					// gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
 
 					// GCByteList
-					if( containsIntervalLessThanOrEqualTo( chromosomeBaseOriginalInputLines,
-							Commons.VERY_SHORT_INTERVAL_LENGTH)){
+					if( containsIntervalLessThanOrEqualTo( chromosomeBaseOriginalInputLines,Commons.VERY_SHORT_INTERVAL_LENGTH)){
 						ChromosomeBasedGCTroveList.fillTroveList( dataFolder, chromName, gcByteList);
 					}
 
 					// GC IntervalTree
-					if( containsIntervalBetween( chromosomeBaseOriginalInputLines, Commons.VERY_SHORT_INTERVAL_LENGTH,
-							Commons.SHORT_INTERVAL_LENGTH)){
+					if( containsIntervalBetween( chromosomeBaseOriginalInputLines, Commons.VERY_SHORT_INTERVAL_LENGTH,Commons.SHORT_INTERVAL_LENGTH)){
 						ChromosomeBasedGCIntervalTree.fillIntervalTree( dataFolder, chromName, gcIntervalTree);
 					}
 
-					// Always fill GC Isochore IntervalTree for classifying the Isochore Family of the interval
-					// GC Isochore IntervalTree
+					// Always fill GC Isochore IntervalTree for classifying the Isochore Family of the interval GC Isochore IntervalTree
 					ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree( dataFolder, chromName,gcIsochoreIntervalTree);
 
-					// Always fill Isochore Family Pools for random Isochore Interval selection depending on the
-					// Isochore Family of the original interval.
+					// Always fill Isochore Family Pools for random Isochore Interval selection depending on the Isochore Family of the original interval.
 					
 					// GC Isochore Family L1 Pool
 					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
@@ -8355,8 +8361,6 @@ public class Enrichment {
 		EnrichmentZScoreMode enrichmentZScoreMode = EnrichmentZScoreMode.convertStringtoEnum(args[CommandLineArguments.EnrichmentZScoreMode.value()]);
 		
 		//30 OCTOBER 2015 
-		//TODO This parameter has to be filled from arguments 
-		//But for the time being it is set in Enrichment class
 		AssociationMeasureType associationMeasureType = AssociationMeasureType.convertStringtoEnum(args[CommandLineArguments.AssociationMeasureType.value()]);
 
 		// 18 FEB 2015

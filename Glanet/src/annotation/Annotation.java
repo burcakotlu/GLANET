@@ -8944,9 +8944,17 @@ public class Annotation {
 					outputFolder,
 					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			
-			searchTranscriptionFactorWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
-					regulatorySequenceAnalysisUsingRSAT, chrName, bufferedReader, transcriptionFactorIntervalTree,
-					tfNumberCellLineNumber2KMap, overlapDefinition, tfNumber2TFNameMap, cellLineNumber2CellLineNameMap,
+			searchTranscriptionFactorWithNumbers(
+					outputFolder, 
+					writeElementBasedAnnotationFoundOverlapsMode,
+					regulatorySequenceAnalysisUsingRSAT, 
+					chrName, 
+					bufferedReader, 
+					transcriptionFactorIntervalTree,
+					tfNumberCellLineNumber2KMap, 
+					overlapDefinition, 
+					tfNumber2TFNameMap, 
+					cellLineNumber2CellLineNameMap,
 					fileNumber2FileNameMap);
 			
 			transcriptionFactorIntervalTree = null;

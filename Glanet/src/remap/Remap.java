@@ -178,16 +178,20 @@ public class Remap {
 			bufferedReader.close();
 			bufferedWriter.close();
 
-			if( GlanetRunner.shouldLog())logger.info( "NCBI REMAP Show Batches Exit status = " + process.exitValue());
+			if( GlanetRunner.shouldLog())
+				logger.info( "NCBI REMAP Show Batches Exit status = " + process.exitValue());
 
 		}catch( IOException e){
 
-			if( GlanetRunner.shouldLog())logger.info( "NCBI REMAP Show Batches Exception = " + "\t" + "Exception toString():  " + e.toString());
+			if( GlanetRunner.shouldLog())
+				logger.info( "NCBI REMAP Show Batches Exception = " + "\t" + "Exception toString():  " + e.toString());
 		}
 	}
 
 	public static void createOutputFileUsingREMAPREPORTFile(
-			Map<Integer, String> remapInputFileLineNumber2LineContentMap, String remapReportFile, String outputFile) {
+			Map<Integer, String> remapInputFileLineNumber2LineContentMap, 
+			String remapReportFile, 
+			String outputFile) {
 
 		BufferedReader bufferedReader = null;
 		BufferedWriter bufferedWriter = null;

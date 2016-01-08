@@ -917,8 +917,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 		Boolean snpContainsAnyOfObservedAlleles;
 
 		snpContainsAnyOfObservedAlleles = checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(
-				snpInformation.getSnpAlteredSequenceNames(), snpInformation.getSnpAlteredSequences(),
-				snpInformation.getUsedObservedAlleles(), snpInformation.getSnpReferenceSequence(), rsId,
+				snpInformation.getSnpAlteredSequenceNames(), 
+				snpInformation.getSnpAlteredSequences(),
+				snpInformation.getUsedObservedAlleles(), 
+				snpInformation.getSnpReferenceSequence(), 
+				rsId,
 				observedAllelesList);
 
 		if( !snpContainsAnyOfObservedAlleles){
@@ -1236,10 +1239,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// 10 March 2014
 		// Pay attention, there can be more than two observed alleles such as
 		// A\tG\tT\t-\tACG
-		// Pay attention, for the same chrName and ChrPosition there can be more
-		// than one rsIDs
-		// Therefore each rsInformation can have observedAlleles String. It is
-		// rare but it is possible.
+		// Pay attention, for the same chrName and ChrPosition there can be more than one rsIDs
+		// Therefore each rsInformation can have observedAlleles String. It is rare but it is possible.
 
 		try{
 			allTFAnnotationsFileReader = new FileReader( forRSAFolder + all_TF_Annotations_File_1Based_Start_End_LatestAssemblyReturnedFromNCBIEutils);
@@ -1313,8 +1314,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 							while( !thereExistsPFMMatrix && !thereExistsLOGOMatrix){
 								previousTfNameRemovedLastCharacter = tfNameRemovedLastCharacter;
-								// @todo removeLastCharacter may need further
-								// check
+								// @todo removeLastCharacter may need further check
 								tfNameRemovedLastCharacter = removeLastCharacter( tfNameRemovedLastCharacter);
 
 								// If no change
@@ -1385,8 +1385,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 						// Caution: This rsIdList may contain merged rsIds
 						// rsIdList is a list of integers
 						// rsId is an integer without --rs-- prefix
-						rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(
-								chrNameWithoutPreceedingChr, snpOneBasedStart, snpOneBasedEnd);
+						rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(chrNameWithoutPreceedingChr, snpOneBasedStart, snpOneBasedEnd);
 						validRsIdList = new ArrayList<Integer>();
 
 						/*************************************************************************/
@@ -1396,8 +1395,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 							rsInformation = rsID2RsIDInformationMap.get( rsId);
 
-							// For this rsID, We are getting rsInformation for
-							// the first time
+							// For this rsID, We are getting rsInformation for the first time
 							if( rsInformation == null){
 
 								// For each rsId get rsInformation
@@ -1479,11 +1477,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 						// For this SNP, This TF is looked for the first time
 						if( tfOverlaps == null){
 
-							tfOverlaps = new TFOverlaps( tfName,
-									ChromosomeName.convertStringtoEnum( chrNameWithPreceedingChr));
+							tfOverlaps = new TFOverlaps( tfName,ChromosomeName.convertStringtoEnum( chrNameWithPreceedingChr));
 
-							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,
-									tfOneBasedEnd);
+							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,tfOneBasedEnd);
 
 							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
 
@@ -1497,26 +1493,21 @@ public class GenerationofSequencesandMatricesforSNPs {
 					else{
 						tfOverlaps = tfName2TFOverlapsMap.get( tfName);
 
-						// For this SNP, This TF Overlap is looked for the first
-						// time.
+						// For this SNP, This TF Overlap is looked for the first time.
 						if( tfOverlaps == null){
 
-							tfOverlaps = new TFOverlaps( tfName,
-									ChromosomeName.convertStringtoEnum( chrNameWithPreceedingChr));
+							tfOverlaps = new TFOverlaps( tfName,ChromosomeName.convertStringtoEnum( chrNameWithPreceedingChr));
 
-							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,
-									tfOneBasedEnd);
+							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,tfOneBasedEnd);
 
 							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
 
 							tfName2TFOverlapsMap.put( tfName, tfOverlaps);
 
 						}
-						// For this SNP, we have another TF Overlap for an
-						// already existing TF Overlap
+						// For this SNP, we have another TF Overlap for an already existing TF Overlap
 						else{
-							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,
-									tfOneBasedEnd);
+							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,tfOneBasedEnd);
 
 							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
 
@@ -1588,8 +1579,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				/*****************************************************************/
 				/******** Write SNP Reference DNA Sequence starts ******************/
 				/*****************************************************************/
-				writeSequenceFile( snpDirectory, Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(),
-						entry.getValue().getFastaFile());
+				writeSequenceFile( snpDirectory, Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(),entry.getValue().getFastaFile());
 				/*****************************************************************/
 				/******** Write SNP Reference DNA Sequence ends ********************/
 				/*****************************************************************/
