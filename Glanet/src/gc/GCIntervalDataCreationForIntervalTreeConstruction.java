@@ -18,7 +18,7 @@ import enumtypes.CommandLineArguments;
 import ui.GlanetRunner;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 10, 2015
  * @project Glanet 
  *
@@ -29,10 +29,10 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 
 	// Create GC Interval Data where consecutive zeros intervals are merged
 	// In this way number of nodes in the GC interval tree will be minimized
-	public static void createGCIntervalDataConsecutiveZerosAreMergedFile( String dataFolder, ChromosomeName chrName) {
+	public static void createGCIntervalDataConsecutiveZerosAreMergedFile( String dataFolder, ChromosomeName chrName,int standardGCIntervalLength) {
 
-		String gcIntervalDataFileName = Commons.GC + System.getProperty( "file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chrName.convertEnumtoString() + Commons.GC_INTERVALS_FILE_END;
-		String gcIntervalDataConsecutiveZerosMergedFileName = Commons.GC + System.getProperty( "file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chrName.convertEnumtoString() + Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END;
+		String gcIntervalDataFileName = Commons.GC + System.getProperty( "file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chrName.convertEnumtoString()+ Commons.GC_INTERVALS_FILE_START +  standardGCIntervalLength + Commons.GC_INTERVALS_FILE_END;
+		String gcIntervalDataConsecutiveZerosMergedFileName = Commons.GC + System.getProperty( "file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chrName.convertEnumtoString() + Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_START + standardGCIntervalLength + Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END;
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -157,10 +157,10 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 
 	}
 
-	public static void createGCIntervalDataFile( String dataFolder, ChromosomeName chrName) {
+	public static void createGCIntervalDataFile(String dataFolder, ChromosomeName chrName, int standardGCIntervalLength) {
 
 		String gcFastaFileName = Commons.GC + System.getProperty( "file.separator") + chrName.convertEnumtoString() + Commons.GC_FILE_END;
-		String gcIntervalDataFileName = Commons.GC + System.getProperty( "file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chrName.convertEnumtoString() + Commons.GC_INTERVALS_FILE_END;
+		String gcIntervalDataFileName = Commons.GC + System.getProperty( "file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chrName.convertEnumtoString() +  Commons.GC_INTERVALS_FILE_START + standardGCIntervalLength + Commons.GC_INTERVALS_FILE_END;
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -180,9 +180,7 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 		short numberofGCsInStandardGCIntervalLength = 0;
 		int totalNumberofCharsRead = 0;
 		int totalNumberofGCs = 0;
-
-		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_100;
-
+		
 		try{
 
 			fileReader = FileOperations.createFileReader( dataFolder + gcFastaFileName);
@@ -280,19 +278,21 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		
+		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_10000;
+
 
 		// First Pass
 		// Create chromosome based GC Interval Data
 		// There might be consecutive intervals with numberofGCs is equal to zero.
 		for( ChromosomeName chrName : ChromosomeName.values()){
-			createGCIntervalDataFile( dataFolder, chrName);
+			createGCIntervalDataFile(dataFolder, chrName,standardGCIntervalLength);
 		}
 
 		// Second Pass
-		// Create chromosome based GC Interval Data where consecutive intervals with numberofGCs equal to zero are
-		// merged.
+		// Create chromosome based GC Interval Data where consecutive intervals with numberofGCs equal to zero are merged.
 		for( ChromosomeName chrName : ChromosomeName.values()){
-			createGCIntervalDataConsecutiveZerosAreMergedFile( dataFolder, chrName);
+			createGCIntervalDataConsecutiveZerosAreMergedFile(dataFolder, chrName, standardGCIntervalLength);
 		}
 	}
 

@@ -49,7 +49,7 @@ public class GC {
 		// TODO Auto-generated constructor stub
 	}
 
-	// todo
+
 	// for variance calculation among functional elements' gc values
 	public static float calculateGC( int low, int high, GCCharArray gcCharArray) {
 
@@ -63,15 +63,15 @@ public class GC {
 			// ascii 1 = 49 decimal
 			value = gcCharArray.getGcArray()[i] - 48;
 			gcContent = gcContent + value;
-		}
+		}//End of FOR
+		
 		gcContent = gcContent / length;
 
 		return gcContent;
 	}
 
 	// There can be gaps in the intervals of GC Interval Tree
-	public static float calculateGCofIntervalUsingIntervalTree( InputLineMinimal givenInputLine,
-			IntervalTree gcIntervalTree, CalculateGC calculateGC) {
+	public static float calculateGCofIntervalUsingIntervalTree( InputLineMinimal givenInputLine,IntervalTree gcIntervalTree, CalculateGC calculateGC) {
 
 		Float gcContent = 0f;
 
@@ -248,7 +248,7 @@ public class GC {
 			}
 			gcContent = gcContent / length;
 		}else{
-			GlanetRunner.appendLog( "input line's high exceeds hg19 chromsome size");
+			System.out.println("input line's high exceeds hg19 chromsome size");
 		}
 
 		return gcContent;
@@ -276,13 +276,12 @@ public class GC {
 
 			// check whether fasta file starts with > greater character
 			if( !strLine.startsWith( ">")){
-				GlanetRunner.appendLog( "Fasta file does not start with > character.");
+				System.out.println( "Fasta file does not start with > character.");
 			}
 
 			while( ( numberofCharactersRead = bufferedReader.read( cbuf)) != -1){
 
-				// GlanetRunner.appendLog("number of characters read: " +
-				// numberofCharactersRead);
+				// GlanetRunner.appendLog("number of characters read: " + numberofCharactersRead);
 
 				for( int i = 0; i < numberofCharactersRead; i++){
 					ch = cbuf[i];
@@ -301,7 +300,7 @@ public class GC {
 				}// end of for
 			}// end of while
 
-			GlanetRunner.appendLog( "nthBase must be written once: " + nthBase + " gcCharArray construction has ended.");
+			System.out.println("nthBase must be written once: " + nthBase + " gcCharArray construction has ended.");
 
 		}catch( FileNotFoundException e){
 			e.printStackTrace();
@@ -415,7 +414,7 @@ public class GC {
 
 		fillChromBasedGCArray( dataFolder, chromName, gcArray);
 
-		GlanetRunner.appendLog( "Given input line's gc content: " + calculateGCofInterval( givenInputLine, gcArray));
+		System.out.println("Given input line's gc content: " + calculateGCofInterval( givenInputLine, gcArray));
 	}
 
 }

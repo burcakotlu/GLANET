@@ -1642,7 +1642,9 @@ public class IntervalTree {
 	}
 
 	// Return gc and all overlapping IsochoreIntervalTree hits starts
-	public void findAllOverlappingGCIsochoreIntervals( IntervalTreeNode node, InputLineMinimal interval,
+	public void findAllOverlappingGCIsochoreIntervals( 
+			IntervalTreeNode node, 
+			InputLineMinimal interval,
 			GCIsochoreIntervalTreeFindAllOverlapsResult result) {
 
 		GCIsochoreIntervalTreeNode castedNode = null;
@@ -1654,14 +1656,20 @@ public class IntervalTree {
 			castedNode = ( GCIsochoreIntervalTreeNode)node;
 		}
 
-		numberofOverlappingBases = findNumberofOverlapingBases( castedNode.getLow(), castedNode.getHigh(),
-				interval.getLow(), interval.getHigh());
+		numberofOverlappingBases = findNumberofOverlapingBases( 
+				castedNode.getLow(), 
+				castedNode.getHigh(),
+				interval.getLow(), 
+				interval.getHigh());
 
 		if( numberofOverlappingBases > 0){
 
 			// Find hit
-			GCIsochoreIntervalTreeHitNode hit = new GCIsochoreIntervalTreeHitNode( castedNode.getLow(),
-					castedNode.getHigh(), castedNode.getNumberofGCs(), castedNode.getIsochoreFamily(),
+			GCIsochoreIntervalTreeHitNode hit = new GCIsochoreIntervalTreeHitNode( 
+					castedNode.getLow(),
+					castedNode.getHigh(), 
+					castedNode.getNumberofGCs(), 
+					castedNode.getIsochoreFamily(),
 					numberofOverlappingBases);
 
 			// Add hit

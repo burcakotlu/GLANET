@@ -332,20 +332,33 @@ public class RandomDataGenerator {
 				/**************************************************************************************************/
 				/*****************Decide on how to GC Calculation per each original interval starts****************/
 				/**************************************************************************************************/
-				if( originalInputLineLength <= Commons.VERY_SHORT_INTERVAL_LENGTH){
-					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
-				}else if( originalInputLineLength <= Commons.SHORT_INTERVAL_LENGTH){
-					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-				}else if (originalInputLineLength <= Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
+				if( originalInputLineLength >= Commons.INTERVAL_LENGTH_100000){
 					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
-				}else{
-					//originalInputLineLength is greater than Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE
-					//So discard this originalInputLine in each permutation.
-					if( GlanetRunner.shouldLog())
-						logger.error( "Interval of length greater than " + Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE + " is not accepted. So discard it");
-					
-					continue;
 				}
+				else if (originalInputLineLength>=Commons.INTERVAL_LENGTH_10000){
+					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVALLENGTH_10000_TREE;
+				}
+				
+				else if (originalInputLineLength>=Commons.INTERVAL_LENGTH_1000){
+					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVALLENGTH_1000_TREE;
+				}
+				
+				else if (originalInputLineLength>=Commons.INTERVAL_LENGTH_100){
+					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVALLENGTH_100_TREE;
+				}
+				else {
+					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
+				}
+				
+				
+//				else{
+//					//originalInputLineLength is greater than Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE
+//					//So discard this originalInputLine in each permutation.
+//					if( GlanetRunner.shouldLog())
+//						logger.error( "Interval of length greater than " + Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE + " is not accepted. So discard it");
+//					
+//					continue;
+//				}
 				/**************************************************************************************************/
 				/*****************Decide on how to GC Calculation per each original interval ends******************/
 				/**************************************************************************************************/
@@ -361,14 +374,40 @@ public class RandomDataGenerator {
 					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
 					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);
 
-				}else if( calculateGC.isCalculateGCUsingGCIntervalTree()){
+				}
+				
+				else if( calculateGC.isCalculateGCUsingGCIntervalLengthOneHundredTree()){
 					// Using GCIntervalTree
-					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree,calculateGC);
+					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthOneHundredTree,calculateGC);
+
+					//TODO Think on it.
+					//Why don't we classify w.r.t. originalInputLineGC?
+					//Why do we use gcIsochoreIntervalTree for all interval lengths?
+					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
+					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);
+
+				}
+				
+				
+				else if( calculateGC.isCalculateGCUsingGCIntervalLengthOneThousandTree()){
+					// Using GCIntervalTree
+					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthOneThousandTree,calculateGC);
 
 					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
 					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);
 
-				}else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
+				}
+				
+				else if( calculateGC.isCalculateGCUsingGCIntervalLengthTenThousandTree()){
+					// Using GCIntervalTree
+					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthTenThousandTree,calculateGC);
+
+					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
+					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);
+
+				}
+				
+				else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
 					// Using GCIsochoreIntervalTree
 					// When we do this we must be able to store hits with their numberofOverlappingBases
 
@@ -459,11 +498,28 @@ public class RandomDataGenerator {
 						// GByteList Way
 						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList( randomlyGeneratedLine,gcByteList);
 
-					}else if( calculateGC.isCalculateGCUsingGCIntervalTree()){
+					}
+					
+					else if( calculateGC.isCalculateGCUsingGCIntervalLengthOneHundredTree()){
 						// GCIntervalTree Way
-						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree, calculateGC);
+						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalLengthOneHundredTree, calculateGC);
 
-					}else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
+					}
+					
+					else if( calculateGC.isCalculateGCUsingGCIntervalLengthOneThousandTree()){
+						// GCIntervalTree Way
+						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalLengthOneThousandTree, calculateGC);
+
+					}
+					
+					else if( calculateGC.isCalculateGCUsingGCIntervalLengthTenThousandTree()){
+						// GCIntervalTree Way
+						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalLengthTenThousandTree, calculateGC);
+
+					}
+					
+
+					else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
 						// Using GCIsochoreIntervalTree
 
 						result = GC.calculateGCofIntervalUsingIsochoreIntervalTree( randomlyGeneratedLine,gcIsochoreIntervalTree);

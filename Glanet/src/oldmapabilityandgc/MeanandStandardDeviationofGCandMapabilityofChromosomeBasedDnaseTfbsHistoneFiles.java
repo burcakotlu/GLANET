@@ -3,15 +3,17 @@
  * Sep 4, 2013
  * 5:31:21 PM
  * 2013
+ * 
+ * 
+ * Chromosome Based Dnase TF Histone mean and standard deviation of GC and Mappability 
  *
  * 
  */
 package oldmapabilityandgc;
 
-import gc.ChromosomeBasedGCArray;
-import gc.GC;
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -22,13 +24,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import mapability.ChromosomeBasedMapabilityIntervalTree;
 import mapability.Mapability;
-import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enrichment.GCCharArray;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import gc.ChromosomeBasedGCArray;
+import gc.GC;
 
 public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbsHistoneFiles {
 
@@ -37,10 +44,10 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	 */
 	public MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbsHistoneFiles() {
 
-		// TODO Auto-generated constructor stub
 	}
 
-	public static String getChromosomeBasedFunctionalElementInputFileName( String outputFolder,
+	public static String getChromosomeBasedFunctionalElementInputFileName( 
+			String outputFolder,
 			String functionalElementType, ChromosomeName chromName) {
 
 		if( Commons.DNASE.equals( functionalElementType)){
@@ -340,7 +347,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			fileReader = new FileReader( chromBasedInputFileName);
 			bufferedReader = new BufferedReader( fileReader);
 
-			fileWriter = new FileWriter( chromBasedGCFileName);
+			fileWriter = FileOperations.createFileWriter( chromBasedGCFileName);
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -422,7 +429,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			fileReader = new FileReader( chromBasedInputFileName);
 			bufferedReader = new BufferedReader( fileReader);
 
-			fileWriter = new FileWriter( chromBasedMapabilityFileName);
+			fileWriter = FileOperations.createFileWriter( chromBasedMapabilityFileName);
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -465,7 +472,9 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 
 	// Mapability
 	public static void calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementMapability(
-			String outputFolder, List<Integer> hg19ChromosomeSizes,
+			String outputFolder, 
+			String dataFolder,
+			List<Integer> hg19ChromosomeSizes,
 			Map<String, MeanandStandardDeviation> mapabilityHashMap) {
 
 		ChromosomeName chromName;
@@ -479,10 +488,9 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			chromName = GRCh37Hg19Chromosome.getChromosomeName( i);
 			chromSize = hg19ChromosomeSizes.get( i - 1);
 
-			GlanetRunner.appendLog( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
+			System.out.println( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 
-			mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(
-					chromName, chromSize);
+			mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(dataFolder,chromName, chromSize);
 
 			// DNase
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.DNASE,
@@ -519,8 +527,11 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	// todo
 
 	// GC
-	public static void calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC( String outputFolder,
-			String dataFolder, List<Integer> hg19ChromosomeSizes, Map<String, MeanandStandardDeviation> gcHashMap) {
+	public static void calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC( 
+			String outputFolder,
+			String dataFolder, 
+			List<Integer> hg19ChromosomeSizes, 
+			Map<String, MeanandStandardDeviation> gcHashMap) {
 
 		ChromosomeName chromName;
 		int chromSize;
@@ -536,31 +547,32 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			chromName = GRCh37Hg19Chromosome.getChromosomeName( i);
 			chromSize = hg19ChromosomeSizes.get( i - 1);
 
-			GlanetRunner.appendLog( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
+			System.out.println( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 
 			gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray( dataFolder, chromName, chromSize);
 
 			// DNase
-			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.DNASE,
-					chromName);
+			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.DNASE,chromName);
 			chromBasedGCFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Dnase\\" + chromName + "_dnase_gc.txt";
-			calculateMean( chromName, Commons.DNASE, chromBasedInputFileName, chromBasedGCFileName, gcCharArray,
+			calculateMean(
+					chromName, 
+					Commons.DNASE, 
+					chromBasedInputFileName, 
+					chromBasedGCFileName, 
+					gcCharArray,
 					gcHashMap);
 			calculateStandardDeviationGC( chromName, Commons.DNASE, chromBasedGCFileName, gcHashMap);
 
 			// Tfbs
-			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.TF,
-					chromName);
+			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.TF,chromName);
 			chromBasedGCFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Tfbs\\" + chromName + "_tfbs_gc.txt";
 			calculateMean( chromName, Commons.TF, chromBasedInputFileName, chromBasedGCFileName, gcCharArray, gcHashMap);
 			calculateStandardDeviationGC( chromName, Commons.TF, chromBasedGCFileName, gcHashMap);
 
 			// Histone
-			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.HISTONE,
-					chromName);
+			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.HISTONE,chromName);
 			chromBasedGCFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Histone\\" + chromName + "_histone_gc.txt";
-			calculateMean( chromName, Commons.HISTONE, chromBasedInputFileName, chromBasedGCFileName, gcCharArray,
-					gcHashMap);
+			calculateMean( chromName, Commons.HISTONE, chromBasedInputFileName, chromBasedGCFileName, gcCharArray,gcHashMap);
 			calculateStandardDeviationGC( chromName, Commons.HISTONE, chromBasedGCFileName, gcHashMap);
 
 			gcCharArray.setGcArray( null);
@@ -575,7 +587,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 		BufferedWriter bufferedWriter;
 
 		try{
-			fileWriter = new FileWriter( chromBasedMeanandStdDevofGcFileName);
+			fileWriter = FileOperations.createFileWriter( chromBasedMeanandStdDevofGcFileName);
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			String name;
@@ -618,21 +630,20 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
 		GRCh37Hg19Chromosome.initializeChromosomeSizes( hg19ChromosomeSizes);
 		// get the hg19 chromosome sizes
-		GRCh37Hg19Chromosome.getHg19ChromosomeSizes( hg19ChromosomeSizes, dataFolder,
-				Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		GRCh37Hg19Chromosome.getHg19ChromosomeSizes( hg19ChromosomeSizes, dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		
+		String subDirectory = "forPaper" + System.getProperty("file.separator")  + "mapabilityandgc" + System.getProperty("file.separator") + "Augmentation" + System.getProperty("file.separator") +  "ChromosomeBased" + System.getProperty( "file.separator");
 
-		String chromBasedMeanandStdDevofGcFileName = outputFolder + "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "ChromosomeBased" + System.getProperty( "file.separator") + "mean_and_standard_deviation_of_gc_of_chromosome_based_dnase_tfbs_histone_files.txt";
-		String chromBasedMeanandStdDevofMapabilityFileName = outputFolder + "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "ChromosomeBased" + System.getProperty( "file.separator") + "mean_and_standard_deviation_of_mapability_of_chromosome_based_dnase_tfbs_histone_files.txt";
+		String chromBasedMeanandStdDevofGcFileName = outputFolder + subDirectory + "mean_and_standard_deviation_of_gc_of_chromosome_based_dnase_tfbs_histone_files.txt";
+		String chromBasedMeanandStdDevofMapabilityFileName = outputFolder + subDirectory + "mean_and_standard_deviation_of_mapability_of_chromosome_based_dnase_tfbs_histone_files.txt";
 
 		Map<String, MeanandStandardDeviation> gcHashMap = new HashMap<String, MeanandStandardDeviation>();
 		Map<String, MeanandStandardDeviation> mapabilityHashMap = new HashMap<String, MeanandStandardDeviation>();
 
-		calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC( outputFolder, dataFolder,
-				hg19ChromosomeSizes, gcHashMap);
+		calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementGC( outputFolder, dataFolder,hg19ChromosomeSizes, gcHashMap);
 		writeMeanandStdDevResultstoFiles( chromBasedMeanandStdDevofGcFileName, gcHashMap);
 
-		calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementMapability( outputFolder,
-				hg19ChromosomeSizes, mapabilityHashMap);
+		calculateMeanandStandardDeviationofChromosomeBasedFunctionalElementMapability(outputFolder,dataFolder,hg19ChromosomeSizes, mapabilityHashMap);
 		writeMeanandStdDevResultstoFiles( chromBasedMeanandStdDevofMapabilityFileName, mapabilityHashMap);
 
 	}

@@ -16,13 +16,17 @@ import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.MapabilityIntervalTreeNode;
 import intervaltree.MapabilityIntervalTreeNodeExtended;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
+
+import auxiliary.FileOperations;
 import ui.GlanetRunner;
 import common.Commons;
 import enrichment.InputLine;
@@ -64,7 +68,7 @@ public class Mapability {
 		int indexofThirdTab;
 
 		try{
-			fileReader = new FileReader( dataFolder + inputFileName);
+			fileReader = FileOperations.createFileReader( dataFolder + inputFileName);
 			bufferedReader = new BufferedReader( fileReader);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -79,7 +83,7 @@ public class Mapability {
 
 				// high is 1-based therefore it can be equal to chromSize
 				if( low >= chromSize || high > chromSize){
-					GlanetRunner.appendLog( "Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: " + high);
+					System.out.println( "Unexpected situation: There exists a line in mapability file of " + chromName + " which exceeds chromsize " + chromSize + " low: " + low + " high: " + high);
 				}
 
 				// High-1 is done here
@@ -89,7 +93,7 @@ public class Mapability {
 
 			}
 
-			GlanetRunner.appendLog( "This file must be read only once " + inputFileName + " chromName: " + chromName + " Mapability Double Array construction has ended.");
+			System.out.println( "This file must be read only once " + inputFileName + " chromName: " + chromName + " Mapability Double Array construction has ended.");
 
 		}catch( FileNotFoundException e){
 			e.printStackTrace();
@@ -204,8 +208,9 @@ public class Mapability {
 		}
 	}
 
-	// todo
-	// for variance calculation among functional elements' mapability values
+	// todo Is this calculation true?
+	// or should I just return accumulatedMapability  without dividing it by node.getNumberofBases()
+	// for variance calculation among functional elements' mappability values
 	public static float calculateMapability( int low, int high, IntervalTree mapabilityIntervalTree) {
 
 		float accumulatedMapability = 0;
@@ -214,22 +219,22 @@ public class Mapability {
 		List<IntervalTreeNode> overlappedNodeList = new ArrayList<IntervalTreeNode>();
 
 		IntervalTreeNode node = new IntervalTreeNode( low, high);
-		MapabilityIntervalTreeNode overlappedNode;
+		MapabilityIntervalTreeNodeExtended overlappedNode;
 
-		mapabilityIntervalTree.findAllOverlappingIntervals( overlappedNodeList, mapabilityIntervalTree.getRoot(), node);
+		mapabilityIntervalTree.findAllOverlappingIntervals(overlappedNodeList, mapabilityIntervalTree.getRoot(), node);
 
 		// there is overlap
 		// calculate mapability
 		if( overlappedNodeList != null && overlappedNodeList.size() > 0){
 
-			// Base assumption is that nodes in the overlappingNodeList do not
-			// overlap with each other
+			// Based on the assumption that nodes in the overlappingNodeList do not overlap with each other
 			for( int i = 0; i < overlappedNodeList.size(); i++){
 
-				overlappedNode = ( MapabilityIntervalTreeNode)overlappedNodeList.get( i);
+				overlappedNode = ( MapabilityIntervalTreeNodeExtended)overlappedNodeList.get(i);
 
-				numberofOverlappingBases = calculateTheNumberofOverlappingBases( node, overlappedNode);
+				numberofOverlappingBases = calculateTheNumberofOverlappingBases(node,overlappedNode);
 				accumulatedMapability = accumulatedMapability + ( overlappedNode.getMapability() * numberofOverlappingBases);
+				
 			}// end of FOR
 
 		} // End of IF
@@ -567,7 +572,10 @@ public class Mapability {
 		return accumulatedMapability;
 	}
 
-	public static void fillChromosomeBasedMapabilityIntervalTreefromFile( int chromSize, String inputFileName,
+	public static void fillChromosomeBasedMapabilityIntervalTreefromFile( 
+			String dataFolder,
+			int chromSize, 
+			String inputFileName,
 			IntervalTree chromBasedMapabilityIntervalTree) {
 
 		FileReader fileReader;
@@ -585,7 +593,7 @@ public class Mapability {
 		int indexofThirdTab;
 
 		try{
-			fileReader = new FileReader( inputFileName);
+			fileReader = FileOperations.createFileReader( dataFolder + inputFileName);
 			bufferedReader = new BufferedReader( fileReader);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -629,7 +637,8 @@ public class Mapability {
 
 			}
 
-			GlanetRunner.appendLog( "This file must be read only once " + inputFileName + " chromName: " + chromName + " Mapability Interval Tree construction has ended.");
+			System.out.println( "This file must be read only once " + inputFileName + " chromName: " + chromName + " Mapability Interval Tree construction has ended.");
+			
 
 		}catch( FileNotFoundException e){
 			e.printStackTrace();
@@ -639,108 +648,14 @@ public class Mapability {
 
 	}
 
-	public static void fillChromosomeBasedMapabilityIntervalTree( int chromSize, ChromosomeName chromName,
+	public static void fillChromosomeBasedMapabilityIntervalTree( 
+			String dataFolder,
+			int chromSize, 
+			ChromosomeName chromName,
 			IntervalTree chromBasedMapabilityIntervalTree) {
 
-		switch( chromName){
-		case CHROMOSOME1:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR1_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME2:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR2_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME3:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR3_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME4:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR4_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME5:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR5_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME6:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR6_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME7:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR7_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME8:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR8_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME9:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR9_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME10:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR10_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME11:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR11_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME12:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR12_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME13:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR13_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME14:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR14_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME15:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR15_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME16:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR16_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME17:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR17_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME18:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR18_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME19:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR19_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME20:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR20_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME21:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR21_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOME22:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHR22_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOMEX:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHRX_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-		case CHROMOSOMEY:
-			fillChromosomeBasedMapabilityIntervalTreefromFile( chromSize, Commons.MAPABILITY_HG19_CHRY_FILE,
-					chromBasedMapabilityIntervalTree);
-			break;
-
-		}// End of Switch
+			fillChromosomeBasedMapabilityIntervalTreefromFile( dataFolder,chromSize, Commons.MAPABILITY_HG19_CHR_FILE_START  + chromName.convertEnumtoString() + Commons.MAPABILITY_HG19_CHR_FILE_END,	chromBasedMapabilityIntervalTree);
+			
 
 	}
 
@@ -779,16 +694,14 @@ public class Mapability {
 		// gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray(dataFolder, chromName, chromSize);
 		// mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder, chromName,
 		// chromSize);
-		mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(
-				chromName, chromSize);
+		mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(dataFolder,chromName, chromSize);
 
 		int low = 35100000;
 		int high = 35100999;
 
 		InputLine inputLine = new InputLine( chromName, low, high);
 
-		GlanetRunner.appendLog( "Using Interval Tree " + Mapability.calculateMapabilityofInterval( inputLine,
-				mapabilityIntervalTree));
+		System.out.println( "Using Interval Tree " + Mapability.calculateMapabilityofInterval( inputLine,mapabilityIntervalTree));
 		// Mapability.calculateMapabilityofIntervalUsingArray(inputLine, mapabilityFloatArray);
 		// GlanetRunner.appendLog("Using Double Array: " + inputLine.getMapability());
 

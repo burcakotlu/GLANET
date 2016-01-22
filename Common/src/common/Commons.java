@@ -406,7 +406,9 @@ public class Commons {
 
 	// EnumType CalculateGC
 	public static final String CALCULATE_GC_USING_GC_BYTE_LIST = "CALCULATE_GC_USING_GC_BYTE_LIST";
-	public static final String CALCULATE_GC_USING_GC_INTERVAL_TREE = "CALCULATE_GC_USING_GC_INTERVAL_TREE";
+	public static final String CALCULATE_GC_USING_GC_INTERVALLENGTH_100_TREE = "CALCULATE_GC_USING_GC_INTERVALLENGTH_100_TREE";
+	public static final String CALCULATE_GC_USING_GC_INTERVALLENGTH_1000_TREE = "CALCULATE_GC_USING_GC_INTERVALLENGTH_1000_TREE";
+	public static final String CALCULATE_GC_USING_GC_INTERVALLENGTH_10000_TREE = "CALCULATE_GC_USING_GC_INTERVALLENGTH_10000_TREE";
 	public static final String CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE = "CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE";
 
 	// EnumType EnrichmentDecisionType
@@ -422,6 +424,13 @@ public class Commons {
 	
 	public static final int VERY_SHORT_INTERVAL_LENGTH = 10;
 	public static final int SHORT_INTERVAL_LENGTH = 500;
+	
+	//8 January 2016
+	public static final int INTERVAL_LENGTH_100 = 100;
+	public static final int INTERVAL_LENGTH_1000 = 1000;
+	public static final int INTERVAL_LENGTH_10000 = 10000;
+	public static final int INTERVAL_LENGTH_100000 = 100000;
+	
 
 	/*******************************************************************************************/
 	/************************ ChromosomeBased Given Input Files starts ***************************/
@@ -727,69 +736,69 @@ public class Commons {
 	public static final String WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE = "WRITE_STANDARD_DEVIATION_VALUE_OF_EACH_FILE";
 
 	// ALL FILES
-	public static final String ALL_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "all_gc_files.txt";
-	public static final String ALL_DNASE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "all_dnase_gc_files.txt";
-	public static final String ALL_TFBS_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "all_tfbs_gc_files.txt";
-	public static final String ALL_HISTONE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "all_histone_gc_files.txt";
+	public static final String ALL_GC_FILES =  "all_gc_files.txt";
+	public static final String ALL_DNASE_GC_FILES =  "all_dnase_gc_files.txt";
+	public static final String ALL_TFBS_GC_FILES = "all_tfbs_gc_files.txt";
+	public static final String ALL_HISTONE_GC_FILES = "all_histone_gc_files.txt";
 
-	public static final String ALL_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "all_mapability_files.txt";
-	public static final String ALL_DNASE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "all_dnase_mapability_files.txt";
-	public static final String ALL_TFBS_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "all_tfbs_mapability_files.txt";
-	public static final String ALL_HISTONE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "all_histone_mapability_files.txt";
+	public static final String ALL_MAPABILITY_FILES =  "all_mapability_files.txt";
+	public static final String ALL_DNASE_MAPABILITY_FILES =  "all_dnase_mapability_files.txt";
+	public static final String ALL_TFBS_MAPABILITY_FILES =  "all_tfbs_mapability_files.txt";
+	public static final String ALL_HISTONE_MAPABILITY_FILES =  "all_histone_mapability_files.txt";
 
 	// Ten Different Mean Files
-	public static final String TEN_DIFFERENT_MEAN_DNASE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "ten_different_mean_dnase_gc_files.txt";
-	public static final String TEN_DIFFERENT_MEAN_TFBS_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "ten_different_mean_tfbs_gc_files.txt";
-	public static final String TEN_DIFFERENT_MEAN_HISTONE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "ten_different_mean_histone_gc_files.txt";
+	public static final String TEN_DIFFERENT_MEAN_DNASE_GC_FILES =  "ten_different_mean_dnase_gc_files.txt";
+	public static final String TEN_DIFFERENT_MEAN_TFBS_GC_FILES = "ten_different_mean_tfbs_gc_files.txt";
+	public static final String TEN_DIFFERENT_MEAN_HISTONE_GC_FILES = "ten_different_mean_histone_gc_files.txt";
 
-	public static final String TEN_DIFFERENT_MEAN_DNASE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "ten_different_mean_dnase_mapability_files.txt";
-	public static final String TEN_DIFFERENT_MEAN_TFBS_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "ten_different_mean_tfbs_mapability_files.txt";
-	public static final String TEN_DIFFERENT_MEAN_HISTONE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "ten_different_mean_histone_mapability_files.txt";
+	public static final String TEN_DIFFERENT_MEAN_DNASE_MAPABILITY_FILES = "ten_different_mean_dnase_mapability_files.txt";
+	public static final String TEN_DIFFERENT_MEAN_TFBS_MAPABILITY_FILES = "ten_different_mean_tfbs_mapability_files.txt";
+	public static final String TEN_DIFFERENT_MEAN_HISTONE_MAPABILITY_FILES = "ten_different_mean_histone_mapability_files.txt";
 
 	// TOP TEN MOST VARYING FILES
-	public static final String TOP_TEN_MOST_VARYING_DNASE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "top_ten_dnase_gc_files.txt";
-	public static final String TOP_TEN_MOST_VARYING_TFBS_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "top_ten_tfbs_gc_files.txt";
-	public static final String TOP_TEN_MOST_VARYING_HISTONE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "top_ten_histone_gc_files.txt";
+	public static final String TOP_TEN_MOST_VARYING_DNASE_GC_FILES = "top_ten_dnase_gc_files.txt";
+	public static final String TOP_TEN_MOST_VARYING_TFBS_GC_FILES =  "top_ten_tfbs_gc_files.txt";
+	public static final String TOP_TEN_MOST_VARYING_HISTONE_GC_FILES = "top_ten_histone_gc_files.txt";
 
-	public static final String TOP_TEN_MOST_VARYING_DNASE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "top_ten_dnase_mapability_files.txt";
-	public static final String TOP_TEN_MOST_VARYING_TFBS_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "top_ten_tfbs_mapability_files.txt";
-	public static final String TOP_TEN_MOST_VARYING_HISTONE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "top_ten_histone_mapability_files.txt";
+	public static final String TOP_TEN_MOST_VARYING_DNASE_MAPABILITY_FILES = "top_ten_dnase_mapability_files.txt";
+	public static final String TOP_TEN_MOST_VARYING_TFBS_MAPABILITY_FILES = "top_ten_tfbs_mapability_files.txt";
+	public static final String TOP_TEN_MOST_VARYING_HISTONE_MAPABILITY_FILES =  "top_ten_histone_mapability_files.txt";
 
 	// Data Files for R for Ten Different Mean Files
-	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_DNASE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanDnaseGCFiles.txt";
-	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_TFBS_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanTfbsGCFiles.txt";
-	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_HISTONE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanHistoneGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_DNASE_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanDnaseGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_TFBS_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanTfbsGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_HISTONE_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanHistoneGCFiles.txt";
 
-	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_DNASE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanDnaseMAPABILITYFiles.txt";
-	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_TFBS_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanTfbsMAPABILITYFiles.txt";
-	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_HISTONE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanHistoneMAPABILITYFiles.txt";
+	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_DNASE_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanDnaseMAPABILITYFiles.txt";
+	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_TFBS_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanTfbsMAPABILITYFiles.txt";
+	public static final String DATA_FILE_FOR_R_TEN_DIFFERENT_MEAN_HISTONE_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TenDifferentMeanHistoneMAPABILITYFiles.txt";
 
 	// Top Ten Most Varying Dnase Tfbs Histone Mapability and GC files for Box
 	// Plot in R
-	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_DNASE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingDnaseGCFiles.txt";
-	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_TFBS_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingTfbsGCFiles.txt";
-	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_HISTONE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingHistoneGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_DNASE_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingDnaseGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_TFBS_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingTfbsGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_HISTONE_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingHistoneGCFiles.txt";
 
-	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_DNASE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingDnaseMapabilityFiles.txt";
-	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_TFBS_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingTfbsMapabilityFiles.txt";
-	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_HISTONE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingHistoneMapabilityFiles.txt";
+	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_DNASE_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingDnaseMapabilityFiles.txt";
+	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_TFBS_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingTfbsMapabilityFiles.txt";
+	public static final String DATA_FILE_FOR_R_TOP_TEN_MOST_VARYING_HISTONE_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "TopTenMostVaryingHistoneMapabilityFiles.txt";
 
 	// All Dnase Tfbs Histone Mapability and GC files for Box Plot in R
-	public static final String DATA_FILE_FOR_R_ALL_DNASE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllDnaseGCFiles.txt";
-	public static final String DATA_FILE_FOR_R_ALL_TFBS_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllTfbsGCFiles.txt";
-	public static final String DATA_FILE_FOR_R_ALL_HISTONE_GC_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllHistoneGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_ALL_DNASE_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllDnaseGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_ALL_TFBS_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllTfbsGCFiles.txt";
+	public static final String DATA_FILE_FOR_R_ALL_HISTONE_GC_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllHistoneGCFiles.txt";
 
-	public static final String DATA_FILE_FOR_R_ALL_DNASE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllDnaseMapabilityFiles.txt";;
-	public static final String DATA_FILE_FOR_R_ALL_TFBS_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllTfbsMapabilityFiles.txt";
-	public static final String DATA_FILE_FOR_R_ALL_HISTONE_MAPABILITY_FILES = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllHistoneMapabilityFiles.txt";
+	public static final String DATA_FILE_FOR_R_ALL_DNASE_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllDnaseMapabilityFiles.txt";;
+	public static final String DATA_FILE_FOR_R_ALL_TFBS_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllTfbsMapabilityFiles.txt";
+	public static final String DATA_FILE_FOR_R_ALL_HISTONE_MAPABILITY_FILES = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "DataFilesForR" + System.getProperty( "file.separator") + "AllHistoneMapabilityFiles.txt";
 
-	public static final String ALL_DNASE_GC_FILES_DIRECTORY = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Dnase" + System.getProperty( "file.separator") + "Gc" + System.getProperty( "file.separator");
-	public static final String ALL_TFBS_GC_FILES_DIRECTORY = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Tfbs" + System.getProperty( "file.separator") + "Gc" + System.getProperty( "file.separator");
-	public static final String ALL_HISTONE_GC_FILES_DIRECTORY = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Histone" + System.getProperty( "file.separator") + "Gc" + System.getProperty( "file.separator");
+	public static final String ALL_DNASE_GC_FILES_DIRECTORY = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Dnase" + System.getProperty( "file.separator") + "GC" + System.getProperty( "file.separator");
+	public static final String ALL_TFBS_GC_FILES_DIRECTORY = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Tfbs" + System.getProperty( "file.separator") + "GC" + System.getProperty( "file.separator");
+	public static final String ALL_HISTONE_GC_FILES_DIRECTORY = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Histone" + System.getProperty( "file.separator") + "GC" + System.getProperty( "file.separator");
 
-	public static final String ALL_DNASE_MAPABILITY_FILES_DIRECTORY = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Dnase" + System.getProperty( "file.separator") + "Mapability" + System.getProperty( "file.separator");
-	public static final String ALL_TFBS_MAPABILITY_FILES_DIRECTORY = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Tfbs" + System.getProperty( "file.separator") + "Mapability" + System.getProperty( "file.separator");
-	public static final String ALL_HISTONE_MAPABILITY_FILES_DIRECTORY = "Doktora" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Histone" + System.getProperty( "file.separator") + "Mapability" + System.getProperty( "file.separator");
+	public static final String ALL_DNASE_MAPABILITY_FILES_DIRECTORY = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Dnase" + System.getProperty( "file.separator") + "Mapability" + System.getProperty( "file.separator");
+	public static final String ALL_TFBS_MAPABILITY_FILES_DIRECTORY = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Tfbs" + System.getProperty( "file.separator") + "Mapability" + System.getProperty( "file.separator");
+	public static final String ALL_HISTONE_MAPABILITY_FILES_DIRECTORY = "forPaper" + System.getProperty( "file.separator") + "mapabilityandgc" + System.getProperty( "file.separator") + "Augmentation" + System.getProperty( "file.separator") + "FunctionalElementFileBased" + System.getProperty( "file.separator") + "Histone" + System.getProperty( "file.separator") + "Mapability" + System.getProperty( "file.separator");
 
 	// MAPABILITY
 	public static final short SHORT_0 = ( short)0;
@@ -804,6 +813,13 @@ public class Commons {
 
 	public static final String WG_ENCODE_CRG_MAPABILITY_ALIGN_100_MER_WIG = "MAPABILITY" + System.getProperty( "file.separator") + "wgEncodeCrgMapabilityAlign100mer.wig";
 	public static final String WG_ENCODE_CRG_MAPABILITY_ALIGN_50_MER_WIG = "MAPABILITY" + System.getProperty( "file.separator") + "wgEncodeCrgMapabilityAlign50mer.wig";
+	
+	
+	//21 JAN 2016 
+	public static final String MAPABILITY_HG19_CHR_FILE_START = "MAPABILITY" + System.getProperty( "file.separator");
+	public static final String MAPABILITY_HG19_CHR_FILE_END = "_hg19_mapability.txt";
+	
+	
 	public static final String MAPABILITY_HG19_CHR1_FILE = "MAPABILITY" + System.getProperty( "file.separator") + "chr1_hg19_mapability.txt";
 	public static final String MAPABILITY_HG19_CHR2_FILE = "MAPABILITY" + System.getProperty( "file.separator") + "chr2_hg19_mapability.txt";
 	public static final String MAPABILITY_HG19_CHR3_FILE = "MAPABILITY" + System.getProperty( "file.separator") + "chr3_hg19_mapability.txt";
@@ -843,8 +859,10 @@ public class Commons {
 	public static final String GC_ISOCHOREFAMILY_H2_POOL_FILE_END = "_gc_isochores_H2_pool.txt";
 	public static final String GC_ISOCHOREFAMILY_H3_POOL_FILE_END = "_gc_isochores_H3_pool.txt";
 
-	public static final String GC_INTERVALS_FILE_END = "_gc_intervals.txt";
-	public static final String GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END = "_gc_intervals_consecutive_zeros_merged.txt";
+	public static final String GC_INTERVALS_FILE_START = "_gc_intervalLength_";
+	public static final String GC_INTERVALS_FILE_END = ".txt";
+	public static final String GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_START = "_gc_intervalLength_";
+	public static final String GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END = "_consecutiveZerosMerged.txt";
 
 	public static final String GC_HG19_CHR1_FASTA_FILE = "GC" + System.getProperty( "file.separator") + "chr1.fa";
 	public static final String GC_HG19_CHR2_FASTA_FILE = "GC" + System.getProperty( "file.separator") + "chr2.fa";
@@ -889,6 +907,7 @@ public class Commons {
 	// GC Interval Tree At Most Interval Length
 	public static final int GC_INTERVALTREE_INTERVALLENGTH_100 = 100;
 	public static final int GC_INTERVALTREE_INTERVALLENGTH_1000 = 1000;
+	public static final int GC_INTERVALTREE_INTERVALLENGTH_10000 = 10000;
 
 	// GC ISOCHORES Moving Window Size is 100 KB
 	public static final int GC_ISOCHORE_MOVING_WINDOW_SIZE = 100000;

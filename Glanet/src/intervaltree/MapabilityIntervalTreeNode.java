@@ -1,6 +1,6 @@
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 13, 2015
  * @project Glanet 
  *

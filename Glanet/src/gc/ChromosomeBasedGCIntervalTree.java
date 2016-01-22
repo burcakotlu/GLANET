@@ -100,7 +100,9 @@ public class ChromosomeBasedGCIntervalTree {
 
 	}
 
-	public static void fillIsochoreIntervalTree( String dataFolder, ChromosomeName chromName,
+	public static void fillIsochoreIntervalTree( 
+			String dataFolder, 
+			ChromosomeName chromName,
 			IntervalTree gcIsochoreIntervalTree) {
 
 		String gcIsochoreIntervalTreeDataFile = Commons.GC + System.getProperty( "file.separator") + Commons.GC_ISOCHORE_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.GC_ISOCHORES_FILE_END;
