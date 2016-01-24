@@ -1,37 +1,37 @@
 /**
  * @author Burcak Otlu
- * Sep 15, 2013
- * 4:37:14 PM
+ * Sep 17, 2013
+ * 3:15:11 PM
  * 2013
  *
  * 
  */
-package oldmapabilityandgc;
+package mapabilityandgclegacy;
 
 import java.util.Comparator;
 import java.util.Map;
 
-public class StandardDeviationComparator implements Comparator<Object> {
+public class MeanComparator implements Comparator<Object> {
 
 	Map<String, MeanandStandardDeviation> mapToBeSorted;
 
 	/**
 	 * 
 	 */
-	public StandardDeviationComparator( Map<String, MeanandStandardDeviation> mapToBeSorted) {
+	public MeanComparator( Map<String, MeanandStandardDeviation> mapToBeSorted) {
 
 		this.mapToBeSorted = mapToBeSorted;
 	}
 
-	// In descending order
+	// In ascending order
 	@Override
 	public int compare( Object key1, Object key2) {
 
 		MeanandStandardDeviation val1 = ( MeanandStandardDeviation)mapToBeSorted.get( key1);
 		MeanandStandardDeviation val2 = ( MeanandStandardDeviation)mapToBeSorted.get( key2);
-		if( val1.getStandardDeviation() < val2.getStandardDeviation()){
+		if( val1.getMean() > val2.getMean()){
 			return +1;
-		}else if( val1.getStandardDeviation() > val2.getStandardDeviation()){
+		}else if( val1.getMean() < val2.getMean()){
 			return -1;
 		}else{
 			return 0;

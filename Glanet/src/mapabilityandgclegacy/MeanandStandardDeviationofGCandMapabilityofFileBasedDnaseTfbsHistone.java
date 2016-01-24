@@ -11,7 +11,7 @@
  * Computes mean and standard deviation of GC and Mappability of each ENCODE Dnase TF Histone file.
  * 
  */
-package oldmapabilityandgc;
+package mapabilityandgclegacy;
 
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
@@ -44,12 +44,12 @@ import enumtypes.CommandLineArguments;
 import gc.ChromosomeBasedGCArray;
 import gc.GC;
 
-public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
+public class MeanandStandardDeviationofGCandMapabilityofFileBasedDnaseTfbsHistone {
 
 	/**
 	 * 
 	 */
-	public MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles() {
+	public MeanandStandardDeviationofGCandMapabilityofFileBasedDnaseTfbsHistone() {
 
 		// TODO Auto-generated constructor stub
 	}
@@ -1430,6 +1430,10 @@ public class MeanandStandardDeviationofGCandMapabilityofDnaseTfbsHistoneFiles {
 		File tfbsDir = new File( encodeDataFolder + common.Commons.ENCODE_TFBS_DIRECTORY);
 		// HISTONE ORIGINAL ENCODE FILES DIRECTORY
 		File histoneDir = new File( encodeDataFolder + common.Commons.ENCODE_HISTONE_DIRECTORY);
+		
+		//This part takes long.
+		//So comment them once files are formed.
+		//When you need to form files again uncomment them.
 
 //		// Delete old files
 //		System.out.println( "-------------------------");

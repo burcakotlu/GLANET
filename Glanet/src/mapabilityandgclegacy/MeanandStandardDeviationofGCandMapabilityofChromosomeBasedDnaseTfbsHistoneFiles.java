@@ -9,7 +9,7 @@
  *
  * 
  */
-package oldmapabilityandgc;
+package mapabilityandgclegacy;
 
 import hg19.GRCh37Hg19Chromosome;
 import intervaltree.IntervalTree;
@@ -49,6 +49,9 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	public static String getChromosomeBasedFunctionalElementInputFileName( 
 			String outputFolder,
 			String functionalElementType, ChromosomeName chromName) {
+		
+		//In old days, there were unsorted files with strings but now there are files with numbers.
+		//In order to run this code, it must read from unsorted files with numbers.
 
 		if( Commons.DNASE.equals( functionalElementType)){
 			switch( chromName){
@@ -259,8 +262,11 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 	}
 
 	// GC
-	public static void calculateStandardDeviationGC( ChromosomeName chromName, String functionalElementType,
-			String chromBasedGCFileName, Map<String, MeanandStandardDeviation> gcHashMap) {
+	public static void calculateStandardDeviationGC( 
+			ChromosomeName chromName, 
+			String functionalElementType,
+			String chromBasedGCFileName, 
+			Map<String, MeanandStandardDeviation> gcHashMap) {
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -491,11 +497,15 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			System.out.println( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 
 			mapabilityIntervalTree = ChromosomeBasedMapabilityIntervalTree.getChromosomeBasedMapabilityIntervalTree(dataFolder,chromName, chromSize);
+			
+			
+			String subDirectory = "forPaper" + System.getProperty("file.separator")  + "mapabilityandgc" + System.getProperty("file.separator") + "Augmentation" + System.getProperty("file.separator") +  "ChromosomeBased" + System.getProperty( "file.separator");
+
 
 			// DNase
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.DNASE,
 					chromName);
-			chromBasedMapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Dnase\\" + chromName + "_dnase_mapability.txt";
+			chromBasedMapabilityFileName = outputFolder + subDirectory + Commons.DNASE + System.getProperty("file.separator") + chromName + "_dnase_mapability.txt";
 			calculateMean( chromName, Commons.DNASE, chromBasedInputFileName, chromBasedMapabilityFileName,
 					mapabilityIntervalTree, mapabilityHashMap);
 			calculateStandardDeviationMapability( chromName, Commons.DNASE, chromBasedMapabilityFileName,
@@ -504,7 +514,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			// Tfbs
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.TF,
 					chromName);
-			chromBasedMapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Tfbs\\" + chromName + "_tfbs_mapability.txt";
+			chromBasedMapabilityFileName = outputFolder + subDirectory + Commons.TF + System.getProperty("file.separator") + chromName + "_tfbs_mapability.txt";
 			calculateMean( chromName, Commons.TF, chromBasedInputFileName, chromBasedMapabilityFileName,
 					mapabilityIntervalTree, mapabilityHashMap);
 			calculateStandardDeviationMapability( chromName, Commons.TF, chromBasedMapabilityFileName,
@@ -513,7 +523,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			// Histone
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.HISTONE,
 					chromName);
-			chromBasedMapabilityFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Histone\\" + chromName + "_histone_mapability.txt";
+			chromBasedMapabilityFileName = outputFolder + subDirectory + Commons.HISTONE + System.getProperty("file.separator") + chromName + "_histone_mapability.txt";
 			calculateMean( chromName, Commons.HISTONE, chromBasedInputFileName, chromBasedMapabilityFileName,
 					mapabilityIntervalTree, mapabilityHashMap);
 			calculateStandardDeviationMapability( chromName, Commons.HISTONE, chromBasedMapabilityFileName,
@@ -550,10 +560,13 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			System.out.println( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 
 			gcCharArray = ChromosomeBasedGCArray.getChromosomeGCArray( dataFolder, chromName, chromSize);
+			
+			String subDirectory = "forPaper" + System.getProperty("file.separator")  + "mapabilityandgc" + System.getProperty("file.separator") + "Augmentation" + System.getProperty("file.separator") +  "ChromosomeBased" + System.getProperty( "file.separator");
+
 
 			// DNase
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.DNASE,chromName);
-			chromBasedGCFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Dnase\\" + chromName + "_dnase_gc.txt";
+			chromBasedGCFileName = outputFolder + subDirectory+  Commons.DNASE + System.getProperty("file.separator") + chromName + "_dnase_gc.txt";
 			calculateMean(
 					chromName, 
 					Commons.DNASE, 
@@ -565,13 +578,13 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 
 			// Tfbs
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.TF,chromName);
-			chromBasedGCFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Tfbs\\" + chromName + "_tfbs_gc.txt";
+			chromBasedGCFileName = outputFolder + subDirectory + Commons.TF + System.getProperty("file.separator") + chromName + "_tfbs_gc.txt";
 			calculateMean( chromName, Commons.TF, chromBasedInputFileName, chromBasedGCFileName, gcCharArray, gcHashMap);
 			calculateStandardDeviationGC( chromName, Commons.TF, chromBasedGCFileName, gcHashMap);
 
 			// Histone
 			chromBasedInputFileName = getChromosomeBasedFunctionalElementInputFileName( outputFolder, Commons.HISTONE,chromName);
-			chromBasedGCFileName = outputFolder + "Doktora\\mapabilityandgc\\Augmentation\\ChromosomeBased\\Histone\\" + chromName + "_histone_gc.txt";
+			chromBasedGCFileName = outputFolder + subDirectory + Commons.HISTONE + System.getProperty("file.separator") + chromName + "_histone_gc.txt";
 			calculateMean( chromName, Commons.HISTONE, chromBasedInputFileName, chromBasedGCFileName, gcCharArray,gcHashMap);
 			calculateStandardDeviationGC( chromName, Commons.HISTONE, chromBasedGCFileName, gcHashMap);
 
