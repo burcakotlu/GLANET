@@ -203,7 +203,9 @@ public class RandomDataGenerator {
 	public static List<InputLineMinimal> generateRandomData( 
 			GivenInputDataType givenInputsSNPsorIntervals,
 			TByteList gcByteList, 
-			IntervalTree gcIntervalTree, 
+			IntervalTree gcIntervalLengthOneHundredTree, 
+			IntervalTree gcIntervalLengthOneThousandTree, 
+			IntervalTree gcIntervalLengthTenThousandTree, 
 			IntervalTree gcIsochoreIntervalTree,
 			List<Interval> gcIsochoreFamilyL1Pool, 
 			List<Interval> gcIsochoreFamilyL2Pool,
@@ -369,10 +371,10 @@ public class RandomDataGenerator {
 				/**************************************************************************************************/
 				if( calculateGC.isCalculateGCUsingByteList()){
 					// Using GCByteList
-					originalInputLineGC = GC.calculateGCofIntervalUsingTroveList( originalInputLine, gcByteList);
+					originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
 
 					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
-					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);
+					originalInputLineIsochoreFamily = calculateIsochoreFamily(hits);
 
 				}
 				

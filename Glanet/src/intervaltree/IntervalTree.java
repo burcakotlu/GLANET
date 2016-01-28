@@ -1697,7 +1697,9 @@ public class IntervalTree {
 	// Return gc and all overlapping IsochoreIntervalTree hits ends
 
 	// There can be gaps in the gcIntervalTree
-	public float findAllOverlappingGCIntervals( IntervalTreeNode node, InputLineMinimal interval,
+	public float findAllOverlappingGCIntervals( 
+			IntervalTreeNode node, 
+			InputLineMinimal interval,
 			CalculateGC calculateGC) {
 
 		int numberofOverlappingBases = 0;
@@ -1721,17 +1723,20 @@ public class IntervalTree {
 		if( numberofOverlappingBases > 0){
 
 			switch( calculateGC){
-
-			case CALCULATE_GC_USING_GC_INTERVAL_TREE:
-				gcContent = ( numberofOverlappingBases * gcIntervalTreeNode.getNumberofGCs() * 1.0f) / ( gcIntervalTreeNode.getHigh() - gcIntervalTreeNode.getLow() + 1);
-				break;
-
-			case CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE:
-				gcContent = ( numberofOverlappingBases * gcIsochoreIntervalTreeNode.getNumberofGCs() * 1.0f) / ( gcIsochoreIntervalTreeNode.getHigh() - gcIsochoreIntervalTreeNode.getLow() + 1);
-				break;
-
-			default:
-				break;
+			
+				case CALCULATE_GC_USING_GC_INTERVALLENGTH_100_TREE:
+				case CALCULATE_GC_USING_GC_INTERVALLENGTH_1000_TREE:
+				case CALCULATE_GC_USING_GC_INTERVALLENGTH_10000_TREE:
+					gcContent = ( numberofOverlappingBases * gcIntervalTreeNode.getNumberofGCs() * 1.0f) / ( gcIntervalTreeNode.getHigh() - gcIntervalTreeNode.getLow() + 1);
+					break;
+	
+	
+				case CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE:
+					gcContent = ( numberofOverlappingBases * gcIsochoreIntervalTreeNode.getNumberofGCs() * 1.0f) / ( gcIsochoreIntervalTreeNode.getHigh() - gcIsochoreIntervalTreeNode.getLow() + 1);
+					break;
+	
+				default:
+					break;
 			}// End of SWITCH
 
 		}

@@ -426,6 +426,7 @@ public class Commons {
 	public static final int SHORT_INTERVAL_LENGTH = 500;
 	
 	//8 January 2016
+	public static final int INTERVAL_LENGTH_10 = 10;
 	public static final int INTERVAL_LENGTH_100 = 100;
 	public static final int INTERVAL_LENGTH_1000 = 1000;
 	public static final int INTERVAL_LENGTH_10000 = 10000;

@@ -179,9 +179,11 @@ public class ChromosomeBasedGCIntervalTree {
 
 	}
 
-	public static void fillIntervalTree( String dataFolder, ChromosomeName chromName, IntervalTree gcIntervalTree) {
+	public static void fillIntervalTree( String dataFolder, ChromosomeName chromName, int intervalLength, IntervalTree gcIntervalTree) {
 
-		String gcIntervalsConsecutiveZerosMergedFile = Commons.GC + System.getProperty( "file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END;
+		//example filename
+		//chr1_gc_intervalLength_10000_consecutiveZerosMerged.txt
+		String gcIntervalsConsecutiveZerosMergedFile = Commons.GC + System.getProperty( "file.separator") + Commons.GC_INTERVAL_TREE_DATA + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_START + intervalLength + Commons.GC_INTERVALS_CONSECUTIVE_ZEROS_MERGED_FILE_END;
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
@@ -247,7 +249,7 @@ public class ChromosomeBasedGCIntervalTree {
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 
 		IntervalTree gcIntervalTree = new IntervalTree();
-		fillIntervalTree( dataFolder, ChromosomeName.CHROMOSOME1, gcIntervalTree);
+		fillIntervalTree( dataFolder, ChromosomeName.CHROMOSOME1, Commons.INTERVAL_LENGTH_100, gcIntervalTree);
 
 		System.out.println( "GC Interval Tree NumberofNonOverlappingBases:" + gcIntervalTree.getNumberofNonOverlappingBases());
 		System.out.println( "GC Interval Tree NumberofNodes: " + gcIntervalTree.getNumberofNodes());
