@@ -3018,8 +3018,7 @@ public class IntervalTree {
 
 		
 		
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
-				overlapDefinition)){
+		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 			try{
 
 				// Write Annotation Found Overlaps to element Named File
@@ -4226,8 +4225,7 @@ public class IntervalTree {
 
 		elementNumber = castedNode.getElementNumber();
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
-				overlapDefinition)){
+		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 			try{
 
 				/*******************************************************************/
@@ -4315,8 +4313,7 @@ public class IntervalTree {
 				castedNode.getCellLineNumber(),
 				GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
-				overlapDefinition)){
+		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 			try{
 
 				// Write Annotation Found Overlaps to element Named File
@@ -6278,8 +6275,7 @@ public class IntervalTree {
 			castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
 		}
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
-				overlapDefinition)){
+		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 
 			try{
 
@@ -9332,7 +9328,8 @@ public class IntervalTree {
 			TIntByteMap exonBasedGeneSet2OneorZeroMap, 
 			TIntByteMap regulationBasedGeneSet2OneorZeroMap,
 			TIntByteMap allBasedGeneSet2OneorZeroMap, 
-			String type, int overlapDefinition,
+			String type, 
+			int overlapDefinition,
 			TIntObjectMap<String> geneSetNumber2GeneSetNameMap,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,

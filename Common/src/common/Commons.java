@@ -848,6 +848,7 @@ public class Commons {
 
 	// GC
 	public static final String GC_INTERVAL_TREE_DATA = "IntervalTreeData";
+	public static final String GC_INTERVAL_TREE_DATA_FOR_R_BOX_PLOT = "IntervalTreeDataForRBoxPlot";
 	public static final String GC_ISOCHORE_INTERVAL_TREE_DATA = "IsochoreIntervalTreeData";
 	public static final String GC_ISOCHORE_FAMILY_POOL_DATA = "IsochoreFamilyPoolData";
 
@@ -907,8 +908,11 @@ public class Commons {
 
 	// GC Interval Tree At Most Interval Length
 	public static final int GC_INTERVALTREE_INTERVALLENGTH_100 = 100;
+	public static final int GC_INTERVALTREE_INTERVALLENGTH_500 = 500;
 	public static final int GC_INTERVALTREE_INTERVALLENGTH_1000 = 1000;
+	public static final int GC_INTERVALTREE_INTERVALLENGTH_5000 = 5000;
 	public static final int GC_INTERVALTREE_INTERVALLENGTH_10000 = 10000;
+	public static final int GC_INTERVALTREE_INTERVALLENGTH_100000 = 100000;
 
 	// GC ISOCHORES Moving Window Size is 100 KB
 	public static final int GC_ISOCHORE_MOVING_WINDOW_SIZE = 100000;
