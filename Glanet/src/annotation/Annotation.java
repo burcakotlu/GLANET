@@ -3066,7 +3066,10 @@ public class Annotation {
 					/**************TF and Exon Based KEGGPathway starts**************************/
 					/****************************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : exonBasedKeggPathwayOverlapList){
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
@@ -3115,8 +3118,10 @@ public class Annotation {
 					/**************TF and Regulation Based KEGGPathway starts********************/
 					/****************************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : regulationBasedKeggPathwayOverlapList){
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),
-								ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
@@ -3163,8 +3168,10 @@ public class Annotation {
 					/**************TF and ALL Based KEGGPathway starts***************************/
 					/****************************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : allBasedKeggPathwayOverlapList){
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),
-								ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
@@ -3488,7 +3495,9 @@ public class Annotation {
 					/***********************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : exonBasedKeggPathwayOverlapList){
 						
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
@@ -3539,8 +3548,10 @@ public class Annotation {
 					/***********TF CellLine RegulationBasedKEGGPathway starts***************/
 					/***********************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : regulationBasedKeggPathwayOverlapList){
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),
-								ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
@@ -3593,8 +3604,10 @@ public class Annotation {
 					/***********TF CellLine AllBasedKEGGPathway starts**********************/
 					/***********************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : allBasedKeggPathwayOverlapList){
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),
-								ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
@@ -3742,7 +3755,8 @@ public class Annotation {
 			TLongIntMap tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap,
 			TIntIntMap tfNumberExonBasedKeggPathwayNumber2KMap,
 			TIntIntMap tfNumberRegulationBasedKeggPathwayNumber2KMap,
-			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, int overlapDefinition,
+			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, 
+			int overlapDefinition,
 			TIntObjectMap<String> tfNumber2TfNameMap, 
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String> fileNumber2FileNameMap,
@@ -3925,8 +3939,10 @@ public class Annotation {
 					/****************TF CellLine ExonBased KEGG Pathway starts*****************/
 					/**************************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : exonBasedKeggPathwayOverlapList){
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),
-								ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
@@ -4002,8 +4018,10 @@ public class Annotation {
 					/****************TF CellLine RegulationBased KEGG Pathway starts***********/
 					/**************************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : regulationBasedKeggPathwayOverlapList){
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),
-								ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
@@ -4080,8 +4098,10 @@ public class Annotation {
 					/****************TF CellLine ALLBased KEGG Pathway starts******************/
 					/**************************************************************************/
 					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : allBasedKeggPathwayOverlapList){
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),
-								ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+						
+						//2 FEB 2016
+						//overlapDefinition is required
+						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
 							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 								keggPathwayNumber = it.next();
@@ -6625,10 +6645,13 @@ public class Annotation {
 						// TF and EXON Based Kegg Pathway starts
 						for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : exonBasedKEGGPathwayNumberOverlapList){
 							
+							//2 FEB 2016
+							//overlapDefinition is required
 							if( IntervalTree.overlaps( 	tfNumberCellLineNumberOverlap.getLow(),
 														tfNumberCellLineNumberOverlap.getHigh(),
 														ucscRefSeqGeneOverlapWithNumbers.getLow(),
-														ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+														ucscRefSeqGeneOverlapWithNumbers.getHigh(),
+														overlapDefinition)){
 								
 								for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 			
@@ -6701,10 +6724,13 @@ public class Annotation {
 						// TF and REGULATION Based Kegg Pathway
 						for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneNumberOverlapWithNumbers : regulationBasedKEGGPathwayNumberOverlapList){
 							
+							//2 FEB 2016
+							//overlapDefinition is required
 							if( IntervalTree.overlaps( 	tfNumberCellLineNumberOverlap.getLow(),
 														tfNumberCellLineNumberOverlap.getHigh(),
 														ucscRefSeqGeneNumberOverlapWithNumbers.getLow(),
-														ucscRefSeqGeneNumberOverlapWithNumbers.getHigh())){
+														ucscRefSeqGeneNumberOverlapWithNumbers.getHigh(),
+														overlapDefinition)){
 			
 								for( TIntIterator it = ucscRefSeqGeneNumberOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 			
@@ -6778,10 +6804,13 @@ public class Annotation {
 						// TF and ALL Based Kegg Pathway
 						for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : allBasedKEGGPathwayNumberOverlapList){
 							
+							//2 FEB 2016
+							//overlapDefinition is required
 							if( IntervalTree.overlaps(	tfNumberCellLineNumberOverlap.getLow(),
 														tfNumberCellLineNumberOverlap.getHigh(),
 														ucscRefSeqGeneOverlapWithNumbers.getLow(),
-														ucscRefSeqGeneOverlapWithNumbers.getHigh())){
+														ucscRefSeqGeneOverlapWithNumbers.getHigh(),
+														overlapDefinition)){
 								
 								for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 			
@@ -7420,6 +7449,7 @@ public class Annotation {
 						// TF and EXON Based Kegg Pathway
 						for( PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap : permutationNumberExonBasedKeggPathwayNumberOverlapList){
 							
+							//overlapDefinition is required
 							if( IntervalTree.overlaps( permutationNumberTfNumberCellLineNumberOverlap.getLow(),
 									permutationNumberTfNumberCellLineNumberOverlap.getHigh(),
 									permutationNumberUcscRefSeqGeneNumberOverlap.getLow(),
@@ -7482,6 +7512,7 @@ public class Annotation {
 						// TF and REGULATION Based KEGG Pathway
 						for( PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap : permutationNumberRegulationBasedKeggPathwayNumberOverlapList){
 							
+							//overlapDefinition is required
 							if( IntervalTree.overlaps( permutationNumberTfNumberCellLineNumberOverlap.getLow(),
 									permutationNumberTfNumberCellLineNumberOverlap.getHigh(),
 									permutationNumberUcscRefSeqGeneNumberOverlap.getLow(),
@@ -7544,6 +7575,8 @@ public class Annotation {
 
 						// TF and ALL Based Kegg Pathway
 						for( PermutationNumberUcscRefSeqGeneNumberOverlap permutationNumberUcscRefSeqGeneNumberOverlap : permutationNumberAllBasedKeggPathwayNumberOverlapList){
+							
+							//overlapDefinition is required
 							if( IntervalTree.overlaps( permutationNumberTfNumberCellLineNumberOverlap.getLow(),
 									permutationNumberTfNumberCellLineNumberOverlap.getHigh(),
 									permutationNumberUcscRefSeqGeneNumberOverlap.getLow(),

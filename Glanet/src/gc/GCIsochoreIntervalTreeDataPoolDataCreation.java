@@ -29,27 +29,7 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 
 	final static Logger logger = Logger.getLogger(GCIsochoreIntervalTreeDataPoolDataCreation.class);
 
-	public static IsochoreFamily calculateIsochoreFamily( float gcPercentage) {
-
-		IsochoreFamily isochoreFamily = null;
-
-		// L1, L2, H1, H2 and H3, with GC contents of
-		// 38%, 38�42%, 42�47%, 47�52%, respectively
-
-		if( gcPercentage < 38){
-			isochoreFamily = IsochoreFamily.L1;
-		}else if( gcPercentage >= 38 && gcPercentage < 42){
-			isochoreFamily = IsochoreFamily.L2;
-		}else if( gcPercentage >= 42 && gcPercentage < 47){
-			isochoreFamily = IsochoreFamily.H1;
-		}else if( gcPercentage >= 47 && gcPercentage < 52){
-			isochoreFamily = IsochoreFamily.H2;
-		}else if( gcPercentage >= 52){
-			isochoreFamily = IsochoreFamily.H3;
-		}
-
-		return isochoreFamily;
-	}
+	
 
 	@SuppressWarnings( "resource")
 	public static void createGCIsochoreFile( String dataFolder, ChromosomeName chrName) {
@@ -178,7 +158,7 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 
 						gcPercentage = ( numberofGCsInStandardGCIntervalLength * 1.0f / standardGCIntervalLength);
 
-						isochoreFamily = calculateIsochoreFamily( gcPercentage * 100);
+						isochoreFamily = GC.calculateIsochoreFamily( gcPercentage * 100);
 
 						switch( isochoreFamily){
 
@@ -228,7 +208,7 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 
 				gcPercentage = ( numberofGCsInStandardGCIntervalLength * 1.0f / lengthOfLastInterval);
 
-				isochoreFamily = calculateIsochoreFamily( gcPercentage * 100);
+				isochoreFamily = GC.calculateIsochoreFamily( gcPercentage * 100);
 
 				switch( isochoreFamily){
 

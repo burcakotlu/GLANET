@@ -877,6 +877,7 @@ public class Enrichment {
 					// WITH IO
 					// WITH NUMBERS
 					// For All Chromosomes
+					// Depreceated
 					else if( writePermutationBasedandParametricBasedAnnotationResultMode.isWritePermutationBasedandParametricBasedAnnotationResultMode()){
 
 						accumulatePermutationGreaterThanOrEqualToOneorZeroInRightAllMaps(

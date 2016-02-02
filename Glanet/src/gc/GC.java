@@ -10,22 +10,32 @@
  */
 package gc;
 
-import generate.randomdata.RandomDataGenerator;
+import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.list.TByteList;
+import gnu.trove.map.TIntIntMap;
+import gnu.trove.map.hash.TIntIntHashMap;
+import intervaltree.GCIsochoreIntervalTreeHitNode;
 import intervaltree.IntervalTree;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
+
 import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enrichment.GCCharArray;
 import enrichment.InputLine;
 import enrichment.InputLineMinimal;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import enumtypes.IsochoreFamily;
 
 public class GC {
 
@@ -48,6 +58,102 @@ public class GC {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	//Simple Way
+	public static IsochoreFamily calculateIsochoreFamily( float gcPercentage) {
+
+		IsochoreFamily isochoreFamily = null;
+
+		// L1, L2, H1, H2 and H3, with GC contents of
+		// <38%, (>=38%,<42%) , (>=42%,<47%), (>=47%,<52%), (>=52%)  respectively
+
+		if( gcPercentage < 38){
+			isochoreFamily = IsochoreFamily.L1;
+		}else if( gcPercentage >= 38 && gcPercentage < 42){
+			isochoreFamily = IsochoreFamily.L2;
+		}else if( gcPercentage >= 42 && gcPercentage < 47){
+			isochoreFamily = IsochoreFamily.H1;
+		}else if( gcPercentage >= 47 && gcPercentage < 52){
+			isochoreFamily = IsochoreFamily.H2;
+		}else if( gcPercentage >= 52){
+			isochoreFamily = IsochoreFamily.H3;
+		}
+
+		return isochoreFamily;
+	}
+	
+	// Complex way
+	// Each hit also has numberofOverlappingBases starts
+	// Analyze each hit
+	// Accumulate the numberofOverlappingBases for each isochoreFamily
+	// Then return the isochoreFamily with the maximum numberofOverlappingBases as the isochoreFamily of related interval
+	public static IsochoreFamily calculateIsochoreFamily( List<GCIsochoreIntervalTreeHitNode> hits) {
+
+		GCIsochoreIntervalTreeHitNode gcIsochoreIntervalTreeHitNode = null;
+		IsochoreFamily isochoreFamilyofInputLine = null;
+		IsochoreFamily isochoreFamilyofHit = null;
+		int isochoreFamilyNumberofHit;
+		int numberofOverlappingBasesofHit;
+		TIntIntMap isochoreFamily2NumberofOverlappingBases = null;
+
+		int maximumNumberofHits = Integer.MIN_VALUE;
+		int isochoreFamilyNumberWithMaximumNumberofHits = 0;
+
+		if( hits.size() == 0){
+			if( GlanetRunner.shouldLog())logger.error( "There is a situation. Number of hits is 0");
+		}
+
+		// There is only one hit case
+		else if( hits.size() == 1){
+			isochoreFamilyofInputLine = hits.get( 0).getIsochoreFamily();
+		}
+
+		// There is more than one hit case
+		else{
+
+			isochoreFamily2NumberofOverlappingBases = new TIntIntHashMap();
+
+			for( int i = 0; i < hits.size(); i++){
+
+				gcIsochoreIntervalTreeHitNode = hits.get( i);
+
+				isochoreFamilyofHit = gcIsochoreIntervalTreeHitNode.getIsochoreFamily();
+				isochoreFamilyNumberofHit = isochoreFamilyofHit.getIsochoreFamily();
+
+				numberofOverlappingBasesofHit = gcIsochoreIntervalTreeHitNode.getNumberofOverlappingBases();
+				// Accumulate
+				if( !isochoreFamily2NumberofOverlappingBases.containsKey( isochoreFamilyNumberofHit)){
+					isochoreFamily2NumberofOverlappingBases.put( isochoreFamilyNumberofHit,
+							numberofOverlappingBasesofHit);
+				}else{
+					isochoreFamily2NumberofOverlappingBases.put(
+							isochoreFamilyNumberofHit,
+							isochoreFamily2NumberofOverlappingBases.get( isochoreFamilyNumberofHit) + numberofOverlappingBasesofHit);
+				}
+
+			}// End of for Each Hit
+
+			// Choose the isochoreFamilyNumber with the maximum number of overlapping Bases
+			for( TIntIntIterator itr = isochoreFamily2NumberofOverlappingBases.iterator(); itr.hasNext();){
+				itr.advance();
+
+				if( itr.value() > maximumNumberofHits){
+					maximumNumberofHits = itr.value();
+					isochoreFamilyNumberWithMaximumNumberofHits = itr.key();
+				}
+
+			}// End of For Finding isochoreFamilyWithMaximumNumberofHits
+
+			// Convert int to IsochoreFamily
+			isochoreFamilyofInputLine = IsochoreFamily.convertInttoEnum( isochoreFamilyNumberWithMaximumNumberofHits);
+
+		}// End of ELSE Part
+
+		return isochoreFamilyofInputLine;
+
+	}
+	// ends
 
 
 	// for variance calculation among functional elements' gc values
@@ -85,7 +191,8 @@ public class GC {
 	// Calculate the GC of the given interval using GCIsochoreIntervalTree
 	// In case of length of the given interval is greater than 100KB
 	public static GCIsochoreIntervalTreeFindAllOverlapsResult calculateGCofIntervalUsingIsochoreIntervalTree(
-			InputLineMinimal givenInputLine, IntervalTree gcIsochoreIntervalTree) {
+			InputLineMinimal givenInputLine, 
+			IntervalTree gcIsochoreIntervalTree) {
 
 		GCIsochoreIntervalTreeFindAllOverlapsResult result = new GCIsochoreIntervalTreeFindAllOverlapsResult();
 
@@ -95,7 +202,9 @@ public class GC {
 
 		result.setGc( result.getNumberofGCs() / ( givenInputLine.getHigh() - givenInputLine.getLow() + 1));
 
-		result.setIsochoreFamily( RandomDataGenerator.calculateIsochoreFamily( result.getHits()));
+		// This is a complex way of deciding on isochoreFamily
+		// Why don't we just look at the result.getGc() and classify the isochoreFamily of interval accordingly
+		result.setIsochoreFamily(calculateIsochoreFamily( result.getHits()));
 
 		return result;
 	}

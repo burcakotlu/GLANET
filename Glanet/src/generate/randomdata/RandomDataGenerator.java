@@ -10,12 +10,9 @@ package generate.randomdata;
 
 import gc.GC;
 import gc.GCIsochoreIntervalTreeFindAllOverlapsResult;
-import gnu.trove.iterator.TIntIntIterator;
 import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
-import gnu.trove.map.TIntIntMap;
-import gnu.trove.map.hash.TIntIntHashMap;
 import intervaltree.GCIsochoreIntervalTreeHitNode;
 import intervaltree.Interval;
 import intervaltree.IntervalTree;
@@ -28,8 +25,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import mapability.Mapability;
 
 import org.apache.log4j.Logger;
-
-import ui.GlanetRunner;
 
 import common.Commons;
 
@@ -44,74 +39,7 @@ import enumtypes.IsochoreFamily;
 public class RandomDataGenerator {
 
 	final static Logger logger = Logger.getLogger(RandomDataGenerator.class);
-
-	// Each hit also has numberofOverlappingBases starts
-	public static IsochoreFamily calculateIsochoreFamily( List<GCIsochoreIntervalTreeHitNode> hits) {
-
-		GCIsochoreIntervalTreeHitNode gcIsochoreIntervalTreeHitNode = null;
-		IsochoreFamily isochoreFamilyofInputLine = null;
-		IsochoreFamily isochoreFamilyofHit = null;
-		int isochoreFamilyNumberofHit;
-		int numberofOverlappingBasesofHit;
-		TIntIntMap isochoreFamily2NumberofOverlappingBases = null;
-
-		int maximumNumberofHits = Integer.MIN_VALUE;
-		int isochoreFamilyNumberWithMaximumNumberofHits = 0;
-
-		if( hits.size() == 0){
-			if( GlanetRunner.shouldLog())logger.error( "There is a situation. Number of hits is 0");
-		}
-
-		// There is only one hit case
-		else if( hits.size() == 1){
-			isochoreFamilyofInputLine = hits.get( 0).getIsochoreFamily();
-		}
-
-		// There is more than one hit case
-		else{
-
-			isochoreFamily2NumberofOverlappingBases = new TIntIntHashMap();
-
-			for( int i = 0; i < hits.size(); i++){
-
-				gcIsochoreIntervalTreeHitNode = hits.get( i);
-
-				isochoreFamilyofHit = gcIsochoreIntervalTreeHitNode.getIsochoreFamily();
-				isochoreFamilyNumberofHit = isochoreFamilyofHit.getIsochoreFamily();
-
-				numberofOverlappingBasesofHit = gcIsochoreIntervalTreeHitNode.getNumberofOverlappingBases();
-				// Accumulate
-				if( !isochoreFamily2NumberofOverlappingBases.containsKey( isochoreFamilyNumberofHit)){
-					isochoreFamily2NumberofOverlappingBases.put( isochoreFamilyNumberofHit,
-							numberofOverlappingBasesofHit);
-				}else{
-					isochoreFamily2NumberofOverlappingBases.put(
-							isochoreFamilyNumberofHit,
-							isochoreFamily2NumberofOverlappingBases.get( isochoreFamilyNumberofHit) + numberofOverlappingBasesofHit);
-				}
-
-			}// End of for Each Hit
-
-			// Choose the isochoreFamilyNumber with the maximum number of overlapping Bases
-			for( TIntIntIterator itr = isochoreFamily2NumberofOverlappingBases.iterator(); itr.hasNext();){
-				itr.advance();
-
-				if( itr.value() > maximumNumberofHits){
-					maximumNumberofHits = itr.value();
-					isochoreFamilyNumberWithMaximumNumberofHits = itr.key();
-				}
-
-			}// End of For Finding isochoreFamilyWithMaximumNumberofHits
-
-			// Convert int to IsochoreFamily
-			isochoreFamilyofInputLine = IsochoreFamily.convertInttoEnum( isochoreFamilyNumberWithMaximumNumberofHits);
-
-		}// End of ELSE Part
-
-		return isochoreFamilyofInputLine;
-
-	}
-	// ends
+	
 
 	// IsochoreFamilyPoolHigh must not be greater than chromSize
 	public static InputLineMinimal getRandomLineDependingOnIsochoreFamilyofOriginalInputLine( 
@@ -366,7 +294,7 @@ public class RandomDataGenerator {
 					originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
 
 					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
-					originalInputLineIsochoreFamily = calculateIsochoreFamily(hits);
+					originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(hits);
 
 				}
 				
@@ -379,7 +307,7 @@ public class RandomDataGenerator {
 					//Why don't we classify Isochore Family of original interval w.r.t. its GC value? And instead we use its overlaps with gcIsochoreIntervalTree 
 					//Why do we use gcIsochoreIntervalTree for all interval lengths?
 					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
-					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);
+					originalInputLineIsochoreFamily = GC.calculateIsochoreFamily( hits);
 
 				}
 				
@@ -390,7 +318,7 @@ public class RandomDataGenerator {
 					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthOneThousandTree,calculateGC);
 
 					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
-					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);
+					originalInputLineIsochoreFamily = GC.calculateIsochoreFamily( hits);
 
 				}
 				
@@ -400,7 +328,7 @@ public class RandomDataGenerator {
 					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthTenThousandTree,calculateGC);
 
 					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
-					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);
+					originalInputLineIsochoreFamily = GC.calculateIsochoreFamily( hits);
 
 				}
 				
