@@ -208,9 +208,12 @@ public class Mapability {
 		}
 	}
 
-	// todo Is this calculation true?
-	// or should I just return accumulatedMapability  without dividing it by node.getNumberofBases()
-	// for variance calculation among functional elements' mappability values
+	// This calculation true.
+	// I should not just return accumulatedMapability  without dividing it by node.getNumberofBases()
+	// Here dividing it by node.getNumberofBases() seems ok.
+	// Here we assume that if given interval has a region that does not overlap with the intervals
+	// in the mappability tree then this region has mappability of zero at that region.
+	// This method is called for variance calculation among functional elements' mappability values
 	public static float calculateMapability( int low, int high, IntervalTree mapabilityIntervalTree) {
 
 		float accumulatedMapability = 0;
@@ -257,7 +260,9 @@ public class Mapability {
 		return numberofOverlappingBases;
 	}
 
-	// check it, test it
+	
+	//Here we assume that if given interval has a region that does not overlap with the intervals
+	//in the mappability tree then this region has mappability of zero at that region.
 	public static float calculateMapabilityofInterval( InputLine givenInputLine, IntervalTree mapabilityIntervalTree) {
 
 		int numberofOverlappingBases;
@@ -278,11 +283,10 @@ public class Mapability {
 		// calculate mapability
 		if( overlappedNodeList != null && overlappedNodeList.size() > 0){
 
-			// Base assumption is that nodes in the overlappingNodeList do not
-			// overlap with each other
+			// Base assumption is that nodes in the overlappingNodeList do not overlap with each other
 			for( int i = 0; i < overlappedNodeList.size(); i++){
 
-				overlappedNode = ( MapabilityIntervalTreeNode)overlappedNodeList.get( i);
+				overlappedNode = (MapabilityIntervalTreeNode)overlappedNodeList.get(i);
 
 				numberofOverlappingBases = calculateTheNumberofOverlappingBases( node, overlappedNode);
 				accumulatedMapability = accumulatedMapability + ( overlappedNode.getMapability() * numberofOverlappingBases);
@@ -328,8 +332,21 @@ public class Mapability {
 		return accumulatedMapability;
 	}
 
-	public static float calculateMappability( int low, int startIndex, int high, int endIndex,
-			TIntList mapabilityChromosomePositionList, TShortList mapabilityShortValueList) {
+	//This method is used for mappability calculation during Enrichment
+	// We multiply the number of overlapping bases with the mappabilityShortValue
+	// We accumulate all these.
+	// We divide this accumulated sum with the number of bases in the given interval.
+	// Here we assume that if given interval has a region that does not overlap with the intervals
+	// in the mapabilityChromosomePositionList then this region has mappability of zero at that region.
+	// We then divide the last artifact with Commons.MAPABILITY_SHORT_TEN_THOUSAND in the caller method
+	// Since every mappability value in mapabilityShortValueList was multiplied with Commons.MAPABILITY_SHORT_TEN_THOUSAND.
+	public static float calculateMappability( 
+			int low, 
+			int startIndex, 
+			int high, 
+			int endIndex,
+			TIntList mapabilityChromosomePositionList, 
+			TShortList mapabilityShortValueList) {
 
 		float accumulatedMapability = 0;
 
@@ -342,16 +359,16 @@ public class Mapability {
 		else if( startIndex != endIndex){
 
 			// First Block
-			accumulatedMapability = ( mapabilityChromosomePositionList.get( startIndex + 1) - low) * mapabilityShortValueList.get( startIndex);
+			accumulatedMapability = (mapabilityChromosomePositionList.get(startIndex+1) - low + 1) * mapabilityShortValueList.get(startIndex);
 
 			// Middle Blocks
 			for( int i = startIndex + 1; i < endIndex; i++){
-				accumulatedMapability += ( mapabilityChromosomePositionList.get( i + 1) - mapabilityChromosomePositionList.get( i)) * mapabilityShortValueList.get( i);
+				accumulatedMapability += (mapabilityChromosomePositionList.get(i+1) - mapabilityChromosomePositionList.get(i) + 1) * mapabilityShortValueList.get(i);
 
 			}// End of for
 
 			// Last Block
-			accumulatedMapability += ( high - mapabilityChromosomePositionList.get( endIndex) + 1) * mapabilityShortValueList.get( endIndex);
+			accumulatedMapability += (high - mapabilityChromosomePositionList.get(endIndex) + 1) * mapabilityShortValueList.get(endIndex);
 
 			// Calculate Mapability Value
 			accumulatedMapability = accumulatedMapability / ( high - low + 1);
@@ -361,8 +378,10 @@ public class Mapability {
 	}
 
 	// For testing purposes starts
-	public static float calculateMapabilityofIntervalUsingTroveList( InputLineMinimal givenInputLine,
-			TIntList mapabilityChromosomePositionList, TByteList mapabilityByteValueList) {
+	public static float calculateMapabilityofIntervalUsingTroveList( 
+			InputLineMinimal givenInputLine,
+			TIntList mapabilityChromosomePositionList, 
+			TByteList mapabilityByteValueList) {
 
 		float accumulatedMapability = 0;
 
@@ -465,8 +484,10 @@ public class Mapability {
 		return mapability;
 	}
 
-	public static float calculateMapabilityofIntervalUsingTroveList( InputLineMinimal givenInputLine,
-			TIntList mapabilityChromosomePositionList, TShortList mapabilityShortValueList) {
+	public static float calculateMapabilityofIntervalUsingTroveList( 
+			InputLineMinimal givenInputLine,
+			TIntList mapabilityChromosomePositionList, 
+			TShortList mapabilityShortValueList) {
 
 		float accumulatedMapability = 0;
 
@@ -514,8 +535,7 @@ public class Mapability {
 			// Only Interval Case
 			startIndex = 0;
 			low = mapabilityChromosomePositionList.get( 0);
-			accumulatedMapability = calculateMappability( low, startIndex, high, endIndex,
-					mapabilityChromosomePositionList, mapabilityShortValueList);
+			accumulatedMapability = calculateMappability(low,startIndex,high,endIndex,mapabilityChromosomePositionList, mapabilityShortValueList);
 
 		}
 		// case3: Major Case
@@ -527,8 +547,7 @@ public class Mapability {
 			}
 			// Interval Case of length greater than 1
 			else if( high > low){
-				accumulatedMapability = calculateMappability( low, startIndex, high, endIndex,
-						mapabilityChromosomePositionList, mapabilityShortValueList);
+				accumulatedMapability = calculateMappability( low, startIndex, high, endIndex,mapabilityChromosomePositionList, mapabilityShortValueList);
 			}// End of ELSE IF Interval Case of length greater than 1
 
 		}
@@ -537,8 +556,7 @@ public class Mapability {
 
 			// Only Interval Case
 			high = mapabilityChromosomePositionList.get( endIndex);
-			accumulatedMapability = calculateMappability( low, startIndex, high, endIndex,
-					mapabilityChromosomePositionList, mapabilityShortValueList);
+			accumulatedMapability = calculateMappability( low, startIndex, high, endIndex,mapabilityChromosomePositionList, mapabilityShortValueList);
 
 		}
 		// Case5

@@ -353,14 +353,6 @@ public class RandomDataGenerator {
 				}
 				
 				
-//				else{
-//					//originalInputLineLength is greater than Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE
-//					//So discard this originalInputLine in each permutation.
-//					if( GlanetRunner.shouldLog())
-//						logger.error( "Interval of length greater than " + Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE + " is not accepted. So discard it");
-//					
-//					continue;
-//				}
 				/**************************************************************************************************/
 				/*****************Decide on how to GC Calculation per each original interval ends******************/
 				/**************************************************************************************************/
@@ -383,7 +375,7 @@ public class RandomDataGenerator {
 					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthOneHundredTree,calculateGC);
 
 					//TODO Think on it.
-					//Why don't we classify w.r.t. originalInputLineGC?
+					//Why don't we classify Isochore Family of original interval w.r.t. its GC value? And instead we use its overlaps with gcIsochoreIntervalTree 
 					//Why do we use gcIsochoreIntervalTree for all interval lengths?
 					hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
 					originalInputLineIsochoreFamily = calculateIsochoreFamily( hits);

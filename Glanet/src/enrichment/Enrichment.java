@@ -6380,9 +6380,6 @@ public class Enrichment {
 		TByteList gcByteList = null;
 
 		// Will be used for Interval Data
-		//IntervalTree gcIntervalTree = null;
-
-		// Will be used for Interval Data
 		IntervalTree gcIsochoreIntervalTree = null;
 		
 		//28 JAN 2016
@@ -6497,11 +6494,7 @@ public class Enrichment {
 				/************************************************/
 				// Fill GCByteList if givenData contains interval of length <= 100
 				gcByteList = new TByteArrayList();
-
-				// For Interval Data
-				// Fill GCIntervalTree if givenData contains interval of length >10 and <= 100
-				//gcIntervalTree = new IntervalTree();
-				
+		
 				
 				//28 JAN 2016
 				// Fill gcIntervalLengthOneHundredTree if givenData contains interval of length > 100 and <=1000 bp
@@ -6511,7 +6504,6 @@ public class Enrichment {
 				// Fill gcIntervalLengthTenThousandTree if givenData contains interval of length > 10000 and <=100000 bp
 				gcIntervalLengthTenThousandTree = new IntervalTree();
 				
-
 				// Fill GCIsochoreIntervalTree if givenData contains interval of length >100000 bp
 				gcIsochoreIntervalTree = new IntervalTree();
 
@@ -6628,11 +6620,10 @@ public class Enrichment {
 					/**************MAPABILITY************************/
 					/************************************************/
 					// Mapability Old Way
-					// mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,
-					// chromName, chromSize);
+					// mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,chromName,chromSize);
 
 					// GLANET Always Fills
-					// Mapability
+					// Mappability
 					// mapabilityChromosomePositionList
 					// mapabilityShortValueList
 					ChromosomeBasedMappabilityTroveList.fillTroveList( 
