@@ -1676,7 +1676,7 @@ public class IntervalTree {
 			result.getHits().add( hit);
 
 			// Find numberofGCs
-			numberofGCs = ( numberofOverlappingBases * castedNode.getNumberofGCs() * 1.0f) / ( castedNode.getHigh() - castedNode.getLow() + 1);
+			numberofGCs = ( numberofOverlappingBases * (castedNode.getNumberofGCs() * 1.0f)) / ( castedNode.getHigh() - castedNode.getLow() + 1);
 
 			// Accumulate gcContent
 			result.setNumberofGCs( result.getNumberofGCs() + numberofGCs);
@@ -1727,12 +1727,12 @@ public class IntervalTree {
 				case CALCULATE_GC_USING_GC_INTERVALLENGTH_100_TREE:
 				case CALCULATE_GC_USING_GC_INTERVALLENGTH_1000_TREE:
 				case CALCULATE_GC_USING_GC_INTERVALLENGTH_10000_TREE:
-					gcContent = ( numberofOverlappingBases * gcIntervalTreeNode.getNumberofGCs() * 1.0f) / ( gcIntervalTreeNode.getHigh() - gcIntervalTreeNode.getLow() + 1);
+					gcContent = ( numberofOverlappingBases * (gcIntervalTreeNode.getNumberofGCs() * 1.0f)) / ( gcIntervalTreeNode.getHigh() - gcIntervalTreeNode.getLow() + 1);
 					break;
 	
 	
 				case CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE:
-					gcContent = ( numberofOverlappingBases * gcIsochoreIntervalTreeNode.getNumberofGCs() * 1.0f) / ( gcIsochoreIntervalTreeNode.getHigh() - gcIsochoreIntervalTreeNode.getLow() + 1);
+					gcContent = ( numberofOverlappingBases * (gcIsochoreIntervalTreeNode.getNumberofGCs() * 1.0f)) / ( gcIsochoreIntervalTreeNode.getHigh() - gcIsochoreIntervalTreeNode.getLow() + 1);
 					break;
 	
 				default:

@@ -6623,7 +6623,7 @@ public class Enrichment {
 					// mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,chromName,chromSize);
 
 					// GLANET Always Fills
-					// Mappability
+					// for Mappability
 					// mapabilityChromosomePositionList
 					// mapabilityShortValueList
 					ChromosomeBasedMappabilityTroveList.fillTroveList( 

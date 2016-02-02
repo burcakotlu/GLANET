@@ -3,7 +3,7 @@ package intervaltree;
 import enumtypes.IsochoreFamily;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 22, 2015
  * @project Glanet 
  *

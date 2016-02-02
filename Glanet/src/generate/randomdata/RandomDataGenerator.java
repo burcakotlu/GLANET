@@ -111,7 +111,6 @@ public class RandomDataGenerator {
 		return isochoreFamilyofInputLine;
 
 	}
-
 	// ends
 
 	// IsochoreFamilyPoolHigh must not be greater than chromSize
@@ -300,7 +299,7 @@ public class RandomDataGenerator {
 				}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
 				
 				
-				// insert this interval
+				// Insert this interval if it does not overlap with the already randomly created intervals in the interval tree.
 				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 				
@@ -334,18 +333,18 @@ public class RandomDataGenerator {
 				/**************************************************************************************************/
 				/*****************Decide on how to GC Calculation per each original interval starts****************/
 				/**************************************************************************************************/
-				if( originalInputLineLength >= Commons.INTERVAL_LENGTH_100000){
+				if( originalInputLineLength > Commons.INTERVAL_LENGTH_100000){
 					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
 				}
-				else if (originalInputLineLength>=Commons.INTERVAL_LENGTH_10000){
+				else if (originalInputLineLength>Commons.INTERVAL_LENGTH_10000){
 					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVALLENGTH_10000_TREE;
 				}
 				
-				else if (originalInputLineLength>=Commons.INTERVAL_LENGTH_1000){
+				else if (originalInputLineLength>Commons.INTERVAL_LENGTH_1000){
 					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVALLENGTH_1000_TREE;
 				}
 				
-				else if (originalInputLineLength>=Commons.INTERVAL_LENGTH_100){
+				else if (originalInputLineLength>Commons.INTERVAL_LENGTH_100){
 					calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVALLENGTH_100_TREE;
 				}
 				else {
@@ -361,6 +360,7 @@ public class RandomDataGenerator {
 				/**************************GC Calculation for Original Input Line starts***************************/
 				/**************************Isochore Family for Original Input Line starts**************************/
 				/**************************************************************************************************/
+				/* Interval Length Less Than <= 100 bp*/
 				if( calculateGC.isCalculateGCUsingByteList()){
 					// Using GCByteList
 					originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
@@ -370,6 +370,7 @@ public class RandomDataGenerator {
 
 				}
 				
+				/* Interval Length > 100 bp*/
 				else if( calculateGC.isCalculateGCUsingGCIntervalLengthOneHundredTree()){
 					// Using GCIntervalTree
 					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthOneHundredTree,calculateGC);
@@ -383,6 +384,7 @@ public class RandomDataGenerator {
 				}
 				
 				
+				/* Interval Length > 1000 bp*/
 				else if( calculateGC.isCalculateGCUsingGCIntervalLengthOneThousandTree()){
 					// Using GCIntervalTree
 					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthOneThousandTree,calculateGC);
@@ -392,6 +394,7 @@ public class RandomDataGenerator {
 
 				}
 				
+				/* Interval Length > 10000 bp*/
 				else if( calculateGC.isCalculateGCUsingGCIntervalLengthTenThousandTree()){
 					// Using GCIntervalTree
 					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalLengthTenThousandTree,calculateGC);
@@ -401,6 +404,7 @@ public class RandomDataGenerator {
 
 				}
 				
+				/* Interval Length > 100000 bp*/
 				else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
 					// Using GCIsochoreIntervalTree
 					// When we do this we must be able to store hits with their numberofOverlappingBases

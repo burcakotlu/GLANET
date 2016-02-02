@@ -57,6 +57,9 @@ public class ChromosomeBasedMappabilityTroveList {
 		if( GlanetRunner.shouldLog())logger.info( chromName);
 
 		int numberofGaps = 0;
+		
+		//For GLANET paper
+		float averageMappabilityIntervalLength = 0;
 
 		try{
 
@@ -81,23 +84,30 @@ public class ChromosomeBasedMappabilityTroveList {
 					// You have read the new low
 					// But it is not equal to old high
 					// Which means that there is a gap
-					// Insert values for this gap
-					mapabilityChromosomePositionList.add( high);
-					mapabilityShortValueList.add( Commons.SHORT_0);
+					// Insert values for this gap as mappability 0
+					mapabilityChromosomePositionList.add(high);
+					mapabilityShortValueList.add(Commons.SHORT_0);
 					// mapabilityByteValueList.add(Commons.BYTE_0);
+					
+					//For GLANET paper
+					averageMappabilityIntervalLength += low-high +1 ;
+
 				}
 
 				high = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
 				mapabilityFloatValue = Float.parseFloat( strLine.substring( indexofThirdTab + 1));
 
-				mapabilityShortValue = ( short)( mapabilityFloatValue * Commons.MAPABILITY_SHORT_TEN_THOUSAND);
+				mapabilityShortValue = (short)( mapabilityFloatValue * Commons.MAPABILITY_SHORT_TEN_THOUSAND);
 
 				// for debugging purposes
 				// mapabilityByteValue = (byte) (mapabilityFloatValue*Commons.MAPABILITY_BYTE_ONE_HUNDRED);
 
-				mapabilityChromosomePositionList.add( low);
-				mapabilityShortValueList.add( mapabilityShortValue);
+				mapabilityChromosomePositionList.add(low);
+				mapabilityShortValueList.add(mapabilityShortValue);
 				// mapabilityByteValueList.add(mapabilityByteValue);
+				
+				//For GLANET paper
+				averageMappabilityIntervalLength += high-low +1 ;
 
 			}// End of WHILE
 
@@ -107,6 +117,11 @@ public class ChromosomeBasedMappabilityTroveList {
 			mapabilityChromosomePositionList.add(high);
 			mapabilityShortValueList.add(Commons.SHORT_0);
 			// mapabilityByteValueList.add(Commons.BYTE_0);
+			
+			//For GLANET paper
+			averageMappabilityIntervalLength = averageMappabilityIntervalLength/mapabilityChromosomePositionList.size();
+			System.out.println(chromName + " averageMappabilityIntervalLength " + averageMappabilityIntervalLength);
+			
 
 			if( GlanetRunner.shouldLog())logger.info( "numberofGaps:" + numberofGaps);
 		}catch( IOException e){

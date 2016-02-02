@@ -20,7 +20,7 @@ import enumtypes.IsochoreFamily;
 import ui.GlanetRunner;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Apr 21, 2015
  * @project Glanet 
  *
