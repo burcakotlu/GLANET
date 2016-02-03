@@ -1348,6 +1348,7 @@ public class IntervalTree {
 	
 	//20 NOV 2015 starts
 	//There are three intervals
+	//return the numberofBases where these three intervals overlap if they do
 	public static int findNumberofOverlapingBases( int low_x, int high_x, int low_y, int high_y, int givenInputLine_low, int givenInputLine_high) {
 
 		if( ( low_x <= high_y) && ( low_y <= high_x)){	
@@ -1359,6 +1360,7 @@ public class IntervalTree {
 
 	// Return number of overlapping base pairs
 	//There are two intervals
+	//return the numberofBases where these two intervals overlap if they do
 	public static int findNumberofOverlapingBases( int low_x, int high_x, int low_y, int high_y) {
 
 		if( ( low_x <= high_y) && ( low_y <= high_x)){
