@@ -2962,8 +2962,15 @@ public class Enrichment {
 		//23 based element keeps the averageIntervalLength for ChrY
 		for(ChromosomeName chromName: ChromosomeName.values()){
 			
-			averageGivenIntervalLength = chrBasedAverageGivenIntervalLength.get(chromName.getChromosomeName()-1)/chromosomeName2OriginalInputLinesMap.get(chromName).size();
-			chrBasedAverageGivenIntervalLength.set(chromName.getChromosomeName()-1,averageGivenIntervalLength);
+			if (chromosomeName2OriginalInputLinesMap.get(chromName)!= null){
+				
+				averageGivenIntervalLength = chrBasedAverageGivenIntervalLength.get(chromName.getChromosomeName()-1)/chromosomeName2OriginalInputLinesMap.get(chromName).size();
+				chrBasedAverageGivenIntervalLength.set(chromName.getChromosomeName()-1,averageGivenIntervalLength);
+
+			}else{
+				System.out.println(chromName +  "\t" +chromosomeName2OriginalInputLinesMap.get(chromName));
+			}
+			
 			
 		}//End of for each chromosomeName
 	}

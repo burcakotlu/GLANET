@@ -62,7 +62,11 @@ public class RandomDataGenerator {
 
 		InputLineMinimal randomlyGeneratedLine = null;
 
-		//TODO Think does this happen?
+		//This condition is used in order to enter while loop
+		//And as long as isochoreFamilyPoolHigh is greater than chromSize it is not valid
+		//So continue while loop
+		//however please notice that since pools are generated from chromosomes
+		//this condition will be violated just after it is entered in the loop. 
 		while( isochoreFamilyPoolHigh >= chromSize){
 
 			// Get a random isochoreFamilyInterval of 100 KB long from that isochoreFamilyPool
@@ -106,6 +110,7 @@ public class RandomDataGenerator {
 		// What if length of originalInputLine is greater than isochoreFamilyInterval length which is
 		// (isochoreFamilyPoolHigh-isochoreFamilyPoolLow)
 		// We don't accept interval of length greater than 100 KB
+		// Where is this check?
 
 		// Case2 is handled
 		// What if randomLow + length exceeds isochoreFamilyInterval's high
