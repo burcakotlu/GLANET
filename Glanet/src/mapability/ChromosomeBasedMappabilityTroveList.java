@@ -14,7 +14,7 @@ import gnu.trove.list.TShortList;
 import ui.GlanetRunner;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Mar 12, 2015
  * @project Glanet 
  * 

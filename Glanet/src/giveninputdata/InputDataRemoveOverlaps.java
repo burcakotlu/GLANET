@@ -175,28 +175,27 @@ public class InputDataRemoveOverlaps {
 				else{
 					List<IntervalTreeNode> overlappedNodeList = new ArrayList<IntervalTreeNode>();
 
-					intervalTree.findAllOverlappingIntervals( overlappedNodeList, intervalTree.getRoot(),
-							intervalTreeNode);
+					intervalTree.findAllOverlappingIntervals( overlappedNodeList, intervalTree.getRoot(),intervalTreeNode);
 
 					// there is overlap
 					if( overlappedNodeList != null && overlappedNodeList.size() > 0){
 
-						IntervalTreeNode mergedNode = new IntervalTreeNode( intervalTreeNode.getChromName(),
-								intervalTreeNode.getLow(), intervalTreeNode.getHigh(), NodeType.MERGED);
+						//create mergedNode from the intervalTreeNode
+						//later it will be updated
+						IntervalTreeNode mergedNode = new IntervalTreeNode( intervalTreeNode.getChromName(),intervalTreeNode.getLow(), intervalTreeNode.getHigh(), NodeType.MERGED);
+						
 						IntervalTreeNode splicedoutNode = null;
 						IntervalTreeNode nodetoBeDeleted = null;
-						// you may try to delete a node which is already spliced
-						// out by former deletions
-						// therefore you must keep track of the real node to be
-						// deleted in case of trial of deletion of an already
-						// spliced out node.
+						// you may try to delete a node which is already spliced out by former deletions
+						// therefore you must keep track of the real node to be deleted 
+						// in case of trial of deletion of an already spliced out node.
 						Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
 
 						for( int i = 0; i < overlappedNodeList.size(); i++){
 
 							IntervalTreeNode overlappedNode = overlappedNodeList.get( i);
 
-							updateMergedNode( mergedNode, overlappedNode);
+							updateMergedNode(mergedNode, overlappedNode);
 
 							// if the to be deleted, intended interval tree node
 							// is an already spliced out node
@@ -233,6 +232,8 @@ public class InputDataRemoveOverlaps {
 							}
 
 						}// end of for: each overlapped node in the list
+						
+						
 						intervalTree.intervalTreeInsert( intervalTree, mergedNode);
 
 					}

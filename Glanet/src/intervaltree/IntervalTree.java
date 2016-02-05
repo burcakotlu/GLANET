@@ -1719,16 +1719,13 @@ public class IntervalTree {
 			gcIsochoreIntervalTreeNode = ( GCIsochoreIntervalTreeNode)node;
 		}
 
-		numberofOverlappingBases = findNumberofOverlapingBases( node.getLow(), node.getHigh(), interval.getLow(),
-				interval.getHigh());
+		numberofOverlappingBases = findNumberofOverlapingBases( node.getLow(), node.getHigh(), interval.getLow(),interval.getHigh());
 
 		if( numberofOverlappingBases > 0){
 
 			switch( calculateGC){
 			
-				case CALCULATE_GC_USING_GC_INTERVALLENGTH_100_TREE:
-				case CALCULATE_GC_USING_GC_INTERVALLENGTH_1000_TREE:
-				case CALCULATE_GC_USING_GC_INTERVALLENGTH_10000_TREE:
+				case CALCULATE_GC_USING_GC_INTERVAL_TREE:
 					gcContent = ( numberofOverlappingBases * (gcIntervalTreeNode.getNumberofGCs() * 1.0f)) / ( gcIntervalTreeNode.getHigh() - gcIntervalTreeNode.getLow() + 1);
 					break;
 	

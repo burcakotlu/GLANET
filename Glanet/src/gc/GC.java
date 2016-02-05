@@ -68,26 +68,29 @@ public class GC {
 		// L1, L2, H1, H2 and H3, with GC contents of
 		// <38%, (>=38%,<42%) , (>=42%,<47%), (>=47%,<52%), (>=52%)  respectively
 
-		if( gcPercentage < 38){
+		if( gcPercentage < 0.38f){
 			isochoreFamily = IsochoreFamily.L1;
-		}else if( gcPercentage >= 38 && gcPercentage < 42){
+		}else if( gcPercentage >= 0.38f && gcPercentage < 0.42f){
 			isochoreFamily = IsochoreFamily.L2;
-		}else if( gcPercentage >= 42 && gcPercentage < 47){
+		}else if( gcPercentage >= 0.42f && gcPercentage < 0.47f){
 			isochoreFamily = IsochoreFamily.H1;
-		}else if( gcPercentage >= 47 && gcPercentage < 52){
+		}else if( gcPercentage >= 0.47f && gcPercentage < 0.52f){
 			isochoreFamily = IsochoreFamily.H2;
-		}else if( gcPercentage >= 52){
+		}else if( gcPercentage >= 0.52f){
 			isochoreFamily = IsochoreFamily.H3;
 		}
 
 		return isochoreFamily;
 	}
 	
+	
+	// Right now complex way is not called.
 	// Complex way
 	// Each hit also has numberofOverlappingBases starts
 	// Analyze each hit
 	// Accumulate the numberofOverlappingBases for each isochoreFamily
 	// Then return the isochoreFamily with the maximum numberofOverlappingBases as the isochoreFamily of related interval
+	// Long story in short: return the isochoreFamily with the highest vote!!! 
 	public static IsochoreFamily calculateIsochoreFamily( List<GCIsochoreIntervalTreeHitNode> hits) {
 
 		GCIsochoreIntervalTreeHitNode gcIsochoreIntervalTreeHitNode = null;
@@ -106,7 +109,7 @@ public class GC {
 
 		// There is only one hit case
 		else if( hits.size() == 1){
-			isochoreFamilyofInputLine = hits.get( 0).getIsochoreFamily();
+			isochoreFamilyofInputLine = hits.get(0).getIsochoreFamily();
 		}
 
 		// There is more than one hit case
@@ -116,7 +119,7 @@ public class GC {
 
 			for( int i = 0; i < hits.size(); i++){
 
-				gcIsochoreIntervalTreeHitNode = hits.get( i);
+				gcIsochoreIntervalTreeHitNode = hits.get(i);
 
 				isochoreFamilyofHit = gcIsochoreIntervalTreeHitNode.getIsochoreFamily();
 				isochoreFamilyNumberofHit = isochoreFamilyofHit.getIsochoreFamily();
@@ -124,18 +127,18 @@ public class GC {
 				numberofOverlappingBasesofHit = gcIsochoreIntervalTreeHitNode.getNumberofOverlappingBases();
 				// Accumulate
 				if( !isochoreFamily2NumberofOverlappingBases.containsKey( isochoreFamilyNumberofHit)){
-					isochoreFamily2NumberofOverlappingBases.put( isochoreFamilyNumberofHit,
-							numberofOverlappingBasesofHit);
+					isochoreFamily2NumberofOverlappingBases.put( isochoreFamilyNumberofHit,numberofOverlappingBasesofHit);
 				}else{
 					isochoreFamily2NumberofOverlappingBases.put(
 							isochoreFamilyNumberofHit,
-							isochoreFamily2NumberofOverlappingBases.get( isochoreFamilyNumberofHit) + numberofOverlappingBasesofHit);
+							isochoreFamily2NumberofOverlappingBases.get(isochoreFamilyNumberofHit) + numberofOverlappingBasesofHit);
 				}
 
 			}// End of for Each Hit
 
 			// Choose the isochoreFamilyNumber with the maximum number of overlapping Bases
 			for( TIntIntIterator itr = isochoreFamily2NumberofOverlappingBases.iterator(); itr.hasNext();){
+				
 				itr.advance();
 
 				if( itr.value() > maximumNumberofHits){
@@ -146,7 +149,7 @@ public class GC {
 			}// End of For Finding isochoreFamilyWithMaximumNumberofHits
 
 			// Convert int to IsochoreFamily
-			isochoreFamilyofInputLine = IsochoreFamily.convertInttoEnum( isochoreFamilyNumberWithMaximumNumberofHits);
+			isochoreFamilyofInputLine = IsochoreFamily.convertInttoEnum(isochoreFamilyNumberWithMaximumNumberofHits);
 
 		}// End of ELSE Part
 
@@ -200,11 +203,12 @@ public class GC {
 		// gcContent = gcIsochoreIntervalTree.findAllOverlappingGCIntervals(gcIsochoreIntervalTree.getRoot(),
 		// givenInputLine,calculateGC);
 
-		result.setGc( result.getNumberofGCs() / ( givenInputLine.getHigh() - givenInputLine.getLow() + 1));
-
+		result.setGc(result.getNumberofGCs() / (givenInputLine.getHigh() - givenInputLine.getLow() + 1));
+		result.setIsochoreFamily(calculateIsochoreFamily(result.getGc()));
+		
 		// This is a complex way of deciding on isochoreFamily
 		// Why don't we just look at the result.getGc() and classify the isochoreFamily of interval accordingly
-		result.setIsochoreFamily(calculateIsochoreFamily( result.getHits()));
+		//result.setIsochoreFamily(calculateIsochoreFamily( result.getHits()));
 
 		return result;
 	}

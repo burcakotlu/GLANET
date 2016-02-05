@@ -4,7 +4,7 @@
 package intervaltree;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Dec 25, 2014
  * @project Glanet
  *

@@ -840,25 +840,29 @@ public class InputDataProcess {
 
 	}
 
-	public static void processInputData( String inputFileName, GivenIntervalsInputFileDataFormat inputFileFormat,
-			Assembly inputFileAssembly, String givenDataFolder, String dataFolder) {
+	public static void processInputData( 
+			String inputFileName, 
+			GivenIntervalsInputFileDataFormat inputFileFormat,
+			Assembly inputFileAssembly, 
+			String givenDataFolder, 
+			String dataFolder) {
 
 		switch( inputFileFormat){
-		case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
-			readZeroBasedCoordinates( inputFileName, inputFileAssembly, givenDataFolder);
-			break;
-		case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
-			readOneBasedCoordinates( inputFileName, inputFileAssembly, givenDataFolder);
-			break;
-		case INPUT_FILE_FORMAT_DBSNP_IDS:
-			readDBSNPIDs( dataFolder, inputFileName, inputFileAssembly, givenDataFolder);
-			break;
-		case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
-			readBEDFile( inputFileName, inputFileAssembly, givenDataFolder);
-			break;
-		case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
-			readGFF3File( inputFileName, inputFileAssembly, givenDataFolder);
-			break;
+			case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
+				readZeroBasedCoordinates( inputFileName, inputFileAssembly, givenDataFolder);
+				break;
+			case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
+				readOneBasedCoordinates( inputFileName, inputFileAssembly, givenDataFolder);
+				break;
+			case INPUT_FILE_FORMAT_DBSNP_IDS:
+				readDBSNPIDs( dataFolder, inputFileName, inputFileAssembly, givenDataFolder);
+				break;
+			case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+				readBEDFile( inputFileName, inputFileAssembly, givenDataFolder);
+				break;
+			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
+				readGFF3File( inputFileName, inputFileAssembly, givenDataFolder);
+				break;
 
 		}// End of SWITCH
 
@@ -982,7 +986,7 @@ public class InputDataProcess {
 		// Read input data
 		// Process input data
 		// Write output data
-		processInputData( inputFileName, inputFileFormat, inputFileAssembly, givenDataFolder, dataFolder);
+		processInputData(inputFileName,inputFileFormat,inputFileAssembly,givenDataFolder,dataFolder);
 	}
 
 }

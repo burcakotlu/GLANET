@@ -17,11 +17,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import org.apache.log4j.Logger;
+
 import auxiliary.FileOperations;
 import common.Commons;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
+import enumtypes.IntervalLength;
 import ui.GlanetRunner;
 
 /**
@@ -203,6 +206,8 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 		boolean firstWindowIsReady = false;
 		int baseStart = 0;
 		
+		float gcContent = 0.0f;
+		
 		try{
 
 			fileReader = FileOperations.createFileReader(dataFolder + gcFastaFileName);
@@ -245,9 +250,12 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 						
 						// For Debug Purposes
 						totalNumberofGCs = totalNumberofGCs + numberofGCsInStandardGCIntervalLength;
+						
+						//Calculate gcContent
+						gcContent = (numberofGCsInStandardGCIntervalLength*1.0f) / standardGCIntervalLength;
 
 						// Write to File
-						bufferedWriter.write( ( nthBase - standardGCIntervalLength) + "\t" + (nthBase-1) + "\t" + numberofGCsInStandardGCIntervalLength + System.getProperty( "line.separator"));
+						bufferedWriter.write( ( nthBase - standardGCIntervalLength) + "\t" + (nthBase-1) + "\t" + gcContent + System.getProperty( "line.separator"));
 						
 						firstWindowIsReady = true;
 						//firstWindowIsReady so get out of this FOR loop
@@ -297,8 +305,11 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 					//new window's number of GCs
 					numberofGCsInStandardGCIntervalLength = numberofGCsInStandardGCIntervalLength - getNumberofGCs(chRemoved) + getNumberofGCs(chAdded);
 					
+					//Calculate gcContent
+					gcContent = (numberofGCsInStandardGCIntervalLength*1.0f) / standardGCIntervalLength;
+
 					// Write to File
-					bufferedWriter.write((baseStart+j+1) + "\t" + (baseStart+j+standardGCIntervalLength) + "\t" + numberofGCsInStandardGCIntervalLength + System.getProperty( "line.separator"));
+					bufferedWriter.write((baseStart+j+1) + "\t" + (baseStart+j+standardGCIntervalLength) + "\t" + gcContent + System.getProperty( "line.separator"));
 					
 //					//debug starts
 //					if (numberofCharactersRead < standardGCIntervalLength ){
@@ -311,14 +322,10 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 				//deep copy values
 		        System.arraycopy(charBuf, 0, previousCharBuf, 0, charBuf.length);
 		
-				
 
 			}// End of WHILE
 			/*****************************************************************/
 			
-			
-		
-
 			// Close BufferedReader and BufferedWriter
 			bufferedReader.close();
 			bufferedWriter.close();
@@ -463,12 +470,7 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		
-//		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_100;
-//		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_500;
-//		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_1000;
-		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_5000;
-//		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_10000;
-//		int standardGCIntervalLength = Commons.GC_INTERVALTREE_INTERVALLENGTH_100000;
+	
 
 
 		// First Pass
@@ -494,13 +496,18 @@ public class GCIntervalDataCreationForIntervalTreeConstruction {
 		//start+1 end+1 numberofGCsBetweenThem
 		///These files will be used for R box plot drawing
 		//x Axis chromosomeName
-		//y Axis numberofGCs
-		for( ChromosomeName chrName : ChromosomeName.values()){
-			if (chrName.isCHROMOSOME12()){
-				createGCIntervalDataFileForRBoxPlotDrawing(dataFolder, chrName, standardGCIntervalLength);
+		//y Axis gcContent
+		//Here we want to analyze the variance of gcContent across various intervalLengths
+		for(ChromosomeName chrName : ChromosomeName.values()){
+			if (chrName.isCHROMOSOME1()){
+			
+				for(IntervalLength length: IntervalLength.values()){
+					System.out.println(length);
+					createGCIntervalDataFileForRBoxPlotDrawing(dataFolder, chrName, length.convertEnumtoInt());
+				}//For each IntervalLength
 				
 			}
-		}
+		}//For each ChromosomeName
 		
 		
 	}
