@@ -2967,10 +2967,7 @@ public class Enrichment {
 				averageGivenIntervalLength = chrBasedAverageGivenIntervalLength.get(chromName.getChromosomeName()-1)/chromosomeName2OriginalInputLinesMap.get(chromName).size();
 				chrBasedAverageGivenIntervalLength.set(chromName.getChromosomeName()-1,averageGivenIntervalLength);
 
-			}else{
-				System.out.println(chromName +  "\t" +chromosomeName2OriginalInputLinesMap.get(chromName));
 			}
-			
 			
 		}//End of for each chromosomeName
 	}
@@ -4284,10 +4281,11 @@ public class Enrichment {
 		/******************************* ORIGINAL INPUT LINES ***************************************************/
 		/********************************************************************************************************/
 
-		//4 FEB 2016
+		//5 FEB 2016
 		//Keeps AverageIntervalLength for each chromosome
-		TFloatList chrNameAverageIntervalLength = new TFloatArrayList();
-		initializeList(chrNameAverageIntervalLength);
+		TFloatList chrBasedAverageGivenIntervalLength = new TFloatArrayList();
+		initializeList(chrBasedAverageGivenIntervalLength);
+
 		
 		TIntList permutationNumberList = null;
 
@@ -4303,22 +4301,9 @@ public class Enrichment {
 		/************************************************/
 		// Will be used for SNP Data or Short Length Interval
 		TByteList gcByteList = null;
-
-		// Will be used for Interval Data or Medium Length Interval
-		//IntervalTree gcIntervalTree = null;
-		
+		IntervalTree gcIntervalTree = null;
 		CalculateGC calculateGC = null;
 		
-		
-		//28 JAN 2016
-		IntervalTree gcIntervalLengthOneHundredTree = null;
-		IntervalTree gcIntervalLengthOneThousandTree = null;
-		IntervalTree gcIntervalLengthTenThousandTree = null;
-
-
-		// Will be used for Interval Data or Long Length Interval
-		IntervalTree gcIsochoreIntervalTree = null;
-
 		// Will be always used
 		List<Interval> gcIsochoreFamilyL1Pool = null;
 		List<Interval> gcIsochoreFamilyL2Pool = null;
@@ -4344,7 +4329,7 @@ public class Enrichment {
 		/******************************************************************************************************/
 		/************** * PARTITION ORIGINAL INPUT LINES INTO CHROMOSOME BASED INPUT LINES STARTS *************/
 		// Partition the original input data lines in a chromosome based manner
-		partitionDataChromosomeBased( allOriginalInputLines, chromosomeName2OriginalInputLinesMap,chrNameAverageIntervalLength);
+		partitionDataChromosomeBased( allOriginalInputLines, chromosomeName2OriginalInputLinesMap,chrBasedAverageGivenIntervalLength);
 		/*************** PARTITION ORIGINAL INPUT LINES INTO CHROMOSOME BASED INPUT LINES ENDS*****************/
 		/******************************************************************************************************/
 
@@ -4359,6 +4344,7 @@ public class Enrichment {
 		// Do we need it? Yes
 		ChromosomeName chromName;
 		int chromSize;
+		float chromBasedAverageIntervalLength;
 		List<InputLineMinimal> chromosomeBaseOriginalInputLines;
 		TIntObjectMap<List<InputLineMinimal>> permutationNumber2RandomlyGeneratedDataMap;
 		// Do we need it? Yes
@@ -4443,6 +4429,10 @@ public class Enrichment {
 
 			chromName = GRCh37Hg19Chromosome.getChromosomeName( chrNumber);
 			chromSize = hg19ChromosomeSizes.get( chrNumber - 1);
+			
+			//4 FEB 2016
+			chromBasedAverageIntervalLength = chrBasedAverageGivenIntervalLength.get(chrNumber-1);
+
 
 			GlanetRunner.appendLog( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 			if( GlanetRunner.shouldLog())logger.info( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
@@ -4465,52 +4455,36 @@ public class Enrichment {
 					/************************************************/
 					/*********************GC*************************/
 					/************************************************/
-					// GCByteList
-					if( containsIntervalLessThanOrEqualTo( chromosomeBaseOriginalInputLines,Commons.INTERVAL_LENGTH_100)){
-
+					//Decide on which gcIntervalTree to use depending on the chrBasedAverageGivenIntervalLength
+					if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_100){						
 						// Fill GCByteList if givenData contains interval of length <= 100
 						gcByteList = new TByteArrayList();
-
-						ChromosomeBasedGCTroveList.fillTroveList( dataFolder, chromName, gcByteList);
+						ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
 					}
+					else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
+						gcIntervalTree = new IntervalTree();
+						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
+						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
-					// GC IntervalTree
-					if( containsIntervalBetween( chromosomeBaseOriginalInputLines, Commons.INTERVAL_LENGTH_100,Commons.INTERVAL_LENGTH_1000)){
+					}else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
+						gcIntervalTree = new IntervalTree();
+						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_1000,gcIntervalTree);
+						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
-						// For Interval Data
-						// Fill GCIntervalTree if givenData contains interval of length >100 and <= 1000
-						gcIntervalLengthOneHundredTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree( dataFolder, chromName, Commons.INTERVAL_LENGTH_100,gcIntervalLengthOneHundredTree);
+					}else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
+						gcIntervalTree = new IntervalTree();
+						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+					}else {						
+						//Will we generate random data w.r.t. GC and Mappability if averageIntervalLength is > 100000
+						gcIntervalTree = new IntervalTree();
+						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
+						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+
 					}
-					
-					
-					// GC IntervalTree
-					if( containsIntervalBetween( chromosomeBaseOriginalInputLines, Commons.INTERVAL_LENGTH_1000,Commons.INTERVAL_LENGTH_10000)){
-
-						// For Interval Data
-						// Fill GCIntervalTree if givenData contains interval of length >1000 and <= 10000
-						gcIntervalLengthOneThousandTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree( dataFolder, chromName, Commons.INTERVAL_LENGTH_1000,gcIntervalLengthOneThousandTree);
-					}
-					
-					// GC IntervalTree
-					if( containsIntervalBetween( chromosomeBaseOriginalInputLines, Commons.INTERVAL_LENGTH_10000,Commons.INTERVAL_LENGTH_100000)){
-
-						// For Interval Data
-						// Fill GCIntervalTree if givenData contains interval of length >10000 and <= 100000
-						gcIntervalLengthTenThousandTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree( dataFolder, chromName, Commons.INTERVAL_LENGTH_10000,gcIntervalLengthTenThousandTree);
-					}
-					
-
-					// Always fill GC Isochore IntervalTree for classifying the Isochore Family of the interval
-					// GC Isochore IntervalTree
-
-					// Fill GCIsochoreIntervalTree if givenData contains interval of length >100
-					gcIsochoreIntervalTree = new IntervalTree();
-
-					ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree( dataFolder, chromName,gcIsochoreIntervalTree);
-
+				
 					// Always fill GCIsochorePools
 					gcIsochoreFamilyL1Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyL2Pool = new ArrayList<Interval>();
@@ -4581,8 +4555,7 @@ public class Enrichment {
 						permutationNumberList, 
 						givenInputsSNPsorIntervals,
 						gcByteList, 
-						//TODO correct here
-						gcIntervalLengthOneHundredTree,
+						gcIntervalTree,
 						calculateGC,
 						//gcIntervalLengthOneHundredTree, 
 						//gcIntervalLengthOneThousandTree, 
@@ -4614,12 +4587,8 @@ public class Enrichment {
 				
 				//Free memory
 				gcByteList = null;
-				gcIntervalLengthOneHundredTree = null;
-				gcIntervalLengthOneThousandTree = null;
-				gcIntervalLengthTenThousandTree = null;
-				
-				gcIsochoreIntervalTree = null;
-
+				gcIntervalTree = null;
+			
 				gcIsochoreFamilyL1Pool = null;
 				gcIsochoreFamilyL2Pool = null;
 				gcIsochoreFamilyH1Pool = null;
