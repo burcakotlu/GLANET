@@ -95,55 +95,7 @@ public class GRCh37Hg19Chromosome {
 				}
 
 				if( chromName != null){
-					if( chromName.isCHROMOSOME1()){
-						chromosomeSizes.set( 0, chromSize);
-					}else if( chromName.isCHROMOSOME2()){
-						chromosomeSizes.set( 1, chromSize);
-					}else if( chromName.isCHROMOSOME3()){
-						chromosomeSizes.set( 2, chromSize);
-					}else if( chromName.isCHROMOSOME4()){
-						chromosomeSizes.set( 3, chromSize);
-					}else if( chromName.isCHROMOSOME5()){
-						chromosomeSizes.set( 4, chromSize);
-					}else if( chromName.isCHROMOSOME6()){
-						chromosomeSizes.set( 5, chromSize);
-					}else if( chromName.isCHROMOSOME7()){
-						chromosomeSizes.set( 6, chromSize);
-					}else if( chromName.isCHROMOSOME8()){
-						chromosomeSizes.set( 7, chromSize);
-					}else if( chromName.isCHROMOSOME9()){
-						chromosomeSizes.set( 8, chromSize);
-					}else if( chromName.isCHROMOSOME10()){
-						chromosomeSizes.set( 9, chromSize);
-					}else if( chromName.isCHROMOSOME11()){
-						chromosomeSizes.set( 10, chromSize);
-					}else if( chromName.isCHROMOSOME12()){
-						chromosomeSizes.set( 11, chromSize);
-					}else if( chromName.isCHROMOSOME13()){
-						chromosomeSizes.set( 12, chromSize);
-					}else if( chromName.isCHROMOSOME14()){
-						chromosomeSizes.set( 13, chromSize);
-					}else if( chromName.isCHROMOSOME15()){
-						chromosomeSizes.set( 14, chromSize);
-					}else if( chromName.isCHROMOSOME16()){
-						chromosomeSizes.set( 15, chromSize);
-					}else if( chromName.isCHROMOSOME17()){
-						chromosomeSizes.set( 16, chromSize);
-					}else if( chromName.isCHROMOSOME18()){
-						chromosomeSizes.set( 17, chromSize);
-					}else if( chromName.isCHROMOSOME19()){
-						chromosomeSizes.set( 18, chromSize);
-					}else if( chromName.isCHROMOSOME20()){
-						chromosomeSizes.set( 19, chromSize);
-					}else if( chromName.isCHROMOSOME21()){
-						chromosomeSizes.set( 20, chromSize);
-					}else if( chromName.isCHROMOSOME22()){
-						chromosomeSizes.set( 21, chromSize);
-					}else if( chromName.isCHROMOSOMEX()){
-						chromosomeSizes.set( 22, chromSize);
-					}else if( chromName.isCHROMOSOMEY()){
-						chromosomeSizes.set( 23, chromSize);
-					}
+					chromosomeSizes.set(chromName.getChromosomeName()-1, chromSize);
 				}
 
 			} // End of While

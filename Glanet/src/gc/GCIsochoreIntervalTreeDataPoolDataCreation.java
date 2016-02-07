@@ -10,7 +10,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
+
 import auxiliary.FileOperations;
 import auxiliary.GlanetPercentageFormat;
 import common.Commons;
@@ -32,7 +36,7 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 	
 
 	@SuppressWarnings( "resource")
-	public static void createGCIsochoreFile( String dataFolder, ChromosomeName chrName) {
+	public static void createGCIsochoreFile( String dataFolder, ChromosomeName chrName,List<Integer> hg19ChromosomeSizes) {
 
 		// Input File
 		String gcFastaFileName = Commons.GC + System.getProperty( "file.separator") + chrName.convertEnumtoString() + Commons.GC_FILE_END;
@@ -90,10 +94,12 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 
 		int standardGCIntervalLength = Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE;
 
-		float gcPercentage = 0;
+		float gcContent = 0;
 		IsochoreFamily isochoreFamily;
 
 		NumberFormat pf = GlanetPercentageFormat.getGlanetPercentageFormat();
+		
+		int chromSize= hg19ChromosomeSizes.get(chrName.getChromosomeName()-1);
 
 		try{
 
@@ -156,9 +162,9 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 						// For Debug Purposes
 						totalNumberofGCsInChromosome = totalNumberofGCsInChromosome + numberofGCsInStandardGCIntervalLength;
 
-						gcPercentage = ( numberofGCsInStandardGCIntervalLength * 1.0f / standardGCIntervalLength);
+						gcContent = ( numberofGCsInStandardGCIntervalLength * 1.0f / standardGCIntervalLength);
 
-						isochoreFamily = GC.calculateIsochoreFamily( gcPercentage * 100);
+						isochoreFamily = GC.calculateIsochoreFamily(gcContent);
 
 						switch( isochoreFamily){
 
@@ -178,13 +184,17 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 							bufferedWriterPool = bufferedWriterH3;
 							break;
 						}// End of switch
+						
+						//Check whether start and end does not exceed hg19 chromSize
+						if(chromSize>(nthBase - standardGCIntervalLength) && chromSize>(nthBase - 1)){
+							// Write to Isochore Pool File
+							bufferedWriterPool.write((nthBase - standardGCIntervalLength) + "\t" + (nthBase - 1) + System.getProperty( "line.separator"));
 
-						// Write to Isochore Pool File
-						bufferedWriterPool.write( ( nthBase - standardGCIntervalLength) + "\t" + ( nthBase - 1) + System.getProperty( "line.separator"));
+							// Write to Isochore Interval Tree File
+							bufferedWriter.write((nthBase - standardGCIntervalLength) + "\t" + (nthBase - 1) + "\t" + numberofGCsInStandardGCIntervalLength + "\t" + pf.format(gcContent) + "\t" + isochoreFamily + System.getProperty( "line.separator"));
+						}//End of IF
 
-						// Write to Isochore Interval Tree File
-						bufferedWriter.write( ( nthBase - standardGCIntervalLength) + "\t" + ( nthBase - 1) + "\t" + numberofGCsInStandardGCIntervalLength + "\t" + pf.format( gcPercentage) + "\t" + isochoreFamily + System.getProperty( "line.separator"));
-
+						
 						// Set numberofGCs to zero
 						numberofGCsInStandardGCIntervalLength = 0;
 
@@ -206,9 +216,9 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 			// If there is a last interval that can be written
 			if( lengthOfLastInterval > 0){
 
-				gcPercentage = ( numberofGCsInStandardGCIntervalLength * 1.0f / lengthOfLastInterval);
+				gcContent = ( numberofGCsInStandardGCIntervalLength * 1.0f / lengthOfLastInterval);
 
-				isochoreFamily = GC.calculateIsochoreFamily( gcPercentage * 100);
+				isochoreFamily = GC.calculateIsochoreFamily(gcContent);
 
 				switch( isochoreFamily){
 
@@ -228,12 +238,16 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 					bufferedWriterPool = bufferedWriterH3;
 					break;
 				}// End of switch
+				
+				//Check whether start and end does not exceed hg19 chromSize
+				if(chromSize>(nthBase - lengthOfLastInterval) && chromSize>(nthBase - 1)){
+					// Write to Isochore Pool File
+					bufferedWriterPool.write( ( nthBase - lengthOfLastInterval) + "\t" + ( nthBase - 1) + System.getProperty( "line.separator"));
 
-				// Write to Isochore Pool File
-				bufferedWriterPool.write( ( nthBase - lengthOfLastInterval) + "\t" + ( nthBase - 1) + System.getProperty( "line.separator"));
+					// Write to Isochore Interval Tree File
+					bufferedWriter.write( ( nthBase - lengthOfLastInterval) + "\t" + ( nthBase - 1) + "\t" + numberofGCsInStandardGCIntervalLength + "\t" + pf.format(gcContent) + "\t" + isochoreFamily + System.getProperty( "line.separator"));
+				}
 
-				// Write to Isochore Interval Tree File
-				bufferedWriter.write( ( nthBase - lengthOfLastInterval) + "\t" + ( nthBase - 1) + "\t" + numberofGCsInStandardGCIntervalLength + "\t" + pf.format( gcPercentage) + "\t" + isochoreFamily + System.getProperty( "line.separator"));
 
 			}// End of IF there is a last interval
 
@@ -275,10 +289,20 @@ public class GCIsochoreIntervalTreeDataPoolDataCreation {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		
+		/********************************************************************************************************/
+		/******************************* GET HG19 CHROMOSOME SIZES STARTS ***************************************/
+		List<Integer> hg19ChromosomeSizes = new ArrayList<Integer>();
+
+		hg19.GRCh37Hg19Chromosome.initializeChromosomeSizes( hg19ChromosomeSizes);
+		// get the hg19 chromosome sizes
+		hg19.GRCh37Hg19Chromosome.getHg19ChromosomeSizes( hg19ChromosomeSizes, dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
+		/******************************* GET HG19 CHROMOSOME SIZES ENDS *****************************************/
+		/********************************************************************************************************/
 
 		// Create Chromosome Based GC ISOCHOREs
 		for( ChromosomeName chrName : ChromosomeName.values()){
-			createGCIsochoreFile( dataFolder, chrName);
+			createGCIsochoreFile(dataFolder, chrName,hg19ChromosomeSizes);
 		}
 
 	}

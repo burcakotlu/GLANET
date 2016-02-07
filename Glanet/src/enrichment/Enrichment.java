@@ -6525,7 +6525,7 @@ public class Enrichment {
 		/********************************* FOR EACH HG19 CHROMOSOME STARTS ************************************/
 		/******************************************************************************************************/
 		for( int i = 1; i <= Commons.NUMBER_OF_CHROMOSOMES_HG19; i++){
-
+			
 			chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i - 1);
 			
@@ -7357,6 +7357,7 @@ public class Enrichment {
 				System.runFinalization();
 
 			}// end of if: chromosome based input lines is not null
+			
 
 		}// End of for: each chromosome
 		/******************************************************************************************************/
