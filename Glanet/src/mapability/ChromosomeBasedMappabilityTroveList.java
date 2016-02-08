@@ -59,7 +59,7 @@ public class ChromosomeBasedMappabilityTroveList {
 		int numberofGaps = 0;
 		
 		//For GLANET paper
-		float averageMappabilityIntervalLength = 0;
+		//float averageMappabilityIntervalLength = 0;
 
 		try{
 
@@ -90,7 +90,7 @@ public class ChromosomeBasedMappabilityTroveList {
 					// mapabilityByteValueList.add(Commons.BYTE_0);
 					
 					//For GLANET paper
-					averageMappabilityIntervalLength += low-high +1 ;
+					//averageMappabilityIntervalLength += low-high +1 ;
 
 				}
 
@@ -107,7 +107,7 @@ public class ChromosomeBasedMappabilityTroveList {
 				// mapabilityByteValueList.add(mapabilityByteValue);
 				
 				//For GLANET paper
-				averageMappabilityIntervalLength += high-low +1 ;
+				//averageMappabilityIntervalLength += high-low +1 ;
 
 			}// End of WHILE
 
@@ -119,8 +119,8 @@ public class ChromosomeBasedMappabilityTroveList {
 			// mapabilityByteValueList.add(Commons.BYTE_0);
 			
 			//For GLANET paper
-			averageMappabilityIntervalLength = averageMappabilityIntervalLength/mapabilityChromosomePositionList.size();
-			System.out.println(chromName + " averageMappabilityIntervalLength " + averageMappabilityIntervalLength);
+			//averageMappabilityIntervalLength = averageMappabilityIntervalLength/mapabilityChromosomePositionList.size();
+			//System.out.println(chromName + " averageMappabilityIntervalLength " + averageMappabilityIntervalLength);
 			
 
 			if( GlanetRunner.shouldLog())logger.info( "numberofGaps:" + numberofGaps);

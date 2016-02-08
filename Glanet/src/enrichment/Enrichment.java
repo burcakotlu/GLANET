@@ -2921,11 +2921,28 @@ public class Enrichment {
 		
 	}
 
+	//8 FEB 2016
+	public static void initializeList(TIntList chrBasedModeList){
+		
+		for(int i=0; i< ChromosomeName.values().length; i++){
+			chrBasedModeList.add(0);
+		}//For each chrName
+		
+	}
+	
 	public static void partitionDataChromosomeBased( 
 			List<InputLine> originalInputLines,
 			Map<ChromosomeName, List<InputLineMinimal>> chromosomeName2OriginalInputLinesMap,
-			TFloatList chrBasedAverageGivenIntervalLength) {
-
+			TFloatList chrBasedAverageGivenIntervalLengthList,
+			TIntList chrBasedModeList) {
+		
+		
+		//For mode calculation
+		TIntObjectMap<TIntIntMap> chrBasedGivenIntervalLength2CountMap = new TIntObjectHashMap<TIntIntMap>();
+		TIntIntMap givenIntervalLength2CountMap = new TIntIntHashMap();
+		Integer count = null;
+		Integer modeofGivenIntervalLength = null;
+		
 		InputLineMinimal inputLineMinimal = null;
 		ChromosomeName chrName;
 		List<InputLineMinimal> list;
@@ -2933,6 +2950,8 @@ public class Enrichment {
 		int intervalLength;
 		int chrNumber;
 		float averageGivenIntervalLength;
+		
+		//Let's compute mode instead of mean.
 
 		for( int i = 0; i < originalInputLines.size(); i++){
 
@@ -2944,8 +2963,22 @@ public class Enrichment {
 			chrNumber = chrName.getChromosomeName()-1;
 			
 			//Accumulate for each interval
-			chrBasedAverageGivenIntervalLength.set(chrNumber,(chrBasedAverageGivenIntervalLength.get(chrNumber)+intervalLength));
-
+			chrBasedAverageGivenIntervalLengthList.set(chrNumber,(chrBasedAverageGivenIntervalLengthList.get(chrNumber)+intervalLength));
+			
+			
+			//Mode Calculation starts
+			givenIntervalLength2CountMap = chrBasedGivenIntervalLength2CountMap.get(chrNumber);
+			
+			if (givenIntervalLength2CountMap == null){
+				givenIntervalLength2CountMap = new TIntIntHashMap();
+				chrBasedGivenIntervalLength2CountMap.put(chrNumber,givenIntervalLength2CountMap);
+			}
+			
+			count = givenIntervalLength2CountMap.get(intervalLength);
+			givenIntervalLength2CountMap.put(intervalLength, (count==null?1:givenIntervalLength2CountMap.get(intervalLength)+1));
+			//Mode Calculation ends
+			
+		
 			if( list == null){
 				list = new ArrayList<InputLineMinimal>();
 				list.add( inputLineMinimal);
@@ -2964,12 +2997,41 @@ public class Enrichment {
 			
 			if (chromosomeName2OriginalInputLinesMap.get(chromName)!= null){
 				
-				averageGivenIntervalLength = chrBasedAverageGivenIntervalLength.get(chromName.getChromosomeName()-1)/chromosomeName2OriginalInputLinesMap.get(chromName).size();
-				chrBasedAverageGivenIntervalLength.set(chromName.getChromosomeName()-1,averageGivenIntervalLength);
+				averageGivenIntervalLength = chrBasedAverageGivenIntervalLengthList.get(chromName.getChromosomeName()-1)/chromosomeName2OriginalInputLinesMap.get(chromName).size();
+				chrBasedAverageGivenIntervalLengthList.set(chromName.getChromosomeName()-1,averageGivenIntervalLength);
 
 			}
 			
 		}//End of for each chromosomeName
+		
+		//Mode Calculation
+		count = Integer.MIN_VALUE;
+		for(ChromosomeName chromName: ChromosomeName.values()){
+			
+			chrNumber = chromName.getChromosomeName()-1;
+			
+			givenIntervalLength2CountMap = chrBasedGivenIntervalLength2CountMap.get(chrNumber);
+			
+			if (givenIntervalLength2CountMap!= null){
+				
+				for (TIntIntIterator itr = givenIntervalLength2CountMap.iterator();itr.hasNext();){
+					
+					itr.advance();
+					
+					if(itr.value()> count){
+						count = itr.value();
+						modeofGivenIntervalLength = itr.key();
+					}
+					
+				}//End of for
+				
+				chrBasedModeList.set(chrNumber, modeofGivenIntervalLength);
+				
+			}//End of IF
+			
+		}//End of FOR each chromosome
+			
+		
 	}
 
 	// TLongIntMap TIntObjectMap<TIntList> TIntIntMap starts
@@ -4283,10 +4345,13 @@ public class Enrichment {
 
 		//5 FEB 2016
 		//Keeps AverageIntervalLength for each chromosome
-		TFloatList chrBasedAverageGivenIntervalLength = new TFloatArrayList();
-		initializeList(chrBasedAverageGivenIntervalLength);
-
+		TFloatList chrBasedAverageGivenIntervalLengthList = new TFloatArrayList();
+		initializeList(chrBasedAverageGivenIntervalLengthList);
 		
+		//8 FEB 2016
+		TIntList chrBased2ModeList = new TIntArrayList();
+		initializeList(chrBased2ModeList);
+	
 		TIntList permutationNumberList = null;
 
 		// For DNase, TF, Histone, Gene, KEGGPathway, UserDefinedGeneSet, UserDefinedLibrary Enrichment
@@ -4329,7 +4394,7 @@ public class Enrichment {
 		/******************************************************************************************************/
 		/************** * PARTITION ORIGINAL INPUT LINES INTO CHROMOSOME BASED INPUT LINES STARTS *************/
 		// Partition the original input data lines in a chromosome based manner
-		partitionDataChromosomeBased( allOriginalInputLines, chromosomeName2OriginalInputLinesMap,chrBasedAverageGivenIntervalLength);
+		partitionDataChromosomeBased( allOriginalInputLines, chromosomeName2OriginalInputLinesMap,chrBasedAverageGivenIntervalLengthList,chrBased2ModeList);
 		/*************** PARTITION ORIGINAL INPUT LINES INTO CHROMOSOME BASED INPUT LINES ENDS*****************/
 		/******************************************************************************************************/
 
@@ -4344,7 +4409,8 @@ public class Enrichment {
 		// Do we need it? Yes
 		ChromosomeName chromName;
 		int chromSize;
-		float chromBasedAverageIntervalLength;
+		//float chromBasedAverageIntervalLength;
+		int chromBasedModeofGivenIntervalLength;
 		List<InputLineMinimal> chromosomeBaseOriginalInputLines;
 		TIntObjectMap<List<InputLineMinimal>> permutationNumber2RandomlyGeneratedDataMap;
 		// Do we need it? Yes
@@ -4431,8 +4497,10 @@ public class Enrichment {
 			chromSize = hg19ChromosomeSizes.get( chrNumber - 1);
 			
 			//4 FEB 2016
-			chromBasedAverageIntervalLength = chrBasedAverageGivenIntervalLength.get(chrNumber-1);
+			//chromBasedAverageIntervalLength = chrBasedAverageGivenIntervalLengthList.get(chrNumber-1);
 
+			//8 FEB 2016
+			chromBasedModeofGivenIntervalLength = chrBased2ModeList.get(chrNumber-1);
 
 			GlanetRunner.appendLog( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 			if( GlanetRunner.shouldLog())logger.info( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
@@ -4456,23 +4524,23 @@ public class Enrichment {
 					/*********************GC*************************/
 					/************************************************/
 					//Decide on which gcIntervalTree to use depending on the chrBasedAverageGivenIntervalLength
-					if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_100){						
+					if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100){						
 						// Fill GCByteList if givenData contains interval of length <= 100
 						gcByteList = new TByteArrayList();
 						ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
 					}
-					else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
+					else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
 						gcIntervalTree = new IntervalTree();
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
-					}else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
+					}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
 						gcIntervalTree = new IntervalTree();
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_1000,gcIntervalTree);
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
-					}else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
+					}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
 						gcIntervalTree = new IntervalTree();
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
@@ -6400,8 +6468,12 @@ public class Enrichment {
 
 		//4 FEB 2016
 		//Keeps AverageIntervalLength for each chromosome
-		TFloatList chrBasedAverageGivenIntervalLength = new TFloatArrayList();
-		initializeList(chrBasedAverageGivenIntervalLength);
+		TFloatList chrBasedAverageGivenIntervalLengthList = new TFloatArrayList();
+		initializeList(chrBasedAverageGivenIntervalLengthList);
+		
+		//8 FEB 2016
+		TIntList chrBasedModeList = new TIntArrayList();
+		initializeList(chrBasedModeList);
 		
 		// @todo test it
 		// SecureRandom myrandom = new SecureRandom();
@@ -6467,7 +6539,7 @@ public class Enrichment {
 		/******************************************************************************************************/
 		/************** * PARTITION ORIGINAL INPUT LINES INTO CHROMOSOME BASED INPUT LINES STARTS *************/
 		// Partition the original input data lines in a chromosome based manner
-		partitionDataChromosomeBased(allOriginalInputLines, chromosomeName2OriginalInputLinesMap,chrBasedAverageGivenIntervalLength);
+		partitionDataChromosomeBased(allOriginalInputLines, chromosomeName2OriginalInputLinesMap,chrBasedAverageGivenIntervalLengthList,chrBasedModeList);
 		/*************** PARTITION ORIGINAL INPUT LINES INTO CHROMOSOME BASED INPUT LINES ENDS*****************/
 		/******************************************************************************************************/
 
@@ -6481,7 +6553,8 @@ public class Enrichment {
 
 		ChromosomeName chromName;
 		int chromSize;
-		float chromBasedAverageIntervalLength;
+		//float chromBasedAverageIntervalLength;
+		int chromBasedModeofGivenIntervalLength;
 		List<InputLineMinimal> chromosomeBaseOriginalInputLines;
 		TIntObjectMap<List<InputLineMinimal>> permutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<List<InputLineMinimal>>();
 
@@ -6530,7 +6603,10 @@ public class Enrichment {
 			chromSize = hg19ChromosomeSizes.get(i - 1);
 			
 			//4 FEB 2016
-			chromBasedAverageIntervalLength = chrBasedAverageGivenIntervalLength.get(i-1);
+			//chromBasedAverageIntervalLength = chrBasedAverageGivenIntervalLengthList.get(i-1);
+			
+			//8 FEB 2016
+			chromBasedModeofGivenIntervalLength = chrBasedModeList.get(i-1);
 
 			GlanetRunner.appendLog( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 			if( GlanetRunner.shouldLog())logger.info( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
@@ -6557,23 +6633,23 @@ public class Enrichment {
 					/************************************************/
 					
 					//Decide on which gcIntervalTree to use depending on the chrBasedAverageGivenIntervalLength
-					if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_100){						
+					if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100){						
 						// Fill GCByteList if givenData contains interval of length <= 100
 						gcByteList = new TByteArrayList();
 						ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
 					}
-					else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
+					else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
 						gcIntervalTree = new IntervalTree();
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
-					}else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
+					}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
 						gcIntervalTree = new IntervalTree();
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_1000,gcIntervalTree);
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
-					}else if (chromBasedAverageIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
+					}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
 						gcIntervalTree = new IntervalTree();
 						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
