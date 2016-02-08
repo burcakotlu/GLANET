@@ -41,6 +41,10 @@ public class RandomDataGenerator {
 	
 
 	// IsochoreFamilyPoolHigh must not be greater than chromSize
+	// With GC and Mappability and IsochoreFamily
+	// In addition to chr and givenIntervalLength
+	// This method may return a null randomInterval
+	// Although it seems to be eliminated by looking at the other isochoreFamilyPools if there is no interval left in the current pool.
 	public static InputLineMinimal getRandomLineDependingOnIsochoreFamilyofOriginalInputLine( 
 			int chromSize,
 			ThreadLocalRandom threadLocalRandom, 
@@ -67,7 +71,7 @@ public class RandomDataGenerator {
 		
 		//7 FEB 2016
 		//There might be cases where there is no interval in the isochoreIntervalPool
-		//This happens especially in H3 isochorePool, since hg19 chromSizes and fasta files base length does not match
+		//This happens especially in H3 isochorePool, since hg19 chromSizes and fasta files base length do not match
 		//In that case choose from isochorePool one less e.g.: H2 instead of H3.	
 		do {
 			
@@ -149,8 +153,8 @@ public class RandomDataGenerator {
 			// Case1 is handled
 			// What if length of originalInputLine is greater than isochoreFamilyInterval length which is
 			// (isochoreFamilyPoolHigh-isochoreFamilyPoolLow)
-			// We don't accept interval of length greater than 100 KB
-			// Where is this check?
+			// We accept interval of length greater than 100 KB
+			// But we do generate random interval without GC and Mappability and IsochoreFamily in this case.
 
 			// Case2 is handled
 			// What if randomLow + length exceeds isochoreFamilyInterval's high
@@ -174,6 +178,10 @@ public class RandomDataGenerator {
 
 	}
 	
+	
+	// Without GC and Mappability and IsochoreFamily
+	// Only w.r.t. chr and givenIntervalLength
+	// This method always return a not null randomInterval
 	public static InputLineMinimal getRandomInterval(
 			int chromSize,
 			int originalInputLineLength,
@@ -384,24 +392,27 @@ public class RandomDataGenerator {
 						do{
 							
 							
-							// Randomly generated interval will have the same isochore family of the original interval
-							randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
-									chromSize,
-									threadLocalRandom, 
-									originalInputLineLength, 
-									originalInputLineIsochoreFamily,
-									gcIsochoreFamilyL1Pool, 
-									gcIsochoreFamilyL2Pool, 
-									gcIsochoreFamilyH1Pool,
-									gcIsochoreFamilyH2Pool, 
-									gcIsochoreFamilyH3Pool);
+							do{
+								
+								// Randomly generated interval will have the same isochore family of the original interval
+								randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
+										chromSize,
+										threadLocalRandom, 
+										originalInputLineLength, 
+										originalInputLineIsochoreFamily,
+										gcIsochoreFamilyL1Pool, 
+										gcIsochoreFamilyL2Pool, 
+										gcIsochoreFamilyH1Pool,
+										gcIsochoreFamilyH2Pool, 
+										gcIsochoreFamilyH3Pool);
 							
+							} while(randomlyGeneratedLine==null);
 							
+						
 							intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
 							overlappedNodeList = new ArrayList<IntervalTreeNode>();
-							
+
 							IntervalTree.findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, intervalTree.getRoot(), intervalTreeNode);
-							
 							
 						}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
 						
@@ -543,7 +554,7 @@ public class RandomDataGenerator {
 					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 				
 					
-				}
+				}//End of IF originalInputLineLength > Commons.INTERVAL_LENGTH_100000 so without GC and Mappability although it is selected so.
 				//8 FEB 2016 ends
 				
 				
