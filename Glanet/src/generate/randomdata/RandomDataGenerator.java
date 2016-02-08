@@ -173,16 +173,31 @@ public class RandomDataGenerator {
 		return randomlyGeneratedLine;
 
 	}
+	
+	public static InputLineMinimal getRandomInterval(
+			int chromSize,
+			int originalInputLineLength,
+			ThreadLocalRandom threadLocalRandom){
+		
+		InputLineMinimal randomInterval = null;
+		int low;
+		int high;
+		
+		// low must be greater than or equal to zero
+		// high must be less than chromSize
+		low = threadLocalRandom.nextInt(chromSize - originalInputLineLength + 1);
+		high = low + originalInputLineLength - 1;
+
+		randomInterval = new InputLineMinimal(low, high);
+		return randomInterval;
+	}
+	
 
 	public static List<InputLineMinimal> generateRandomData( 
 			GivenInputDataType givenInputsSNPsorIntervals,
 			TByteList gcByteList,
 			IntervalTree gcIntervalTree,
 			CalculateGC calculateGC,
-			//IntervalTree gcIntervalLengthOneHundredTree, 
-			//IntervalTree gcIntervalLengthOneThousandTree, 
-			//IntervalTree gcIntervalLengthTenThousandTree, 
-			//IntervalTree gcIsochoreIntervalTree,
 			List<Interval> gcIsochoreFamilyL1Pool, 
 			List<Interval> gcIsochoreFamilyL2Pool,
 			List<Interval> gcIsochoreFamilyH1Pool, 
@@ -200,13 +215,10 @@ public class RandomDataGenerator {
 
 		List<InputLineMinimal> randomlyGeneratedInputLines = null;
 
-		InputLineMinimal originalInputLine;
-		InputLineMinimal randomlyGeneratedLine;
-		int low;
-		int high;
+		InputLineMinimal originalInputLine = null;
+		InputLineMinimal randomlyGeneratedLine = null;
 		int originalInputLineLength;
 
-		
 		Float originalInputLineGC = null;
 		Float randomlyGeneratedInputLineGC = null;
 
@@ -255,13 +267,16 @@ public class RandomDataGenerator {
 				do{
 					// low must be greater than or equal to zero
 					// high must be less than chromSize
-					low = threadLocalRandom.nextInt( chromSize - originalInputLineLength + 1);
-					high = low + originalInputLineLength - 1;
-
-					randomlyGeneratedLine = new InputLineMinimal(low, high);
+					//low = threadLocalRandom.nextInt(chromSize - originalInputLineLength + 1);
+					//high = low + originalInputLineLength - 1;
+					//randomlyGeneratedLine = new InputLineMinimal(low, high);
+					
+					//8 FEB 2016 starts
+					randomlyGeneratedLine = getRandomInterval(chromSize,originalInputLineLength,threadLocalRandom);
+					//8 FEB 2016 ends
 					
 					//28 OCT 2015 starts
-					intervalTreeNode = new IntervalTreeNode(chromName,low,high);
+					intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
 					
 					overlappedNodeList = new ArrayList<IntervalTreeNode>();
 					
@@ -279,7 +294,7 @@ public class RandomDataGenerator {
 				
 			}// End of for: each original input line
 
-		}
+		}//End of IF without GC and Mappability
 		/**************************************************************************************************/
 		/***********************************WITHOUT MapabilityandGC ends***********************************/
 		/**************************************************************************************************/
@@ -303,197 +318,237 @@ public class RandomDataGenerator {
 				// ORIGINAL INPUT DATA
 				originalInputLine = chromosomeBasedOriginalInputLines.get(j);
 				originalInputLineLength = originalInputLine.getHigh() - originalInputLine.getLow() + 1;
-				
-
-				/**************************************************************************************************/
-				/**************************GC Calculation for Original Input Line starts***************************/
-				/**************************Isochore Family for Original Input Line starts**************************/
-				/**************************************************************************************************/
-				/* chrBasedAverageGivenIntervalLength is Less Than <= 100 bp*/
-				if( calculateGC.isCalculateGCUsingByteList()){
-					// Using GCByteList
-					originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
-					originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(originalInputLineGC);
-
-					//hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
-					//originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(hits);
-
-				}
-				
-				// chrBasedAverageGivenIntervalLength >100 <=1000
-				// chrBasedAverageGivenIntervalLength >1000 <=10000
-				// chrBasedAverageGivenIntervalLength >10000 <=100000
-				else if (calculateGC.isCalculateGCUsingGCIntervalTree()){
-					// Using GCIntervalTree
-					originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree,calculateGC);
-					originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(originalInputLineGC);
-	
-				} 
-				
-				// chrBasedAverageGivenIntervalLength >100000
-				else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
+		
+				//8 FEB 2016 starts		
+				//originalGivenIntervalLength is less than or equal to Commons.INTERVAL_LENGTH_100000
+				//Calculate GC and Mappability
+				if(originalInputLineLength <= Commons.INTERVAL_LENGTH_100000){
 					
-					result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(originalInputLine,gcIntervalTree);
+					/**************************************************************************************************/
+					/**************************GC Calculation for Original Input Line starts***************************/
+					/**************************Isochore Family for Original Input Line starts**************************/
+					/**************************************************************************************************/
+					/* chrBasedAverageGivenIntervalLength is Less Than <= 100 bp*/
+					if( calculateGC.isCalculateGCUsingByteList()){
+						// Using GCByteList
+						originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
+						originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(originalInputLineGC);
 
-					originalInputLineGC = result.getGc();
-					originalInputLineIsochoreFamily = result.getIsochoreFamily();
+						//hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
+						//originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(hits);
+					}
 					
-				}
-				/**************************************************************************************************/
-				/**************************GC Calculation for Original Input Line ends*****************************/
-				/**************************Isochore Family for Original Input Line ends****************************/
-				/**************************************************************************************************/
+					// chrBasedAverageGivenIntervalLength >100 <=1000
+					// chrBasedAverageGivenIntervalLength >1000 <=10000
+					// chrBasedAverageGivenIntervalLength >10000 <=100000
+					else if (calculateGC.isCalculateGCUsingGCIntervalTree()){
+						// Using GCIntervalTree
+						originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree,calculateGC);
+						originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(originalInputLineGC);
+					} 
+					
+					// chrBasedAverageGivenIntervalLength >100000
+					else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
+						result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(originalInputLine,gcIntervalTree);
+						originalInputLineGC = result.getGc();
+						originalInputLineIsochoreFamily = result.getIsochoreFamily();	
+					}
+					/**************************************************************************************************/
+					/**************************GC Calculation for Original Input Line ends*****************************/
+					/**************************Isochore Family for Original Input Line ends****************************/
+					/**************************************************************************************************/
 
-				/**************************************************************************************************/
-				/**********************MAPABILITY Calculation for Original Input Line starts***********************/
-				/**************************************************************************************************/
-				// Mapability New Way
-				// Using MapabilitShortList
-				originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine, mapabilityChromosomePositionList, mapabilityShortValueList);
-				/**************************************************************************************************/
-				/**********************MAPABILITY Calculation for Original Input Line ends*************************/
-				/**************************************************************************************************/
+					/**************************************************************************************************/
+					/**********************MAPABILITY Calculation for Original Input Line starts***********************/
+					/**************************************************************************************************/
+					// Mapability New Way
+					// Using MapabilitShortList
+					originalInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(originalInputLine, mapabilityChromosomePositionList, mapabilityShortValueList);
+					/**************************************************************************************************/
+					/**********************MAPABILITY Calculation for Original Input Line ends*************************/
+					/**************************************************************************************************/
+					
+					// Initialization for each original interval
+					count = 0;
+					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 
-				// Initialization for each original interval
-				count = 0;
-				counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
-
-				dynamicGCThreshold = Commons.GC_THRESHOLD_LOWER_VALUE;
-				dynamicMapabilityThreshold = Commons.MAPABILITY_THRESHOLD_LOWER_VALUE;
-
-				do{
-
-					/********************************************************************************************************************************************************/
-					/**********************Generate a random line depending on the isochore family of originalInputLine starts***********************************************/
-					/********************************************************************************************************************************************************/
+					dynamicGCThreshold = Commons.GC_THRESHOLD_LOWER_VALUE;
+					dynamicMapabilityThreshold = Commons.MAPABILITY_THRESHOLD_LOWER_VALUE;
 					
 					do{
+
+						/********************************************************************************************************************************************************/
+						/**********************Generate a random line depending on the isochore family of originalInputLine starts***********************************************/
+						/********************************************************************************************************************************************************/
+						
+						do{
+							
+							
+							// Randomly generated interval will have the same isochore family of the original interval
+							randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
+									chromSize,
+									threadLocalRandom, 
+									originalInputLineLength, 
+									originalInputLineIsochoreFamily,
+									gcIsochoreFamilyL1Pool, 
+									gcIsochoreFamilyL2Pool, 
+									gcIsochoreFamilyH1Pool,
+									gcIsochoreFamilyH2Pool, 
+									gcIsochoreFamilyH3Pool);
+							
+							
+							intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
+							overlappedNodeList = new ArrayList<IntervalTreeNode>();
+							
+							IntervalTree.findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, intervalTree.getRoot(), intervalTreeNode);
+							
+							
+						}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
 						
 						
-						// Randomly generated interval will have the same isochore family of the original interval
-						randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
-								chromSize,
-								threadLocalRandom, 
-								originalInputLineLength, 
-								originalInputLineIsochoreFamily,
-								gcIsochoreFamilyL1Pool, 
-								gcIsochoreFamilyL2Pool, 
-								gcIsochoreFamilyH1Pool,
-								gcIsochoreFamilyH2Pool, 
-								gcIsochoreFamilyH3Pool);
+						/********************************************************************************************************************************************************/
+						/**********************Generate a random line depending on the isochore family of originalInputLine ends*************************************************/
+						/********************************************************************************************************************************************************/
+
+						// Increase count since we have already randomly generated an interval
+						count++;
+
+						/**************************************************************************************************/
+						/************************MAPABILITY Calculation for Randomly Generated Line starts*****************/
+						/**************************************************************************************************/
+						// Using MapabilityShortList
+						randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(
+								randomlyGeneratedLine, 
+								mapabilityChromosomePositionList, 
+								mapabilityShortValueList);
+
+						differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability - originalInputLineMapability);
+						/**************************************************************************************************/
+						/************************MAPABILITY Calculation for Randomly Generated Line ends*******************/
+						/**************************************************************************************************/
 						
 						
+						/**************************************************************************************************/
+						/**************************GC Calculation for Randomly Generated Line starts***********************/
+						/**************************************************************************************************/
+						if( calculateGC.isCalculateGCUsingByteList()){
+							// GByteList Way
+							randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine,gcByteList);
+
+						}else if(calculateGC.isCalculateGCUsingGCIntervalTree()){
+							randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree, calculateGC);
+							
+						}else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
+							// Using GCIsochoreIntervalTree
+
+							result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(randomlyGeneratedLine,gcIntervalTree);
+
+							randomlyGeneratedInputLineGC = result.getGc();
+							// randomlyGeneratedInputLineIsochoreFamily = result.getIsochoreFamily();
+						}
+
+						differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
+						/**************************************************************************************************/
+						/**************************GC Calculation for Randomly Generated Line ends*************************/
+						/**************************************************************************************************/
+
+
+						// Update dynamicMapabilityThreshold
+						// Update dynamicGCThreshold
+						if( count > counterThreshold){
+
+							// Increase dynamicMapabilityThreshold starts
+							// as number of trials increases, increase dynamicMapabilityThreshold more
+							if( differencebetweenMapabilities > dynamicMapabilityThreshold){
+								if( !( dynamicMapabilityThreshold >= Commons.MAPABILITY_THRESHOLD_UPPER_VALUE)){
+
+									if( count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL){
+										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
+									}else if( count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL){
+										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
+									}else if( count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL){
+										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
+									}else{
+										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
+									}
+
+								}
+							}
+							// Increase dynamicMapabilityThreshold ends
+							
+							// Increase dynamicGCThreshold starts
+							// as number of trials increases, increase dynamicGCThreshold more
+							if( differencebetweenGCs > dynamicGCThreshold){
+								if( !( dynamicGCThreshold >= Commons.GC_THRESHOLD_UPPER_VALUE)){
+
+									if( count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL){
+										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
+									}else if( count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL){
+										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
+									}else if( count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL){
+										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
+									}else{
+										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
+									}
+								}
+							}
+							// Increase dynamicGCThreshold ends
+
+							// Once count has reached to counterThreshold, increase counterThreshold by
+							// Commons.NUMBER_OF_TRIAL_FIRST_LEVEL each time
+							counterThreshold = counterThreshold + Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
+						}// End of IF
+						
+					}while( differencebetweenGCs > dynamicGCThreshold || differencebetweenMapabilities > dynamicMapabilityThreshold);
+					
+					randomlyGeneratedInputLines.add(randomlyGeneratedLine);
+					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+					
+
+				}else if (originalInputLineLength > Commons.INTERVAL_LENGTH_100000){
+					
+					//For these much long intervals we don't want to generate random interval w.r.t. GC and Mappability
+					//Do not compute its GC
+					//Do not compute its Mappability
+					//Do not compute its IsochoreFamily
+					
+					//Just get a random interval w.r.t. its chr and its length
+					//But be sure that it does not overlap with the already randomly generated intervals
+					//as if we are randomly generating interval wo GC and Mappability
+					
+					do{
+						// low must be greater than or equal to zero
+						// high must be less than chromSize
+						//low = threadLocalRandom.nextInt(chromSize - originalInputLineLength + 1);
+						//high = low + originalInputLineLength - 1;
+						//randomlyGeneratedLine = new InputLineMinimal(low, high);
+						
+						//8 FEB 2016 starts
+						randomlyGeneratedLine = getRandomInterval(chromSize,originalInputLineLength,threadLocalRandom);
+						//8 FEB 2016 ends
+						
+						//28 OCT 2015 starts
 						intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
+						
 						overlappedNodeList = new ArrayList<IntervalTreeNode>();
 						
-						IntervalTree.findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, intervalTree.getRoot(), intervalTreeNode);
-						
+						IntervalTree.findAllOverlappingIntervalsCheckingChrName(
+								overlappedNodeList, 
+								intervalTree.getRoot(),
+								intervalTreeNode);
 						
 					}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
 					
-					
-					/********************************************************************************************************************************************************/
-					/**********************Generate a random line depending on the isochore family of originalInputLine ends*************************************************/
-					/********************************************************************************************************************************************************/
-
-					// Increase count since we have already randomly generated an interval
-					count++;
-
-					/**************************************************************************************************/
-					/************************MAPABILITY Calculation for Randomly Generated Line starts*****************/
-					/**************************************************************************************************/
-					// Using MapabilityShortList
-					randomlyGeneratedInputLineMapability = Mapability.calculateMapabilityofIntervalUsingTroveList(
-							randomlyGeneratedLine, 
-							mapabilityChromosomePositionList, 
-							mapabilityShortValueList);
-
-					differencebetweenMapabilities = Math.abs(randomlyGeneratedInputLineMapability - originalInputLineMapability);
-					/**************************************************************************************************/
-					/************************MAPABILITY Calculation for Randomly Generated Line ends*******************/
-					/**************************************************************************************************/
-					
-					
-					/**************************************************************************************************/
-					/**************************GC Calculation for Randomly Generated Line starts***********************/
-					/**************************************************************************************************/
-					if( calculateGC.isCalculateGCUsingByteList()){
-						// GByteList Way
-						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingTroveList(randomlyGeneratedLine,gcByteList);
-
-					}else if(calculateGC.isCalculateGCUsingGCIntervalTree()){
-						randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree, calculateGC);
-						
-					}else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
-						// Using GCIsochoreIntervalTree
-
-						result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(randomlyGeneratedLine,gcIntervalTree);
-
-						randomlyGeneratedInputLineGC = result.getGc();
-						// randomlyGeneratedInputLineIsochoreFamily = result.getIsochoreFamily();
-					}
-
-					differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
-					/**************************************************************************************************/
-					/**************************GC Calculation for Randomly Generated Line ends*************************/
-					/**************************************************************************************************/
-
-
-					// Update dynamicMapabilityThreshold
-					// Update dynamicGCThreshold
-					if( count > counterThreshold){
-
-						// Increase dynamicMapabilityThreshold starts
-						// as number of trials increases, increase dynamicMapabilityThreshold more
-						if( differencebetweenMapabilities > dynamicMapabilityThreshold){
-							if( !( dynamicMapabilityThreshold >= Commons.MAPABILITY_THRESHOLD_UPPER_VALUE)){
-
-								if( count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL){
-									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
-								}else if( count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL){
-									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
-								}else if( count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL){
-									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
-								}else{
-									dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
-								}
-
-							}
-						}
-						// Increase dynamicMapabilityThreshold ends
-						
-						// Increase dynamicGCThreshold starts
-						// as number of trials increases, increase dynamicGCThreshold more
-						if( differencebetweenGCs > dynamicGCThreshold){
-							if( !( dynamicGCThreshold >= Commons.GC_THRESHOLD_UPPER_VALUE)){
-
-								if( count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL){
-									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
-								}else if( count > Commons.NUMBER_OF_TRIAL_THIRD_LEVEL){
-									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_015;
-								}else if( count > Commons.NUMBER_OF_TRIAL_SECOND_LEVEL){
-									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_010;
-								}else{
-									dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
-								}
-							}
-						}
-						// Increase dynamicGCThreshold ends
-
-						// Once count has reached to counterThreshold, increase counterThreshold by
-						// Commons.NUMBER_OF_TRIAL_FIRST_LEVEL each time
-						counterThreshold = counterThreshold + Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
-					}// End of IF
-					
-				}while( differencebetweenGCs > dynamicGCThreshold || differencebetweenMapabilities > dynamicMapabilityThreshold);
+					randomlyGeneratedInputLines.add(randomlyGeneratedLine);
+					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 				
-				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
-				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+					
+				}
+				//8 FEB 2016 ends
 				
 				
-
 			}// End of FOR: each original input line
-			// For Each Original InputLine ends
+			
 
 		}// End of IF generateRandomInterval with GC and Mapability
 		/**************************************************************************************************/

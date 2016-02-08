@@ -229,10 +229,6 @@ public class Enrichment {
 						gcByteList,
 						gcIntervalTree,
 						calculateGC,
-						//gcIntervalLengthOneHundredTree, 
-						//gcIntervalLengthOneThousandTree, 
-						//gcIntervalLengthTenThousandTree, 
-						//gcIsochoreIntervalTree, 
 						gcIsochoreFamilyL1Pool, 
 						gcIsochoreFamilyL2Pool,
 						gcIsochoreFamilyH1Pool, 
@@ -254,10 +250,6 @@ public class Enrichment {
 						gcByteList,
 						gcIntervalTree,
 						calculateGC,
-						//gcIntervalLengthOneHundredTree, 
-						//gcIntervalLengthOneThousandTree, 
-						//gcIntervalLengthTenThousandTree, 
-						//gcIsochoreIntervalTree, 
 						gcIsochoreFamilyL1Pool, 
 						gcIsochoreFamilyL2Pool,
 						gcIsochoreFamilyH1Pool, 
@@ -289,10 +281,6 @@ public class Enrichment {
 							gcByteList, 
 							gcIntervalTree,
 							calculateGC,
-							//gcIntervalLengthOneHundredTree, 
-							//gcIntervalLengthOneThousandTree, 
-							//gcIntervalLengthTenThousandTree, 
-							//gcIsochoreIntervalTree,
 							gcIsochoreFamilyL1Pool, 
 							gcIsochoreFamilyL2Pool, 
 							gcIsochoreFamilyH1Pool,
@@ -6753,7 +6741,7 @@ public class Enrichment {
 					GlanetRunner.appendLog( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
 					if( GlanetRunner.shouldLog())logger.info( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
 
-				}
+				}//End of IF Generate Random Data with GC and Mappability
 				/*******************************************************************************************************************************/
 				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList ENDS *******************/
 				/*******************************************************************************************************************************/
@@ -6781,10 +6769,6 @@ public class Enrichment {
 						gcByteList,
 						gcIntervalTree,
 						calculateGC,
-						//gcIntervalLengthOneHundredTree, 
-						//gcIntervalLengthOneThousandTree, 
-						//gcIntervalLengthTenThousandTree, 
-						//gcIsochoreIntervalTree, 
 						gcIsochoreFamilyL1Pool,
 						gcIsochoreFamilyL2Pool, 
 						gcIsochoreFamilyH1Pool, 
