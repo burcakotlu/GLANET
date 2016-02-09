@@ -391,7 +391,7 @@ public class RandomDataGenerator {
 						
 						do{
 							
-							
+
 							do{
 								
 								// Randomly generated interval will have the same isochore family of the original interval

@@ -2987,8 +2987,11 @@ public class Enrichment {
 				
 				averageGivenIntervalLength = chrBasedAverageGivenIntervalLengthList.get(chromName.getChromosomeName()-1)/chromosomeName2OriginalInputLinesMap.get(chromName).size();
 				chrBasedAverageGivenIntervalLengthList.set(chromName.getChromosomeName()-1,averageGivenIntervalLength);
-
-			}
+				
+				if(GlanetRunner.shouldLog())
+					logger.info("For Chromosome "+ chromName.convertEnumtoString() + " Average Given Interval Length is: " + averageGivenIntervalLength);
+				
+			}//End of IF NOT NULL
 			
 		}//End of for each chromosomeName
 		
@@ -3015,10 +3018,12 @@ public class Enrichment {
 				
 				chrBasedModeList.set(chrNumber, modeofGivenIntervalLength);
 				
-			}//End of IF
+				if(GlanetRunner.shouldLog())
+					logger.info("For Chromosome "+ chromName.convertEnumtoString() + " Mode of Given Interval Length is: " + modeofGivenIntervalLength);
+
+			}//End of IF NOT NULL
 			
 		}//End of FOR each chromosome
-			
 		
 	}
 
