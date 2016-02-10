@@ -64,7 +64,7 @@ public class CommonGOTermsBetweenGLANETandEBI {
 		
 		int numberofCommonGONumbers = 0;
 		
-		System.out.println("\n************************************************************" + information + " starts************************************************************"  );
+		System.out.println("\n*************" + information + " starts************************************************************"  );
 		System.out.println("GOID\tGOTerm\tzScore");
 		for(TIntIterator itr = goNumber_GLANET_List.iterator();itr.hasNext();){
 			
@@ -83,7 +83,7 @@ public class CommonGOTermsBetweenGLANETandEBI {
 		System.out.println("Number of enriched GO Terms from GLANET: " + goNumber_GLANET_List.size());
 		System.out.println("Number of common GO Terms is: " + numberofCommonGONumbers);
 		System.out.println(numberofCommonGONumbers + " out of " + goNumber_EBI_List.size() + " Gata2 Associated GO Terms from EBI and " + numberofCommonGONumbers + " out of " + goNumber_GLANET_List.size() + "  (" + ((numberofCommonGONumbers/((1.0f)*goNumber_GLANET_List.size()))*100)+  " %) GO terms found enriched by GLANET are common." );
-		System.out.println("************************************************************" + information + " ends************************************************************\n");
+		System.out.println("*************" + information + " ends************************************************************\n");
 		
 	}
 	
