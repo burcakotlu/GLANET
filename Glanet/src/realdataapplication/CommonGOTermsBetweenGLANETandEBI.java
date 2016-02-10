@@ -62,6 +62,8 @@ public class CommonGOTermsBetweenGLANETandEBI {
 		
 		String addZeros = null;
 		
+		int numberofCommonGONumbers = 0;
+		
 		System.out.println("\n************************************************************" + information + " starts************************************************************"  );
 		System.out.println("GOID\tGOTerm\tzScore");
 		for(TIntIterator itr = goNumber_GLANET_List.iterator();itr.hasNext();){
@@ -72,9 +74,15 @@ public class CommonGOTermsBetweenGLANETandEBI {
 				
 				addZeros = getAdditionalZeros(goNumber);
 				System.out.println("GO:" + addZeros + goNumber + "\t" + goNumber2TermMap.get(goNumber));
+				numberofCommonGONumbers++;
+				
 			}//End of IF
 			
 		}//End of FOR
+		System.out.println("Number of Gata2 associated GO Terms from EBI: " + goNumber_EBI_List.size());
+		System.out.println("Number of enriched GO Terms from GLANET: " + goNumber_GLANET_List.size());
+		System.out.println("Number of common GO Terms is: " + numberofCommonGONumbers);
+		System.out.println(numberofCommonGONumbers + " out of " + goNumber_EBI_List.size() + " Gata2 Associated GO Terms from EBI and " + numberofCommonGONumbers + " out of " + goNumber_GLANET_List.size() + "  (" + ((numberofCommonGONumbers/((1.0f)*goNumber_GLANET_List.size()))*100)+  " %) GO terms found enriched by GLANET are common." );
 		System.out.println("************************************************************" + information + " ends************************************************************\n");
 		
 	}
@@ -191,44 +199,188 @@ public class CommonGOTermsBetweenGLANETandEBI {
 	}
 	
 
-	/**
-	 * @param args
-	 */
+
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		
 		
-		TIntList  gata2AssociatedGOTermsEBI_List = new TIntArrayList();
-		TIntList  exonBased_enrichedGOTermsGLANET_SydhGata2K562_List = new TIntArrayList();
-		TIntList  regulationBased_enrichedGOTermsGLANET_SydhGata2K562_List = new TIntArrayList();
-		TIntList  extendedBased_enrichedGOTermsGLANET_SydhGata2K562_List = new TIntArrayList();
-
-		//TIntList  enrichedGOTermsGLANET_SydhGata2Huvec = new TIntArrayList();
-		//TIntList  enrichedGOTermsGLANET_HaibGata2K562 = new TIntArrayList();
-		
-		TIntObjectMap<String> exonBased_goNumber2TermMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> regulationBased_goNumber2TermMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> extendedBased_goNumber2TermMap = new TIntObjectHashMap<String>();
-		
+		//EBI PART
+		TIntList  gata2AssociatedGONumbersEBI_List = new TIntArrayList();
 		//FROM EBI
 		String gata2AssociatedGOTermsEBIFileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "EBI_GATA2_GO.txt" ;
+		//Fill gata2AssociatedGONumbersEBI_List
+		readEBIFile(gata2AssociatedGOTermsEBIFileName,gata2AssociatedGONumbersEBI_List);
+				
+			
+		//GLANET PART
+		//There will be three cases 
+		//Case1: Sydh_Gata2_K562
+		//Case2: Sydh_Gata2_Huvec
+		//Case3: Haib_Gata2_K562
+		TIntList  exonBased_enrichedGONumbersGLANET_List = null;
+		TIntList  regulationBased_enrichedGONumbersGLANET_List = null;
+		TIntList  extendedBased_enrichedGONumbersGLANET_List = null;
 
-		//FROM GLANET
-		String exonBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "exonBased_sydhGata2K562_GO.txt" ;
-		String regulationBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "regulationBased_sydhGata2K562_GO.txt" ;
-		String extendedBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "extendedBased_sydhGata2K562_GO.txt" ;
-
-		readEBIFile(gata2AssociatedGOTermsEBIFileName,gata2AssociatedGOTermsEBI_List);
+		TIntObjectMap<String> exonBased_goNumber2TermZScoreMap = null;
+		TIntObjectMap<String> regulationBased_goNumber2TermZScoreMap = null;
+		TIntObjectMap<String> extendedBased_goNumber2TermZScoreMap = null;
 		
-		readGLANETFile(exonBased_enrichedGOTermsGLANET_SydhGata2K562FileName,exonBased_enrichedGOTermsGLANET_SydhGata2K562_List,exonBased_goNumber2TermMap);
-		readGLANETFile(regulationBased_enrichedGOTermsGLANET_SydhGata2K562FileName,regulationBased_enrichedGOTermsGLANET_SydhGata2K562_List,regulationBased_goNumber2TermMap);
-		readGLANETFile(extendedBased_enrichedGOTermsGLANET_SydhGata2K562FileName,extendedBased_enrichedGOTermsGLANET_SydhGata2K562_List,extendedBased_goNumber2TermMap);
+		
+		/**********************************************************************************/	
+		/********FOR GLANET Bonferroni Corrected PValues Results starts********************/	
+		/**********************************************************************************/	
+		//Case1: Sydh_Gata2_K562 starts
+		exonBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		regulationBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		extendedBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+
+		exonBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		regulationBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		extendedBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
 	
-		findCommonGOTerms(gata2AssociatedGOTermsEBI_List,exonBased_enrichedGOTermsGLANET_SydhGata2K562_List,exonBased_goNumber2TermMap, "ExonBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET and EMBL-EBI");
-		findCommonGOTerms(gata2AssociatedGOTermsEBI_List,regulationBased_enrichedGOTermsGLANET_SydhGata2K562_List,regulationBased_goNumber2TermMap,"RegulationBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET and EMBL-EBI");
-		findCommonGOTerms(gata2AssociatedGOTermsEBI_List,extendedBased_enrichedGOTermsGLANET_SydhGata2K562_List,extendedBased_goNumber2TermMap,"ExtendedBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET and EMBL-EBI");
+		//Please note that enriched GO IDs are sorted w.r.t. zScores in descending order.
+		String exonBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "exonBased_sydhGata2K562_GO_Bonferroni.txt" ;
+		String regulationBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "regulationBased_sydhGata2K562_GO_Bonferroni.txt" ;
+		String extendedBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "extendedBased_sydhGata2K562_GO_Bonferroni.txt" ;
+
+		readGLANETFile(exonBased_enrichedGOTermsGLANET_SydhGata2K562FileName,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap);
+		readGLANETFile(regulationBased_enrichedGOTermsGLANET_SydhGata2K562FileName,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap);
+		readGLANETFile(extendedBased_enrichedGOTermsGLANET_SydhGata2K562FileName,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap);
+	
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap, "ExonBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap,"RegulationBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap,"ExtendedBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		//Case1: Sydh_Gata2_K562 ends
+		
+		
+		//Case2: Sydh_Gata2_Huvec starts
+		exonBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		regulationBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		extendedBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+
+		exonBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		regulationBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		extendedBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+	
+		String exonBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "exonBased_sydhGata2Huvec_GO_Bonferroni.txt" ;
+		String regulationBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "regulationBased_sydhGata2Huvec_GO_Bonferroni.txt" ;
+		String extendedBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "extendedBased_sydhGata2Huvec_GO_Bonferroni.txt" ;
+
+		readGLANETFile(exonBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap);
+		readGLANETFile(regulationBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap);
+		readGLANETFile(extendedBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap);
+	
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap, "ExonBased --- SydhGata2(Huvec) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap,"RegulationBased --- SydhGata2(Huvec) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap,"ExtendedBased --- SydhGata2(Huvec) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		//Case2: Sydh_Gata2_Huvec ends
+		
+		
+		//Case3: Haib_Gata2_K562 starts
+		exonBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		regulationBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		extendedBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+
+		exonBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		regulationBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		extendedBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+	
+		String exonBased_enrichedGOTermsGLANET_HaibGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "exonBased_haibGata2K562_GO_Bonferroni.txt" ;
+		String regulationBased_enrichedGOTermsGLANET_HaibGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "regulationBased_haibGata2K562_GO_Bonferroni.txt" ;
+		String extendedBased_enrichedGOTermsGLANET_HaibGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "extendedBased_haibGata2K562_GO_Bonferroni.txt" ;
+
+		readGLANETFile(exonBased_enrichedGOTermsGLANET_HaibGata2K562FileName,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap);
+		readGLANETFile(regulationBased_enrichedGOTermsGLANET_HaibGata2K562FileName,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap);
+		readGLANETFile(extendedBased_enrichedGOTermsGLANET_HaibGata2K562FileName,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap);
+	
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap, "ExonBased --- HaibGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap,"RegulationBased --- HaibGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap,"ExtendedBased --- HaibGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BonferroniCorrected PValues) and EMBL-EBI");
+		//Case3: Haib_Gata2_K562 ends
+		/**********************************************************************************/	
+		/********FOR GLANET Bonferroni Corrected PValues Results ends**********************/	
+		/**********************************************************************************/	
+
+		
+		
+		/**********************************************************************************/	
+		/********FOR GLANET BH FDR Adjusted PValues Results starts*************************/	
+		/**********************************************************************************/	
+		//Case1: Sydh_Gata2_K562 starts
+		exonBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		regulationBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		extendedBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+
+		exonBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		regulationBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		extendedBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+	
+		//Please note that enriched GO IDs are sorted w.r.t. zScores in descending order.
+		exonBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "exonBased_sydhGata2K562_GO_BH.txt" ;
+		regulationBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "regulationBased_sydhGata2K562_GO_BH.txt" ;
+		extendedBased_enrichedGOTermsGLANET_SydhGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "extendedBased_sydhGata2K562_GO_BH.txt" ;
+
+		readGLANETFile(exonBased_enrichedGOTermsGLANET_SydhGata2K562FileName,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap);
+		readGLANETFile(regulationBased_enrichedGOTermsGLANET_SydhGata2K562FileName,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap);
+		readGLANETFile(extendedBased_enrichedGOTermsGLANET_SydhGata2K562FileName,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap);
+	
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap, "ExonBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap,"RegulationBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap,"ExtendedBased --- SydhGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		//Case1: Sydh_Gata2_K562 ends
+		
+		//Case2: Sydh_Gata2_Huvec starts
+		exonBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		regulationBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		extendedBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+
+		exonBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		regulationBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		extendedBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+	
+		exonBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "exonBased_sydhGata2Huvec_GO_BH.txt" ;
+		regulationBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "regulationBased_sydhGata2Huvec_GO_BH.txt" ;
+		extendedBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "extendedBased_sydhGata2Huvec_GO_BH.txt" ;
+
+		readGLANETFile(exonBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap);
+		readGLANETFile(regulationBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap);
+		readGLANETFile(extendedBased_enrichedGOTermsGLANET_SydhGata2HuvecFileName,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap);
+	
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap, "ExonBased --- SydhGata2(Huvec) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap,"RegulationBased --- SydhGata2(Huvec) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap,"ExtendedBased --- SydhGata2(Huvec) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		//Case2: Sydh_Gata2_Huvec ends
+		
+		
+		//Case3: Haib_Gata2_K562 starts
+		exonBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		regulationBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+		extendedBased_enrichedGONumbersGLANET_List = new TIntArrayList();
+
+		exonBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		regulationBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+		extendedBased_goNumber2TermZScoreMap = new TIntObjectHashMap<String>();
+	
+		exonBased_enrichedGOTermsGLANET_HaibGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "exonBased_haibGata2K562_GO_BH.txt" ;
+		regulationBased_enrichedGOTermsGLANET_HaibGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "regulationBased_haibGata2K562_GO_BH.txt" ;
+		extendedBased_enrichedGOTermsGLANET_HaibGata2K562FileName = dataFolder + System.getProperty( "file.separator") + "demo_input_data" + System.getProperty( "file.separator") + "GREAT_Inspired_RealDataApplication" + System.getProperty( "file.separator") + "extendedBased_haibGata2K562_GO_BH.txt" ;
+
+		readGLANETFile(exonBased_enrichedGOTermsGLANET_HaibGata2K562FileName,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap);
+		readGLANETFile(regulationBased_enrichedGOTermsGLANET_HaibGata2K562FileName,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap);
+		readGLANETFile(extendedBased_enrichedGOTermsGLANET_HaibGata2K562FileName,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap);
+	
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,exonBased_enrichedGONumbersGLANET_List,exonBased_goNumber2TermZScoreMap, "ExonBased --- HaibGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,regulationBased_enrichedGONumbersGLANET_List,regulationBased_goNumber2TermZScoreMap,"RegulationBased --- HaibGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		findCommonGOTerms(gata2AssociatedGONumbersEBI_List,extendedBased_enrichedGONumbersGLANET_List,extendedBased_goNumber2TermZScoreMap,"ExtendedBased --- HaibGata2(K562) --- CommonGOTerms  --- Between GLANET (w.r.t. BH FDR Adjusted PValues) and EMBL-EBI");
+		//Case3: Haib_Gata2_K562 ends
+		/**********************************************************************************/	
+		/********FOR GLANET BH FDR Adjusted PValues Results ends***************************/	
+		/**********************************************************************************/	
+
+
+		
 
 	}
 
