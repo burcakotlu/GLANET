@@ -4539,10 +4539,27 @@ public class Enrichment {
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
 					}else {						
-						//Will we generate random data w.r.t. GC and Mappability if averageIntervalLength is > 100000
+						
+						//Will we generate random data w.r.t. GC and Mappability if modeofIntervalLength is > 100000? NO
+						//We said that if mode of given interval lengths is greater than 100000 bp, then we will not generate random interval wGCM
+						//Then, is filling gcIntervalTree with intervals of 100000 bp meaningful?
+						
+						//Yes since we give this decision w.r.t to the mode of the given intervals.
+						//Mode of given intervals can be > 100000 bp
+						//But there can be still given intervals with length less than 100000 bp
+						//for those intervals their gc  will be calculated using gcIntervalTree with 100000 interval lengths.
+						
+						//So why to use gcIsochoreIntervalTree for intervals less than 100000bp?
+						//We may not have all of gcIntervalTrees because of memory bottleneck
+						//But we can have the gcIntervalTree with longest interval length shorter than 100000 which is gcIntervalTree with 10000 bp
+
 						gcIntervalTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+						
+						//ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
+						//calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+						
+						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
 					}
 				
@@ -6648,10 +6665,25 @@ public class Enrichment {
 						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
 					}else {						
-						//Will we generate random data w.r.t. GC and Mappability if averageIntervalLength is > 100000
+						//Will we generate random data w.r.t. GC and Mappability if modeofIntervalLength is > 100000? NO
+						//We said that if mode of given interval lengths is greater than 100000 bp, then we will not generate random interval wGCM
+						//Then, is filling gcIntervalTree with intervals of 100000 bp meaningful?
+						
+						//Yes since we give this decision w.r.t to the mode of the given intervals.
+						//Mode of given intervals can be > 100000 bp
+						//But there can be still given intervals with length less than 100000 bp
+						//for those intervals their gc  will be calculated using gcIntervalTree with 100000 interval lengths.
+						
+						//So why to use gcIsochoreIntervalTree for intervals less than 100000bp?
+						//We may not have all of gcIntervalTrees because of memory bottleneck
+						//But we can have the gcIntervalTree with longest interval length shorter than 100000 which is gcIntervalTree with 10000 bp
 						gcIntervalTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+
+						//ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
+						//calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+						
+						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
 					}
 					

@@ -368,6 +368,7 @@ public class Step5_DDE_GLANETResults {
 
 		List<FunctionalElementMinimal> cellLineSpecificElementList = null;
 		
+		
 		try{
 
 			// For each simulation
@@ -389,7 +390,7 @@ public class Step5_DDE_GLANETResults {
 						break;
 				
 				}//End of SWITCH
-
+				
 				
 				// Get the enrichmentFile in this folder for this simulation
 				// There must only one enrichmentFile
@@ -411,7 +412,7 @@ public class Step5_DDE_GLANETResults {
 					}// End of FOR each file under EnrichmentDirectory
 
 				}// End of IF EnrichmentDirectory Exists
-
+				
 				enrichmentFileReader = FileOperations.createFileReader(enrichmentFile);
 				enrichmentBufferedReader = new BufferedReader( enrichmentFileReader);
 

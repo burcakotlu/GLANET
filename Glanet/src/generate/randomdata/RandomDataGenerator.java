@@ -336,7 +336,7 @@ public class RandomDataGenerator {
 					/**************************GC Calculation for Original Input Line starts***************************/
 					/**************************Isochore Family for Original Input Line starts**************************/
 					/**************************************************************************************************/
-					/* chrBasedAverageGivenIntervalLength is Less Than <= 100 bp*/
+					/* chrBasedModeGivenIntervalLength is Less Than <= 100 bp*/
 					if( calculateGC.isCalculateGCUsingByteList()){
 						// Using GCByteList
 						originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
@@ -346,16 +346,17 @@ public class RandomDataGenerator {
 						//originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(hits);
 					}
 					
-					// chrBasedAverageGivenIntervalLength >100 <=1000
-					// chrBasedAverageGivenIntervalLength >1000 <=10000
-					// chrBasedAverageGivenIntervalLength >10000 <=100000
+					// chrBasedModeGivenIntervalLength >100 <=1000
+					// chrBasedModeGivenIntervalLength >1000 <=10000
+					// chrBasedModeGivenIntervalLength >10000 <=100000
 					else if (calculateGC.isCalculateGCUsingGCIntervalTree()){
 						// Using GCIntervalTree
 						originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree,calculateGC);
 						originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(originalInputLineGC);
 					} 
 					
-					// chrBasedAverageGivenIntervalLength >100000
+					// Unreachable code
+					// chrBasedModeGivenIntervalLength >100000
 					else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
 						result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(originalInputLine,gcIntervalTree);
 						originalInputLineGC = result.getGc();
