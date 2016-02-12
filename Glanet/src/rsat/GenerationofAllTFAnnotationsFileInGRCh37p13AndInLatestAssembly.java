@@ -101,8 +101,8 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 	/*
 	 * By reading each TF Annotation File Generate All TF Annotations File Then
-	 * Generate REMAP InputFile During these fill
-	 * lineNumber2SourceGenomicLociMap and lineNumber2SourceInformationMap
+	 * Generate REMAP InputFile 
+	 * During these fill lineNumber2SourceGenomicLociMap and lineNumber2SourceInformationMap
 	 */
 	public static void generateAllTFAnnotationsFileAndREMAPInputFile( String outputFolder,
 			String all_TF_Annotations_1Based_Start_End_GRCh37_p13,
@@ -211,10 +211,8 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 							remapInputOBasedStartEndExclusiveGrch37p13BufferedWriter.write( remapInputFileLine1);
 
-							lineNumber2SourceGenomicLociMap.put(
-									numberofLocisInRemapInputFile,
-									strLine.substring( 0, indexofFirstTab) + "\t" + snpStart1Based + "\t" + snpEnd1Based);
-							lineNumber2SourceInformationMap.put( numberofLocisInRemapInputFile, after);
+							lineNumber2SourceGenomicLociMap.put(numberofLocisInRemapInputFile,strLine.substring( 0, indexofFirstTab) + "\t" + snpStart1Based + "\t" + snpEnd1Based);
+							lineNumber2SourceInformationMap.put(numberofLocisInRemapInputFile, after);
 
 							numberofLocisInRemapInputFile++;
 							/*** 1st******SNP Genomic Loci Line ends ******************/

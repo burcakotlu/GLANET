@@ -2882,9 +2882,12 @@ public class Annotation {
 	// Annotation
 	// With Numbers
 	// TF KEGGPathway
-	public void searchTfKEGGPathwayWithNumbers( String outputFolder,
+	public void searchTfKEGGPathwayWithNumbers( 
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree tfbsIntervalTree,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, IntervalTree tfbsIntervalTree,
 			IntervalTree ucscRefSeqGenesIntervalTree, 
 			TIntIntMap tfNumberCellLineNumber2KMap,
 			TIntIntMap exonBasedKeggPathwayNumber2KMap, 
@@ -2960,7 +2963,8 @@ public class Annotation {
 				// TF Search starts here
 				if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
 					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers( outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, tfbsIntervalTree.getRoot(), interval,
+							writeElementBasedAnnotationFoundOverlapsMode, regulatorySequenceAnalysisUsingRSAT,
+							tfbsIntervalTree.getRoot(), interval,
 							chromName, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList,
 							overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,
 							fileNumber2FileNameMap);
@@ -3308,6 +3312,7 @@ public class Annotation {
 	public void searchTfCellLineKEGGPathwayWithNumbers( 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree tfbsIntervalTree,
@@ -3386,8 +3391,10 @@ public class Annotation {
 				// TF Search starts here
 				if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
 
-					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers( outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, tfbsIntervalTree.getRoot(), interval,
+					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers( 
+							outputFolder,
+							writeElementBasedAnnotationFoundOverlapsMode, 
+							regulatorySequenceAnalysisUsingRSAT,tfbsIntervalTree.getRoot(), interval,
 							chromName, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList,
 							overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,
 							fileNumber2FileNameMap);
@@ -3741,6 +3748,7 @@ public class Annotation {
 	// TF and CellLine and KEGGPathway
 	public void searchTfandKeggPathwayWithNumbers( String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree tfbsIntervalTree,
@@ -3830,8 +3838,9 @@ public class Annotation {
 				// TF Search starts here
 				if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
 
-					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers( outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, tfbsIntervalTree.getRoot(), interval,
+					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(
+							outputFolder,
+							writeElementBasedAnnotationFoundOverlapsMode, regulatorySequenceAnalysisUsingRSAT,tfbsIntervalTree.getRoot(), interval,
 							chromName, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList,
 							overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,
 							fileNumber2FileNameMap);
@@ -8724,6 +8733,7 @@ public class Annotation {
 			String dataFolder, 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntIntMap tfNumberCellLineNumber2KMap, 
 			TIntIntMap exonBasedKeggPathwayNumber2KMap,
 			TIntIntMap regulationBasedKeggPathwayNumber2KMap, 
@@ -8754,7 +8764,8 @@ public class Annotation {
 					outputFolder,
 					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 
-			searchTfKEGGPathwayWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode, chrName,
+			searchTfKEGGPathwayWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode, regulatorySequenceAnalysisUsingRSAT,
+					 chrName,
 					bufferedReader, tfbsIntervalTree, ucscRefSeqGenesIntervalTree, tfNumberCellLineNumber2KMap,
 					exonBasedKeggPathwayNumber2KMap, regulationBasedKeggPathwayNumber2KMap,
 					allBasedKeggPathwayNumber2KMap, tfNumberExonBasedKeggPathwayNumber2KMap,
@@ -8788,6 +8799,7 @@ public class Annotation {
 			String dataFolder, 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntIntMap tfNumberCellLineNumber2KMap, 
 			TIntIntMap exonBasedKeggPathwayNumber2KMap,
 			TIntIntMap regulationBasedKeggPathwayNumber2KMap, 
@@ -8818,7 +8830,7 @@ public class Annotation {
 					outputFolder,
 					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 
-			searchTfCellLineKEGGPathwayWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
+			searchTfCellLineKEGGPathwayWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode, regulatorySequenceAnalysisUsingRSAT,
 					chrName, bufferedReader, tfbsIntervalTree, ucscRefSeqGenesIntervalTree,
 					tfNumberCellLineNumber2KMap, exonBasedKeggPathwayNumber2KMap,
 					regulationBasedKeggPathwayNumber2KMap, allBasedKeggPathwayNumber2KMap,
@@ -8855,6 +8867,7 @@ public class Annotation {
 			String dataFolder, 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap, 
 			TIntIntMap tfNumberCellLineNumber2KMap,
 			TIntIntMap exonBasedKeggPathwayNumber2KMap, 
@@ -8888,7 +8901,7 @@ public class Annotation {
 					outputFolder,
 					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 
-			searchTfandKeggPathwayWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode, chrName,
+			searchTfandKeggPathwayWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,regulatorySequenceAnalysisUsingRSAT,chrName,
 					bufferedReader, tfbsIntervalTree, ucscRefSeqGenesIntervalTree, geneId2ListofKeggPathwayNumberMap,
 					tfNumberCellLineNumber2KMap, exonBasedKeggPathwayNumber2KMap,
 					regulationBasedKeggPathwayNumber2KMap, allBasedKeggPathwayNumber2KMap,
@@ -10835,6 +10848,7 @@ public class Annotation {
 						dataFolder, 
 						outputFolder, 
 						writeElementBasedAnnotationFoundOverlapsMode,
+						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
 						exonBasedKeggPathway2KMap, 
 						regulationBasedKeggPathway2KMap,
@@ -10960,6 +10974,7 @@ public class Annotation {
 						dataFolder, 
 						outputFolder,
 						writeElementBasedAnnotationFoundOverlapsMode, 
+						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap,
 						exonBasedKeggPathway2KMap, 
 						regulationBasedKeggPathway2KMap, 
@@ -11094,6 +11109,7 @@ public class Annotation {
 						dataFolder, 
 						outputFolder,
 						writeElementBasedAnnotationFoundOverlapsMode, 
+						regulatorySequenceAnalysisUsingRSAT,
 						geneId2ListofKeggPathwayNumberMap,
 						tfNumberCellLineNumber2KMap, 
 						exonBasedKeggPathway2KMap, 
@@ -13426,7 +13442,7 @@ public class Annotation {
 		//Annotate GLANET normal run, do not annotate GLANET Data Driven Experiment run
 		if(!glanetRunType.equalsIgnoreCase(Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN)){
 			Annotation annotateIntervals = new Annotation();
-			annotateIntervals.annotate( args);
+			annotateIntervals.annotate(args);
 		}//End of IF
 
 	

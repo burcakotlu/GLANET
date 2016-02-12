@@ -4282,7 +4282,7 @@ public class IntervalTree {
 	public void findAllOverlappingTfbsIntervalsWithNumbers( 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT, 
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			IntervalTreeNode node,
 			Interval interval, 
 			ChromosomeName chromName, 
@@ -4365,8 +4365,10 @@ public class IntervalTree {
 	// Modified 20 July 2015
 	// Modified on 13 July 2015 
 	// Annotation with Numbers with OverlapList starts
-	public void findAllOverlappingTfbsIntervalsWithNumbers( String outputFolder,
+	public void findAllOverlappingTfbsIntervalsWithNumbers( 
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			IntervalTreeNode node, 
 			Interval interval, 
 			ChromosomeName chromName,
@@ -4397,7 +4399,10 @@ public class IntervalTree {
 
 				/*******************************************************************/
 				// Write Annotation Found Overlaps to element Named File
-				if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+				
+				//12 FEB 2016
+				if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps() || regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+
 
 					fileWriter = FileOperations.createFileWriter(
 							outputFolder + Commons.TF_ANNOTATION_DIRECTORY + tfNumber2TfNameMap.get( castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber()) + ".txt",
@@ -4436,15 +4441,34 @@ public class IntervalTree {
 		}
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervalsWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
-					node.getLeft(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList,
-					overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			findAllOverlappingTfbsIntervalsWithNumbers( 
+					outputFolder, 
+					writeElementBasedAnnotationFoundOverlapsMode,
+					regulatorySequenceAnalysisUsingRSAT,
+					node.getLeft(), 
+					interval, 
+					chromName, 
+					tfNumberCellLineNumber2ZeroorOneMap, 
+					tfandCellLineOverlapList,
+					overlapDefinition, 
+					tfNumber2TfNameMap, 
+					cellLineNumber2CellLineNameMap, 
+					fileNumber2FileNameMap);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervalsWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
-					node.getRight(), interval, chromName, tfNumberCellLineNumber2ZeroorOneMap,
-					tfandCellLineOverlapList, overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,
+			findAllOverlappingTfbsIntervalsWithNumbers(
+					outputFolder, 
+					writeElementBasedAnnotationFoundOverlapsMode,
+					regulatorySequenceAnalysisUsingRSAT,
+					node.getRight(), 
+					interval, 
+					chromName, 
+					tfNumberCellLineNumber2ZeroorOneMap,
+					tfandCellLineOverlapList, 
+					overlapDefinition, 
+					tfNumber2TfNameMap, 
+					cellLineNumber2CellLineNameMap,
 					fileNumber2FileNameMap);
 		}
 	}
