@@ -1071,7 +1071,7 @@ public class CollectionofPermutationsResults {
 				}
 
 				// 27 May 2015
-				if( stdDev == 0 || stdDev == null){
+				if( element.getStdDev() == 0 || element.getStdDev() == null){
 
 					// For these cases
 					// Do not calculate zScore

@@ -219,6 +219,7 @@ public class GC {
 		// new gcByteList is 0-based
 		// old gcCharArray is 0-based
 		// GLANET uses 0-based coordinates
+		// Genome Browser uses is 1-based coordinates.
 
 		// General Information
 		// One byte has 8 bits.
@@ -241,7 +242,9 @@ public class GC {
 		// Dividing 0-based chromosome position by 7 we got the corresponding byte in gcByteList
 		// Taking mod of 0-based chromosome position w.r.t. 7 we got the corresponding bit position within a byte.
 		// which is between 0 and 6.
-		// ith position in fact i+1 th position of the byte
+		//Since we have dummy 0 at the 0th index of gcByte
+		//we must add by 1 in order to get the real index of base pair in gcByte.
+		//which means that ith bit is in (i+1)th index of  the gcByte
 
 		int zeroBasedStart = givenInputLine.getLow();
 		int zeroBasedEnd = givenInputLine.getHigh();
