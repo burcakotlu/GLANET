@@ -113,7 +113,10 @@ public class GlanetRunner implements Runnable {
 		/************* Regulatory Sequence Analysis starts ****************************/
 		/******************************************************************************/
 
-		if( ( getArgs()[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_ANNOTATION) || getArgs()[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_KEGGPATHWAY_ANNOTATION) || getArgs()[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION)) && getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase( Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
+		if( ( getArgs()[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ANNOTATION) || 
+				getArgs()[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ANNOTATION) || 
+				getArgs()[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION)) && 
+				getArgs()[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()].equalsIgnoreCase( Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)){
 
 			if( getMainView() != null)
 				getMainView().setCurrentProcessInfo( "For Regulatory Sequence Analysis...");
@@ -129,7 +132,7 @@ public class GlanetRunner implements Runnable {
 				/**************** Generation of ALL TF Annotations in GRCh38 starts ***************/
 				setCurrentProcessInfo( "Generation of All TF  Annotations in GRCh38 using NCBI Remap...");
 
-				GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.main( args);
+				GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.main(args);
 
 				/**************** Generation of ALL TF Annotations in GRCh38 ends ****************/
 				/************ Creation of NCBI REMAP Input files ends **************************/
@@ -138,7 +141,7 @@ public class GlanetRunner implements Runnable {
 
 				setCurrentProcessInfo( "Generation of SNP Reference and Alternate Sequences, TF Peak Sequence and TF PFM and LOGO Matrices for Given SNPs...");
 
-				GenerationofSequencesandMatricesforSNPs.main( args);
+				GenerationofSequencesandMatricesforSNPs.main(args);
 
 				setCurrentProcessInfo( "Regulatory Sequence Analysis Using RSAT...");
 

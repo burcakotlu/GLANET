@@ -1848,8 +1848,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		String forRSAFolder = outputFolder + Commons.FOR_RSA + System.getProperty( "file.separator");
 
-		// TfEnrichment, DO or DO_NOT
+		// TfAnnotation, DO or DO_NOT
 		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.TfAnnotation.value()]);
+		AnnotationType tfKEGGAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
+		AnnotationType tfCellLineKEGGAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
+
 
 		// pfm matrices
 		String encodeMotifsInputFileName = Commons.ENCODE_MOTIFS;
@@ -1881,7 +1884,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 		/***************************************************************************************/
 		Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
 		
-		Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+		//No need to call this again and again.
+		//Since it is already called in GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly class
+		//Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 		
 		Remap.fillAssemblyName2RefSeqAssemblyIDMap(
 				dataFolder, 
@@ -1952,7 +1957,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 			augmentationOfAGivenRsIdWithInformation = new AugmentationofGivenRsIdwithInformation();
 
 			// TF Annotations are used
-			if( tfAnnotationType.doTFAnnotation()){
+			if( tfAnnotationType.doTFAnnotation() || 
+				tfKEGGAnnotationType.doTFKEGGPathwayAnnotation() || 
+				tfCellLineKEGGAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
 				// Generate Sequences and Matrices for Annotated TF Elements
 				readAllTFAnnotationsWriteSequencesandMatrices(
