@@ -6,8 +6,10 @@ package rsat;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 import auxiliary.FileOperations;
+import auxiliary.GlanetDecimalFormat;
 import common.Commons;
 import enumtypes.CommandLineArguments;
 
@@ -75,6 +77,9 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 		Float tfExtendedSequencePValue = null;
 		
 		int numberofInterestingFindings = 0;
+		
+		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
+		
 		
 		
 		try {
@@ -157,18 +162,27 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 				}
 				
 				
-				//We have three not null pValues and ...
+				//We have three not null pValues Case3
 				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
 						snpAlteredSequenceHavingSNPPositionPValue!=null &&
 								tfExtendedSequencePValue!=null &&
-						(savedSnpReferenceSequenceHavingSNPPositionPValue < tfExtendedSequencePValue ||
-						 savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)){
+						(savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)){
 					
 					System.out.println(informationLine);
-					System.out.println(++numberofInterestingFindings +  ": P Values for SNPRefSequence: " + savedSnpReferenceSequenceHavingSNPPositionPValue + "\t" + "SNPAlteredSequence: " +  savedSnpAlteredSequenceHavingSNPPositionPValue + "\t" + "TFExtendedSequence: " + tfExtendedSequencePValue);
-					
-				
+					System.out.println(++numberofInterestingFindings +  ": P Values for SNPRefSequence: " + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" + "SNPAlteredSequence: " +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + "TFExtendedSequence: " + df.format(tfExtendedSequencePValue));				
 				}
+				
+				//We have three not null pValues Case4
+//				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
+//						snpAlteredSequenceHavingSNPPositionPValue!=null &&
+//								tfExtendedSequencePValue!=null &&
+//						(savedSnpReferenceSequenceHavingSNPPositionPValue < savedSnpAlteredSequenceHavingSNPPositionPValue &&
+//								savedSnpReferenceSequenceHavingSNPPositionPValue <= tfExtendedSequencePValue)){
+//					
+//					System.out.println(informationLine);
+//					System.out.println(++numberofInterestingFindings +  ": P Values for SNPRefSequence: " + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" + "SNPAlteredSequence: " +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + "TFExtendedSequence: " + df.format(tfExtendedSequencePValue));				
+//				
+//				}
 				
 				//For debugging1
 				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
@@ -181,16 +195,29 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 				}
 				
 				
-				//For debugging2
-				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
-						snpAlteredSequenceHavingSNPPositionPValue!=null &&
-								tfExtendedSequencePValue!=null &&
-						(savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)  &&
-						(savedSnpReferenceSequenceHavingSNPPositionPValue>0.05f)){
-				
-					System.out.println("Is it such data?");
-				
-				}
+//				//For debugging Case1
+//				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
+//						snpAlteredSequenceHavingSNPPositionPValue!=null &&
+//								tfExtendedSequencePValue!=null &&
+//						(savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)  &&
+//						(savedSnpReferenceSequenceHavingSNPPositionPValue>0.05f)){
+//				
+//					System.out.println(informationLine);
+//					System.out.println("Case1: P Values for SNPRefSequence: " + savedSnpReferenceSequenceHavingSNPPositionPValue + "\t" + "SNPAlteredSequence: " +  savedSnpAlteredSequenceHavingSNPPositionPValue + "\t" + "TFExtendedSequence: " + tfExtendedSequencePValue);
+//					
+//				}
+//				
+//				//For debugging Case2
+//				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
+//						snpAlteredSequenceHavingSNPPositionPValue!=null &&
+//								tfExtendedSequencePValue!=null &&
+//						(savedSnpReferenceSequenceHavingSNPPositionPValue < savedSnpAlteredSequenceHavingSNPPositionPValue)  &&
+//						(savedSnpAlteredSequenceHavingSNPPositionPValue>0.05f)){
+//				
+//					System.out.println(informationLine);
+//					System.out.println("Case2: P Values for SNPRefSequence: " + savedSnpReferenceSequenceHavingSNPPositionPValue + "\t" + "SNPAlteredSequence: " +  savedSnpAlteredSequenceHavingSNPPositionPValue + "\t" + "TFExtendedSequence: " + tfExtendedSequencePValue);
+//							
+//				}
 				
 				
 			}//End of WHILE
