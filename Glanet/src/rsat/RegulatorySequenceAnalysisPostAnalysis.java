@@ -67,9 +67,14 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 		String informationLine = null;
 		
 		Float snpReferenceSequenceHavingSNPPositionPValue = null;
+		Float savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+		
 		Float snpAlteredSequenceHavingSNPPositionPValue = null;
+		Float savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+		
 		Float tfExtendedSequencePValue = null;
 		
+		int numberofInterestingFindings = 0;
 		
 		
 		try {
@@ -79,14 +84,23 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 			
 			while((strLine = RSABufferedReader.readLine())!=null){
 				
+				//Get information line, initialize and skip
 				if (strLine.startsWith(Commons.GLANET_COMMENT_STRING) && !strLine.startsWith("#SequenceType")){
 					
+					
+					//Means that a new finding starts
 					informationLine = strLine;
 					
-					//initialize
+					//Initialize
 					snpReferenceSequenceHavingSNPPositionPValue = null;
+					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
 					snpAlteredSequenceHavingSNPPositionPValue = null;
+					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
 					tfExtendedSequencePValue = null;
+					
+					continue;
 						
 				}
 				
@@ -96,51 +110,88 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 				}
 				
 				//We are interested in the  line that contains "SNPReferenceSequence" and  "Containing SNP Position"
+				//There can be more than one such lines
 				if (strLine.contains(Commons.SNP_REFERENCE_SEQUENCE) && strLine.contains("Containing SNP Position")){
 					//Get snpReferenceSequenceHavingSNPPositionPValue;
 					snpReferenceSequenceHavingSNPPositionPValue = getPValue(strLine);
+					
+//					//debug starts
+//					if (savedSnpReferenceSequenceHavingSNPPositionPValue< Float.MAX_VALUE){
+//						System.out.println("stop here ref");
+//					}
+//					//debug ends
+					
+					if(snpReferenceSequenceHavingSNPPositionPValue < savedSnpReferenceSequenceHavingSNPPositionPValue){
+						savedSnpReferenceSequenceHavingSNPPositionPValue = snpReferenceSequenceHavingSNPPositionPValue;
+					}
+					continue;
 					
 				}
 				
 				
 				//We are interested in the  line that contains "SNPAlteredSequence" and  "Containing SNP Position"
+				//There can be more than one such lines
 				if (strLine.contains(Commons.SNP_ALTERED_SEQUENCE) && strLine.contains("Containing SNP Position")){
 					//Get snpReferenceSequenceHavingSNPPositionPValue;
 					snpAlteredSequenceHavingSNPPositionPValue = getPValue(strLine);
 					
+//					//debug starts
+//					if (savedSnpAlteredSequenceHavingSNPPositionPValue< Float.MAX_VALUE){
+//						System.out.println("stop here altered");
+//					}
+//					//debug ends
+					
+					if (snpAlteredSequenceHavingSNPPositionPValue < savedSnpAlteredSequenceHavingSNPPositionPValue){
+						savedSnpAlteredSequenceHavingSNPPositionPValue = snpAlteredSequenceHavingSNPPositionPValue;
+					}
+					continue;
+					
 				}
 				
 			
-				//We are interested in the  line that contains "TFExtendedPeakSequence" and does not contains "Containing SNP Position"
+				//We are interested in the first line that contains "TFExtendedPeakSequence" and does not contains "Containing SNP Position"
 				if (strLine.contains(Commons.TF_EXTENDED_PEAK_SEQUENCE) && !strLine.contains("Containing SNP Position")){
 					//Get tfExtendedSequencePValue;
 					tfExtendedSequencePValue = getPValue(strLine);
-				
-					
+						
 				}
 				
 				
+				//We have three not null pValues and ...
 				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
 						snpAlteredSequenceHavingSNPPositionPValue!=null &&
 								tfExtendedSequencePValue!=null &&
-						(snpReferenceSequenceHavingSNPPositionPValue < tfExtendedSequencePValue ||
-						 snpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)){
+						(savedSnpReferenceSequenceHavingSNPPositionPValue < tfExtendedSequencePValue ||
+						 savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)){
 					
 					System.out.println(informationLine);
-					System.out.println(snpReferenceSequenceHavingSNPPositionPValue + "\t" + snpAlteredSequenceHavingSNPPositionPValue + "\t" + tfExtendedSequencePValue);
+					System.out.println(++numberofInterestingFindings +  ": P Values for SNPRefSequence: " + savedSnpReferenceSequenceHavingSNPPositionPValue + "\t" + "SNPAlteredSequence: " +  savedSnpAlteredSequenceHavingSNPPositionPValue + "\t" + "TFExtendedSequence: " + tfExtendedSequencePValue);
 					
-					snpReferenceSequenceHavingSNPPositionPValue = null;
-					snpAlteredSequenceHavingSNPPositionPValue = null;
-					tfExtendedSequencePValue =null;
+				
+				}
+				
+				//For debugging1
+				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
+						snpAlteredSequenceHavingSNPPositionPValue!=null &&
+								tfExtendedSequencePValue!=null &&
+						(savedSnpReferenceSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)){
 					
-					
-					informationLine = null;
+					System.out.println("Is it possible? I guess no");
 				
 				}
 				
 				
-
-			
+				//For debugging2
+				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
+						snpAlteredSequenceHavingSNPPositionPValue!=null &&
+								tfExtendedSequencePValue!=null &&
+						(savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)  &&
+						(savedSnpReferenceSequenceHavingSNPPositionPValue>0.05f)){
+				
+					System.out.println("Is it such data?");
+				
+				}
+				
 				
 			}//End of WHILE
 			
