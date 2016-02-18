@@ -100,7 +100,9 @@ public class GlanetRunner implements Runnable {
 			if( getArgs()[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()].equalsIgnoreCase( Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS)){
 				setCurrentProcessInfo( "Augmentation of Enriched Elements with Annotation in GRCh37.p13 ...");
 
-				AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.main( args);
+				//In case of use or need, this class has to be updated since now output have mean, stdDev, zscores amd they can be null
+				//Trying to parse null as float causes java.lang.NumberFormatException
+				//AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.main( args);
 			}
 			/************** Augmentation of Enriched Elements with Given Input Data ends in** GRCh37.p13*********/
 
