@@ -743,6 +743,10 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 				indexofFirstUnderscore = tfName_keggPathwayName.indexOf( '_');
 				keggPathwayName = tfName_keggPathwayName.substring( indexofFirstUnderscore + 1);
 
+				//debug starts
+				System.out.println(strLine1);
+				//debug ends
+				
 				// Pay attention to the order
 				bonfCorrectedPValue = Float.parseFloat( strLine1.substring( indexofSeventhTab + 1, indexofEigthTab));
 				bhFDRAdjustedPValue = Float.parseFloat( strLine1.substring( indexofEigthTab + 1, indexofNinethTab));
@@ -1282,6 +1286,10 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 				indexofEleventhTab = indexofTenthTab > 0?strLine1.indexOf( '\t', indexofTenthTab + 1):-1;
 
 				keggPathwayName = strLine1.substring( indexofFirstTab + 1, indexofSecondTab);
+				
+				//debug starts
+				System.out.println(strLine1);
+				//debug ends
 
 				// Pay attention to the order
 				bonfCorrectedPValue = Float.parseFloat( strLine1.substring( indexofSeventhTab + 1, indexofEigthTab));

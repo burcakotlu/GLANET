@@ -1069,9 +1069,14 @@ public class CollectionofPermutationsResults {
 					element.setMean(null);
 					element.setStdDev(null);
 				}
+				
+//				//debug starts
+//				System.out.println(element.getName() + "\t" + element.getNumber()+ "\t" + element.getMean() + "\t" + element.getStdDev());
+//				//debug ends
 
 				// 27 May 2015
-				if( element.getStdDev() == 0 || element.getStdDev() == null){
+				if( element.getStdDev() == null || element.getStdDev() == 0){
+					
 
 					// For these cases
 					// Do not calculate zScore
