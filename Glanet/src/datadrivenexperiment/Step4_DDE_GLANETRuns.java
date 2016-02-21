@@ -263,7 +263,7 @@ public class Step4_DDE_GLANETRuns {
 					case TRUBA_FAST:{
 						
 						
-						String command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
+						String command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-existOv ";
 
 						switch(withorWithoutGCandMapability){
 

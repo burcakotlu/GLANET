@@ -432,15 +432,14 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 
 -numOvBas
 ^^^^^^^^^
-**Required** if :option:`-c` is set. More explanation for this parameter please.
+**Required** if :option:`-c` is set. This option specifies that association measure type is Number of Overlapping Bases, it is 0 or more.
 
 -existOv
 ^^^^^^^^
-**Required** if :option:`-c` is set. More explanation for this parameter please.
+**Required** if :option:`-c` is set. This option specifies that association measure type is Existence of Overlap, it is either 0 or 1.
 
 -b
 ^^
-
 **Required** if :option:`-c` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. An integer value must be specified as the parameter. If you do not set anything, default option is :option:`-b 1`.
 
 -dnase

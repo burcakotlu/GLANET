@@ -523,11 +523,16 @@ public class Step5_DDE_GLANETResults {
 	public static void initializeElementName2NumberofEnrichmentMap(
 			List<DataDrivenExperimentElementNameType> elementNameList){
 		
+		//Please note that although H3K9me2 is added and it is a known repressor
+		//GLANET Library does not contain any entry for H3K9me2  
+		//Therefore there is no output for H3K9me2 
+		
 		elementNameList.add(DataDrivenExperimentElementNameType.POL2);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME1);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME2);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME3);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K27ME3);
+		elementNameList.add(DataDrivenExperimentElementNameType.H3K9ME2);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K9ME3);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K27AC);
 		elementNameList.add(DataDrivenExperimentElementNameType.H2AZ);
@@ -954,6 +959,7 @@ public class Step5_DDE_GLANETResults {
 			//Elements that we will gonna consider in GLANET DDE
 			List<DataDrivenExperimentElementNameType> elementNameTypeList  = new ArrayList<DataDrivenExperimentElementNameType>();
 			
+			//Add DNA elements in this method
 			initializeElementName2NumberofEnrichmentMap(elementNameTypeList);
 			
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap = new TObjectIntHashMap<String>();
@@ -1031,7 +1037,6 @@ public class Step5_DDE_GLANETResults {
 			//So let's traverse ddeElementList tpmTypes.size()  by tpmTypes.size()
 			//Now, We have to write results here for each TPM
 			writeResults(bufferedWriter,ddeElementList,tpmValues,tpmTypes,generateRandomDataMode);
-			
 			
 			//Flush BufferedWriter
 			bufferedWriter.flush();
