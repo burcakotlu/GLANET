@@ -432,11 +432,11 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 
 -numOvBas
 ^^^^^^^^^
-**Required** if :option:`-c` is set. This option specifies that association measure type is Number of Overlapping Bases, it is 0 or more.
+**Required** if :option:`-c` is set. This option specifies that association measure type is Number of Overlapping Bases, it is 0 or more. See also `-existOv`_.
 
 -existOv
 ^^^^^^^^
-**Required** if :option:`-c` is set. This option specifies that association measure type is Existence of Overlap, it is either 0 or 1.
+**Required** if :option:`-c` is set. This option specifies that association measure type is Existence of Overlap, it is either 0 or 1. See also `-numOvBas`_.
 
 -b
 ^^
