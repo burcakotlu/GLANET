@@ -66,38 +66,44 @@ public class CollectionofPermutationsResults {
 	private static TIntObjectMap<String> userDefinedLibraryElementNumber2ElementNameMap = null;
 	private static TIntObjectMap<String> geneID2GeneHugoSymbolMap = null;
 
+	//23 FEB 2016
+	//GLANET can be run multiple times by the GUI.
+	//Therefore Number2NameMap must be refilled for each run.
+	//This applies for UDGS and UDL cases
+			
 
 	//keggPathwayNumber2NameMap
 	public static TIntObjectMap<String> getKeggPathwayNumber2NameMapInstance(
 			String dataFolder) {
 		
-	      if(keggPathwayNumber2NameMap == null) {
-	    	  
-	    	  keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
+		if (keggPathwayNumber2NameMap == null){
+			
+			keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
 	    	  FileOperations.fillNumber2NameMap( 
 	    			  keggPathwayNumber2NameMap,
 	    			  dataFolder + Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
 	    			  Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
-	      }
-	      
-	      return keggPathwayNumber2NameMap;
+		      
+		}
+    	 
+	    return keggPathwayNumber2NameMap;
 	 }
 	
 	//cellLineNumber2NameMap
 	public static TIntObjectMap<String> getCellLineNumber2NameMapInstance(
 			String dataFolder) {
 		
-	      if(cellLineNumber2NameMap == null) {
-	    	  
-	    	  cellLineNumber2NameMap = new TIntObjectHashMap<String>();
-	    	  FileOperations.fillNumber2NameMap(
+	     if (cellLineNumber2NameMap == null){
+	    	 
+	    	 cellLineNumber2NameMap = new TIntObjectHashMap<String>();
+	    	 FileOperations.fillNumber2NameMap(
 	    			  cellLineNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_ENCODE_CELLLINE_NUMBER_2_NAME_OUTPUT_FILENAME);
-			
-	      }
-	      
-	      return cellLineNumber2NameMap;
+			 
+	     }
+    	  
+	     return cellLineNumber2NameMap;
 	 }
 	
 	
@@ -105,17 +111,17 @@ public class CollectionofPermutationsResults {
 	public static TIntObjectMap<String> getTFNumber2NameMapInstance(
 			String dataFolder) {
 		
-	      if(tfNumber2NameMap == null) {
-	    	  
+		if(tfNumber2NameMap == null){
+			
 	    	  tfNumber2NameMap = new TIntObjectHashMap<String>();
 	    	  FileOperations.fillNumber2NameMap( 
 	    			  tfNumber2NameMap,
 	    			  dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 	    			  Commons.ALL_POSSIBLE_ENCODE_TF_NUMBER_2_NAME_OUTPUT_FILENAME);
-							
-	      }
-	      
-	      return tfNumber2NameMap;
+								
+		}
+		  	        
+		return tfNumber2NameMap;
 	 }
 	
 	
@@ -123,48 +129,50 @@ public class CollectionofPermutationsResults {
 	public static TIntObjectMap<String> getHistoneNumber2NameMapInstance(
 			String dataFolder) {
 		
-	      if(histoneNumber2NameMap == null) {
-	    	  
+		if (histoneNumber2NameMap == null){
+			
 	    	  histoneNumber2NameMap = new TIntObjectHashMap<String>();
 	    	  FileOperations.fillNumber2NameMap( histoneNumber2NameMap,
 						dataFolder + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME,
 						Commons.ALL_POSSIBLE_ENCODE_HISTONE_NUMBER_2_NAME_OUTPUT_FILENAME);
 									
-	      }
-	      
-	      return histoneNumber2NameMap;
+
+		}
+	    	   
+		return histoneNumber2NameMap;
 	 }
 	
 	//userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap
 	public static TIntObjectMap<String> getUserDefinedGeneSetNumber2UserDefinedGeneSetEntryMapInstance(
 			String dataFolder) {
 		
-	      if(userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap == null) {
-	    	  
-	    	  userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = new TIntObjectHashMap<String>();
-	    	  FileOperations.fillNumber2NameMap( userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
-						dataFolder + Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
-						Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
+    	  userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap = new TIntObjectHashMap<String>();
+    	  FileOperations.fillNumber2NameMap( userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
 										
-	      }
+	     
 	      
 	      return userDefinedGeneSetNumber2UserDefinedGeneSetEntryMap;
 	 }
 	
 	//userDefinedLibraryElementNumber2ElementNameMap
+	
 	public static TIntObjectMap<String> getUserDefinedLibraryElementNumber2ElementNameMapInstance(
 			String dataFolder,
 			String elementType) {
 		
-	      if(userDefinedLibraryElementNumber2ElementNameMap == null) {
-	    	  
-	    	  userDefinedLibraryElementNumber2ElementNameMap = new TIntObjectHashMap<String>();
-	    	  UserDefinedLibraryUtility.fillNumber2NameMap(
-						userDefinedLibraryElementNumber2ElementNameMap,
-						dataFolder,
-						Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + elementType + System.getProperty( "file.separator"),
-						Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);						
-	      }
+		//GLANET can be run multiple times by the GUI.
+		//Therefore userDefinedLibraryElementNumber2ElementNameMap must be refilled for each run.
+		//UDL file could have changed.	    	  
+		userDefinedLibraryElementNumber2ElementNameMap = new TIntObjectHashMap<String>();
+		
+		UserDefinedLibraryUtility.fillNumber2NameMap(
+				userDefinedLibraryElementNumber2ElementNameMap,
+				dataFolder,
+				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME + elementType + System.getProperty( "file.separator"),
+				Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENT_NUMBER_2_NAME_OUTPUT_FILENAME);						
+  
 	      
 	      return userDefinedLibraryElementNumber2ElementNameMap;
 	 }
@@ -173,14 +181,13 @@ public class CollectionofPermutationsResults {
 	public static TIntObjectMap<String> getGeneID2GeneHugoSymbolMapInstance(
 			String dataFolder) {
 		
-	      if(geneID2GeneHugoSymbolMap == null) {
-	    	  
-	    	  geneID2GeneHugoSymbolMap = new TIntObjectHashMap<String>();
+		if (geneID2GeneHugoSymbolMap == null){
+		   	  geneID2GeneHugoSymbolMap = new TIntObjectHashMap<String>();
 	    	  HumanGenesAugmentation.fillGeneId2GeneHugoSymbolMap( dataFolder, geneID2GeneHugoSymbolMap);
-											
-	      }
-	      
-	      return geneID2GeneHugoSymbolMap;
+
+		}
+			     	  							
+		return geneID2GeneHugoSymbolMap;
 	 }
 	
 	
