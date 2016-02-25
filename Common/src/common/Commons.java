@@ -935,6 +935,8 @@ public class Commons {
 	public static final int NUMBER_OF_TRIAL_SECOND_LEVEL = 1000;
 	public static final int NUMBER_OF_TRIAL_THIRD_LEVEL = 1500;
 	public static final int NUMBER_OF_TRIAL_FOURTH_LEVEL = 2000;
+	
+	public static final int CUT_OFF_VALUE = 5000;
 
 	public static final String ORIGINAL_INPUT_DATA_FILE = "ORIGINAL_INPUT_DATA_FILE";
 

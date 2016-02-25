@@ -6622,6 +6622,7 @@ public class Enrichment {
 			if( GlanetRunner.shouldLog())logger.info( "chromosome name:" + chromName.convertEnumtoString() + " chromosome size: " + chromSize);
 
 			chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
+			
 
 			if( chromosomeBaseOriginalInputLines != null){
 				

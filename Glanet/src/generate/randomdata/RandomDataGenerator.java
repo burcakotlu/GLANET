@@ -237,11 +237,24 @@ public class RandomDataGenerator {
 
 		float differencebetweenGCs = Float.MAX_VALUE;
 		float differencebetweenMapabilities = Float.MAX_VALUE;
+		
+		//24 FEB 2016
+		//InputLineMinimal savedBestRandomlyGeneratedLineUpToNowWRTEachGCandMappabilityDifference = null;
+		//float savedDifferencebetweenGCs = Float.MAX_VALUE;
+		//float savedDifferencebetweenMapabilities = Float.MAX_VALUE;;
+		InputLineMinimal savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = null;
+		float savedSumofDifferencebetweenGCandMapabilities = Float.MAX_VALUE;
+//		float savedGCDifference = Float.MAX_VALUE;
+//		float savedMappabilityDifference = Float.MAX_VALUE;
+//		int achievedCount = 0;
+		
 
 		float dynamicGCThreshold;
 		float dynamicMapabilityThreshold;
 
 		int count;
+//		int countForIsochoreFamily;
+		int countForIntervalTreeOverlap;
 		int counterThreshold;
 
 		GCIsochoreIntervalTreeFindAllOverlapsResult result = null;
@@ -271,6 +284,9 @@ public class RandomDataGenerator {
 
 				originalInputLine = chromosomeBasedOriginalInputLines.get( j);
 				originalInputLineLength = originalInputLine.getHigh() - originalInputLine.getLow() + 1;
+				
+				//Initialize for each interval
+				countForIntervalTreeOverlap = 0;
 
 				do{
 					// low must be greater than or equal to zero
@@ -293,10 +309,13 @@ public class RandomDataGenerator {
 							intervalTree.getRoot(),
 							intervalTreeNode);
 					
-				}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
+					countForIntervalTreeOverlap++;
+					
+				}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0) && (countForIntervalTreeOverlap<=Commons.CUT_OFF_VALUE));
 				
 				
 				// Insert this interval if it does not overlap with the already randomly created intervals in the interval tree.
+				// Or it may overlap with the already randomly created intervals in the interval tree after Commons.CUT_OFF_VALUE as many trials.
 				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 				randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 				
@@ -326,7 +345,7 @@ public class RandomDataGenerator {
 				// ORIGINAL INPUT DATA
 				originalInputLine = chromosomeBasedOriginalInputLines.get(j);
 				originalInputLineLength = originalInputLine.getHigh() - originalInputLine.getLow() + 1;
-		
+				
 				//8 FEB 2016 starts		
 				//originalGivenIntervalLength is less than or equal to Commons.INTERVAL_LENGTH_100000
 				//Calculate GC and Mappability
@@ -376,13 +395,26 @@ public class RandomDataGenerator {
 					/**************************************************************************************************/
 					/**********************MAPABILITY Calculation for Original Input Line ends*************************/
 					/**************************************************************************************************/
-					
-					// Initialization for each original interval
+										
+				
+					/**************************************************************************************************/
+					/**********************Initialization for each original interval starts****************************/
+					/**************************************************************************************************/
 					count = 0;
+					savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = null;
+					savedSumofDifferencebetweenGCandMapabilities = Float.MAX_VALUE;
+					//savedGCDifference = Float.MAX_VALUE;
+					//savedMappabilityDifference = Float.MAX_VALUE;
+					//achievedCount = 0;
+					
 					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
-
 					dynamicGCThreshold = Commons.GC_THRESHOLD_LOWER_VALUE;
 					dynamicMapabilityThreshold = Commons.MAPABILITY_THRESHOLD_LOWER_VALUE;
+					/**************************************************************************************************/
+					/**********************Initialization for each original interval ends******************************/
+					/**************************************************************************************************/
+
+	
 					
 					do{
 
@@ -390,9 +422,12 @@ public class RandomDataGenerator {
 						/**********************Generate a random line depending on the isochore family of originalInputLine starts***********************************************/
 						/********************************************************************************************************************************************************/
 						
+						//Initialize for each interval
+						countForIntervalTreeOverlap = 0;
 						do{
 							
-
+							//Initialize for each interval
+							//countForIsochoreFamily = 0;
 							do{
 								
 								// Randomly generated interval will have the same isochore family of the original interval
@@ -406,6 +441,8 @@ public class RandomDataGenerator {
 										gcIsochoreFamilyH1Pool,
 										gcIsochoreFamilyH2Pool, 
 										gcIsochoreFamilyH3Pool);
+								
+								//countForIsochoreFamily++;
 							
 							} while(randomlyGeneratedLine==null);
 							
@@ -415,13 +452,19 @@ public class RandomDataGenerator {
 
 							IntervalTree.findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, intervalTree.getRoot(), intervalTreeNode);
 							
-						}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
-						
-						
+							countForIntervalTreeOverlap++;
+							
+						}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0)  && (countForIntervalTreeOverlap<=Commons.CUT_OFF_VALUE));	
 						/********************************************************************************************************************************************************/
 						/**********************Generate a random line depending on the isochore family of originalInputLine ends*************************************************/
 						/********************************************************************************************************************************************************/
 
+						//Let's think that we can not randomly generate an interval that does not have any overlap with already generated intervals.
+						//What to do in this case?
+						//Accept randomly generated interval as it is and add it
+						//Or do not accept it and continue with one less interval, is it possible? Yes it is possible. Since in Enrichment works on the list of intervals it is given. Enrichment does not require a certain number of intervals.
+						//Decision I accept it although it has overlap after Commons.CUT_OFF_VALUE many trials and add it.
+						
 						// Increase count since we have already randomly generated an interval
 						count++;
 
@@ -439,7 +482,7 @@ public class RandomDataGenerator {
 						/************************MAPABILITY Calculation for Randomly Generated Line ends*******************/
 						/**************************************************************************************************/
 						
-						
+				
 						/**************************************************************************************************/
 						/**************************GC Calculation for Randomly Generated Line starts***********************/
 						/**************************************************************************************************/
@@ -464,7 +507,31 @@ public class RandomDataGenerator {
 						/**************************GC Calculation for Randomly Generated Line ends*************************/
 						/**************************************************************************************************/
 
-
+//						Saved w.r.t. sum of differences gave better results than each GC and Mappabiliyu difference						
+//						//Saved best randomlyGeneratedLine up to now wrt to each difference starts 
+//						if ((differencebetweenGCs <= savedDifferencebetweenGCs) && (differencebetweenMapabilities <= savedDifferencebetweenMapabilities)){
+//							
+//							
+//							savedBestRandomlyGeneratedLineUpToNowWRTEachGCandMappabilityDifference = randomlyGeneratedLine;
+//							savedDifferencebetweenGCs = differencebetweenGCs;
+//							savedDifferencebetweenMapabilities = differencebetweenMapabilities;
+//							
+//						}
+//						//Saved best randomlyGeneratedLine up to now wrt to each difference ends
+						
+						//Saved best randomlyGeneratedLine up to now wrt to sum of differences starts 
+						if ((differencebetweenGCs+differencebetweenMapabilities) < savedSumofDifferencebetweenGCandMapabilities){
+							
+							savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = randomlyGeneratedLine;
+							savedSumofDifferencebetweenGCandMapabilities = differencebetweenGCs + differencebetweenMapabilities;	
+							//savedGCDifference = differencebetweenGCs;
+							//savedMappabilityDifference = differencebetweenMapabilities;
+							//achievedCount = count;
+						}
+						//Saved best randomlyGeneratedLine up to now wrt to sum of differences ends
+						
+						
+					
 						// Update dynamicMapabilityThreshold
 						// Update dynamicGCThreshold
 						if( count > counterThreshold){
@@ -511,10 +578,30 @@ public class RandomDataGenerator {
 							counterThreshold = counterThreshold + Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 						}// End of IF
 						
-					}while( differencebetweenGCs > dynamicGCThreshold || differencebetweenMapabilities > dynamicMapabilityThreshold);
+				
+
+						
+					}while( (differencebetweenGCs > dynamicGCThreshold || differencebetweenMapabilities > dynamicMapabilityThreshold) && (count<= Commons.CUT_OFF_VALUE));
 					
-					randomlyGeneratedInputLines.add(randomlyGeneratedLine);
-					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+					
+					//We have tried Commons.CUT_OFF_VALUE many times and still we didn't achieve GC and Mappability  as much as we want.
+					//In this case we add the saved best randomlyGeneratedLine up to now.
+					if ((count>Commons.CUT_OFF_VALUE) && (differencebetweenGCs > dynamicGCThreshold || differencebetweenMapabilities > dynamicMapabilityThreshold)){
+						
+						randomlyGeneratedLine = savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference;
+						
+						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
+						
+						//update intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
+						intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
+						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+						
+					}else {
+						
+						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
+						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+					}
+					
 					
 
 				}else if (originalInputLineLength > Commons.INTERVAL_LENGTH_100000){
@@ -528,6 +615,9 @@ public class RandomDataGenerator {
 					//But be sure that it does not overlap with the already randomly generated intervals
 					//as if we are randomly generating interval wo GC and Mappability
 					
+					//initialize
+					count = 0;
+					
 					do{
 						// low must be greater than or equal to zero
 						// high must be less than chromSize
@@ -539,6 +629,8 @@ public class RandomDataGenerator {
 						randomlyGeneratedLine = getRandomInterval(chromSize,originalInputLineLength,threadLocalRandom);
 						//8 FEB 2016 ends
 						
+						count++;
+						
 						//28 OCT 2015 starts
 						intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
 						
@@ -549,8 +641,9 @@ public class RandomDataGenerator {
 								intervalTree.getRoot(),
 								intervalTreeNode);
 						
-					}while(overlappedNodeList!=null && overlappedNodeList.size()>0);
+					}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0) && (count <= Commons.CUT_OFF_VALUE));
 					
+					//Decision I accept it although it has overlap after Commons.CUT_OFF_VALUE many times trials and add it.
 					randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 				
@@ -567,6 +660,11 @@ public class RandomDataGenerator {
 		/***********************************WITH MapabilityandGC ends**************************************/
 		/**************************************************************************************************/
 
+		//debug starts
+//		System.out.println("Come here");
+//		logger.info("for one sample randomdDataGeneration ended.");
+		//debug ends
+		
 		return randomlyGeneratedInputLines;
 	}
 
