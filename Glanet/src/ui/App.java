@@ -185,6 +185,40 @@ public class App {
 		/***************************************************************************************/
 		/**********************************GLANET RUN MODE**************************************/
 		/***************************************************************************************/
+		
+		
+		
+		/***************************************************************************************/
+		/**********************************ISOCHORE FAMILY MODE starts**************************/
+		/***************************************************************************************/
+		//Parsing Isochore Family Mode
+		for( int i = 0; i < args.length; i++){
+			if( args[i].equalsIgnoreCase( Commons.DO_USE_ISOCHORE_FAMILY)){
+				if( argsInOrder[CommandLineArguments.IsochoreFamilyMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.IsochoreFamilyMode.value()] = Commons.DO_USE_ISOCHORE_FAMILY;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+			
+			else if( args[i].equalsIgnoreCase( Commons.DO_NOT_USE_ISOCHORE_FAMILY)){
+				if( argsInOrder[CommandLineArguments.IsochoreFamilyMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.IsochoreFamilyMode.value()] = Commons.DO_NOT_USE_ISOCHORE_FAMILY;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+			
+		}//End of FOR Parsing GLANET Run Mode
+		
+		
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.IsochoreFamilyMode))
+			return false;
+		/***************************************************************************************/
+		/**********************************ISOCHORE FAMILY MODE ends****************************/
+		/***************************************************************************************/
 
 		
 		// parsing glanet folder location
