@@ -126,6 +126,7 @@ public class MainView extends JPanel {
 				String userDefinedLibraryDataFormat, 
 				String givenInputDataType,
 				String glanetRunType,
+				String isochoreFamilyMode,
 				String[] cellLinesToBeConsidered);
 
 		public void stopCurrentProcess();
@@ -247,6 +248,7 @@ public class MainView extends JPanel {
 						userDefinedLibraryDataFormatCombo.getSelectedItem().toString(),
 						Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS,
 						Commons.GLANET_NORMAL_RUN,
+						Commons.DO_NOT_USE_ISOCHORE_FAMILY,
 						cellLinesList.getSelectedValuesList().toArray( new String[0]));
 
 				enableStartProcess( false);

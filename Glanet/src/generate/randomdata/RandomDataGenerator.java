@@ -26,7 +26,6 @@ import mapability.Mapability;
 import org.apache.log4j.Logger;
 
 import common.Commons;
-
 import enrichment.InputLineMinimal;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
@@ -34,18 +33,20 @@ import enumtypes.GenerateRandomDataMode;
 import enumtypes.GivenInputDataType;
 //import gnu.trove.list.TShortList;
 import enumtypes.IsochoreFamily;
+import enumtypes.IsochoreFamilyMode;
 
 public class RandomDataGenerator {
 
 	final static Logger logger = Logger.getLogger(RandomDataGenerator.class);
 	
 
-	// IsochoreFamilyPoolHigh must not be greater than chromSize
-	// With GC and Mappability and IsochoreFamily
+	// Get random interval w.r.t. isochore Family
 	// In addition to chr and givenIntervalLength
+	// IsochoreFamilyPoolHigh must not be greater than chromSize
 	// This method may return a null randomInterval
 	// Although it seems to be eliminated by looking at the other isochoreFamilyPools if there is no interval left in the current pool.
-	public static InputLineMinimal getRandomLineDependingOnIsochoreFamilyofOriginalInputLine( 
+	//It has been eliminated.
+	public static InputLineMinimal getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine( 
 			int chromSize,
 			ThreadLocalRandom threadLocalRandom, 
 			int originalInputLineLength,
@@ -178,9 +179,7 @@ public class RandomDataGenerator {
 
 	}
 	
-	
-	// Without GC and Mappability and IsochoreFamily
-	// Only w.r.t. chr and givenIntervalLength
+	// Get random interval only w.r.t. chr and givenIntervalLength
 	// This method always return a not null randomInterval
 	public static InputLineMinimal getRandomInterval(
 			int chromSize,
@@ -219,7 +218,8 @@ public class RandomDataGenerator {
 			ChromosomeName chromName, 
 			List<InputLineMinimal> chromosomeBasedOriginalInputLines,
 			ThreadLocalRandom threadLocalRandom, 
-			GenerateRandomDataMode generateRandomDataMode) {
+			GenerateRandomDataMode generateRandomDataMode,
+			IsochoreFamilyMode isochoreFamilyMode) {
 
 		List<InputLineMinimal> randomlyGeneratedInputLines = null;
 
@@ -426,25 +426,34 @@ public class RandomDataGenerator {
 						countForIntervalTreeOverlap = 0;
 						do{
 							
-							//Initialize for each interval
-							//countForIsochoreFamily = 0;
-							do{
-								
-								// Randomly generated interval will have the same isochore family of the original interval
-								randomlyGeneratedLine = getRandomLineDependingOnIsochoreFamilyofOriginalInputLine(
-										chromSize,
-										threadLocalRandom, 
-										originalInputLineLength, 
-										originalInputLineIsochoreFamily,
-										gcIsochoreFamilyL1Pool, 
-										gcIsochoreFamilyL2Pool, 
-										gcIsochoreFamilyH1Pool,
-										gcIsochoreFamilyH2Pool, 
-										gcIsochoreFamilyH3Pool);
-								
-								//countForIsochoreFamily++;
 							
-							} while(randomlyGeneratedLine==null);
+							if (isochoreFamilyMode.useIsochoreFamily()){
+								
+								//Initialize for each interval
+								//countForIsochoreFamily = 0;
+								do{
+									
+									// Randomly generated interval will have the same isochore family of the original interval
+									randomlyGeneratedLine = getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine(
+											chromSize,
+											threadLocalRandom, 
+											originalInputLineLength, 
+											originalInputLineIsochoreFamily,
+											gcIsochoreFamilyL1Pool, 
+											gcIsochoreFamilyL2Pool, 
+											gcIsochoreFamilyH1Pool,
+											gcIsochoreFamilyH2Pool, 
+											gcIsochoreFamilyH3Pool);
+									
+									//countForIsochoreFamily++;
+								
+								} while(randomlyGeneratedLine==null);
+								
+							}else {
+								randomlyGeneratedLine = getRandomInterval(chromSize,originalInputLineLength,threadLocalRandom);
+							}
+								
+
 							
 						
 							intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());

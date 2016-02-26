@@ -87,6 +87,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			String userDefinedLibraryDataFormat, 
 			String givenInputDataType,
 			String glanetRunType,
+			String isochoreFamilyMode,
 			String[] cellLinesToBeConsidered) {
 
 		String[] args = new String[CommandLineArguments.NumberOfArguments.value() + cellLinesToBeConsidered.length];
@@ -130,6 +131,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.GivenInputDataType.value()] = givenInputDataType;
 		args[CommandLineArguments.LogFile.value()] = Commons.ARG_LOG_FILE;
 		args[CommandLineArguments.GLANETRun.value()] = glanetRunType;
+		args[CommandLineArguments.IsochoreFamilyMode.value()] = isochoreFamilyMode;
 
 		// filling the rest with selected cell lines.
 		for( int i = CommandLineArguments.NumberOfArguments.value(); i < args.length; i++)

@@ -127,7 +127,8 @@ public enum CommandLineArguments {
 	GivenInputDataType(36,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS),
 	LogFile(37, Commons.ARG_NO_LOG_FILE),
 	GLANETRun(38, Commons.GLANET_NORMAL_RUN), //This argument is optional, default is normal run
-	NumberOfArguments( 39);
+	IsochoreFamilyMode(39,Commons.DO_NOT_USE_ISOCHORE_FAMILY), //This argument is internal.
+	NumberOfArguments(40);
 
 	private final int value;
 	private final String defaultValue;

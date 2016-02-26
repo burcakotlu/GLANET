@@ -398,6 +398,8 @@ public class Commons {
 	public static final String H2 = "H2";
 	public static final String H3 = "H3";
 	
+	public static final String DO_USE_ISOCHORE_FAMILY = "DO_USE_ISOCHORE_FAMILY";
+	public static final String DO_NOT_USE_ISOCHORE_FAMILY = "DO_NOT_USE_ISOCHORE_FAMILY";
 	
 	//AssociationMeasureType
 	public static final String NUMBER_OF_OVERLAPPING_BASES = "NUMBER_OF_OVERLAPPING_BASES";

@@ -71,7 +71,7 @@ public class GlanetRunner implements Runnable {
 			/************************ Annotate Permutations starts ****************************/
 			setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
 
-			Enrichment.main( args);
+			Enrichment.main(args);
 			/************************ Annotate Permutations ends ******************************/
 
 			if( getArgs()[CommandLineArguments.EnrichmentZScoreMode.value()].equalsIgnoreCase( Commons.PERFORM_ENRICHMENT_WITH_ZSCORE)){

@@ -17,6 +17,7 @@ import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.GivenInputDataType;
 import enumtypes.IsochoreFamily;
+import enumtypes.IsochoreFamilyMode;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
 import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
@@ -100,6 +101,7 @@ public class Enrichment {
 		private final List<InputLineMinimal> chromosomeBasedOriginalInputLines;
 
 		private final GenerateRandomDataMode generateRandomDataMode;
+		private final IsochoreFamilyMode isochoreFamilyMode;
 		private final WriteGeneratedRandomDataMode writeGeneratedRandomDataMode;
 
 		private final int lowIndex;
@@ -114,11 +116,6 @@ public class Enrichment {
 		private final IntervalTree gcIntervalTree;
 		private final CalculateGC calculateGC;
 		
-		//private final IntervalTree gcIntervalLengthOneHundredTree;
-		//private final IntervalTree gcIntervalLengthOneThousandTree;
-		//private final IntervalTree gcIntervalLengthTenThousandTree;
-		//private final IntervalTree gcIsochoreIntervalTree;
-
 		private final List<Interval> gcIsochoreFamilyL1Pool;
 		private final List<Interval> gcIsochoreFamilyL2Pool;
 		private final List<Interval> gcIsochoreFamilyH1Pool;
@@ -140,6 +137,7 @@ public class Enrichment {
 				ChromosomeName chromName,
 				List<InputLineMinimal> chromosomeBasedOriginalInputLines,
 				GenerateRandomDataMode generateRandomDataMode,
+				IsochoreFamilyMode isochoreFamilyMode,
 				WriteGeneratedRandomDataMode writeGeneratedRandomDataMode, 
 				int lowIndex, 
 				int highIndex,
@@ -148,10 +146,6 @@ public class Enrichment {
 				TByteList gcByteList,
 				IntervalTree gcIntervalTree, 
 				CalculateGC calculateGC,
-				//IntervalTree gcIntervalLengthOneHundredTree, 
-				//IntervalTree gcIntervalLengthOneThousandTree, 
-				//IntervalTree gcIntervalLengthTenThousandTree, 
-				//IntervalTree gcIsochoreIntervalTree, 
 				List<Interval> gcIsochoreFamilyL1Pool,
 				List<Interval> gcIsochoreFamilyL2Pool, 
 				List<Interval> gcIsochoreFamilyH1Pool,
@@ -170,6 +164,7 @@ public class Enrichment {
 			this.chromosomeBasedOriginalInputLines = chromosomeBasedOriginalInputLines;
 
 			this.generateRandomDataMode = generateRandomDataMode;
+			this.isochoreFamilyMode = isochoreFamilyMode;
 			this.writeGeneratedRandomDataMode = writeGeneratedRandomDataMode;
 
 			this.lowIndex = lowIndex;
@@ -184,11 +179,6 @@ public class Enrichment {
 			this.gcIntervalTree = gcIntervalTree;
 			this.calculateGC = calculateGC;
 			
-			// For Commons.SHORT_INTERVAL_LENGTH
-			//this.gcIntervalLengthOneHundredTree = gcIntervalLengthOneHundredTree;
-			//this.gcIntervalLengthOneThousandTree = gcIntervalLengthOneThousandTree;
-			//this.gcIntervalLengthTenThousandTree = gcIntervalLengthTenThousandTree;
-			//this.gcIsochoreIntervalTree = gcIsochoreIntervalTree;
 
 			this.gcIsochoreFamilyL1Pool = gcIsochoreFamilyL1Pool;
 			this.gcIsochoreFamilyL2Pool = gcIsochoreFamilyL2Pool;
@@ -221,6 +211,7 @@ public class Enrichment {
 						chromName,
 						chromosomeBasedOriginalInputLines, 
 						generateRandomDataMode, 
+						isochoreFamilyMode,
 						writeGeneratedRandomDataMode,
 						lowIndex, 
 						middleIndex, 
@@ -242,6 +233,7 @@ public class Enrichment {
 						chromName,
 						chromosomeBasedOriginalInputLines, 
 						generateRandomDataMode, 
+						isochoreFamilyMode,
 						writeGeneratedRandomDataMode,
 						middleIndex, 
 						highIndex, 
@@ -292,7 +284,8 @@ public class Enrichment {
 							chromName, 
 							chromosomeBasedOriginalInputLines,
 							ThreadLocalRandom.current(), 
-							generateRandomDataMode));
+							generateRandomDataMode,
+							isochoreFamilyMode));
 
 					// Write Generated Random Data
 					if( writeGeneratedRandomDataMode.isWriteGeneratedRandomDataMode()){
@@ -4266,6 +4259,7 @@ public class Enrichment {
 			String runName,
 			List<InputLine> allOriginalInputLines,
 			GenerateRandomDataMode generateRandomDataMode,
+			IsochoreFamilyMode isochoreFamilyMode,
 			WriteGeneratedRandomDataMode writeGeneratedRandomDataMode,
 			WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
 			WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode,
@@ -4318,9 +4312,6 @@ public class Enrichment {
 		long startTimeAllPermutationsAllChromosomes;
 		long endTimeAllPermutationsAllChromosomes;
 
-		long startTimeFillingList;
-		long endTimeFillingList;
-		
 		long startTimeGenerateRandomDataForEachChromosome;
 		long endTimeGenerateRandomDataForEachChromosome;
 
@@ -4362,7 +4353,7 @@ public class Enrichment {
 		IntervalTree gcIntervalTree = null;
 		CalculateGC calculateGC = null;
 		
-		// Will be always used
+		// Will be used w.r.t. isochoreFamilyMode
 		List<Interval> gcIsochoreFamilyL1Pool = null;
 		List<Interval> gcIsochoreFamilyL2Pool = null;
 		List<Interval> gcIsochoreFamilyH1Pool = null;
@@ -4503,113 +4494,41 @@ public class Enrichment {
 			if( chromosomeBaseOriginalInputLines != null){
 
 				/*******************************************************************************************************************************/
-				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList STARTS *****************/
+				/************************ FILL GC and Mapability Data Structures STARTS ********************************************************/
 				/*******************************************************************************************************************************/
-				// Fill GC and Mapability Data Structures
 				if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
-
-					GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
-					if( GlanetRunner.shouldLog())logger.info("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
-
-					startTimeFillingList = System.currentTimeMillis();
-
-					/************************************************/
-					/*********************GC*************************/
-					/************************************************/
-					//Decide on which gcIntervalTree to use depending on the chrBasedAverageGivenIntervalLength
-					if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100){						
-						// Fill GCByteList if givenData contains interval of length <= 100
-						gcByteList = new TByteArrayList();
-						ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
-					}
-					else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
-						gcIntervalTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-
-					}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
-						gcIntervalTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_1000,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-
-					}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
-						gcIntervalTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-
-					}else {						
-						
-						//Will we generate random data w.r.t. GC and Mappability if modeofIntervalLength is > 100000? NO
-						//We said that if mode of given interval lengths is greater than 100000 bp, then we will not generate random interval wGCM
-						//Then, is filling gcIntervalTree with intervals of 100000 bp meaningful?
-						
-						//Yes since we give this decision w.r.t to the mode of the given intervals.
-						//Mode of given intervals can be > 100000 bp
-						//But there can be still given intervals with length less than 100000 bp
-						//for those intervals their gc  will be calculated using gcIntervalTree with 100000 interval lengths.
-						
-						//So why to use gcIsochoreIntervalTree for intervals less than 100000bp?
-						//We may not have all of gcIntervalTrees because of memory bottleneck
-						//But we can have the gcIntervalTree with longest interval length shorter than 100000 which is gcIntervalTree with 10000 bp
-
-						gcIntervalTree = new IntervalTree();
-						
-						//ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
-						//calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
-						
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-
-					}
-				
-					// Always fill GCIsochorePools
+					
+					gcByteList = new TByteArrayList();
+					gcIntervalTree = new IntervalTree();
 					gcIsochoreFamilyL1Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyL2Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH1Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH2Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH3Pool = new ArrayList<Interval>();
-
-					// Always fill Isochore Family Pools for random Isochore Interval selection depending on the
-					// Isochore Family of the original interval.
-					// GC Isochore Family L1 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.L1,gcIsochoreFamilyL1Pool);
-
-					// GC Isochore Family L2 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.L2,gcIsochoreFamilyL2Pool);
-
-					// GC Isochore Family H1 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.H1,gcIsochoreFamilyH1Pool);
-
-					// GC Isochore Family H2 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.H2,gcIsochoreFamilyH2Pool);
-
-					// GC Isochore Family H3 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool( dataFolder, chromName, IsochoreFamily.H3,gcIsochoreFamilyH3Pool);
-					/************************************************/
-					/*********************GC*************************/
-					/************************************************/
-
-					/************************************************/
-					/**************MAPABILITY************************/
-					/************************************************/
 					mapabilityChromosomePositionList = new TIntArrayList();
 					mapabilityShortValueList = new TShortArrayList();
 
-					ChromosomeBasedMappabilityTroveList.fillTroveList(dataFolder, chromName,mapabilityChromosomePositionList, mapabilityShortValueList);
-					/************************************************/
-					/**************MAPABILITY************************/
-					/************************************************/
+				}
 
-					endTimeFillingList = System.currentTimeMillis();
-
-					GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
-					if( GlanetRunner.shouldLog())logger.info("For " + chromName.convertEnumtoString() +  " Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
-
-				}// Generate Random Data WITH GC and Mapability
+				calculateGC = fillGCandMappabilityDataStructures(
+						dataFolder,
+						chromName,
+						chromBasedModeofGivenIntervalLength,
+						generateRandomDataMode,
+						isochoreFamilyMode,
+						gcByteList,
+						gcIntervalTree,
+						gcIsochoreFamilyL1Pool,
+						gcIsochoreFamilyL2Pool,
+						gcIsochoreFamilyH1Pool,
+						gcIsochoreFamilyH2Pool,
+						gcIsochoreFamilyH3Pool,
+						mapabilityChromosomePositionList,
+						mapabilityShortValueList);
 				/*******************************************************************************************************************************/
-				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList ENDS *******************/
+				/************************ FILL GC and Mapability Data Structures ENDS **********************************************************/
 				/*******************************************************************************************************************************/
+
 
 				/********************************************************************************************************/
 				/*************************** GENERATE RANDOM DATA FOR EACH CHROMOSOME STARTS ****************************/
@@ -4626,7 +4545,8 @@ public class Enrichment {
 						chromSize, 
 						chromName,
 						chromosomeBaseOriginalInputLines, 
-						generateRandomDataMode, 
+						generateRandomDataMode,
+						isochoreFamilyMode,
 						writeGeneratedRandomDataMode,
 						Commons.ZERO, 
 						permutationNumberList.size(), 
@@ -4635,10 +4555,6 @@ public class Enrichment {
 						gcByteList, 
 						gcIntervalTree,
 						calculateGC,
-						//gcIntervalLengthOneHundredTree, 
-						//gcIntervalLengthOneThousandTree, 
-						//gcIntervalLengthTenThousandTree, 
-						//gcIsochoreIntervalTree, 
 						gcIsochoreFamilyL1Pool,
 						gcIsochoreFamilyL2Pool, 
 						gcIsochoreFamilyH1Pool, 
@@ -6367,6 +6283,177 @@ public class Enrichment {
 
 	// 24 June 2015 ends
 	// DO NOT KEEP NUMBER OF OVERLAPS COMING FROM EACH PERMUTATION ends
+	
+	
+	//26 FEB 2016
+	//For code simplification
+	public static CalculateGC fillGCandMappabilityDataStructures(
+			String dataFolder,
+			ChromosomeName chromName,
+			int chromBasedModeofGivenIntervalLength,
+			GenerateRandomDataMode generateRandomDataMode,
+			IsochoreFamilyMode isochoreFamilyMode,			
+			TByteList gcByteList,
+			IntervalTree gcIntervalTree,
+			List<Interval> gcIsochoreFamilyL1Pool,
+			List<Interval> gcIsochoreFamilyL2Pool,
+			List<Interval> gcIsochoreFamilyH1Pool,
+			List<Interval> gcIsochoreFamilyH2Pool,
+			List<Interval> gcIsochoreFamilyH3Pool,
+			TIntList mapabilityChromosomePositionList,
+			TShortList mapabilityShortValueList){
+		
+		long startTimeFillingList;
+		long endTimeFillingList;
+		CalculateGC calculateGC = null;
+		
+		// Fill gcCharArray and mapabilityFloatArray
+		if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+
+			GlanetRunner.appendLog("Filling of GC Content and Mappability Data Structures have started.");
+			if( GlanetRunner.shouldLog())logger.info("Filling of GC Content and Mappability Data Structures have started.");
+
+			startTimeFillingList = System.currentTimeMillis();
+			
+			/************************************************/
+			/*********************GC*************************/
+			/************************************************/
+			
+			//Decide on which gcIntervalTree to use depending on the chrBasedAverageGivenIntervalLength
+			if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100){						
+				// Fill GCByteList if givenData contains interval of length <= 100
+				//gcByteList = new TByteArrayList();
+				ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+				calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
+			}
+			else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
+				//gcIntervalTree = new IntervalTree();
+				ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
+				calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+			}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
+				//gcIntervalTree = new IntervalTree();
+				ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_1000,gcIntervalTree);
+				calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+			}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
+				//gcIntervalTree = new IntervalTree();
+				ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+				calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+			}else {						
+				//Will we generate random data w.r.t. GC and Mappability if modeofIntervalLength is > 100000? NO
+				//We said that if mode of given interval lengths is greater than 100000 bp, then we will not generate random interval wGCM
+				//Then, is filling gcIntervalTree with intervals of 100000 bp meaningful?
+				
+				//Yes since we give this decision w.r.t to the mode of the given intervals.
+				//Mode of given intervals can be > 100000 bp
+				//But there can be still given intervals with length less than 100000 bp
+				//for those intervals their gc  will be calculated using gcIntervalTree with 100000 interval lengths.
+				
+				//So why to use gcIsochoreIntervalTree for intervals less than 100000bp?
+				//We may not have all of gcIntervalTrees because of memory bottleneck
+				//But we can have the gcIntervalTree with longest interval length shorter than 100000 which is gcIntervalTree with 10000 bp
+				//gcIntervalTree = new IntervalTree();
+
+				//ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
+				//calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+				
+				ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+				calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+			}
+			/************************************************/
+			/*********************GC*************************/
+			/************************************************/
+
+			/*******************************************************************************/
+			/*********************Fill Isochore Family Pools starts*************************/
+			/*******************************************************************************/
+			if (isochoreFamilyMode.useIsochoreFamily()){
+				
+				// Fill Isochore Family Pools for random Isochore Interval selection depending on the Isochore Family of the original interval.
+				// GC Isochore Family L1 Pool
+				ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+						dataFolder, 
+						chromName, 
+						IsochoreFamily.L1,
+						gcIsochoreFamilyL1Pool);
+
+				// GC Isochore Family L2 Pool
+				ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+						dataFolder, 
+						chromName, 
+						IsochoreFamily.L2,
+						gcIsochoreFamilyL2Pool);
+
+				// GC Isochore Family H1 Pool
+				ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+						dataFolder, 
+						chromName, 
+						IsochoreFamily.H1,
+						gcIsochoreFamilyH1Pool);
+
+				// GC Isochore Family H2 Pool
+				ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+						dataFolder, 
+						chromName, 
+						IsochoreFamily.H2,
+						gcIsochoreFamilyH2Pool);
+
+				// GC Isochore Family H3 Pool
+				ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+						dataFolder, 
+						chromName, 
+						IsochoreFamily.H3,
+						gcIsochoreFamilyH3Pool);
+			}
+			/*******************************************************************************/
+			/*********************Fill Isochore Family Pools ends***************************/
+			/*******************************************************************************/
+		
+		
+			/************************************************/
+			/**************MAPABILITY************************/
+			/************************************************/
+			// For testing purposes
+			// mapabilityByteValueList
+			// mapabilityByteValueList = new TByteArrayList();
+
+			// For testing purposes
+			// Mapability Interval Tree
+			// mapabilityIntervalTree = new IntervalTree();
+			
+			// Mapability Old Way
+			// mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,chromName,chromSize);
+
+			// GLANET Always Fills
+			// for Mappability
+			// mapabilityChromosomePositionList
+			// mapabilityShortValueList
+			ChromosomeBasedMappabilityTroveList.fillTroveList( 
+					dataFolder, 
+					chromName,
+					mapabilityChromosomePositionList, 
+					mapabilityShortValueList);
+
+			// For testing purposes
+			// Mapability Interval Tree
+			// MapabilityIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName,
+			// mapabilityIntervalTree);
+			/************************************************/
+			/**************MAPABILITY************************/
+			/************************************************/
+
+			endTimeFillingList = System.currentTimeMillis();
+
+			GlanetRunner.appendLog("Filling of GC Content and Mappability Data Structures have taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
+			if( GlanetRunner.shouldLog())logger.info("Filling of GC Content and Mappability Data Structures have taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
+
+		}//End of IF Generate Random Data with GC and Mappability
+
+		return calculateGC;
+	}
 
 	// NEW FUNCIONALITY ADDED
 	// First Generate random data concurrently
@@ -6401,6 +6488,7 @@ public class Enrichment {
 			TLongObjectMap<TIntList> tfCellLineRegulationBasedKeggPathway2AllKMap,
 			TLongObjectMap<TIntList> tfCellLineAllBasedKeggPathway2AllKMap,
 			GenerateRandomDataMode generateRandomDataMode,
+			IsochoreFamilyMode isochoreFamilyMode,
 			WriteGeneratedRandomDataMode writeGeneratedRandomDataMode,
 			WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
 			WritePermutationBasedAnnotationResultMode writePermutationBasedAnnotationResultMode,
@@ -6457,9 +6545,6 @@ public class Enrichment {
 
 		long startTimeAllPermutationsAllChromosomes;
 		long endTimeAllPermutationsAllChromosomes;
-
-		long startTimeFillingList;
-		long endTimeFillingList;
 
 		long startTimeGenerateRandomData;
 		long endTimeGenerateRandomData;
@@ -6623,165 +6708,44 @@ public class Enrichment {
 
 			chromosomeBaseOriginalInputLines = chromosomeName2OriginalInputLinesMap.get( chromName);
 			
-
 			if( chromosomeBaseOriginalInputLines != null){
 				
 				startTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 
 				/*******************************************************************************************************************************/
-				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList STARTS *****************/
-				/*******************************************************************************************************************************/
-				// Fill gcCharArray and mapabilityFloatArray
+				/************************ FILL GC and Mapability Data Structures STARTS ********************************************************/
+				/*******************************************************************************************************************************/				
 				if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
-
-					GlanetRunner.appendLog( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList has started.");
-					if( GlanetRunner.shouldLog())logger.info( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has started.");
-
-					startTimeFillingList = System.currentTimeMillis();
 					
-					/************************************************/
-					/*********************GC*************************/
-					/************************************************/
-					
-					//Decide on which gcIntervalTree to use depending on the chrBasedAverageGivenIntervalLength
-					if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100){						
-						// Fill GCByteList if givenData contains interval of length <= 100
-						gcByteList = new TByteArrayList();
-						ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
-					}
-					else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
-						gcIntervalTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-
-					}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
-						gcIntervalTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_1000,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-
-					}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
-						gcIntervalTree = new IntervalTree();
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-
-					}else {						
-						//Will we generate random data w.r.t. GC and Mappability if modeofIntervalLength is > 100000? NO
-						//We said that if mode of given interval lengths is greater than 100000 bp, then we will not generate random interval wGCM
-						//Then, is filling gcIntervalTree with intervals of 100000 bp meaningful?
-						
-						//Yes since we give this decision w.r.t to the mode of the given intervals.
-						//Mode of given intervals can be > 100000 bp
-						//But there can be still given intervals with length less than 100000 bp
-						//for those intervals their gc  will be calculated using gcIntervalTree with 100000 interval lengths.
-						
-						//So why to use gcIsochoreIntervalTree for intervals less than 100000bp?
-						//We may not have all of gcIntervalTrees because of memory bottleneck
-						//But we can have the gcIntervalTree with longest interval length shorter than 100000 which is gcIntervalTree with 10000 bp
-						gcIntervalTree = new IntervalTree();
-
-						//ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
-						//calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
-						
-						ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
-						calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
-
-					}
-					
-					
-					// Always fill GCIsochorePools starting points for random interval creation
+					gcByteList = new TByteArrayList();
+					gcIntervalTree = new IntervalTree();
 					gcIsochoreFamilyL1Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyL2Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH1Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH2Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH3Pool = new ArrayList<Interval>();
-					
-					// Always fill GC Isochore IntervalTree for classifying the Isochore Family of the interval GC Isochore IntervalTree
-					//ChromosomeBasedGCIntervalTree.fillIsochoreIntervalTree( dataFolder, chromName,gcIsochoreIntervalTree);
-
-					
-					// Always fill Isochore Family Pools for random Isochore Interval selection depending on the Isochore Family of the original interval.
-					// GC Isochore Family L1 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
-							dataFolder, 
-							chromName, 
-							IsochoreFamily.L1,
-							gcIsochoreFamilyL1Pool);
-
-					// GC Isochore Family L2 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
-							dataFolder, 
-							chromName, 
-							IsochoreFamily.L2,
-							gcIsochoreFamilyL2Pool);
-
-					// GC Isochore Family H1 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
-							dataFolder, 
-							chromName, 
-							IsochoreFamily.H1,
-							gcIsochoreFamilyH1Pool);
-
-					// GC Isochore Family H2 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
-							dataFolder, 
-							chromName, 
-							IsochoreFamily.H2,
-							gcIsochoreFamilyH2Pool);
-
-					// GC Isochore Family H3 Pool
-					ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
-							dataFolder, 
-							chromName, 
-							IsochoreFamily.H3,
-							gcIsochoreFamilyH3Pool);
-					/************************************************/
-					/*********************GC*************************/
-					/************************************************/
-
-					/************************************************/
-					/**************MAPABILITY************************/
-					/************************************************/
 					mapabilityChromosomePositionList = new TIntArrayList();
 					mapabilityShortValueList = new TShortArrayList();
 
-					// For testing purposes
-					// mapabilityByteValueList
-					// mapabilityByteValueList = new TByteArrayList();
+				}
 
-					// For testing purposes
-					// Mapability Interval Tree
-					// mapabilityIntervalTree = new IntervalTree();
-					
-					// Mapability Old Way
-					// mapabilityFloatArray = ChromosomeBasedMapabilityArray.getChromosomeMapabilityArray(dataFolder,chromName,chromSize);
-
-					// GLANET Always Fills
-					// for Mappability
-					// mapabilityChromosomePositionList
-					// mapabilityShortValueList
-					ChromosomeBasedMappabilityTroveList.fillTroveList( 
-							dataFolder, 
-							chromName,
-							mapabilityChromosomePositionList, 
-							mapabilityShortValueList);
-
-					// For testing purposes
-					// Mapability Interval Tree
-					// MapabilityIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName,
-					// mapabilityIntervalTree);
-					/************************************************/
-					/**************MAPABILITY************************/
-					/************************************************/
-
-					endTimeFillingList = System.currentTimeMillis();
-
-					GlanetRunner.appendLog( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
-					if( GlanetRunner.shouldLog())logger.info( "Filling of gcByteList, gcIntervalTree, gcIsochoreIntervalTree, gcIsochorePools, mapabilityChromosomePositionList, mapabilityShortValueList  has taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
-
-				}//End of IF Generate Random Data with GC and Mappability
+				calculateGC = fillGCandMappabilityDataStructures(
+						dataFolder,
+						chromName,
+						chromBasedModeofGivenIntervalLength,
+						generateRandomDataMode,
+						isochoreFamilyMode,
+						gcByteList,
+						gcIntervalTree,
+						gcIsochoreFamilyL1Pool,
+						gcIsochoreFamilyL2Pool,
+						gcIsochoreFamilyH1Pool,
+						gcIsochoreFamilyH2Pool,
+						gcIsochoreFamilyH3Pool,
+						mapabilityChromosomePositionList,
+						mapabilityShortValueList);
 				/*******************************************************************************************************************************/
-				/************************ FILL GCByteTroveList and MapabilityIntTroveList and  MapabilityShortTroveList ENDS *******************/
+				/************************ FILL GC and Mapability Data Structures ENDS **********************************************************/
 				/*******************************************************************************************************************************/
 
 				/********************************************************************************************************/
@@ -6798,7 +6762,8 @@ public class Enrichment {
 						chromSize, 
 						chromName,
 						chromosomeBaseOriginalInputLines, 
-						generateRandomDataMode, 
+						generateRandomDataMode,
+						isochoreFamilyMode,
 						writeGeneratedRandomDataMode,
 						Commons.ZERO, 
 						permutationNumberList.size(), 
@@ -6870,13 +6835,7 @@ public class Enrichment {
 				/***************************************** FREE MEMORY STARTS *****************************************/
 				/******************************************************************************************************/
 				gcByteList = null;
-				
 				gcIntervalTree = null;
-				
-				//gcIntervalLengthOneHundredTree = null;
-				//gcIntervalLengthOneThousandTree = null;
-				//gcIntervalLengthTenThousandTree = null;
-				//gcIsochoreIntervalTree = null;
 
 				gcIsochoreFamilyL1Pool = null;
 				gcIsochoreFamilyL2Pool = null;
@@ -8562,6 +8521,9 @@ public class Enrichment {
 
 		// Set the Generate Random Data Mode
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum( args[CommandLineArguments.GenerateRandomDataMode.value()]);
+		
+		//Set isochore Family Mode
+		IsochoreFamilyMode  isochoreFamilyMode = IsochoreFamilyMode.convertStringtoEnum(args[CommandLineArguments.IsochoreFamilyMode.value()]);
 
 		// Set the Write Mode of Generated Random Data
 		WriteGeneratedRandomDataMode writeGeneratedRandomDataMode = WriteGeneratedRandomDataMode.convertStringtoEnum( args[CommandLineArguments.WriteGeneratedRandomDataMode.value()]);
@@ -9150,6 +9112,7 @@ public class Enrichment {
 							runName,
 							originalInputLines,
 							generateRandomDataMode, 
+							isochoreFamilyMode,
 							writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
 							writePermutationBasedAnnotationResultMode, 
@@ -9210,6 +9173,7 @@ public class Enrichment {
 							runName,
 							originalInputLines,
 							generateRandomDataMode, 
+							isochoreFamilyMode,
 							writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
 							writePermutationBasedAnnotationResultMode, 
@@ -9477,7 +9441,8 @@ public class Enrichment {
 							tfCellLineExonBasedKeggPathway2AllKMap,
 							tfCellLineRegulationBasedKeggPathway2AllKMap, 
 							tfCellLineAllBasedKeggPathway2AllKMap,
-							generateRandomDataMode, 
+							generateRandomDataMode,
+							isochoreFamilyMode,
 							writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
 							writePermutationBasedAnnotationResultMode, 
@@ -9542,6 +9507,7 @@ public class Enrichment {
 							tfCellLineRegulationBasedKeggPathway2AllKMap, 
 							tfCellLineAllBasedKeggPathway2AllKMap,
 							generateRandomDataMode, 
+							isochoreFamilyMode,
 							writeGeneratedRandomDataMode,
 							writePermutationBasedandParametricBasedAnnotationResultMode,
 							writePermutationBasedAnnotationResultMode, 
