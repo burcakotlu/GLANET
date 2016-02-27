@@ -402,9 +402,9 @@ public class Commons {
 	public static final String DO_NOT_USE_ISOCHORE_FAMILY = "DO_NOT_USE_ISOCHORE_FAMILY";
 	
 	//AssociationMeasureType
-	public static final String NUMBER_OF_OVERLAPPING_BASES = "NUMBER_OF_OVERLAPPING_BASES";
+	public static final String NUMBER_OF_OVERLAPPING_BASES = "NOOB";
 	public static final String NUMBER_OF_OVERLAPPING_INTERVALS = "NUMBER_OF_OVERLAPPING_INTERVALS";
-	public static final String EXISTENCE_OF_OVERLAP = "EXISTENCE_OF_OVERLAP";
+	public static final String EXISTENCE_OF_OVERLAP = "EOO";
 	
 
 	// EnumType CalculateGC

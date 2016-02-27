@@ -14,8 +14,8 @@ import common.Commons;
 public enum AssociationMeasureType {
 	
 	NUMBER_OF_OVERLAPPING_BASES(1),
-	NUMBER_OF_OVERLAPPING_INTERVALS(2),
-	EXISTENCE_OF_OVERLAP(3);
+	EXISTENCE_OF_OVERLAP(2);
+	//NUMBER_OF_OVERLAPPING_INTERVALS(2),
 	
 	private final int associationMeasureType;
 
@@ -40,8 +40,6 @@ public enum AssociationMeasureType {
 
 		if( Commons.NUMBER_OF_OVERLAPPING_BASES.equals( associationMeasureType)){
 			return NUMBER_OF_OVERLAPPING_BASES;
-		}else if( Commons.NUMBER_OF_OVERLAPPING_INTERVALS.equals( associationMeasureType)){
-			return NUMBER_OF_OVERLAPPING_INTERVALS;
 		}else if( Commons.EXISTENCE_OF_OVERLAP.equals( associationMeasureType)){
 			return EXISTENCE_OF_OVERLAP;
 		}else
@@ -52,8 +50,6 @@ public enum AssociationMeasureType {
 
 		if( this.equals( AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES))
 			return Commons.NUMBER_OF_OVERLAPPING_BASES;
-		else if( this.equals( AssociationMeasureType.NUMBER_OF_OVERLAPPING_INTERVALS))
-			return Commons.NUMBER_OF_OVERLAPPING_INTERVALS;
 		else if( this.equals( AssociationMeasureType.EXISTENCE_OF_OVERLAP))
 			return Commons.EXISTENCE_OF_OVERLAP;
 		else
@@ -64,9 +60,7 @@ public enum AssociationMeasureType {
 		return this == NUMBER_OF_OVERLAPPING_BASES;
 	}
 	
-	public boolean isAssociationMeasureNumberOfOverlappingIntervals() {
-		return this == NUMBER_OF_OVERLAPPING_INTERVALS;
-	}
+	
 	
 	public boolean isAssociationMeasureExistenceofOverlap() {
 		return this == EXISTENCE_OF_OVERLAP;

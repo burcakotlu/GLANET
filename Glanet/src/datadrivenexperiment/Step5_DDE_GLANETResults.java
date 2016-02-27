@@ -27,6 +27,7 @@ import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
 import common.Commons;
 import datadrivenexperiment.DataDrivenExperimentElementTPM.DDEElementTPMChainedComparator;
+import enumtypes.AssociationMeasureType;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentElementNameType;
@@ -353,6 +354,7 @@ public class Step5_DDE_GLANETResults {
 			MultipleTestingType multipleTestingParameter,
 			EnrichmentDecisionType enrichmentDecisionType,
 			GenerateRandomDataMode generateRandomDataMode,
+			AssociationMeasureType associationMeasureType,
 			BufferedWriter bufferedWriter) {
 
 		String strLine = null;
@@ -380,12 +382,12 @@ public class Step5_DDE_GLANETResults {
 				switch(generateRandomDataMode){
 					
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoString() + Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 						break;
 						
 					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" + associationMeasureType.convertEnumtoString() +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 
 						break;
 				
@@ -908,6 +910,23 @@ public class Step5_DDE_GLANETResults {
 		//multipleTestingParameter
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
 		
+		//enrichmentDecisionType
+		//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_ZSCORE
+		//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_ZSCORE
+		//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
+		//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
+		EnrichmentDecisionType enrichmentDecisionType = EnrichmentDecisionType.convertStringtoEnum(args[7]);
+
+		//numberofSimulations
+		int numberofGLANETRuns = ( args.length > 9)?Integer.parseInt(args[8]):0;
+
+		//generateRandomDataMode
+		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[9]);
+		
+		//associationMeasureType
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.convertStringtoEnum(args[10]);
+
+		
 		int numberofTFElementsInThisCellLine = 0;
 		int numberofHistoneElementsInThisCellLine = 0;
 		
@@ -916,7 +935,7 @@ public class Step5_DDE_GLANETResults {
 		
 		try {
 			
-			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.GLANET_DDE_RESULTS_FILE_START + significanceLevel.convertEnumtoString() + Commons.GLANET_DDE_RESULTS_FILE_END, true);
+			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.GLANET_DDE_RESULTS_FILE_START + significanceLevel.convertEnumtoString() + "_" +associationMeasureType.convertEnumtoString() + Commons.GLANET_DDE_RESULTS_FILE_END, true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			switch(cellLineType){
@@ -940,19 +959,7 @@ public class Step5_DDE_GLANETResults {
 			}//end of SWITCH
 			
 	
-			//enrichmentDecisionType
-			//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_ZSCORE
-			//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_ZSCORE
-			//ENRICHED_WRT_BH_FDR_ADJUSTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
-			//ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_PERMUTATIONS
-			EnrichmentDecisionType enrichmentDecisionType = EnrichmentDecisionType.convertStringtoEnum(args[7]);
-	
-			//numberofSimulations
-			int numberofGLANETRuns = ( args.length > 9)?Integer.parseInt(args[8]):0;
-	
-			//generateRandomDataMode
-			GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[9]);
-			
+						
 			DataDrivenExperimentTPMType TPMType = null;
 			
 			//Initialization
@@ -964,8 +971,8 @@ public class Step5_DDE_GLANETResults {
 			
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap = new TObjectIntHashMap<String>();
 			
-			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + System.getProperty("line.separator"));
-			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString() + System.getProperty("line.separator"));
+			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + "\t" + "AssociationMeasureType"  + System.getProperty("line.separator"));
+			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString()+ "\t" + associationMeasureType.convertEnumtoString()  + System.getProperty("line.separator"));
 			
 			for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
 				
@@ -988,6 +995,7 @@ public class Step5_DDE_GLANETResults {
 						multipleTestingParameter, 
 						enrichmentDecisionType,
 						generateRandomDataMode,
+						associationMeasureType,
 						bufferedWriter);
 				
 				
@@ -1008,6 +1016,7 @@ public class Step5_DDE_GLANETResults {
 						multipleTestingParameter, 
 						enrichmentDecisionType,
 						generateRandomDataMode,
+						associationMeasureType,
 						bufferedWriter);
 				
 				
