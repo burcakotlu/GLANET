@@ -375,7 +375,11 @@ public class Step5_DDE_GLANETResults {
 
 			// For each simulation
 			for( int i = 0; i < numberofSimulations; i++){
-
+				
+				//Initialization
+				//So that unexisting run can not use the last valid enrichmentFile and copy its content.
+				enrichmentFile=null;
+			
 				// Initialize elementList
 				cellLineSpecificElementList = new ArrayList<FunctionalElementMinimal>();
 				
@@ -862,7 +866,6 @@ public class Step5_DDE_GLANETResults {
 		//geneType
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[2]);
 		
-		
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
@@ -925,7 +928,6 @@ public class Step5_DDE_GLANETResults {
 		
 		//associationMeasureType
 		AssociationMeasureType associationMeasureType = AssociationMeasureType.convertStringtoEnum(args[10]);
-
 		
 		int numberofTFElementsInThisCellLine = 0;
 		int numberofHistoneElementsInThisCellLine = 0;
@@ -958,8 +960,7 @@ public class Step5_DDE_GLANETResults {
 			
 			}//end of SWITCH
 			
-	
-						
+			
 			DataDrivenExperimentTPMType TPMType = null;
 			
 			//Initialization
