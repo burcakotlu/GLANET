@@ -200,6 +200,10 @@ public class ChromosomeBasedGCIntervalTree {
 
 		try{
 
+			//debug starts
+			System.out.println(dataFolder+gcIntervalsConsecutiveZerosMergedFile);
+			//debug ends
+			
 			fileReader = FileOperations.createFileReader( dataFolder + gcIntervalsConsecutiveZerosMergedFile);
 			bufferedReader = new BufferedReader( fileReader);
 

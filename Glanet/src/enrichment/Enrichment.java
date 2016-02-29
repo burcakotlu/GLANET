@@ -6306,7 +6306,7 @@ public class Enrichment {
 		long startTimeFillingList;
 		long endTimeFillingList;
 		CalculateGC calculateGC = null;
-		
+				
 		// Fill gcCharArray and mapabilityFloatArray
 		if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 
@@ -6328,6 +6328,7 @@ public class Enrichment {
 			}
 			else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
 				//gcIntervalTree = new IntervalTree();
+
 				ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
 				calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
 
@@ -6366,6 +6367,7 @@ public class Enrichment {
 			/************************************************/
 			/*********************GC*************************/
 			/************************************************/
+			
 
 			/*******************************************************************************/
 			/*********************Fill Isochore Family Pools starts*************************/
@@ -6415,7 +6417,7 @@ public class Enrichment {
 		
 			/************************************************/
 			/**************MAPABILITY************************/
-			/************************************************/
+			/************************************************/ 
 			// For testing purposes
 			// mapabilityByteValueList
 			// mapabilityByteValueList = new TByteArrayList();
@@ -6437,6 +6439,7 @@ public class Enrichment {
 					mapabilityChromosomePositionList, 
 					mapabilityShortValueList);
 
+			 
 			// For testing purposes
 			// Mapability Interval Tree
 			// MapabilityIntervalTreeConstruction.fillIntervalTree(dataFolder, chromName,
@@ -6451,7 +6454,7 @@ public class Enrichment {
 			if( GlanetRunner.shouldLog())logger.info("Filling of GC Content and Mappability Data Structures have taken " + ( float)( ( endTimeFillingList - startTimeFillingList) / 1000) + " seconds.");
 
 		}//End of IF Generate Random Data with GC and Mappability
-
+		
 		return calculateGC;
 	}
 
@@ -6697,6 +6700,7 @@ public class Enrichment {
 			chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i - 1);
 			
+			
 			//4 FEB 2016
 			//chromBasedAverageIntervalLength = chrBasedAverageGivenIntervalLengthList.get(i-1);
 			
@@ -6781,6 +6785,7 @@ public class Enrichment {
 						mapabilityShortValueList);
 				
 				permutationNumber2RandomlyGeneratedDataHashMap = pool.invoke(generateRandomData);
+				
 
 				// //For testing average number of trials mapabilityByteList versus mapabilityShortList starts
 				// float totalNumberofTrialsPerPermutation = 0;
@@ -6859,7 +6864,7 @@ public class Enrichment {
 				
 				/********************************************************************************************************/
 				/***************************** ANNOTATE PERMUTATIONS STARTS *********************************************/
-				/********************************************************************************************************/
+				/********************************************************************************************************/				
 				GlanetRunner.appendLog( "Annotation of Permutations has started.");
 				if( GlanetRunner.shouldLog())logger.info( "Annotation of Permutations has started.");
 
@@ -7387,7 +7392,7 @@ public class Enrichment {
 				}
 
 				endTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
-
+				
 				GlanetRunner.appendLog( "Annotation of Permutations has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
 				if( GlanetRunner.shouldLog())logger.info( "Annotation of Permutations has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
 				/********************************************************************************************************/
@@ -9240,11 +9245,11 @@ public class Enrichment {
 		// Consumes More Memory when the number of elements is in tens of thousands
 		// Consumes Less Memory when the number of elements is in hundreds
 		else if( enrichmentZScoreMode.isPerformEnrichmentWithZScore()){
-
+		
 			/**********************************************************************************************/
 			/********************* FOR LOOP FOR RUN NUMBERS STARTS ****************************************/
 			for( int runNumber = 1; runNumber <= numberofRuns; runNumber++){
-
+				
 				GlanetRunner.appendLog( "**************	" + runNumber + ". Run" + "	******************	starts");
 				if( GlanetRunner.shouldLog())logger.info( "**************	" + runNumber + ". Run" + "	******************	starts");
 
@@ -9749,7 +9754,8 @@ public class Enrichment {
 				/***********************************************************************************************/
 				/************************** WRITE TO BE COLLECTED RESULTS ENDS *********************************/
 				/***********************************************************************************************/
-
+				
+				
 				/***********************************************************************************************/
 				/********************************** FREE MEMORY STARTS *****************************************/
 				/********************* MAPS FOR PERMUTATIONS DATA STARTS *************************************/

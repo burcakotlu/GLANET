@@ -234,7 +234,7 @@ public class Step4_DDE_GLANETRuns {
 						bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
 						
 						//newly added
-						bufferedWriter.write("#SBATCH --array=0-999" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --array=0-" + (numberofSimulations-1) + System.getProperty("line.separator"));
 						
 						
 						bufferedWriter.write(System.getProperty("line.separator"));
