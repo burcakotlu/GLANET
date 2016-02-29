@@ -55,6 +55,19 @@ public enum AssociationMeasureType {
 		else
 			return null;
 	}
+	
+
+	public String convertEnumtoShortString() {
+
+		if( this.equals( AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES))
+			return Commons.NUMBER_OF_OVERLAPPING_BASES_SHORT;
+		else if( this.equals( AssociationMeasureType.EXISTENCE_OF_OVERLAP))
+			return Commons.EXISTENCE_OF_OVERLAP_SHORT;
+		else
+			return null;
+	}
+	
+	
 
 	public boolean isAssociationMeasureNumberOfOverlappingBases() {
 		return this == NUMBER_OF_OVERLAPPING_BASES;

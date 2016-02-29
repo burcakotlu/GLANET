@@ -189,14 +189,17 @@ public class MainView extends JPanel {
 		@Override
 		public void actionPerformed( ActionEvent e) {
 
-			if( inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0 || ( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0) || ( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)){
+			if( inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0 || ( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0) || ( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
+					|| (associationMeasureTypeCombo.getSelectedItem().toString().equals(Commons.EXISTENCE_OF_OVERLAP) && Integer.parseInt(numberOfBases.getText())<1) ){
 
-				String dialogMessage = "Please fill all the necessary options:\n";
+				String dialogMessage = "Please fill all the necessary parameters:\n";
 
 				if( inputTextField.getText().length() <= 0)
 					dialogMessage += "Input File Name\n";
 				if( outputTextField.getText().length() <= 0)
 					dialogMessage += "GLANET Folder\n";
+				if (associationMeasureTypeCombo.getSelectedItem().toString().equals(Commons.EXISTENCE_OF_OVERLAP) && Integer.parseInt(numberOfBases.getText())<1)
+					dialogMessage += "Overlap definition must be at least 1 base or more\n";
 				if( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0)
 					dialogMessage += "User Defined GeneSet Input File\n";
 				if( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
