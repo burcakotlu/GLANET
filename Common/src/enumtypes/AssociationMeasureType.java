@@ -40,7 +40,11 @@ public enum AssociationMeasureType {
 
 		if( Commons.NUMBER_OF_OVERLAPPING_BASES.equals( associationMeasureType)){
 			return NUMBER_OF_OVERLAPPING_BASES;
+		}else if( Commons.NUMBER_OF_OVERLAPPING_BASES_SHORT.equals( associationMeasureType)){
+			return NUMBER_OF_OVERLAPPING_BASES;
 		}else if( Commons.EXISTENCE_OF_OVERLAP.equals( associationMeasureType)){
+			return EXISTENCE_OF_OVERLAP;
+		}else if( Commons.EXISTENCE_OF_OVERLAP_SHORT.equals( associationMeasureType)){
 			return EXISTENCE_OF_OVERLAP;
 		}else
 			return null;
