@@ -359,6 +359,11 @@ public class App {
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfBasesRequiredForOverlap))
 			return false;
+		else{
+			if( argsInOrder[CommandLineArguments.AssociationMeasureType.value()] == Commons.EXISTENCE_OF_OVERLAP && 
+				Integer.parseInt(argsInOrder[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]) < 1)
+				setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfBasesRequiredForOverlap);
+		}
 
 		// parsing Dnase Annotation
 		for( int i = 0; i < args.length; i++)
