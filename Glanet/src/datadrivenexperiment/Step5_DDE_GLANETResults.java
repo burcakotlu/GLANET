@@ -338,7 +338,7 @@ public class Step5_DDE_GLANETResults {
 	
 	}
 
-	public static void readSimulationGLANETResults(
+	public static int readSimulationGLANETResults(
 			String outputFolder, 
 			DataDrivenExperimentTPMType TPMType,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
@@ -349,13 +349,13 @@ public class Step5_DDE_GLANETResults {
 			DataDrivenExperimentGeneType geneType,
 			List<DataDrivenExperimentElementNameType> elementNameTypeList,
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap,
+			TObjectIntMap<String> tpmName2NumberofValidSimulationMap,
 			Float bonferroniCorrectionSignificanceLevel, 
 			Float FDR,
 			MultipleTestingType multipleTestingParameter,
 			EnrichmentDecisionType enrichmentDecisionType,
 			GenerateRandomDataMode generateRandomDataMode,
-			AssociationMeasureType associationMeasureType,
-			BufferedWriter bufferedWriter) {
+			AssociationMeasureType associationMeasureType) {
 
 		String strLine = null;
 
@@ -370,6 +370,9 @@ public class Step5_DDE_GLANETResults {
 
 		List<FunctionalElementMinimal> cellLineSpecificElementList = null;
 		
+		//Each valid GLANET run must have an existing Enrichment Directory. 
+		int numberofExistingEnrichmentDirectories = 0;
+		
 		
 		try{
 
@@ -380,7 +383,7 @@ public class Step5_DDE_GLANETResults {
 				//So that unexisting run can not use the last valid enrichmentFile and copy its content.
 				enrichmentFile=null;
 			
-				// Initialize elementList
+				// Initialize elementList for each simulation (GLANET run)
 				cellLineSpecificElementList = new ArrayList<FunctionalElementMinimal>();
 				
 				switch(generateRandomDataMode){
@@ -411,6 +414,8 @@ public class Step5_DDE_GLANETResults {
 
 							enrichmentFile = eachEnrichmentFile.getAbsolutePath();
 							
+							//It has been increased by one if cellLineSpecificElementList size is greater than zero
+							//numberofExistingEnrichmentDirectories++;
 							break;
 
 						}// End of IF EnrichmentFile under EnrichmentDirectory
@@ -419,96 +424,112 @@ public class Step5_DDE_GLANETResults {
 
 				}// End of IF EnrichmentDirectory Exists
 				
-				enrichmentFileReader = FileOperations.createFileReader(enrichmentFile);
-				enrichmentBufferedReader = new BufferedReader( enrichmentFileReader);
+				if (enrichmentFile!=null){
+					
+					enrichmentFileReader = FileOperations.createFileReader(enrichmentFile);
+					enrichmentBufferedReader = new BufferedReader( enrichmentFileReader);
 
-				cellLineFilteredEnrichmentFileWriter = FileOperations.createFileWriter(enrichmentDirectory + System.getProperty( "file.separator") + elementType.convertEnumtoString() + "_" + cellLineType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt");
-				cellLineFilteredEnrichmentBufferedWriter = new BufferedWriter( cellLineFilteredEnrichmentFileWriter);
+					cellLineFilteredEnrichmentFileWriter = FileOperations.createFileWriter(enrichmentDirectory + System.getProperty( "file.separator") + elementType.convertEnumtoString() + "_" + cellLineType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt");
+					cellLineFilteredEnrichmentBufferedWriter = new BufferedWriter( cellLineFilteredEnrichmentFileWriter);
 
-				// Skip HeaderLine
-				strLine = enrichmentBufferedReader.readLine();
+					// Skip HeaderLine
+					strLine = enrichmentBufferedReader.readLine();
 
-				// Read enrichmentFile
-				// Filter lines that contain cellLine only
-				while( ( strLine = enrichmentBufferedReader.readLine()) != null){
+					// Read enrichmentFile
+					// Filter lines that contain cellLine only
+					while( ( strLine = enrichmentBufferedReader.readLine()) != null){
 
-					if( strLine.contains(cellLineType.convertEnumtoString())){
-						// Fill elementList
-						cellLineSpecificElementList.add(getElement(strLine, numberofComparisons));
+						if( strLine.contains(cellLineType.convertEnumtoString())){
+							// Fill elementList
+							cellLineSpecificElementList.add(getElement(strLine, numberofComparisons));
+						}
+
+					}// End of WHILE
+					
+					
+					//There must be at least one result other than header line
+					//In order to make this simulation valid.
+					//There can be an enrichment file but it can only have header line nothing else
+					if(cellLineSpecificElementList.size()>0){
+						numberofExistingEnrichmentDirectories++;
 					}
 
-				}// End of WHILE
+					/**********************************************************************************/
+					// Calculate Bonferroni Corrected P Value
+					// Number of comparisons is used here
+					BonferroniCorrection.calculateBonferroniCorrectedPValue(cellLineSpecificElementList);
 
-				/**********************************************************************************/
-				// Calculate Bonferroni Corrected P Value
-				// Number of comparisons is used here
-				BonferroniCorrection.calculateBonferroniCorrectedPValue( cellLineSpecificElementList);
+					// Sort w.r.t. empiricalPValue
+					Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE);
 
-				// Sort w.r.t. empiricalPValue
-				Collections.sort( cellLineSpecificElementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE);
+					// Calculate BH FDR Adjusted PValue
+					BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValue(cellLineSpecificElementList, FDR);
+					/**********************************************************************************/
 
-				// Calculate BH FDR Adjusted PValue
-				BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValue( cellLineSpecificElementList, FDR);
-				/**********************************************************************************/
+					/**********************************************************************************/
+					//By the way do we need this calculation?
+					// Yes, since we also write pValues calculated from ZScores to the outputFile
+					// although output lines are sorted w.r.t BonfCorrected or BH FDR adjusted pValues.
+					// Calculate BonferroniCorrectedPValue Calculated From ZScore
+					// Number of comparisons is used here
+					BonferroniCorrection.calculateBonferroniCorrectedPValueCalculatedFromZScore(cellLineSpecificElementList);
 
-				/**********************************************************************************/
-				//By the way do we need this calculation?
-				// Yes, since we also write pValues calculated from ZScores to the outputFile
-				// although output lines are sorted w.r.t BonfCorrected or BH FDR adjusted pValues.
-				// Calculate BonferroniCorrectedPValue Calculated From ZScore
-				// Number of comparisons is used here
-				BonferroniCorrection.calculateBonferroniCorrectedPValueCalculatedFromZScore(cellLineSpecificElementList);
+					// Sort w.r.t. empiricalPValue Calculated From ZScore
+					Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
 
-				// Sort w.r.t. empiricalPValue Calculated From ZScore
-				Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
+					// Calculate BH FDR Adjusted PValue Calculated From ZScore
+					BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValueCalculatedFromZScore(cellLineSpecificElementList, FDR);
+					/**********************************************************************************/
 
-				// Calculate BH FDR Adjusted PValue Calculated From ZScore
-				BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValueCalculatedFromZScore(cellLineSpecificElementList, FDR);
-				/**********************************************************************************/
+					// sort w.r.t. BH or BonferroniCorrection
+					switch( multipleTestingParameter){
 
-				// sort w.r.t. BH or BonferroniCorrection
-				switch( multipleTestingParameter){
+						case BONFERRONI_CORRECTION:
+							Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
+							break;
+		
+						case BENJAMINI_HOCHBERG_FDR:
+							Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
+							break;
+		
+						default:
+							break;
 
-					case BONFERRONI_CORRECTION:
-						Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
-						break;
-	
-					case BENJAMINI_HOCHBERG_FDR:
-						Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-						break;
-	
-					default:
-						break;
+					}// End of switch
+					
+					
+					//8 OCT 2015 starts
+					writeCellLineFilteredEnrichmentFile(cellLineType, 
+														TPMType,
+														cellLineSpecificElementList,
+														cellLineFilteredEnrichmentBufferedWriter, 
+														multipleTestingParameter, 
+														elementNameTypeList,
+														elementNameTPMName2NumberofEnrichmentMap,
+														bonferroniCorrectionSignificanceLevel, 
+														FDR, 
+														enrichmentDecisionType);
 
-				}// End of switch
+					
+					// Close
+					enrichmentBufferedReader.close();
+					cellLineFilteredEnrichmentBufferedWriter.close();
+					
+				}//End of IF
 				
-				
-				//8 OCT 2015 starts
-				writeCellLineFilteredEnrichmentFile(cellLineType, 
-													TPMType,
-													cellLineSpecificElementList,
-													cellLineFilteredEnrichmentBufferedWriter, 
-													multipleTestingParameter, 
-													elementNameTypeList,
-													elementNameTPMName2NumberofEnrichmentMap,
-													bonferroniCorrectionSignificanceLevel, 
-													FDR, 
-													enrichmentDecisionType);
-
-				
-				// Close
-				enrichmentBufferedReader.close();
-				cellLineFilteredEnrichmentBufferedWriter.close();
-
+				//Free memory
 				cellLineSpecificElementList = null;
 				
 			}// End of FOR each simulation
 			
+			tpmName2NumberofValidSimulationMap.put(TPMType.convertEnumtoString(), numberofExistingEnrichmentDirectories);
 			
 		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return numberofExistingEnrichmentDirectories;
 	}
 	
 	public static void initializeElementName2NumberofEnrichmentMap(
@@ -576,7 +597,8 @@ public class Step5_DDE_GLANETResults {
 			SortedMap<DataDrivenExperimentTPMType,Float> expGenesTPMType2TPMValueSortedMap,
 			SortedMap<DataDrivenExperimentTPMType,Float> nonExpGenesTPMType2TPMValueSortedMap,
 			DataDrivenExperimentGeneType geneType,
-			int numberofGLANETRuns){
+			//int numberofGLANETRuns,
+			TObjectIntMap<String> tpmName2NumberofValidSimulationMap){
 		
 		String elementNameTPMName = null;
 		String elementName = null;
@@ -595,6 +617,7 @@ public class Step5_DDE_GLANETResults {
 		Float typeOneError = null;
 		Float power = null;
 		
+		int numberofValidSimulationsWithEnrichmentDirectory = 0;
 		
 		for(TObjectIntIterator<String> itr = elementNameTPMName2NumberofEnrichmentMap.iterator();itr.hasNext();){
 			
@@ -627,6 +650,8 @@ public class Step5_DDE_GLANETResults {
 			tpmType = DataDrivenExperimentTPMType.convertStringtoEnum(TPMName);
 			
 			ddeElementTPM.setTpmType(tpmType);
+			
+			numberofValidSimulationsWithEnrichmentDirectory = tpmName2NumberofValidSimulationMap.get(TPMName);
 			
 			switch(geneType){
 			
@@ -663,7 +688,7 @@ public class Step5_DDE_GLANETResults {
 			if ((geneType.isExpressingProteinCodingGenes() && elementType.isActivator()) ||
 				(geneType.isNonExpressingProteinCodingGenes() && elementType.isRepressor()) ){
 				
-				power = ((float) (numberofEnrichment))/numberofGLANETRuns;
+				power = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectory;
 				
 				ddeElementTPM.setPower(power);
 				ddeElementTPM.setTypeOneError(null);
@@ -677,7 +702,7 @@ public class Step5_DDE_GLANETResults {
 			if ((geneType.isExpressingProteinCodingGenes() && elementType.isRepressor()) ||
 					(geneType.isNonExpressingProteinCodingGenes() && elementType.isActivator()) ){
 					
-					typeOneError = ((float) (numberofEnrichment))/numberofGLANETRuns;
+					typeOneError = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectory;
 					
 					ddeElementTPM.setTypeOneError(typeOneError);
 					ddeElementTPM.setPower(null);
@@ -690,8 +715,8 @@ public class Step5_DDE_GLANETResults {
 			//In this way of evaluating typeOneError and power are always the same
 			if (elementType.isAmbigious()){
 					
-				typeOneError = ((float) (numberofEnrichment))/numberofGLANETRuns;
-				power = ((float) (numberofEnrichment))/numberofGLANETRuns;
+				typeOneError = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectory;
+				power = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectory;
 				
 				ddeElementTPM.setTypeOneError(null);
 				ddeElementTPM.setPower(null);
@@ -704,7 +729,7 @@ public class Step5_DDE_GLANETResults {
 		
 	}
 	
-	
+	//Modified 1 March 2016
 	public static void writeResults(
 			BufferedWriter bufferedWriter,
 			List<DataDrivenExperimentElementTPM> ddeElementList,
@@ -922,6 +947,9 @@ public class Step5_DDE_GLANETResults {
 
 		//numberofSimulations
 		int numberofGLANETRuns = ( args.length > 9)?Integer.parseInt(args[8]):0;
+		
+		int numberofExistingEnrichmentDirectories1 = 0;
+		int numberofExistingEnrichmentDirectories2 = 0;
 
 		//generateRandomDataMode
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[9]);
@@ -971,16 +999,30 @@ public class Step5_DDE_GLANETResults {
 			initializeElementName2NumberofEnrichmentMap(elementNameTypeList);
 			
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap = new TObjectIntHashMap<String>();
+
+			//Number of valid Simulations (GLANET Runs) with Enrichment Directory
+			//It is tpm specific, we calculate for each tpm Value
+			//Since all the necessary other parameters are given
+			//Such as cellLineType
+			//geneType
+			//dnaseOverlapExclusionType
+			//generateRandomDataMode
+			//associationMeasureType
+			TObjectIntMap<String> tpmName2NumberofValidSimulationMap = new TObjectIntHashMap<String>();
 			
-			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + "\t" + "AssociationMeasureType"  + System.getProperty("line.separator"));
-			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString()+ "\t" + associationMeasureType.convertEnumtoShortString()  + System.getProperty("line.separator"));
+			//Output ResultFile Header Lines
+			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + "\t" + "AssociationMeasureType"  + "\t" + "NumberofSimulations" +  System.getProperty("line.separator"));
+			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString()+ "\t" + associationMeasureType.convertEnumtoShortString() + "\t" + numberofGLANETRuns + System.getProperty("line.separator"));
+			bufferedWriter.write("TPM" + "\t" + "NumberofSimulationWithValidEnrichmentDirectoryAndFile"  + System.getProperty("line.separator"));				
 			
 			for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
 				
 				TPMType = itr.next();
 				
+				//Here we assume that number of valid simulations must be same for all of TF and HM elements.
+				
 				//TF
-				readSimulationGLANETResults(
+				numberofExistingEnrichmentDirectories1 = readSimulationGLANETResults(
 						outputFolder, 
 						TPMType, 
 						dnaseOverlapExclusionType, 
@@ -991,17 +1033,17 @@ public class Step5_DDE_GLANETResults {
 						geneType,
 						elementNameTypeList,
 						elementNameTPMName2NumberofEnrichmentMap,
+						tpmName2NumberofValidSimulationMap,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
 						multipleTestingParameter, 
 						enrichmentDecisionType,
 						generateRandomDataMode,
-						associationMeasureType,
-						bufferedWriter);
+						associationMeasureType);
 				
 				
 				//HISTONE
-				readSimulationGLANETResults(
+				numberofExistingEnrichmentDirectories2 = readSimulationGLANETResults(
 						outputFolder, 
 						TPMType, 
 						dnaseOverlapExclusionType, 
@@ -1012,16 +1054,31 @@ public class Step5_DDE_GLANETResults {
 						geneType,
 						elementNameTypeList,
 						elementNameTPMName2NumberofEnrichmentMap,
+						tpmName2NumberofValidSimulationMap,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
 						multipleTestingParameter, 
 						enrichmentDecisionType,
 						generateRandomDataMode,
-						associationMeasureType,
-						bufferedWriter);
+						associationMeasureType);
+				
+				//For control purposes can be deleted later.
+				if (numberofExistingEnrichmentDirectories1!=numberofExistingEnrichmentDirectories2){
+					System.out.println("There is a situation!...");
+				}else{
+					System.out.println(	cellLineType.convertEnumtoString() + "\t" + 
+							geneType.convertEnumtoString() + "\t" +
+							TPMType.convertEnumtoString() + "\t" +
+							dnaseOverlapExclusionType.convertEnumtoString() + "\t" + 
+							generateRandomDataMode.convertEnumtoShortString() + "\t" +
+							associationMeasureType.convertEnumtoShortString() + "\t" +
+							numberofExistingEnrichmentDirectories1
+							);
+				}
+				
+				bufferedWriter.write(TPMType.convertEnumtoString() + "\t" + numberofExistingEnrichmentDirectories1 + System.getProperty("line.separator"));
 				
 				
-
 			}//End of FOR each tpmValue
 			
 			//Convert elementNameTPMName2NumberofEnrichmentMap to List
@@ -1035,7 +1092,8 @@ public class Step5_DDE_GLANETResults {
 					expGenesTPMType2TPMValueSortedMap,
 					nonExpGenesTPMType2TPMValueSortedMap,
 					geneType,
-					numberofGLANETRuns);
+					//numberofGLANETRuns,
+					tpmName2NumberofValidSimulationMap);
 			
 			// Sort w.r.t. multiple attributes
 			// First by elementType
