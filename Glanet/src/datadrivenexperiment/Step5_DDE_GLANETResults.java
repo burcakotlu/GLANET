@@ -338,7 +338,7 @@ public class Step5_DDE_GLANETResults {
 	
 	}
 
-	public static int readSimulationGLANETResults(
+	public static void readSimulationGLANETResults(
 			String outputFolder, 
 			DataDrivenExperimentTPMType TPMType,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
@@ -349,7 +349,7 @@ public class Step5_DDE_GLANETResults {
 			DataDrivenExperimentGeneType geneType,
 			List<DataDrivenExperimentElementNameType> elementNameTypeList,
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap,
-			TObjectIntMap<String> tpmName2NumberofValidSimulationMap,
+			TObjectIntMap<String> elementTypeTpmName2NumberofValidSimulationMap,
 			Float bonferroniCorrectionSignificanceLevel, 
 			Float FDR,
 			MultipleTestingType multipleTestingParameter,
@@ -522,14 +522,14 @@ public class Step5_DDE_GLANETResults {
 				
 			}// End of FOR each simulation
 			
-			tpmName2NumberofValidSimulationMap.put(TPMType.convertEnumtoString(), numberofExistingEnrichmentDirectories);
+			elementTypeTpmName2NumberofValidSimulationMap.put(elementType.convertEnumtoString() + "_" + TPMType.convertEnumtoString(), numberofExistingEnrichmentDirectories);
 			
 		}catch( IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return numberofExistingEnrichmentDirectories;
+	
 	}
 	
 	public static void initializeElementName2NumberofEnrichmentMap(
@@ -545,6 +545,13 @@ public class Step5_DDE_GLANETResults {
 			
 		}//End of for each entry in the map
 		
+	}
+	
+	public static boolean isTF(String elementName){
+		if (elementName.equals(Commons.POL2))
+			return true;
+		else 
+			return false;
 	}
 	
 	public static void initializeElementName2NumberofEnrichmentMap(
@@ -598,7 +605,7 @@ public class Step5_DDE_GLANETResults {
 			SortedMap<DataDrivenExperimentTPMType,Float> nonExpGenesTPMType2TPMValueSortedMap,
 			DataDrivenExperimentGeneType geneType,
 			//int numberofGLANETRuns,
-			TObjectIntMap<String> tpmName2NumberofValidSimulationMap){
+			TObjectIntMap<String> elementTypeTpmName2NumberofValidSimulationMap){
 		
 		String elementNameTPMName = null;
 		String elementName = null;
@@ -610,14 +617,15 @@ public class Step5_DDE_GLANETResults {
 		DataDrivenExperimentElementTPM ddeElementTPM = null;
 		
 		DataDrivenExperimentElementNameType elementNameType = null;
-		DataDrivenExperimentElementType elementType = null;
+		DataDrivenExperimentElementType elementActivatororRepressorType = null;
 		DataDrivenExperimentTPMType tpmType = null;
 		Float tpmValue = null;
 		
 		Float typeOneError = null;
 		Float power = null;
 		
-		int numberofValidSimulationsWithEnrichmentDirectory = 0;
+		int numberofValidSimulationsWithEnrichmentDirectoryAndFile = 0;
+		String elementTypeName  = null;
 		
 		for(TObjectIntIterator<String> itr = elementNameTPMName2NumberofEnrichmentMap.iterator();itr.hasNext();){
 			
@@ -636,14 +644,14 @@ public class Step5_DDE_GLANETResults {
 			ddeElementTPM.setElementNameType(elementNameType);
 			
 			if (elementNameType.isActivator()){
-				elementType = DataDrivenExperimentElementType.ACTIVATOR;
+				elementActivatororRepressorType = DataDrivenExperimentElementType.ACTIVATOR;
 			}else if (elementNameType.isRepressor()){
-				elementType = DataDrivenExperimentElementType.REPRESSOR;
+				elementActivatororRepressorType = DataDrivenExperimentElementType.REPRESSOR;
 			}else if (elementNameType.isAmbigious()){
-				elementType = DataDrivenExperimentElementType.AMBIGIOUS;
+				elementActivatororRepressorType = DataDrivenExperimentElementType.AMBIGIOUS;
 			}
 			
-			ddeElementTPM.setElementType(elementType);
+			ddeElementTPM.setElementType(elementActivatororRepressorType);
 			
 			TPMName = elementNameTPMName.substring(indexofUnderscore+1);
 			
@@ -651,7 +659,14 @@ public class Step5_DDE_GLANETResults {
 			
 			ddeElementTPM.setTpmType(tpmType);
 			
-			numberofValidSimulationsWithEnrichmentDirectory = tpmName2NumberofValidSimulationMap.get(TPMName);
+			
+			if (isTF(elementName)){
+				elementTypeName = ElementType.TF.convertEnumtoString();
+			}else{
+				elementTypeName = ElementType.HISTONE.convertEnumtoString();
+			}
+			
+			numberofValidSimulationsWithEnrichmentDirectoryAndFile = elementTypeTpmName2NumberofValidSimulationMap.get(elementTypeName + "_" + TPMName);
 			
 			switch(geneType){
 			
@@ -685,10 +700,10 @@ public class Step5_DDE_GLANETResults {
 			//Type II Error  is (numberofGLANETRuns-numberofEnrichment)/numberofGLANETRuns
 			//Power is 1 - Type II Error
 			//Therefore Power is numberofEnrichment/numberofGLANETRuns
-			if ((geneType.isExpressingProteinCodingGenes() && elementType.isActivator()) ||
-				(geneType.isNonExpressingProteinCodingGenes() && elementType.isRepressor()) ){
+			if ((geneType.isExpressingProteinCodingGenes() && elementActivatororRepressorType.isActivator()) ||
+				(geneType.isNonExpressingProteinCodingGenes() && elementActivatororRepressorType.isRepressor()) ){
 				
-				power = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectory;
+				power = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectoryAndFile;
 				
 				ddeElementTPM.setPower(power);
 				ddeElementTPM.setTypeOneError(null);
@@ -699,10 +714,10 @@ public class Step5_DDE_GLANETResults {
 			//We have rejected null as the number of enrichment
 			//Type I Error can be calculated
 			//Type I Error is the numberofEnrichment/numberofGLANETRuns
-			if ((geneType.isExpressingProteinCodingGenes() && elementType.isRepressor()) ||
-					(geneType.isNonExpressingProteinCodingGenes() && elementType.isActivator()) ){
+			if ((geneType.isExpressingProteinCodingGenes() && elementActivatororRepressorType.isRepressor()) ||
+					(geneType.isNonExpressingProteinCodingGenes() && elementActivatororRepressorType.isActivator()) ){
 					
-					typeOneError = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectory;
+					typeOneError = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectoryAndFile;
 					
 					ddeElementTPM.setTypeOneError(typeOneError);
 					ddeElementTPM.setPower(null);
@@ -713,10 +728,10 @@ public class Step5_DDE_GLANETResults {
 			//Evaluate Type I Error
 			//Evaluate Power
 			//In this way of evaluating typeOneError and power are always the same
-			if (elementType.isAmbigious()){
+			if (elementActivatororRepressorType.isAmbigious()){
 					
-				typeOneError = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectory;
-				power = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectory;
+				typeOneError = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectoryAndFile;
+				power = ((float) (numberofEnrichment))/numberofValidSimulationsWithEnrichmentDirectoryAndFile;
 				
 				ddeElementTPM.setTypeOneError(null);
 				ddeElementTPM.setPower(null);
@@ -948,9 +963,6 @@ public class Step5_DDE_GLANETResults {
 		//numberofSimulations
 		int numberofGLANETRuns = ( args.length > 9)?Integer.parseInt(args[8]):0;
 		
-		int numberofExistingEnrichmentDirectories1 = 0;
-		int numberofExistingEnrichmentDirectories2 = 0;
-
 		//generateRandomDataMode
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[9]);
 		
@@ -1008,7 +1020,7 @@ public class Step5_DDE_GLANETResults {
 			//dnaseOverlapExclusionType
 			//generateRandomDataMode
 			//associationMeasureType
-			TObjectIntMap<String> tpmName2NumberofValidSimulationMap = new TObjectIntHashMap<String>();
+			TObjectIntMap<String> elementTypeTpmName2NumberofValidSimulationMap = new TObjectIntHashMap<String>();
 			
 			//Output ResultFile Header Lines
 			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + "\t" + "AssociationMeasureType"  + "\t" + "NumberofSimulations" +  System.getProperty("line.separator"));
@@ -1019,10 +1031,8 @@ public class Step5_DDE_GLANETResults {
 				
 				TPMType = itr.next();
 				
-				//Here we assume that number of valid simulations must be same for all of TF and HM elements.
-				
 				//TF
-				numberofExistingEnrichmentDirectories1 = readSimulationGLANETResults(
+				readSimulationGLANETResults(
 						outputFolder, 
 						TPMType, 
 						dnaseOverlapExclusionType, 
@@ -1033,7 +1043,7 @@ public class Step5_DDE_GLANETResults {
 						geneType,
 						elementNameTypeList,
 						elementNameTPMName2NumberofEnrichmentMap,
-						tpmName2NumberofValidSimulationMap,
+						elementTypeTpmName2NumberofValidSimulationMap,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
 						multipleTestingParameter, 
@@ -1043,7 +1053,7 @@ public class Step5_DDE_GLANETResults {
 				
 				
 				//HISTONE
-				numberofExistingEnrichmentDirectories2 = readSimulationGLANETResults(
+				readSimulationGLANETResults(
 						outputFolder, 
 						TPMType, 
 						dnaseOverlapExclusionType, 
@@ -1054,7 +1064,7 @@ public class Step5_DDE_GLANETResults {
 						geneType,
 						elementNameTypeList,
 						elementNameTPMName2NumberofEnrichmentMap,
-						tpmName2NumberofValidSimulationMap,
+						elementTypeTpmName2NumberofValidSimulationMap,
 						bonferroniCorrectionSignificanceLevel, 
 						FDR, 
 						multipleTestingParameter, 
@@ -1063,20 +1073,18 @@ public class Step5_DDE_GLANETResults {
 						associationMeasureType);
 				
 				//For control purposes can be deleted later.
-				if (numberofExistingEnrichmentDirectories1!=numberofExistingEnrichmentDirectories2){
-					System.out.println("There is a situation!...");
-				}else{
-					System.out.println(	cellLineType.convertEnumtoString() + "\t" + 
+				System.out.println(cellLineType.convertEnumtoString() + "\t" + 
 							geneType.convertEnumtoString() + "\t" +
 							TPMType.convertEnumtoString() + "\t" +
 							dnaseOverlapExclusionType.convertEnumtoString() + "\t" + 
 							generateRandomDataMode.convertEnumtoShortString() + "\t" +
 							associationMeasureType.convertEnumtoShortString() + "\t" +
-							numberofExistingEnrichmentDirectories1
+							ElementType.TF  + "\t" + elementTypeTpmName2NumberofValidSimulationMap.get(ElementType.TF.convertEnumtoString() + "_" + TPMType.convertEnumtoString()) + "\t" +
+							ElementType.HISTONE  + "\t" + elementTypeTpmName2NumberofValidSimulationMap.get(ElementType.HISTONE.convertEnumtoString() + "_" + TPMType.convertEnumtoString())
 							);
-				}
 				
-				bufferedWriter.write(TPMType.convertEnumtoString() + "\t" + numberofExistingEnrichmentDirectories1 + System.getProperty("line.separator"));
+				
+				bufferedWriter.write(TPMType.convertEnumtoString() + "\t" + ElementType.TF  + "\t" + elementTypeTpmName2NumberofValidSimulationMap.get(ElementType.TF.convertEnumtoString() + "_" + TPMType.convertEnumtoString()) + "\t" + ElementType.HISTONE + "\t" + elementTypeTpmName2NumberofValidSimulationMap.get(ElementType.HISTONE.convertEnumtoString() + "_" + TPMType.convertEnumtoString()) + "\t" + System.getProperty("line.separator"));
 				
 				
 			}//End of FOR each tpmValue
@@ -1093,7 +1101,7 @@ public class Step5_DDE_GLANETResults {
 					nonExpGenesTPMType2TPMValueSortedMap,
 					geneType,
 					//numberofGLANETRuns,
-					tpmName2NumberofValidSimulationMap);
+					elementTypeTpmName2NumberofValidSimulationMap);
 			
 			// Sort w.r.t. multiple attributes
 			// First by elementType
@@ -1111,6 +1119,9 @@ public class Step5_DDE_GLANETResults {
 			
 			//Close BufferedWriter
 			bufferedWriter.close();
+			
+			//Free memory
+			elementTypeTpmName2NumberofValidSimulationMap = null;
 		
 		} catch (IOException e) {
 			e.printStackTrace();
