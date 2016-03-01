@@ -25,7 +25,9 @@ import auxiliary.FileOperations;
 import auxiliary.FunctionalElementMinimal;
 import auxiliary.GlanetDecimalFormat;
 import auxiliary.NumberofComparisons;
+
 import common.Commons;
+
 import datadrivenexperiment.DataDrivenExperimentElementTPM.DDEElementTPMChainedComparator;
 import enumtypes.AssociationMeasureType;
 import enumtypes.DataDrivenExperimentCellLineType;
@@ -355,7 +357,9 @@ public class Step5_DDE_GLANETResults {
 			MultipleTestingType multipleTestingParameter,
 			EnrichmentDecisionType enrichmentDecisionType,
 			GenerateRandomDataMode generateRandomDataMode,
-			AssociationMeasureType associationMeasureType) {
+			AssociationMeasureType associationMeasureType,
+			BufferedWriter unaccomplishedGLANETRunsBufferedWriter,
+			List<String> unaccomplishedGLANETRunsList) {
 
 		String strLine = null;
 
@@ -452,6 +456,13 @@ public class Step5_DDE_GLANETResults {
 					//There can be an enrichment file but it can only have header line nothing else
 					if(cellLineSpecificElementList.size()>0){
 						numberofExistingEnrichmentDirectories++;
+					}else{
+						//Write unaccomplished GLANET runs to a file under DDE directory
+						
+						if (!unaccomplishedGLANETRunsList.contains(cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i)){
+							unaccomplishedGLANETRunsBufferedWriter.write(cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty("line.separator"));
+							unaccomplishedGLANETRunsList.add(cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i);
+						}
 					}
 
 					/**********************************************************************************/
@@ -516,6 +527,12 @@ public class Step5_DDE_GLANETResults {
 					cellLineFilteredEnrichmentBufferedWriter.close();
 					
 				}//End of IF
+				else{
+					if (!unaccomplishedGLANETRunsList.contains(cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i)){
+						unaccomplishedGLANETRunsBufferedWriter.write(cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty("line.separator"));
+						unaccomplishedGLANETRunsList.add(cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i);
+					}
+				}
 				
 				//Free memory
 				cellLineSpecificElementList = null;
@@ -975,10 +992,17 @@ public class Step5_DDE_GLANETResults {
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 		
+		FileWriter unaccomplishedGLANETRunsFileWriter = null;
+		BufferedWriter unaccomplishedGLANETRunsBufferedWriter = null;
+		
 		try {
 			
 			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.GLANET_DDE_RESULTS_FILE_START + significanceLevel.convertEnumtoString() + "_" +associationMeasureType.convertEnumtoShortString() + Commons.GLANET_DDE_RESULTS_FILE_END, true);
 			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			//1 March 2016
+			unaccomplishedGLANETRunsFileWriter = FileOperations.createFileWriter(ddeFolder + Commons.GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE, true);
+			unaccomplishedGLANETRunsBufferedWriter =  new BufferedWriter(unaccomplishedGLANETRunsFileWriter);
 			
 			switch(cellLineType){
 			
@@ -1022,6 +1046,8 @@ public class Step5_DDE_GLANETResults {
 			//associationMeasureType
 			TObjectIntMap<String> elementTypeTpmName2NumberofValidSimulationMap = new TObjectIntHashMap<String>();
 			
+			List<String> unaccomplishedGLANETRunsList = new ArrayList<String>();
+			
 			//Output ResultFile Header Lines
 			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + "\t" + "AssociationMeasureType"  + "\t" + "NumberofSimulations" +  System.getProperty("line.separator"));
 			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString()+ "\t" + associationMeasureType.convertEnumtoShortString() + "\t" + numberofGLANETRuns + System.getProperty("line.separator"));
@@ -1049,7 +1075,9 @@ public class Step5_DDE_GLANETResults {
 						multipleTestingParameter, 
 						enrichmentDecisionType,
 						generateRandomDataMode,
-						associationMeasureType);
+						associationMeasureType,
+						unaccomplishedGLANETRunsBufferedWriter,
+						unaccomplishedGLANETRunsList);
 				
 				
 				//HISTONE
@@ -1070,7 +1098,9 @@ public class Step5_DDE_GLANETResults {
 						multipleTestingParameter, 
 						enrichmentDecisionType,
 						generateRandomDataMode,
-						associationMeasureType);
+						associationMeasureType,
+						unaccomplishedGLANETRunsBufferedWriter,
+						unaccomplishedGLANETRunsList);
 				
 				//For control purposes can be deleted later.
 				System.out.println(cellLineType.convertEnumtoString() + "\t" + 
@@ -1119,9 +1149,11 @@ public class Step5_DDE_GLANETResults {
 			
 			//Close BufferedWriter
 			bufferedWriter.close();
+			unaccomplishedGLANETRunsBufferedWriter.close();
 			
 			//Free memory
 			elementTypeTpmName2NumberofValidSimulationMap = null;
+			unaccomplishedGLANETRunsList = null;
 		
 		} catch (IOException e) {
 			e.printStackTrace();

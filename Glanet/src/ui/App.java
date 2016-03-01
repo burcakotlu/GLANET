@@ -365,7 +365,6 @@ public class App {
 				setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfBasesRequiredForOverlap);
 				//System.out.println("Overlap definition must be at least 1 base or more");
 				//return false;
-
 		}
 
 		// parsing Dnase Annotation

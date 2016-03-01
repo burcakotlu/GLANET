@@ -92,6 +92,10 @@ public class Commons {
 	public static final String DDE_RUN = "Run";
 	public static final String SCRIPT_FILES = "ScriptFiles";
 	
+	//1 March 2016
+	public static final String GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE = "GLANET_DDE_Unaccomplished_GLANET_RUNS.txt";
+	
+	
 	public static final String GLANET_DDE_RESULTS_FILE_START = "GLANET_DDE_Results_";
 	public static final String GLANET_DDE_RESULTS_FILE_END = ".txt";
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL_STATISTICS_FILE = "DnaseOverlapsExcludedIntervalPoolStatistics.txt";
