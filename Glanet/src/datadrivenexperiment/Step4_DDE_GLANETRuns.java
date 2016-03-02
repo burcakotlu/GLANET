@@ -87,19 +87,20 @@ public class Step4_DDE_GLANETRuns {
 				switch(operatingSystem){
 				
 					case WINDOWS: 	{
-						fileExtension = ".bat";
+						fileExtension = Commons.BAT_FILE_EXTENSION;
 						break;
 					}
 																		
 					case LINUX:
 					case TURENG_MACHINE:{
-						fileExtension = ".sh";
+						fileExtension = Commons.SH_FILE_EXTENSION;
 						break;
 					}
 					
 					case TRUBA:
 					case TRUBA_FAST: {
-						fileExtension = ".slurm";
+						fileExtension = Commons.SLURM_FILE_EXTENSION;
+						
 						break;
 					}
 								
