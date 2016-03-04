@@ -361,10 +361,11 @@ public class App {
 			return false;
 		else{
 			if( argsInOrder[CommandLineArguments.AssociationMeasureType.value()] == Commons.EXISTENCE_OF_OVERLAP && 
-				Integer.parseInt(argsInOrder[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]) < 1)
+				Integer.parseInt(argsInOrder[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]) < 1){
 				setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfBasesRequiredForOverlap);
-				//System.out.println("Overlap definition must be at least 1 base or more");
-				//return false;
+//				System.out.println("Overlap definition must be at least 1 base or more");
+//				return false;
+			}
 		}
 
 		// parsing Dnase Annotation
@@ -372,7 +373,6 @@ public class App {
 			if( args[i].equalsIgnoreCase( Commons.ARG_DNASE_ANNOTATION)){
 				if( argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.DnaseAnnotation.value()] = Commons.DO_DNASE_ANNOTATION;
-
 				else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
