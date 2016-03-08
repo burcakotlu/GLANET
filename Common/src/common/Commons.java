@@ -93,15 +93,23 @@ public class Commons {
 	public static final String SCRIPT_FILES = "ScriptFiles";
 	
 	//1 March 2016
-	public static final String GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE = "GLANET_DDE_Unaccomplished_GLANET_RUNS.txt";
+	public static final String GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE_START = "GLANET_DDE";
+	public static final String GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE_REST = "_Unaccomplished_GLANET_RUNS.txt";
+	
 	public static final String SCRIPT_FILES_FOR_RERUNS = "ScriptFilesForReruns";
 	public static final String SLURM_FILE_EXTENSION = ".slurm";
 	public static final String SH_FILE_EXTENSION = ".sh";
 	public static final String BAT_FILE_EXTENSION = ".bat";
 	
+	//8 March 2016
+	public static final String GLANET_DDE_OVERALL_SITUATION_FILE_START = "GLANET_DDE";
+	public static final String GLANET_DDE_OVERALL_SITUATION_FILE_REST = "_Overall_Situation.txt";
 	
-	public static final String GLANET_DDE_RESULTS_FILE_START = "GLANET_DDE_Results_";
+	public static final String GLANET_DDE_RESULTS_FILE_START = "GLANET_DDE";
+	public static final String GLANET_DDE_RESULTS_FILE_MIDDLE = "_Results_";
 	public static final String GLANET_DDE_RESULTS_FILE_END = ".txt";
+	
+	
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL_STATISTICS_FILE = "DnaseOverlapsExcludedIntervalPoolStatistics.txt";
 	
 	public static final String TOP1		= "Top1";

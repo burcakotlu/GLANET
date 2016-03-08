@@ -5,7 +5,7 @@
  * with no Enrichment directory or no Enrichment File at all.
  * This class will detect such GLANET Runs under Output directory and write sbatch calls script files under DDE directory
  * In fact detection is done in Step5 class
- * Now writing script files for sbacth calls for these reruns remained.
+ * Now writing script files for sbacth calls for these reruns are handled in this class.
  */
 package datadrivenexperiment;
 
@@ -211,10 +211,11 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 			String GLANETJarFile,
 			String glanetFolder,
 			String ddeFolder,
-			DataDrivenExperimentOperatingSystem operatingSystem){
+			DataDrivenExperimentOperatingSystem operatingSystem,
+			int DDENumber){
 		
 		// Read unaccomplishedGLANETRunFile
-		String unaccomplishedGLANETRunFile = ddeFolder + System.getProperty("file.separator") + Commons.GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE; ;
+		String unaccomplishedGLANETRunFile = ddeFolder + System.getProperty("file.separator") + Commons.GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE_START + DDENumber + Commons.GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE_REST  ;
 		
 		FileReader fileReader =  null;
 		BufferedReader bufferedReader = null;
@@ -337,10 +338,11 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 		
 		//Operating System where the Data Driven Experiment will run
 		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[2]);
-				
 		
+		int DDENumber = Integer.parseInt(args[3]);
+				
 		// Read unaccomplishedGLANETRunFile
-		readUnaccomplisgedGLANETRunsFileAndWriteScriptFiles(GLANETJarFile,glanetFolder,ddeFolder,operatingSystem);
+		readUnaccomplisgedGLANETRunsFileAndWriteScriptFiles(GLANETJarFile,glanetFolder,ddeFolder,operatingSystem,DDENumber);
 		
 
 	}
