@@ -460,7 +460,7 @@ public class Step5_DDE_GLANETResults {
 					if(cellLineSpecificElementList.size()>0){
 						numberofExistingEnrichmentDirectories++;
 					}
-					//There is no enrichment file but there is no result in it Case
+					//There is enrichment file but there is no result in it Case
 					else{
 						//Write unaccomplished GLANET runs to a file under DDE directory
 						lookFor = cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i;
