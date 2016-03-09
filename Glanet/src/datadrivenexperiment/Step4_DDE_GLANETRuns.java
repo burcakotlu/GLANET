@@ -32,12 +32,13 @@ import enumtypes.GenerateRandomDataMode;
  * 
  * In this class
  * 
- * GLANET Data Driven Experiments Simulations command line runs are written in a bat file.
+ * GLANET Data Driven Experiments Simulations command line runs are written in a bat file for WINDOWS and in a slrum file for TRUBA.
+ * By the way, SLURM stands for Simple LinUx Resource Management
  *
  */
 public class Step4_DDE_GLANETRuns {
 
-	//For NonExpressingGenes, all of the DataDrivenExperimentDnaseOverlapExclusionType: CompletelyDiscard, NoDiscard, TakeTheLongest
+	//For NonExpressingGenes, all of the DataDrivenExperimentDnaseOverlapExclusionType: CompletelyDiscard, TakeTheLongest
 	//For ExpressingGenes, only NoDiscard
 	//For AssociationMeasureType NumberofOverlappingBases and ExistenceofOverlap
 	public static void writeGLANETRuns( 
@@ -70,16 +71,14 @@ public class Step4_DDE_GLANETRuns {
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 			
 			//Add GCM extension
-			if (withorWithoutGCandMapability.isGenerateRandomDataModeWithMapabilityandGc()){
-				GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_wGCM"; 
-			}else if (withorWithoutGCandMapability.isGenerateRandomDataModeWithoutMapabilityandGc()){
-				GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_woGCM"; 
-			}
+			GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + withorWithoutGCandMapability.convertEnumtoShortString(); 
 			
 			//Add associationMeasureType extension
 			GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + associationMeasureType.convertEnumtoShortString();
 			
 			
+			//We want to get rid of NonExpressingGenes and NoDiscard Case
+			//We want to run ExpressingGenes and NoDiscard Case only
 			if ((geneType.isNonExpressingProteinCodingGenes() && !dnaseOverlapExclusionType.isNoDiscard()) || 
 				(geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard())){
 				
@@ -107,24 +106,14 @@ public class Step4_DDE_GLANETRuns {
 				}//End of SWITCH
 				
 				
-				call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + "sbatch_Calls_" + cellLineType.convertEnumtoString() +  "_wGCM_" + associationMeasureType.convertEnumtoShortString() + fileExtension, true);
+				call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + Commons.WGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
 				call_Runs_WithGCM_BufferedWriter = new BufferedWriter(call_Runs_WithGCM_FileWriter);
 				
-				call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + "sbatch_Calls_" + cellLineType.convertEnumtoString() + "_woGCM_" + associationMeasureType.convertEnumtoShortString() + fileExtension, true);
+				call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() + "_" + Commons.WOGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
 				call_Runs_WithoutGCM_BufferedWriter = new BufferedWriter(call_Runs_WithoutGCM_FileWriter);
 				
 				//Decide on fileName
-				switch(withorWithoutGCandMapability){
-				
-					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_"  + tpmType.convertEnumtoString() + "_"  + dnaseOverlapExclusionType.convertEnumtoString() + "_wGCM_" + associationMeasureType.convertEnumtoShortString() + fileExtension;
-						break;
-					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_woGCM_" + associationMeasureType.convertEnumtoShortString() +  fileExtension;
-					break;
-				
-				}//End of SWITCH
-				
+				fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_"  + tpmType.convertEnumtoString() + "_"  + dnaseOverlapExclusionType.convertEnumtoString() + "_"+  withorWithoutGCandMapability.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + fileExtension;
 				
 				fileWriter = FileOperations.createFileWriter(fileName);	
 				bufferedWriter = new BufferedWriter(fileWriter);

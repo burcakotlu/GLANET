@@ -100,6 +100,10 @@ public class Commons {
 	public static final String SLURM_FILE_EXTENSION = ".slurm";
 	public static final String SH_FILE_EXTENSION = ".sh";
 	public static final String BAT_FILE_EXTENSION = ".bat";
+	public static final String TEXT_FILE_EXTENSION = ".txt";
+	
+	public static final String SBATCH_CALLS = "sbatch_Calls_";
+	public static final String GLANET_DDE = "GLANET_DDE";
 	
 	//8 March 2016
 	public static final String GLANET_DDE_OVERALL_SITUATION_FILE_START = "GLANET_DDE";
@@ -999,6 +1003,7 @@ public class Commons {
 
 	public static final String STRING_HYPHEN = "-";
 	public static final String UNDERSCORE = "_";
+	public static final char UNDERSCORE_CHAR = '_';
 	public static final String DOT = ".";
 	public static final char SLASH = '/';
 
