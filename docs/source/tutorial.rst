@@ -676,7 +676,7 @@ GLANET Command-Line Sample Runs
 
  Example Annotation and Regulatory Sequence Analysis Run (Existence of overlap is chosen as Association Measure Type and Number of Overlap set to 3) is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -histone -tf -rsat
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -existOv -b 3 -f1 -histone -tf -rsat
 
  Example User Defined Gene Set Annotation and Enrichment Run is as following::	
 
