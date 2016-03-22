@@ -274,7 +274,7 @@ In the following table, commands and their prerequisite commands, if any, are sp
 | Type                    +---------------+-------------------+--------------+----------------------+
 |                         | `-existOv`_   |  Required         | `-c`_        | `-numOvBas`_         |
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Number of Bases         | `-b`_         |  Required         | `-c`_        | 1 (Integer)          |
+| Number of Bases         | `-b`_         |  Required         | `-existOv`_  | 1 (Integer)          |
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Annotation              | `-dnase`_     |  Optional         | `-c`_        | None                 |
 |                         +---------------+-------------------+--------------+----------------------+
@@ -440,7 +440,7 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 
 -b
 ^^
-**Required** if :option:`-c` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. An integer value must be specified as the parameter. If you do not set anything, default option is :option:`-b 1`.
+**Required** if :option:`-existOv` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. A positive integer value must be specified as the parameter. If you do not set anything, default option is :option:`-b 1`.
 
 -dnase
 ^^^^^^
