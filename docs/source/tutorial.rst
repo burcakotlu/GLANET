@@ -15,7 +15,7 @@ Note that we ask you to allow GLANET to allocate 8GB of memory in order to make 
 GLANET Graphical User Interface
 -------------------------------
 
-.. figure:: ../images/GLANET_GUI_UpperPart.jpg
+.. figure:: ../images/GLANET_upper.png
    :alt: GLANET_GUI_UpperPart
 
    GLANET GUI Upper Part
@@ -172,7 +172,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		   	-  1-based coordinates (End Exclusive)
 		   	-  Choose the appropriate the Data Format.
 
-.. figure:: ../images/GLANET_GUI_LowerPart.jpg
+.. figure:: ../images/GLANET_lower.png
    :alt: GLANET_GUI_LowerPart
 
    GLANET GUI Lower Part
