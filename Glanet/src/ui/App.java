@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.Dimension;
 import java.awt.GraphicsEnvironment;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -36,6 +38,7 @@ public class App {
 		JFrame frame = new JFrame( "GLANET");
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
 		frame.setMinimumSize( new Dimension( 1024, 768));
+		frame.setPreferredSize( new Dimension( 1024, 768));
 		frame.setResizable( true);
 
 		mainPanel = new JPanel();
@@ -51,6 +54,16 @@ public class App {
 				super.windowClosing( e);
 			}
 		});
+		
+		frame.addComponentListener( new ComponentAdapter() {
+			
+			@Override
+			public void componentResized( ComponentEvent event){
+				
+				initialViewController.frameSizeChanged(frame.getWidth(), frame.getHeight());
+			}
+		});
+
 
 		frame.setVisible( true);
 		frame.pack();

@@ -46,6 +46,12 @@ public class MainViewController extends ViewController implements MainViewDelega
 		contentPanel.removeAll();
 		contentPanel.add( mainView);
 	}
+	
+	@Override
+	public void frameSizeChanged(int width, int height){
+		
+		mainView.setPreferredSizeForScrollPane(width, height);
+	}
 
 	@Override
 	public void startRunActionsWithOptions( 

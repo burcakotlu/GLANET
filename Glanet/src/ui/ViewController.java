@@ -32,4 +32,6 @@ public abstract class ViewController {
 	}
 
 	public abstract void dismissViewController();
+	
+	public abstract void frameSizeChanged(int width, int height);
 }

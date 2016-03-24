@@ -45,6 +45,7 @@ public class MainView extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private JScrollPane scrollPane;
 	private MainViewDelegate delegate;
 	private JTextField jobName;
 	private JTextField outputTextField;
@@ -355,6 +356,15 @@ public class MainView extends JPanel {
 			// do nothing
 		}
 	};
+	
+	public void setPreferredSizeForScrollPane(int width, int height){
+		
+		if( scrollPane != null){
+			
+			scrollPane.setPreferredSize( new Dimension( width-30, height-50));
+			revalidate();
+		}
+	}
 
 	public MainView() {
 
@@ -366,7 +376,7 @@ public class MainView extends JPanel {
 		listPane.setLayout( new BoxLayout( listPane, BoxLayout.PAGE_AXIS));
 
 		// to enable scroll down on listPane. scrollPane added to this view
-		JScrollPane scrollPane = new JScrollPane( listPane);
+		scrollPane = new JScrollPane( listPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scrollPane.setPreferredSize( new Dimension( 1024, 768));
 
 		// inputBrowseAndOptionPane added to listPane
