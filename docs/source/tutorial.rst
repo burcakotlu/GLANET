@@ -660,11 +660,19 @@ GLANET Command-Line Sample Runs
 
  Example Annotation Run is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -grch37 -g "C:\\Users\\User\\" -b 1 -dnase -histone -tf -kegg -tfkegg
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -grch37 -g "C:\\Users\\User\\" -existOv -dnase -histone -tf -kegg -tfkegg
 
  Example Annotation and Enrichmnet Run is as following::
 
 	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -kegg -e -pe 10000
+
+Example Annotation and Enrichmnet Run is as following (Enrichment without ZScores)::
+
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -celltfkegg -kegg -e -ewoz -pe 10000
+
+Example Annotation and Enrichmnet Run is as following (Enrichment without GC and Mapability)::
+
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -celltfkegg -kegg -e -rd -pe 10000
 
  Example Annotation and Enrichmnet and Regulatory Sequence Analysis Run is as following::
 
@@ -678,6 +686,6 @@ GLANET Command-Line Sample Runs
 
 	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -existOv -b 3 -f1 -histone -tf -rsat
 
- Example User Defined Gene Set Annotation and Enrichment Run is as following::	
+ Example User Defined Gene Set Annotation and Enrichment Run is as following::
 
-	$ java -jar "C:\\Users\\glanet\\Google Drive\\JarFiles\\GLANET.jar"  -Xms32G -Xmx32G -i "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\BroadEnrich_Comparison_Data\\wgEncodeBroadHistoneGm12878H3k27me3StdPk.broadPeak" -grch37 -g  "C:\\Users\\glanet\\Google Drive\\"  -fbed  -b 1 -udg  -udginput "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_gene_associations_human_ref.txt"  -udginfosym  -udgname "GO" -udgdfile  "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_ids2terms.txt" -e -ewz -rdgcm  -mtbhfdr -p 10000 -pe 1000 -j "GLANET_BroadEnrich_H3k27me3_GO" -l -c
+	$ java -jar "C:\\Users\\glanet\\Google Drive\\JarFiles\\GLANET.jar" -Xms8G -Xmx8G -i "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -g "C:\\Users\\glanet\\Google Drive\\" -f1 -existOv -b 1 -udg -udginput "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_gene_associations_human_ref.txt" -udginfosym -udgname "GO" -udgdfile "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_ids2terms.txt" -e -ewz -rdgcm -mtbhfdr -p 10000 -pe 1000 -j "GLANET_OCD_GWAS_GO" -l -c
