@@ -3053,7 +3053,7 @@ public class Annotation {
 				// for each ucscRefSeqGene overlap
 				// if these overlaps overlaps
 				// then write common overlap to output files
-				// question will the overlapDefinition apply here?
+				// OverlapDefinition applies here.
 				for( TfCellLineOverlapWithNumbers tfOverlap : tfandCellLineOverlapList){
 
 					tfNumberCellLineNumber = tfOverlap.getTfNumberCellLineNumber();

@@ -4248,6 +4248,7 @@ public class Enrichment {
 	// Modified 22 July 2015
 	// 24 June 2015 starts
 	// DO NOT KEEP NUMBER OF OVERLAPS COMING FROM EACH PERMUTATION starts
+	// withoutZScores
 	public static void annotateAllPermutationsInThreadsForAllChromosomes(
 			String outputFolder,
 			String dataFolder,
