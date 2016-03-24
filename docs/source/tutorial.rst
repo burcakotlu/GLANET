@@ -666,11 +666,11 @@ GLANET Command-Line Sample Runs
 
 	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -kegg -e -pe 10000
 
-Example Annotation and Enrichmnet Run is as following (Enrichment without ZScores)::
+ Example Annotation and Enrichmnet Run is as following (Enrichment without ZScores)::
 
 	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -celltfkegg -kegg -e -ewoz -pe 10000
 
-Example Annotation and Enrichmnet Run is as following (Enrichment without GC and Mapability)::
+ Example Annotation and Enrichmnet Run is as following (Enrichment without GC and Mapability)::
 
 	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -celltfkegg -kegg -e -rd -pe 10000
 
