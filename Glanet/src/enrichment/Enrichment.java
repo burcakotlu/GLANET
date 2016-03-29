@@ -6348,10 +6348,9 @@ public class Enrichment {
 				//We said that if mode of given interval lengths is greater than 100000 bp, then we will not generate random interval wGCM
 				//Then, is filling gcIntervalTree with intervals of 100000 bp meaningful?
 				
-				//Yes since we give this decision w.r.t to the mode of the given intervals.
+				//We give this decision w.r.t to the mode of the given intervals.
 				//Mode of given intervals can be > 100000 bp
 				//But there can be still given intervals with length less than 100000 bp
-				//for those intervals their gc  will be calculated using gcIntervalTree with 100000 interval lengths.
 				
 				//So why to use gcIsochoreIntervalTree for intervals less than 100000bp?
 				//We may not have all of gcIntervalTrees because of memory bottleneck

@@ -84,8 +84,8 @@ public class GC {
 	}
 	
 	
-	// Right now complex way is not called.
 	// Complex way
+	// Right now complex way is not called.
 	// Each hit also has numberofOverlappingBases starts
 	// Analyze each hit
 	// Accumulate the numberofOverlappingBases for each isochoreFamily
@@ -180,7 +180,7 @@ public class GC {
 	}
 
 	// There can be gaps in the intervals of GC Interval Tree
-	public static float calculateGCofIntervalUsingIntervalTree( InputLineMinimal givenInputLine,IntervalTree gcIntervalTree, CalculateGC calculateGC) {
+	public static float calculateGCofIntervalUsingIntervalTree(InputLineMinimal givenInputLine,IntervalTree gcIntervalTree, CalculateGC calculateGC) {
 
 		Float gcContent = 0f;
 
@@ -191,27 +191,28 @@ public class GC {
 		return gcContent;
 	}
 
+	//Not called anymore
 	// Calculate the GC of the given interval using GCIsochoreIntervalTree
 	// In case of length of the given interval is greater than 100KB
-	public static GCIsochoreIntervalTreeFindAllOverlapsResult calculateGCofIntervalUsingIsochoreIntervalTree(
-			InputLineMinimal givenInputLine, 
-			IntervalTree gcIsochoreIntervalTree) {
-
-		GCIsochoreIntervalTreeFindAllOverlapsResult result = new GCIsochoreIntervalTreeFindAllOverlapsResult();
-
-		gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals( gcIsochoreIntervalTree.getRoot(), givenInputLine,result);
-		// gcContent = gcIsochoreIntervalTree.findAllOverlappingGCIntervals(gcIsochoreIntervalTree.getRoot(),
-		// givenInputLine,calculateGC);
-
-		result.setGc(result.getNumberofGCs() / (givenInputLine.getHigh() - givenInputLine.getLow() + 1));
-		result.setIsochoreFamily(calculateIsochoreFamily(result.getGc()));
-		
-		// This is a complex way of deciding on isochoreFamily
-		// Why don't we just look at the result.getGc() and classify the isochoreFamily of interval accordingly
-		//result.setIsochoreFamily(calculateIsochoreFamily( result.getHits()));
-
-		return result;
-	}
+//	public static GCIsochoreIntervalTreeFindAllOverlapsResult calculateGCofIntervalUsingIsochoreIntervalTree(
+//			InputLineMinimal givenInputLine, 
+//			IntervalTree gcIsochoreIntervalTree) {
+//
+//		GCIsochoreIntervalTreeFindAllOverlapsResult result = new GCIsochoreIntervalTreeFindAllOverlapsResult();
+//
+//		gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals( gcIsochoreIntervalTree.getRoot(), givenInputLine,result);
+//		// gcContent = gcIsochoreIntervalTree.findAllOverlappingGCIntervals(gcIsochoreIntervalTree.getRoot(),
+//		// givenInputLine,calculateGC);
+//
+//		result.setGc(result.getNumberofGCs() / (givenInputLine.getHigh() - givenInputLine.getLow() + 1));
+//		result.setIsochoreFamily(calculateIsochoreFamily(result.getGc()));
+//		
+//		// This is a complex way of deciding on isochoreFamily
+//		// Why don't we just look at the result.getGc() and classify the isochoreFamily of interval accordingly
+//		//result.setIsochoreFamily(calculateIsochoreFamily( result.getHits()));
+//
+//		return result;
+//	}
 
 	// new starts
 	public static float calculateGCofIntervalUsingTroveList( InputLineMinimal givenInputLine, TByteList gcByteList) {

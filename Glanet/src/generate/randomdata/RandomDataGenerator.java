@@ -9,7 +9,6 @@
 package generate.randomdata;
 
 import gc.GC;
-import gc.GCIsochoreIntervalTreeFindAllOverlapsResult;
 import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
@@ -26,6 +25,7 @@ import mapability.Mapability;
 import org.apache.log4j.Logger;
 
 import common.Commons;
+
 import enrichment.InputLineMinimal;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
@@ -257,7 +257,8 @@ public class RandomDataGenerator {
 		int countForIntervalTreeOverlap;
 		int counterThreshold;
 
-		GCIsochoreIntervalTreeFindAllOverlapsResult result = null;
+		//Not used anymore
+		//GCIsochoreIntervalTreeFindAllOverlapsResult result = null;
 
 		//List<GCIsochoreIntervalTreeHitNode> hits = null;
 
@@ -359,8 +360,7 @@ public class RandomDataGenerator {
 					if( calculateGC.isCalculateGCUsingByteList()){
 						// Using GCByteList
 						originalInputLineGC = GC.calculateGCofIntervalUsingTroveList(originalInputLine, gcByteList);
-						originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(originalInputLineGC);
-
+					
 						//hits = gcIsochoreIntervalTree.findAllOverlappingGCIsochoreIntervals(gcIsochoreIntervalTree.getRoot(), originalInputLine);
 						//originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(hits);
 					}
@@ -371,16 +371,15 @@ public class RandomDataGenerator {
 					else if (calculateGC.isCalculateGCUsingGCIntervalTree()){
 						// Using GCIntervalTree
 						originalInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(originalInputLine, gcIntervalTree,calculateGC);
-						originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(originalInputLineGC);
 					} 
 					
-					// Unreachable code
-					// chrBasedModeGivenIntervalLength >100000
-					else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
-						result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(originalInputLine,gcIntervalTree);
-						originalInputLineGC = result.getGc();
-						originalInputLineIsochoreFamily = result.getIsochoreFamily();	
-					}
+//					// Unreachable code
+//					// chrBasedModeGivenIntervalLength >100000
+//					else if (calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
+//						result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(originalInputLine,gcIntervalTree);
+//						originalInputLineGC = result.getGc();
+//						originalInputLineIsochoreFamily = result.getIsochoreFamily();	
+//					}
 					/**************************************************************************************************/
 					/**************************GC Calculation for Original Input Line ends*****************************/
 					/**************************Isochore Family for Original Input Line ends****************************/
@@ -413,26 +412,33 @@ public class RandomDataGenerator {
 					/**************************************************************************************************/
 					/**********************Initialization for each original interval ends******************************/
 					/**************************************************************************************************/
-
-	
 					
-					do{
+					
+					
+					/************************************************************************************************************************************/
+					/*****************Calculate Isochore Family If isochoreFamilyMode is set as DO_USE_ISOCHORE_FAMILY starts ***************************/
+					/************************************************************************************************************************************/
+					if (isochoreFamilyMode.useIsochoreFamily()){
+						originalInputLineIsochoreFamily = GC.calculateIsochoreFamily(originalInputLineGC);
+					}
+					/************************************************************************************************************************************/
+					/*****************Calculate Isochore Family If isochoreFamilyMode is set as DO_USE_ISOCHORE_FAMILY ends *****************************/
+					/************************************************************************************************************************************/
 
+					do{	
 						/********************************************************************************************************************************************************/
-						/**********************Generate a random line depending on the isochore family of originalInputLine starts***********************************************/
+						/**********************Generate a random line for each originalInputLine starts**************************************************************************/
 						/********************************************************************************************************************************************************/
-						
+
 						//Initialize for each interval
 						countForIntervalTreeOverlap = 0;
 						do{
-							
 							
 							if (isochoreFamilyMode.useIsochoreFamily()){
 								
 								//Initialize for each interval
 								//countForIsochoreFamily = 0;
 								do{
-									
 									// Randomly generated interval will have the same isochore family of the original interval
 									randomlyGeneratedLine = getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine(
 											chromSize,
@@ -454,8 +460,6 @@ public class RandomDataGenerator {
 							}
 								
 
-							
-						
 							intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
 							overlappedNodeList = new ArrayList<IntervalTreeNode>();
 
@@ -465,7 +469,7 @@ public class RandomDataGenerator {
 							
 						}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0)  && (countForIntervalTreeOverlap<=Commons.CUT_OFF_VALUE));	
 						/********************************************************************************************************************************************************/
-						/**********************Generate a random line depending on the isochore family of originalInputLine ends*************************************************/
+						/**********************Generate a random line for each originalInputLine ends****************************************************************************/
 						/********************************************************************************************************************************************************/
 
 						//Let's think that we can not randomly generate an interval that does not have any overlap with already generated intervals.
@@ -502,14 +506,17 @@ public class RandomDataGenerator {
 						}else if(calculateGC.isCalculateGCUsingGCIntervalTree()){
 							randomlyGeneratedInputLineGC = GC.calculateGCofIntervalUsingIntervalTree(randomlyGeneratedLine, gcIntervalTree, calculateGC);
 							
-						}else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
-							// Using GCIsochoreIntervalTree
-
-							result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(randomlyGeneratedLine,gcIntervalTree);
-
-							randomlyGeneratedInputLineGC = result.getGc();
-							// randomlyGeneratedInputLineIsochoreFamily = result.getIsochoreFamily();
 						}
+						
+						//unreachable code
+//						else if( calculateGC.isCalculateGCUsingGCIsochoreIntervalTree()){
+//							// Using GCIsochoreIntervalTree
+//
+//							result = GC.calculateGCofIntervalUsingIsochoreIntervalTree(randomlyGeneratedLine,gcIntervalTree);
+//
+//							randomlyGeneratedInputLineGC = result.getGc();
+//							// randomlyGeneratedInputLineIsochoreFamily = result.getIsochoreFamily();
+//						}
 
 						differencebetweenGCs = Math.abs(randomlyGeneratedInputLineGC - originalInputLineGC);
 						/**************************************************************************************************/
