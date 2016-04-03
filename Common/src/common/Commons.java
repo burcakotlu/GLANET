@@ -530,9 +530,6 @@ public class Commons {
 	public static final String TEST_INPUT_FILE_DBSNP_IDS_FORMAT = "";
 
 	// RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter
-	public static final String REFSEQ_IDS_FOR_GRCH37_INPUT_FILE = "RefSeqIdsforGRCh37" + System.getProperty( "file.separator") + "GCF_000001405.25.assembly.txt";
-	public static final String REFSEQ_IDS_FOR_GRCH38_INPUT_FILE = "RefSeqIdsforGRCh38" + System.getProperty( "file.separator") + "GCF_000001405.26.assembly.txt";
-	public static final String LATEST_ASSEMBLY_RETURNED_FROM_NCBI_EUTILS_REPORT_FILE = "RefSeqIds" + System.getProperty( "file.separator") + "LatestAssemblyReturnedFromNCBIEutils.assembly.txt";
 	public static final String ASSEMBLY_REPORTS = "AssemblyReports" + System.getProperty("file.separator");
 	public static final String ASSEMBLY_REPORTS_FILE_EXTENSION = ".assembly.txt";
 	

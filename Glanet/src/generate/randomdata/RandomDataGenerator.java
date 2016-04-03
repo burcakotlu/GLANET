@@ -523,7 +523,7 @@ public class RandomDataGenerator {
 						/**************************GC Calculation for Randomly Generated Line ends*************************/
 						/**************************************************************************************************/
 
-//						Saved w.r.t. sum of differences gave better results than each GC and Mappabiliyu difference						
+//						Saved w.r.t. sum of differences gave better results than each GC and Mappability difference						
 //						//Saved best randomlyGeneratedLine up to now wrt to each difference starts 
 //						if ((differencebetweenGCs <= savedDifferencebetweenGCs) && (differencebetweenMapabilities <= savedDifferencebetweenMapabilities)){
 //							

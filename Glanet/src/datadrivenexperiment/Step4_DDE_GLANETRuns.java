@@ -347,8 +347,7 @@ public class Step4_DDE_GLANETRuns {
 					default: 
 						break;
 				
-				}//End of SWITCH for adding exit line.
-				
+				}//End of SWITCH for adding exit line.				
 				
 				//Close bufferedWriters
 				bufferedWriter.close();
