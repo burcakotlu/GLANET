@@ -402,7 +402,7 @@ To enable GLANET to run in Terminal or Command Prompt, it must be indicated with
 ^^
 
 **Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option`-g`.
-Do not forget that Glanet folder must have the Data folder as subfolder.
+Do not forget that GLANET folder must have the Data folder as sub folder.
 
 -f1
 ^^^
@@ -445,48 +445,48 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 -dnase
 ^^^^^^
 
-This option enables DNase Hypersensitive Sites (Cell Line Based) Annotation.
+This option enables DNase Hypersensitive Sites (Cell Line Based) annotation.
 
 -histone
 ^^^^^^^^
 
-This option enables Histone Modifications Sites (Cell Line Based) Annotation.
+This option enables Histone Modifications Sites (Cell Line Based) annotation.
 
 -gene
 ^^^^^
 
-This option enables clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg19),  RefSeq Genes Annotation.
+This option enables clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg19),  RefSeq Genes annotation.
 
 
 -tf
 ^^^
 
-This option enables Transcription Factors Binding Sites (Cell Line Based) Annotation.
+This option enables Transcription Factors Binding Sites (Cell Line Based) annotation.
 
 -kegg
 ^^^^^
 
-This option enables KEGG Pathway Annotation.
+This option enables KEGG Pathway annotation.
 
 -tfkegg
 ^^^^^^^
 
-This option enables joint Transcription Factor Binding Sites and KEGG Pathway Annotation.
+This option enables joint Transcription Factor Binding Sites and KEGG Pathway annotation.
 
 -tfcellkegg
 ^^^^^^^^^^^^
 
-This option enables joint Transcription Factor Binding Sites (Cell Line Based) and KEGG Pathway Annotation.
+This option enables joint Transcription Factor Binding Sites (Cell Line Based) and KEGG Pathway annotation.
 
 -udgs
 ^^^^^
 
-This option enables User Defined GeneSet Annotation.
+This option enables user defined gene set annotation.
 
 -udgsinput
 ^^^^^^^^^^
 
-**Required** if :option:`-udgs` is set. This option specifies User Defined GeneSet input file. 
+**Required** if :option:`-udgs` is set. This option specifies user defined gene set input file. 
 Absolute input file location must be specified as the parameter.
 
 -genesym
@@ -510,12 +510,12 @@ If you do not set any of these options, default option is :option:`-genesym`
 -udgsname
 ^^^^^^^^^
 
-This option gives a name for the user defined GeneSet.
+This option gives a name for the user defined gene set.
 
 -udgsdfile
 ^^^^^^^^^^
 
-This option specifies the user defined GeneSet description file location. 
+This option specifies the user defined gene set description file location. 
 Absolute file location must be specified as the parameter.
 
 -udl
@@ -559,7 +559,7 @@ This option specifies User Defined Library Data Format as "1-based coordinates (
 ^^
 
 If this option is specified, GLANET performs enrichment. 
-Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-celltfkegg`, :option:`-udg`, :option:`-udl`) to be set.
+Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-tfcellkegg`, :option:`-udgs`, :option:`-udl`) to be set.
 
 -wzs
 ^^^^
@@ -589,7 +589,7 @@ See also `-wgcm`_.
 ^^^
 
 **Required** if :option:`-e` is set. 
-This option sets Multiple Testing correction as "Benjamini Hochberg FDR". 
+This option sets Multiple Testing correction as "Benjamini-Hochberg FDR". 
 You must either set :option:`-bh` or :option:`-bonf` to specify multiple testing correction option. 
 If you do not set anything, default option is :option:`-bh`.
 
@@ -604,14 +604,14 @@ See also `-bh`_.
 ^^^^
 
 **Required** if :option:`-e` is set. 
-This option followed by a float value sets False Discovery Rate. 
+This option followed by a float value sets False Discovery Rate for Benjamini-Hochberg multiple testing. 
 Default option is :option:`-fdr 0.05`.
 
 -sl
 ^^^
 
 **Required** if :option:`-e` is set. 
-This option followed by a float value sets Bonferroni Correction significance level. 
+This option followed by a float value sets Significance Level for Bonferroni Correction multiple testing. 
 Default option is :option:`-sl 0.05`.
 
 -s
@@ -642,7 +642,7 @@ It sets Job Name that GLANET is about to perform.
 It creates an output folder with the specified Job Name. 
 Results will be collected under this folder. 
 Job Name must be specified as the parameter. 
-If you do not set anything, default option is :option:`-f NoName`.
+If you do not set anything, default option is :option:`-j NoName`.
 
 -l
 ^^
@@ -660,32 +660,32 @@ GLANET Command-Line Sample Runs
 
  Example Annotation Run is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -grch37 -g "C:\\Users\\User\\" -eoo -dnase -histone -tf -kegg -tfkegg
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/CVD_all_1_based_snps.txt" -f1 -grch37 -eoo -dnase -histone -tf -kegg -tfkegg -l -j "SampleRun1"
 
  Example Annotation and Enrichmnet Run is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -kegg -e -se 10000
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -kegg -e -se 10000  -l -j "SampleRun2"
 
  Example Annotation and Enrichmnet Run is as following (Enrichment without ZScores)::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tfcellkegg -kegg -e -wozs -se 10000
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tfcellkegg -kegg -e -wozs -se 10000 -l -j "SampleRun3"
 
  Example Annotation and Enrichmnet Run is as following (Enrichment without GC and Mapability)::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tfcellkegg -kegg -e -wogcm -se 10000
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tfcellkegg -kegg -e -wogcm -se 10000  -l -j "SampleRun4"
 
  Example Annotation and Enrichmnet and Regulatory Sequence Analysis Run is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -g "C:\\Users\\User\\" -fdbsnp -dnase -histone -tf -tfkegg -rsa -e -s 5000 -c
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tf -tfkegg -rsa -e -s 5000  -l -j "SampleRun5"
 
  Example Annotation and Regulatory Sequence Analysis Run (Number of Overlapping Bases is chosen as Association Measure Type) is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -histone -noob -tf -rsa
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/CVD_all_1_based_snps.txt" -f1 -histone -noob -tf -rsa -l -j "SampleRun6"
 
  Example Annotation and Regulatory Sequence Analysis Run (Existence of overlap is chosen as Association Measure Type and Number of Overlap set to 3) is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -eoo -nb 3 -f1 -histone -tf -rsa
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/GM12878_ExpressingGenes_Top5_NoDiscard_Run542.txt" -eoo -nb 3 -f0 -histone -tf  -l -j "SampleRun7"
 
  Example User Defined Gene Set Annotation and Enrichment Run is as following::
 
-	$ java -jar "C:\\Users\\glanet\\Google Drive\\JarFiles\\GLANET.jar" -Xms8G -Xmx8G -i "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -g "C:\\Users\\glanet\\Google Drive\\" -f1 -eoo -nb 1 -udgs -udgsinput "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_ids2terms.txt" -e -wzs -wgcm -bh -s 10000 -se 1000 -j "GLANET_OCD_GWAS_GO" -l -c
+	$ java -jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wzs -wgcm -bh -s 10000 -se 1000 -l -j "SampleRun8"
