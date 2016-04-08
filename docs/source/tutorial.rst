@@ -430,17 +430,17 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 
 **Required** if :option:`-c` is set. This option specifies that input file contains dbSNP IDs per line. See also `-f1`_.
 
--numOvBas
-^^^^^^^^^
-**Required** if :option:`-c` is set. This option specifies that association measure type is Number of Overlapping Bases, it is 0 or more. See also `-existOv`_.
+-noob
+^^^^^
+**Required** if :option:`-c` is set. This option specifies that association measure type is Number of Overlapping Bases, it is 0 or more. See also `-eoo`_.
 
--existOv
-^^^^^^^^
-**Required** if :option:`-c` is set. This option specifies that association measure type is Existence of Overlap, it is either 0 or 1. See also `-numOvBas`_.
+-eoo
+^^^^
+**Required** if :option:`-c` is set. This option specifies that association measure type is Existence of Overlap, it is either 0 or 1. See also `-noob`_.
 
--b
-^^
-**Required** if :option:`-existOv` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. A positive integer value must be specified as the parameter. If you do not set anything, default option is :option:`-b 1`.
+-nb
+^^^
+**Required** if :option:`-eoo` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. A positive integer value must be specified as the parameter. If you do not set anything, default option is :option:`-b 1`.
 
 -dnase
 ^^^^^^
@@ -473,47 +473,47 @@ This option enables KEGG Pathway Annotation.
 
 This option enables joint Transcription Factor Binding Sites and KEGG Pathway Annotation.
 
--celltfkegg
+-tcellfkegg
 ^^^^^^^^^^^
 
 This option enables joint Transcription Factor Binding Sites (Cell Line Based) and KEGG Pathway Annotation.
 
--udg
-^^^^
+-udgs
+^^^^^
 
 This option enables User Defined GeneSet Annotation.
 
--udginput
-^^^^^^^^^
+-udgsinput
+^^^^^^^^^^
 
 **Required** if :option:`-udg` is set. This option specifies User Defined GeneSet input file. 
 Absolute input file location must be specified as the parameter.
 
--udginfosym
-^^^^^^^^^^^
+-genesym
+^^^^^^^^
 
 **Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Symbol". 
 One of the gene information type (:option:`-udginfosym`, :option:`-udginfoid`, :option:`-udginforna`) must be specified. 
 If you do not set any of these options, default option is :option:`-udginfosym`
 
 
--udginfoid
-^^^^^^^^^^
+-geneid
+^^^^^^^
 
 **Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Id". See also `-udginfosym`_.
 
--udginforna
-^^^^^^^^^^^
+-generna
+^^^^^^^^
 
 **Required** if :option:`-udg` is set. This option specifies gene information type as "RNA Nucleotide Accession". See also `-udginfosym`_.
 
--udgname
-^^^^^^^^
+-udgsname
+^^^^^^^^^
 
 This option gives a name for the user defined GeneSet.
 
--udgdfile
-^^^^^^^^^
+-udgsdfile
+^^^^^^^^^^
 
 This option specifies the user defined GeneSet description file location. 
 Absolute file location must be specified as the parameter.
@@ -561,44 +561,44 @@ This option specifies User Defined Library Data Format as "1-based coordinates (
 If this option is specified, GLANET performs enrichment. 
 Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-celltfkegg`, :option:`-udg`, :option:`-udl`) to be set.
 
--ewz
+-wzs
 ^^^^
 If this option is specified, GLANET performs enrichment with ZScores.
 
--ewoz
-^^^^
+-wozs
+^^^^^
 If this option is specified, GLANET performs enrichment without ZScores.
 
 
--rdgcm
-^^^^^^
+-wgcm
+^^^^^
 
 **Required** if :option:`-e` is set. 
 This option generates random data with GC and Mapability. 
-You must either set :option:`-rdgcm` or :option:`-rd` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-rdgcm`.
+You must either set :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
+If you do not set anything, default option is :option:`-wgcm`.
 
--rd
-^^^
+-wogcm
+^^^^^^
 
 **Required** if :option:`-e` is set. 
 This option generates random data without GC and Mapability.
-See also `-rdgcm`_.
+See also `-wgcm`_.
 
--mtbhfdr
-^^^^^^^^
+-bh
+^^^
 
 **Required** if :option:`-e` is set. 
 This option sets Multiple Testing correction as "Benjamini Hochberg FDR". 
-You must either set :option:`-mtbhfdr` or :option:`-mtbc` to specify multiple testing correction option. 
-If you do not set anything, default option is :option:`-mtbhfdr`.
+You must either set :option:`-bh` or :option:`-bonf` to specify multiple testing correction option. 
+If you do not set anything, default option is :option:`-bh`.
 
--mtbc
+-bonf
 ^^^^^
 
 **Required** if :option:`-e` is set. 
 This option sets Multiple Testing correction as "Bonferroni Correction". 
-See also `-mtbhfdr`_.
+See also `-bh`_.
 
 -fdr
 ^^^^
@@ -607,32 +607,32 @@ See also `-mtbhfdr`_.
 This option followed by a float value sets False Discovery Rate. 
 Default option is :option:`-fdr 0.05`.
 
--sc
+-sl
 ^^^
 
 **Required** if :option:`-e` is set. 
 This option followed by a float value sets Bonferroni Correction significance criteria. 
-Default option is :option:`-sc 0.05`.
+Default option is :option:`-sl 0.05`.
 
--p
+-s
 ^^
 
 **Required** if :option:`-e` is set. 
-This option followed by an integer value sets the total Number of Permutations in Enrichment. 
-Default option is :option:`-p 10000`.
+This option followed by an integer value sets the total number of samplings in Enrichment. 
+Default option is :option:`-s 10000`.
 
--pe
+-se
 ^^^
 
 **Required** if :option:`-e` is set. 
-This option followed by an integer value sets number of permutations in each run. 
-Default option is :option:`-pe 5000`.
+This option followed by an integer value sets number of samplings in each run. 
+Default option is :option:`-se 5000`.
 
--rsat
-^^^^^
+-rsa
+^^^^
 
 If this option is set, GLANET performs Regulatory Sequence Analysis using RSAT. 
-:option:`-rsat` requires at least one of the following annotation annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-celltfkegg`) as preconditions. 
+:option:`-rsa` requires at least one of the following annotation annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-tfcellkegg`) as preconditions. 
 Otherwise Regulatory Sequence Analysis is not performed. 
 
 -j
