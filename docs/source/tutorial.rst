@@ -440,7 +440,7 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 
 -nb
 ^^^
-**Required** if :option:`-eoo` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. A positive integer value must be specified as the parameter. If you do not set anything, default option is :option:`-b 1`.
+**Required** if :option:`-eoo` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. A positive integer value must be specified as the parameter. If you do not set anything, default option is :option:`-nb 1`.
 
 -dnase
 ^^^^^^
@@ -473,8 +473,8 @@ This option enables KEGG Pathway Annotation.
 
 This option enables joint Transcription Factor Binding Sites and KEGG Pathway Annotation.
 
--tcellfkegg
-^^^^^^^^^^^
+-tfcellfkegg
+^^^^^^^^^^^^
 
 This option enables joint Transcription Factor Binding Sites (Cell Line Based) and KEGG Pathway Annotation.
 
