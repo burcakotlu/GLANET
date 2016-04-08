@@ -473,7 +473,7 @@ This option enables KEGG Pathway Annotation.
 
 This option enables joint Transcription Factor Binding Sites and KEGG Pathway Annotation.
 
--tfcellfkegg
+-tfcellkegg
 ^^^^^^^^^^^^
 
 This option enables joint Transcription Factor Binding Sites (Cell Line Based) and KEGG Pathway Annotation.
