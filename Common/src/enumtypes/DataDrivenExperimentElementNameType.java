@@ -30,7 +30,9 @@ public enum DataDrivenExperimentElementNameType {
 	H3K36ME3B(13), 	//unknown
 	H3K9ME1(14), 	//unknown
 	H3K9ME3(15),	//unknown
-	H3K36ME3(16); 	//unknown
+	H3K36ME3(16), 	//unknown
+	
+	CTCF(17); //Activator, Repressor and Insulator
 		
 
 	private final int dataDrivenExperimentElementNameType;
@@ -54,6 +56,8 @@ public enum DataDrivenExperimentElementNameType {
 
 		if( Commons.POL2.equals(dataDrivenExperimentElementNameType)){
 			return POL2;
+		}else if( Commons.CTCF.equals(dataDrivenExperimentElementNameType)){
+			return CTCF;
 		}else if( Commons.H3K4ME1.equals(dataDrivenExperimentElementNameType)){
 			return H3K4ME1;
 		}else if( Commons.H3K4ME2.equals(dataDrivenExperimentElementNameType)){
@@ -108,6 +112,9 @@ public enum DataDrivenExperimentElementNameType {
 
 		if( this.equals( DataDrivenExperimentElementNameType.POL2))
 			return Commons.POL2;
+		
+		else if( this.equals( DataDrivenExperimentElementNameType.CTCF))
+			return Commons.CTCF;
 		
 		else if( this.equals( DataDrivenExperimentElementNameType.H3K4ME1))
 			return Commons.H3K4ME1;
@@ -166,6 +173,10 @@ public enum DataDrivenExperimentElementNameType {
 
 	public boolean isPOL2() {
 		return ( this == DataDrivenExperimentElementNameType.POL2);
+	}
+	
+	public boolean isCTCF() {
+		return ( this == DataDrivenExperimentElementNameType.CTCF);
 	}
 
 	public boolean isH3K4ME1() {
@@ -249,7 +260,8 @@ public enum DataDrivenExperimentElementNameType {
 	public boolean isRepressor() {
 		
 		if (this == DataDrivenExperimentElementNameType.H3K27ME3  ||
-			this == DataDrivenExperimentElementNameType.H3K9ME2){
+			this == DataDrivenExperimentElementNameType.H3K9ME2 ||
+			this == DataDrivenExperimentElementNameType.CTCF){
 			return true;
 		}
 		return false;

@@ -124,7 +124,7 @@ public enum CommandLineArguments {
 	UserDefinedLibraryAnnotation( 33,Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION), 
 	UserDefinedLibraryInput( 34,Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED), 
 	UserDefinedLibraryDataFormat( 35,Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES), 
-	GivenInputDataType(36,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS),
+	GivenInputDataType(36,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS), //This argument is internal.
 	LogFile(37, Commons.ARG_NO_LOG_FILE),
 	GLANETRun(38, Commons.GLANET_NORMAL_RUN), //This argument is optional, default is normal run
 	IsochoreFamilyMode(39,Commons.DO_NOT_USE_ISOCHORE_FAMILY), //This argument is internal.

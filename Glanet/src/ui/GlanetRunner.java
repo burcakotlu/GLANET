@@ -125,6 +125,10 @@ public class GlanetRunner implements Runnable {
 
 			/*********** Check whether given input data is snps or not starts **************/
 			setCurrentProcessInfo( "Check whether given input data is comprised of SNPs before Regulatory Sequence Analysis...");
+			
+			//debug starts
+			setCurrentProcessInfo("GivenInputDataType: " + args[CommandLineArguments.GivenInputDataType.value()]);
+			//debug ennd
 
 			if( args[CommandLineArguments.GivenInputDataType.value()].equalsIgnoreCase( Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS)){
 

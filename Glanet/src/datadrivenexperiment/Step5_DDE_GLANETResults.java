@@ -69,7 +69,10 @@ import gnu.trove.map.hash.TObjectIntHashMap;
  *  MultipleTestingType e.g. "Bonferroni Correction" or "Benjamini Hochberg FDR"
  *  EnrichmentDecision e.g. P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO 
  *  number of simulations (e.g. "100")
- *  GenerateRandomDataMode e.g. "With GC and Mappability" or "Without GC and Mappability"
+ *  GenerateRandomDataMode e.g. "With GC and Mapability" or "Without GC and Mapability"
+ *  
+ *  
+ *  Output: This class writes the Data Driven Computational Experiment results under DDE folder.
  *
  */
 public class Step5_DDE_GLANETResults {
@@ -564,20 +567,20 @@ public class Step5_DDE_GLANETResults {
 	
 	}
 	
-	public static void initializeElementName2NumberofEnrichmentMap(
-			//ElementType elementType,
-			TObjectIntMap<DataDrivenExperimentElementNameType> elementName2NumberofEnrichmentMap){
-		
-		for(TObjectIntIterator<DataDrivenExperimentElementNameType> itr = elementName2NumberofEnrichmentMap.iterator();itr.hasNext();){
-			
-			itr.advance();
-			
-			//Can we put while traversing?
-			elementName2NumberofEnrichmentMap.put(itr.key(), 0);
-			
-		}//End of for each entry in the map
-		
-	}
+//	public static void initializeElementName2NumberofEnrichmentMap(
+//			//ElementType elementType,
+//			TObjectIntMap<DataDrivenExperimentElementNameType> elementName2NumberofEnrichmentMap){
+//		
+//		for(TObjectIntIterator<DataDrivenExperimentElementNameType> itr = elementName2NumberofEnrichmentMap.iterator();itr.hasNext();){
+//			
+//			itr.advance();
+//			
+//			//Can we put while traversing?
+//			elementName2NumberofEnrichmentMap.put(itr.key(), 0);
+//			
+//		}//End of for each entry in the map
+//		
+//	}
 	
 	public static boolean isTF(String elementName){
 		if (elementName.equals(Commons.POL2))
@@ -594,6 +597,7 @@ public class Step5_DDE_GLANETResults {
 		//Therefore there is no output for H3K9me2 
 		
 		elementNameList.add(DataDrivenExperimentElementNameType.POL2);
+		elementNameList.add(DataDrivenExperimentElementNameType.CTCF);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME1);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME2);
 		elementNameList.add(DataDrivenExperimentElementNameType.H3K4ME3);
