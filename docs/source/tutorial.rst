@@ -486,26 +486,26 @@ This option enables User Defined GeneSet Annotation.
 -udgsinput
 ^^^^^^^^^^
 
-**Required** if :option:`-udg` is set. This option specifies User Defined GeneSet input file. 
+**Required** if :option:`-udgs` is set. This option specifies User Defined GeneSet input file. 
 Absolute input file location must be specified as the parameter.
 
 -genesym
 ^^^^^^^^
 
-**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Symbol". 
-One of the gene information type (:option:`-udginfosym`, :option:`-udginfoid`, :option:`-udginforna`) must be specified. 
-If you do not set any of these options, default option is :option:`-udginfosym`
+**Required** if :option:`-udgs` is set. This option specifies gene information type as "Gene Symbol". 
+One of the gene information type (:option:`-geneid`, :option:`-genesym`, :option:`-generna`) must be specified. 
+If you do not set any of these options, default option is :option:`-genesym`
 
 
 -geneid
 ^^^^^^^
 
-**Required** if :option:`-udg` is set. This option specifies gene information type as "Gene Id". See also `-udginfosym`_.
+**Required** if :option:`-udgs` is set. This option specifies gene information type as "Gene Id". See also `-genesym`_.
 
 -generna
 ^^^^^^^^
 
-**Required** if :option:`-udg` is set. This option specifies gene information type as "RNA Nucleotide Accession". See also `-udginfosym`_.
+**Required** if :option:`-udgs` is set. This option specifies gene information type as "RNA Nucleotide Accession". See also `-genesym`_.
 
 -udgsname
 ^^^^^^^^^
@@ -563,11 +563,11 @@ Enrichment operation requires at least one annotation option (:option:`-dnase`, 
 
 -wzs
 ^^^^
-If this option is specified, GLANET performs enrichment with ZScores.
+If this option is specified, GLANET performs enrichment with z-scores.
 
 -wozs
 ^^^^^
-If this option is specified, GLANET performs enrichment without ZScores.
+If this option is specified, GLANET performs enrichment without z-scores.
 
 
 -wgcm
@@ -611,7 +611,7 @@ Default option is :option:`-fdr 0.05`.
 ^^^
 
 **Required** if :option:`-e` is set. 
-This option followed by a float value sets Bonferroni Correction significance criteria. 
+This option followed by a float value sets Bonferroni Correction significance level. 
 Default option is :option:`-sl 0.05`.
 
 -s
@@ -632,7 +632,7 @@ Default option is :option:`-se 5000`.
 ^^^^
 
 If this option is set, GLANET performs Regulatory Sequence Analysis using RSAT. 
-:option:`-rsa` requires at least one of the following annotation annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-tfcellkegg`) as preconditions. 
+:option:`-rsa` requires that given intervals consist of SNPs and at least one of the following annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-tfcellkegg`) as preconditions. 
 Otherwise Regulatory Sequence Analysis is not performed. 
 
 -j
@@ -660,32 +660,32 @@ GLANET Command-Line Sample Runs
 
  Example Annotation Run is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -grch37 -g "C:\\Users\\User\\" -existOv -dnase -histone -tf -kegg -tfkegg
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -grch37 -g "C:\\Users\\User\\" -eoo -dnase -histone -tf -kegg -tfkegg
 
  Example Annotation and Enrichmnet Run is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -kegg -e -pe 10000
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -kegg -e -se 10000
 
  Example Annotation and Enrichmnet Run is as following (Enrichment without ZScores)::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -celltfkegg -kegg -e -ewoz -pe 10000
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tfcellkegg -kegg -e -wozs -se 10000
 
  Example Annotation and Enrichmnet Run is as following (Enrichment without GC and Mapability)::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -celltfkegg -kegg -e -rd -pe 10000
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tfcellkegg -kegg -e -wogcm -se 10000
 
  Example Annotation and Enrichmnet and Regulatory Sequence Analysis Run is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -g "C:\\Users\\User\\" -fdbsnp -dnase -histone -tf -tfkegg -rsat -e -p 5000 -c
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -i "C:\\Users\\User\\Data\\demo_input_data\\OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -g "C:\\Users\\User\\" -fdbsnp -dnase -histone -tf -tfkegg -rsa -e -s 5000 -c
 
  Example Annotation and Regulatory Sequence Analysis Run (Number of Overlapping Bases is chosen as Association Measure Type) is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -histone -numOvBas -tf -rsat
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -f1 -histone -noob -tf -rsa
 
  Example Annotation and Regulatory Sequence Analysis Run (Existence of overlap is chosen as Association Measure Type and Number of Overlap set to 3) is as following::
 
-	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -existOv -b 3 -f1 -histone -tf -rsat
+	$ java −jar "C:\\Users\\User\\GLANET\\GLANET.jar" -Xms8G -Xmx8G -c -g "C:\\Users\\User\\" -i "C:\\Users\\User\\Data\\demo_input_data\\CVD_all_1_based_snps.txt" -eoo -nb 3 -f1 -histone -tf -rsa
 
  Example User Defined Gene Set Annotation and Enrichment Run is as following::
 
-	$ java -jar "C:\\Users\\glanet\\Google Drive\\JarFiles\\GLANET.jar" -Xms8G -Xmx8G -i "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -g "C:\\Users\\glanet\\Google Drive\\" -f1 -existOv -b 1 -udg -udginput "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_gene_associations_human_ref.txt" -udginfosym -udgname "GO" -udgdfile "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_ids2terms.txt" -e -ewz -rdgcm -mtbhfdr -p 10000 -pe 1000 -j "GLANET_OCD_GWAS_GO" -l -c
+	$ java -jar "C:\\Users\\glanet\\Google Drive\\JarFiles\\GLANET.jar" -Xms8G -Xmx8G -i "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -g "C:\\Users\\glanet\\Google Drive\\" -f1 -eoo -nb 1 -udgs -udgsinput "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "C:\\Users\\glanet\\Google Drive\\Data\\demo_input_data\\UserDefinedGeneSet\\GO\\GO_ids2terms.txt" -e -wzs -wgcm -bh -s 10000 -se 1000 -j "GLANET_OCD_GWAS_GO" -l -c
