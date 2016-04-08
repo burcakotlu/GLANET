@@ -322,6 +322,8 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-histone`_ or|                      |
 |                         |               |                   +--------------+                      |
+|                         |               |                   |`-gene`_ or   |                      |
+|                         |               |                   +--------------+                      |
 |                         |               |                   |`-kegg`_ or   |                      |
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-tfkegg`_ or |                      |
