@@ -326,7 +326,7 @@ In the following table, commands and their prerequisite commands, if any, are sp
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-tfkegg`_ or |                      |
 |                         |               |                   +--------------+                      |
-|                         |               |                   |`-udgs`_ or    |                      |
+|                         |               |                   |`-udgs`_ or   |                      |
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-udl`_ or    |                      |
 |                         |               |                   +--------------+                      |
