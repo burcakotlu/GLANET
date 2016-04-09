@@ -199,6 +199,38 @@ public class App {
 		/**********************************GLANET RUN MODE**************************************/
 		/***************************************************************************************/
 		
+
+		/***************************************************************************************/
+		/*****************************GIVEN INPUT DATA TYPE starts******************************/
+		/***************************************************************************************/
+		//Parsing Given Input Data Type
+		for( int i = 0; i < args.length; i++){
+			if( args[i].equalsIgnoreCase( Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS)){
+				if( argsInOrder[CommandLineArguments.GivenInputDataType.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.GivenInputDataType.value()] = Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+			
+			else if( args[i].equalsIgnoreCase( Commons.GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS)){
+				if( argsInOrder[CommandLineArguments.GivenInputDataType.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.GivenInputDataType.value()] = Commons.GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+			
+		}//End of FOR Parsing Given Input Data Type
+		
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.GivenInputDataType))
+			return false;	
+		/***************************************************************************************/
+		/*****************************GIVEN INPUT DATA TYPE ends********************************/
+		/***************************************************************************************/
+	
 		
 		
 		/***************************************************************************************/
