@@ -7,35 +7,38 @@ GLANET
 ------
 
 GLANET is Genomic Loci AssociatioN and Enrichment Tool.
-+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-|GLANET uses two sets of genomic intervals.                                                                                                             |
-|Smaller set comes from the user, bigger set is the Annotation Library provided in the Data.zip.                                                        |
-|Smaller set is the user given input data consisting of genomic intervals that may come from GWAS yielded genomic variants or from a NGS experiment.    |
-|On the other hand, bigger set consists of identified/annotated genomic                                                                                 |
-|intervals such as DNaseI Hypersensitive sites (DHs), Transcription Factor                                                                              |
-|binding sites (TFs), Histone Modification sites (HMs), exons, introns, proximal and distal of                                                          |
-|genes and so on.                                                                                                                                       |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------+
 
+GLANET achieves annotation, enrichmeny analysis and regulatory sequence analsyis 
+between given two sets of genomic intervals.                                                                                                             
+The first set of intervals are the user provided genomic intervals.
+They may come from GWAS yielded genomic variants (SNPs,CNVs) or from a NGS experiment.  
+The important point is that given genomic intervals must be related with each other.
 
-In order to gain biological insight, intersecting these two sets, association of given genomic intervals 
+The second set consists of identified/annotated genomic                                                                                 
+intervals such as DNaseI Hypersensitive sites (DHs), Transcription Factor                                                                              
+binding sites (TFs), Histone Modification sites (HMs), exons, introns, proximal and distal of                                                          
+genes and so on.  User can provide the second set using GLANET's user defined gene set
+or user defined library features.
+
+                                                                                                                                   
+In order to gain biological insight, intersecting these two sets, annotation of given genomic intervals 
 with identified/annotated genomic intervals and finding the genomic intervals overlapping significantly are vital 
 for a comprehensive understanding and interpretation of the GWAS disease associated variants.
 
-GLANET aims to find the intersections between these two sets which is called Association and to find out the 
-significant intersections by creating a permutation based null distribution which is called Enrichment. 
+GLANET aims to find the intersections between these two sets which is called Annotation and to find out the 
+significant intersections by creating a sampling based null distribution which is called Enrichment. 
 
-Association which is finding overlapping intervals is easily achieved by interval tree search where the bigger set is 
+Annotation which is finding overlapping intervals is easily achieved by interval tree search where the second set is 
 represented as an interval tree. 
-However Enrichment which is finding out the genomic intervals which overlap significantly is not trivial 
-since genome is not homogenous, gene density differs and genome organization is complex. 
-For Enrichment Analysis, GLANET permutation based method takes genomic biases into account such as 
-GC content and Mappability during random data generation. 
+However, Enrichment which is finding out the genomic intervals which overlap significantly is not trivial 
+since genome is not homogeneous, gene density differs and genome organization is complex. 
+For Enrichment Analysis, GLANET utilizes sampling based statistical test which takes 
+such as GC content and Mapability, genomic biases into account, during random interval generation. 
 
-And Transcription Factor Association results are further analysed whether any SNP (given in the smaller set) 
+And in Regulatory Sequence Analysis, transcription factor annotation results are further analysed whether any SNP (given in the first set) 
 increases or decreases the binding affinity of the annotated transcription factor by scanning the reference sequence, 
-all possible altered sequences and transcription factor extended peak sequence with the position frequency matrices 
-of the annotated transcription factor which is called Regulatory Sequence Analysis. 
+all possible altered sequences and transcription factor sequence with the position frequency matrices 
+of the annotated transcription factor. 
 During regulatory sequence analysis `RSAT <http://www.rsat.eu/>`_'s matrix scan web service is used.
 
 GLANET Pipeline
@@ -52,14 +55,15 @@ GLANET Features
 ---------------
 
 * GLANET accepts given genomic intervals of any length.
-* GLANET has developed resampling-based enrichment analysis which compensate for the bias introduced by given genomic intervals of varying length.
-* GLANET's resampling-based enrichment analysis accounts for genomic biases in addition to the given interval length and the chromosome it is located on.
-* GLANET considers genomic biases such as GC content and mappability of given genomic intervals.
-* GLANET interprets gene sets in three different ways which are exon-based, regulation-based and extended-based manner.
+* GLANET has developed sampling-based enrichment analysis which compensate for the bias introduced by given genomic intervals of varying length.
+* GLANET's sampling-based enrichment analysis accounts for genomic biases in addition to the given interval's length and the chromosome it is located on.
+* GLANET considers genomic biases such as GC content and mapability of given genomic intervals.
+* GLANET interprets gene sets in three different ways which are exon-based, regulation-based and all-based manner.
   Exon-based gene set takes exons of genes, regulation-based takes introns, upstream and downstream proximal regions of genes 
-  and lastly extended-based takes all the defined regions in exon-based and regulation-based, plus upstream and downstream distal regions of genes of each gene set into account.
+  and lastly all-based takes all the defined regions in exon-based and regulation-based, plus upstream and downstream distal regions of genes of each gene set into account.
 * GLANET enables user to load user defined gene sets and/or user defined library and to achieve Annotation w.r.t the genomic intervals obtained from them.
-* GLANET provides Regulatory Sequence Analysis for all of the associated TFs using `RSAT <http://www.rsat.eu/>`_'s matrix scan web service.
+* GLANET provides Regulatory Sequence Analysis for all of the annotated TFs using `RSAT <http://www.rsat.eu/>`_'s matrix scan web service.
+* GLANET has assessed its type I error and power by designing data-driven computational experiments on two cell lines, GM12878 and K562.
 
 
 -------------
@@ -68,7 +72,7 @@ GLANET Output
 
 After a successful GLANET execution 
 
-* Association results can be found under ~path/to/tool/Output/givenJobName/Annotation/.
+* Annotation results can be found under ~path/to/tool/Output/givenJobName/Annotation/.
 * Enrichment results can be found under ~path/to/tool/Output/givenJobName/Enrichment/.
 * Regulatory Sequence Analysis results can be found under ~path/to/tool/Output/givenJobName/RegulatorySequenceAnalysis/.
 * GLANET log file (GLANET.log) can be found under the same directory where GLANET.jar is located. If you are running GLANET from the source code, GLANET log file will be created under Glanet project directory.

@@ -78,7 +78,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		-  GRCh37.p13 is also known as hg19
 
 	If *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
-	In case of dbSNP IDs, there is no need for Assembly selection.
+	In case of dbSNP IDs, there is no need to set Assembly.
 
 4)	**Glanet Folder**: (Mandatory)
 
@@ -88,7 +88,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 5)	**Annotation, Overlap Definition, Number of Bases**: (Mandatory)
 
 	For Annotation, set the number of bases for overlap definition.
-	e.g: Setting number of bases as *3* means that two intervals are accepted as overlapped if and only if at least 3 bases of these intervals overlap.
+	e.g: Setting number of bases as *3* means that two intervals are accepted as overlapped if and only if these intervals have at least 3 overlapping bases.
 	Default is *1* in order to handle the case where the SNPs are given as input data.
 
 6) 	**Annotation, Annotation Options**: (At least one of the Annotation Option has to be checked)
@@ -103,7 +103,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		-  Check this check box, if you want to annotate given intervals w.r.t. ENCODE provided Transcription Factors (TFs) binding sites.
 		
 	* *Gene Annotation* 
-		-  Check this check box, if you want to annotate given intervals w.r.t. clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg19),  RefSeq Genes.
+		-  Check this check box, if you want to annotate given intervals w.r.t. clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg19), RefSeq Genes.
 
 	* *KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG Pathways in exon-based, regulation-based and all-based manner.
@@ -111,7 +111,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *TF and KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites and KEGG Pathways in exon-based, regulation-based and all-based manner.
 		This is a joint annotation which means that given interval has overlapped with TF  and KEGG Pathway intervals, and these TF and KEGG Pathway intervals also overlap with each other.
-		Here same TF with different cell lines are pooled.
+		Here, same TF with different cell lines are pooled.
 		
 		In other words, joint annotation requires trio overlaps.
 
@@ -180,12 +180,11 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 7)	**Enrichment**: (Optional)
 
 	* *Perform Enrichment*
-		-  Check *Perform Enrichment* check box if you want Enrichment Analysis.
+		-  Check *Perform Enrichment* check box if you want to achieve Enrichment Analysis.
 		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation Options.
         -  Perform Enrichment With ZScores (Default) 
 		-  Perform Enrichment Without ZScores 
 		-  Perform Enrichment With ZScores (Default) ranks elements w.r.t. their zScores in addition to their empirical, Bonferroni corrected and Benjamini Hochberg FDR adjusted p values.
-		-  Perform Enrichment With ZScores requires more memory than Without ZScores and it is recommended when you have at most thousands of elements to be analysed.
 		-  Perform Enrichment Without is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
 		-  Do not check Perform Enrichment With ZScores if you have hundreds of thousands of elements and you don't have enough memory (> 16GB)
 		        
@@ -207,20 +206,20 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *False Discovery Rate (FDR)*
 		-  Default *False Discovery Rate (FDR)* is 0.05.
 
-	* *Bonferroni Correction Significance Criteria*
-		-  Default *Bonferroni Correction Significance Criteria* is 0.05.
+	* *Bonferroni Correction Significance Level*
+		-  Default *Bonferroni Correction Significance Level* is 0.05.
 
-	* *Number of Permutations*
-		-  Choose the *number of permutations* among 5000, 10000, 50000 and 100000 choices.
-	Start with smaller number of permutations, and increase number of permutations depending on your computer's performance.
+	* *Number of Samplings*
+		-  Choose the *number of samplings* among 5000, 10000, 50000 and 100000 choices.
+	Start with smaller number of samplings, and increase number of samplings depending on your computer's performance.
 
 
-	* *Number of Permutations In Each Run*
-		-  Choose the *number of permutations* in each run among 1000, 5000 and 10000 choices.
+	* *Number of samplings In Each Run*
+		-  Choose the *number of samplings* in each run among 1000, 5000 and 10000 choices.
 	e.g.: Do not forget that increasing the number of runs increases the GLANET execution time.
 	If your system properties are good such as CPU and RAM, prefer minimum number of runs.
-	You may have 10000 permutations, by achieving 10000 permutations in each run, which makes 10000/10000 = 1 run at total.
-	Or you may have 100000 permutations, by achieving 10000 permutations in each run, which makes 100000/10000 = 10 runs at total.
+	You may have 10000 samplings, by achieving 10000 samplings in each run, which makes 10000/10000 = 1 run at total.
+	Or you may have 100000 samplings, by achieving 10000 samplings in each run, which makes 100000/10000 = 10 runs at total.
 
 8)	**Regulatory Sequence Analysis**: (Optional)
 
