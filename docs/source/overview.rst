@@ -7,14 +7,16 @@ GLANET
 ------
 
 GLANET is Genomic Loci AssociatioN and Enrichment Tool.
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+|GLANET uses two sets of genomic intervals.                                                                                                             |
+|Smaller set comes from the user, bigger set is the Annotation Library provided in the Data.zip.                                                        |
+|Smaller set is the user given input data consisting of genomic intervals that may come from GWAS yielded genomic variants or from a NGS experiment.    |
+|On the other hand, bigger set consists of identified/annotated genomic                                                                                 |
+|intervals such as DNaseI Hypersensitive sites (DHs), Transcription Factor                                                                              |
+|binding sites (TFs), Histone Modification sites (HMs), exons, introns, proximal and distal of                                                          |
+|genes and so on.                                                                                                                                       |
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
 
-GLANET uses two sets of genomic intervals.
-Smaller set comes from the user, bigger set is the Annotation Library provided in the Data.zip.
-Smaller set is the user given input data consisting of genomic intervals that may come from GWAS yielded genomic variants or from a NGS experiment.
-On the other hand, bigger set consists of identified/annotated genomic
-intervals such as DNaseI Hypersensitive sites (DHs), Transcription Factor
-binding sites (TFs), Histone Modification sites (HMs), exons, introns, proximal and distal of
-genes and so on.
 
 In order to gain biological insight, intersecting these two sets, association of given genomic intervals 
 with identified/annotated genomic intervals and finding the genomic intervals overlapping significantly are vital 
@@ -36,7 +38,7 @@ all possible altered sequences and transcription factor extended peak sequence w
 of the annotated transcription factor which is called Regulatory Sequence Analysis. 
 During regulatory sequence analysis `RSAT <http://www.rsat.eu/>`_'s matrix scan web service is used.
 
--- GLANET Pipeline
+GLANET Pipeline
 
 .. image:: ../images/GLANET_pipeline.jpg
     :alt: GLANET Pipeline
