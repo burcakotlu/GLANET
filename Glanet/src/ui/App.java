@@ -906,8 +906,8 @@ public class App {
 			if( !fillArgumentsInOrder( args, argsForGlanetRunner))
 				return;
 
-			// for (int i = 0; i < argsForGlanetRunner.length; i++)
-			// System.out.println(argsForGlanetRunner[i]);
+//			 for (int i = 0; i < argsForGlanetRunner.length; i++)
+//				 System.out.println(argsForGlanetRunner[i]);
 
 			GlanetRunner.setMainView( null);
 			GlanetRunner.setArgs( argsForGlanetRunner);
