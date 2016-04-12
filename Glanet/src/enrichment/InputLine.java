@@ -8,9 +8,10 @@
  */
 package enrichment;
 
+import intervaltree.Interval;
 import enumtypes.ChromosomeName;
 
-public class InputLine extends InputLineMinimal {
+public class InputLine extends Interval {
 
 	ChromosomeName chrName;
 

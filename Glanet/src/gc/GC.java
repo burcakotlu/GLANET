@@ -15,6 +15,7 @@ import gnu.trove.list.TByteList;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.hash.TIntIntHashMap;
 import intervaltree.GCIsochoreIntervalTreeHitNode;
+import intervaltree.Interval;
 import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
@@ -31,7 +32,6 @@ import common.Commons;
 
 import enrichment.GCCharArray;
 import enrichment.InputLine;
-import enrichment.InputLineMinimal;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
@@ -180,7 +180,7 @@ public class GC {
 	}
 
 	// There can be gaps in the intervals of GC Interval Tree
-	public static float calculateGCofIntervalUsingIntervalTree(InputLineMinimal givenInputLine,IntervalTree gcIntervalTree, CalculateGC calculateGC) {
+	public static float calculateGCofIntervalUsingIntervalTree(Interval givenInputLine,IntervalTree gcIntervalTree, CalculateGC calculateGC) {
 
 		Float gcContent = 0f;
 
@@ -215,7 +215,7 @@ public class GC {
 //	}
 
 	// new starts
-	public static float calculateGCofIntervalUsingTroveList( InputLineMinimal givenInputLine, TByteList gcByteList) {
+	public static float calculateGCofIntervalUsingTroveList( Interval givenInputLine, TByteList gcByteList) {
 
 		// new gcByteList is 0-based
 		// old gcCharArray is 0-based

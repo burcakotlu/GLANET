@@ -26,7 +26,6 @@ import org.apache.log4j.Logger;
 
 import common.Commons;
 
-import enrichment.InputLineMinimal;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
@@ -46,7 +45,7 @@ public class RandomDataGenerator {
 	// This method may return a null randomInterval
 	// Although it seems to be eliminated by looking at the other isochoreFamilyPools if there is no interval left in the current pool.
 	//It has been eliminated.
-	public static InputLineMinimal getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine( 
+	public static Interval getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine( 
 			int chromSize,
 			ThreadLocalRandom threadLocalRandom, 
 			int originalInputLineLength,
@@ -65,7 +64,7 @@ public class RandomDataGenerator {
 		int isochoreFamilyPoolHigh = Integer.MAX_VALUE;
 		int isochoreFamilyPoolHighExclusive = 0;
 
-		InputLineMinimal randomlyGeneratedLine = null;
+		Interval randomlyGeneratedInterval = null;
 		
 		int numberofIntervalsInTheIsochorePool = 0;
 		IsochoreFamily updatedIsochoreFamily = originalInputLineIsochoreFamily ;
@@ -171,22 +170,22 @@ public class RandomDataGenerator {
 			low = threadLocalRandom.nextInt( isochoreFamilyPoolHighExclusive - originalInputLineLength + 1 - isochoreFamilyPoolLow) + isochoreFamilyPoolLow;
 			high = low + originalInputLineLength - 1;
 
-			randomlyGeneratedLine = new InputLineMinimal(low, high);
+			randomlyGeneratedInterval = new Interval(low, high);
 
 		}//End of IF numberofIntervalsInTheIsochorePool>0
 		
-		return randomlyGeneratedLine;
+		return randomlyGeneratedInterval;
 
 	}
 	
 	// Get random interval only w.r.t. chr and givenIntervalLength
 	// This method always return a not null randomInterval
-	public static InputLineMinimal getRandomInterval(
+	public static Interval getRandomInterval(
 			int chromSize,
 			int originalInputLineLength,
 			ThreadLocalRandom threadLocalRandom){
 		
-		InputLineMinimal randomInterval = null;
+		Interval randomInterval = null;
 		int low;
 		int high;
 		
@@ -195,12 +194,12 @@ public class RandomDataGenerator {
 		low = threadLocalRandom.nextInt(chromSize - originalInputLineLength + 1);
 		high = low + originalInputLineLength - 1;
 
-		randomInterval = new InputLineMinimal(low, high);
+		randomInterval = new Interval(low, high);
 		return randomInterval;
 	}
 	
 
-	public static List<InputLineMinimal> generateRandomData( 
+	public static List<Interval> generateRandomData( 
 			GivenInputDataType givenInputsSNPsorIntervals,
 			TByteList gcByteList,
 			IntervalTree gcIntervalTree,
@@ -216,15 +215,15 @@ public class RandomDataGenerator {
 			// IntervalTree mapabilityIntervalTree,
 			int chromSize, 
 			ChromosomeName chromName, 
-			List<InputLineMinimal> chromosomeBasedOriginalInputLines,
+			List<Interval> chromosomeBasedOriginalInputLines,
 			ThreadLocalRandom threadLocalRandom, 
 			GenerateRandomDataMode generateRandomDataMode,
 			IsochoreFamilyMode isochoreFamilyMode) {
 
-		List<InputLineMinimal> randomlyGeneratedInputLines = null;
+		List<Interval> randomlyGeneratedInputLines = null;
 
-		InputLineMinimal originalInputLine = null;
-		InputLineMinimal randomlyGeneratedLine = null;
+		Interval originalInputLine = null;
+		Interval randomlyGeneratedLine = null;
 		int originalInputLineLength;
 
 		Float originalInputLineGC = null;
@@ -242,7 +241,7 @@ public class RandomDataGenerator {
 		//InputLineMinimal savedBestRandomlyGeneratedLineUpToNowWRTEachGCandMappabilityDifference = null;
 		//float savedDifferencebetweenGCs = Float.MAX_VALUE;
 		//float savedDifferencebetweenMapabilities = Float.MAX_VALUE;;
-		InputLineMinimal savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = null;
+		Interval savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = null;
 		float savedSumofDifferencebetweenGCandMapabilities = Float.MAX_VALUE;
 //		float savedGCDifference = Float.MAX_VALUE;
 //		float savedMappabilityDifference = Float.MAX_VALUE;
@@ -273,7 +272,7 @@ public class RandomDataGenerator {
 		/**************************************************************************************************/
 		if( generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
 
-			randomlyGeneratedInputLines = new ArrayList<InputLineMinimal>();
+			randomlyGeneratedInputLines = new ArrayList<Interval>();
 			
 			//28 OCT 2015 starts
 			IntervalTree intervalTree = new IntervalTree();
@@ -332,7 +331,7 @@ public class RandomDataGenerator {
 		/**************************************************************************************************/
 		else if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 
-			randomlyGeneratedInputLines = new ArrayList<InputLineMinimal>();
+			randomlyGeneratedInputLines = new ArrayList<Interval>();
 			
 			//28 OCT 2015 starts
 			IntervalTree intervalTree = new IntervalTree();

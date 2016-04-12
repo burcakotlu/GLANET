@@ -12,6 +12,7 @@ import gnu.trove.list.TByteList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
 import hg19.GRCh37Hg19Chromosome;
+import intervaltree.Interval;
 import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 import intervaltree.MapabilityIntervalTreeNode;
@@ -26,11 +27,12 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import auxiliary.FileOperations;
 import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enrichment.InputLine;
-import enrichment.InputLineMinimal;
 import enrichment.MapabilityFloatArray;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
@@ -379,7 +381,7 @@ public class Mapability {
 
 	// For testing purposes starts
 	public static float calculateMapabilityofIntervalUsingTroveList( 
-			InputLineMinimal givenInputLine,
+			Interval givenInputLine,
 			TIntList mapabilityChromosomePositionList, 
 			TByteList mapabilityByteValueList) {
 
@@ -469,7 +471,8 @@ public class Mapability {
 	}
 
 	// There can be gaps in the intervals of Mapability Interval Tree
-	public static float calculateMapabilityofIntervalUsingIntervalTree( InputLineMinimal givenInputLine,
+	public static float calculateMapabilityofIntervalUsingIntervalTree(
+			Interval givenInputLine,
 			IntervalTree mapabilityIntervalTree) {
 
 		Float mapability = 0f;
@@ -485,7 +488,7 @@ public class Mapability {
 	}
 
 	public static float calculateMapabilityofIntervalUsingTroveList( 
-			InputLineMinimal givenInputLine,
+			Interval givenInputLine,
 			TIntList mapabilityChromosomePositionList, 
 			TShortList mapabilityShortValueList) {
 

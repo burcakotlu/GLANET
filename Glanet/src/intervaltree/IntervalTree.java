@@ -55,7 +55,6 @@ import common.Commons;
 
 import datadrivenexperiment.DataDrivenExperimentIntervalTreeNode;
 import datadrivenexperiment.IntervalDataDrivenExperiment;
-import enrichment.InputLineMinimal;
 import enumtypes.AnnotationType;
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
@@ -1569,7 +1568,7 @@ public class IntervalTree {
 	}
 
 	// There can be gaps in the mapabilityIntervalTree
-	public int findAllOverlappingMapabilityIntervals( IntervalTreeNode node, InputLineMinimal interval) {
+	public int findAllOverlappingMapabilityIntervals( IntervalTreeNode node, Interval interval) {
 
 		int numberofOverlappingBases = 0;
 
@@ -1606,7 +1605,7 @@ public class IntervalTree {
 
 	// Find the number of hits while finding overlaps in GCIsochoreIntervalTree
 	public List<GCIsochoreIntervalTreeHitNode> findAllOverlappingGCIsochoreIntervals( IntervalTreeNode node,
-			InputLineMinimal interval) {
+			Interval interval) {
 
 		List<GCIsochoreIntervalTreeHitNode> hits = new ArrayList<GCIsochoreIntervalTreeHitNode>();
 
@@ -1646,7 +1645,7 @@ public class IntervalTree {
 	// Return gc and all overlapping IsochoreIntervalTree hits starts
 	public void findAllOverlappingGCIsochoreIntervals( 
 			IntervalTreeNode node, 
-			InputLineMinimal interval,
+			Interval interval,
 			GCIsochoreIntervalTreeFindAllOverlapsResult result) {
 
 		GCIsochoreIntervalTreeNode castedNode = null;
@@ -1701,7 +1700,7 @@ public class IntervalTree {
 	// There can be gaps in the gcIntervalTree
 	public float findAllOverlappingGCIntervals( 
 			IntervalTreeNode node, 
-			InputLineMinimal interval,
+			Interval interval,
 			CalculateGC calculateGC) {
 
 		int numberofOverlappingBases = 0;
@@ -1966,23 +1965,24 @@ public class IntervalTree {
 	}
 	//27 OCTOBER 2015 ends
 	
-	//30 OCTOBER 2015 starts
+	
+	//12 April 2016
 	public static int findNumberofOverlappingBases(
 			IntervalTreeNode root,
-			InputLineMinimal newNode) {
+			Interval interval) {
 		
 		int numberofOverlappingBases = 0;
 
 		if( root.getNodeName().isNotSentinel()){
 			
-			numberofOverlappingBases = findNumberofOverlapingBases(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh());
+			numberofOverlappingBases = findNumberofOverlapingBases(root.getLow(), root.getHigh(), interval.getLow(), interval.getHigh());
 			
-			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
-				numberofOverlappingBases += findNumberofOverlappingBases(root.getLeft(), newNode);
+			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= root.getLeft().getMax())){
+				numberofOverlappingBases += findNumberofOverlappingBases(root.getLeft(), interval);
 			}
 
-			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
-				numberofOverlappingBases += findNumberofOverlappingBases(root.getRight(), newNode);
+			if( ( root.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= root.getRight().getMax()) && ( root.getLow() <= interval.getHigh())){
+				numberofOverlappingBases += findNumberofOverlappingBases(root.getRight(), interval);
 
 			}
 		}
@@ -1990,11 +1990,12 @@ public class IntervalTree {
 		return numberofOverlappingBases;
 
 	}
-	//30 OCTOBER 2015 ends
+	
+
 	
 	//30 OCT 2015 starts
 	public static void findNumberofOverlappingBases(
-			InputLineMinimal inputLine,
+			Interval inputLine,
 			TLongObjectMap<IntervalTree> permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
 			TLongIntMap permutationNumberElementNumberCellLineNumber2NumberofOverlappingBasesMap){
 		
@@ -2022,34 +2023,36 @@ public class IntervalTree {
 	//30 OCT 2015 ends
 	
 	
-	//1 NOV 2015 starts
+	//12 April 2016
 	public static void findNumberofOverlappingBases(
-			InputLineMinimal inputLine,
-			TIntObjectMap<IntervalTree> permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
-			TIntIntMap permutationNumberElementNumberCellLineNumber2NumberofOverlappingBasesMap){
+			Interval interval,
+			TIntObjectMap<IntervalTree> elementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+			TIntIntMap elementNumberCellLineNumber2NumberofOverlappingBasesMap){
 		
-		int permutationNumberElementNumberCellLineNumber;
+		int elementNumberCellLineNumber;
 		IntervalTree intervalTree = null;
 		int numberofOverlappingBases = 0;
 		
-		for(TIntObjectIterator<IntervalTree> itr = permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.iterator(); itr.hasNext(); ){
+		for(TIntObjectIterator<IntervalTree> itr = elementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.iterator(); itr.hasNext(); ){
 		
 			itr.advance();
 			
-			permutationNumberElementNumberCellLineNumber = itr.key();
+			elementNumberCellLineNumber = itr.key();
 			intervalTree = itr.value();
 		
-			numberofOverlappingBases = findNumberofOverlappingBases(intervalTree.getRoot(),inputLine);
+			numberofOverlappingBases = findNumberofOverlappingBases(intervalTree.getRoot(),interval);
 			
 			//Do we need accumulation here?
 			//There must be no need for accumulation
 			//There must be one interval tree per permutationNumberHistoneNumberCellLineNumber
-			permutationNumberElementNumberCellLineNumber2NumberofOverlappingBasesMap.put(permutationNumberElementNumberCellLineNumber, numberofOverlappingBases);
+			elementNumberCellLineNumber2NumberofOverlappingBasesMap.put(elementNumberCellLineNumber, numberofOverlappingBases);
 		
-		}//End of FOR each permutationNumberElementNumberCellLineNumber
+		}//End of FOR each elementNumberCellLineNumber
 		
 	}
-	//1 NOV 2015 ends
+	
+	
+
 	
 	//30 OCT 2015 starts
 	public static void constructAnIntervalTreeWithNonOverlappingNodes(
@@ -2083,7 +2086,7 @@ public class IntervalTree {
 			
 		
 		
-			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(permutationNumberElementNumberCellLineNumber,overlappingNodeList);
+			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(overlappingNodeList);
 		
 //			//debug starts
 //			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  
@@ -2131,7 +2134,7 @@ public class IntervalTree {
 //			}//End of FOR				
 //			//debug ends
 	
-			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes((long)permutationNumberElementNumberCellLineNumber,overlappingNodeList);
+			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(overlappingNodeList);
 			
 //			//debug starts
 //			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  
@@ -2151,7 +2154,7 @@ public class IntervalTree {
 	
 	//30 OCT 2015 starts
 	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(
-			Long permutationNumberMixedNumber,
+//			Long permutationNumberMixedNumber,
 			List<IntervalTreeNode> intervalNodeList){
 		
 		//Construct an interval tree consisting of nonOverlapping intervals
@@ -2612,7 +2615,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// with IO
 	public void findAllOverlappingHistoneIntervalsWithIOWithNumbers( String outputFolder, int permutationNumber,
-			IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
 
@@ -2749,7 +2752,7 @@ public class IntervalTree {
 	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TLongObjectMap<List<IntervalTreeNode>> permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap) {
 
@@ -2833,7 +2836,7 @@ public class IntervalTree {
 	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, 
 			int overlapDefinition) {
@@ -3135,7 +3138,7 @@ public class IntervalTree {
 	// with IO
 	// with OverlapNodeList
 	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers( String outputFolder, int permutationNumber,
-			IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
 			List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList,
@@ -3287,7 +3290,7 @@ public class IntervalTree {
 			String outputFolder, 
 			int permutationNumber,
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap,
 			TIntByteMap tforHistoneNumberCellLineNumber2ZeroorOneMap, 
@@ -3402,7 +3405,7 @@ public class IntervalTree {
 	// with Numbers
 	// Empirical P Value Calculation
 	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers( String outputFolder, int permutationNumber,
-			IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
 
@@ -3540,7 +3543,7 @@ public class IntervalTree {
 	public void findAllOverlappingTFIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TLongObjectMap<List<IntervalTreeNode>> permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap){
 		
@@ -3620,7 +3623,7 @@ public class IntervalTree {
 	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TLongIntMap permutationNumberTfbsNameCellLineName2ZeroorOneMap, 
 			int overlapDefinition) {
@@ -3715,7 +3718,7 @@ public class IntervalTree {
 	// WITHOUT keeping number of overlaps coming from each permutation
 	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap,
 			List<TFNumberCellLineNumberOverlap> tfNumberCellLineNumberOverlapList,
@@ -3784,7 +3787,7 @@ public class IntervalTree {
 	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
 			int permutationNumber, 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
 			List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList,
@@ -3944,7 +3947,7 @@ public class IntervalTree {
 	//27 July 2015 starts
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntByteMap elementTypeNumberElementNumber2ZeroorOneMap, 
 			int overlapDefinition) {
@@ -4000,7 +4003,7 @@ public class IntervalTree {
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 			int permutationNumber,
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TLongObjectMap<List<IntervalTreeNode>> permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap) {
 	
@@ -4080,7 +4083,7 @@ public class IntervalTree {
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 			int permutationNumber,
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, 
 			int overlapDefinition) {
@@ -4134,7 +4137,7 @@ public class IntervalTree {
 	// With IO
 	// With Numbers
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers( String outputFolder,
-			int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+			int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap,
 			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, int overlapDefinition) {
 
@@ -4614,7 +4617,7 @@ public class IntervalTree {
 			String outputFolder, 
 			int permutationNumber,
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap, 
@@ -4690,7 +4693,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// with IO
 	public void findAllOverlappingDnaseIntervalsWithIOWithNumbers( String outputFolder, int permutationNumber,
-			IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TIntObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TIntIntMap permutationNumberDnaseCellLineNumber2ZeroorOneMap, int overlapDefinition) {
 
@@ -5786,7 +5789,7 @@ public class IntervalTree {
 	// Without overlappedNodeList
 	// For All Chromosomes
 	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes( int permutationNumber,
-			IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TIntIntMap dnaseCellLineName2ZeroorOneMap, int overlapDefinition) {
 
 		int dnaseCellLineNumber;
@@ -5826,7 +5829,7 @@ public class IntervalTree {
 	// For each interval return 1 or 0 if if permutationData has overlap with the interval and set to 1 for the corresponding tfNumberCellLineNumber
 	public void findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers( 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntByteMap tforHistoneNumberCellLineNumber2PermutationZeroorOneMap, 
 			int overlapDefinition) {
@@ -5886,7 +5889,7 @@ public class IntervalTree {
 	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntByteMap dnaseCellLineNumber2PermutationZeroorOneMap, 
 			int overlapDefinition) {
@@ -5934,15 +5937,85 @@ public class IntervalTree {
 	// 1 June 2015
 	
 	
+	//12 April 2016
+	//Without IO
+	//With Numbers
+	//With OverlappingNodelist
+	//AssociationMeasureType NUMBER_OF_OVERLAPPING_BASES
+	//Annotation
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+			IntervalTreeNode node,
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<List<IntervalTreeNode>> dnaseCellLineNumber2OverlappingNodeListMap) {
+		
+		int dnaseCellLineNumber;
+		DnaseIntervalTreeNodeWithNumbers castedNode = null;
+		List<IntervalTreeNode> overlappingNodeList = null;
+
+		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+
+			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
+				//castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+				//castedNode must be newly created and We must not use the color of the node that comes from the chromosomeBased DnaseIntervalTree
+				castedNode = new DnaseIntervalTreeNodeWithNumbers(
+						node.getChromName(), 
+						node.getLow(), 
+						node.getHigh(), 
+						((DnaseIntervalTreeNodeWithNumbers) node).getCellLineNumber(), 
+						((DnaseIntervalTreeNodeWithNumbers) node).getFileNumber(), 
+						NodeType.ORIGINAL);
+				
+				
+				
+			}
+
+			dnaseCellLineNumber = castedNode.getCellLineNumber();
+			
+			overlappingNodeList = dnaseCellLineNumber2OverlappingNodeListMap.get(dnaseCellLineNumber);
+			
+			//Pay attention: you have to add castedNode to the list
+			//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+			if (overlappingNodeList == null){
+				overlappingNodeList = new ArrayList<IntervalTreeNode>();
+				overlappingNodeList.add(castedNode);
+				dnaseCellLineNumber2OverlappingNodeListMap.put(dnaseCellLineNumber, overlappingNodeList);
+			}else{
+				overlappingNodeList.add(castedNode);
+			}
+
+		}// End of IF OVERLAPS
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+					node.getLeft(), 
+					interval,
+					chromName, 
+					dnaseCellLineNumber2OverlappingNodeListMap);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+					node.getRight(), 
+					interval,
+					chromName, 
+					dnaseCellLineNumber2OverlappingNodeListMap);
+
+		}
+
+	}
+	
+	
 	//1 NOV 2015 starts
 	//Without IO
 	//With Numbers
 	//With OverlappingNodelist
 	//AssociationMeasureType NUMBER_OF_OVERLAPPING_BASES
+	//Enrichment
 	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
 			int permutationNumber, 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<List<IntervalTreeNode>> permutationNumberDnaseCellLineNumber2OverlappingNodeListMap) {
 		
@@ -6014,7 +6087,7 @@ public class IntervalTree {
 	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
 			int permutationNumber, 
 			IntervalTreeNode node,
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntIntMap permutationNumberDnaseCellLineName2ZeroorOneMap, 
 			int overlapDefinition) {
@@ -6295,7 +6368,7 @@ public class IntervalTree {
 
 		if( node instanceof DnaseIntervalTreeNodeWithNumbers){
 
-			castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 		}
 
 		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
@@ -6328,7 +6401,7 @@ public class IntervalTree {
 
 				// Do not Write Annotation Overlaps to element Named File
 				else{
-					if( !dnaseCellLineNumber2OneorZeroMap.containsKey( castedNode.getCellLineNumber())){
+					if( !dnaseCellLineNumber2OneorZeroMap.containsKey(castedNode.getCellLineNumber())){
 						dnaseCellLineNumber2OneorZeroMap.put( castedNode.getCellLineNumber(), Commons.BYTE_1);
 					}
 
@@ -6422,7 +6495,7 @@ public class IntervalTree {
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// with IO
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers( String outputFolder,
-			int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+			int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TIntObjectMap<BufferedWriter> permutationNumberKeggPathwayNumber2BufferedWriterMap,
 			TLongObjectMap<BufferedWriter> permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
@@ -6944,7 +7017,7 @@ public class IntervalTree {
 	// WITHOUT ZScores
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
 			TIntByteMap keggPathwayNumber2PermutationOneorZeroMap,
@@ -7251,7 +7324,7 @@ public class IntervalTree {
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			int permutationNumber,
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2KeggPathwayNumberMap,
 			TIntObjectMap<List<IntervalTreeNode>> permutationNumberExonBasedKEGGPathwayNumber2OverlappingNodeListMap,
@@ -7392,7 +7465,7 @@ public class IntervalTree {
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			int permutationNumber,
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
 			TIntObjectMap<List<IntervalTreeNode>> permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
@@ -7549,7 +7622,7 @@ public class IntervalTree {
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			int permutationNumber,
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
 			TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap,
@@ -7923,7 +7996,7 @@ public class IntervalTree {
 	// with IO
 	// with Overlap Node List
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers( String outputFolder,
-			int permutationNumber, IntervalTreeNode node, InputLineMinimal interval, ChromosomeName chromName,
+			int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2KeggPathwayNumberMap,
 			TIntObjectMap<BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap,
 			TIntObjectMap<BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap,
@@ -8499,7 +8572,7 @@ public class IntervalTree {
 	// Without permutationNumber
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2KeggPathwayNumbersMap,
 			TIntByteMap exonBasedKEGGPathwayNumber2PermutationOneorZeroMap,
@@ -8669,7 +8742,7 @@ public class IntervalTree {
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			int permutationNumber,
 			IntervalTreeNode node, 
-			InputLineMinimal interval, 
+			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2KeggPathwayNumbersMap,
 			TIntIntMap permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap,

@@ -80,6 +80,7 @@ import annotation.Annotation;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
+
 import common.Commons;
 
 /**
@@ -90,7 +91,7 @@ public class Enrichment {
 	final static Logger logger = Logger.getLogger(Enrichment.class);
 
 	// Static Nested Class starts
-	static class GenerateRandomData extends RecursiveTask<TIntObjectMap<List<InputLineMinimal>>> {
+	static class GenerateRandomData extends RecursiveTask<TIntObjectMap<List<Interval>>> {
 
 		/**
 		 * 
@@ -98,7 +99,7 @@ public class Enrichment {
 		private static final long serialVersionUID = -5508399455444935122L;
 		private final int chromSize;
 		private final ChromosomeName chromName;
-		private final List<InputLineMinimal> chromosomeBasedOriginalInputLines;
+		private final List<Interval> chromosomeBasedOriginalInputLines;
 
 		private final GenerateRandomDataMode generateRandomDataMode;
 		private final IsochoreFamilyMode isochoreFamilyMode;
@@ -135,7 +136,7 @@ public class Enrichment {
 				String outputFolder, 
 				int chromSize, 
 				ChromosomeName chromName,
-				List<InputLineMinimal> chromosomeBasedOriginalInputLines,
+				List<Interval> chromosomeBasedOriginalInputLines,
 				GenerateRandomDataMode generateRandomDataMode,
 				IsochoreFamilyMode isochoreFamilyMode,
 				WriteGeneratedRandomDataMode writeGeneratedRandomDataMode, 
@@ -194,11 +195,11 @@ public class Enrichment {
 
 		}
 
-		protected TIntObjectMap<List<InputLineMinimal>> compute() {
+		protected TIntObjectMap<List<Interval>> compute() {
 
 			int middleIndex;
-			TIntObjectMap<List<InputLineMinimal>> rightRandomlyGeneratedData;
-			TIntObjectMap<List<InputLineMinimal>> leftRandomlyGeneratedData;
+			TIntObjectMap<List<Interval>> rightRandomlyGeneratedData;
+			TIntObjectMap<List<Interval>> leftRandomlyGeneratedData;
 
 			Integer permutationNumber;
 
@@ -263,7 +264,7 @@ public class Enrichment {
 			// CONQUER
 			else{
 
-				TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap = new TIntObjectHashMap<List<InputLineMinimal>>();
+				TIntObjectMap<List<Interval>> randomlyGeneratedDataMap = new TIntObjectHashMap<List<Interval>>();
 
 				for( int i = lowIndex; i < highIndex; i++){
 					permutationNumber = permutationNumberList.get( i);
@@ -301,12 +302,12 @@ public class Enrichment {
 
 		// Add the content of leftMap to rightMap
 		// Clear and null leftMap
-		protected void mergeMaps( TIntObjectMap<List<InputLineMinimal>> rightRandomlyGeneratedDataMap,
-				TIntObjectMap<List<InputLineMinimal>> leftRandomlyGeneratedDataMap) {
+		protected void mergeMaps( TIntObjectMap<List<Interval>> rightRandomlyGeneratedDataMap,
+				TIntObjectMap<List<Interval>> leftRandomlyGeneratedDataMap) {
 
 			int permutationNumber;
 
-			for( TIntObjectIterator<List<InputLineMinimal>> it = leftRandomlyGeneratedDataMap.iterator(); it.hasNext();){
+			for( TIntObjectIterator<List<Interval>> it = leftRandomlyGeneratedDataMap.iterator(); it.hasNext();){
 
 				it.advance();
 
@@ -323,11 +324,11 @@ public class Enrichment {
 		}
 
 		protected void writeGeneratedRandomData( String outputFolder, ChromosomeName chrName,
-				List<InputLineMinimal> randomlyGeneratedData, int permutationNumber) {
+				List<Interval> randomlyGeneratedData, int permutationNumber) {
 
 			FileWriter fileWriter;
 			BufferedWriter bufferedWriter;
-			InputLineMinimal randomlyGeneratedInputLine;
+			Interval randomlyGeneratedInputLine;
 
 			try{
 
@@ -357,7 +358,7 @@ public class Enrichment {
 
 		private static final long serialVersionUID = -8989881139246912265L;
 		private final ChromosomeName chromName;
-		private final TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap;
+		private final TIntObjectMap<List<Interval>> randomlyGeneratedDataMap;
 		private final int runNumber;
 		private final int numberofPermutations;
 
@@ -379,7 +380,7 @@ public class Enrichment {
 
 		public AnnotateDnaseTFHistoneWithNumbers(
 				ChromosomeName chromName,
-				TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap,
+				TIntObjectMap<List<Interval>> randomlyGeneratedDataMap,
 				int runNumber,
 				int numberofPermutations,
 				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
@@ -623,7 +624,7 @@ public class Enrichment {
 
 		private static final long serialVersionUID = 793082641696132194L;
 
-		private final TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap;
+		private final TIntObjectMap<TIntObjectMap<List<Interval>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap;
 
 		private final int runNumber;
 		private final int numberofPermutations;
@@ -667,7 +668,7 @@ public class Enrichment {
 		
 		public AnnotateWithNumbersForAllChromosomes(
 				String outputFolder,
-				TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap,
+				TIntObjectMap<TIntObjectMap<List<Interval>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap,
 				int runNumber,
 				int numberofPermutations,
 				WritePermutationBasedandParametricBasedAnnotationResultMode writePermutationBasedandParametricBasedAnnotationResultMode,
@@ -822,7 +823,7 @@ public class Enrichment {
 
 				allMapsWithNumbersForAllChromosomes = new AllMapsWithNumbersForAllChromosomes();
 
-				TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData = new TIntObjectHashMap<List<InputLineMinimal>>();
+				TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData = new TIntObjectHashMap<List<Interval>>();
 
 				for( int i = lowIndex; i < highIndex; i++){
 
@@ -900,8 +901,8 @@ public class Enrichment {
 
 		protected void fillPermutationRandomlyGeneratedData(
 				int permutationNumber,
-				TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap,
-				TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData) {
+				TIntObjectMap<TIntObjectMap<List<Interval>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap,
+				TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData) {
 
 			for( int chrNumber = 1; chrNumber <= Commons.NUMBER_OF_CHROMOSOMES_HG19; chrNumber++){
 
@@ -2212,7 +2213,7 @@ public class Enrichment {
 
 		private static final long serialVersionUID = 2919115895116169524L;
 		private final ChromosomeName chromName;
-		private final TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap;
+		private final TIntObjectMap<List<Interval>> randomlyGeneratedDataMap;
 		private final int runNumber;
 		private final int numberofPermutations;
 		private final int numberofProcessors;
@@ -2242,7 +2243,7 @@ public class Enrichment {
 		public AnnotateWithNumbers(
 				String outputFolder,
 				ChromosomeName chromName,
-				TIntObjectMap<List<InputLineMinimal>> randomlyGeneratedDataMap,
+				TIntObjectMap<List<Interval>> randomlyGeneratedDataMap,
 				int runNumber,
 				int numberofPermutations,
 				int numberofProcessors,
@@ -2913,7 +2914,7 @@ public class Enrichment {
 	
 	public static void partitionDataChromosomeBased( 
 			List<InputLine> originalInputLines,
-			Map<ChromosomeName, List<InputLineMinimal>> chromosomeName2OriginalInputLinesMap,
+			Map<ChromosomeName, List<Interval>> chromosomeName2OriginalInputLinesMap,
 			TFloatList chrBasedAverageGivenIntervalLengthList,
 			TIntList chrBasedModeList) {
 		
@@ -2924,9 +2925,9 @@ public class Enrichment {
 		Integer count = null;
 		Integer modeofGivenIntervalLength = null;
 		
-		InputLineMinimal inputLineMinimal = null;
+		Interval inputLineMinimal = null;
 		ChromosomeName chrName;
-		List<InputLineMinimal> list;
+		List<Interval> list;
 		
 		int intervalLength;
 		int chrNumber;
@@ -2936,7 +2937,7 @@ public class Enrichment {
 
 		for( int i = 0; i < originalInputLines.size(); i++){
 
-			inputLineMinimal = new InputLineMinimal( originalInputLines.get( i).getLow(),originalInputLines.get( i).getHigh());
+			inputLineMinimal = new Interval( originalInputLines.get( i).getLow(),originalInputLines.get( i).getHigh());
 			chrName = originalInputLines.get(i).getChrName();
 			list = chromosomeName2OriginalInputLinesMap.get( chrName);
 			
@@ -2961,7 +2962,7 @@ public class Enrichment {
 			
 		
 			if( list == null){
-				list = new ArrayList<InputLineMinimal>();
+				list = new ArrayList<Interval>();
 				list.add( inputLineMinimal);
 				chromosomeName2OriginalInputLinesMap.put( chrName, list);
 			}else{
@@ -3863,7 +3864,7 @@ public class Enrichment {
 		mapabilityFloatArray = null;
 	}
 
-	public static boolean containsIntervalBetween( List<InputLineMinimal> inputLines, int intervalLengthLow,int intervalLengthHigh) {
+	public static boolean containsIntervalBetween( List<Interval> inputLines, int intervalLengthLow,int intervalLengthHigh) {
 
 		int length;
 		boolean contains = false;
@@ -3883,7 +3884,7 @@ public class Enrichment {
 
 	}
 
-	public static boolean containsIntervalLessThanOrEqualTo( List<InputLineMinimal> inputLines, int intervalLength) {
+	public static boolean containsIntervalLessThanOrEqualTo( List<Interval> inputLines, int intervalLength) {
 
 		int length;
 		boolean contains = false;
@@ -3903,7 +3904,7 @@ public class Enrichment {
 
 	}
 
-	public static boolean containsIntervalGreaterThan( List<InputLineMinimal> inputLines, int intervalLength) {
+	public static boolean containsIntervalGreaterThan( List<Interval> inputLines, int intervalLength) {
 
 		int length;
 		boolean contains = false;
@@ -4324,7 +4325,7 @@ public class Enrichment {
 
 		/********************************************************************************************************/
 		/******************************* ORIGINAL INPUT LINES ***************************************************/
-		Map<ChromosomeName, List<InputLineMinimal>> chromosomeName2OriginalInputLinesMap = new HashMap<ChromosomeName, List<InputLineMinimal>>();
+		Map<ChromosomeName, List<Interval>> chromosomeName2OriginalInputLinesMap = new HashMap<ChromosomeName, List<Interval>>();
 		/******************************* ORIGINAL INPUT LINES ***************************************************/
 		/********************************************************************************************************/
 
@@ -4396,8 +4397,8 @@ public class Enrichment {
 		int chromSize;
 		//float chromBasedAverageIntervalLength;
 		int chromBasedModeofGivenIntervalLength;
-		List<InputLineMinimal> chromosomeBaseOriginalInputLines;
-		TIntObjectMap<List<InputLineMinimal>> permutationNumber2RandomlyGeneratedDataMap;
+		List<Interval> chromosomeBaseOriginalInputLines;
+		TIntObjectMap<List<Interval>> permutationNumber2RandomlyGeneratedDataMap;
 		// Do we need it? Yes
 
 		AnnotateWithNumbersForAllChromosomes annotateWithNumbersForAllChromosomes;
@@ -4456,7 +4457,7 @@ public class Enrichment {
 
 		// Decision: First option is selected
 
-		TIntObjectMap<TIntObjectMap<List<InputLineMinimal>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<TIntObjectMap<List<InputLineMinimal>>>();
+		TIntObjectMap<TIntObjectMap<List<Interval>>> chrNumber2PermutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<TIntObjectMap<List<Interval>>>();
 		/******************************************************************************************************/
 		/**********************************24 JUNE 2015 ends***************************************************/
 		/******************************************************************************************************/
@@ -6560,7 +6561,7 @@ public class Enrichment {
 
 		/********************************************************************************************************/
 		/******************************* ORIGINAL INPUT LINES ***************************************************/
-		Map<ChromosomeName, List<InputLineMinimal>> chromosomeName2OriginalInputLinesMap = new HashMap<ChromosomeName, List<InputLineMinimal>>();
+		Map<ChromosomeName, List<Interval>> chromosomeName2OriginalInputLinesMap = new HashMap<ChromosomeName, List<Interval>>();
 		/******************************* ORIGINAL INPUT LINES ***************************************************/
 		/********************************************************************************************************/
 
@@ -6653,8 +6654,8 @@ public class Enrichment {
 		int chromSize;
 		//float chromBasedAverageIntervalLength;
 		int chromBasedModeofGivenIntervalLength;
-		List<InputLineMinimal> chromosomeBaseOriginalInputLines;
-		TIntObjectMap<List<InputLineMinimal>> permutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<List<InputLineMinimal>>();
+		List<Interval> chromosomeBaseOriginalInputLines;
+		TIntObjectMap<List<Interval>> permutationNumber2RandomlyGeneratedDataHashMap = new TIntObjectHashMap<List<Interval>>();
 
 		AnnotateWithNumbers annotateWithNumbers;
 		

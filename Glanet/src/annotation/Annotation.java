@@ -70,13 +70,14 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsKeysWithNumbersAndValuesOneorZero;
 import enrichment.AllMapsWithNumbers;
 import enrichment.InputLine;
-import enrichment.InputLineMinimal;
 import enumtypes.AnnotationType;
 import enumtypes.AssociationMeasureType;
 import enumtypes.ChromosomeName;
@@ -1464,7 +1465,7 @@ public class Annotation {
 	public static void searchDnaseWithIOWithNumbersForAllChromosomes( 
 			String outputFolder, 
 			int permutationNumber,
-			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData,
+			TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData,
 			TIntObjectMap<IntervalTree> chrNumber2DnaseIntervalTreeMap,
 			TIntObjectMap<BufferedWriter> dnaseBufferedWriterHashMap, 
 			TIntIntMap dnaseCellLineNumber2PermutationKMap,
@@ -1472,8 +1473,8 @@ public class Annotation {
 
 		ChromosomeName chromName;
 
-		List<InputLineMinimal> inputLines;
-		InputLineMinimal inputLine;
+		List<Interval> inputLines;
+		Interval inputLine;
 
 		IntervalTree dnaseIntervalTree;
 
@@ -1533,11 +1534,11 @@ public class Annotation {
 	// Empirical P Value Calculation
 	// with IO
 	public static void searchDnaseWithIOWithNumbers( String outputFolder, int permutationNumber,
-			ChromosomeName chromName, List<InputLineMinimal> inputLines, IntervalTree dnaseIntervalTree,
+			ChromosomeName chromName, List<Interval> inputLines, IntervalTree dnaseIntervalTree,
 			TIntObjectMap<BufferedWriter> dnaseBufferedWriterHashMap,
 			TIntIntMap permutationNumberDnaseCellLineNumber2KMap, int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 
 		for( int i = 0; i < inputLines.size(); i++){
 			TIntIntMap permutationNumberDnaseCellLineNumber2ZeroorOneMap = new TIntIntHashMap();
@@ -1580,15 +1581,15 @@ public class Annotation {
 	// For All Chromosomes
 	public static void searchTForHistoneWithoutIOWithNumbersForAllChromosomes( 
 			int permutationNumber,
-			TIntObjectMap<List<InputLineMinimal>> chrNumber2InputLines,
+			TIntObjectMap<List<Interval>> chrNumber2InputLines,
 			TIntObjectMap<IntervalTree> chrNumber2TFIntervalTreeMap, 
 			TIntIntMap tforHistoneNumberCellLineNumber2PermutationKMap,
 			int overlapDefinition) {
 
 		ChromosomeName chromName;
 
-		List<InputLineMinimal> inputLines;
-		InputLineMinimal inputLine;
+		List<Interval> inputLines;
+		Interval inputLine;
 
 		IntervalTree tforHistoneIntervalTree;
 
@@ -1648,14 +1649,14 @@ public class Annotation {
 	// With Numbers
 	// For All Chromosomes
 	public static void searchDnaseWithoutIOWithNumbersForAllChromosomes( int permutationNumber,
-			TIntObjectMap<List<InputLineMinimal>> chrNumber2InputLines,
+			TIntObjectMap<List<Interval>> chrNumber2InputLines,
 			TIntObjectMap<IntervalTree> chrNumber2DnaseIntervalTreeMap, TIntIntMap dnaseCellLineNumber2PermutationKMap,
 			int overlapDefinition) {
 
 		ChromosomeName chromName;
 
-		List<InputLineMinimal> inputLines;
-		InputLineMinimal inputLine;
+		List<Interval> inputLines;
+		Interval inputLine;
 
 		IntervalTree dnaseIntervalTree;
 
@@ -1715,18 +1716,18 @@ public class Annotation {
 	public static void searchDnaseWithoutIOWithNumbers( 
 			int permutationNumber, 
 			ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, 
+			List<Interval> inputLines, 
 			IntervalTree dnaseIntervalTree,
 			TIntIntMap permutationNumberDnaseCellLineNumber2KMap, 
 			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 		
 		
 		for( int i = 0; i < inputLines.size(); i++){
 			
-			inputLine = inputLines.get( i);
+			inputLine = inputLines.get(i);
 			
 			switch(associationMeasureType){
 			
@@ -1963,7 +1964,8 @@ public class Annotation {
 			TIntIntMap dnaseCellLineNumber2KMap, 
 			int overlapDefinition,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
-			TIntObjectMap<String> fileNumber2FileNameMap) {
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			AssociationMeasureType associationMeasureType) {
 
 		BufferedReader bufferedReader = null;
 
@@ -1986,7 +1988,8 @@ public class Annotation {
 					dnaseCellLineNumber2KMap, 
 					overlapDefinition,
 					cellLineNumber2CellLineNameMap, 
-					fileNumber2FileNameMap);
+					fileNumber2FileNameMap,
+					associationMeasureType);
 			
 			dnaseIntervalTree = null;
 
@@ -2177,6 +2180,8 @@ public class Annotation {
 
 	}
 
+	
+	//Updated 12 April 2016
 	// Annotation Sequentially
 	// With Numbers
 	public void searchDnaseWithNumbers(
@@ -2188,7 +2193,8 @@ public class Annotation {
 			TIntIntMap dnaseCellLineNumber2KMap, 
 			int overlapDefinition,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
-			TIntObjectMap<String> fileNumber2FileNameMap) {
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			AssociationMeasureType associationMeasureType) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -2200,12 +2206,10 @@ public class Annotation {
 		try{
 
 			while( ( strLine = bufferedReader.readLine()) != null){
-
-				// Fill the hits for the given interval in the strLine
-				// A given interval can return 1 or 0 for a dnaseCellLine
-				// Although the given interval can have more than 1 hits with a dnaseCellLine
-				TIntByteMap dnaseCellLineNumber2OneorZeroMap = new TIntByteHashMap();
-
+				
+				/***********************************************/
+				/*************Get Interval Starts***************/
+				/***********************************************/
 				indexofFirstTab = strLine.indexOf( '\t');
 				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
 
@@ -2219,38 +2223,118 @@ public class Annotation {
 				else
 					high = low;
 
-				Interval interval = new Interval( low, high);
+				Interval interval = new Interval(low, high);
+				/***********************************************/
+				/*************Get Interval Ends*****************/
+				/***********************************************/
+				
+				switch(associationMeasureType){
+				
+					case EXISTENCE_OF_OVERLAP:
+						/*************************************************************************************************/
+						/***********************************EXISTENCE_OF_OVERLAP starts***********************************/
+						/*************************************************************************************************/	
+	
+						// Fill the hits for the given interval in the strLine
+						// A given interval can return 1 or 0 for a dnaseCellLine
+						// Although the given interval can have more than 1 hits with a dnaseCellLine
+						TIntByteMap dnaseCellLineNumber2OneorZeroMap = new TIntByteHashMap();
 
-				if( dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						if( dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
 
-					dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers(
-							outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, 
-							dnaseIntervalTree.getRoot(), 
-							interval,
-							chromName, 
-							dnaseCellLineNumber2OneorZeroMap, 
-							overlapDefinition,
-							cellLineNumber2CellLineNameMap, 
-							fileNumber2FileNameMap);
-					
-				}// End of IF
+							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers(
+									outputFolder,
+									writeElementBasedAnnotationFoundOverlapsMode, 
+									dnaseIntervalTree.getRoot(), 
+									interval,
+									chromName, 
+									dnaseCellLineNumber2OneorZeroMap, 
+									overlapDefinition,
+									cellLineNumber2CellLineNameMap, 
+									fileNumber2FileNameMap);
+							
+						}// End of IF
 
-				for( TIntByteIterator it = dnaseCellLineNumber2OneorZeroMap.iterator(); it.hasNext();){
+						for( TIntByteIterator it = dnaseCellLineNumber2OneorZeroMap.iterator(); it.hasNext();){
 
-					it.advance();
+							it.advance();
 
-					if( !dnaseCellLineNumber2KMap.containsKey( it.key())){
-						dnaseCellLineNumber2KMap.put( it.key(), it.value());
-					}else{
-						dnaseCellLineNumber2KMap.put( it.key(), dnaseCellLineNumber2KMap.get( it.key()) + it.value());
+							if( !dnaseCellLineNumber2KMap.containsKey( it.key())){
+								dnaseCellLineNumber2KMap.put( it.key(), it.value());
+							}else{
+								dnaseCellLineNumber2KMap.put( it.key(), dnaseCellLineNumber2KMap.get(it.key()) + it.value());
+							}
 
-					}
+						}// End of FOR
 
-				}// End of FOR
+						// After accumulation set to null
+						dnaseCellLineNumber2OneorZeroMap = null;
+						/*************************************************************************************************/
+						/***********************************EXISTENCE_OF_OVERLAP ends*************************************/
+						/*************************************************************************************************/	
+						break;
+						
+					case NUMBER_OF_OVERLAPPING_BASES:
+						
+						/*************************************************************************************************/
+						/*******************************NUMBER_OF_OVERLAPPING_BASES starts********************************/
+						/*************************************************************************************************/
+						TIntObjectMap<List<IntervalTreeNode>> dnaseCellLineNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap dnaseCellLineNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
 
-				// After accumulation set to null
-				dnaseCellLineNumber2OneorZeroMap = null;
+						if(dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							//Step1: Get all the overlappingIntervals with the inputLine
+							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+									dnaseIntervalTree.getRoot(), 
+									interval, 
+									chromName,
+									dnaseCellLineNumber2OverlappingNodeListMap);
+							
+							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									dnaseCellLineNumber2OverlappingNodeListMap, 
+									dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap);
+							
+							//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
+									dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+									dnaseCellLineNumber2NumberofOverlappingBasesMap);
+							
+						}//End of IF
+
+						// Accumulate search results of permutationNumberDnaseCellLineNumber2NumberofOverlappingBasesMap in dnaseCellLineNumber2KMap
+						for( TIntIntIterator it = dnaseCellLineNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+							it.advance();
+
+							if( !dnaseCellLineNumber2KMap.containsKey( it.key())){
+								dnaseCellLineNumber2KMap.put( it.key(), it.value());
+							}else{
+								dnaseCellLineNumber2KMap.put( it.key(), dnaseCellLineNumber2KMap.get( it.key()) + it.value());
+
+							}
+
+						}// End of FOR
+						
+						//Free memory
+						dnaseCellLineNumber2OverlappingNodeListMap = null;
+						dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+						dnaseCellLineNumber2NumberofOverlappingBasesMap = null;
+						/*************************************************************************************************/
+						/*******************************NUMBER_OF_OVERLAPPING_BASES ends**********************************/
+						/*************************************************************************************************/
+
+						
+						break;
+						
+				
+				}//End of SWITCH
+
+				
 
 			}// End of WHILE
 
@@ -2273,11 +2357,11 @@ public class Annotation {
 	// With Numbers
 	// Empirical P Value Calculation
 	public static void searchUserDefinedLibraryWithIOWithNumbers( String outputFolder, int permutationNumber,
-			ChromosomeName chromName, List<InputLineMinimal> inputLines, IntervalTree intervalTree,
+			ChromosomeName chromName, List<Interval> inputLines, IntervalTree intervalTree,
 			TLongObjectMap<BufferedWriter> permutationNumberElementTypeNumberElementNumberr2BufferedWriterMap,
 			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap, int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 
 		for( int i = 0; i < inputLines.size(); i++){
 			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap = new TLongIntHashMap();
@@ -2318,7 +2402,7 @@ public class Annotation {
 	public static void searchTForHistoneWithIOWithNumbersForAllChromosomes(
 		String outputFolder,
 		int permutationNumber,
-		TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
+		TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData, 
 		TIntObjectMap<IntervalTree> chrNumber2TForHistoneIntervalTreeMap,
 		TLongObjectMap<BufferedWriter> permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumberBufferedWriterHashMap,
 		TIntIntMap tforHistoneNumberCellLineNumber2PermutationKMap, 
@@ -2327,8 +2411,8 @@ public class Annotation {
 						
 		ChromosomeName chromName;
 
-		List<InputLineMinimal> inputLines;
-		InputLineMinimal inputLine;
+		List<Interval> inputLines;
+		Interval inputLine;
 
 		IntervalTree tforHistoneIntervalTree;
 
@@ -2390,13 +2474,13 @@ public class Annotation {
 			String outputFolder, 
 			int permutationNumber,
 			ChromosomeName chromName, 
-			List<InputLineMinimal> inputLines, 
+			List<Interval> inputLines, 
 			IntervalTree tfbsIntervalTree,
 			TLongObjectMap<BufferedWriter> tfbsBufferedWriterHashMap,
 			TLongIntMap permutationNumberTfNumberCellLineNumber2KMap, 
 			int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 
 		for( int i = 0; i < inputLines.size(); i++){
 			TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap = new TLongIntHashMap();
@@ -2433,7 +2517,7 @@ public class Annotation {
 	public static void searchTFandFillMap(
 			int permutationNumber, 
 			ChromosomeName chromName,
-			InputLineMinimal inputLine,
+			Interval inputLine,
 			IntervalTree tfbsIntervalTree,
 			TLongIntMap permutationNumberTFNumberCellLineNumber2KMap){
 		
@@ -2495,13 +2579,13 @@ public class Annotation {
 	public static void searchTfbsWithoutIOWithNumbers(
 			int permutationNumber, 
 			ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, 
+			List<Interval> inputLines, 
 			IntervalTree tfbsIntervalTree,
 			TLongIntMap permutationNumberTFNumberCellLineNumber2KMap, 
 			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 		
 		
 		for( int i = 0; i < inputLines.size(); i++){
@@ -4339,11 +4423,11 @@ public class Annotation {
 	// Empirical P Value Calculation
 	// with IO
 	public static void searchHistoneWithIOWithNumbers( String outputFolder, int permutationNumber,
-			ChromosomeName chromName, List<InputLineMinimal> inputLines, IntervalTree histoneIntervalTree,
+			ChromosomeName chromName, List<Interval> inputLines, IntervalTree histoneIntervalTree,
 			TLongObjectMap<BufferedWriter> histoneBufferedWriterHashMap,
 			TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap, int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 
 		for( int i = 0; i < inputLines.size(); i++){
 
@@ -4385,15 +4469,15 @@ public class Annotation {
 	
 	//27 July 2015 starts
 	public static void searchUserDefinedLibraryWithoutIOWithNumbers(
-			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData,
+			TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData,
 			TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
 			TIntIntMap userDefinedLibraryElementTypeNumberElementNumber2PermutationKMap,
 			TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeNameMap,
 			int overlapDefinition){
 		
 		ChromosomeName chromName;
-		List<InputLineMinimal> inputLines;
-		InputLineMinimal inputLine;
+		List<Interval> inputLines;
+		Interval inputLine;
 		
 		TIntObjectMap<IntervalTree> chrNumber2UserDefinedLibraryIntervalTree;
 		IntervalTree userDefinedLibraryIntervalTree;
@@ -4476,13 +4560,13 @@ public class Annotation {
 	public static void searchUserDefinedLibraryWithoutIOWithNumbers( 
 			int permutationNumber, 
 			ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, 
+			List<Interval> inputLines, 
 			IntervalTree userDefinedLibraryIntervalTree,
 			TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap, 
 			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 		
 			
 		for( int i = 0; i < inputLines.size(); i++){
@@ -4609,13 +4693,13 @@ public class Annotation {
 	public static void searchHistoneWithoutIOWithNumbers(
 			int permutationNumber, 
 			ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, 
+			List<Interval> inputLines, 
 			IntervalTree histoneIntervalTree,
 			TLongIntMap permutationNumberHistoneNumberCellLineNumber2KMap, 
 			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 		
-		InputLineMinimal inputLine;
+		Interval inputLine;
 	
 		for(int i = 0; i < inputLines.size(); i++){
 
@@ -4997,7 +5081,7 @@ public class Annotation {
 	// Search GeneSet
 	// KEGGPathway or UserDefinedGeneSet
 	public static void searchUcscRefSeqGenesWithIOWithNumbers( String outputFolder, int permutationNumber,
-			ChromosomeName chromName, List<InputLineMinimal> inputLines, IntervalTree ucscRefSeqGenesIntervalTree,
+			ChromosomeName chromName, List<Interval> inputLines, IntervalTree ucscRefSeqGenesIntervalTree,
 			TIntObjectMap<BufferedWriter> permutationNumberKeggPathwayNumber2BufferedWriterMap,
 			TLongObjectMap<BufferedWriter> permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
@@ -5005,7 +5089,7 @@ public class Annotation {
 			TLongIntMap permutationNumberUserDefinedGeneSetNumber2KMap, String type,
 			GeneSetAnalysisType geneSetAnalysisType, GeneSetType geneSetType, int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 
 		for( int i = 0; i < inputLines.size(); i++){
 
@@ -5079,7 +5163,7 @@ public class Annotation {
 	// Without IO
 	// With Numbers
 	public static void searchUcscRefSeqGenesWithoutIOWithNumbersForAllChromosome(
-			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
+			TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData, 
 			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
 			TIntIntMap keggPathwayNumber2PermutationKMap,
@@ -5093,8 +5177,8 @@ public class Annotation {
 		
 		ChromosomeName chromName;
 
-		List<InputLineMinimal> inputLines;
-		InputLineMinimal inputLine;
+		List<Interval> inputLines;
+		Interval inputLine;
 
 		IntervalTree ucscRefSeqGenesIntervalTree;
 		
@@ -5221,7 +5305,7 @@ public class Annotation {
 	public static void searchUcscRefSeqGenesWithoutIOWithNumbers( 
 			int permutationNumber, 
 			ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, 
+			List<Interval> inputLines, 
 			IntervalTree ucscRefSeqGenesIntervalTree,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
 			TIntIntMap permutationNumberKeggPathwayNumber2KMap,
@@ -5233,7 +5317,7 @@ public class Annotation {
 			AssociationMeasureType associationMeasureType,
 			int overlapDefinition) {
 
-		InputLineMinimal inputLine;
+		Interval inputLine;
 		
 		
 		for( int i = 0; i < inputLines.size(); i++){
@@ -5571,7 +5655,7 @@ public class Annotation {
 	// TF Regulation Based Kegg Pathway
 	// TF All Based Kegg Pathway
 	public static void searchTfandKeggPathwayWithIOWithNumbers( String outputFolder, int permutationNumber,
-			ChromosomeName chromName, List<InputLineMinimal> inputLines, IntervalTree tfIntervalTree,
+			ChromosomeName chromName, List<Interval> inputLines, IntervalTree tfIntervalTree,
 			IntervalTree ucscRefSeqGenesIntervalTree, TLongObjectMap<BufferedWriter> tfBufferedWriterHashMap,
 			TIntObjectMap<BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap,
 			TIntObjectMap<BufferedWriter> regulationBasedKeggPathwayBufferedWriterHashMap,
@@ -5609,7 +5693,7 @@ public class Annotation {
 		int keggPathwayNumber;
 
 		try{
-			for( InputLineMinimal inputLine : inputLines){
+			for( Interval inputLine : inputLines){
 
 				// TF Enrichment
 				TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap = new TLongIntHashMap();
@@ -6486,7 +6570,7 @@ public class Annotation {
 	// TF and All Based Kegg Pathway
 	public static void searchTfandKeggPathwayWithoutIOWithNumbersForAllChromosomes(
 			int permutationNumber, 
-			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData, 
+			TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData, 
 			TIntObjectMap<IntervalTree> chrNumber2TFIntervalTreeMap,
 			TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap,
 			TIntObjectMap<TIntList> geneId2KeggPathwayNumberMap,
@@ -6511,7 +6595,7 @@ public class Annotation {
 		long tfNumberCellLineNumberKEGGPathwayNumber;
 
 		ChromosomeName chromName;
-		List<InputLineMinimal> inputLines;
+		List<Interval> inputLines;
 		
 		IntervalTree tfIntervalTree;
 		IntervalTree ucscRefSeqGenesIntervalTree;
@@ -6526,7 +6610,7 @@ public class Annotation {
 
 			if( inputLines != null){
 
-				for( InputLineMinimal inputLine : inputLines){
+				for( Interval inputLine : inputLines){
 			
 					// Will be filled in tfIntervalTree search
 					TIntByteMap tfNumberCellLineNumber2PermutationZeroorOneMap = new TIntByteHashMap();
@@ -7218,7 +7302,7 @@ public class Annotation {
 	
 	//19 NOV 2015
 	public static void findCommonOverlaps(
-			InputLineMinimal inputLine,
+			Interval inputLine,
 			long permutationNumberTFNumberCellLineNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLengthforTF,
 			IntervalTree TFIntervalTreeWithNonOverlappingNodes,
@@ -7329,7 +7413,7 @@ public class Annotation {
 	public static void searchTfandKeggPathwayWithoutIOWithNumbers(
 			int permutationNumber, 
 			ChromosomeName chromName,
-			List<InputLineMinimal> inputLines, 
+			List<Interval> inputLines, 
 			IntervalTree tfIntervalTree, 
 			IntervalTree ucscRefSeqGenesIntervalTree,
 			TIntObjectMap<TIntList> geneId2KeggPathwayNumberMap,
@@ -7361,7 +7445,7 @@ public class Annotation {
 
 		int keggPathwayNumber;
 
-		for(InputLineMinimal inputLine : inputLines){
+		for(Interval inputLine : inputLines){
 			
 			// Fill these lists during search for tfs and search for ucscRefSeqGenes
 			List<PermutationNumberTfNumberCellLineNumberOverlap> permutationNumberTfNumberCellLineNumberOverlapList = new ArrayList<PermutationNumberTfNumberCellLineNumberOverlap>();
@@ -9798,6 +9882,11 @@ public class Annotation {
 		int overlapDefinition = Integer.parseInt( args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 
 		String inputFileName;
+		
+		//12 April 2016
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.convertStringtoEnum(args[CommandLineArguments.AssociationMeasureType.value()]);
+
+		
 		/*************************************************************************************************/
 		/**************************GET SOME ARGUMENTS ENDS************************************************/
 		/*************************************************************************************************/
@@ -10184,7 +10273,8 @@ public class Annotation {
 						dnaseCellLineNumber2KMap, 
 						overlapDefinition, 
 						dnaseCellLineNumber2NameMap, 
-						fileNumber2NameMap);
+						fileNumber2NameMap,
+						associationMeasureType);
 				
 				writeResultsWithNumbers(
 						dnaseCellLineNumber2KMap, 
@@ -11382,7 +11472,7 @@ public class Annotation {
 	// Tf and CellLine and KeggPathway Enrichment starts
 	public static AllMapsDnaseTFHistoneWithNumbers annotatePermutationWithIOWithNumbers_DnaseTFHistone(
 			String outputFolder, int permutationNumber, ChromosomeName chrName,
-			List<InputLineMinimal> randomlyGeneratedData, IntervalTree intervalTree, AnnotationType annotationType,
+			List<Interval> randomlyGeneratedData, IntervalTree intervalTree, AnnotationType annotationType,
 			int overlapDefinition) {
 
 		AllMapsDnaseTFHistoneWithNumbers allMapsWithNumbers = new AllMapsDnaseTFHistoneWithNumbers();
@@ -11439,7 +11529,7 @@ public class Annotation {
 	public static AllMapsKeysWithNumbersAndValuesOneorZero annotatePermutationWithIOWithNumbersForAllChromosomes(
 			String outputFolder, 
 			int permutationNumber,
-			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData,
+			TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData,
 			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
 			TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, 
 			AnnotationType annotationType,
@@ -11569,7 +11659,7 @@ public class Annotation {
 	// Tf and KeggPathway Enrichment or
 	// Tf and CellLine and KeggPathway Enrichment starts
 	public static AllMapsWithNumbers annotatePermutationWithIOWithNumbers( String outputFolder, int permutationNumber,
-			ChromosomeName chrName, List<InputLineMinimal> randomlyGeneratedData, IntervalTree intervalTree,
+			ChromosomeName chrName, List<Interval> randomlyGeneratedData, IntervalTree intervalTree,
 			IntervalTree ucscRefSeqGenesIntervalTree, AnnotationType annotationType,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap, int overlapDefinition) {
 
@@ -11957,7 +12047,7 @@ public class Annotation {
 	public static AllMapsDnaseTFHistoneWithNumbers annotatePermutationWithoutIOWithNumbers_DnaseTFHistone(
 			int permutationNumber, 
 			ChromosomeName chrName, 
-			List<InputLineMinimal> randomlyGeneratedData,
+			List<Interval> randomlyGeneratedData,
 			IntervalTree intervalTree, 
 			AnnotationType annotationType, 
 			AssociationMeasureType associationMeasureType,
@@ -12030,7 +12120,7 @@ public class Annotation {
 	// otherwise 0.
 	public static AllMapsKeysWithNumbersAndValuesOneorZero annotatePermutationWithoutIOWithNumbersForAllChromosomes(
 			int permutationNumber, 
-			TIntObjectMap<List<InputLineMinimal>> chrNumber2RandomlyGeneratedData,
+			TIntObjectMap<List<Interval>> chrNumber2RandomlyGeneratedData,
 			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap,
 			TIntObjectMap<IntervalTree> chrNumber2UcscRefSeqGenesIntervalTreeMap, 
 			TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap,
@@ -12936,7 +13026,7 @@ public class Annotation {
 	public static AllMapsWithNumbers annotatePermutationWithoutIOWithNumbers(
 			int permutationNumber,
 			ChromosomeName chrName, 
-			List<InputLineMinimal> randomlyGeneratedData, 
+			List<Interval> randomlyGeneratedData, 
 			IntervalTree intervalTree,
 			IntervalTree ucscRefSeqGenesIntervalTree, 
 			AnnotationType annotationType,
