@@ -7217,6 +7217,44 @@ public class IntervalTree {
 	}
 	//8 July 2015
 	
+	//13 April 2016 starts
+	public static void fillMapofOverlappingNodeList(
+			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
+			UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode,
+			TIntObjectMap<List<IntervalTreeNode>> geneSetNumber2OverlappingNodeListMap){
+		
+		Integer geneSetNumber = null;
+		TIntList listofGeneSetNumberContainingThisGeneId = null;	
+		List<IntervalTreeNode> overlappingNodeList = null;
+		
+		listofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
+
+		if(listofGeneSetNumberContainingThisGeneId != null){
+			
+			for(int i = 0; i < listofGeneSetNumberContainingThisGeneId.size(); i++){
+
+				geneSetNumber = listofGeneSetNumberContainingThisGeneId.get(i);
+				
+				overlappingNodeList = geneSetNumber2OverlappingNodeListMap.get(geneSetNumber);
+				
+				//Pay attention: you have to add castedNode to the list
+				//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+				if (overlappingNodeList == null){
+					overlappingNodeList = new ArrayList<IntervalTreeNode>();
+					overlappingNodeList.add(castedNode);
+					geneSetNumber2OverlappingNodeListMap.put(geneSetNumber, overlappingNodeList);
+				}else{
+					overlappingNodeList.add(castedNode);
+				}
+										
+			}// End of FOR: for all genesets having this gene in their gene list
+			
+		} // End of IF: geneSetListContainingThisGeneId is not null
+		
+	}
+	//13 April 2016 ends
+	
+	
 	
 	//11 NOV 2015 starts
 	public static void fillMapofOverlappingNodeList(
@@ -7454,6 +7492,110 @@ public class IntervalTree {
 		
 	}
 	//18 NOV 2015 ends
+	
+	
+	//13 April 2016 starts
+	//Annotation
+	//AssociationMeasureType NUMBER_OF_OVERLAPPING_BASES
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
+			TIntObjectMap<List<IntervalTreeNode>> exonBasedGeneSetNumber2OverlappingNodeListMap,
+			TIntObjectMap<List<IntervalTreeNode>> regulationBasedGeneSetNumber2OverlappingNodeListMap,
+			TIntObjectMap<List<IntervalTreeNode>> allBasedGeneSetNumber2OverlappingNodeListMap, 
+			String type) {
+
+		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		if( Commons.NCBI_GENE_ID.equals(type)){
+			
+			if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+
+				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					//castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+					//castedNode must be newly created and there must be no color assigned at first.
+					castedNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
+							node.getChromName(),
+							node.getLow(),
+							node.getHigh(),
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getGeneEntrezId(),
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName(),
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalNumber(),
+							NodeType.ORIGINAL);
+					
+				}//End of IF
+
+						
+				//EXON Based GeneSet Analysis
+				if( castedNode.getIntervalName().isExon()){
+					
+					//11 NOV 2015 starts
+					fillMapofOverlappingNodeList(
+							geneId2ListofGeneSetNumberMap,
+							castedNode,
+							exonBasedGeneSetNumber2OverlappingNodeListMap);
+					//11 NOV 2015 ends
+
+				}// End of IF: Overlapped node is an exon
+					
+						
+				//Regulation Based  GeneSet Analysis
+				if( castedNode.getIntervalName().isIntron() || 
+					castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
+					castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+
+					//11 NOV 2015 starts
+					fillMapofOverlappingNodeList(
+							geneId2ListofGeneSetNumberMap,
+							castedNode,
+							regulationBasedGeneSetNumber2OverlappingNodeListMap);
+					//11 NOV 2015 ends
+
+				}// End of IF: Regulation Based GeneSet Analysis, Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
+						
+				// ALL Based GeneSet Analysis
+				//11 NOV 2015 starts
+				fillMapofOverlappingNodeList(
+						geneId2ListofGeneSetNumberMap,
+						castedNode,
+						allBasedGeneSetNumber2OverlappingNodeListMap);
+				//11 NOV 2015 ends
+				
+				
+
+			}// End of IF there is an overlap
+			
+		} // End of If: type is NCBI_GENE_ID
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					node.getLeft(),
+					interval, 
+					chromName, 
+					geneId2ListofGeneSetNumberMap,
+					exonBasedGeneSetNumber2OverlappingNodeListMap,
+					regulationBasedGeneSetNumber2OverlappingNodeListMap, 
+					allBasedGeneSetNumber2OverlappingNodeListMap,
+					type);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+				node.getRight(),
+					interval, 
+					chromName, 
+					geneId2ListofGeneSetNumberMap,
+					exonBasedGeneSetNumber2OverlappingNodeListMap,
+					regulationBasedGeneSetNumber2OverlappingNodeListMap, 
+					allBasedGeneSetNumber2OverlappingNodeListMap,
+					type);
+		}
+		
+	}	
+	//13 April 2016 ends
+	
 	
 	
 	
