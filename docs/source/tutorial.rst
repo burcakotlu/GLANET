@@ -240,14 +240,20 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	GLANET run from GUI (by double clicking the GLANET.jar) will be logged in a log file. Log file will be saved under the same directory where the GLANET.jar resides.
 
 
----------------------------------------------------------
-GLANET Command-Line Interface and Command-Line Parameters
----------------------------------------------------------
+--------------------------------------------------------
+GLANET Command-Line Interface and Command-Line Arguments
+--------------------------------------------------------
 
-In the following table, commands and their prerequisite commands, if any, are specified. A command is required if and only if its precondition command(s) is specified. Command IDs distinguish options between each other. You must at most set one option per ID. For example, if you set both -f0 and -fbed, the program will terminate by giving an error message. Details of the commands with examples are specified below. Note that command "-c" (1) indicates that GLANET will run in command-line, not with GUI.
+In the following table, command-line arguments and their prerequisite arguments, if any, are specified. 
+A command-line argument is required if and only if its precondition argument(s) is specified. 
+Command IDs distinguish options between each other. 
+You must set at most one parameter per argument. 
+For example, if you set both -f0 and -fbed parameters for *Input File Format* argument, then the program will terminate by giving an error message. 
+Details of the command-line arguments with examples are specified below. 
+Note that parameter "-c" (1) indicates that GLANET will run in command-line mode, not with GUI.
 
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Description             | Option        | Optional/Required | Precondition | Default Option       |
+| Description             | Parameter     | Optional/Required | Precondition | Default Parameter    |
 +=========================+===============+===================+==============+======================+
 | Command-line            | `-c`_         |  Optional         | None         | None                 |
 +-------------------------+---------------+-------------------+--------------+----------------------+
