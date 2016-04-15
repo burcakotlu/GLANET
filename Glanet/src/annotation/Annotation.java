@@ -2875,6 +2875,23 @@ public class Annotation {
 							
 						}//End of IF intervalTree root node is NOT SENTINEL
 						
+						// Accumulate
+						for( TIntIntIterator it = geneEntrezID2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+							it.advance();
+
+							if( !entrezGeneId2KMap.containsKey( it.key())){
+								entrezGeneId2KMap.put( it.key(), it.value());
+							}else{
+								entrezGeneId2KMap.put( it.key(), entrezGeneId2KMap.get( it.key()) + it.value());
+							}
+
+						}// End of FOR
+
+						// After accumulation
+						// Free space
+						geneEntrezID2OverlappingNodeListMap = null;
+						geneEntrezID2IntervalTreeWithNonOverlappingNodesMap = null;
+						geneEntrezID2NumberofOverlappingBasesMap = null;
 						break;
 				
 				}//End of switch
