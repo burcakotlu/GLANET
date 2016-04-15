@@ -245,12 +245,11 @@ GLANET Command-Line Interface and Command-Line Arguments
 --------------------------------------------------------
 
 In the following table, command-line arguments and their prerequisite arguments, if any, are specified. 
-A command-line argument is required if and only if its precondition argument(s) is specified. 
-Command IDs distinguish options between each other. 
+A command-line argument is required if and only if its precondition argument(s) is specified.
 You must set at most one parameter per argument. 
 For example, if you set both -f0 and -fbed parameters for *Input File Format* argument, then the program will terminate by giving an error message. 
 Details of the command-line arguments with examples are specified below. 
-Note that parameter "-c" (1) indicates that GLANET will run in command-line mode, not with GUI.
+Note that parameter "-c" indicates that GLANET will run in command-line mode, not with GUI.
 
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Description             | Parameter     | Optional/Required | Precondition | Default Parameter    |
@@ -381,7 +380,7 @@ There are several parameters that are either required or optional to make GLANET
 Whether a parameter is required or not will be specified as we describe it. 
 The order of parameters is not fixed. One may set the parameters in any order. 
 Some parameters may require some other parameters to be set as preconditions, which will also be indicated. 
-You can see the preconditions of a parameter as shown in `GLANET Command-Line Interface and Command-Line Parameters`_
+You can see the preconditions of a parameter as shown in `GLANET Command-Line Interface and Command-Line Arguments`_
 
 -c
 ^^
