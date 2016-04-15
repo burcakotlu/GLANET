@@ -2703,14 +2703,20 @@ public class Annotation {
 	// Gene
 	// Annotation
 	// with numbers
-	public void searchGeneWithNumbers( String outputFolder,
+	public void searchGeneWithNumbers( 
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
-			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, ChromosomeName chromName,
-			BufferedReader bufferedReader, IntervalTree ucscRefSeqGenesIntervalTree, TIntIntMap entrezGeneId2KMap,
-			int overlapDefinition, TIntObjectMap<String> officialGeneSymbolNumber2NameMap,
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, 
+			ChromosomeName chromName,
+			BufferedReader bufferedReader, 
+			IntervalTree ucscRefSeqGenesIntervalTree, 
+			TIntIntMap entrezGeneId2KMap,
+			int overlapDefinition, 
+			TIntObjectMap<String> officialGeneSymbolNumber2NameMap,
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
+			AssociationMeasureType associationMeasureType) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -2742,8 +2748,9 @@ public class Annotation {
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 
-				TIntByteMap entrezGeneId2OneorZeroMap = new TIntByteHashMap();
-
+				/******************************************/
+				/*********CREATE INTERVAL starts***********/
+				/******************************************/
 				indexofFirstTab = strLine.indexOf( '\t');
 				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
 
@@ -2758,6 +2765,9 @@ public class Annotation {
 					high = low;
 
 				Interval interval = new Interval( low, high);
+				/******************************************/
+				/*********CREATE INTERVAL ends*************/
+				/******************************************/
 
 				/***************************************************************************************/
 				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****starts ***************/
@@ -2779,33 +2789,103 @@ public class Annotation {
 				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****ends ********************/
 				/***************************************************************************************/
 
-				// UCSCRefSeqGenes Search starts here
-				if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
-					ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(
-							outputFolder, writeElementBasedAnnotationFoundOverlapsMode, bufferedWriter,
-							givenIntervalNumber, givenIntervalNumber2OverlapInformationMap,
-							ucscRefSeqGenesIntervalTree.getRoot(), interval, chromName, entrezGeneId2OneorZeroMap,
-							Commons.NCBI_GENE_ID, overlapDefinition, officialGeneSymbolNumber2NameMap,
-							refSeqGeneNumber2RefSeqGeneNameMap);
-				}
-				// UCSCRefSeqGenes Search ends here
+				
+				
+				switch(associationMeasureType){
+				
+					case EXISTENCE_OF_OVERLAP:
+						
+						TIntByteMap entrezGeneId2OneorZeroMap = new TIntByteHashMap();
+						
+						// UCSCRefSeqGenes Search starts here
+						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							ucscRefSeqGenesIntervalTree.findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(
+									outputFolder, 
+									writeElementBasedAnnotationFoundOverlapsMode, 
+									bufferedWriter,
+									givenIntervalNumber, 
+									givenIntervalNumber2OverlapInformationMap,
+									ucscRefSeqGenesIntervalTree.getRoot(), 
+									interval, 
+									chromName, 
+									entrezGeneId2OneorZeroMap,
+									Commons.NCBI_GENE_ID, 
+									overlapDefinition, 
+									officialGeneSymbolNumber2NameMap,
+									refSeqGeneNumber2RefSeqGeneNameMap);
+						}
+						// UCSCRefSeqGenes Search ends here
 
-				// accumulate search results of
-				// exonBasedKeggPathway2OneorZeroMap in
-				// exonBasedKeggPathway2KMap
-				for( TIntByteIterator it = entrezGeneId2OneorZeroMap.iterator(); it.hasNext();){
-					it.advance();
+						// accumulate search results of
+						// exonBasedKeggPathway2OneorZeroMap in
+						// exonBasedKeggPathway2KMap
+						for( TIntByteIterator it = entrezGeneId2OneorZeroMap.iterator(); it.hasNext();){
+							it.advance();
 
-					if( !entrezGeneId2KMap.containsKey( it.key())){
-						entrezGeneId2KMap.put( it.key(), it.value());
-					}else{
-						entrezGeneId2KMap.put( it.key(), entrezGeneId2KMap.get( it.key()) + it.value());
-					}
+							if( !entrezGeneId2KMap.containsKey( it.key())){
+								entrezGeneId2KMap.put( it.key(), it.value());
+							}else{
+								entrezGeneId2KMap.put( it.key(), entrezGeneId2KMap.get( it.key()) + it.value());
+							}
 
-				}// End of FOR
+						}// End of FOR
 
-				// After accumulation set to null
-				entrezGeneId2OneorZeroMap = null;
+						// After accumulation set to null
+						entrezGeneId2OneorZeroMap = null;
+
+	
+						break;
+					case NUMBER_OF_OVERLAPPING_BASES:
+						
+						TIntObjectMap<List<IntervalTreeNode>> geneNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> geneNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap geneNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+
+						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							//Step1: Get all the overlappingIntervals with the inputLine
+							//Fix Here
+							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+									ucscRefSeqGenesIntervalTree.getRoot(), 
+									interval, 
+									chromName,
+									null,
+									null,
+									null,
+									null,
+									geneNumber2OverlappingNodeListMap,
+									Commons.NCBI_GENE_ID,
+									GeneSetType.NO_GENESET_TYPE_IS_DEFINED);
+							
+						
+							
+							
+							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+											geneNumber2OverlappingNodeListMap, 
+											geneNumber2IntervalTreeWithNonOverlappingNodesMap);
+								
+
+							
+							//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+							IntervalTree.findNumberofOverlappingBases(
+											interval,
+											geneNumber2IntervalTreeWithNonOverlappingNodesMap, 
+											geneNumber2NumberofOverlappingBasesMap);
+								
+							
+
+
+							
+						}//End of IF intervalTree root node is NOT SENTINEL
+						
+						break;
+				
+				}//End of switch
+
+			
 
 			}// End of WHILE
 
@@ -2999,7 +3079,9 @@ public class Annotation {
 									exonBasedGeneSetNumber2OverlappingNodeListMap,
 									regulationBasedGeneSetNumber2OverlappingNodeListMap,
 									allBasedGeneSetNumber2OverlappingNodeListMap,
-									Commons.NCBI_GENE_ID);
+									null,
+									Commons.NCBI_GENE_ID,
+									geneSetType);
 							
 							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
 							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
@@ -8856,7 +8938,8 @@ public class Annotation {
 			TIntIntMap entrezGeneId2KMap, 
 			int overlapDefinition,
 			TIntObjectMap<String> officialGeneSymbolNumber2NameMap,
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
+			AssociationMeasureType associationMeasureType) {
 
 		BufferedReader bufferedReader = null;
 
@@ -8882,7 +8965,8 @@ public class Annotation {
 					entrezGeneId2KMap,
 					overlapDefinition, 
 					officialGeneSymbolNumber2NameMap, 
-					refSeqGeneNumber2RefSeqGeneNameMap);
+					refSeqGeneNumber2RefSeqGeneNameMap,
+					associationMeasureType);
 
 			ucscRefSeqGenesIntervalTree = null;
 
@@ -10415,7 +10499,8 @@ public class Annotation {
 						entrezGeneId2KMap, 
 						overlapDefinition, 
 						geneHugoSymbolNumber2NameMap,
-						refSeqRNANucleotideAccessionNumber2NameMap);
+						refSeqRNANucleotideAccessionNumber2NameMap,
+						associationMeasureType);
 
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
@@ -10432,10 +10517,10 @@ public class Annotation {
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 				dateAfter = System.currentTimeMillis();
 
-				GlanetRunner.appendLog( "Hg19 RefSeq Gene Annotation ends: " + new Date());
+				GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation ends: " + new Date());
 
-				GlanetRunner.appendLog( "Hg19 RefSeq Gene annotation took: " + ( float)( ( dateAfter - dateBefore) / 1000) + " seconds");
-				GlanetRunner.appendLog( "**********************************************************");
+				GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + ( float)( ( dateAfter - dateBefore) / 1000) + " seconds");
+				GlanetRunner.appendLog("**********************************************************");
 
 				entrezGeneId2KMap = null;
 

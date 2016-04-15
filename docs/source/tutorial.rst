@@ -185,8 +185,8 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
         -  Perform Enrichment With ZScores (Default) 
 		-  Perform Enrichment Without ZScores 
 		-  Perform Enrichment With ZScores (Default) ranks elements w.r.t. their zScores in addition to their empirical, Bonferroni corrected and Benjamini Hochberg FDR adjusted p values.
-		-  Perform Enrichment Without is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
-		-  Do not check Perform Enrichment With ZScores if you have hundreds of thousands of elements and you don't have enough memory (> 16GB)
+		-  Perform Enrichment Without ZScores is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
+		-  Do not check Perform Enrichment With ZScores if you have hundreds of thousands of elements and you don't have enough memory (at least 16GB)
 		        
 	* *Generate Random Data Mode*
 		-  With GC and Mapability (default)
@@ -225,8 +225,8 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or
 	*TF and KEGG Pathway (CellLine based)*.
-	If you want to carry on Regulatory Sequence Analysis, you must check the RSAT check box.
-	Please notice that Regulatory Sequence Analysis  is carried out for all of the annotated Transcription Factors.
+	If you want to carry on Regulatory Sequence Analysis, you must check the Regulatory Sequence Analysis using RSAT check box.
+	Please notice that Regulatory Sequence Analysis is carried out for all of the annotated Transcription Factors.
 	Regulatory Sequence Analysis makes use of RSAT web services.
 
 9)	**Job Name**: (Optional)
