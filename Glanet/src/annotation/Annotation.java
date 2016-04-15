@@ -2838,14 +2838,13 @@ public class Annotation {
 						break;
 					case NUMBER_OF_OVERLAPPING_BASES:
 						
-						TIntObjectMap<List<IntervalTreeNode>> geneNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
-						TIntObjectMap<IntervalTree> geneNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
-						TIntIntMap geneNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+						TIntObjectMap<List<IntervalTreeNode>> geneEntrezID2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> geneEntrezID2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap geneEntrezID2NumberofOverlappingBasesMap = new TIntIntHashMap();
 
 						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 							
 							//Step1: Get all the overlappingIntervals with the inputLine
-							//Fix Here
 							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 									ucscRefSeqGenesIntervalTree.getRoot(), 
 									interval, 
@@ -2854,17 +2853,15 @@ public class Annotation {
 									null,
 									null,
 									null,
-									geneNumber2OverlappingNodeListMap,
+									geneEntrezID2OverlappingNodeListMap,
 									Commons.NCBI_GENE_ID,
 									GeneSetType.NO_GENESET_TYPE_IS_DEFINED);
-							
-						
 							
 							
 							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
 							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
-											geneNumber2OverlappingNodeListMap, 
-											geneNumber2IntervalTreeWithNonOverlappingNodesMap);
+										geneEntrezID2OverlappingNodeListMap, 
+										geneEntrezID2IntervalTreeWithNonOverlappingNodesMap);
 								
 
 							
@@ -2872,12 +2869,9 @@ public class Annotation {
 							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
 							IntervalTree.findNumberofOverlappingBases(
 											interval,
-											geneNumber2IntervalTreeWithNonOverlappingNodesMap, 
-											geneNumber2NumberofOverlappingBasesMap);
+											geneEntrezID2IntervalTreeWithNonOverlappingNodesMap, 
+											geneEntrezID2NumberofOverlappingBasesMap);
 								
-							
-
-
 							
 						}//End of IF intervalTree root node is NOT SENTINEL
 						
@@ -2885,7 +2879,6 @@ public class Annotation {
 				
 				}//End of switch
 
-			
 
 			}// End of WHILE
 
@@ -8929,7 +8922,8 @@ public class Annotation {
 	// Hg19 RefSeq Gene
 	// Annotation
 	// with numbers
-	public void searchGeneWithNumbers( String dataFolder, 
+	public void searchGeneWithNumbers( 
+			String dataFolder, 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
@@ -10506,9 +10500,12 @@ public class Annotation {
 
 				writeGeneOverlapAnalysisFile( outputFolder,
 						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
-						geneOverlapAnalysisFileMode, givenIntervalNumber2GivenIntervalNameMap,
-						givenIntervalNumber2OverlapInformationMap, givenIntervalNumber2NumberofGeneOverlapsMap,
-						chromosomeName2CountMap, geneHugoSymbolNumber2NameMap);
+						geneOverlapAnalysisFileMode, 
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap, 
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap, 
+						geneHugoSymbolNumber2NameMap);
 
 				writeResultsWithNumbers( 
 						entrezGeneId2KMap, 

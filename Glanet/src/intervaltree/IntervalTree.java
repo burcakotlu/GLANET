@@ -7215,6 +7215,27 @@ public class IntervalTree {
 	}
 	//8 July 2015
 	
+	
+	//15 April 2016
+	public static void fillMapofOverlappingNodeList(
+			UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode,
+			TIntObjectMap<List<IntervalTreeNode>> geneNumber2OverlappingNodeListMap){
+		
+		int geneEntrezID = castedNode.getGeneEntrezId();
+		List<IntervalTreeNode> overlappingNodeList = null;
+		
+		overlappingNodeList = geneNumber2OverlappingNodeListMap.get(geneEntrezID);
+		
+		if (overlappingNodeList == null){
+			overlappingNodeList = new ArrayList<IntervalTreeNode>();
+			overlappingNodeList.add(castedNode);
+			geneNumber2OverlappingNodeListMap.put(geneEntrezID, overlappingNodeList);
+		}else{
+			overlappingNodeList.add(castedNode);
+		}
+		
+	}
+	
 	//13 April 2016 starts
 	public static void fillMapofOverlappingNodeList(
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
@@ -7503,7 +7524,7 @@ public class IntervalTree {
 			TIntObjectMap<List<IntervalTreeNode>> exonBasedGeneSetNumber2OverlappingNodeListMap,
 			TIntObjectMap<List<IntervalTreeNode>> regulationBasedGeneSetNumber2OverlappingNodeListMap,
 			TIntObjectMap<List<IntervalTreeNode>> allBasedGeneSetNumber2OverlappingNodeListMap, 
-			TIntObjectMap<List<IntervalTreeNode>> geneNumber2OverlappingNodeListMap,
+			TIntObjectMap<List<IntervalTreeNode>> geneEntrezID2OverlappingNodeListMap,
 			String type,
 			GeneSetType geneSetType) {
 
@@ -7569,31 +7590,11 @@ public class IntervalTree {
 						
 					case NO_GENESET_TYPE_IS_DEFINED:
 						
-						write here
-						geneEntrezID = castedNode.getGeneEntrezId();
-						
-						overlappingNodeList = geneNumber2OverlappingNodeListMap.get(geneEntrezID);
-						
-						//Pay attention: you have to add castedNode to the list
-						//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
-						if (overlappingNodeList == null){
-							overlappingNodeList = new ArrayList<IntervalTreeNode>();
-							overlappingNodeList.add(castedNode);
-							dnaseCellLineNumber2OverlappingNodeListMap.put(geneEntrezID, overlappingNodeList);
-						}else{
-							overlappingNodeList.add(castedNode);
-						}
-						
-						
-					
-						
+						fillMapofOverlappingNodeList(castedNode,geneEntrezID2OverlappingNodeListMap);
 						break;
 					
 				}//End of SWITCH
 
-						
-				
-				
 
 			}// End of IF there is an overlap
 			
@@ -7608,7 +7609,7 @@ public class IntervalTree {
 					exonBasedGeneSetNumber2OverlappingNodeListMap,
 					regulationBasedGeneSetNumber2OverlappingNodeListMap, 
 					allBasedGeneSetNumber2OverlappingNodeListMap,
-					geneNumber2OverlappingNodeListMap,
+					geneEntrezID2OverlappingNodeListMap,
 					type,
 					geneSetType);
 		}
@@ -7622,7 +7623,7 @@ public class IntervalTree {
 					exonBasedGeneSetNumber2OverlappingNodeListMap,
 					regulationBasedGeneSetNumber2OverlappingNodeListMap, 
 					allBasedGeneSetNumber2OverlappingNodeListMap,
-					geneNumber2OverlappingNodeListMap,
+					geneEntrezID2OverlappingNodeListMap,
 					type,
 					geneSetType);
 		}
