@@ -50,7 +50,9 @@ import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import datadrivenexperiment.DataDrivenExperimentIntervalTreeNode;
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enumtypes.AnnotationType;
@@ -7528,7 +7530,11 @@ public class IntervalTree {
 			String type,
 			GeneSetType geneSetType,
 			int givenIntervalNumber,
-			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap) {
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			BufferedWriter bufferedWriter,
+			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 		
@@ -7539,11 +7545,14 @@ public class IntervalTree {
 				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
 					//castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 					//castedNode must be newly created and there must be no color assigned at first.
+					
 					castedNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
 							node.getChromName(),
 							node.getLow(),
 							node.getHigh(),
 							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getGeneEntrezId(),
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getRefSeqGeneNumber(),
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getGeneHugoSymbolNumber(),
 							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName(),
 							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalNumber(),
 							NodeType.ORIGINAL);
@@ -7553,6 +7562,18 @@ public class IntervalTree {
 				//15 April 2016
 				fillGivenIntervalNumber2OverlapInformationMap(castedNode,givenIntervalNumber,givenIntervalNumber2OverlapInformationMap);
 
+				try {
+
+					// Write Annotation Found Overlaps to element Named File
+					//Commons.HG19_REFSEQ_GENE file is written here
+					if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+						bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+					}
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				switch(geneSetType){
 				
@@ -7619,7 +7640,11 @@ public class IntervalTree {
 					type,
 					geneSetType,
 					givenIntervalNumber,
-					givenIntervalNumber2OverlapInformationMap);
+					givenIntervalNumber2OverlapInformationMap,
+					bufferedWriter,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+					refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
@@ -7635,7 +7660,11 @@ public class IntervalTree {
 					type,
 					geneSetType,
 					givenIntervalNumber,
-					givenIntervalNumber2OverlapInformationMap);
+					givenIntervalNumber2OverlapInformationMap,
+					bufferedWriter,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+					refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 		
 	}	

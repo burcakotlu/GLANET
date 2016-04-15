@@ -2857,7 +2857,11 @@ public class Annotation {
 									Commons.NCBI_GENE_ID,
 									GeneSetType.NO_GENESET_TYPE_IS_DEFINED,
 									givenIntervalNumber,
-									givenIntervalNumber2OverlapInformationMap);
+									givenIntervalNumber2OverlapInformationMap,
+									bufferedWriter,
+									writeElementBasedAnnotationFoundOverlapsMode,
+									officialGeneSymbolNumber2NameMap,
+									refSeqGeneNumber2RefSeqGeneNameMap);
 							
 							
 							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
@@ -3095,6 +3099,10 @@ public class Annotation {
 									Commons.NCBI_GENE_ID,
 									geneSetType,
 									0,
+									null,
+									null,
+									null,
+									null,
 									null);
 							
 							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
