@@ -5439,7 +5439,8 @@ public class Annotation {
 			int overlapDefinition,
 			TIntObjectMap<String> histoneNumber2HistoneNameMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
-			TIntObjectMap<String> fileNumber2FileNameMap) {
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			AssociationMeasureType associationMeasureType) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -5452,8 +5453,10 @@ public class Annotation {
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 
-				TIntByteMap histoneNumberCellLineNumber2ZeroorOneMap = new TIntByteHashMap();
-
+			
+				/****************************************/
+				/******Create Interval starts************/
+				/****************************************/
 				indexofFirstTab = strLine.indexOf( '\t');
 				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
 
@@ -5468,38 +5471,115 @@ public class Annotation {
 					high = low;
 
 				Interval interval = new Interval( low, high);
+				/****************************************/
+				/******Create Interval ends**************/
+				/****************************************/
+				
+				switch(associationMeasureType){
+				
+					case EXISTENCE_OF_OVERLAP:
+						
+						/***********************************************/
+						/******Existence of Overlap starts**************/
+						/***********************************************/
+						TIntByteMap histoneNumberCellLineNumber2ZeroorOneMap = new TIntByteHashMap();
+						
+						if( histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							histoneIntervalTree.findAllOverlappingHistoneIntervalsWithNumbers(
+									outputFolder,
+									writeElementBasedAnnotationFoundOverlapsMode, 
+									histoneIntervalTree.getRoot(), 
+									interval,
+									chromName, 
+									histoneNumberCellLineNumber2ZeroorOneMap, 
+									overlapDefinition,
+									histoneNumber2HistoneNameMap, 
+									cellLineNumber2CellLineNameMap, 
+									fileNumber2FileNameMap);
+						}
 
-				if( histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
-					histoneIntervalTree.findAllOverlappingHistoneIntervalsWithNumbers(
-							outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, 
-							histoneIntervalTree.getRoot(), 
-							interval,
-							chromName, 
-							histoneNumberCellLineNumber2ZeroorOneMap, 
-							overlapDefinition,
-							histoneNumber2HistoneNameMap, 
-							cellLineNumber2CellLineNameMap, 
-							fileNumber2FileNameMap);
-				}
+						// accumulate search results of dnaseCellLine2OneorZeroMap in
+						// dnaseCellLine2KMap
+						for( TIntByteIterator it = histoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
 
-				// accumulate search results of dnaseCellLine2OneorZeroMap in
-				// dnaseCellLine2KMap
-				for( TIntByteIterator it = histoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
+							it.advance();
 
-					it.advance();
+							if( !histoneNumberCellLineNumber2KMap.containsKey( it.key())){
+								histoneNumberCellLineNumber2KMap.put( it.key(), it.value());
+							}else{
+								histoneNumberCellLineNumber2KMap.put(it.key(),histoneNumberCellLineNumber2KMap.get( it.key()) + it.value());
+							}
 
-					if( !histoneNumberCellLineNumber2KMap.containsKey( it.key())){
-						histoneNumberCellLineNumber2KMap.put( it.key(), it.value());
-					}else{
-						histoneNumberCellLineNumber2KMap.put( it.key(),
-								histoneNumberCellLineNumber2KMap.get( it.key()) + it.value());
-					}
+						}// End of FOR
 
-				}// End of FOR
+						// After accumulation set to null
+						histoneNumberCellLineNumber2ZeroorOneMap = null;
+						/***********************************************/
+						/******Existence of Overlap ends****************/
+						/***********************************************/
 
-				// After accumulation set to null
-				histoneNumberCellLineNumber2ZeroorOneMap = null;
+						break;
+						
+					case NUMBER_OF_OVERLAPPING_BASES:
+						
+						/***********************************************/
+						/******Number of Overlapping Bases starts*******/
+						/***********************************************/
+						TIntObjectMap<List<IntervalTreeNode>> histoneNumberCellLineNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> histoneNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap histoneNumberCellLineNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+
+						if( histoneIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							//Step1: Get all the overlappingIntervals with the inputLine
+							histoneIntervalTree.findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+									histoneIntervalTree.getRoot(), 
+									interval, 
+									chromName,
+									histoneNumberCellLineNumber2OverlappingNodeListMap);
+							
+							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									histoneNumberCellLineNumber2OverlappingNodeListMap, 
+									histoneNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap);
+							
+							//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
+									histoneNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+									histoneNumberCellLineNumber2NumberofOverlappingBasesMap);
+							
+						}//End of IF
+
+						// Accumulate search results of permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberHistoneNumberCellLineNumber2KMap
+						for( TIntIntIterator it = histoneNumberCellLineNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+							it.advance();
+
+							if( !(histoneNumberCellLineNumber2KMap.containsKey(it.key()))){
+								histoneNumberCellLineNumber2KMap.put(it.key(), it.value());
+							}else{
+								histoneNumberCellLineNumber2KMap.put( it.key(),histoneNumberCellLineNumber2KMap.get( it.key()) + it.value());
+
+							}
+
+						}// End of FOR
+						
+						//Free memory
+						histoneNumberCellLineNumber2OverlappingNodeListMap = null;
+						histoneNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+						histoneNumberCellLineNumber2NumberofOverlappingBasesMap = null;
+						/***********************************************/
+						/******Number of Overlapping Bases ends*********/
+						/***********************************************/
+
+						break;
+					
+				}//End of SWITCH
+
+
 
 			}// End of WHILE
 
@@ -9622,7 +9702,8 @@ public class Annotation {
 			int overlapDefinition,
 			TIntObjectMap<String> histoneNumber2HistoneNameMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
-			TIntObjectMap<String> fileNumber2FileNameMap) {
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			AssociationMeasureType associationMeasureType) {
 
 		BufferedReader bufferedReader = null;
 
@@ -9646,7 +9727,8 @@ public class Annotation {
 					overlapDefinition,
 					histoneNumber2HistoneNameMap, 
 					cellLineNumber2CellLineNameMap, 
-					fileNumber2FileNameMap);
+					fileNumber2FileNameMap,
+					associationMeasureType);
 			
 			histoneIntervalTree = null;
 
@@ -10639,7 +10721,8 @@ public class Annotation {
 						overlapDefinition, 
 						histoneNumber2NameMap,
 						cellLineNumber2NameMap, 
-						fileNumber2NameMap);
+						fileNumber2NameMap,
+						associationMeasureType);
 				
 				writeResultsWithNumbers(
 						histoneNumberCellLineNumber2KMap, 

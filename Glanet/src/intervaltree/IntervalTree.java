@@ -2744,6 +2744,83 @@ public class IntervalTree {
 
 	}
 	
+	//17 April 2016
+	//Annotation
+	//Histone
+	//NOOB
+	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+			IntervalTreeNode node,
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<List<IntervalTreeNode>> histoneNumberCellLineNumber2OverlappingNodeListMap) {
+
+		int elementNumberCellLineNumber;
+
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		List<IntervalTreeNode> overlappingNodeList = null;
+		
+
+		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+
+			
+			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
+				//castedNode must be newly created and there must be no color assigned at first.
+				castedNode = new TforHistoneIntervalTreeNodeWithNumbers(
+						node.getChromName(),
+						node.getLow(),
+						node.getHigh(),
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getTforHistoneNumber(), 
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getCellLineNumber(), 
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getFileNumber(),
+						NodeType.ORIGINAL);
+				
+			}
+
+
+			elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
+					castedNode.getTforHistoneNumber(), 
+					castedNode.getCellLineNumber(),
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+
+			overlappingNodeList = histoneNumberCellLineNumber2OverlappingNodeListMap.get(elementNumberCellLineNumber);
+			
+			//Pay attention: you have to add castedNode to the list
+			//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+			if (overlappingNodeList == null){
+				overlappingNodeList = new ArrayList<IntervalTreeNode>();
+				overlappingNodeList.add(castedNode);
+				histoneNumberCellLineNumber2OverlappingNodeListMap.put(elementNumberCellLineNumber, overlappingNodeList);
+			}else{
+				overlappingNodeList.add(castedNode);
+			}
+
+			
+		}//End of IF there is an overlap
+
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+					node.getLeft(), 
+					interval,
+					chromName, 
+					histoneNumberCellLineNumber2OverlappingNodeListMap);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+					node.getRight(), 
+					interval,
+					chromName, 
+					histoneNumberCellLineNumber2OverlappingNodeListMap);
+
+		}
+
+	}	
+	
+	
 	//30 OCTOBER 2015 starts
 	//Without IO
 	//WithNumbers
