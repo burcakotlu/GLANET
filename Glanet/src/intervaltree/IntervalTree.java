@@ -3535,6 +3535,126 @@ public class IntervalTree {
 
 	}
 	
+	
+	
+	//17 April 2016
+	//Annotation 
+	//TF
+	//NOOB
+	public void findAllOverlappingTFIntervalsWithoutIOWithNumbers(
+			String outputFolder,
+			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
+			IntervalTreeNode node,
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<List<IntervalTreeNode>> tfNumberCellLineNumber2OverlappingNodeListMap,
+			TIntObjectMap<String> tfNumber2TFNameMap,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap){
+		
+		int elementNumberCellLineNumber;
+
+		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		List<IntervalTreeNode> overlappingNodeList = null;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+			
+			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
+				//castedNode must be newly created and there must be no color assigned at first.
+				castedNode = new TforHistoneIntervalTreeNodeWithNumbers(
+						node.getChromName(),
+						node.getLow(),
+						node.getHigh(),
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getTforHistoneNumber(), 
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getCellLineNumber(), 
+						((TforHistoneIntervalTreeNodeWithNumbers) node).getFileNumber(),
+						NodeType.ORIGINAL);
+				
+			}
+			
+			try {
+				
+				// Write Annotation Found Overlaps to element Named File
+				// or RSAT is wanted
+				if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps() || regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
+	
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_ANNOTATION_DIRECTORY + tfNumber2TFNameMap.get( castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber()) + ".txt",true);
+					bufferedWriter = new BufferedWriter( fileWriter);
+	
+					//Do we need this header line?
+					//bufferedWriter.write( "#Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "tfbs node Chrom Name" + "\t" + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" + System.getProperty( "line.separator"));
+					
+					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + tfNumber2TFNameMap.get( castedNode.getTforHistoneNumber()) + "\t" + cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber()) + "\t" + fileNumber2FileNameMap.get( castedNode.getFileNumber()) + System.getProperty( "line.separator"));
+					bufferedWriter.close();
+					
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	
+			elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
+					castedNode.getTforHistoneNumber(), 
+					castedNode.getCellLineNumber(),
+					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+
+			
+			overlappingNodeList = tfNumberCellLineNumber2OverlappingNodeListMap.get(elementNumberCellLineNumber);
+			
+			//Pay attention: you have to add castedNode to the list
+			//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+			if (overlappingNodeList == null){
+				overlappingNodeList = new ArrayList<IntervalTreeNode>();
+				overlappingNodeList.add(castedNode);
+				tfNumberCellLineNumber2OverlappingNodeListMap.put(elementNumberCellLineNumber, overlappingNodeList);
+			}else{
+				overlappingNodeList.add(castedNode);
+			}
+
+		}//End of IF there is an overlap
+
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers( 
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					regulatorySequenceAnalysisUsingRSAT,
+					node.getLeft(), 
+					interval,
+					chromName, 
+					tfNumberCellLineNumber2OverlappingNodeListMap,
+					tfNumber2TFNameMap,
+					cellLineNumber2CellLineNameMap, 
+					fileNumber2FileNameMap);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers( 
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					regulatorySequenceAnalysisUsingRSAT,
+					node.getRight(), 
+					interval,
+					chromName, 
+					tfNumberCellLineNumber2OverlappingNodeListMap,
+					tfNumber2TFNameMap,
+					cellLineNumber2CellLineNameMap, 
+					fileNumber2FileNameMap);
+		}
+
+		
+	}
+
+	
 	//1 NOVEMBER 2015 starts
 	//Without IO
 	//WithNumbers
