@@ -3994,6 +3994,79 @@ public class IntervalTree {
 	//27 July 2015 ends
 	
 	
+	
+	//17 April 2016
+	//Annotation UDL
+	//NOOB
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntObjectMap<List<IntervalTreeNode>> elementNumber2OverlappingNodeListMap){
+		
+		int elementNumber;
+		
+		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
+		
+		List<IntervalTreeNode> overlappingNodeList = null;
+
+		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+
+			if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+				//castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+				//castedNode must be newly created and there must be no color assigned at first.
+				castedNode = new UserDefinedLibraryIntervalTreeNodeWithNumbers(
+						node.getChromName(),
+						node.getLow(),
+						node.getHigh(),
+						((UserDefinedLibraryIntervalTreeNodeWithNumbers) node).getElementTypeNumber(),
+						((UserDefinedLibraryIntervalTreeNodeWithNumbers) node).getElementNumber(),
+						((UserDefinedLibraryIntervalTreeNodeWithNumbers) node).getFileNumber(),
+						NodeType.ORIGINAL);
+				
+			}//End of IF
+			
+			elementNumber = castedNode.getElementNumber();
+
+			
+			overlappingNodeList = elementNumber2OverlappingNodeListMap.get(elementNumber);
+			
+			//Pay attention: you have to add castedNode to the list
+			//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+			if (overlappingNodeList == null){
+				overlappingNodeList = new ArrayList<IntervalTreeNode>();
+				overlappingNodeList.add(castedNode);
+				elementNumber2OverlappingNodeListMap.put(elementNumber, overlappingNodeList);
+			}else{
+				overlappingNodeList.add(castedNode);
+			}
+
+			
+		}//End of IF overlaps
+
+		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+			
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+					node.getLeft(),
+					interval, 
+					chromName, 
+					elementNumber2OverlappingNodeListMap);
+		}
+
+		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+			
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+					node.getRight(),
+					interval, 
+					chromName, 
+					elementNumber2OverlappingNodeListMap);
+
+		}
+		
+	}
+	
+	
+	
 	//10 NOV 2015 starts
 	//Enrichment 
 	//Without IO

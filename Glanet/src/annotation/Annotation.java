@@ -5079,7 +5079,8 @@ public class Annotation {
 			int overlapDefinition, 
 			String elementType,
 			TIntObjectMap<String> elementNumber2ElementNameMap, 
-			TIntObjectMap<String> fileNumber2FileNameMap) {
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			AssociationMeasureType associationMeasureType) {
 
 		String strLine = null;
 		int indexofFirstTab = -1;
@@ -5091,8 +5092,9 @@ public class Annotation {
 		try{
 			while( ( strLine = bufferedReader.readLine()) != null){
 
-				TIntByteMap elementNumber2ZeroorOneMap = new TIntByteHashMap();
-
+				/******************************************************/
+				/************CREATE INTERVAL starts********************/
+				/******************************************************/
 				indexofFirstTab = strLine.indexOf( '\t');
 				indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
 
@@ -5109,30 +5111,108 @@ public class Annotation {
 				}
 
 				Interval interval = new Interval( low, high);
+				/******************************************************/
+				/************CREATE INTERVAL ends**********************/
+				/******************************************************/
+				
+				switch(associationMeasureType){
+				
+					case EXISTENCE_OF_OVERLAP:
+						/**************************************************/
+						/***********EXISTENCE OF OVERLAP starts************/
+						/**************************************************/
+						TIntByteMap elementNumber2ZeroorOneMap = new TIntByteHashMap();
 
-				if( userDefinedLibraryIntervalTree.getRoot().getNodeName().isNotSentinel()){
-					userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
-							outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
-							userDefinedLibraryIntervalTree.getRoot(), interval, chromName, elementNumber2ZeroorOneMap,
-							overlapDefinition, elementType, elementNumber2ElementNameMap, fileNumber2FileNameMap);
-				}
+						if( userDefinedLibraryIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
+									outputFolder, 
+									writeElementBasedAnnotationFoundOverlapsMode,
+									userDefinedLibraryIntervalTree.getRoot(), 
+									interval, 
+									chromName, 
+									elementNumber2ZeroorOneMap,
+									overlapDefinition, 
+									elementType, 
+									elementNumber2ElementNameMap, 
+									fileNumber2FileNameMap);
+						}
 
-				// accumulate search results of dnaseCellLine2OneorZeroMap in
-				// dnaseCellLine2KMap
-				for( TIntByteIterator it = elementNumber2ZeroorOneMap.iterator(); it.hasNext();){
-					it.advance();
+						// accumulate search results
+						for( TIntByteIterator it = elementNumber2ZeroorOneMap.iterator(); it.hasNext();){
+							it.advance();
 
-					if( !elementNumber2KMap.containsKey( it.key())){
-						elementNumber2KMap.put( it.key(), it.value());
-					}else{
-						elementNumber2KMap.put( it.key(), elementNumber2KMap.get( it.key()) + it.value());
+							if( !elementNumber2KMap.containsKey( it.key())){
+								elementNumber2KMap.put( it.key(), it.value());
+							}else{
+								elementNumber2KMap.put( it.key(), elementNumber2KMap.get( it.key()) + it.value());
 
-					}
+							}
 
-				}// End of FOR
+						}// End of FOR
 
-				// After Accumulation set to null
-				elementNumber2ZeroorOneMap = null;
+						// After Accumulation set to null
+						elementNumber2ZeroorOneMap = null;
+						/**************************************************/
+						/***********EXISTENCE OF OVERLAP ends**************/
+						/**************************************************/
+						break;
+	
+					case NUMBER_OF_OVERLAPPING_BASES:
+						/**************************************************/
+						/********NUMBER OF OVERLAPPING BASES starts********/
+						/**************************************************/
+						TIntObjectMap<List<IntervalTreeNode>> elementNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> elementNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap elementNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+
+						if( userDefinedLibraryIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							//Step1: Get all the overlappingIntervals with the inputLine
+							userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+									userDefinedLibraryIntervalTree.getRoot(), 
+									interval, 
+									chromName,
+									elementNumber2OverlappingNodeListMap);
+							
+							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									elementNumber2OverlappingNodeListMap, 
+									elementNumber2IntervalTreeWithNonOverlappingNodesMap);
+							
+							//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
+									elementNumber2IntervalTreeWithNonOverlappingNodesMap,
+									elementNumber2NumberofOverlappingBasesMap);
+							
+						}//End of IF
+
+						// Accumulate search results
+						for( TIntIntIterator it = elementNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+							it.advance();
+
+							if( !(elementNumber2KMap.containsKey(it.key()))){
+								elementNumber2KMap.put(it.key(), it.value());
+							}else{
+								elementNumber2KMap.put( it.key(),elementNumber2KMap.get( it.key()) + it.value());
+							}
+
+						}// End of FOR
+						
+						//Free memory
+						elementNumber2OverlappingNodeListMap = null;
+						elementNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+						elementNumber2NumberofOverlappingBasesMap = null;
+						/**************************************************/
+						/********NUMBER OF OVERLAPPING BASES ends**********/
+						/**************************************************/
+						break;
+				
+				}//End of SWITCH
+
 
 			}// End of WHILE
 
@@ -9282,11 +9362,16 @@ public class Annotation {
 	// Annotation
 	// UserDefinedLibrary
 	// With Numbers
-	public void searchUserDefinedLibraryWithNumbers( String dataFolder, String outputFolder,
+	public void searchUserDefinedLibraryWithNumbers(
+			String dataFolder, 
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			int overlapDefinition, TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap,
+			int overlapDefinition, 
+			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap,
 			TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap,
-			TIntObjectMap<String> elementTypeNumber2ElementTypeMap, TIntObjectMap<String> fileNumber2FileNameMap) {
+			TIntObjectMap<String> elementTypeNumber2ElementTypeMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			AssociationMeasureType associationMeasureType) {
 
 		int elementTypeNumber;
 		String elementType;
@@ -9312,9 +9397,20 @@ public class Annotation {
 				bufferedReader = FileOperations.createBufferedReader(
 						outputFolder,
 						Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-				searchUserDefinedLibraryWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
-						chrName, bufferedReader, userDefinedLibraryIntervalTree, elementNumber2KMap, overlapDefinition,
-						elementType, elementNumber2ElementNameMap, fileNumber2FileNameMap);
+				
+				searchUserDefinedLibraryWithNumbers(
+						outputFolder, 
+						writeElementBasedAnnotationFoundOverlapsMode,
+						chrName, 
+						bufferedReader, 
+						userDefinedLibraryIntervalTree, 
+						elementNumber2KMap, 
+						overlapDefinition,
+						elementType, 
+						elementNumber2ElementNameMap, 
+						fileNumber2FileNameMap,
+						associationMeasureType);
+				
 				userDefinedLibraryIntervalTree = null;
 
 				System.gc();
@@ -10793,7 +10889,8 @@ public class Annotation {
 						elementTypeNumber2ElementNumber2KMapMap, 
 						elementTypeNumber2ElementNumber2ElementNameMapMap,
 						userDefinedLibraryElementTypeNumber2ElementTypeMap, 
-						userDefinedLibraryFileNumber2FileNameMap);
+						userDefinedLibraryFileNumber2FileNameMap,
+						associationMeasureType);
 
 				// UserDefinedLibrary
 				writeResultsWithNumbers( userDefinedLibraryElementTypeNumber2ElementTypeMap,
