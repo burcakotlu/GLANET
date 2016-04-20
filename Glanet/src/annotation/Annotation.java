@@ -70,9 +70,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsKeysWithNumbersAndValuesOneorZero;
@@ -1970,6 +1968,8 @@ public class Annotation {
 		BufferedReader bufferedReader = null;
 
 		IntervalTree dnaseIntervalTree;
+		
+		TIntByteMap dnaseCellLineNumber2HeaderWritenMap = new TIntByteHashMap();
 
 		// For each ChromosomeName
 		for( ChromosomeName chrName : ChromosomeName.values()){
@@ -1980,7 +1980,8 @@ public class Annotation {
 					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 			
 			searchDnaseWithNumbers(
-					outputFolder, 
+					outputFolder,
+					dnaseCellLineNumber2HeaderWritenMap,
 					writeElementBasedAnnotationFoundOverlapsMode, 
 					chrName,
 					bufferedReader, 
@@ -1990,9 +1991,10 @@ public class Annotation {
 					cellLineNumber2CellLineNameMap, 
 					fileNumber2FileNameMap,
 					associationMeasureType);
-			
-			dnaseIntervalTree = null;
 
+
+			dnaseIntervalTree = null;
+			
 			System.gc();
 			System.runFinalization();
 
@@ -2186,6 +2188,7 @@ public class Annotation {
 	// With Numbers
 	public void searchDnaseWithNumbers(
 			String outputFolder,
+			TIntByteMap dnaseCellLineNumber2HeaderWritenMap,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
@@ -2202,7 +2205,8 @@ public class Annotation {
 
 		int low;
 		int high;
-
+		
+		
 		try{
 
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -2241,17 +2245,18 @@ public class Annotation {
 						TIntByteMap dnaseCellLineNumber2OneorZeroMap = new TIntByteHashMap();
 
 						if( dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
-
+										
 							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers(
 									outputFolder,
 									writeElementBasedAnnotationFoundOverlapsMode, 
+									dnaseCellLineNumber2HeaderWritenMap,
+									cellLineNumber2CellLineNameMap, 
+									fileNumber2FileNameMap,
 									dnaseIntervalTree.getRoot(), 
 									interval,
 									chromName, 
 									dnaseCellLineNumber2OneorZeroMap, 
-									overlapDefinition,
-									cellLineNumber2CellLineNameMap, 
-									fileNumber2FileNameMap);
+									overlapDefinition);
 							
 						}// End of IF
 
@@ -2287,6 +2292,11 @@ public class Annotation {
 							
 							//Step1: Get all the overlappingIntervals with the inputLine
 							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+									outputFolder,
+									writeElementBasedAnnotationFoundOverlapsMode,
+									dnaseCellLineNumber2HeaderWritenMap,
+									cellLineNumber2CellLineNameMap, 
+									fileNumber2FileNameMap,
 									dnaseIntervalTree.getRoot(), 
 									interval, 
 									chromName,
@@ -10756,9 +10766,6 @@ public class Annotation {
 			/*******************************************************************************/
 			/************DNASE ANNOTATION starts********************************************/
 			/*******************************************************************************/
-			// TShortObjectMap<String>
-			// While reading strLine.substring(indexofFirstTab + 1)
-			// While writing as it is
 			if( dnaseAnnotationType.doDnaseAnnotation()){
 
 				// DNASE
