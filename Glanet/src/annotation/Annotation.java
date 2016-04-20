@@ -2712,7 +2712,7 @@ public class Annotation {
 			ChromosomeName chromName,
 			BufferedReader bufferedReader, 
 			IntervalTree ucscRefSeqGenesIntervalTree, 
-			TIntIntMap entrezGeneId2KMap,
+			TIntIntMap geneEntrezID2KMap,
 			int overlapDefinition, 
 			TIntObjectMap<String> officialGeneSymbolNumber2NameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
@@ -2823,10 +2823,10 @@ public class Annotation {
 						for( TIntByteIterator it = entrezGeneId2OneorZeroMap.iterator(); it.hasNext();){
 							it.advance();
 
-							if( !entrezGeneId2KMap.containsKey( it.key())){
-								entrezGeneId2KMap.put( it.key(), it.value());
+							if( !geneEntrezID2KMap.containsKey( it.key())){
+								geneEntrezID2KMap.put( it.key(), it.value());
 							}else{
-								entrezGeneId2KMap.put( it.key(), entrezGeneId2KMap.get( it.key()) + it.value());
+								geneEntrezID2KMap.put( it.key(), geneEntrezID2KMap.get( it.key()) + it.value());
 							}
 
 						}// End of FOR
@@ -2885,10 +2885,10 @@ public class Annotation {
 						for( TIntIntIterator it = geneEntrezID2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
 							it.advance();
 
-							if( !entrezGeneId2KMap.containsKey( it.key())){
-								entrezGeneId2KMap.put( it.key(), it.value());
+							if( !geneEntrezID2KMap.containsKey( it.key())){
+								geneEntrezID2KMap.put( it.key(), it.value());
 							}else{
-								entrezGeneId2KMap.put( it.key(), entrezGeneId2KMap.get( it.key()) + it.value());
+								geneEntrezID2KMap.put( it.key(), geneEntrezID2KMap.get( it.key()) + it.value());
 							}
 
 						}// End of FOR
@@ -2932,6 +2932,7 @@ public class Annotation {
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree ucscRefSeqGenesIntervalTree,
+			TIntIntMap geneEntrezID2KMap, 
 			TIntIntMap exonBasedGeneSetNumber2KMap, 
 			TIntIntMap regulationBasedGeneSetNumber2KMap,
 			TIntIntMap allBasedGeneSetNumber2KMap, 
@@ -2942,7 +2943,11 @@ public class Annotation {
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap, 
 			String geneSetName, 
 			GeneSetType geneSetType,
-			AssociationMeasureType associationMeasureType) {
+			AssociationMeasureType associationMeasureType,
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -2950,8 +2955,31 @@ public class Annotation {
 
 		int low;
 		int high;
+		
+		String givenIntervalName = null;
+		int givenIntervalNumber = 0;
+
 
 		try{
+			
+			
+			FileWriter fileWriter = null;
+			BufferedWriter bufferedWriter = null;
+			
+			
+			if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+
+				if( bufferedWriter == null){
+					fileWriter = FileOperations.createFileWriter(
+							outputFolder + Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.HG19_REFSEQ_GENE + ".txt",
+							true);
+					bufferedWriter = new BufferedWriter( fileWriter);
+					bufferedWriter.write( "#Searched_for_chr" + "\t" + "interval_Low" + "\t" + "interval_High" + "\t" + "ucscRefSeqGene_node_ChromName" + "\t" + "node_Low" + "\t" + "node_High" + "\t" + "node_RNA_Nucleotide_Accession" + "\t" + "node_IntervalName" + "\t" + "node_IntervalNumber" + "\t" + "node_GeneHugoSymbol" + "\t" + "node_GeneEntrezId" + System.getProperty( "line.separator"));
+
+				}
+
+			}// End of IF
+
 			while( ( strLine = bufferedReader.readLine()) != null){
 				
 				/*****************************************************/
@@ -2974,6 +3002,26 @@ public class Annotation {
 				/*****************************************************/
 				/***************Create Interval ends******************/
 				/*****************************************************/
+				
+				/***************************************************************************************/
+				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****starts ***************/
+				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****starts ******************/
+				/***************************************************************************************/
+				givenIntervalName = chromName.convertEnumtoString() + "_" + low + "_" + high;
+
+				if( !givenIntervalNumber2GivenIntervalNameMap.containsValue( givenIntervalName)){
+
+					// Set Given Interval Number
+					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1;
+
+					givenIntervalNumber2GivenIntervalNameMap.put( givenIntervalNumber, givenIntervalName);
+					chromosomeName2CountMap.put( chromName, chromosomeName2CountMap.get( chromName) + 1);
+
+				}
+				/***************************************************************************************/
+				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****ends *****************/
+				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****ends ********************/
+				/***************************************************************************************/
 
 				
 				//13 April 2016
@@ -3070,6 +3118,14 @@ public class Annotation {
 						/*****************************************************/
 						/**********Number of Overlapping Bases starts*********/
 						/*****************************************************/
+						
+						
+						//Hg19 RefSeq Genes
+						TIntObjectMap<List<IntervalTreeNode>> geneEntrezID2OverlappingNodeListMap =  new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> geneEntrezID2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap geneEntrezID2NumberofOverlappingBasesMap = new TIntIntHashMap();
+
+						//KEGG
 						TIntObjectMap<List<IntervalTreeNode>> exonBasedGeneSetNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
 						TIntObjectMap<IntervalTree> exonBasedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
 						TIntIntMap exonBasedGeneSetNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
@@ -3095,17 +3151,20 @@ public class Annotation {
 									exonBasedGeneSetNumber2OverlappingNodeListMap,
 									regulationBasedGeneSetNumber2OverlappingNodeListMap,
 									allBasedGeneSetNumber2OverlappingNodeListMap,
-									null,
+									geneEntrezID2OverlappingNodeListMap,
 									Commons.NCBI_GENE_ID,
 									geneSetType,
 									0,
-									null,
-									null,
-									null,
-									null,
-									null);
+									givenIntervalNumber2OverlapInformationMap,
+									bufferedWriter,
+									writeElementBasedAnnotationFoundOverlapsMode,
+									geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+									refSeqGeneNumber2RefSeqGeneNameMap);
 							
-							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									geneEntrezID2OverlappingNodeListMap, 
+									geneEntrezID2IntervalTreeWithNonOverlappingNodesMap);
 							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
 									exonBasedGeneSetNumber2OverlappingNodeListMap, 
 									exonBasedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap);
@@ -3121,6 +3180,10 @@ public class Annotation {
 							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap	
 							IntervalTree.findNumberofOverlappingBases(
 									interval,
+									geneEntrezID2IntervalTreeWithNonOverlappingNodesMap, 
+									geneEntrezID2NumberofOverlappingBasesMap);
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
 									exonBasedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap, 
 									exonBasedGeneSetNumber2NumberofOverlappingBasesMap);
 							IntervalTree.findNumberofOverlappingBases(
@@ -3134,6 +3197,20 @@ public class Annotation {
 							
 									
 						}//End of IF intervalTree root node is NOT SENTINEL
+						
+						
+						// Accumulate search results
+						for( TIntIntIterator it = geneEntrezID2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+
+							it.advance();
+
+							if( !(geneEntrezID2KMap.containsKey(it.key()))){
+								geneEntrezID2KMap.put(it.key(), it.value());
+							}else{
+								geneEntrezID2KMap.put( it.key(),geneEntrezID2KMap.get(it.key()) + it.value());
+							}
+
+						}// End of FOR
 						
 						// Accumulate search results
 						for( TIntIntIterator it = exonBasedGeneSetNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
@@ -3176,6 +3253,13 @@ public class Annotation {
 
 						
 						//Free Memory
+						//Hg19 RegSeq Genes
+						geneEntrezID2OverlappingNodeListMap = null;
+						geneEntrezID2IntervalTreeWithNonOverlappingNodesMap = null;
+						geneEntrezID2NumberofOverlappingBasesMap = null;
+
+						
+						//KEGG
 						exonBasedGeneSetNumber2OverlappingNodeListMap = null;
 						exonBasedGeneSetNumber2IntervalTreeWithNonOverlappingNodesMap = null;
 						exonBasedGeneSetNumber2NumberofOverlappingBasesMap = null;
@@ -3198,6 +3282,9 @@ public class Annotation {
 
 			}// End of WHILE
 
+			//Close hg19 bufferedWriter
+			bufferedWriter.close();
+			
 		}catch( NumberFormatException e){
 			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( IOException e){
@@ -3209,10 +3296,12 @@ public class Annotation {
 	// @todo Annotation with numbers ends
 
 	
-	// Modified 20 July 2015
+	// Modified 19 April 2016
 	// Annotation
 	// With Numbers
-	// TF KEGGPathway
+	// TFKEGG
+	// TFCellLineKEGG
+	// Both TFKEGG and TFCellLineKEGG	
 	public void searchTfKEGGPathwayWithNumbers( 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
@@ -3221,12 +3310,17 @@ public class Annotation {
 			BufferedReader bufferedReader, IntervalTree tfbsIntervalTree,
 			IntervalTree ucscRefSeqGenesIntervalTree, 
 			TIntIntMap tfNumberCellLineNumber2KMap,
+			TIntIntMap geneEntrezID2KMap,
 			TIntIntMap exonBasedKeggPathwayNumber2KMap, 
 			TIntIntMap regulationBasedKeggPathwayNumber2KMap,
 			TIntIntMap allBasedKeggPathwayNumber2KMap, 
 			TIntIntMap tfNumberExonBasedKeggPathwayNumber2KMap,
 			TIntIntMap tfNumberRegulationBasedKeggPathwayNumber2KMap,
 			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, 
+			TLongIntMap tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
+			TLongIntMap tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
+			TLongIntMap tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, 
+			AnnotationType annotationType,
 			int overlapDefinition,
 			TIntObjectMap<String> tfNumber2TfNameMap, 
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
@@ -3235,7 +3329,11 @@ public class Annotation {
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
-			AssociationMeasureType associationMeasureType) {
+			AssociationMeasureType associationMeasureType,
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap) {
 
 		String strLine = null;
 		int indexofFirstTab = 0;
@@ -3253,12 +3351,38 @@ public class Annotation {
 
 		int tfNumberCellLineNumber;
 		int tfNumberKeggPathwayNumber;
-	
+		long tfNumberCellLineNumberKeggPathwayNumber;
+		
+		//18 April 2016
+		int KEGGPathwayNumber;
+		IntervalTree tfIntervalTreeWithNonOverlappingNodes = null;
+		IntervalTree exonBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = null;
+		IntervalTree regulationBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = null;
+		IntervalTree allBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = null;
+		
+		String givenIntervalName = null;
+		int givenIntervalNumber = 0;
+
+		
+		FileWriter hg19RefSeqGenesFileWriter = null;
+		BufferedWriter hg19RefSeqGenesBufferedWriter = null;
+
 		try{
+			
+			if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+
+				if( hg19RefSeqGenesBufferedWriter == null){
+					hg19RefSeqGenesFileWriter = FileOperations.createFileWriter(
+							outputFolder + Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.HG19_REFSEQ_GENE + ".txt",
+							true);
+					hg19RefSeqGenesBufferedWriter = new BufferedWriter( hg19RefSeqGenesFileWriter);
+					hg19RefSeqGenesBufferedWriter.write( "#Searched_for_chr" + "\t" + "interval_Low" + "\t" + "interval_High" + "\t" + "ucscRefSeqGene_node_ChromName" + "\t" + "node_Low" + "\t" + "node_High" + "\t" + "node_RNA_Nucleotide_Accession" + "\t" + "node_IntervalName" + "\t" + "node_IntervalNumber" + "\t" + "node_GeneHugoSymbol" + "\t" + "node_GeneEntrezId" + System.getProperty( "line.separator"));
+
+				}
+
+			}// End of IF
 
 			while( ( strLine = bufferedReader.readLine()) != null){
-
-
 				
 				/***************************************************/
 				/***************Create Interval starts**************/
@@ -3281,9 +3405,35 @@ public class Annotation {
 				/***************Create Interval ends****************/
 				/***************************************************/
 				
+				
+				
+				/***************************************************************************************/
+				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****starts ***************/
+				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****starts ******************/
+				/***************************************************************************************/
+				givenIntervalName = chromName.convertEnumtoString() + "_" + low + "_" + high;
+
+				if( !givenIntervalNumber2GivenIntervalNameMap.containsValue( givenIntervalName)){
+
+					// Set Given Interval Number
+					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1;
+
+					givenIntervalNumber2GivenIntervalNameMap.put(givenIntervalNumber, givenIntervalName);
+					chromosomeName2CountMap.put(chromName,chromosomeName2CountMap.get(chromName) + 1);
+
+				}
+				/***************************************************************************************/
+				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****ends *****************/
+				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****ends ********************/
+				/***************************************************************************************/
+				
 				switch(associationMeasureType){
 				
 					case EXISTENCE_OF_OVERLAP:
+						
+						/******************************************/
+						/******EXISTENCE_OF_OVERLAP starts*********/
+						/******************************************/
 						// TF CellLine
 						TIntByteMap tfNumberCellLineNumber2ZeroorOneMap = new TIntByteHashMap();
 
@@ -3293,9 +3443,14 @@ public class Annotation {
 						TIntByteMap allBasedKeggPathway2OneorZeroMap 		= new TIntByteHashMap();
 
 						// TF KEGGPathway
-						TIntByteMap tfExonBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
-						TIntByteMap tfRegulationBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
-						TIntByteMap tfAllBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
+						TIntByteMap tfExonBasedKeggPathway2OneorZeroMap 		= new TIntByteHashMap();
+						TIntByteMap tfRegulationBasedKeggPathway2OneorZeroMap 	= new TIntByteHashMap();
+						TIntByteMap tfAllBasedKeggPathway2OneorZeroMap 			= new TIntByteHashMap();
+												
+						// TF CellLine KEGGPathway
+						TLongByteMap tfCellLineExonBasedKeggPathway2OneorZeroMap 		= new TLongByteHashMap();
+						TLongByteMap tfCellLineRegulationBasedKeggPathway2OneorZeroMap 	= new TLongByteHashMap();
+						TLongByteMap tfCellLineAllBasedKeggPathway2OneorZeroMap 		= new TLongByteHashMap();
 
 						// Fill these lists during search for TFs and search for UCSCRefSeqGenes
 						List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList = new ArrayList<TfCellLineOverlapWithNumbers>();
@@ -3305,6 +3460,7 @@ public class Annotation {
 						
 						// TF Search starts here
 						if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
 							tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(
 									outputFolder,
 									writeElementBasedAnnotationFoundOverlapsMode, 
@@ -3322,6 +3478,7 @@ public class Annotation {
 
 						// accumulate search results of
 						for( TIntByteIterator it = tfNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
+							
 							it.advance();
 
 							if( !tfNumberCellLineNumber2KMap.containsKey( it.key())){
@@ -3331,10 +3488,12 @@ public class Annotation {
 							}
 
 						}// End of for
-							// TF Search ends here
+						// TF Search ends here
 
 						// UCSCRefSeqGenes Search starts here
 						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							//TODO Let's use only one such function for gene, geneSet(KEGG or UDGS), TFKEGG, TFCellLineKEGG, Both (TFKEGG and TFCellLineKEGG)
 							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 									outputFolder,
 									writeElementBasedAnnotationFoundOverlapsMode, 
@@ -3398,7 +3557,7 @@ public class Annotation {
 							}
 
 						}// End of for
-							// code will be added here
+						// code will be added here
 
 						// New search for given input SNP or interval case, does not matter starts here
 						// for each tf overlap
@@ -3424,44 +3583,192 @@ public class Annotation {
 							for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : exonBasedKeggPathwayOverlapList){
 								
 								//2 FEB 2016
-								//overlapDefinition is required
-								if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
+								//Triple overlap with overlapDefinition
+								if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),interval.getLow(), interval.getHigh(),overlapDefinition)){
 
 									for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 										keggPathwayNumber = it.next();
 										
-										tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber;
+										switch(annotationType){
+											
+											case DO_TF_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/****************TF KEGGPATHWAY starts******************************/
+												/*******************************************************************/
+												tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber;
+												
+												
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfExonBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfExonBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												/*******************************************************************/
+												/****************TF KEGGPATHWAY ends********************************/
+												/*******************************************************************/
+
+												break;
+											
+											case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/****************TF CellLine KEGGPATHWAY starts*********************/
+												/*******************************************************************/
+												
+												tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
+														tfNumber, 
+														cellLineNumber, 
+														keggPathwayNumber, 
+														GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfCellLineExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineExonBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfCellLineExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineExonBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												/*******************************************************************/
+												/****************TF CellLine KEGGPATHWAY ends***********************/
+												/*******************************************************************/
+
+												break;
+												
+											case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/**********************BOTH*****************************************/
+												/****************TF KEGGPATHWAY starts******************************/
+												/****************TF CellLine KEGGPATHWAY starts*********************/
+												/*******************************************************************/
+												
+												tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber;
+												
+												
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfExonBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfExonBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+											
+												
+												tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
+														tfNumber, 
+														cellLineNumber, 
+														keggPathwayNumber, 
+														GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfCellLineExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineExonBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfCellLineExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineExonBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												
+												/*******************************************************************/
+												/**********************BOTH*****************************************/
+												/****************TF KEGGPATHWAY ends********************************/
+												/****************TF CellLine KEGGPATHWAY ends***********************/
+												/*******************************************************************/
+
+												
+												break;
+												
+											default:
+												break;
 										
+										}//End of SWITCH
 										
-										/*******************************************************************/
-										// Write Annotation Found Overlaps to element Named File
-										if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-											fileWriter = FileOperations.createFileWriter(
-													outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-													true);
-											bufferedWriter = new BufferedWriter( fileWriter);
-
-											if( !tfExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-												tfExonBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
-												bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-											}
-
-											bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-											bufferedWriter.close();
-										}
-										/*******************************************************************/
-
-										/*******************************************************************/
-										// Do not Write Annotation Found Overlaps to element Named File
-										else{
-											if( !tfExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-												tfExonBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
-											}
-										}
-										/*******************************************************************/
-
-									} // for each kegg pathways having this gene
+									} // for each KEGG pathways having this gene
 								}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
 							}// for each ucscRefSeqGeneOverlap for the given query
 							/****************************************************************************/
@@ -3475,40 +3782,186 @@ public class Annotation {
 								
 								//2 FEB 2016
 								//overlapDefinition is required
-								if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
+								//Triple overlap with overlapDefinition
+								if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),interval.getLow(),interval.getHigh(),overlapDefinition)){
 									for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 										keggPathwayNumber = it.next();
-
-										tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS  + keggPathwayNumber;
 										
-										/*******************************************************************/
-										// Write Annotation Found Overlaps to element Named File
-										if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-											fileWriter = FileOperations.createFileWriter(
-													outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-													true);
-											bufferedWriter = new BufferedWriter( fileWriter);
+										switch(annotationType){
+										
+											case DO_TF_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/****************TF KEGGPATHWAY starts******************************/
+												/*******************************************************************/
+											
+												tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS  + keggPathwayNumber;
+												
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+													fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",true);
+													bufferedWriter = new BufferedWriter( fileWriter);
 
-											if( !tfRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-												tfRegulationBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-														Commons.BYTE_1);
-												bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-											}
+													if( !tfRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfRegulationBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
 
-											bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-											bufferedWriter.close();
-										}
-										/*******************************************************************/
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+												}
+												/*******************************************************************/
 
-										/*******************************************************************/
-										// Do not Write Annotation Found Overlaps to element Named File
-										else{
-											if( !tfRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-												tfRegulationBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
-											}
-										}
-										/*******************************************************************/
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfRegulationBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												/*******************************************************************/
+												/****************TF KEGGPATHWAY ends********************************/
+												/*******************************************************************/
+												
+												break;
+	
+											case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/****************TF CellLine KEGGPATHWAY starts*********************/
+												/*******************************************************************/
+												
+												tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
+														tfNumber, 
+														cellLineNumber, 
+														keggPathwayNumber, 
+														GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfCellLineRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineRegulationBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfCellLineRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineRegulationBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												/*******************************************************************/
+												/****************TF CellLine KEGGPATHWAY ends***********************/
+												/*******************************************************************/
+												
+												break;
+	
+											case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/**********************BOTH*****************************************/
+												/****************TF KEGGPATHWAY starts******************************/
+												/****************TF CellLine KEGGPATHWAY starts*********************/
+												/*******************************************************************/
+											
+												tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS  + keggPathwayNumber;
+												
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+													fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfRegulationBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfRegulationBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
+														tfNumber, 
+														cellLineNumber, 
+														keggPathwayNumber, 
+														GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfCellLineRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineRegulationBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+
+												}
+												/*******************************************************************/
+												
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfCellLineRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineRegulationBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+											
+												
+												/*******************************************************************/
+												/**********************BOTH*****************************************/
+												/****************TF KEGGPATHWAY ends********************************/
+												/****************TF CellLine KEGGPATHWAY ends***********************/
+												/*******************************************************************/
+											
+												break;
+											
+											default:
+												break;
+										
+										}//End of SWITCH
+										
+
+										
 
 									} // for each kegg pathways having this gene
 								}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
@@ -3524,42 +3977,189 @@ public class Annotation {
 								
 								//2 FEB 2016
 								//overlapDefinition is required
-								if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
+								//Triple overlap with overlapDefinition
+								if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),interval.getLow(), interval.getHigh(),overlapDefinition)){
 									for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
 
 										keggPathwayNumber = it.next();
-
-										tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS  + keggPathwayNumber;
 										
-										/*******************************************************************/
-										// Write Annotation Found Overlaps to element Named File
-										if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-											fileWriter = FileOperations.createFileWriter(
-													outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-													true);
-											bufferedWriter = new BufferedWriter( fileWriter);
+										switch(annotationType){
+										
+											case DO_TF_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/****************TF KEGGPATHWAY starts******************************/
+												/*******************************************************************/
+												
+												tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS  + keggPathwayNumber;
+												
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
 
-											if( !tfAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-												tfAllBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-														Commons.BYTE_1);
-												bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-											}
+													if( !tfAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfAllBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
 
-											bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-											bufferedWriter.close();
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
 
-										}
-										/*******************************************************************/
+												}
+												/*******************************************************************/
 
-										/*******************************************************************/
-										// Do not Write Annotation Found Overlaps to element Named File
-										else{
-											if( !tfAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-												tfAllBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-														Commons.BYTE_1);
-											}
-										}
-										/*******************************************************************/
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfAllBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												
+												/*******************************************************************/
+												/****************TF KEGGPATHWAY ends********************************/
+												/*******************************************************************/
+												
+												break;
+												
+											case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/****************TF CellLine KEGGPATHWAY starts*********************/
+												/*******************************************************************/
+												
+												tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
+														tfNumber, 
+														cellLineNumber, 
+														keggPathwayNumber, 
+														GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfCellLineAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineAllBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfCellLineAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineAllBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												/****************TF CellLine KEGGPATHWAY ends***********************/
+												/*******************************************************************/
+												
+												break;
+												
+											case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+												
+												/*******************************************************************/
+												/**********************BOTH*****************************************/
+												/****************TF KEGGPATHWAY starts******************************/
+												/****************TF CellLine KEGGPATHWAY starts*********************/
+												/*******************************************************************/
+												
+												tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS  + keggPathwayNumber;
+												
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfAllBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
+														tfAllBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												
+												tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
+														tfNumber, 
+														cellLineNumber, 
+														keggPathwayNumber, 
+														GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+												/*******************************************************************/
+												// Write Annotation Found Overlaps to element Named File
+												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+													fileWriter = FileOperations.createFileWriter(
+															outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
+															true);
+													bufferedWriter = new BufferedWriter( fileWriter);
+
+													if( !tfCellLineAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineAllBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
+													}
+
+													bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
+													bufferedWriter.close();
+												}
+												/*******************************************************************/
+
+												/*******************************************************************/
+												// Do not Write Annotation Found Overlaps to element Named File
+												else{
+													if( !tfCellLineAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+														tfCellLineAllBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
+													}
+												}
+												/*******************************************************************/
+												
+												
+												/*******************************************************************/
+												/**********************BOTH*****************************************/
+												/****************TF KEGGPATHWAY ends********************************/
+												/****************TF CellLine KEGGPATHWAY ends***********************/
+												/*******************************************************************/
+												
+												break;
+												
+											default:
+												break;
+											
+										}//End of SWITCH
+
+									
 
 									} // for each kegg pathways having this gene
 								}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
@@ -3569,92 +4169,580 @@ public class Annotation {
 							/****************************************************************************/
 
 						}// for each tfOverlap for the given query
+						
+						
+						switch(annotationType){
 
-						// TF EXONBASED_KEGGPATHWAY
-						// Fill tfExonBasedKeggPathway2KMap using
-						// tfExonBasedKeggPathway2OneorZeroMap
-						for( TIntByteIterator it = tfExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+							case DO_TF_KEGGPATHWAY_ANNOTATION:
+								
+								/****************************************************/
+								/***************TF KEGGPATHWAY starts****************/
+								/****************************************************/
+								
+								// TF EXONBASED_KEGGPATHWAY
+								for( TIntByteIterator it = tfExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
 
-							it.advance();
+									it.advance();
 
-							tfNumberKeggPathwayNumber = it.key();
+									tfNumberKeggPathwayNumber = it.key();
 
-							// new
-							if( !tfNumberExonBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
-								tfNumberExonBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
-							}else{
-								tfNumberExonBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber,
-										tfNumberExonBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
-							}
-							// new
-						}// End of for inner loop
+									if( !tfNumberExonBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
+										tfNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberKeggPathwayNumber,tfNumberExonBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
+									}
+									
+								}// End of for inner loop
 
-						// TF REGULATIONBASED_KEGGPATHWAY
-						// Fill tfRegulationBasedKeggPathway2KMap using
-						// tfRegulationBasedKeggPathway2OneorZeroMap
-						for( TIntByteIterator it = tfRegulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+								// TF REGULATIONBASED_KEGGPATHWAY
+								for( TIntByteIterator it = tfRegulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
 
-							it.advance();
-							tfNumberKeggPathwayNumber = it.key();
+									it.advance();
+									tfNumberKeggPathwayNumber = it.key();
 
-							// new
-							if( !tfNumberRegulationBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
-								tfNumberRegulationBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
-							}else{
-								tfNumberRegulationBasedKeggPathwayNumber2KMap.put(
-										tfNumberKeggPathwayNumber,
-										tfNumberRegulationBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
-							}
-							// new
-						}// End of for inner loop
+									if( !tfNumberRegulationBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
+										tfNumberRegulationBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberRegulationBasedKeggPathwayNumber2KMap.put(tfNumberKeggPathwayNumber,tfNumberRegulationBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
+									}
+									
+								}// End of for inner loop
 
-						// TF ALLBASED_KEGGPATHWAY
-						// Fill tfAllBasedKeggPathway2KMap using
-						// tfAllBasedKeggPathway2OneorZeroMap
-						for( TIntByteIterator it = tfAllBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+								// TF ALLBASED_KEGGPATHWAY
+								for( TIntByteIterator it = tfAllBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
 
-							it.advance();
-							tfNumberKeggPathwayNumber = it.key();
+									it.advance();
+									tfNumberKeggPathwayNumber = it.key();
 
-							// new
-							if( !tfNumberAllBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
-								tfNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
-							}else{
-								tfNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber,
-										tfNumberAllBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
-							}
-							// new
+									if( !tfNumberAllBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
+										tfNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber,tfNumberAllBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
+									}
 
-						}// End of for inner loop
+								}// End of for inner loop
+								
+								/****************************************************/
+								/***************TF KEGGPATHWAY ends******************/
+								/****************************************************/
+								break;
+								
+							case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+								
+								/****************************************************/
+								/*************TF CELLLINE KEGGPATHWAY starts*********/
+								/****************************************************/
+								
+								// TF CELLLINE EXONBASED_KEGGPATHWAY
+								for( TLongByteIterator it = tfCellLineExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+
+									tfNumberCellLineNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+										tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
+									}
+									
+								}// End of for inner loop
+
+								// TF CELLLINE REGULATIONBASED_KEGGPATHWAY
+								for( TLongByteIterator it = tfCellLineRegulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+									tfNumberCellLineNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+										tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.put( tfNumberCellLineNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
+									}
+									
+								}// End of for inner loop
+
+								// TF CELLLINE ALLBASED_KEGGPATHWAY
+								for( TLongByteIterator it = tfCellLineAllBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+									tfNumberCellLineNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+										tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberCellLineNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
+									}
+
+								}// End of for inner loop
+								
+								/****************************************************/
+								/*************TF CELLLINE KEGGPATHWAY ends***********/
+								/****************************************************/
+
+
+								break;
+								
+							case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+							
+								/****************************************************/
+								/**********************BOTH**************************/
+								/***************TF KEGGPATHWAY starts****************/
+								/*************TF CELLLINE KEGGPATHWAY starts*********/
+								/****************************************************/
+						
+								
+								// TF EXONBASED_KEGGPATHWAY
+								for( TIntByteIterator it = tfExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+
+									tfNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberExonBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
+										tfNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberKeggPathwayNumber,tfNumberExonBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
+									}
+									
+								}// End of for inner loop
+
+								// TF REGULATIONBASED_KEGGPATHWAY
+								for( TIntByteIterator it = tfRegulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+									tfNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberRegulationBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
+										tfNumberRegulationBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberRegulationBasedKeggPathwayNumber2KMap.put(tfNumberKeggPathwayNumber,tfNumberRegulationBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
+									}
+									
+								}// End of for inner loop
+
+								// TF ALLBASED_KEGGPATHWAY
+								for( TIntByteIterator it = tfAllBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+									tfNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberAllBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
+										tfNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber,tfNumberAllBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
+									}
+
+								}// End of for inner loop
+								
+								// TF CELLLINE EXONBASED_KEGGPATHWAY
+								for( TLongByteIterator it = tfCellLineExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+
+									tfNumberCellLineNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+										tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
+									}
+									
+								}// End of for inner loop
+
+								// TF CELLLINE REGULATIONBASED_KEGGPATHWAY
+								for( TLongByteIterator it = tfCellLineRegulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+									tfNumberCellLineNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+										tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.put( tfNumberCellLineNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
+									}
+									
+								}// End of for inner loop
+
+								// TF CELLLINE ALLBASED_KEGGPATHWAY
+								for( TLongByteIterator it = tfCellLineAllBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+
+									it.advance();
+									tfNumberCellLineNumberKeggPathwayNumber = it.key();
+
+									if( !tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
+										tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberCellLineNumberKeggPathwayNumber, it.value());
+									}else{
+										tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
+									}
+
+								}// End of for inner loop
+
+								/****************************************************/
+								/**********************BOTH**************************/
+								/***************TF KEGGPATHWAY ends******************/
+								/*************TF CELLLINE KEGGPATHWAY ends***********/
+								/****************************************************/
+
+								break;
+							
+							default:
+								break;
+						
+
+						} //End of SWITCH 
+
 
 						// After accumulation set to null
+						
+						//TF
 						tfNumberCellLineNumber2ZeroorOneMap = null;
 
+						//KEGG
 						exonBasedKeggPathway2OneorZeroMap = null;
 						regulationBasedKeggPathway2OneorZeroMap = null;
 						allBasedKeggPathway2OneorZeroMap = null;
 
+						//TF KEGG
 						tfExonBasedKeggPathway2OneorZeroMap = null;
 						tfRegulationBasedKeggPathway2OneorZeroMap = null;
 						tfAllBasedKeggPathway2OneorZeroMap = null;
+						
+						//TF CellLine KEGG
+						tfCellLineExonBasedKeggPathway2OneorZeroMap = null;
+						tfCellLineRegulationBasedKeggPathway2OneorZeroMap = null;
+						tfCellLineAllBasedKeggPathway2OneorZeroMap = null;
 
+						
 						tfandCellLineOverlapList = null;
 						exonBasedKeggPathwayOverlapList = null;
 						regulationBasedKeggPathwayOverlapList = null;
 						allBasedKeggPathwayOverlapList = null;
-
-
+						/******************************************/
+						/******EXISTENCE_OF_OVERLAP starts*********/
+						/******************************************/
 						break;
 						
 					case NUMBER_OF_OVERLAPPING_BASES:
 						
-						//TODO
+						/***********************************************/
+						/******NUMBER_OF_OVERLAPPING_BASES starts*******/
+						/***********************************************/
+						//TF
+						TIntObjectMap<List<IntervalTreeNode>> tfNumberCellLineNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> tfNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap tfNumberCellLineNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+						
+						//Hg19 RefSeq Genes
+						TIntObjectMap<List<IntervalTreeNode>> geneEntrezID2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> geneEntrezID2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap geneEntrezID2NumberofOverlappingBasesMap = new TIntIntHashMap();
+						
+						//KEGG Pathways
+						TIntObjectMap<List<IntervalTreeNode>> exonBasedKEGGPathwayNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> exonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap exonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+						
+						TIntObjectMap<List<IntervalTreeNode>> regulationBasedKEGGPathwayNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> regulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap regulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+						
+						TIntObjectMap<List<IntervalTreeNode>> allBasedKEGGPathwayNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> allBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap allBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+							
+						//TF KEGG
+						// Will be filled in Common Overlap Check
+						// Will be used for TF and KEGG Pathway Annotation
+						TIntIntMap tfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+						TIntIntMap tfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+						TIntIntMap tfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+
+						//TF CellLine KEGG
+						// Will be filled in Common Overlap check
+						// Will be used for TF and CellLine and KEGG Pathway enrichment
+						TLongIntMap tfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+						TLongIntMap tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+						TLongIntMap tfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = new TLongIntHashMap();
+
+						
+						//TF starts
+						if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							//Step1: Get all the overlappingIntervals with the inputLine
+							tfbsIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers(
+									outputFolder,
+									writeElementBasedAnnotationFoundOverlapsMode, 
+									regulatorySequenceAnalysisUsingRSAT,
+									tfbsIntervalTree.getRoot(), 
+									interval, 
+									chromName,
+									tfNumberCellLineNumber2OverlappingNodeListMap,
+									tfNumber2TfNameMap, 
+									cellLineNumber2CellLineNameMap,
+									fileNumber2FileNameMap);
+							
+							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									tfNumberCellLineNumber2OverlappingNodeListMap, 
+									tfNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap);
+							
+							//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
+									tfNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+									tfNumberCellLineNumber2NumberofOverlappingBasesMap);
+							
+						}//End of IF
+
+						// Accumulate search results of permutationNumberTFNumberCellLineNumber2NumberofOverlappingBasesMap in permutationNumberTFNumberCellLineNumber2KMap
+						accumulateContentofNumberofOverlappingBasesinKMap(
+								tfNumberCellLineNumber2NumberofOverlappingBasesMap, 
+								tfNumberCellLineNumber2KMap);									
+						//TF ends
+						
+						
+						//UCSC RefSeq Genes starts		
+						//We are interested in KEGG Pathways since we are doing TF KEGG Pathway Joint Analysis
+						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+																					
+							//Step1: Get all the overlappingIntervals with the inputLine
+							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+									ucscRefSeqGenesIntervalTree.getRoot(), 
+									interval, 
+									chromName,
+									geneId2ListofKeggPathwayNumberMap, 
+									exonBasedKEGGPathwayNumber2OverlappingNodeListMap,
+									regulationBasedKEGGPathwayNumber2OverlappingNodeListMap,
+									allBasedKEGGPathwayNumber2OverlappingNodeListMap, 
+									geneEntrezID2OverlappingNodeListMap,
+									Commons.NCBI_GENE_ID,
+									GeneSetType.KEGGPATHWAY,
+									givenIntervalNumber,
+									givenIntervalNumber2OverlapInformationMap,
+									hg19RefSeqGenesBufferedWriter,
+									writeElementBasedAnnotationFoundOverlapsMode,
+									geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+									refSeqGeneNumber2RefSeqGeneNameMap);
+							
+							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									geneEntrezID2OverlappingNodeListMap, 
+									geneEntrezID2IntervalTreeWithNonOverlappingNodesMap);
+							
+							
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									exonBasedKEGGPathwayNumber2OverlappingNodeListMap, 
+									exonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap);
+									
+
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									regulationBasedKEGGPathwayNumber2OverlappingNodeListMap, 
+									regulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap);
+
+								
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+									allBasedKEGGPathwayNumber2OverlappingNodeListMap, 
+									allBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap);
+								
+							//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
+									geneEntrezID2IntervalTreeWithNonOverlappingNodesMap,
+									geneEntrezID2NumberofOverlappingBasesMap);
+
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
+									exonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap,
+									exonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
+									regulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap,
+									regulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+
+							IntervalTree.findNumberofOverlappingBases(
+									interval,
+									allBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap,
+									allBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+
+						}//End of IF intervalTree root node is NOT SENTINEL
+						
+						//Accumulate numberofOverlappingBases in K Map
+						accumulateContentofNumberofOverlappingBasesinKMap(
+								geneEntrezID2NumberofOverlappingBasesMap,
+								geneEntrezID2KMap);
+						
+						accumulateContentofNumberofOverlappingBasesinKMap(
+								exonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+								exonBasedKeggPathwayNumber2KMap);
+						
+						accumulateContentofNumberofOverlappingBasesinKMap(
+								regulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+								regulationBasedKeggPathwayNumber2KMap);
+										
+						accumulateContentofNumberofOverlappingBasesinKMap(
+								allBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+								allBasedKeggPathwayNumber2KMap);
+						//UCSC RefSeq Genes ends
+						
+						
+						//Now look for Joint Overlaps between TF and KEGGPathway
+						for (TIntObjectIterator<IntervalTree> itr = tfNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.iterator();itr.hasNext();){
+							
+							itr.advance();
+							
+							tfNumberCellLineNumber = itr.key();
+							tfIntervalTreeWithNonOverlappingNodes = itr.value();
+							
+							//EXON Based KEGG Pathway
+							for(TIntObjectIterator<IntervalTree> itrKEGG = exonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap.iterator();itrKEGG.hasNext();){
+								
+								itrKEGG.advance();
+								
+								KEGGPathwayNumber = itrKEGG.key();
+								exonBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
+								
+								findCommonOverlaps(
+										interval,
+										tfNumberCellLineNumber,
+										tfIntervalTreeWithNonOverlappingNodes,
+										KEGGPathwayNumber,
+										exonBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes,
+										annotationType,
+										tfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+										tfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+								
+							}//End of for each EXON Based KEGG Pathway Overlap
+					
+							//Regulation Based KEGG Pathway
+							for(TIntObjectIterator<IntervalTree> itrKEGG = regulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap.iterator();itrKEGG.hasNext();){
+								
+								itrKEGG.advance();
+								
+								KEGGPathwayNumber = itrKEGG.key();
+								regulationBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
+								
+								findCommonOverlaps(
+										interval,
+										tfNumberCellLineNumber,
+										tfIntervalTreeWithNonOverlappingNodes,
+										KEGGPathwayNumber,
+										regulationBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes,
+										annotationType,
+										tfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+										tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+								
+							}//End of for each Regulation Based KEGG Pathway Overlap
+
+							
+							//ALL Based KEGG Pathway
+							for(TIntObjectIterator<IntervalTree> itrKEGG = allBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap.iterator();itrKEGG.hasNext();){
+								
+								itrKEGG.advance();
+								
+								KEGGPathwayNumber = itrKEGG.key();
+								allBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes = itrKEGG.value();
+								
+								findCommonOverlaps(
+										interval,
+										tfNumberCellLineNumber,
+										tfIntervalTreeWithNonOverlappingNodes,
+										KEGGPathwayNumber,
+										allBasedKEGGPathwayIntervalTreeWithNonOverlappingNodes,
+										annotationType,
+										tfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap,
+										tfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap);
+								
+							}//End of for each ALL Based KEGG Pathway Overlap
+
+							
+						}//End of FOR each TF Overlap
+			
+						
+						//Accumulate mixedNumber2NumberofOverlappingBasesMap in mixedNumber2KMap
+						
+						//TF KEGG
+						if (annotationType.doTFKEGGPathwayAnnotation()){
+							
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberExonBasedKeggPathwayNumber2KMap);
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberRegulationBasedKeggPathwayNumber2KMap);
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberAllBasedKeggPathwayNumber2KMap);
+
+						}else if (annotationType.doTFCellLineKEGGPathwayAnnotation()){
+							
+							//TF CellLine KEGG
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
+						
+						}else if(annotationType.doBothTFKEGGPathwayAndTFCellLineKEGGPathwayAnnotation()){
+							
+							//TF KEGG
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberExonBasedKeggPathwayNumber2KMap);
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberRegulationBasedKeggPathwayNumber2KMap);
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberAllBasedKeggPathwayNumber2KMap);
+							
+							//TF CellLine KEGG
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap);
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap);
+							accumulateContentofNumberofOverlappingBasesinKMap(tfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap, tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap);
+						
+						}
+					
+					
+						//Lastly Free memory
+						//TF
+						tfNumberCellLineNumber2OverlappingNodeListMap = null;
+						tfNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+						tfNumberCellLineNumber2NumberofOverlappingBasesMap = null;
+						
+						//Hg19 RefSeq Genes
+						geneEntrezID2OverlappingNodeListMap = null;
+						geneEntrezID2IntervalTreeWithNonOverlappingNodesMap = null;
+						geneEntrezID2NumberofOverlappingBasesMap = null;
+						
+						//Exon Based KEGG Pathway
+						exonBasedKEGGPathwayNumber2OverlappingNodeListMap = null;
+						exonBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+						exonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+						
+						//Regulation Based KEGG Pathway
+						regulationBasedKEGGPathwayNumber2OverlappingNodeListMap = null;
+						regulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+						regulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+						
+						//All Based KEGG Pathway
+						allBasedKEGGPathwayNumber2OverlappingNodeListMap = null;
+						allBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+						allBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+						
+						//TF KEGG
+						tfNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+						tfNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+						tfNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+						
+						//TF CellLine KEGG
+						tfNumberCellLineNumberExonBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+						tfNumberCellLineNumberRegulationBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+						tfNumberCellLineNumberAllBasedKEGGPathwayNumber2NumberofOverlappingBasesMap = null;
+
+						
+
+						/***********************************************/
+						/******NUMBER_OF_OVERLAPPING_BASES ends*********/
+						/***********************************************/
 						break;
 				
 				}//End of SWITCH
 
 
 			}// End of WHILE
+			
+			//close hg19RefSeqGenesBufferedWriter
+			hg19RefSeqGenesBufferedWriter.close();
 
 		}catch( NumberFormatException e){
 			if( GlanetRunner.shouldLog())logger.error( e.toString());
@@ -3665,1033 +4753,10 @@ public class Annotation {
 
 	// @todo TF KEGGPathway Annotation with Numbers starts
 
-	// Modified 20 July 2015
-	// Annotation
-	// With Numbers
-	// TF CELLLINE KEGGPATHWAY
-	public void searchTfCellLineKEGGPathwayWithNumbers( 
-			String outputFolder,
-			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
-			ChromosomeName chromName, 
-			BufferedReader bufferedReader, 
-			IntervalTree tfbsIntervalTree,
-			IntervalTree ucscRefSeqGenesIntervalTree, 
-			TIntIntMap tfNumberCellLineNumber2KMap,
-			TIntIntMap exonBasedKeggPathwayNumber2KMap, 
-			TIntIntMap regulationBasedKeggPathwayNumber2KMap,
-			TIntIntMap allBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, 
-			int overlapDefinition,
-			TIntObjectMap<String> tfNumber2TfNameMap, 
-			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
-			TIntObjectMap<String> fileNumber2FileNameMap,
-			TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
-			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
-			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
-
-		String strLine = null;
-		int indexofFirstTab = 0;
-		int indexofSecondTab = 0;
-
-		int low;
-		int high;
-
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-
-		int tfNumber;
-		int cellLineNumber;
-		int keggPathwayNumber;
-
-		int tfNumberCellLineNumber;
-		long tfNumberCellLineNumberKeggPathwayNumber;
-
-		try{
-			while( ( strLine = bufferedReader.readLine()) != null){
-
-				// TF CellLine
-				TIntByteMap tfNumberCellLineNumber2ZeroorOneMap = new TIntByteHashMap();
-
-				// KEGGPathway
-				TIntByteMap exonBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
-				TIntByteMap regulationBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
-				TIntByteMap allBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
-
-				// TF CellLine KEGGPathway
-				TLongByteMap tfCellLineExonBasedKeggPathway2OneorZeroMap 		= new TLongByteHashMap();
-				TLongByteMap tfCellLineRegulationBasedKeggPathway2OneorZeroMap 	= new TLongByteHashMap();
-				TLongByteMap tfCellLineAllBasedKeggPathway2OneorZeroMap 		= new TLongByteHashMap();
-
-				// Fill these lists during search for tfs and search for
-				// ucscRefSeqGenes
-				List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList = new ArrayList<TfCellLineOverlapWithNumbers>();
-				List<UcscRefSeqGeneOverlapWithNumbers> exonBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
-				List<UcscRefSeqGeneOverlapWithNumbers> regulationBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
-				List<UcscRefSeqGeneOverlapWithNumbers> allBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
-
-				indexofFirstTab = strLine.indexOf( '\t');
-				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
-
-				low = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-
-				// indexofSecondTab must be greater than zero if it exists since
-				// indexofFirstTab must exists and can be at least zero
-				// therefore indexofSecondTab can be at least one.
-				if( indexofSecondTab > 0)
-					high = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
-				else
-					high = low;
-
-				Interval interval = new Interval( low, high);
-
-				// TF Search starts here
-				if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
-
-					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers( 
-							outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, 
-							regulatorySequenceAnalysisUsingRSAT,tfbsIntervalTree.getRoot(), interval,
-							chromName, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList,
-							overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,
-							fileNumber2FileNameMap);
-				}
-
-				// accumulate search results of
-				// tfbsNameandCellLineName2ZeroorOneMap in
-				// tfbsNameandCellLineName2KMap
-				for( TIntByteIterator it = tfNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
-					it.advance();
-
-					if( !tfNumberCellLineNumber2KMap.containsKey( it.key())){
-						tfNumberCellLineNumber2KMap.put( it.key(), it.value());
-					}else{
-						tfNumberCellLineNumber2KMap.put( it.key(),
-								tfNumberCellLineNumber2KMap.get( it.key()) + it.value());
-					}
-
-				}// End of for
-					// TF Search ends here
-
-				// UCSCRefSeqGenes Search starts here
-				if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
-					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, ucscRefSeqGenesIntervalTree.getRoot(),
-							interval, chromName, geneId2ListofKeggPathwayNumberMap, exonBasedKeggPathway2OneorZeroMap,
-							regulationBasedKeggPathway2OneorZeroMap, allBasedKeggPathway2OneorZeroMap,
-							Commons.NCBI_GENE_ID, exonBasedKeggPathwayOverlapList,
-							regulationBasedKeggPathwayOverlapList, allBasedKeggPathwayOverlapList, overlapDefinition,
-							keggPathwayNumber2KeggPathwayNameMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap,
-							refSeqGeneNumber2RefSeqGeneNameMap);
-				}
-				// UCSCRefSeqGenes Search ends here
-
-				// accumulate search results of
-				// exonBasedKeggPathway2OneorZeroMap in
-				// exonBasedKeggPathway2KMap
-				for( TIntByteIterator it = exonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-					it.advance();
-
-					if( !exonBasedKeggPathwayNumber2KMap.containsKey( it.key())){
-						exonBasedKeggPathwayNumber2KMap.put( it.key(), it.value());
-					}else{
-						exonBasedKeggPathwayNumber2KMap.put( it.key(),
-								exonBasedKeggPathwayNumber2KMap.get( it.key()) + it.value());
-					}
-
-				}// End of for
-
-				// accumulate search results of
-				// regulationBasedKeggPathway2OneorZeroMap in
-				// regulationBasedKeggPathway2KMap
-				for( TIntByteIterator it = regulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					if( !regulationBasedKeggPathwayNumber2KMap.containsKey( it.key())){
-						regulationBasedKeggPathwayNumber2KMap.put( it.key(), it.value());
-					}else{
-						regulationBasedKeggPathwayNumber2KMap.put( it.key(),
-								regulationBasedKeggPathwayNumber2KMap.get( it.key()) + it.value());
-					}
-
-				}// End of for
-
-				// accumulate search results of allBasedKeggPathway2OneorZeroMap
-				// in allBasedKeggPathway2KMap
-				for( TIntByteIterator it = allBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					if( !allBasedKeggPathwayNumber2KMap.containsKey( it.key())){
-						allBasedKeggPathwayNumber2KMap.put( it.key(), it.value());
-					}else{
-						allBasedKeggPathwayNumber2KMap.put( it.key(),
-								allBasedKeggPathwayNumber2KMap.get( it.key()) + it.value());
-
-					}
-
-				}// End of for
-					// code will be added here
-
-				// New search for given input SNP or interval case, does not
-				// matter.
-				// starts here
-				// for each tf overlap
-				// for each ucscRefSeqGene overlap
-				// if these overlaps overlaps
-				// then write common overlap to output files
-				// question will the overlapDefinition apply here?
-				for( TfCellLineOverlapWithNumbers tfOverlap : tfandCellLineOverlapList){
-
-					tfNumberCellLineNumber = tfOverlap.getTfNumberCellLineNumber();
-					
-					tfNumber = IntervalTree.getElementNumber(
-							tfNumberCellLineNumber,
-							GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
-					
-					cellLineNumber = IntervalTree.getCellLineNumberOrGeneSetNumber(
-							tfNumberCellLineNumber,
-							GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
-
-					/***********************************************************************/
-					/***********TF CellLine ExonBasedKEGGPathway starts*********************/
-					/***********************************************************************/
-					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : exonBasedKeggPathwayOverlapList){
-						
-						//2 FEB 2016
-						//overlapDefinition is required
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
-
-							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
-
-								keggPathwayNumber = it.next();
-								
-								tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
-										tfNumber, 
-										cellLineNumber, 
-										keggPathwayNumber, 
-										GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
-
-								/*******************************************************************/
-								// Write Annotation Found Overlaps to element Named File
-								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-
-									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
-
-									if( !tfCellLineExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineExonBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-										bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-									}
-
-									bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter.close();
-								}
-								/*******************************************************************/
-
-								/*******************************************************************/
-								// Do not Write Annotation Found Overlaps to element Named File
-								else{
-									if( !tfCellLineExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineExonBasedKeggPathway2OneorZeroMap.put(tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-									}
-								}
-								/*******************************************************************/
-
-							} // for each kegg pathways having this gene
-						}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
-					}// for each ucscRefSeqGeneOverlap for the given query
-					/***********************************************************************/
-					/***********TF CellLine ExonBasedKEGGPathway ends***********************/
-					/***********************************************************************/
-
-					/***********************************************************************/
-					/***********TF CellLine RegulationBasedKEGGPathway starts***************/
-					/***********************************************************************/
-					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : regulationBasedKeggPathwayOverlapList){
-						
-						//2 FEB 2016
-						//overlapDefinition is required
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
-							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
-
-								keggPathwayNumber = it.next();
-								
-								tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
-										tfNumber, 
-										cellLineNumber, 
-										keggPathwayNumber, 
-										GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
-
-								/*******************************************************************/
-								// Write Annotation Found Overlaps to element Named File
-								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-
-									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
-
-									if( !tfCellLineRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineRegulationBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-										bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-									}
-
-									bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter.close();
-
-								}
-								/*******************************************************************/
-
-								/*******************************************************************/
-								// Do not Write Annotation Found Overlaps to element Named File
-								else{
-									if( !tfCellLineRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineRegulationBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-									}
-								}
-								/*******************************************************************/
-
-							} // for each kegg pathways having this gene
-						}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
-					}// for each ucscRefSeqGeneOverlap for the given query
-					/***********************************************************************/
-					/***********TF CellLine RegulationBasedKEGGPathway ends*****************/
-					/***********************************************************************/
-
-					/***********************************************************************/
-					/***********TF CellLine AllBasedKEGGPathway starts**********************/
-					/***********************************************************************/
-					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : allBasedKeggPathwayOverlapList){
-						
-						//2 FEB 2016
-						//overlapDefinition is required
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
-							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
-
-								keggPathwayNumber = it.next();
-								
-								tfNumberCellLineNumberKeggPathwayNumber = IntervalTree.generateLongElementNumberCellLineNumberKeggPathwayNumber(
-										tfNumber, 
-										cellLineNumber, 
-										keggPathwayNumber, 
-										GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
-
-								/*******************************************************************/
-								// Write Annotation Found Overlaps to element Named File
-								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
-
-									if( !tfCellLineAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineAllBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-										bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-									}
-
-									bufferedWriter.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter.close();
-								}
-								/*******************************************************************/
-
-								/*******************************************************************/
-								// Do not Write Annotation Found Overlaps to element Named File
-								else{
-									if( !tfCellLineAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineAllBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-									}
-								}
-								/*******************************************************************/
-
-							} // for each kegg pathways having this gene
-						}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
-					}// for each ucscRefSeqGeneOverlap for the given query
-					/***********************************************************************/
-					/***********TF CellLine AllBasedKEGGPathway ends************************/
-					/***********************************************************************/
-
-				}// for each tfOverlap for the given query
-
-				// TF CELLLINE EXONBASED_KEGGPATHWAY
-				// Fill tfbsAndCellLineAndExonBasedKeggPathway2KMap using tfandExonBasedKeggPathway2OneorZeroMap
-				for( TLongByteIterator it = tfCellLineExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					tfNumberCellLineNumberKeggPathwayNumber = it.key();
-
-					if( !tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-						tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
-					}
-
-				}// End of for inner loop
-
-				// TF CELLLINE REGULATIONBASED_KEGGPATHWAY
-				// Fill tfbsAndCellLineAndRegulationBasedKeggPathway2KMap using
-				// tfandRegulationBasedKeggPathway2OneorZeroMap
-				for( TLongByteIterator it = tfCellLineRegulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					tfNumberCellLineNumberKeggPathwayNumber = it.key();
-
-					if( !tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-						tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
-					}
-
-				}// End of for inner loop
-
-				// TF CELLLINE ALLBASED_KEGGPATHWAY
-				// Fill tfbsAndCellLineAndAllBasedKeggPathway2KMap using
-				// tfandAllBasedKeggPathway2OneorZeroMap
-				for( TLongByteIterator it = tfCellLineAllBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					tfNumberCellLineNumberKeggPathwayNumber = it.key();
-
-					if( !tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-						tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.put(tfNumberCellLineNumberKeggPathwayNumber,tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
-					}
-
-				}// End of for inner loop
-
-				// After accumulation set to null
-				tfNumberCellLineNumber2ZeroorOneMap = null;
-
-				exonBasedKeggPathway2OneorZeroMap = null;
-				regulationBasedKeggPathway2OneorZeroMap = null;
-				allBasedKeggPathway2OneorZeroMap = null;
-
-				tfCellLineExonBasedKeggPathway2OneorZeroMap = null;
-				tfCellLineRegulationBasedKeggPathway2OneorZeroMap = null;
-				tfCellLineAllBasedKeggPathway2OneorZeroMap = null;
-
-				tfandCellLineOverlapList = null;
-				exonBasedKeggPathwayOverlapList = null;
-				regulationBasedKeggPathwayOverlapList = null;
-				allBasedKeggPathwayOverlapList = null;
-
-			}// End of WHILE
-
-		}catch( NumberFormatException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		} // End of while
-	}
-
-	// @todo TF CELLLINE KEGGPATHWAY Annotation with Numbers ends
-
 	
-	// Modified 20 July 2015
-	// Annotation
-	// With Numbers
-	// TF and KEGGPathway
-	// TF and CellLine and KEGGPathway
-	public void searchTfandKeggPathwayWithNumbers( String outputFolder,
-			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
-			ChromosomeName chromName, 
-			BufferedReader bufferedReader, 
-			IntervalTree tfbsIntervalTree,
-			IntervalTree ucscRefSeqGenesIntervalTree, 
-			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
-			TIntIntMap tfNumberCellLineNumber2KMap, 
-			TIntIntMap exonBasedKeggPathwayNumber2KMap,
-			TIntIntMap regulationBasedKeggPathwayNumber2KMap, 
-			TIntIntMap allBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap,
-			TIntIntMap tfNumberExonBasedKeggPathwayNumber2KMap,
-			TIntIntMap tfNumberRegulationBasedKeggPathwayNumber2KMap,
-			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, 
-			int overlapDefinition,
-			TIntObjectMap<String> tfNumber2TfNameMap, 
-			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
-			TIntObjectMap<String> fileNumber2FileNameMap,
-			TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
-			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
-		String strLine = null;
-		int indexofFirstTab = 0;
-		int indexofSecondTab = 0;
 
-		int low;
-		int high;
 
-		FileWriter fileWriter1 = null;
-		FileWriter fileWriter2 = null;
-		BufferedWriter bufferedWriter1 = null;
-		BufferedWriter bufferedWriter2 = null;
-
-		int tfNumber;
-		int cellLineNumber;
-		int keggPathwayNumber;
-
-		int tfNumberCellLineNumber;
-		int tfNumberKeggPathwayNumber;
-		long tfNumberCellLineNumberKeggPathwayNumber;
-
-		try{
-			while( ( strLine = bufferedReader.readLine()) != null){
-
-				// TF CellLine
-				TIntByteMap tfNumberCellLineNumber2ZeroorOneMap = new TIntByteHashMap();
-
-				// KEGGPathway
-				TIntByteMap exonBasedKeggPathway2OneorZeroMap 		= new TIntByteHashMap();
-				TIntByteMap regulationBasedKeggPathway2OneorZeroMap = new TIntByteHashMap();
-				TIntByteMap allBasedKeggPathway2OneorZeroMap 		= new TIntByteHashMap();
-
-				// TF KEGGPathway
-				TIntByteMap tfExonBasedKeggPathway2OneorZeroMap 		= new TIntByteHashMap();
-				TIntByteMap tfRegulationBasedKeggPathway2OneorZeroMap 	= new TIntByteHashMap();
-				TIntByteMap tfAllBasedKeggPathway2OneorZeroMap 			= new TIntByteHashMap();
-
-				// TF CellLine KEGGPathway
-				TLongByteMap tfCellLineExonBasedKeggPathway2OneorZeroMap 		= new TLongByteHashMap();
-				TLongByteMap tfCellLineRegulationBasedKeggPathway2OneorZeroMap 	= new TLongByteHashMap();
-				TLongByteMap tfCellLineAllBasedKeggPathway2OneorZeroMap 		= new TLongByteHashMap();
-
-				// Fill these lists during search for tfs and search for
-				// ucscRefSeqGenes
-				List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList = new ArrayList<TfCellLineOverlapWithNumbers>();
-				List<UcscRefSeqGeneOverlapWithNumbers> exonBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
-				List<UcscRefSeqGeneOverlapWithNumbers> regulationBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
-				List<UcscRefSeqGeneOverlapWithNumbers> allBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
-
-				indexofFirstTab = strLine.indexOf( '\t');
-				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
-
-				low = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-
-				// indexofSecondTab must be greater than zero if it exists since
-				// indexofFirstTab must exists and can be at least zero
-				// therefore indexofSecondTab can be at least one.
-				if( indexofSecondTab > 0)
-					high = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
-				else
-					high = low;
-
-				Interval interval = new Interval( low, high);
-
-				// TF Search starts here
-				if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
-
-					tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(
-							outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, regulatorySequenceAnalysisUsingRSAT,tfbsIntervalTree.getRoot(), interval,
-							chromName, tfNumberCellLineNumber2ZeroorOneMap, tfandCellLineOverlapList,
-							overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap,
-							fileNumber2FileNameMap);
-				}
-
-				// accumulate search results of
-				// tfbsNameandCellLineName2ZeroorOneMap in
-				// tfbsNameandCellLineName2KMap
-				for( TIntByteIterator it = tfNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
-					it.advance();
-
-					if( !tfNumberCellLineNumber2KMap.containsKey( it.key())){
-						tfNumberCellLineNumber2KMap.put( it.key(), it.value());
-					}else{
-						tfNumberCellLineNumber2KMap.put( it.key(),
-								tfNumberCellLineNumber2KMap.get( it.key()) + it.value());
-					}
-
-				}// End of for
-					// TF Search ends here
-
-				// UCSCRefSeqGenes Search starts here
-				if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
-					ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, ucscRefSeqGenesIntervalTree.getRoot(),
-							interval, chromName, geneId2ListofKeggPathwayNumberMap, exonBasedKeggPathway2OneorZeroMap,
-							regulationBasedKeggPathway2OneorZeroMap, allBasedKeggPathway2OneorZeroMap,
-							Commons.NCBI_GENE_ID, exonBasedKeggPathwayOverlapList,
-							regulationBasedKeggPathwayOverlapList, allBasedKeggPathwayOverlapList, overlapDefinition,
-							keggPathwayNumber2KeggPathwayNameMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap,
-							refSeqGeneNumber2RefSeqGeneNameMap);
-				}
-				// UCSCRefSeqGenes Search ends here
-
-				// accumulate search results of
-				// exonBasedKeggPathway2OneorZeroMap in
-				// exonBasedKeggPathway2KMap
-				for( TIntByteIterator it = exonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-					it.advance();
-
-					if( !exonBasedKeggPathwayNumber2KMap.containsKey( it.key())){
-						exonBasedKeggPathwayNumber2KMap.put( it.key(), it.value());
-					}else{
-						exonBasedKeggPathwayNumber2KMap.put( it.key(),
-								exonBasedKeggPathwayNumber2KMap.get( it.key()) + it.value());
-					}
-
-				}// End of for
-
-				// accumulate search results of
-				// regulationBasedKeggPathway2OneorZeroMap in
-				// regulationBasedKeggPathway2KMap
-				for( TIntByteIterator it = regulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					if( !regulationBasedKeggPathwayNumber2KMap.containsKey( it.key())){
-						regulationBasedKeggPathwayNumber2KMap.put( it.key(), it.value());
-					}else{
-						regulationBasedKeggPathwayNumber2KMap.put( it.key(),
-								regulationBasedKeggPathwayNumber2KMap.get( it.key()) + it.value());
-					}
-
-				}// End of for
-
-				// accumulate search results of allBasedKeggPathway2OneorZeroMap
-				// in allBasedKeggPathway2KMap
-				for( TIntByteIterator it = allBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					if( !allBasedKeggPathwayNumber2KMap.containsKey( it.key())){
-						allBasedKeggPathwayNumber2KMap.put( it.key(), it.value());
-					}else{
-						allBasedKeggPathwayNumber2KMap.put( it.key(),
-								allBasedKeggPathwayNumber2KMap.get( it.key()) + it.value());
-
-					}
-
-				}// End of for
-
-				// New search for given input SNP or interval case, does not
-				// matter.
-				// starts here
-				// for each tf overlap
-				// for each ucscRefSeqGene overlap
-				// if these overlaps overlaps
-				// then write common overlap to output files
-				// question will the overlapDefinition apply here?
-				for( TfCellLineOverlapWithNumbers tfOverlap : tfandCellLineOverlapList){
-
-					tfNumberCellLineNumber = tfOverlap.getTfNumberCellLineNumber();
-					
-					tfNumber = IntervalTree.getElementNumber(
-							tfNumberCellLineNumber,
-							GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
-					
-					cellLineNumber = IntervalTree.getCellLineNumberOrGeneSetNumber(
-							tfNumberCellLineNumber,
-							GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
-
-					/**************************************************************************/
-					/*********************************BOTH*************************************/
-					/****************TF ExonBased KEGG Pathway starts**************************/
-					/****************TF CellLine ExonBased KEGG Pathway starts*****************/
-					/**************************************************************************/
-					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : exonBasedKeggPathwayOverlapList){
-						
-						//2 FEB 2016
-						//overlapDefinition is required
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
-
-							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
-
-								keggPathwayNumber = it.next();
-								
-								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber; 
-								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * Commons.LONG_5DIGITS + keggPathwayNumber;
-								
-								/*******************************************************************/
-								// Write Annotation Found Overlaps to element Named File
-								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-
-									/*************************************************************/
-									fileWriter1 = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter1 = new BufferedWriter( fileWriter1);
-
-									if( !tfCellLineExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineExonBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-										bufferedWriter1.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-									}
-
-									bufferedWriter1.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter1.close();;
-									/*************************************************************/
-
-									/*************************************************************/
-									fileWriter2 = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter2 = new BufferedWriter( fileWriter2);
-
-									if( !tfExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-										tfExonBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-												Commons.BYTE_1);
-										bufferedWriter2.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-									}
-
-									bufferedWriter2.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter2.close();
-									/*************************************************************/
-								}
-								/*******************************************************************/
-
-								/*******************************************************************/
-								// Do not Write Annotation Found Overlaps to element Named File
-								else{
-									if( !tfCellLineExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineExonBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-									}
-									if( !tfExonBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-										tfExonBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-												Commons.BYTE_1);
-									}
-								}
-								/*******************************************************************/
-
-							} // for each kegg pathways having this gene
-						}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
-					}// for each ucscRefSeqGeneOverlap for the given query
-					/**************************************************************************/
-					/*********************************BOTH*************************************/
-					/****************TF ExonBased KEGG Pathway ends****************************/
-					/****************TF CellLine ExonBased KEGG Pathway ends*******************/
-					/**************************************************************************/
-
-					/**************************************************************************/
-					/*********************************BOTH*************************************/
-					/****************TF RegulationBased KEGG Pathway starts********************/
-					/****************TF CellLine RegulationBased KEGG Pathway starts***********/
-					/**************************************************************************/
-					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : regulationBasedKeggPathwayOverlapList){
-						
-						//2 FEB 2016
-						//overlapDefinition is required
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
-							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
-
-								keggPathwayNumber = it.next();
-								
-								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber; 
-								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * Commons.LONG_5DIGITS + keggPathwayNumber;
-								
-								/*******************************************************************/
-								// Write Annotation Found Overlaps to element Named File
-								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-
-									/***********************************************************/
-									fileWriter1 = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter1 = new BufferedWriter( fileWriter1);
-
-									if( !tfCellLineRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineRegulationBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-										bufferedWriter1.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-
-									}
-
-									bufferedWriter1.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter1.close();
-									/***********************************************************/
-
-									/***********************************************************/
-									fileWriter2 = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter2 = new BufferedWriter( fileWriter2);
-
-									if( !tfRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-										tfRegulationBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-												Commons.BYTE_1);
-										bufferedWriter2.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-									}
-
-									bufferedWriter2.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter2.close();
-									/***********************************************************/
-
-								}
-								/*******************************************************************/
-
-								/*******************************************************************/
-								// Do not Write Annotation Found Overlaps to element Named File
-								else{
-									if( !tfCellLineRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineRegulationBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-									}
-									if( !tfRegulationBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-										tfRegulationBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-												Commons.BYTE_1);
-									}
-								}
-								/*******************************************************************/
-
-							} // for each kegg pathways having this gene
-						}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
-					}// for each ucscRefSeqGeneOverlap for the given query
-					/**************************************************************************/
-					/*********************************BOTH*************************************/
-					/****************TF RegulationBased KEGG Pathway ends**********************/
-					/****************TF CellLine RegulationBased KEGG Pathway ends*************/
-					/**************************************************************************/
-
-					/**************************************************************************/
-					/*********************************BOTH*************************************/
-					/****************TF ALLBased KEGG Pathway starts***************************/
-					/****************TF CellLine ALLBased KEGG Pathway starts******************/
-					/**************************************************************************/
-					for( UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers : allBasedKeggPathwayOverlapList){
-						
-						//2 FEB 2016
-						//overlapDefinition is required
-						if( IntervalTree.overlaps( tfOverlap.getLow(), tfOverlap.getHigh(),ucscRefSeqGeneOverlapWithNumbers.getLow(), ucscRefSeqGeneOverlapWithNumbers.getHigh(),overlapDefinition)){
-							for( TIntIterator it = ucscRefSeqGeneOverlapWithNumbers.getKeggPathwayNumberList().iterator(); it.hasNext();){
-
-								keggPathwayNumber = it.next();
-								
-								tfNumberKeggPathwayNumber = tfNumber * Commons.INT_5DIGITS + keggPathwayNumber; 
-								tfNumberCellLineNumberKeggPathwayNumber = tfNumberCellLineNumber * Commons.LONG_5DIGITS + keggPathwayNumber;
-								
-								
-								/*******************************************************************/
-								// Write Annotation Found Overlaps to element Named File
-								if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-
-									/*****************************************************************/
-									fileWriter1 = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter1 = new BufferedWriter( fileWriter1);
-
-									if( !tfCellLineAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineAllBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-										bufferedWriter1.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-									}
-
-									bufferedWriter1.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter1.close();
-									/*****************************************************************/
-
-									/*****************************************************************/
-									fileWriter2 = FileOperations.createFileWriter(
-											outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
-											true);
-									bufferedWriter2 = new BufferedWriter( fileWriter2);
-
-									if( !tfAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-										tfAllBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-												Commons.BYTE_1);
-										bufferedWriter2.write( Commons.GLANET_COMMENT_CHARACTER + "Search for chr" + "\t" + "given interval low" + "\t" + "given interval high" + "\t" + "tfbs" + "\t" + "tfbs low" + "\t" + "tfbs high" + "\t" + "refseq gene name" + "\t" + "ucscRefSeqGene low" + "\t" + "ucscRefSeqGene high" + "\t" + "interval name " + "\t" + "hugo suymbol" + "\t" + "entrez id" + "\t" + "keggPathwayName" + System.getProperty( "line.separator"));
-									}
-
-									bufferedWriter2.write( ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + System.getProperty( "line.separator"));
-									bufferedWriter2.close();
-									/*****************************************************************/
-
-								}
-								/*******************************************************************/
-
-								/*******************************************************************/
-								// Do not Write Annotation Found Overlaps to element Named File
-								else{
-									if( !tfCellLineAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-										tfCellLineAllBasedKeggPathway2OneorZeroMap.put(
-												tfNumberCellLineNumberKeggPathwayNumber, Commons.BYTE_1);
-									}
-									if( !tfAllBasedKeggPathway2OneorZeroMap.containsKey( tfNumberKeggPathwayNumber)){
-										tfAllBasedKeggPathway2OneorZeroMap.put( tfNumberKeggPathwayNumber,
-												Commons.BYTE_1);
-									}
-								}
-								/*******************************************************************/
-
-							} // for each kegg pathways having this gene
-						}// if tfOverlap and ucscRefSeqGeneOverlap overlaps
-					}// for each ucscRefSeqGeneOverlap for the given query
-					/**************************************************************************/
-					/*********************************BOTH*************************************/
-					/****************TF ALLBased KEGG Pathway ends*****************************/
-					/****************TF CellLine ALLBased KEGG Pathway ends********************/
-					/**************************************************************************/
-
-				}// for each tfOverlap for the given query
-					// ends here
-
-				// TF CELLLINE EXONBASED_KEGGPATHWAY
-				// Fill tfbsAndCellLineAndExonBasedKeggPathway2KMap using
-				// tfandExonBasedKeggPathway2OneorZeroMap
-				for( TLongByteIterator it = tfCellLineExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					tfNumberCellLineNumberKeggPathwayNumber = it.key();
-
-					if( !tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-						tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.put(
-								tfNumberCellLineNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.put(
-								tfNumberCellLineNumberKeggPathwayNumber,
-								tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
-					}
-
-				}// End of for inner loop
-
-				// TF CELLLINE REGULATIONBASED_KEGGPATHWAY
-				// Fill tfbsAndCellLineAndRegulationBasedKeggPathway2KMap using
-				// tfandRegulationBasedKeggPathway2OneorZeroMap
-				for( TLongByteIterator it = tfCellLineRegulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					tfNumberCellLineNumberKeggPathwayNumber = it.key();
-
-					if( !tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-						tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.put(
-								tfNumberCellLineNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.put(
-								tfNumberCellLineNumberKeggPathwayNumber,
-								tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
-					}
-
-				}// End of for inner loop
-
-				// TF CELLLINE ALLBASED_KEGGPATHWAY
-				// Fill tfbsAndCellLineAndAllBasedKeggPathway2KMap using
-				// tfandAllBasedKeggPathway2OneorZeroMap
-				for( TLongByteIterator it = tfCellLineAllBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					tfNumberCellLineNumberKeggPathwayNumber = it.key();
-
-					if( !tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.containsKey( tfNumberCellLineNumberKeggPathwayNumber)){
-						tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.put(
-								tfNumberCellLineNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.put(
-								tfNumberCellLineNumberKeggPathwayNumber,
-								tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap.get( tfNumberCellLineNumberKeggPathwayNumber) + it.value());
-					}
-
-				}// End of for inner loop
-
-				// TF EXONBASED_KEGGPATHWAY
-				// Fill tfExonBasedKeggPathway2KMap using
-				// tfExonBasedKeggPathway2OneorZeroMap
-				for( TIntByteIterator it = tfExonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-
-					tfNumberKeggPathwayNumber = it.key();
-
-					// new
-					if( !tfNumberExonBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
-						tfNumberExonBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberExonBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber,
-								tfNumberExonBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
-					}
-					// new
-				}// End of for inner loop
-
-				// TF REGULATIONBASED_KEGGPATHWAY
-				// Fill tfRegulationBasedKeggPathway2KMap using
-				// tfRegulationBasedKeggPathway2OneorZeroMap
-				for( TIntByteIterator it = tfRegulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-					tfNumberKeggPathwayNumber = it.key();
-
-					// new
-					if( !tfNumberRegulationBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
-						tfNumberRegulationBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberRegulationBasedKeggPathwayNumber2KMap.put(
-								tfNumberKeggPathwayNumber,
-								tfNumberRegulationBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
-					}
-					// new
-				}// End of for inner loop
-
-				// TF ALLBASED_KEGGPATHWAY
-				// Fill tfAllBasedKeggPathway2KMap using
-				// tfAllBasedKeggPathway2OneorZeroMap
-				for( TIntByteIterator it = tfAllBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
-
-					it.advance();
-					tfNumberKeggPathwayNumber = it.key();
-
-					// new
-					if( !tfNumberAllBasedKeggPathwayNumber2KMap.containsKey( tfNumberKeggPathwayNumber)){
-						tfNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber, it.value());
-					}else{
-						tfNumberAllBasedKeggPathwayNumber2KMap.put( tfNumberKeggPathwayNumber,
-								tfNumberAllBasedKeggPathwayNumber2KMap.get( tfNumberKeggPathwayNumber) + it.value());
-					}
-					// new
-
-				}// End of for inner loop
-
-				// added here ends
-
-				// After accumulation set to null
-				tfNumberCellLineNumber2ZeroorOneMap = null;
-
-				exonBasedKeggPathway2OneorZeroMap 		= null;
-				regulationBasedKeggPathway2OneorZeroMap = null;
-				allBasedKeggPathway2OneorZeroMap 		= null;
-
-				tfExonBasedKeggPathway2OneorZeroMap 		= null;
-				tfRegulationBasedKeggPathway2OneorZeroMap	= null;
-				tfAllBasedKeggPathway2OneorZeroMap 			= null;
-
-				tfCellLineExonBasedKeggPathway2OneorZeroMap 		= null;
-				tfCellLineRegulationBasedKeggPathway2OneorZeroMap 	= null;
-				tfCellLineAllBasedKeggPathway2OneorZeroMap 			= null;
-
-				tfandCellLineOverlapList = null;
-				exonBasedKeggPathwayOverlapList = null;
-				regulationBasedKeggPathwayOverlapList = null;
-				allBasedKeggPathwayOverlapList = null;
-
-			}// End of WHILE
-		}catch( NumberFormatException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		} // End of while
-	}
-
-	// @todo Annotation with Numbers ends
 
 	// Enrichment
 	// With IO
@@ -7754,6 +7819,18 @@ public class Annotation {
 		}// End of FOR
 		
 	}
+	
+	//18 April 2016
+	public static void accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+			int numberofOverlappingBases,
+			int mixedNumber,
+			TIntIntMap mixedNumber2NumberofOverlappingBasesMap){
+		
+			mixedNumber2NumberofOverlappingBasesMap.put(mixedNumber, 
+					mixedNumber2NumberofOverlappingBasesMap.get(mixedNumber) + numberofOverlappingBases);
+		
+	}
+	
 
 	//19 NOV 2015
 	public static void accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
@@ -7820,7 +7897,135 @@ public class Annotation {
 	}
 	//19 NOV 2015
 	
+	
+	//18 April 2016
+	//Called from Annotation
+	public static void findCommonOverlaps(
+			Interval interval,
+			int tfNumberCellLineNumber,
+			IntervalTree TFIntervalTreeWithNonOverlappingNodes,
+			int KEGGPathwayNumber,
+			IntervalTree KEGGPathwayIntervalTreeWithNonOverlappingNodes,
+			AnnotationType annotationType,
+			TIntIntMap tfNumberKEGGPathwayNumber2NumberofOverlappingBasesMap,
+			TLongIntMap tfNumberCellLineNumberKEGGPathwayNumber2NumberofOverlappingBasesMap){
+		
+		List<IntervalTreeNode> TFNonOverlappingNodes = null;
+		List<IntervalTreeNode> KEGGPathwayNonOverlappingNodes = null;
+		
+		int numberofOverlappingBases = 0;
+		
+		long tfNumberCellLineNumberKEGGPathwayNumber = Long.MIN_VALUE;
+		int tfNumberKEGGPathwayNumber = Integer.MIN_VALUE;
+
+		
+		//Generate mixedNumbers
+		switch(annotationType){
+		
+			case DO_TF_KEGGPATHWAY_ANNOTATION:
+				
+				tfNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+						tfNumberCellLineNumber,
+						KEGGPathwayNumber,
+						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+				break;
+				
+			case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+				
+				tfNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+						tfNumberCellLineNumber,
+						KEGGPathwayNumber,
+						GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+				break;
+				
+			case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+				
+				tfNumberKEGGPathwayNumber = IntervalTree.removeCellLineNumberAddKeggPathwayNumber(
+						tfNumberCellLineNumber,
+						KEGGPathwayNumber,
+						GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+				
+				tfNumberCellLineNumberKEGGPathwayNumber = IntervalTree.addKeggPathwayNumber(
+						tfNumberCellLineNumber,
+						KEGGPathwayNumber,
+						GeneratedMixedNumberDescriptionOrderLength.LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER);
+
+
+				break;
+				
+			default:
+				break;
+		
+		}//End of SWITCH
+		
+		
+		
+		TFNonOverlappingNodes = getIntervalTreeNodes(TFIntervalTreeWithNonOverlappingNodes);
+		KEGGPathwayNonOverlappingNodes = getIntervalTreeNodes(KEGGPathwayIntervalTreeWithNonOverlappingNodes);
+		
+		for(IntervalTreeNode TFNode : TFNonOverlappingNodes){
+		
+			for(IntervalTreeNode KEGGPathwayNode: KEGGPathwayNonOverlappingNodes){
+				
+				numberofOverlappingBases = IntervalTree.findNumberofOverlapingBases(TFNode.getLow(), TFNode.getHigh(), KEGGPathwayNode.getLow(), KEGGPathwayNode.getHigh(),interval.getLow(),interval.getHigh());
+				
+				if (numberofOverlappingBases>0){
+					
+					switch(annotationType){
+					
+						case DO_TF_KEGGPATHWAY_ANNOTATION:
+
+							accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+									numberofOverlappingBases, 
+									tfNumberKEGGPathwayNumber, 
+									tfNumberKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+							break;
+							
+						case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+
+							accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+									numberofOverlappingBases, 
+									tfNumberCellLineNumberKEGGPathwayNumber, 
+									tfNumberCellLineNumberKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+							break;
+							
+						case DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+							
+							accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+									numberofOverlappingBases, 
+									tfNumberKEGGPathwayNumber, 
+									tfNumberKEGGPathwayNumber2NumberofOverlappingBasesMap);
+
+							accumulateNumberofOverlappingBasesinNumberofOverlappingBasesMap(
+									numberofOverlappingBases, 
+									tfNumberCellLineNumberKEGGPathwayNumber, 
+									tfNumberCellLineNumberKEGGPathwayNumber2NumberofOverlappingBasesMap);
+							
+							break;
+							
+						default: 
+							break;
+						
+					}//End of SWITCH
+					
+				}//End of IF numberofOverlappingBases is greater than ZERO 
+				
+			}//End of FOR each KEGG Pathway Node
+			
+		}//End of FOR each TF Node
+	
+	}
+	
+	
+	
+	
+	
 	//19 NOV 2015
+	//Called from Enrichment
 	public static void findCommonOverlaps(
 			Interval inputLine,
 			long permutationNumberTFNumberCellLineNumber,
@@ -9230,7 +9435,7 @@ public class Annotation {
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
 			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, 
-			TIntIntMap entrezGeneId2KMap, 
+			TIntIntMap geneEntrezID2KMap, 
 			int overlapDefinition,
 			TIntObjectMap<String> officialGeneSymbolNumber2NameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
@@ -9257,7 +9462,7 @@ public class Annotation {
 					chrName, 
 					bufferedReader, 
 					ucscRefSeqGenesIntervalTree, 
-					entrezGeneId2KMap,
+					geneEntrezID2KMap,
 					overlapDefinition, 
 					officialGeneSymbolNumber2NameMap, 
 					refSeqGeneNumber2RefSeqGeneNameMap,
@@ -9278,6 +9483,7 @@ public class Annotation {
 
 	}
 
+	//Modified 20 April 2016
 	// Annotation
 	// KEGG Pathway
 	// UserDefinedGeneSet
@@ -9286,6 +9492,7 @@ public class Annotation {
 			String dataFolder, 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TIntIntMap geneEntrezID2KMap,
 			TIntIntMap exonBasedGeneSetNumber2KMap, 
 			TIntIntMap regulationBasedGeneSetNumber2KMap,
 			TIntIntMap allBasedGeneSetNumber2KMap, 
@@ -9296,7 +9503,13 @@ public class Annotation {
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap, 
 			String geneSetName, 
 			GeneSetType geneSetType,
-			AssociationMeasureType associationMeasureType) {
+			AssociationMeasureType associationMeasureType,
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap) {
+		
+
 
 		BufferedReader bufferedReader = null;
 
@@ -9316,6 +9529,7 @@ public class Annotation {
 					chrName,
 					bufferedReader, 
 					ucscRefSeqGenesIntervalTree, 
+					geneEntrezID2KMap,
 					exonBasedGeneSetNumber2KMap,
 					regulationBasedGeneSetNumber2KMap, 
 					allBasedGeneSetNumber2KMap, 
@@ -9326,7 +9540,11 @@ public class Annotation {
 					refSeqGeneNumber2RefSeqGeneNameMap, 
 					geneSetName,
 					geneSetType,
-					associationMeasureType);
+					associationMeasureType,
+					givenIntervalNumber2GivenIntervalNameMap,
+					givenIntervalNumber2OverlapInformationMap,
+					givenIntervalNumber2NumberofGeneOverlapsMap,
+					chromosomeName2CountMap);
 
 			ucscRefSeqGenesIntervalTree = null;
 
@@ -9346,22 +9564,29 @@ public class Annotation {
 	// KEGGPathway annotation with Numbers ends
 
 	
-	// Modified 20 July 2015
+	// Modified 18 April 2016
 	// Annotation
 	// With Numbers
-	// TF KEGGPathway
+	// TFKEGG
+	// TFCellLineKEGG
+	// Both (TFKEGG and TFCellLineKEGG)
 	public void searchTfKEGGPathwayWithNumbers(
 			String dataFolder, 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntIntMap tfNumberCellLineNumber2KMap, 
+			TIntIntMap entrezGeneId2KMap,
 			TIntIntMap exonBasedKeggPathwayNumber2KMap,
 			TIntIntMap regulationBasedKeggPathwayNumber2KMap, 
 			TIntIntMap allBasedKeggPathwayNumber2KMap,
 			TIntIntMap tfNumberExonBasedKeggPathwayNumber2KMap,
 			TIntIntMap tfNumberRegulationBasedKeggPathwayNumber2KMap,
 			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, 
+			TLongIntMap tfNumberCellLineExonBasedKeggPathwayNumber2KMap,
+			TLongIntMap tfNumberCellLineRegulationBasedKeggPathwayNumber2KMap,
+			TLongIntMap tfNumberCellLineAllBasedKeggPathwayNumber2KMap, 
+			AnnotationType annotationType,
 			int overlapDefinition,
 			TIntObjectMap<String> tfNumber2TfNameMap, 
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
@@ -9370,7 +9595,11 @@ public class Annotation {
 			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
-			AssociationMeasureType associationMeasureType) {
+			AssociationMeasureType associationMeasureType,
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap) {
 
 		BufferedReader bufferedReader = null;
 
@@ -9395,20 +9624,30 @@ public class Annotation {
 					tfbsIntervalTree, 
 					ucscRefSeqGenesIntervalTree, 
 					tfNumberCellLineNumber2KMap,
+					entrezGeneId2KMap,
 					exonBasedKeggPathwayNumber2KMap, 
 					regulationBasedKeggPathwayNumber2KMap,
 					allBasedKeggPathwayNumber2KMap, 
 					tfNumberExonBasedKeggPathwayNumber2KMap,
 					tfNumberRegulationBasedKeggPathwayNumber2KMap, 
 					tfNumberAllBasedKeggPathwayNumber2KMap,
-					overlapDefinition, tfNumber2TfNameMap, 
+					tfNumberCellLineExonBasedKeggPathwayNumber2KMap,
+					tfNumberCellLineRegulationBasedKeggPathwayNumber2KMap,
+					tfNumberCellLineAllBasedKeggPathwayNumber2KMap,
+					annotationType,
+					overlapDefinition, 
+					tfNumber2TfNameMap, 
 					cellLineNumber2CellLineNameMap, 
 					fileNumber2FileNameMap,
 					keggPathwayNumber2KeggPathwayNameMap, 
 					geneId2ListofKeggPathwayNumberMap,
 					geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
 					refSeqGeneNumber2RefSeqGeneNameMap,
-					associationMeasureType);
+					associationMeasureType,
+					givenIntervalNumber2GivenIntervalNameMap,
+					givenIntervalNumber2OverlapInformationMap,
+					givenIntervalNumber2NumberofGeneOverlapsMap,
+					chromosomeName2CountMap);
 
 			tfbsIntervalTree = null;
 			ucscRefSeqGenesIntervalTree = null;
@@ -9426,145 +9665,7 @@ public class Annotation {
 
 	}
 
-	
-	// Modified 20 July 2015
-	// Annotation
-	// With Numbers
-	// TF CELLLINE KEGGPATHWAY
-	public void searchTfCellLineKEGGPathwayWithNumbers(
-			String dataFolder, 
-			String outputFolder,
-			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
-			TIntIntMap tfNumberCellLineNumber2KMap, 
-			TIntIntMap exonBasedKeggPathwayNumber2KMap,
-			TIntIntMap regulationBasedKeggPathwayNumber2KMap, 
-			TIntIntMap allBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, 
-			int overlapDefinition,
-			TIntObjectMap<String> tfNumber2TfNameMap, 
-			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
-			TIntObjectMap<String> fileNumber2FileNameMap,
-			TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
-			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap,
-			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
-		BufferedReader bufferedReader = null;
-
-		IntervalTree tfbsIntervalTree;
-		IntervalTree ucscRefSeqGenesIntervalTree;
-
-		// For each ChromosomeName
-		for( ChromosomeName chrName : ChromosomeName.values()){
-
-			tfbsIntervalTree = createTfbsIntervalTreeWithNumbers( dataFolder, chrName);
-			ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers( dataFolder, chrName);
-			bufferedReader = FileOperations.createBufferedReader(
-					outputFolder,
-					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-
-			searchTfCellLineKEGGPathwayWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode, regulatorySequenceAnalysisUsingRSAT,
-					chrName, bufferedReader, tfbsIntervalTree, ucscRefSeqGenesIntervalTree,
-					tfNumberCellLineNumber2KMap, exonBasedKeggPathwayNumber2KMap,
-					regulationBasedKeggPathwayNumber2KMap, allBasedKeggPathwayNumber2KMap,
-					tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
-					tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
-					tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, overlapDefinition, tfNumber2TfNameMap,
-					cellLineNumber2CellLineNameMap, fileNumber2FileNameMap, keggPathwayNumber2KeggPathwayNameMap,
-					geneId2ListofKeggPathwayNumberMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap,
-					refSeqGeneNumber2RefSeqGeneNameMap);
-
-			tfbsIntervalTree = null;
-			ucscRefSeqGenesIntervalTree = null;
-
-			System.gc();
-			System.runFinalization();
-
-			try{
-				bufferedReader.close();
-			}catch( IOException e){
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
-			}
-
-		}// End of for each chromosomeName
-	}
-
-	
-	// Modified 20 July 2015
-	// Annotation
-	// With Numbers
-	// New Functionality START
-	// TF CellLine KEGGPathway
-	// TF KEGGPathway
-	public void searchTfandKeggPathwayWithNumbers( 
-			String dataFolder, 
-			String outputFolder,
-			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
-			TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap, 
-			TIntIntMap tfNumberCellLineNumber2KMap,
-			TIntIntMap exonBasedKeggPathwayNumber2KMap, 
-			TIntIntMap regulationBasedKeggPathwayNumber2KMap,
-			TIntIntMap allBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
-			TLongIntMap tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap,
-			TIntIntMap tfNumberExonBasedKeggPathwayNumber2KMap,
-			TIntIntMap tfNumberRegulationBasedKeggPathwayNumber2KMap,
-			TIntIntMap tfNumberAllBasedKeggPathwayNumber2KMap, 
-			int overlapDefinition,
-			TIntObjectMap<String> tfNumber2TfNameMap, 
-			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
-			TIntObjectMap<String> fileNumber2FileNameMap,
-			TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
-			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
-			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
-
-		BufferedReader bufferedReader = null;
-
-		IntervalTree tfbsIntervalTree;
-		IntervalTree ucscRefSeqGenesIntervalTree;
-
-		// For each ChromosomeName
-		for( ChromosomeName chrName : ChromosomeName.values()){
-
-			tfbsIntervalTree = createTfbsIntervalTreeWithNumbers( dataFolder, chrName);
-			ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers( dataFolder, chrName);
-			bufferedReader = FileOperations.createBufferedReader(
-					outputFolder,
-					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-
-			searchTfandKeggPathwayWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,regulatorySequenceAnalysisUsingRSAT,chrName,
-					bufferedReader, tfbsIntervalTree, ucscRefSeqGenesIntervalTree, geneId2ListofKeggPathwayNumberMap,
-					tfNumberCellLineNumber2KMap, exonBasedKeggPathwayNumber2KMap,
-					regulationBasedKeggPathwayNumber2KMap, allBasedKeggPathwayNumber2KMap,
-					tfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap,
-					tfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap,
-					tfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap, tfNumberExonBasedKeggPathwayNumber2KMap,
-					tfNumberRegulationBasedKeggPathwayNumber2KMap, tfNumberAllBasedKeggPathwayNumber2KMap,
-					overlapDefinition, tfNumber2TfNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap,
-					keggPathwayNumber2KeggPathwayNameMap, geneHugoSymbolNumber2GeneHugoSymbolNameMap,
-					refSeqGeneNumber2RefSeqGeneNameMap);
-
-			tfbsIntervalTree = null;
-			ucscRefSeqGenesIntervalTree = null;
-
-			System.gc();
-			System.runFinalization();
-
-			try{
-				bufferedReader.close();
-			}catch( IOException e){
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
-			}
-		}// End of for each chromosomeName
-
-	}
-
-	// @todo Annotation with Numbers ends
 
 	// Annotation
 	// UserDefinedLibrary
@@ -9945,7 +10046,8 @@ public class Annotation {
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
 			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
-			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, TIntObjectMap<String> geneHugoSymbolNumber2NameMap) {
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, 
+			TIntObjectMap<String> geneHugoSymbolNumber2NameMap) {
 
 		BufferedWriter bufferedWriter = null;
 
@@ -10803,21 +10905,24 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ This has been coded for Chen Yao Circulation Paper****************/
 			/*******************************************************************************/
-			if( geneAnnotationType.doGeneAnnotation()){
+			if( geneAnnotationType.doGeneAnnotation() &&
+					!(userDefinedGeneSetAnnotationType.doUserDefinedLibraryAnnotation()) &&
+					!(keggPathwayAnnotationType.doKEGGPathwayAnnotation()) &&
+					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
+					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 
-				// Hg19 RefSeq Genes
-				// For Encode Collaboration Chen Yao Circulation Paper
-				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
-
+				
 				GlanetRunner.appendLog( "**********************************************************");
 				GlanetRunner.appendLog( "Hg19 RefSeq Gene Annotation starts: " + new Date());
 				dateBefore = System.currentTimeMillis();
 
+				// Hg19 RefSeq Genes
+				// For Encode Collaboration Chen Yao Circulation Paper
+				TIntIntMap geneEntrezID2KMap = new TIntIntHashMap();
 				// 10 February 2015
 				TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
 				TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
 				TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
-
 				// 13 February 2015
 				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
 
@@ -10828,7 +10933,7 @@ public class Annotation {
 						givenIntervalNumber2GivenIntervalNameMap, 
 						givenIntervalNumber2OverlapInformationMap,
 						chromosomeName2CountMap, 
-						entrezGeneId2KMap, 
+						geneEntrezID2KMap, 
 						overlapDefinition, 
 						geneHugoSymbolNumber2NameMap,
 						refSeqRNANucleotideAccessionNumber2NameMap,
@@ -10846,10 +10951,11 @@ public class Annotation {
 						geneHugoSymbolNumber2NameMap);
 
 				writeResultsWithNumbers( 
-						entrezGeneId2KMap, 
+						geneEntrezID2KMap, 
 						geneEntrezId2GeneOfficialSymbolMap, 
 						outputFolder,
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+				
 				dateAfter = System.currentTimeMillis();
 
 				GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation ends: " + new Date());
@@ -10857,7 +10963,7 @@ public class Annotation {
 				GlanetRunner.appendLog("Hg19 RefSeq Gene annotation took: " + ( float)( ( dateAfter - dateBefore) / 1000) + " seconds");
 				GlanetRunner.appendLog("**********************************************************");
 
-				entrezGeneId2KMap = null;
+				geneEntrezID2KMap = null;
 
 				System.gc();
 				System.runFinalization();
@@ -10875,6 +10981,16 @@ public class Annotation {
 			if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
 					!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 					!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
+				
+				
+				//19 April 2016
+				//Hg19 RefSeq Genes
+				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
+				TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+				TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
+				TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+
 
 				// KEGGPathway
 				TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TIntList>();
@@ -10897,6 +11013,7 @@ public class Annotation {
 						dataFolder, 
 						outputFolder, 
 						writeElementBasedAnnotationFoundOverlapsMode,
+						entrezGeneId2KMap,
 						exonBasedKeggPathway2KMap, 
 						regulationBasedKeggPathway2KMap, 
 						allBasedKeggPathway2KMap,
@@ -10907,8 +11024,31 @@ public class Annotation {
 						refSeqRNANucleotideAccessionNumber2NameMap, 
 						Commons.KEGG_PATHWAY,
 						GeneSetType.KEGGPATHWAY,
-						associationMeasureType);
+						associationMeasureType,
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap,
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap);
+				
+				//Hg19 RefSeq Genes
+				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
+				writeGeneOverlapAnalysisFile( outputFolder,
+						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
+						geneOverlapAnalysisFileMode, 
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap, 
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap, 
+						geneHugoSymbolNumber2NameMap);
+
+				writeResultsWithNumbers( 
+						entrezGeneId2KMap, 
+						geneEntrezId2GeneOfficialSymbolMap, 
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+
+				//KEGG
 				writeResultsWithNumbers(
 						exonBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
@@ -10948,6 +11088,16 @@ public class Annotation {
 			/************ USER DEFINED GENESET*****ANNOTATION***starts *********************/
 			/*******************************************************************************/
 			if( userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
+				
+				
+				//19 April 2016
+				//Hg19 RefSeq Genes
+				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
+				TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+				TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
+				TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+
 
 				// UserDefinedGeneSet
 				TIntIntMap exonBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();
@@ -10987,6 +11137,7 @@ public class Annotation {
 						dataFolder, 
 						outputFolder, 
 						writeElementBasedAnnotationFoundOverlapsMode,
+						entrezGeneId2KMap,
 						exonBasedUserDefinedGeneSet2KMap, 
 						regulationBasedUserDefinedGeneSet2KMap,
 						allBasedUserDefinedGeneSet2KMap, 
@@ -10997,8 +11148,32 @@ public class Annotation {
 						refSeqRNANucleotideAccessionNumber2NameMap, 
 						userDefinedGeneSetName,
 						GeneSetType.USERDEFINEDGENESET,
-						associationMeasureType);
+						associationMeasureType,
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap,
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap);
+				
+				
+				//Hg19 RefSeq Genes
+				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
+				writeGeneOverlapAnalysisFile( outputFolder,
+						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
+						geneOverlapAnalysisFileMode, 
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap, 
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap, 
+						geneHugoSymbolNumber2NameMap);
+
+				writeResultsWithNumbers( 
+						entrezGeneId2KMap, 
+						geneEntrezId2GeneOfficialSymbolMap, 
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+
+				//UDGS
 				writeResultsWithNumbers(
 						exonBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
@@ -11140,7 +11315,8 @@ public class Annotation {
 			/*******************************************************************************/
 			if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 					!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
-
+				
+				
 				// KEGGPathway
 				TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TIntList>();
 				KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap( 
@@ -11148,6 +11324,15 @@ public class Annotation {
 						Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE, 
 						keggPathwayName2NumberMap,
 						geneId2ListofKeggPathwayNumberMap);
+				
+				
+				//19 April 2016
+				//Hg19 RefSeq Genes
+				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
+				TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+				TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
+				TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
 
 				// TF
 				TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
@@ -11173,12 +11358,17 @@ public class Annotation {
 						writeElementBasedAnnotationFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
+						entrezGeneId2KMap,
 						exonBasedKeggPathway2KMap, 
 						regulationBasedKeggPathway2KMap,
 						allBasedKeggPathway2KMap, 
 						tfExonBasedKeggPathway2KMap, 
 						tfRegulationBasedKeggPathway2KMap,
-						tfAllBasedKeggPathway2KMap, 
+						tfAllBasedKeggPathway2KMap,
+						null,
+						null,
+						null,
+						AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 						overlapDefinition,
 						tfNumber2NameMap, 
 						cellLineNumber2NameMap,
@@ -11187,7 +11377,32 @@ public class Annotation {
 						geneId2ListofKeggPathwayNumberMap,
 						geneHugoSymbolNumber2NameMap, 
 						refSeqRNANucleotideAccessionNumber2NameMap,
-						associationMeasureType);
+						associationMeasureType,
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap,
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap);
+				
+				
+				
+				//Hg19 RefSeq Genes
+				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
+
+				writeGeneOverlapAnalysisFile( outputFolder,
+						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
+						geneOverlapAnalysisFileMode, 
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap, 
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap, 
+						geneHugoSymbolNumber2NameMap);
+
+				writeResultsWithNumbers( 
+						entrezGeneId2KMap, 
+						geneEntrezId2GeneOfficialSymbolMap, 
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+
 
 				// TF
 				writeResultsWithNumbers( tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap,
@@ -11268,6 +11483,16 @@ public class Annotation {
 			if( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation() && 
 					!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation())){
 
+				
+				//19 April 2016
+				//Hg19 RefSeq Genes
+				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
+				TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+				TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
+				TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+
+				
 				// KEGGPathway
 				TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TIntList>();
 				KeggPathwayUtility.createNcbiGeneId2ListofKeggPathwayNumberMap(
@@ -11294,26 +11519,56 @@ public class Annotation {
 
 				dateBefore = System.currentTimeMillis();
 
-				searchTfCellLineKEGGPathwayWithNumbers(
+
+				searchTfKEGGPathwayWithNumbers( 
 						dataFolder, 
-						outputFolder,
-						writeElementBasedAnnotationFoundOverlapsMode, 
+						outputFolder, 
+						writeElementBasedAnnotationFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
-						tfNumberCellLineNumber2KMap,
+						tfNumberCellLineNumber2KMap, 
+						entrezGeneId2KMap,
 						exonBasedKeggPathway2KMap, 
-						regulationBasedKeggPathway2KMap, 
-						allBasedKeggPathway2KMap,
+						regulationBasedKeggPathway2KMap,
+						allBasedKeggPathway2KMap, 
+						null, 
+						null,
+						null,
 						tfCellLineExonBasedKeggPathway2KMap, 
 						tfCellLineRegulationBasedKeggPathway2KMap,
-						tfCellLineAllBasedKeggPathway2KMap, 
-						overlapDefinition, 
-						tfNumber2NameMap,
-						cellLineNumber2NameMap, 
+						tfCellLineAllBasedKeggPathway2KMap,
+						AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
+						overlapDefinition,
+						tfNumber2NameMap, 
+						cellLineNumber2NameMap,
 						fileNumber2NameMap, 
-						keggPathwayNumber2NameMap,
-						geneId2ListofKeggPathwayNumberMap, 
-						geneHugoSymbolNumber2NameMap,
-						refSeqRNANucleotideAccessionNumber2NameMap);
+						keggPathwayNumber2NameMap, 
+						geneId2ListofKeggPathwayNumberMap,
+						geneHugoSymbolNumber2NameMap, 
+						refSeqRNANucleotideAccessionNumber2NameMap,
+						associationMeasureType,
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap,
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap);
+				
+				//Hg19 RefSeq Genes
+				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
+
+				writeGeneOverlapAnalysisFile( outputFolder,
+						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
+						geneOverlapAnalysisFileMode, 
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap, 
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap, 
+						geneHugoSymbolNumber2NameMap);
+
+				writeResultsWithNumbers( 
+						entrezGeneId2KMap, 
+						geneEntrezId2GeneOfficialSymbolMap, 
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+
 
 				// TF
 				writeResultsWithNumbers( tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap,
@@ -11392,13 +11647,21 @@ public class Annotation {
 			/*******************************************************************************/
 
 			/*********************************************************************************/
-			/************ Search input interval files for TF *********************************/
-			/************ Search input interval files for KEGG PATHWAY ***********************/
-			/************ Search input interval files for TF AND KEGG PATHWAY ****************/
-			/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
+			/******************************BOTH***********************************************/
+			/************************TF KEGG PATHWAY starts***********************************/
+			/*******************TF CELLLINE KEGG PATHWAY starts*******************************/
 			/*********************************************************************************/
 			if( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation() && 
 					tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
+				
+				//19 April 2016
+				//Hg19 RefSeq Genes
+				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
+				TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+				TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
+				TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+
 
 				// KEGGPathway
 				TIntObjectMap<TIntList> geneId2ListofKeggPathwayNumberMap = new TIntObjectHashMap<TIntList>();
@@ -11429,29 +11692,55 @@ public class Annotation {
 
 				dateBefore = System.currentTimeMillis();
 
-				searchTfandKeggPathwayWithNumbers(
+
+				searchTfKEGGPathwayWithNumbers( 
 						dataFolder, 
-						outputFolder,
-						writeElementBasedAnnotationFoundOverlapsMode, 
+						outputFolder, 
+						writeElementBasedAnnotationFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
-						geneId2ListofKeggPathwayNumberMap,
 						tfNumberCellLineNumber2KMap, 
+						entrezGeneId2KMap,
 						exonBasedKeggPathway2KMap, 
 						regulationBasedKeggPathway2KMap,
 						allBasedKeggPathway2KMap, 
-						tfCellLineExonBasedKeggPathway2KMap,
-						tfCellLineRegulationBasedKeggPathway2KMap, 
-						tfCellLineAllBasedKeggPathway2KMap,
 						tfExonBasedKeggPathway2KMap, 
-						tfRegulationBasedKeggPathway2KMap, 
+						tfRegulationBasedKeggPathway2KMap,
 						tfAllBasedKeggPathway2KMap,
-						overlapDefinition, 
+						tfCellLineExonBasedKeggPathway2KMap, 
+						tfCellLineRegulationBasedKeggPathway2KMap,
+						tfCellLineAllBasedKeggPathway2KMap,
+						AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
+						overlapDefinition,
 						tfNumber2NameMap, 
-						cellLineNumber2NameMap, 
-						fileNumber2NameMap,
+						cellLineNumber2NameMap,
+						fileNumber2NameMap, 
 						keggPathwayNumber2NameMap, 
-						geneHugoSymbolNumber2NameMap,
-						refSeqRNANucleotideAccessionNumber2NameMap);
+						geneId2ListofKeggPathwayNumberMap,
+						geneHugoSymbolNumber2NameMap, 
+						refSeqRNANucleotideAccessionNumber2NameMap,
+						associationMeasureType,
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap,
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap);
+				
+				//Hg19 RefSeq Genes
+				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
+
+				writeGeneOverlapAnalysisFile( outputFolder,
+						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
+						geneOverlapAnalysisFileMode, 
+						givenIntervalNumber2GivenIntervalNameMap,
+						givenIntervalNumber2OverlapInformationMap, 
+						givenIntervalNumber2NumberofGeneOverlapsMap,
+						chromosomeName2CountMap, 
+						geneHugoSymbolNumber2NameMap);
+
+				writeResultsWithNumbers( 
+						entrezGeneId2KMap, 
+						geneEntrezId2GeneOfficialSymbolMap, 
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 
 				// TF
 				writeResultsWithNumbers( tfNumberCellLineNumber2KMap, tfNumber2NameMap, cellLineNumber2NameMap,
@@ -11532,10 +11821,9 @@ public class Annotation {
 
 			}
 			/*********************************************************************************/
-			/************ Search input interval files for TF *********************************/
-			/************ Search input interval files for KEGG PATHWAY ***********************/
-			/************ Search input interval files for TF AND KEGG PATHWAY ****************/
-			/************ Search input interval files for TF AND CELLLINE AND KEGG PATHWAY ***/
+			/******************************BOTH***********************************************/
+			/************************TF KEGG PATHWAY ends*************************************/
+			/*******************TF CELLLINE KEGG PATHWAY ends*********************************/
 			/*********************************************************************************/
 
 		}
@@ -13769,7 +14057,6 @@ public class Annotation {
 			annotateIntervals.annotate(args);
 		}//End of IF
 
-	
 	}
 
 }

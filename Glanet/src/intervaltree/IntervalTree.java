@@ -1397,6 +1397,20 @@ public class IntervalTree {
 			return false;
 	}
 
+	
+	//19 April 2016 starts
+	//There are three intervals
+	//return true if these three intervals overlap at least overlapDefinition bases
+	//else return false
+	public static boolean overlaps( int low_x, int high_x, int low_y, int high_y, int givenInputLine_low, int givenInputLine_high, int overlapDefinition) {
+
+		if( ( low_x <= high_y) && ( low_y <= high_x)){	
+			return overlaps(Math.max(low_x, low_y),Math.min(high_x, high_y),givenInputLine_low,givenInputLine_high,overlapDefinition);
+		}else
+			return false;
+	}
+	//19 April 2016 ends
+	
 	// For debug purposes
 	public static void findGivenNode( IntervalTreeNode node, int low, int high, List<IntervalTreeNode> foundNodes) {
 
@@ -7787,7 +7801,8 @@ public class IntervalTree {
 	
 	//13 April 2016 starts
 	//Annotation
-	//AssociationMeasureType NUMBER_OF_OVERLAPPING_BASES
+	//AssociationMeasureType NOOB
+	//This method is called from gene, geneSet (KEGG or UDGS), TFKEGG, TFCellLineKEGG, Both(TFKEGG and TFCellLineKEGG)
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			IntervalTreeNode node, 
 			Interval interval, 
@@ -7801,7 +7816,7 @@ public class IntervalTree {
 			GeneSetType geneSetType,
 			int givenIntervalNumber,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
-			BufferedWriter bufferedWriter,
+			BufferedWriter hg19RefSeqGenesBufferedWriter,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
@@ -7829,35 +7844,43 @@ public class IntervalTree {
 					
 				}//End of IF
 				
+				
+				
+				
 				//15 April 2016
-				fillGivenIntervalNumber2OverlapInformationMap(castedNode,givenIntervalNumber,givenIntervalNumber2OverlapInformationMap);
-
+				//We can provide this analysis for gene, geneSet, TFKEGG, TFCellLineKEGG and Both(TFKEGG and TFCellLineKEGG)
+				//Do geneAnnotation and geneAnalysis by default
 				try {
 
+					fillGivenIntervalNumber2OverlapInformationMap(castedNode,givenIntervalNumber,givenIntervalNumber2OverlapInformationMap);							
+					
 					// Write Annotation Found Overlaps to element Named File
-					//Commons.HG19_REFSEQ_GENE file is written here
+					// Commons.HG19_REFSEQ_GENE file is written here
 					if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-						bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+						hg19RefSeqGenesBufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
 					}
+			
+					fillMapofOverlappingNodeList(castedNode,geneEntrezID2OverlappingNodeListMap);
 					
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+				
 				
 				switch(geneSetType){
 				
 					case KEGGPATHWAY:	
 					case USERDEFINEDGENESET:						
+						
 						//EXON Based GeneSet Analysis
 						if( castedNode.getIntervalName().isExon()){
 							
-							//11 NOV 2015 starts
 							fillMapofOverlappingNodeList(
 									geneId2ListofGeneSetNumberMap,
 									castedNode,
 									exonBasedGeneSetNumber2OverlappingNodeListMap);
-							//11 NOV 2015 ends
+							
 
 						}// End of IF: Overlapped node is an exon
 							
@@ -7867,28 +7890,25 @@ public class IntervalTree {
 							castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
 							castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-							//11 NOV 2015 starts
 							fillMapofOverlappingNodeList(
 									geneId2ListofGeneSetNumberMap,
 									castedNode,
 									regulationBasedGeneSetNumber2OverlappingNodeListMap);
-							//11 NOV 2015 ends
+							
 
 						}// End of IF: Regulation Based GeneSet Analysis, Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
 								
 						// ALL Based GeneSet Analysis
-						//11 NOV 2015 starts
 						fillMapofOverlappingNodeList(
 								geneId2ListofGeneSetNumberMap,
 								castedNode,
 								allBasedGeneSetNumber2OverlappingNodeListMap);
-						//11 NOV 2015 ends
+						
 						break;
 						
-					case NO_GENESET_TYPE_IS_DEFINED:
-						
-						fillMapofOverlappingNodeList(castedNode,geneEntrezID2OverlappingNodeListMap);
+					default:
 						break;
+
 					
 				}//End of SWITCH
 
@@ -7911,7 +7931,7 @@ public class IntervalTree {
 					geneSetType,
 					givenIntervalNumber,
 					givenIntervalNumber2OverlapInformationMap,
-					bufferedWriter,
+					hg19RefSeqGenesBufferedWriter,
 					writeElementBasedAnnotationFoundOverlapsMode,
 					geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 					refSeqGeneNumber2RefSeqGeneNameMap);
@@ -7931,7 +7951,7 @@ public class IntervalTree {
 					geneSetType,
 					givenIntervalNumber,
 					givenIntervalNumber2OverlapInformationMap,
-					bufferedWriter,
+					hg19RefSeqGenesBufferedWriter,
 					writeElementBasedAnnotationFoundOverlapsMode,
 					geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 					refSeqGeneNumber2RefSeqGeneNameMap);
@@ -9595,8 +9615,9 @@ public class IntervalTree {
 		/*******************************************************************************/
 		/******** GIVEN INTERVAL NUMBER 2 OVERLAP INFORMATION MAP starts ***************/
 		/*******************************************************************************/
+		
 		overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
-
+		
 		// For this given interval, an overlap is put for the first time.
 		if( overlapInformation == null){
 
