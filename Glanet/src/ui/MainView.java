@@ -48,7 +48,8 @@ public class MainView extends JPanel {
 	private JScrollPane scrollPane;
 	private MainViewDelegate delegate;
 	private JTextField jobName;
-	private JTextField outputTextField;
+	private JTextField glanetFolderTextField;
+	private JTextField outputFolderTextField;
 	private JTextField inputTextField;
 	private JTextField falseDiscoveryRate;
 	private JTextField signifanceCriteria;
@@ -143,6 +144,8 @@ public class MainView extends JPanel {
 
 			if( e.getActionCommand() == "Glanet Folder")
 				fc.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY);
+			else if( e.getActionCommand() == "Output Folder")
+				fc.setFileSelectionMode( JFileChooser.DIRECTORIES_ONLY);
 			else if( e.getActionCommand() == "Input File Name")
 				fc.setFileSelectionMode( JFileChooser.FILES_ONLY);
 			else if( e.getActionCommand() == "User Defined GeneSet Input File"){
@@ -165,7 +168,7 @@ public class MainView extends JPanel {
 				File file = fc.getSelectedFile();
 				// This is where a real application would open the file.
 				if( e.getActionCommand() == "Glanet Folder"){
-					outputTextField.setText( file.getPath() + System.getProperty( "file.separator"));
+					glanetFolderTextField.setText( file.getPath() + System.getProperty( "file.separator"));
 					cellLinesList.removeAll();
 					String[] cellLinesArray = createCellLines();
 
@@ -190,14 +193,14 @@ public class MainView extends JPanel {
 		@Override
 		public void actionPerformed( ActionEvent e) {
 
-			if( inputTextField.getText().length() <= 0 || outputTextField.getText().length() <= 0 || ( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0) || ( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
+			if( inputTextField.getText().length() <= 0 || glanetFolderTextField.getText().length() <= 0 || ( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0) || ( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
 					|| (associationMeasureTypeCombo.getSelectedItem().toString().equals(Commons.EXISTENCE_OF_OVERLAP) && Integer.parseInt(numberOfBases.getText())<1) ){
 
 				String dialogMessage = "Please fill all the necessary parameters:\n";
 
 				if( inputTextField.getText().length() <= 0)
 					dialogMessage += "Input File Name\n";
-				if( outputTextField.getText().length() <= 0)
+				if( glanetFolderTextField.getText().length() <= 0)
 					dialogMessage += "GLANET Folder\n";
 				if (associationMeasureTypeCombo.getSelectedItem().toString().equals(Commons.EXISTENCE_OF_OVERLAP) && Integer.parseInt(numberOfBases.getText())<1)
 					dialogMessage += "Overlap definition must be at least 1 base or more\n";
@@ -216,7 +219,7 @@ public class MainView extends JPanel {
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
 						inputAssembly.getSelectedItem().toString(),
-						outputTextField.getText(),
+						glanetFolderTextField.getText(),
 						inputFormatCombo.getSelectedItem().toString(),
 						associationMeasureTypeCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
@@ -357,6 +360,27 @@ public class MainView extends JPanel {
 		}
 	};
 	
+	DocumentListener glanetFolderTextFieldListener = new DocumentListener() {
+
+		@Override
+		public void removeUpdate( DocumentEvent e) {
+
+			glanetFolderChanged();
+		}
+
+		@Override
+		public void insertUpdate( DocumentEvent e) {
+
+			glanetFolderChanged();
+		}
+
+		@Override
+		public void changedUpdate( DocumentEvent e) {
+
+			// do nothing
+		}
+	};
+	
 	public void setPreferredSizeForScrollPane(int width, int height){
 		
 		if( scrollPane != null){
@@ -380,12 +404,11 @@ public class MainView extends JPanel {
 		scrollPane.setPreferredSize( new Dimension( 1024, 768));
 
 		// inputBrowseAndOptionPane added to listPane
-		JPanel inputBrowseAndOptionPane = new JPanel( new FlowLayout( FlowLayout.LEFT));
-
+		JPanel inputBrowseAndOptionPane = new JPanel();
+		inputBrowseAndOptionPane.setLayout( new BoxLayout( inputBrowseAndOptionPane, BoxLayout.LINE_AXIS));
 		// inputTextField added to inputBrowseAndOptionPane
 		inputTextField = new JTextField( 30);
-		inputBrowseAndOptionPane.add( createBrowseFileArea( "Input File Name", inputTextField,
-				Commons.GUI_HINT_INPUT_FILE_NAME));
+		inputBrowseAndOptionPane.add( createBrowseFileArea( "Input File Name", inputTextField, Commons.GUI_HINT_INPUT_FILE_NAME));
 		inputTextField.getDocument().addDocumentListener( inputTextFieldListener);
 
 		// inputFormatCombo added to inputBrowseAndOptionPane
@@ -411,8 +434,15 @@ public class MainView extends JPanel {
 		listPane.add( inputBrowseAndOptionPane);
 
 		// outputTextField added to listPane
-		outputTextField = new JTextField( 50);
-		listPane.add( createBrowseFileArea( "Glanet Folder", outputTextField, Commons.GUI_HINT_GLANET_FOLDER));
+		JPanel glanetAndOutputFolderPane = new JPanel();
+		glanetAndOutputFolderPane.setLayout( new BoxLayout( glanetAndOutputFolderPane, BoxLayout.LINE_AXIS));
+		
+		glanetFolderTextField = new JTextField( 30);
+		outputFolderTextField = new JTextField( 30);
+		glanetAndOutputFolderPane.add( createBrowseFileArea( "Glanet Folder", glanetFolderTextField, Commons.GUI_HINT_GLANET_FOLDER));
+		glanetAndOutputFolderPane.add( createBrowseFileArea( "Output Folder", outputFolderTextField, Commons.GUI_HINT_OUTPUT_FOLDER));
+		
+		listPane.add( glanetAndOutputFolderPane);
 
 		// annotationPanel added to listPane
 		JPanel annotationPanel = new JPanel();
@@ -901,7 +931,7 @@ public class MainView extends JPanel {
 	public void enableStartProcess( boolean shouldEnable) {
 
 		jobName.setEnabled( shouldEnable);
-		outputTextField.setEnabled( shouldEnable);
+		glanetFolderTextField.setEnabled( shouldEnable);
 		inputTextField.setEnabled( shouldEnable);
 		falseDiscoveryRate.setEnabled( shouldEnable);
 		signifanceCriteria.setEnabled( shouldEnable);
@@ -937,7 +967,7 @@ public class MainView extends JPanel {
 	// if you want to change the cell lines, please change here
 	private String[] createCellLines() {
 
-		if( outputTextField == null || outputTextField.getText().length() < 1)
+		if( glanetFolderTextField == null || glanetFolderTextField.getText().length() < 1)
 			return new String[0];
 
 		ArrayList<String> cellLinesListFromFile = new ArrayList<String>();
@@ -945,7 +975,7 @@ public class MainView extends JPanel {
 		try{
 
 			File file = new File(
-					outputTextField.getText() + Commons.DATA + System.getProperty( "file.separator") + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES_FILENAME);
+					glanetFolderTextField.getText() + Commons.DATA + System.getProperty( "file.separator") + Commons.ALL_POSSIBLE_NAMES_ENCODE_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_ENCODE_CELL_LINES_NAMES_FILENAME);
 			FileReader fileReader = new FileReader( file);
 			BufferedReader bufferedReader = new BufferedReader( fileReader);
 			String line;
@@ -963,8 +993,16 @@ public class MainView extends JPanel {
 		String inputPath = inputTextField.getText();
 		if( inputPath.contains( "Data" + System.getProperty( "file.separator"))){
 
-			outputTextField.setText( inputPath.substring( 0,
-					inputPath.indexOf( "Data" + System.getProperty( "file.separator"))));
+			glanetFolderTextField.setText( inputPath.substring( 0, inputPath.indexOf( "Data" + System.getProperty( "file.separator"))));
+			glanetFolderChanged();
+		}
+	}
+	
+	public void glanetFolderChanged(){
+		
+		if( outputFolderTextField != null && glanetFolderTextField.getText().length() > 0 && outputFolderTextField.getText().length() < 1){
+			
+			outputFolderTextField.setText( glanetFolderTextField.getText() + Commons.OUTPUT + System.getProperty( "file.separator"));
 		}
 	}
 }
