@@ -1365,7 +1365,9 @@ public class Commons {
 	public static final String UCSC_GENE_ALTERNATE_NAME_ANNOTATION_DIRECTORY = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.UCSC_GENE_ALTERNATE_NAME + System.getProperty( "file.separator");
 
 	// hg19 RefSeq Genes
-	public static final String HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.HG19_REFSEQ_GENE + System.getProperty( "file.separator");
+	public static final String HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY = Commons.ANNOTATION + System.getProperty("file.separator") + Commons.HG19_REFSEQ_GENE + System.getProperty( "file.separator");
+	public static final String ANALYSIS = "Analysis";
+	public static final String ANALYSIS_DIRECTORY = Commons.ANALYSIS + System.getProperty("file.separator");
 	public static final String OVERLAP_ANALYSIS_FILE = "Overlap_Analysis_File.txt";
 
 	// UserDefinedGeneSet

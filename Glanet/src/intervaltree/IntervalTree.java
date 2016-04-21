@@ -8001,28 +8001,34 @@ public class IntervalTree {
 	
 	
 	//13 April 2016 starts
-	//Annotation
-	//AssociationMeasureType NOOB
+	//Annotation NOOB
 	//This method is called from gene, geneSet (KEGG or UDGS), TFKEGG, TFCellLineKEGG, Both(TFKEGG and TFCellLineKEGG)
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+			String outputFolder,
 			IntervalTreeNode node, 
 			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
+			TIntObjectMap<List<IntervalTreeNode>> geneEntrezID2OverlappingNodeListMap,
 			TIntObjectMap<List<IntervalTreeNode>> exonBasedGeneSetNumber2OverlappingNodeListMap,
 			TIntObjectMap<List<IntervalTreeNode>> regulationBasedGeneSetNumber2OverlappingNodeListMap,
 			TIntObjectMap<List<IntervalTreeNode>> allBasedGeneSetNumber2OverlappingNodeListMap, 
-			TIntObjectMap<List<IntervalTreeNode>> geneEntrezID2OverlappingNodeListMap,
 			String type,
 			GeneSetType geneSetType,
 			int givenIntervalNumber,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
 			BufferedWriter hg19RefSeqGenesBufferedWriter,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TIntByteMap geneEntrezID2HeaderWrittenMap,
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap) {
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		int geneEntrezID = Integer.MIN_VALUE;
 		
 		if( Commons.NCBI_GENE_ID.equals(type)){
 			
@@ -8045,21 +8051,39 @@ public class IntervalTree {
 					
 				}//End of IF
 				
-				
+				geneEntrezID = castedNode.getGeneEntrezId();
 				
 				
 				//15 April 2016
 				//We can provide this analysis for gene, geneSet, TFKEGG, TFCellLineKEGG and Both(TFKEGG and TFCellLineKEGG)
-				//Do geneAnnotation and geneAnalysis by default
+				//Hg19 RefSeq Gene Annotation and geneAnalysis is done by default
 				try {
 
 					fillGivenIntervalNumber2OverlapInformationMap(castedNode,givenIntervalNumber,givenIntervalNumber2OverlapInformationMap);							
 					
+					hg19RefSeqGenesBufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+					
+					//21 April 2016 starts
+					/*******************************************************************/
 					// Write Annotation Found Overlaps to element Named File
-					// Commons.HG19_REFSEQ_GENE file is written here
 					if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-						hg19RefSeqGenesBufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+						fileWriter = FileOperations.createFileWriter(
+								outputFolder + Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + ".txt",
+							true);
+						bufferedWriter = new BufferedWriter( fileWriter);
+
+						//Write header only once for each geneEntrezID
+						if( !geneEntrezID2HeaderWrittenMap.containsKey(geneEntrezID)){
+							geneEntrezID2HeaderWrittenMap.put(geneEntrezID, Commons.BYTE_1);
+							bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + "Gene Chr" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + "GeneRNAName" + "\t" + "GeneIntervalName" + "\t" + "GeneIntervalNumber" + "\t" + "GeneHugoSymbol" + "\t" + "GeneEntrezID" +   System.getProperty("line.separator"));
+							
+						}
+
+						bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+						bufferedWriter.close();
 					}
+					/*******************************************************************/
+					//21 April 2016 ends
 			
 					fillMapofOverlappingNodeList(castedNode,geneEntrezID2OverlappingNodeListMap);
 					
@@ -8120,40 +8144,44 @@ public class IntervalTree {
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					outputFolder,
 					node.getLeft(),
 					interval, 
 					chromName, 
 					geneId2ListofGeneSetNumberMap,
+					geneEntrezID2OverlappingNodeListMap,
 					exonBasedGeneSetNumber2OverlappingNodeListMap,
 					regulationBasedGeneSetNumber2OverlappingNodeListMap, 
 					allBasedGeneSetNumber2OverlappingNodeListMap,
-					geneEntrezID2OverlappingNodeListMap,
 					type,
 					geneSetType,
 					givenIntervalNumber,
 					givenIntervalNumber2OverlapInformationMap,
 					hg19RefSeqGenesBufferedWriter,
 					writeElementBasedAnnotationFoundOverlapsMode,
+					geneEntrezID2HeaderWrittenMap,
 					geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 					refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
-				node.getRight(),
+					outputFolder,
+					node.getRight(),
 					interval, 
 					chromName, 
 					geneId2ListofGeneSetNumberMap,
+					geneEntrezID2OverlappingNodeListMap,
 					exonBasedGeneSetNumber2OverlappingNodeListMap,
 					regulationBasedGeneSetNumber2OverlappingNodeListMap, 
 					allBasedGeneSetNumber2OverlappingNodeListMap,
-					geneEntrezID2OverlappingNodeListMap,
 					type,
 					geneSetType,
 					givenIntervalNumber,
 					givenIntervalNumber2OverlapInformationMap,
 					hg19RefSeqGenesBufferedWriter,
 					writeElementBasedAnnotationFoundOverlapsMode,
+					geneEntrezID2HeaderWrittenMap,
 					geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 					refSeqGeneNumber2RefSeqGeneNameMap);
 		}
@@ -10042,19 +10070,20 @@ public class IntervalTree {
 	
 	
 
-	// Annotation
-	// hg19 RefSeq Gene Annotation with numbers starts
+	// Annotation EOO
+	// Hg19 RefSeq Genes
 	// Implemented for Chen Yao Paper
 	public void findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers( 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			BufferedWriter bufferedWriter, 
+			BufferedWriter hg19RefSeqGeneBufferedWriter, 
 			int givenIntervalNumber,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap, 
 			IntervalTreeNode node,
 			Interval interval, 
 			ChromosomeName chromName, 
-			TIntByteMap entrezGeneID2OneorZeroMap, 
+			TIntByteMap geneEntrezID2HeaderWrittenMap,
+			TIntByteMap geneEntrezID2OneorZeroMap, 
 			String type,
 			int overlapDefinition, 
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
@@ -10063,6 +10092,9 @@ public class IntervalTree {
 		int geneEntrezId;
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
 
 		
 		if( Commons.NCBI_GENE_ID.equals( type)){
@@ -10077,18 +10109,38 @@ public class IntervalTree {
 
 				try{
 
-					if( !entrezGeneID2OneorZeroMap.containsKey( geneEntrezId)){
-						entrezGeneID2OneorZeroMap.put( geneEntrezId, Commons.BYTE_1);
+					if( !geneEntrezID2OneorZeroMap.containsKey( geneEntrezId)){
+						geneEntrezID2OneorZeroMap.put( geneEntrezId, Commons.BYTE_1);
 					}
 
 					//15 April 2016
 					fillGivenIntervalNumber2OverlapInformationMap(castedNode,givenIntervalNumber,givenIntervalNumber2OverlapInformationMap);
 					
+					//Write to Hg19 RefSeqGene File
+					hg19RefSeqGeneBufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+
+					
+					//21 April 2016 starts
+					/*******************************************************************/
 					// Write Annotation Found Overlaps to element Named File
 					if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
-						bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
-					}
+						fileWriter = FileOperations.createFileWriter(
+								outputFolder + Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + ".txt",
+							true);
+						bufferedWriter = new BufferedWriter( fileWriter);
 
+						//Write header only once for each elementNumber
+						if( !geneEntrezID2HeaderWrittenMap.containsKey(geneEntrezId)){
+							geneEntrezID2HeaderWrittenMap.put(geneEntrezId, Commons.BYTE_1);
+							bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + "Gene Chr" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + "GeneRNAName" + "\t" + "GeneIntervalName" + "\t" + "GeneIntervalNumber" + "\t" + "GeneHugoSymbol" + "\t" + "GeneEntrezID" +   System.getProperty("line.separator"));
+						}
+
+						bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+						bufferedWriter.close();
+					}
+					/*******************************************************************/
+					//21 April 2016 ends
+					
 				}catch( IOException e){
 					if( GlanetRunner.shouldLog())logger.error( e.toString());
 				}
@@ -10096,26 +10148,47 @@ public class IntervalTree {
 		} // End of IF: type is NCBI_GENE_ID
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers( outputFolder,
-					writeElementBasedAnnotationFoundOverlapsMode, bufferedWriter, givenIntervalNumber,
-					givenIntervalNumber2OverlapInformationMap, node.getLeft(), interval, chromName,
-					entrezGeneID2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode, 
+					hg19RefSeqGeneBufferedWriter, 
+					givenIntervalNumber,
+					givenIntervalNumber2OverlapInformationMap, 
+					node.getLeft(), 
+					interval, 
+					chromName,
+					geneEntrezID2HeaderWrittenMap,
+					geneEntrezID2OneorZeroMap, 
+					type, 
+					overlapDefinition, 
+					geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 					refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers( outputFolder,
-					writeElementBasedAnnotationFoundOverlapsMode, bufferedWriter, givenIntervalNumber,
-					givenIntervalNumber2OverlapInformationMap, node.getRight(), interval, chromName,
-					entrezGeneID2OneorZeroMap, type, overlapDefinition, geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			findAllGeneOverlappingUcscRefSeqGenesIntervalsWithNumbers(
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode, 
+					hg19RefSeqGeneBufferedWriter, 
+					givenIntervalNumber,
+					givenIntervalNumber2OverlapInformationMap, 
+					node.getRight(), 
+					interval, 
+					chromName,
+					geneEntrezID2HeaderWrittenMap,
+					geneEntrezID2OneorZeroMap, 
+					type, 
+					overlapDefinition, 
+					geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 					refSeqGeneNumber2RefSeqGeneNameMap);
 
 		}
 	}
 
-	// @todo Gene Annotation with numbers ends
+	
 
-	// Annotation with Numbers starts
+	// Annotation EOO
+	// GeneSet (KEGGPathway or UDGS)
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
