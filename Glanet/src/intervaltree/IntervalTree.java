@@ -2759,10 +2759,15 @@ public class IntervalTree {
 	}
 	
 	//17 April 2016
-	//Annotation
+	//Annotation NOOB
 	//Histone
-	//NOOB
 	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+			String outputFolder,
+			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TIntByteMap histoneCellLineNumber2HeaderWrittenMap,
+			TIntObjectMap<String> histoneNumber2HistoneNameMap,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap,
 			IntervalTreeNode node,
 			Interval interval, 
 			ChromosomeName chromName,
@@ -2774,10 +2779,15 @@ public class IntervalTree {
 		
 		List<IntervalTreeNode> overlappingNodeList = null;
 		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		String histoneName = null;
+		String cellLineName = null;
+		String fileName = null;
+		
 
 		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			
 			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
 				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and there must be no color assigned at first.
@@ -2797,6 +2807,34 @@ public class IntervalTree {
 					castedNode.getTforHistoneNumber(), 
 					castedNode.getCellLineNumber(),
 					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
+			
+			//21 April 2016
+			try {
+				
+				// Write Annotation Found Overlaps to element Named File
+				if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+
+					histoneName = histoneNumber2HistoneNameMap.get( castedNode.getTforHistoneNumber());
+					cellLineName = cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber());
+					fileName = fileNumber2FileNameMap.get( castedNode.getFileNumber());
+
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.HISTONE_ANNOTATION_DIRECTORY + histoneName + "_" + cellLineName + ".txt",true);
+					bufferedWriter = new BufferedWriter( fileWriter);
+
+					//Write header line only once for each elementNumberCellLineNumber .
+					if( !histoneCellLineNumber2HeaderWrittenMap.containsKey( elementNumberCellLineNumber)){
+						histoneCellLineNumber2HeaderWrittenMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
+						bufferedWriter.write( "#Searched for chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + "Histone chr" + "\t" + "Histone Interval Low" + "\t" + "Histone Interval High" + "\t" + "HistoneName" + "\t" + "CellLineName" + "\t" + "FileName" + System.getProperty( "line.separator"));
+					}
+
+					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + histoneName + "\t" + cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+					bufferedWriter.close();
+				}
+			
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//21 April 2016
 
 			overlappingNodeList = histoneNumberCellLineNumber2OverlappingNodeListMap.get(elementNumberCellLineNumber);
 			
@@ -2816,6 +2854,12 @@ public class IntervalTree {
 		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
 			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					histoneCellLineNumber2HeaderWrittenMap,
+					histoneNumber2HistoneNameMap,
+					cellLineNumber2CellLineNameMap, 
+					fileNumber2FileNameMap,
 					node.getLeft(), 
 					interval,
 					chromName, 
@@ -2825,6 +2869,12 @@ public class IntervalTree {
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
 			
 			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					histoneCellLineNumber2HeaderWrittenMap,
+					histoneNumber2HistoneNameMap,
+					cellLineNumber2CellLineNameMap, 
+					fileNumber2FileNameMap,
 					node.getRight(), 
 					interval,
 					chromName, 
@@ -3063,25 +3113,20 @@ public class IntervalTree {
 	}
 
 	//Modified 20 July 2015
-	// Annotation
+	// Annotation EOO
 	// HISTONE
-	// With Numbers
-	// Search2 For finding the number of each histoneNameandCellLineName: k for
-	// the given search input size: n
-	// For each search input line, each histoneNameandCellLineName will have
-	// value 1 or 0
-	// These 1 or 0's will be accumulated in histoneNameandCellLineName2KMap
 	public void findAllOverlappingHistoneIntervalsWithNumbers(
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TIntByteMap histoneCellLineNumber2HeaderWrittenMap,
+			TIntObjectMap<String> histoneNumber2HistoneNameMap,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap,
 			IntervalTreeNode node, 
 			Interval interval, 
 			ChromosomeName chromName,
 			TIntByteMap histoneNumberCellLineNumber2ZeroorOneMap, 
-			int overlapDefinition,
-			TIntObjectMap<String> histoneNumber2HistoneNameMap,
-			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
-			TIntObjectMap<String> fileNumber2FileNameMap) {
+			int overlapDefinition) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -3097,13 +3142,6 @@ public class IntervalTree {
 		}
 
 		
-		// KEGG Pathway number included
-		// WHY?
-//		int histoneNumberCellLineNumber = generateElementNumberCellLineNumberKeggPathwayNumber(
-//				castedNode.getTforHistoneNumber(),
-//				castedNode.getCellLineNumber(),
-//				( short)0,
-//				GeneratedMixedNumberDescriptionOrderLength.INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER);
 		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
 				castedNode.getTforHistoneNumber(), 
 				castedNode.getCellLineNumber(),
@@ -3121,26 +3159,24 @@ public class IntervalTree {
 					cellLineName = cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber());
 					fileName = fileNumber2FileNameMap.get( castedNode.getFileNumber());
 
-					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.HISTONE_ANNOTATION_DIRECTORY + histoneName + "_" + cellLineName + ".txt",
-							true);
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.HISTONE_ANNOTATION_DIRECTORY + histoneName + "_" + cellLineName + ".txt",true);
 					bufferedWriter = new BufferedWriter( fileWriter);
 
-					if( !histoneNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
-						histoneNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
-						bufferedWriter.write( "#Searched for chr" + "\t" + "interval low" + "\t" + "interval high" + "\t" + "histone node chrom name" + "\t" + "node Low" + "\t" + "node high" + "\t" + "node HistoneName" + "\t" + "node CellLineName" + "\t" + "node FileName" + System.getProperty( "line.separator"));
+					//Write header line only once for each elementNumberCellLineNumber .
+					if( !histoneCellLineNumber2HeaderWrittenMap.containsKey( elementNumberCellLineNumber)){
+						histoneCellLineNumber2HeaderWrittenMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
+						bufferedWriter.write( "#Searched for chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + "Histone chr" + "\t" + "Histone Interval Low" + "\t" + "Histone Interval High" + "\t" + "HistoneName" + "\t" + "CellLineName" + "\t" + "FileName" + System.getProperty( "line.separator"));
 					}
 
 					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + histoneName + "\t" + cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
 					bufferedWriter.close();
 				}
 
-				// Do not Write Annotation Found Overlaps to element Named File
-				else{
-					if( !histoneNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
-						histoneNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
-					}
+				
+				if( !histoneNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
+					histoneNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
 				}
+				
 
 			}catch( IOException e){
 				if( GlanetRunner.shouldLog())logger.error( e.toString());
@@ -3148,21 +3184,39 @@ public class IntervalTree {
 		}
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingHistoneIntervalsWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
-					node.getLeft(), interval, chromName, histoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition,
-					histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			findAllOverlappingHistoneIntervalsWithNumbers(
+					outputFolder, 
+					writeElementBasedAnnotationFoundOverlapsMode,
+					histoneCellLineNumber2HeaderWrittenMap,
+					histoneNumber2HistoneNameMap, 
+					cellLineNumber2CellLineNameMap, 
+					fileNumber2FileNameMap,
+					node.getLeft(), 
+					interval, 
+					chromName, 
+					histoneNumberCellLineNumber2ZeroorOneMap, 
+					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingHistoneIntervalsWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode,
-					node.getRight(), interval, chromName, histoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition,
-					histoneNumber2HistoneNameMap, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
+			findAllOverlappingHistoneIntervalsWithNumbers(
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					histoneCellLineNumber2HeaderWrittenMap,
+					histoneNumber2HistoneNameMap, 
+					cellLineNumber2CellLineNameMap, 
+					fileNumber2FileNameMap,
+					node.getRight(), 
+					interval, 
+					chromName, 
+					histoneNumberCellLineNumber2ZeroorOneMap, 
+					overlapDefinition);
 
 		}
 
 	}
 
-	// @todo for Annotation with Numbers ends
+	
 
 	// Search2 For finding the number of each histoneNameandCellLineName: k for
 	// the given search input size: n
@@ -6227,7 +6281,7 @@ public class IntervalTree {
 	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			TIntByteMap dnaseCellLineNumber2HeaderWritenMap,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
 			TIntObjectMap<String> fileNumber2FileNameMap,
 			IntervalTreeNode node,
@@ -6269,15 +6323,12 @@ public class IntervalTree {
 					cellLineName = cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber());
 					fileName = fileNumber2FileNameMap.get( castedNode.getFileNumber());
 	
-					
-					fileWriter = FileOperations.createFileWriter(
-								outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt", true);
-					
-					bufferedWriter = new BufferedWriter( fileWriter);
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt", true);					
+					bufferedWriter = new BufferedWriter(fileWriter);
 						 
 					//Write header only once for each DNase cellLine
-					if (!dnaseCellLineNumber2HeaderWritenMap.containsKey(castedNode.getCellLineNumber())){
-						dnaseCellLineNumber2HeaderWritenMap.put(castedNode.getCellLineNumber(),Commons.BYTE_1);
+					if (!dnaseCellLineNumber2HeaderWrittenMap.containsKey(castedNode.getCellLineNumber())){
+						dnaseCellLineNumber2HeaderWrittenMap.put(castedNode.getCellLineNumber(),Commons.BYTE_1);
 						
 						bufferedWriter.write("#Searched for chr" + "\t" + "given interval low" + "\t" +
 								 "given interval high" + "\t" + "DNase overlap chrom name" + "\t" + "DNase low" + "\t" +
@@ -6293,11 +6344,8 @@ public class IntervalTree {
 				}// End of IF
 			
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-
 			
 
 			dnaseCellLineNumber = castedNode.getCellLineNumber();
@@ -6320,7 +6368,7 @@ public class IntervalTree {
 			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					writeElementBasedAnnotationFoundOverlapsMode,
-					dnaseCellLineNumber2HeaderWritenMap,
+					dnaseCellLineNumber2HeaderWrittenMap,
 					cellLineNumber2CellLineNameMap, 
 					fileNumber2FileNameMap,
 					node.getLeft(), 
@@ -6333,7 +6381,7 @@ public class IntervalTree {
 			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
 					outputFolder,
 					writeElementBasedAnnotationFoundOverlapsMode,
-					dnaseCellLineNumber2HeaderWritenMap,
+					dnaseCellLineNumber2HeaderWrittenMap,
 					cellLineNumber2CellLineNameMap, 
 					fileNumber2FileNameMap,
 					node.getRight(), 
@@ -6685,7 +6733,7 @@ public class IntervalTree {
 	public void findAllOverlappingDnaseIntervalsWithNumbers(
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			TIntByteMap dnaseCellLineNumber2HeaderWritenMap,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
 			TIntObjectMap<String> fileNumber2FileNameMap,
 			IntervalTreeNode node, 
@@ -6702,9 +6750,7 @@ public class IntervalTree {
 
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 		
-		
 		if( node instanceof DnaseIntervalTreeNodeWithNumbers){
-
 			castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 		}
 
@@ -6718,18 +6764,16 @@ public class IntervalTree {
 					cellLineName = cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber());
 					fileName = fileNumber2FileNameMap.get( castedNode.getFileNumber());
 
-					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt", true);
-
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt", true);
 					bufferedWriter = new BufferedWriter( fileWriter);
 						 
 					//Write header only once for each DNase cellLine
-					if (!dnaseCellLineNumber2HeaderWritenMap.containsKey(castedNode.getCellLineNumber())){
-						dnaseCellLineNumber2HeaderWritenMap.put(castedNode.getCellLineNumber(),Commons.BYTE_1);
+					if (!dnaseCellLineNumber2HeaderWrittenMap.containsKey(castedNode.getCellLineNumber())){
+						dnaseCellLineNumber2HeaderWrittenMap.put(castedNode.getCellLineNumber(),Commons.BYTE_1);
 						
-						bufferedWriter.write("#Searched for chr" + "\t" + "given interval low" + "\t" +
-								 "given interval high" + "\t" + "DNase overlap chrom name" + "\t" + "DNase low" + "\t" +
-								 "DNase high" + "\t" + "DNase CellLineName" + "\t" + "DNase FileName" +
+						bufferedWriter.write("#Searched for chr" + "\t" + "Given Interval Low" + "\t" +
+								 "Given Interval High" + "\t" + "DNase chr" + "\t" + "DNase Interval Low" + "\t" +
+								 "DNase Interval High" + "\t" + "CellLineName" + "\t" + "FileName" +
 								 System.getProperty("line.separator"));
 					}
 					
@@ -6747,7 +6791,6 @@ public class IntervalTree {
 
 				
 			}catch( IOException e){
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
@@ -6757,7 +6800,7 @@ public class IntervalTree {
 			findAllOverlappingDnaseIntervalsWithNumbers( 
 					outputFolder,
 					writeElementBasedAnnotationFoundOverlapsMode,
-					dnaseCellLineNumber2HeaderWritenMap,
+					dnaseCellLineNumber2HeaderWrittenMap,
 					cellLineNumber2CellLineNameMap, 
 					fileNumber2FileNameMap,
 					node.getLeft(), 
@@ -6772,7 +6815,7 @@ public class IntervalTree {
 			findAllOverlappingDnaseIntervalsWithNumbers( 
 					outputFolder,
 					writeElementBasedAnnotationFoundOverlapsMode,
-					dnaseCellLineNumber2HeaderWritenMap,
+					dnaseCellLineNumber2HeaderWrittenMap,
 					cellLineNumber2CellLineNameMap, 
 					fileNumber2FileNameMap,
 					node.getRight(), 

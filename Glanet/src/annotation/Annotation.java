@@ -1955,6 +1955,7 @@ public class Annotation {
 
 	// Annotation Sequentially
 	// With Numbers
+	// EOO and NOOB
 	public void searchDnaseWithNumbers(
 			String dataFolder, 
 			String outputFolder,
@@ -1969,7 +1970,7 @@ public class Annotation {
 
 		IntervalTree dnaseIntervalTree;
 		
-		TIntByteMap dnaseCellLineNumber2HeaderWritenMap = new TIntByteHashMap();
+		TIntByteMap dnaseCellLineNumber2HeaderWrittenMap = new TIntByteHashMap();
 
 		// For each ChromosomeName
 		for( ChromosomeName chrName : ChromosomeName.values()){
@@ -1981,7 +1982,7 @@ public class Annotation {
 			
 			searchDnaseWithNumbers(
 					outputFolder,
-					dnaseCellLineNumber2HeaderWritenMap,
+					dnaseCellLineNumber2HeaderWrittenMap,
 					writeElementBasedAnnotationFoundOverlapsMode, 
 					chrName,
 					bufferedReader, 
@@ -1993,6 +1994,7 @@ public class Annotation {
 					associationMeasureType);
 
 
+			//Free space
 			dnaseIntervalTree = null;
 			
 			System.gc();
@@ -2007,6 +2009,9 @@ public class Annotation {
 			}
 
 		}// End of for each chromosomeName
+		
+		//Free space
+		dnaseCellLineNumber2HeaderWrittenMap = null;
 
 	}
 
@@ -2185,10 +2190,10 @@ public class Annotation {
 	
 	//Updated 12 April 2016
 	// Annotation Sequentially
-	// With Numbers
+	// EOO and NOOB
 	public void searchDnaseWithNumbers(
 			String outputFolder,
-			TIntByteMap dnaseCellLineNumber2HeaderWritenMap,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
@@ -2249,7 +2254,7 @@ public class Annotation {
 							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers(
 									outputFolder,
 									writeElementBasedAnnotationFoundOverlapsMode, 
-									dnaseCellLineNumber2HeaderWritenMap,
+									dnaseCellLineNumber2HeaderWrittenMap,
 									cellLineNumber2CellLineNameMap, 
 									fileNumber2FileNameMap,
 									dnaseIntervalTree.getRoot(), 
@@ -2272,7 +2277,8 @@ public class Annotation {
 
 						}// End of FOR
 
-						// After accumulation set to null
+						//After accumulation
+						//Free memory
 						dnaseCellLineNumber2OneorZeroMap = null;
 						/*************************************************************************************************/
 						/***********************************EXISTENCE_OF_OVERLAP ends*************************************/
@@ -2294,7 +2300,7 @@ public class Annotation {
 							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 									outputFolder,
 									writeElementBasedAnnotationFoundOverlapsMode,
-									dnaseCellLineNumber2HeaderWritenMap,
+									dnaseCellLineNumber2HeaderWrittenMap,
 									cellLineNumber2CellLineNameMap, 
 									fileNumber2FileNameMap,
 									dnaseIntervalTree.getRoot(), 
@@ -5507,6 +5513,7 @@ public class Annotation {
 	public void searchHistoneWithNumbers(
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TIntByteMap histoneCellLineNumber2HeaderWrittenMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree histoneIntervalTree,
@@ -5564,18 +5571,18 @@ public class Annotation {
 							histoneIntervalTree.findAllOverlappingHistoneIntervalsWithNumbers(
 									outputFolder,
 									writeElementBasedAnnotationFoundOverlapsMode, 
+									histoneCellLineNumber2HeaderWrittenMap,
+									histoneNumber2HistoneNameMap, 
+									cellLineNumber2CellLineNameMap, 
+									fileNumber2FileNameMap,
 									histoneIntervalTree.getRoot(), 
 									interval,
 									chromName, 
 									histoneNumberCellLineNumber2ZeroorOneMap, 
-									overlapDefinition,
-									histoneNumber2HistoneNameMap, 
-									cellLineNumber2CellLineNameMap, 
-									fileNumber2FileNameMap);
+									overlapDefinition);
 						}
 
-						// accumulate search results of dnaseCellLine2OneorZeroMap in
-						// dnaseCellLine2KMap
+						// accumulate search results
 						for( TIntByteIterator it = histoneNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
 
 							it.advance();
@@ -5588,7 +5595,8 @@ public class Annotation {
 
 						}// End of FOR
 
-						// After accumulation set to null
+						//After accumulation
+						//Free memory
 						histoneNumberCellLineNumber2ZeroorOneMap = null;
 						/***********************************************/
 						/******Existence of Overlap ends****************/
@@ -5609,6 +5617,12 @@ public class Annotation {
 							
 							//Step1: Get all the overlappingIntervals with the inputLine
 							histoneIntervalTree.findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
+									outputFolder,
+									writeElementBasedAnnotationFoundOverlapsMode, 
+									histoneCellLineNumber2HeaderWrittenMap,
+									histoneNumber2HistoneNameMap, 
+									cellLineNumber2CellLineNameMap, 
+									fileNumber2FileNameMap,
 									histoneIntervalTree.getRoot(), 
 									interval, 
 									chromName,
@@ -9819,6 +9833,9 @@ public class Annotation {
 		BufferedReader bufferedReader = null;
 
 		IntervalTree histoneIntervalTree;
+		
+		TIntByteMap histoneCellLineNumber2HeaderWrittenMap = new TIntByteHashMap();
+
 
 		// For each ChromosomeName
 		for( ChromosomeName chrName : ChromosomeName.values()){
@@ -9831,6 +9848,7 @@ public class Annotation {
 			searchHistoneWithNumbers(
 					outputFolder, 
 					writeElementBasedAnnotationFoundOverlapsMode, 
+					histoneCellLineNumber2HeaderWrittenMap,
 					chrName,
 					bufferedReader, 
 					histoneIntervalTree, 
@@ -9841,6 +9859,7 @@ public class Annotation {
 					fileNumber2FileNameMap,
 					associationMeasureType);
 			
+			//Free space
 			histoneIntervalTree = null;
 
 			System.gc();
@@ -9853,6 +9872,9 @@ public class Annotation {
 			}
 
 		}// End of for each chromosomeName
+		
+		//Free space
+		histoneCellLineNumber2HeaderWrittenMap = null;
 
 	}
 
@@ -10798,6 +10820,7 @@ public class Annotation {
 				GlanetRunner.appendLog( "CellLine Based Dnase annotation using TShortIntMap took: " + ( float)( ( dateAfter - dateBefore) / 1000) + " seconds");
 				GlanetRunner.appendLog( "**********************************************************");
 
+				//Free memory
 				dnaseCellLineNumber2KMap = null;
 
 				System.gc();
@@ -10847,6 +10870,7 @@ public class Annotation {
 				GlanetRunner.appendLog( "CellLine Based Histone annotation took: " + ( float)( ( dateAfter - dateBefore) / 1000) + " seconds");
 				GlanetRunner.appendLog( "**********************************************************");
 
+				//Free memory
 				histoneNumberCellLineNumber2KMap = null;
 
 				System.gc();
