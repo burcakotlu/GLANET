@@ -4268,6 +4268,12 @@ public class IntervalTree {
 	//Annotation UDL
 	//NOOB
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+			String outputFolder,
+			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TIntByteMap elementNumber2HeaderWrittenMap,
+			String elementType, 
+			TIntObjectMap<String> elementNumber2ElementNameMap,
+			TIntObjectMap<String> fileNumber2FileNameMap,
 			IntervalTreeNode node, 
 			Interval interval, 
 			ChromosomeName chromName,
@@ -4278,6 +4284,9 @@ public class IntervalTree {
 		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
 		
 		List<IntervalTreeNode> overlappingNodeList = null;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
 
 		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
@@ -4296,7 +4305,34 @@ public class IntervalTree {
 			}//End of IF
 			
 			elementNumber = castedNode.getElementNumber();
-
+			
+			try {
+					
+				/*******************************************************************/
+				// Write Annotation Found Overlaps to element Named File
+				if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+							fileWriter = FileOperations.createFileWriter(
+								outputFolder + Commons.USERDEFINEDLIBRARY_ANNOTATION_DIRECTORY + elementType + System.getProperty( "file.separator") + elementNumber2ElementNameMap.get( elementNumber) + ".txt",
+								true);
+					
+					bufferedWriter = new BufferedWriter( fileWriter);
+	
+					//Write header only once for each elementNumber
+					if( !elementNumber2HeaderWrittenMap.containsKey( elementNumber)){
+						elementNumber2HeaderWrittenMap.put( elementNumber, Commons.BYTE_1);
+						bufferedWriter.write( "#Searched for chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + "UserDefinedLibraryElement Chr" + "\t" + "UserDefinedLibraryElement Low" + "\t" + "UserDefinedLibraryElement High" + "\t" + "ElementName" + "\t" + "FileName" + System.getProperty( "line.separator"));
+					}
+	
+					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + elementNumber2ElementNameMap.get( elementNumber) + "\t" + fileNumber2FileNameMap.get( castedNode.getFileNumber()) + System.getProperty( "line.separator"));
+					bufferedWriter.close();
+				}
+				/*******************************************************************/
+			
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			
 			overlappingNodeList = elementNumber2OverlappingNodeListMap.get(elementNumber);
 			
@@ -4316,6 +4352,12 @@ public class IntervalTree {
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
 			
 			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					elementNumber2HeaderWrittenMap,
+					elementType, 
+					elementNumber2ElementNameMap,
+					fileNumber2FileNameMap,
 					node.getLeft(),
 					interval, 
 					chromName, 
@@ -4325,6 +4367,12 @@ public class IntervalTree {
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
 			
 			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					elementNumber2HeaderWrittenMap,
+					elementType, 
+					elementNumber2ElementNameMap,
+					fileNumber2FileNameMap,
 					node.getRight(),
 					interval, 
 					chromName, 
@@ -4549,13 +4597,20 @@ public class IntervalTree {
 
 	}
 
-	// Annotation
-	// With Numbers
-	public void findAllOverlappingUserDefinedLibraryIntervalsWithNumbers( String outputFolder,
+	// Annotation EOO
+	// UDL
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
+			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
-			IntervalTreeNode node, Interval interval, ChromosomeName chromName, TIntByteMap elementNumber2ZeroorOneMap,
-			int overlapDefinition, String elementType, TIntObjectMap<String> elementNumber2ElementNameMap,
-			TIntObjectMap<String> fileNumber2FileNameMap) {
+			TIntByteMap elementNumber2HeaderWrittenMap,
+			String elementType, 
+			TIntObjectMap<String> elementNumber2ElementNameMap,
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			IntervalTreeNode node, 
+			Interval interval, 
+			ChromosomeName chromName, 
+			TIntByteMap elementNumber2ZeroorOneMap,
+			int overlapDefinition) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -4580,9 +4635,11 @@ public class IntervalTree {
 							true);
 					bufferedWriter = new BufferedWriter( fileWriter);
 
-					if( !elementNumber2ZeroorOneMap.containsKey( elementNumber)){
-						elementNumber2ZeroorOneMap.put( elementNumber, Commons.BYTE_1);
-						bufferedWriter.write( "#Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "UserDefinedLibraryNode ChromName" + "\t" + "node Low" + "\t" + "node High" + "\t" + "node Element Name" + "\t" + "node FileName" + System.getProperty( "line.separator"));
+					//Write header only once for each elementNumber
+					if( !elementNumber2HeaderWrittenMap.containsKey( elementNumber)){
+						elementNumber2HeaderWrittenMap.put( elementNumber, Commons.BYTE_1);
+						bufferedWriter.write( "#Searched for chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + "UserDefinedLibraryElement Chr" + "\t" + "UserDefinedLibraryElement Low" + "\t" + "UserDefinedLibraryElement High" + "\t" + "ElementName" + "\t" + "FileName" + System.getProperty( "line.separator"));
+
 					}
 
 					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + elementNumber2ElementNameMap.get( elementNumber) + "\t" + fileNumber2FileNameMap.get( castedNode.getFileNumber()) + System.getProperty( "line.separator"));
@@ -4591,11 +4648,8 @@ public class IntervalTree {
 				/*******************************************************************/
 
 				/*******************************************************************/
-				// Do not Write Annotation Found Overlaps to element Named File
-				else{
-					if( !elementNumber2ZeroorOneMap.containsKey( elementNumber)){
+				if( !elementNumber2ZeroorOneMap.containsKey( elementNumber)){
 						elementNumber2ZeroorOneMap.put( elementNumber, Commons.BYTE_1);
-					}
 				}
 				/*******************************************************************/
 
@@ -4606,17 +4660,33 @@ public class IntervalTree {
 		}
 
 		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUserDefinedLibraryIntervalsWithNumbers( outputFolder,
-					writeElementBasedAnnotationFoundOverlapsMode, node.getLeft(), interval, chromName,
-					elementNumber2ZeroorOneMap, overlapDefinition, elementType, elementNumber2ElementNameMap,
-					fileNumber2FileNameMap);
+			findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode, 
+					elementNumber2HeaderWrittenMap,
+					elementType, 
+					elementNumber2ElementNameMap,
+					fileNumber2FileNameMap,
+					node.getLeft(), 
+					interval, 
+					chromName,
+					elementNumber2ZeroorOneMap, 
+					overlapDefinition);
 		}
 
 		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUserDefinedLibraryIntervalsWithNumbers( outputFolder,
-					writeElementBasedAnnotationFoundOverlapsMode, node.getRight(), interval, chromName,
-					elementNumber2ZeroorOneMap, overlapDefinition, elementType, elementNumber2ElementNameMap,
-					fileNumber2FileNameMap);
+			findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
+					outputFolder,
+					writeElementBasedAnnotationFoundOverlapsMode,
+					elementNumber2HeaderWrittenMap,
+					elementType, 
+					elementNumber2ElementNameMap,
+					fileNumber2FileNameMap,
+					node.getRight(), 
+					interval, 
+					chromName,
+					elementNumber2ZeroorOneMap, 
+					overlapDefinition);
 		}
 
 	}

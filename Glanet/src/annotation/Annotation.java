@@ -5185,6 +5185,7 @@ public class Annotation {
 	public void searchUserDefinedLibraryWithNumbers(
 			String outputFolder,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			TIntByteMap elementNumber2HeaderWrittenMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree userDefinedLibraryIntervalTree,
@@ -5241,14 +5242,15 @@ public class Annotation {
 							userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
 									outputFolder, 
 									writeElementBasedAnnotationFoundOverlapsMode,
+									elementNumber2HeaderWrittenMap,
+									elementType, 
+									elementNumber2ElementNameMap, 
+									fileNumber2FileNameMap,
 									userDefinedLibraryIntervalTree.getRoot(), 
 									interval, 
 									chromName, 
 									elementNumber2ZeroorOneMap,
-									overlapDefinition, 
-									elementType, 
-									elementNumber2ElementNameMap, 
-									fileNumber2FileNameMap);
+									overlapDefinition);
 						}
 
 						// accumulate search results
@@ -5283,6 +5285,12 @@ public class Annotation {
 							
 							//Step1: Get all the overlappingIntervals with the inputLine
 							userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
+									outputFolder,
+									writeElementBasedAnnotationFoundOverlapsMode,
+									elementNumber2HeaderWrittenMap,
+									elementType, 
+									elementNumber2ElementNameMap,
+									fileNumber2FileNameMap,
 									userDefinedLibraryIntervalTree.getRoot(), 
 									interval, 
 									chromName,
@@ -9737,6 +9745,8 @@ public class Annotation {
 
 			TIntIntMap elementNumber2KMap = elementTypeNumber2ElementNumber2KMapMap.get( elementTypeNumber);
 			TIntObjectMap<String> elementNumber2ElementNameMap = elementTypeNumber2ElementNumber2ElementNameMapMap.get( elementTypeNumber);
+			
+			TIntByteMap elementNumber2HeaderWrittenMap = new TIntByteHashMap();
 
 			// For each ChromosomeName
 			for( ChromosomeName chrName : ChromosomeName.values()){
@@ -9750,6 +9760,7 @@ public class Annotation {
 				searchUserDefinedLibraryWithNumbers(
 						outputFolder, 
 						writeElementBasedAnnotationFoundOverlapsMode,
+						elementNumber2HeaderWrittenMap,
 						chrName, 
 						bufferedReader, 
 						userDefinedLibraryIntervalTree, 
@@ -9773,6 +9784,9 @@ public class Annotation {
 				}
 
 			}// End of for each chromosomeName
+			
+			//Free space
+			elementNumber2HeaderWrittenMap = null;
 
 		}// End of for each elementTypeNumber
 
