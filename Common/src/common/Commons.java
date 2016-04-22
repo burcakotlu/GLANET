@@ -1222,10 +1222,7 @@ public class Commons {
 	public static final String ALL_BASED = "AllBased";
 	public static final String NO_GENESET_ANALYSIS_TYPE_IS_DEFINED = "NoGeneSetAnalysisTypeIsDefined";
 
-	//public static final String EXON_BASED_USER_DEFINED_GENESET = "ExonBased_UDGS";
-	//public static final String REGULATION_BASED_USER_DEFINED_GENESET = "RegulationBased_UDGS";
-	//public static final String ALL_BASED_USER_DEFINED_GENESET = "AllBased_UDGS";
-
+	
 	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBased_KEGGPathway";
 	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBased_KEGGPathway";
 	public static final String ALL_BASED_KEGG_PATHWAY = "AllBased_KEGGPathway";
@@ -1240,7 +1237,8 @@ public class Commons {
 
 	public static final String USER_DEFINED_GENESET = "UserDefinedGeneSet";
 	public static final String USER_DEFINED_LIBRARY = "UserDefinedLibrary";
-
+	public static final String NO_GENESET_TYPE_IS_DEFINED = "NoGeneSetTypeIsDefined";
+	
 	public static final String KEGG_PATHWAY = "KEGGPathway";
 	public static final String TF_KEGGPATHWAY = "TFKEGGPathway";
 	public static final String TF_CELLLINE_KEGGPATHWAY = "TFCellLineKEGGPathway";

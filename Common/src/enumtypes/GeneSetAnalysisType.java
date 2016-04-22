@@ -53,7 +53,7 @@ public enum GeneSetAnalysisType {
 		return this == NO_GENESET_ANALYSIS_TYPE_IS_DEFINED;
 	}
 
-	public static String convertEnumtoString( GeneSetAnalysisType geneSetAnalysisType) {
+	public String convertEnumtoString( GeneSetAnalysisType geneSetAnalysisType) {
 
 		if( GeneSetAnalysisType.EXONBASEDGENESETANALYSIS.equals( geneSetAnalysisType)){
 			return Commons.EXON_BASED;
