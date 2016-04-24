@@ -3346,7 +3346,8 @@ public class Annotation {
 			TIntByteMap regulationBasedGeneSetNumber2HeaderWrittenMap,
 			TIntByteMap allBasedGeneSetNumber2HeaderWrittenMap, 
 			ChromosomeName chromName, 
-			BufferedReader bufferedReader, IntervalTree tfbsIntervalTree,
+			BufferedReader bufferedReader, 
+			IntervalTree tfbsIntervalTree,
 			IntervalTree ucscRefSeqGenesIntervalTree, 
 			TIntIntMap tfNumberCellLineNumber2KMap,
 			TIntIntMap geneEntrezID2KMap,
@@ -3475,6 +3476,9 @@ public class Annotation {
 						/******************************************/
 						// TF CellLine
 						TIntByteMap tfNumberCellLineNumber2ZeroorOneMap = new TIntByteHashMap();
+						
+						//Hg19 RefSeq Genes
+						TIntByteMap geneEntrezID2OneorZeroMap = new TIntByteHashMap();
 
 						// KEGGPathway
 						TIntByteMap exonBasedKeggPathway2OneorZeroMap 		= new TIntByteHashMap();
@@ -3536,17 +3540,27 @@ public class Annotation {
 							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 									outputFolder,
 									writeElementBasedAnnotationFoundOverlapsMode, 
+									hg19RefSeqGenesBufferedWriter, 
+									givenIntervalNumber,
+									givenIntervalNumber2OverlapInformationMap, 
+									geneEntrezID2HeaderWrittenMap,
+									exonBasedGeneSetNumber2HeaderWrittenMap,
+									regulationBasedGeneSetNumber2HeaderWrittenMap,
+									allBasedGeneSetNumber2HeaderWrittenMap, 
 									ucscRefSeqGenesIntervalTree.getRoot(),
 									interval, 
 									chromName, 
-									geneId2ListofKeggPathwayNumberMap, 
+									geneId2ListofKeggPathwayNumberMap,
+									geneEntrezID2OneorZeroMap,
 									exonBasedKeggPathway2OneorZeroMap,
 									regulationBasedKeggPathway2OneorZeroMap, 
 									allBasedKeggPathway2OneorZeroMap,
 									Commons.NCBI_GENE_ID, 
+									GeneSetType.KEGGPATHWAY,
 									exonBasedKeggPathwayOverlapList,
 									regulationBasedKeggPathwayOverlapList, 
-									allBasedKeggPathwayOverlapList, overlapDefinition,
+									allBasedKeggPathwayOverlapList, 
+									overlapDefinition,
 									keggPathwayNumber2KeggPathwayNameMap, 
 									geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 									refSeqGeneNumber2RefSeqGeneNameMap);
@@ -4436,6 +4450,9 @@ public class Annotation {
 						
 						//TF
 						tfNumberCellLineNumber2ZeroorOneMap = null;
+						
+						//Hg19RefSeq Gene
+						geneEntrezID2OneorZeroMap = null;
 
 						//KEGG
 						exonBasedKeggPathway2OneorZeroMap = null;
@@ -11243,7 +11260,6 @@ public class Annotation {
 			/*******************************************************************************/
 			if( userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
 				
-				
 				//19 April 2016
 				//Hg19 RefSeq Genes
 				TIntIntMap entrezGeneId2KMap = new TIntIntHashMap();
@@ -11251,7 +11267,6 @@ public class Annotation {
 				TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
 				TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
 				TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
-
 
 				// UserDefinedGeneSet
 				TIntIntMap exonBasedUserDefinedGeneSet2KMap = new TIntIntHashMap();

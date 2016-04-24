@@ -220,7 +220,7 @@ public class Commons {
 	public static final int D_NUMBER_OF_BASES = 100000;
 
 	// 1000 KB = 1 MB
-	// public static final int D_NUMBER_OF_BASES = 1000000;
+	//public static final int D_NUMBER_OF_BASES = 1000000;
 
 	// dbSNP rs Prefix
 	public static final String RS = "rs";
