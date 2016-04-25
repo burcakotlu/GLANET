@@ -227,7 +227,7 @@ public class AugmentationofProcessedInputDatawithdbSNP {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 
 		//ProcessedInput already contains 0-based coordinates.
 		String processedInputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;

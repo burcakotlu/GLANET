@@ -1888,9 +1888,8 @@ public class CollectionofPermutationsResults {
 			jobName = Commons.NO_NAME;
 		}
 		// jobName ends
-
 		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 
 		NumberofComparisons numberofComparisons = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder);
 

@@ -13090,7 +13090,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		String glanetFolder = args[1];
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = "noname";
 		}
@@ -13098,7 +13098,7 @@ public void searchKeggPathway(String dataFolder,String outputFolder,Map<String,L
 		
 		
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
 		//@todo we have to read these 3 variables  from program arguments
 		String userDefinedGeneSetInputFile = "";

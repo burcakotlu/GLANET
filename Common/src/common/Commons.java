@@ -1543,6 +1543,7 @@ public class Commons {
 	public static final String ARG_NUMBER_OF_OVERLAPPING_BASES = "-noob";
 	public static final String ARG_EXISTENCE_OF_OVERLAP = "-eoo";	
 	public static final String ARG_GLANET_FOLDER = "-g";
+	public static final String ARG_OUTPUT_RESULTS_FOLDER = "-o";
 	public static final String ARG_INPUT_FORMAT_1_BASED = "-f1";
 	public static final String ARG_INPUT_FORMAT_0_BASED = "-f0";
 	public static final String ARG_INPUT_FORMAT_BED = "-fbed";

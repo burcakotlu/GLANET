@@ -2148,7 +2148,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 		}
 		// jobName ends
 
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum( args[CommandLineArguments.MultipleTesting.value()]);

@@ -545,7 +545,7 @@ public class KeggPathwayAugmentation {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 
 		// for testing purposes
 		Map<String, List<Integer>> keggPathwayEntry2GeneIdListMap = new HashMap<String, List<Integer>>();
@@ -563,7 +563,5 @@ public class KeggPathwayAugmentation {
 		keggPathwayGeneIdList = keggPathwayEntry2GeneIdListMap.get( "hsa00860");
 		HumanGenesAugmentation.augmentGeneIdWithRefSeqRNANucleotideAccession( keggPathwayGeneIdList,keggPathwayRefSeqGeneNameList, humanGeneId2RefSeqGeneNameListMap);
 		HumanGenesAugmentation.augmentRefSeqRNANucleotideAccessionwithAlternateGeneName( keggPathwayRefSeqGeneNameList,keggPathwayAlternateGeneNameList, humanRefSeqGeneName2AlternateGeneNameListMap);
-
 	}
-
 }

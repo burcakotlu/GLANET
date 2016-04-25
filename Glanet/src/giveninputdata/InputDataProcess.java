@@ -961,23 +961,23 @@ public class InputDataProcess {
 		Assembly inputFileAssembly = Assembly.convertStringtoEnum( args[CommandLineArguments.InputFileAssembly.value()]);
 
 		// jobName starts
-		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if( jobName.isEmpty()){
-			jobName = Commons.NO_NAME;
-		}
+//		String jobName = args[CommandLineArguments.JobName.value()].trim();
+//		if( jobName.isEmpty()){
+//			jobName = Commons.NO_NAME;
+//		}
 		// jobName ends
 
 		String inputFileName = args[CommandLineArguments.InputFileNameWithFolder.value()];
 		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum( args[CommandLineArguments.InputFileDataFormat.value()]);
 
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+//		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 
-		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
+		String givenDataFolder = args[CommandLineArguments.OutputFolder.value()] + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
 
 		/********************************************************************/
 		/*********** delete old files starts **********************************/
-		String givenInputDataOutputBaseDirectoryName = outputFolder + Commons.GIVENINPUTDATA;
+		String givenInputDataOutputBaseDirectoryName = args[CommandLineArguments.OutputFolder.value()] + Commons.GIVENINPUTDATA;
 
 		FileOperations.deleteOldFiles( givenInputDataOutputBaseDirectoryName);
 		/*********** delete old files ends ***********************************/

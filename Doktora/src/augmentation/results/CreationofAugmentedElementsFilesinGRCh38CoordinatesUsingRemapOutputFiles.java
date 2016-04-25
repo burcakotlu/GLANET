@@ -294,7 +294,7 @@ public class CreationofAugmentedElementsFilesinGRCh38CoordinatesUsingRemapOutput
 	public static void main(String[] args) {
 		
 		String glanetFolder = args[1];
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
 		EnrichmentType dnaseEnrichment 		= EnrichmentType.convertStringtoEnum(args[10]);
 		EnrichmentType histoneEnrichment  	= EnrichmentType.convertStringtoEnum(args[11]);

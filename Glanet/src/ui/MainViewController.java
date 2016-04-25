@@ -57,6 +57,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 	public void startRunActionsWithOptions( 
 			String inputFileName, 
 			String inputFileAssembly, 
+			String glanetFolder,
 			String outputFolder,
 			String inputFileFormat, 
 			String associationMeasureType,
@@ -100,7 +101,8 @@ public class MainViewController extends ViewController implements MainViewDelega
 
 		args[CommandLineArguments.InputFileNameWithFolder.value()] = inputFileName;
 		args[CommandLineArguments.InputFileAssembly.value()] = inputFileAssembly;
-		args[CommandLineArguments.GlanetFolder.value()] = outputFolder;
+		args[CommandLineArguments.GlanetFolder.value()] = glanetFolder;
+		args[CommandLineArguments.OutputFolder.value()] = outputFolder;
 		args[CommandLineArguments.InputFileDataFormat.value()] = inputFileFormat;
 		args[CommandLineArguments.AssociationMeasureType.value()] = associationMeasureType;
 		args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()] = numberOfBases;

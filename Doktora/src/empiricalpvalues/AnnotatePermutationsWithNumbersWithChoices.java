@@ -2537,7 +2537,7 @@ public class AnnotatePermutationsWithNumbersWithChoices {
 				
 				
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 				
 		int overlapDefinition = Integer.parseInt(args[3]);
 

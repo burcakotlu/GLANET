@@ -92,6 +92,7 @@ public class MainView extends JPanel {
 		public void startRunActionsWithOptions( 
 				String inputFileName, 
 				String inputFileAssembly, 
+				String glanetFolder,
 				String outputFolder,
 				String inputFileFormat, 				
 				String associationMeasureType,
@@ -176,7 +177,10 @@ public class MainView extends JPanel {
 
 					for( int i = 0; i < cellLinesArray.length; i++)
 						listModel.addElement( cellLinesArray[i]);
-				}else if( e.getActionCommand() == "Input File Name")
+				}
+				else if( e.getActionCommand() == "Output Folder")
+					outputFolderTextField.setText( file.getPath() + System.getProperty( "file.separator"));
+				else if( e.getActionCommand() == "Input File Name")
 					inputTextField.setText( file.getPath() + System.getProperty( "file.separator"));
 				else if( e.getActionCommand() == "User Defined GeneSet Input File")
 					userDefinedGeneSetInput.setText( file.getPath() + System.getProperty( "file.separator"));
@@ -215,11 +219,19 @@ public class MainView extends JPanel {
 				listPane.setEnabled( false);
 				logArea.setText( "");
 				logArea.setCaretPosition( logArea.getDocument().getLength());
-
+				
+				if( outputFolderTextField.getText().length() < 1)
+					outputFolderTextField.setText(glanetFolderTextField.getText() + Commons.OUTPUT + System.getProperty( "file.separator"));
+				else if( outputFolderTextField.getText().charAt(outputFolderTextField.getText().length()-1) != System.getProperty( "file.separator").toCharArray()[0])
+					outputFolderTextField.setText(outputFolderTextField.getText() + System.getProperty( "file.separator"));
+				
+				outputFolderTextField.setText( outputFolderTextField.getText() + ((jobName.getText().length() == 0)?Commons.NO_NAME:jobName.getText()) + System.getProperty( "file.separator"));
+				
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
 						inputAssembly.getSelectedItem().toString(),
 						glanetFolderTextField.getText(),
+						outputFolderTextField.getText(),
 						inputFormatCombo.getSelectedItem().toString(),
 						associationMeasureTypeCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
@@ -238,7 +250,7 @@ public class MainView extends JPanel {
 						tfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION,
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
-						( jobName.getText().length() == 0)?Commons.NO_NAME:jobName.getText(),
+						(jobName.getText().length() == 0)?Commons.NO_NAME:jobName.getText(),
 						Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS,
 						Commons.DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX,
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
@@ -248,8 +260,8 @@ public class MainView extends JPanel {
 						userDefinedGeneSetAnnotation.isSelected()?Commons.DO_USER_DEFINED_GENESET_ANNOTATION:Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION,
 						userDefinedGeneSetInput.getText(),
 						userDefinedGeneSetGeneInformation.getSelectedItem().toString(),
-						( userDefinedGeneSetName.getText().length() != 0)?userDefinedGeneSetName.getText():Commons.NO_NAME,
-						( userDefinedGeneSetDescriptionFile.getText().length() != 0)?userDefinedGeneSetDescriptionFile.getText():Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED,
+						(userDefinedGeneSetName.getText().length() != 0)?userDefinedGeneSetName.getText():Commons.NO_NAME,
+						(userDefinedGeneSetDescriptionFile.getText().length() != 0)?userDefinedGeneSetDescriptionFile.getText():Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED,
 						userDefinedLibraryAnnotation.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION:Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION,
 						userDefinedLibraryInput.getText(),
 						userDefinedLibraryDataFormatCombo.getSelectedItem().toString(),

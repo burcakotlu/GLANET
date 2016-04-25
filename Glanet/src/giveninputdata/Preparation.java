@@ -105,23 +105,23 @@ public class Preparation {
 	// give an out of boundry exception in a for loop with this approach.
 	public static void main( String[] args) {
 
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+//		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
 		// jobName starts
-		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if( jobName.isEmpty()){
-			jobName = Commons.NO_NAME;
-		}
+//		String jobName = args[CommandLineArguments.JobName.value()].trim();
+//		if( jobName.isEmpty()){
+//			jobName = Commons.NO_NAME;
+//		}
 		// jobName ends
 
 		// String dataFolder = glanetFolder + Commons.DATA +
 		// System.getProperty("file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+//		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
 
 		// Log4jConfiguration log4jConfiguration = new Log4jConfiguration();
 
 		// Create outputFolder it it does not exists
-		FileOperations.createFolder( outputFolder);
+		FileOperations.createFolder( args[CommandLineArguments.OutputFolder.value()]);
 
 		// FileOperations.deleteDummyLogFiles(glanetFolder, "log");
 
@@ -129,7 +129,7 @@ public class Preparation {
 		// outputFolder);
 
 		// delete old files starts
-		FileOperations.deleteOldFiles( outputFolder);
+		FileOperations.deleteOldFiles( args[CommandLineArguments.OutputFolder.value()]);
 		// delete old files ends
 
 	}

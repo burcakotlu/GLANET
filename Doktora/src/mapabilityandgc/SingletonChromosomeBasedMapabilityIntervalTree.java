@@ -292,7 +292,7 @@ public class SingletonChromosomeBasedMapabilityIntervalTree {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 	
 		
 		List<Integer> chromosomeSizes = new ArrayList<Integer>();

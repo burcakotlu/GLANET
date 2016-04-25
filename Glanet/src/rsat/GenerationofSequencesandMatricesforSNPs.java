@@ -1844,7 +1844,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// jobName ends
 
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 
 		String forRSAFolder = outputFolder + Commons.FOR_RSA + System.getProperty( "file.separator");
 

@@ -285,7 +285,7 @@ public class SingletonChromosomeBasedGCArray {
 		
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 	
 		int chromSize = 249250621;
 		GCCharArray gcCharArray = new GCCharArray(chromSize);

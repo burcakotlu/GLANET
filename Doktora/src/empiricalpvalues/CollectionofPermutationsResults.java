@@ -595,7 +595,7 @@ public class CollectionofPermutationsResults {
 		//jobName ends
 		
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 
 		CollectionofPermutationsResults collectionofPermutationsResults = new CollectionofPermutationsResults();
 		

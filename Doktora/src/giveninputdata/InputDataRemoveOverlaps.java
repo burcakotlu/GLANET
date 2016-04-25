@@ -92,17 +92,17 @@ public class InputDataRemoveOverlaps {
 	public static void removeOverlaps(String[] args){
 		
 		
-		String glanetFolder 	= args[1];	
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];	
 		
 		//jobName starts
-		String jobName = args[17].trim();
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
 		if (jobName.isEmpty()){
 			jobName = "noname";
 		}
 		//jobName ends
 	
-		String outputFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
-		String inputFileName  	= outputFolder + Commons.PROCESSED_INPUT_FILE;
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
+		String inputFileName = outputFolder + Commons.PROCESSED_INPUT_FILE;
 		
 		Map<ChromosomeName,IntervalTree> chromosome2IntervalTree = new HashMap<ChromosomeName,IntervalTree>();
 				

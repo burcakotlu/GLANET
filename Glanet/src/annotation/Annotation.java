@@ -10688,8 +10688,8 @@ public class Annotation {
 		// jobName ends
 
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
-		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
+//		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+		String givenInputDataFolder = args[CommandLineArguments.OutputFolder.value()] + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
 
 		RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT = RegulatorySequenceAnalysisType.convertStringtoEnum( args[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()]);
 
@@ -10778,7 +10778,7 @@ public class Annotation {
 		/**********************************************************************/
 		/***********Delete old files starts ***********************************/
 		/**********************************************************************/
-		String annotateOutputBaseDirectoryName = outputFolder + Commons.ANNOTATION;
+		String annotateOutputBaseDirectoryName = args[CommandLineArguments.OutputFolder.value()] + Commons.ANNOTATION;
 
 		FileOperations.deleteOldFiles( annotateOutputBaseDirectoryName);
 		/**********************************************************************/
@@ -10795,7 +10795,7 @@ public class Annotation {
 
 		// Prepare chromosome based partitioned input interval files to be searched for
 		// Create Buffered Writers for writing chromosome based input files
-		FileOperations.createChromBaseSearchInputFiles( outputFolder, chrNumber2FileWriterMap,
+		FileOperations.createChromBaseSearchInputFiles( args[CommandLineArguments.OutputFolder.value()], chrNumber2FileWriterMap,
 				chrNumber2BufferedWriterMap);
 
 		// Partition the input file into 24 chromosome based input files
@@ -10913,7 +10913,7 @@ public class Annotation {
 
 				searchDnaseWithNumbers(
 						dataFolder, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						writeElementBasedAnnotationFoundOverlapsMode,
 						dnaseCellLineNumber2KMap, 
 						overlapDefinition, 
@@ -10925,7 +10925,7 @@ public class Annotation {
 						associationMeasureType,
 						dnaseCellLineNumber2KMap, 
 						dnaseCellLineNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_DNASE);
 
 				dateAfter = System.currentTimeMillis();
@@ -10962,7 +10962,7 @@ public class Annotation {
 				
 				searchHistoneWithNumbers(
 						dataFolder, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						writeElementBasedAnnotationFoundOverlapsMode,
 						histoneNumberCellLineNumber2KMap, 
 						overlapDefinition, 
@@ -10976,7 +10976,7 @@ public class Annotation {
 						histoneNumberCellLineNumber2KMap, 
 						histoneNumber2NameMap,
 						cellLineNumber2NameMap, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						Commons.ANNOTATION_RESULTS_FOR_HISTONE);
 				
 				dateAfter = System.currentTimeMillis();
@@ -11014,7 +11014,7 @@ public class Annotation {
 				
 				searchTranscriptionFactorWithNumbers(
 						dataFolder, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						writeElementBasedAnnotationFoundOverlapsMode, 
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
@@ -11029,7 +11029,7 @@ public class Annotation {
 						tfNumberCellLineNumber2KMap, 
 						tfNumber2NameMap, 
 						cellLineNumber2NameMap,
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						Commons.ANNOTATION_RESULTS_FOR_TF);
 				
 				dateAfter = System.currentTimeMillis();
@@ -11077,7 +11077,7 @@ public class Annotation {
 
 				searchGeneWithNumbers(
 						dataFolder, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						writeElementBasedAnnotationFoundOverlapsMode,
 						givenIntervalNumber2GivenIntervalNameMap, 
 						givenIntervalNumber2OverlapInformationMap,
@@ -11090,7 +11090,7 @@ public class Annotation {
 
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
-				writeGeneOverlapAnalysisFile( outputFolder,
+				writeGeneOverlapAnalysisFile( args[CommandLineArguments.OutputFolder.value()],
 						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.ANALYSIS_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
 						geneOverlapAnalysisFileMode, 
 						givenIntervalNumber2GivenIntervalNameMap,
@@ -11103,7 +11103,7 @@ public class Annotation {
 						associationMeasureType,
 						geneEntrezID2KMap, 
 						geneEntrezId2GeneOfficialSymbolMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 				
 				dateAfter = System.currentTimeMillis();
@@ -11161,7 +11161,7 @@ public class Annotation {
 				
 				searchGeneSetWithNumbers( 
 						dataFolder, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						writeElementBasedAnnotationFoundOverlapsMode,
 						entrezGeneId2KMap,
 						exonBasedKeggPathway2KMap, 
@@ -11183,7 +11183,7 @@ public class Annotation {
 				//Hg19 RefSeq Genes
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
-				writeGeneOverlapAnalysisFile( outputFolder,
+				writeGeneOverlapAnalysisFile( args[CommandLineArguments.OutputFolder.value()],
 						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
 						geneOverlapAnalysisFileMode, 
 						givenIntervalNumber2GivenIntervalNameMap,
@@ -11196,7 +11196,7 @@ public class Annotation {
 						associationMeasureType,
 						entrezGeneId2KMap, 
 						geneEntrezId2GeneOfficialSymbolMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 
 				//KEGG
@@ -11204,19 +11204,19 @@ public class Annotation {
 						associationMeasureType,
 						exonBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						regulationBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						allBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
 
 				dateAfter = System.currentTimeMillis();
@@ -11289,7 +11289,7 @@ public class Annotation {
 
 				searchGeneSetWithNumbers(
 						dataFolder, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						writeElementBasedAnnotationFoundOverlapsMode,
 						entrezGeneId2KMap,
 						exonBasedUserDefinedGeneSet2KMap, 
@@ -11312,7 +11312,7 @@ public class Annotation {
 				//Hg19 RefSeq Genes
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
-				writeGeneOverlapAnalysisFile( outputFolder,
+				writeGeneOverlapAnalysisFile( args[CommandLineArguments.OutputFolder.value()],
 						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
 						geneOverlapAnalysisFileMode, 
 						givenIntervalNumber2GivenIntervalNameMap,
@@ -11325,7 +11325,7 @@ public class Annotation {
 						associationMeasureType,
 						entrezGeneId2KMap, 
 						geneEntrezId2GeneOfficialSymbolMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 
 				//UDGS
@@ -11333,19 +11333,19 @@ public class Annotation {
 						associationMeasureType,
 						exonBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY  + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_USERDEFINEDGENESET_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						regulationBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_USERDEFINEDGENESET_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						allBasedUserDefinedGeneSet2KMap,
 						userDefinedGeneSetNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDGENESET_DIRECTORY + userDefinedGeneSetName + System.getProperty( "file.separator") + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_USERDEFINEDGENESET_FILE);
 
 				dateAfter = System.currentTimeMillis();
@@ -11429,7 +11429,7 @@ public class Annotation {
 
 				searchUserDefinedLibraryWithNumbers(
 						dataFolder, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						writeElementBasedAnnotationFoundOverlapsMode, 
 						overlapDefinition,
 						elementTypeNumber2ElementNumber2KMapMap, 
@@ -11444,7 +11444,7 @@ public class Annotation {
 						userDefinedLibraryElementTypeNumber2ElementTypeMap,
 						elementTypeNumber2ElementNumber2KMapMap, 
 						elementTypeNumber2ElementNumber2ElementNameMapMap,
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_DIRECTORY,
 						Commons.ANNOTATION_RESULTS_FOR_USERDEFINEDLIBRARY_FILE);
 
@@ -11519,7 +11519,7 @@ public class Annotation {
 
 				searchTfKEGGPathwayWithNumbers( 
 						dataFolder, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						writeElementBasedAnnotationFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
@@ -11553,7 +11553,7 @@ public class Annotation {
 				//Hg19 RefSeq Genes
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
-				writeGeneOverlapAnalysisFile( outputFolder,
+				writeGeneOverlapAnalysisFile( args[CommandLineArguments.OutputFolder.value()],
 						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
 						geneOverlapAnalysisFileMode, 
 						givenIntervalNumber2GivenIntervalNameMap,
@@ -11566,7 +11566,7 @@ public class Annotation {
 						associationMeasureType,
 						entrezGeneId2KMap, 
 						geneEntrezId2GeneOfficialSymbolMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 
 
@@ -11576,7 +11576,7 @@ public class Annotation {
 						tfNumberCellLineNumber2KMap, 
 						tfNumber2NameMap, 
 						cellLineNumber2NameMap,
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						Commons.ANNOTATION_RESULTS_FOR_TF);
 
 				// KEGGPathway
@@ -11584,19 +11584,19 @@ public class Annotation {
 						associationMeasureType,
 						exonBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						regulationBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						allBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
 
 				// TF KEGGPathway
@@ -11604,21 +11604,21 @@ public class Annotation {
 						tfExonBasedKeggPathway2KMap, 
 						tfNumber2NameMap,
 						keggPathwayNumber2NameMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
 				
 				writeTFKEGGPathwayResultsWithNumbers(
 						tfRegulationBasedKeggPathway2KMap, 
 						tfNumber2NameMap,
 						keggPathwayNumber2NameMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
 				
 				writeTFKEGGPathwayResultsWithNumbers( 
 						tfAllBasedKeggPathway2KMap, 
 						tfNumber2NameMap,
 						keggPathwayNumber2NameMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
 				
 				dateAfter = System.currentTimeMillis();
@@ -11696,7 +11696,7 @@ public class Annotation {
 
 				searchTfKEGGPathwayWithNumbers( 
 						dataFolder, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						writeElementBasedAnnotationFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
@@ -11728,7 +11728,7 @@ public class Annotation {
 				//Hg19 RefSeq Genes
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
-				writeGeneOverlapAnalysisFile( outputFolder,
+				writeGeneOverlapAnalysisFile( args[CommandLineArguments.OutputFolder.value()],
 						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
 						geneOverlapAnalysisFileMode, 
 						givenIntervalNumber2GivenIntervalNameMap,
@@ -11741,7 +11741,7 @@ public class Annotation {
 						associationMeasureType,
 						entrezGeneId2KMap, 
 						geneEntrezId2GeneOfficialSymbolMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 
 
@@ -11751,7 +11751,7 @@ public class Annotation {
 						tfNumberCellLineNumber2KMap, 
 						tfNumber2NameMap, 
 						cellLineNumber2NameMap,
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						Commons.ANNOTATION_RESULTS_FOR_TF);
 
 				// KEGGPathway
@@ -11759,19 +11759,19 @@ public class Annotation {
 						associationMeasureType,
 						exonBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						regulationBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						allBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
 
 				// TF CellLine KEGGPathway
@@ -11780,7 +11780,7 @@ public class Annotation {
 						tfNumber2NameMap, 
 						cellLineNumber2NameMap,
 						keggPathwayNumber2NameMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
 				
 				writeResultsWithNumbers( 
@@ -11788,7 +11788,7 @@ public class Annotation {
 						tfNumber2NameMap,
 						cellLineNumber2NameMap, 
 						keggPathwayNumber2NameMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
 				
 				writeResultsWithNumbers( 
@@ -11796,7 +11796,7 @@ public class Annotation {
 						tfNumber2NameMap, 
 						cellLineNumber2NameMap,
 						keggPathwayNumber2NameMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 				
 				dateAfter = System.currentTimeMillis();
@@ -11878,7 +11878,7 @@ public class Annotation {
 
 				searchTfKEGGPathwayWithNumbers( 
 						dataFolder, 
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						writeElementBasedAnnotationFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
@@ -11910,7 +11910,7 @@ public class Annotation {
 				//Hg19 RefSeq Genes
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
-				writeGeneOverlapAnalysisFile( outputFolder,
+				writeGeneOverlapAnalysisFile( args[CommandLineArguments.OutputFolder.value()],
 						Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
 						geneOverlapAnalysisFileMode, 
 						givenIntervalNumber2GivenIntervalNameMap,
@@ -11923,7 +11923,7 @@ public class Annotation {
 						associationMeasureType,
 						entrezGeneId2KMap, 
 						geneEntrezId2GeneOfficialSymbolMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 
 				// TF
@@ -11932,7 +11932,7 @@ public class Annotation {
 						tfNumberCellLineNumber2KMap, 
 						tfNumber2NameMap, 
 						cellLineNumber2NameMap,
-						outputFolder, 
+						args[CommandLineArguments.OutputFolder.value()], 
 						Commons.ANNOTATION_RESULTS_FOR_TF);
 
 				// KEGGPathway
@@ -11940,19 +11940,19 @@ public class Annotation {
 						associationMeasureType,
 						exonBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						regulationBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE);
 				writeResultsWithNumbers(
 						associationMeasureType,
 						allBasedKeggPathway2KMap,
 						keggPathwayNumber2NameMap,
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_KEGGPATHWAY + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_KEGGPATHWAY_FILE);
 
 				// TF KEGGPathway
@@ -11960,25 +11960,25 @@ public class Annotation {
 						tfExonBasedKeggPathway2KMap, 
 						tfNumber2NameMap,
 						keggPathwayNumber2NameMap, 
-						outputFolder,
+						args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_EXON_BASED_KEGG_PATHWAY);
 				
 				writeTFKEGGPathwayResultsWithNumbers( tfRegulationBasedKeggPathway2KMap, tfNumber2NameMap,
-						keggPathwayNumber2NameMap, outputFolder,
+						keggPathwayNumber2NameMap, args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_REGULATION_BASED_KEGG_PATHWAY);
 				writeTFKEGGPathwayResultsWithNumbers( tfAllBasedKeggPathway2KMap, tfNumber2NameMap,
-						keggPathwayNumber2NameMap, outputFolder,
+						keggPathwayNumber2NameMap, args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_ALL_BASED_KEGG_PATHWAY);
 
 				// TF CellLine KEGGPathway
 				writeResultsWithNumbers( tfCellLineExonBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap,
-						keggPathwayNumber2NameMap, outputFolder,
+						keggPathwayNumber2NameMap, args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_EXON_BASED_KEGG_PATHWAY);
 				writeResultsWithNumbers( tfCellLineRegulationBasedKeggPathway2KMap, tfNumber2NameMap,
-						cellLineNumber2NameMap, keggPathwayNumber2NameMap, outputFolder,
+						cellLineNumber2NameMap, keggPathwayNumber2NameMap, args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY);
 				writeResultsWithNumbers( tfCellLineAllBasedKeggPathway2KMap, tfNumber2NameMap, cellLineNumber2NameMap,
-						keggPathwayNumber2NameMap, outputFolder,
+						keggPathwayNumber2NameMap, args[CommandLineArguments.OutputFolder.value()],
 						Commons.ANNOTATION_RESULTS_FOR_TF_CELLLINE_ALL_BASED_KEGG_PATHWAY);
 
 				dateAfter = System.currentTimeMillis();

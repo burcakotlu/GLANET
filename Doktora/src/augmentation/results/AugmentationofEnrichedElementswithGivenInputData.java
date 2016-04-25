@@ -1338,7 +1338,7 @@ public class AugmentationofEnrichedElementswithGivenInputData {
 		}
 		//jobName ends
 							
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum(args[6]);
 		Float FDR = Float.parseFloat(args[8]);

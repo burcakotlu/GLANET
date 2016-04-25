@@ -6,9 +6,10 @@ package datadrivenexperiment;
 import java.io.File;
 
 import common.Commons;
+import enumtypes.CommandLineArguments;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Aug 12, 2015
  * @project Glanet 
  *
@@ -52,9 +53,9 @@ public class WronglyNamedGLANETOutputDirectoriesCorrection {
 	 */
 	public static void main(String[] args) {
 		
-		String glanetFolder = args[0];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
-		String outputFolder = glanetFolder + System.getProperty( "file.separator") + Commons.OUTPUT + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
 		correctWronglyNamedGLANETOutputDirectories(outputFolder);
 	}

@@ -30,6 +30,7 @@ import common.Commons;
 
 import datadrivenexperiment.DataDrivenExperimentElementTPM.DDEElementTPMChainedComparator;
 import enumtypes.AssociationMeasureType;
+import enumtypes.CommandLineArguments;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentElementNameType;
@@ -933,7 +934,7 @@ public class Step5_DDE_GLANETResults {
 		//glanetFolder
 		String glanetFolder = args[0];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		String ddeFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator");
 		
 		//cellLineType

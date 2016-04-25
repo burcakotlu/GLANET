@@ -254,15 +254,15 @@ public class InputDataNCBIRemap {
 		String outputFileName = null;
 
 		// jobName starts
-		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if( jobName.isEmpty()){
-			jobName = Commons.NO_NAME;
-		}
+//		String jobName = args[CommandLineArguments.JobName.value()].trim();
+//		if( jobName.isEmpty()){
+//			jobName = Commons.NO_NAME;
+//		}
 		// jobName ends
 
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+//		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-		String givenInputDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
+		String givenInputDataFolder = args[CommandLineArguments.OutputFolder.value()] + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
 
 		switch( inputFileFormat){
 

@@ -14,7 +14,7 @@ import common.Commons;
 import enumtypes.CommandLineArguments;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Feb 15, 2016
  * @project Glanet 
  *
@@ -237,7 +237,7 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 	public static void main(String[] args) {
 
 		//Read RegulatorySequenceAnalysisResults.txt
-		//Under C:\Users\Burçak\Google Drive\Output\OCD_RSA\RegulatorySequenceAnalysis
+		//Under C:\Users\Burï¿½ak\Google Drive\Output\OCD_RSA\RegulatorySequenceAnalysis
 		
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
@@ -249,7 +249,7 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 		}
 		// jobName ends
 		
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		String regulatorySequenceAnalysisFolder = outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty( "file.separator");
 
 		String RSAFileName = "RegulatorySequenceAnalysisResults.txt";

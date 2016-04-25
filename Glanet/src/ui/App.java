@@ -107,23 +107,6 @@ public class App {
 			if( args[i].equalsIgnoreCase( Commons.ARG_INPUT_FILE)){
 				if( argsInOrder[CommandLineArguments.InputFileNameWithFolder.value()].equals( notSet)){
 
-					// String inputString = args[i+1];
-					// if( inputString.charAt(inputString.length()-1) != '"'){
-					//
-					// int j = i+1;
-					// while( args[j].charAt(args[j].length()-1) != '"' || j <
-					// args.length)
-					// inputString.concat(args[j++]);
-					//
-					// if( j < args.length) {
-					// inputString.concat( args[j]);
-					// i = j;
-					// }
-					// else{
-					// System.out.println("Input file location is not specified properly. Exiting...");
-					// return false;
-					// }
-					// }
 					argsInOrder[CommandLineArguments.InputFileNameWithFolder.value()] = args[i + 1];
 				}else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
@@ -852,6 +835,18 @@ public class App {
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
+		
+		// parsing input file location
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase( Commons.ARG_OUTPUT_RESULTS_FOLDER)){
+				if( argsInOrder[CommandLineArguments.OutputFolder.value()].equals( notSet)){
+
+					argsInOrder[CommandLineArguments.OutputFolder.value()] = args[i + 1];
+				}else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.JobName))
 			return false;
@@ -859,19 +854,20 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WriteGeneratedRandomDataMode))
 			return false;
 
-		if( !setWithDefaultValueIfNotSet( argsInOrder,
-				CommandLineArguments.WritePermutationBasedandParametricBasedAnnotationResultMode))
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WritePermutationBasedandParametricBasedAnnotationResultMode))
 			return false;
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WritePermutationBasedAnnotationResultMode))
 			return false;
 
-		if( !setWithDefaultValueIfNotSet( argsInOrder,
-				CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode))
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode))
 			return false;
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WriteAnnotationBinaryMatrixMode))
 			return false;
+		
+		if( argsInOrder[CommandLineArguments.OutputFolder.value()].equals( notSet))
+			argsInOrder[CommandLineArguments.OutputFolder.value()] = argsInOrder[CommandLineArguments.GlanetFolder.value()] + Commons.OUTPUT + System.getProperty( "file.separator") + argsInOrder[CommandLineArguments.JobName.value()] + System.getProperty( "file.separator");
 
 		return true;
 	}

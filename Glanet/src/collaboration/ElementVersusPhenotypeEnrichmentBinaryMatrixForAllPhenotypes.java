@@ -358,7 +358,7 @@ public class ElementVersusPhenotypeEnrichmentBinaryMatrixForAllPhenotypes {
 		}
 		// jobName ends
 
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 
 		/********************************************************************/
 		/*********** delete old files starts **********************************/

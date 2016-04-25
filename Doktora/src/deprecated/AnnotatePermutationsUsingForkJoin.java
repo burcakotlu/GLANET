@@ -1571,7 +1571,7 @@ public class AnnotatePermutationsUsingForkJoin {
 			
 		String glanetFolder = args[1];
 		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") ;
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") ;
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 
 		//SET the Input Data File
 		String inputDataFileName = outputFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE;

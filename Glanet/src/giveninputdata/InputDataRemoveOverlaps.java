@@ -88,20 +88,20 @@ public class InputDataRemoveOverlaps {
 	 */
 	public static void removeOverlaps( String[] args) {
 
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+//		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		Assembly inputFileAssembly = Assembly.convertStringtoEnum( args[CommandLineArguments.InputFileAssembly.value()]);
 		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum( args[CommandLineArguments.InputFileDataFormat.value()]);
 		String inputFileName = null;
 
 		// jobName starts
-		String jobName = args[CommandLineArguments.JobName.value()].trim();
-		if( jobName.isEmpty()){
-			jobName = Commons.NO_NAME;
-		}
+//		String jobName = args[CommandLineArguments.JobName.value()].trim();
+//		if( jobName.isEmpty()){
+//			jobName = Commons.NO_NAME;
+//		}
 		// jobName ends
 
-		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
-		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
+//		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+		String givenDataFolder = args[CommandLineArguments.OutputFolder.value()] + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
 
 		switch( inputFileFormat){
 
@@ -322,16 +322,17 @@ public class InputDataRemoveOverlaps {
 
 	public static void writeGLANETRunTimeArguments( String[] args) {
 
-		if( GlanetRunner.shouldLog())logger.info( "*****************************************************************");
-		if( GlanetRunner.shouldLog())logger.info( "GLANET Parameters starts");
-
-		// Write GLANET Arguments
-		for( int i = 0; i < args.length; i++){
-			if( GlanetRunner.shouldLog())logger.info( args[i]);
+		if( GlanetRunner.shouldLog()){
+			logger.info( "*****************************************************************");
+			logger.info( "GLANET Parameters starts");
+	
+			// Write GLANET Arguments
+			for( int i = 0; i < args.length; i++)
+				logger.info( args[i]);
+	
+			logger.info( "GLANET Parameters ends");
+			logger.info( "*****************************************************************");
 		}
-
-		if( GlanetRunner.shouldLog())logger.info( "GLANET Parameters ends");
-		if( GlanetRunner.shouldLog())logger.info( "*****************************************************************");
 
 	}
 
@@ -425,9 +426,6 @@ public class InputDataRemoveOverlaps {
 	public static void main( String[] args) {
 
 		removeOverlaps( args);
-
 		writeGLANETRunTimeArguments( args);
-
 	}
-
 }

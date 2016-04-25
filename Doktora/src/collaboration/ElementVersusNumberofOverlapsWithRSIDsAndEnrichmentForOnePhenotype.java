@@ -957,7 +957,7 @@ public class ElementVersusNumberofOverlapsWithRSIDsAndEnrichmentForOnePhenotype 
 		//jobName ends
 		
 		
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
 		//ANNOTATION Element ArrayLists starts
 		List<ElementAnnotationEnrichment> dnaseElements 	= new ArrayList<ElementAnnotationEnrichment>();
