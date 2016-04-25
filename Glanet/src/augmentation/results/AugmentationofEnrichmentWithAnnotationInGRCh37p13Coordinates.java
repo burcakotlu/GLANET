@@ -1346,7 +1346,7 @@ public class AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates {
 					
 					keggPathwayName = enrichedKeggPathwayNameandDescription.substring( 0, indexofFirstUnderscore);
 					keggPathwayOriginalOverlapsFileReader = new FileReader(
-							outputFolder + Commons.ALL_BASED_KEGG_PATHWAY_ANALYSIS + "_" + keggPathwayName + ".txt");
+							outputFolder + Commons.ALL_BASED_KEGG_PATHWAY_ANNOTATION + "_" + keggPathwayName + ".txt");
 				}
 
 				// USERDEFINED GENESET

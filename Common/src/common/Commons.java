@@ -220,7 +220,7 @@ public class Commons {
 	public static final int D_NUMBER_OF_BASES = 100000;
 
 	// 1000 KB = 1 MB
-	// public static final int D_NUMBER_OF_BASES = 1000000;
+	//public static final int D_NUMBER_OF_BASES = 1000000;
 
 	// dbSNP rs Prefix
 	public static final String RS = "rs";
@@ -1380,7 +1380,7 @@ public class Commons {
 	// KEGG Pathway
 	public static final String EXON_BASED_KEGG_PATHWAY_ANNOTATION = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.KEGG_PATHWAY + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + Commons.EXON_BASED;
 	public static final String REGULATION_BASED_KEGG_PATHWAY_ANNOTATION = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.KEGG_PATHWAY + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + Commons.REGULATION_BASED;
-	public static final String ALL_BASED_KEGG_PATHWAY_ANALYSIS = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.KEGG_PATHWAY + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.ALL_BASED;
+	public static final String ALL_BASED_KEGG_PATHWAY_ANNOTATION = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.KEGG_PATHWAY + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.ALL_BASED;
 
 	// TF KEGGPATHWAY
 	public static final String TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.TF_KEGGPATHWAY + System.getProperty( "file.separator") + Commons.TF_EXON_BASED_KEGG_PATHWAY + System.getProperty( "file.separator");
