@@ -836,13 +836,12 @@ public class App {
 					return false;
 				}
 		
-		// parsing input file location
+		// parsing output folder
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase( Commons.ARG_OUTPUT_RESULTS_FOLDER)){
-				if( argsInOrder[CommandLineArguments.OutputFolder.value()].equals( notSet)){
-
+				if( argsInOrder[CommandLineArguments.OutputFolder.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.OutputFolder.value()] = args[i + 1];
-				}else{
+				else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
@@ -867,7 +866,12 @@ public class App {
 			return false;
 		
 		if( argsInOrder[CommandLineArguments.OutputFolder.value()].equals( notSet))
-			argsInOrder[CommandLineArguments.OutputFolder.value()] = argsInOrder[CommandLineArguments.GlanetFolder.value()] + Commons.OUTPUT + System.getProperty( "file.separator") + argsInOrder[CommandLineArguments.JobName.value()] + System.getProperty( "file.separator");
+			argsInOrder[CommandLineArguments.OutputFolder.value()] = argsInOrder[CommandLineArguments.GlanetFolder.value()] + Commons.OUTPUT + System.getProperty( "file.separator");
+		
+//		if( argsInOrder[CommandLineArguments.OutputFolder.value()].charAt(argsInOrder[CommandLineArguments.OutputFolder.value()].length()-1) != System.getProperty( "file.separator").toCharArray()[0])
+//			argsInOrder[CommandLineArguments.OutputFolder.value()] = argsInOrder[CommandLineArguments.OutputFolder.value()] + System.getProperty( "file.separator");
+		
+		argsInOrder[CommandLineArguments.OutputFolder.value()] =  argsInOrder[CommandLineArguments.OutputFolder.value()] + System.getProperty( "file.separator") + argsInOrder[CommandLineArguments.JobName.value()] + System.getProperty( "file.separator");
 
 		return true;
 	}

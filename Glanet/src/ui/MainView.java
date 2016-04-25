@@ -37,6 +37,7 @@ import javax.swing.ToolTipManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import common.Commons;
+import enumtypes.CommandLineArguments;
 
 public class MainView extends JPanel {
 
@@ -225,7 +226,7 @@ public class MainView extends JPanel {
 				else if( outputFolderTextField.getText().charAt(outputFolderTextField.getText().length()-1) != System.getProperty( "file.separator").toCharArray()[0])
 					outputFolderTextField.setText(outputFolderTextField.getText() + System.getProperty( "file.separator"));
 				
-				outputFolderTextField.setText( outputFolderTextField.getText() + ((jobName.getText().length() == 0)?Commons.NO_NAME:jobName.getText()) + System.getProperty( "file.separator"));
+				outputFolderTextField.setText( outputFolderTextField.getText() + ((jobName.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobName.getText()) + System.getProperty( "file.separator"));
 				
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
@@ -250,7 +251,7 @@ public class MainView extends JPanel {
 						tfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION,
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
-						(jobName.getText().length() == 0)?Commons.NO_NAME:jobName.getText(),
+						(jobName.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobName.getText(),
 						Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS,
 						Commons.DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX,
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
