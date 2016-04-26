@@ -3479,7 +3479,7 @@ public class Annotation {
 						TLongByteMap tfCellLineRegulationBasedKeggPathway2OneorZeroMap 	= new TLongByteHashMap();
 						TLongByteMap tfCellLineAllBasedKeggPathway2OneorZeroMap 		= new TLongByteHashMap();
 
-						// Fill these lists during search for TFs and search for UCSCRefSeqGenes
+						// Fill these lists during search for TFs and UCSCRefSeqGenes
 						List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList = new ArrayList<TfCellLineOverlapWithNumbers>();
 						List<UcscRefSeqGeneOverlapWithNumbers> exonBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
 						List<UcscRefSeqGeneOverlapWithNumbers> regulationBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
@@ -3506,7 +3506,7 @@ public class Annotation {
 									);
 						}
 
-						// accumulate search results of
+						// accumulate search results
 						for( TIntByteIterator it = tfNumberCellLineNumber2ZeroorOneMap.iterator(); it.hasNext();){
 							
 							it.advance();
@@ -3605,12 +3605,12 @@ public class Annotation {
 							}
 
 						}// End of for
-						// code will be added here
+						
 
 						// New search for given input SNP or interval case, does not matter starts here
 						// for each tf overlap
 						// for each ucscRefSeqGene overlap
-						// if these overlaps overlaps
+						// if these overlaps overlap
 						// then write common overlap to output files
 						// OverlapDefinition applies here.
 						for( TfCellLineOverlapWithNumbers tfOverlap : tfandCellLineOverlapList){
@@ -4324,6 +4324,7 @@ public class Annotation {
 						}// for each tfOverlap for the given query
 						
 						
+						//Now accumulate results
 						switch(annotationType){
 
 							case DO_TF_KEGGPATHWAY_ANNOTATION:
@@ -4663,7 +4664,7 @@ public class Annotation {
 						
 						//UCSC RefSeq Genes starts		
 						//We are interested in KEGG Pathways since we are doing TF KEGG Pathway Joint Analysis
-						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						if(ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 																					
 							//Step1: Get all the overlappingIntervals with the inputLine
 							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
@@ -8006,8 +8007,7 @@ public class Annotation {
 			int mixedNumber,
 			TIntIntMap mixedNumber2NumberofOverlappingBasesMap){
 		
-			mixedNumber2NumberofOverlappingBasesMap.put(mixedNumber, 
-					mixedNumber2NumberofOverlappingBasesMap.get(mixedNumber) + numberofOverlappingBases);
+			mixedNumber2NumberofOverlappingBasesMap.put(mixedNumber, mixedNumber2NumberofOverlappingBasesMap.get(mixedNumber) + numberofOverlappingBases);
 		
 	}
 	
@@ -8080,6 +8080,7 @@ public class Annotation {
 	
 	//18 April 2016
 	//Called from Annotation
+	//TODO write overlaps into files.
 	public static void findCommonOverlaps(
 			Interval interval,
 			int tfNumberCellLineNumber,
@@ -9390,7 +9391,7 @@ public class Annotation {
 			//Write header line
 			switch(associationMeasureType){
 				case EXISTENCE_OF_OVERLAP:
-					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "ElementNumberCellLineNumber" + "\t" + "ElementName_CellLineName" + "\t" + "k out of n given intervals overlaps with the intervals of element" + System.getProperty( "line.separator"));
+					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "ElementNumberCellLineNumber" + "\t" + "ElementName_CellLineName" + "\t" + "Number of given intervals overlaps with the intervals of element" + System.getProperty( "line.separator"));
 					break;
 				case NUMBER_OF_OVERLAPPING_BASES:
 					bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "ElementNumberCellLineNumber" + "\t" + "ElementName_CellLineName" + "\t" + "Total number of overlapping bases between given intervals and element intervals" + System.getProperty( "line.separator"));
@@ -10975,7 +10976,7 @@ public class Annotation {
 			/*******************************************************************************/
 			/************DNASE ANNOTATION starts********************************************/
 			/*******************************************************************************/
-			if( dnaseAnnotationType.doDnaseAnnotation()){
+			if(dnaseAnnotationType.doDnaseAnnotation()){
 
 				// DNASE
 				TIntIntMap dnaseCellLineNumber2KMap = new TIntIntHashMap();
@@ -11023,7 +11024,7 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ HISTONE****ANNOTATION***starts ***********************************/
 			/*******************************************************************************/
-			if( histoneAnnotationType.doHistoneAnnotation()){
+			if(histoneAnnotationType.doHistoneAnnotation()){
 
 				// Histone
 				TIntIntMap histoneNumberCellLineNumber2KMap = new TIntIntHashMap();
@@ -11200,7 +11201,7 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ KEGG PATHWAY*****ANNOTATION***starts *****************************/
 			/*******************************************************************************/
-			if( keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
+			if(keggPathwayAnnotationType.doKEGGPathwayAnnotation() && 
 					!( tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 					!( tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
 				
