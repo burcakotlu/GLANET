@@ -10930,8 +10930,7 @@ public class Annotation {
 
 		// Prepare chromosome based partitioned input interval files to be searched for
 		// Create Buffered Writers for writing chromosome based input files
-		FileOperations.createChromBaseSearchInputFiles( outputFolder, chrNumber2FileWriterMap,
-				chrNumber2BufferedWriterMap);
+		FileOperations.createChromBaseSearchInputFiles( outputFolder, chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
 
 		// Partition the input file into 24 chromosome based input files
 		partitionSearchInputFilePerChromName( inputFileName, chrNumber2BufferedWriterMap);
