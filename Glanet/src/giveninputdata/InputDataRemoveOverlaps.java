@@ -101,7 +101,8 @@ public class InputDataRemoveOverlaps {
 		// jobName ends
 
 //		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
-		String givenDataFolder = args[CommandLineArguments.OutputFolder.value()] + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
+		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
 
 		switch( inputFileFormat){
 

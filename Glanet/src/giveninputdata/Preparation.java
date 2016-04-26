@@ -6,9 +6,6 @@
 package giveninputdata;
 
 import auxiliary.FileOperations;
-
-import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 /**
@@ -117,11 +114,11 @@ public class Preparation {
 		// String dataFolder = glanetFolder + Commons.DATA +
 		// System.getProperty("file.separator");
 //		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
-
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		// Log4jConfiguration log4jConfiguration = new Log4jConfiguration();
 
 		// Create outputFolder it it does not exists
-		FileOperations.createFolder( args[CommandLineArguments.OutputFolder.value()]);
+		FileOperations.createFolder(outputFolder);
 
 		// FileOperations.deleteDummyLogFiles(glanetFolder, "log");
 
@@ -129,7 +126,7 @@ public class Preparation {
 		// outputFolder);
 
 		// delete old files starts
-		FileOperations.deleteOldFiles( args[CommandLineArguments.OutputFolder.value()]);
+		FileOperations.deleteOldFiles(outputFolder);
 		// delete old files ends
 
 	}

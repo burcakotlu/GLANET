@@ -971,13 +971,13 @@ public class InputDataProcess {
 		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum( args[CommandLineArguments.InputFileDataFormat.value()]);
 
 //		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-
-		String givenDataFolder = args[CommandLineArguments.OutputFolder.value()] + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
+		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
 
 		/********************************************************************/
 		/*********** delete old files starts **********************************/
-		String givenInputDataOutputBaseDirectoryName = args[CommandLineArguments.OutputFolder.value()] + Commons.GIVENINPUTDATA;
+		String givenInputDataOutputBaseDirectoryName = outputFolder + Commons.GIVENINPUTDATA;
 
 		FileOperations.deleteOldFiles( givenInputDataOutputBaseDirectoryName);
 		/*********** delete old files ends ***********************************/

@@ -221,11 +221,16 @@ public class MainView extends JPanel {
 				logArea.setText( "");
 				logArea.setCaretPosition( logArea.getDocument().getLength());
 				
-				if( outputFolderTextField.getText().length() < 1)
+				//No outputFolder is set by user
+				if( outputFolderTextField.getText().length() < 1){
 					outputFolderTextField.setText(glanetFolderTextField.getText() + Commons.OUTPUT + System.getProperty( "file.separator"));
-				else if( outputFolderTextField.getText().charAt(outputFolderTextField.getText().length()-1) != System.getProperty( "file.separator").toCharArray()[0])
+				}
+				//OutputFolder is set by user but there is no file separator at the end
+				else if( outputFolderTextField.getText().charAt(outputFolderTextField.getText().length()-1) != System.getProperty( "file.separator").toCharArray()[0]) {
 					outputFolderTextField.setText(outputFolderTextField.getText() + System.getProperty( "file.separator"));
+				}
 				
+				//Update outputFolder with jobName whether jobName is set by user or not.
 				outputFolderTextField.setText( outputFolderTextField.getText() + ((jobName.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobName.getText()) + System.getProperty( "file.separator"));
 				
 				delegate.startRunActionsWithOptions(

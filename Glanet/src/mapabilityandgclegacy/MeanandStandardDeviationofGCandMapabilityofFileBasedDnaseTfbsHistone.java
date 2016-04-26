@@ -1420,16 +1420,16 @@ public class MeanandStandardDeviationofGCandMapabilityofFileBasedDnaseTfbsHiston
 		GRCh37Hg19Chromosome.getHg19ChromosomeSizes( hg19ChromosomeSizes, dataFolder,Commons.HG19_CHROMOSOME_SIZES_INPUT_FILE);
 		
 		
-		String encodeDataFolder = "G:" + System.getProperty("file.separator") +  "GLANET_DATA" + System.getProperty("file.separator")  ;
+		//String encodeDataFolder = "G:" + System.getProperty("file.separator") +  "GLANET_DATA" + System.getProperty("file.separator")  ;
 		String functionalElementFileBasedOutputFolder = outputFolder + "forPaper" + System.getProperty("file.separator")  + "mapabilityandgc" + System.getProperty("file.separator") + "Augmentation" + System.getProperty("file.separator") +  "FunctionalElementFileBased" + System.getProperty("file.separator");
 
 		// DNASE ORIGINAL ENCODE FILES DIRECTORY
-		File dnaseDir1 = new File( encodeDataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
-		File dnaseDir2 = new File( encodeDataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);
+		//File dnaseDir1 = new File( encodeDataFolder + common.Commons.ENCODE_DNASE_DIRECTORY1);
+		//File dnaseDir2 = new File( encodeDataFolder + common.Commons.ENCODE_DNASE_DIRECTORY2);
 		// TFBS ORIGINAL ENCODE FILES DIRECTORY
-		File tfbsDir = new File( encodeDataFolder + common.Commons.ENCODE_TFBS_DIRECTORY);
+		//File tfbsDir = new File( encodeDataFolder + common.Commons.ENCODE_TFBS_DIRECTORY);
 		// HISTONE ORIGINAL ENCODE FILES DIRECTORY
-		File histoneDir = new File( encodeDataFolder + common.Commons.ENCODE_HISTONE_DIRECTORY);
+		//File histoneDir = new File( encodeDataFolder + common.Commons.ENCODE_HISTONE_DIRECTORY);
 		
 		//This part takes long.
 		//So comment them once files are formed.

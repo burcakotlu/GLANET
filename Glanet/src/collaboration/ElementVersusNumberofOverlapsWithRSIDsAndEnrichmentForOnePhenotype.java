@@ -988,7 +988,7 @@ public class ElementVersusNumberofOverlapsWithRSIDsAndEnrichmentForOnePhenotype 
 
 	public static void main( String[] args) {
 
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		//String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
 		// Multiple Testing Parameter for selection of enriched elements
 		MultipleTestingType multipleTestingParameter = MultipleTestingType.convertStringtoEnum( args[6]);

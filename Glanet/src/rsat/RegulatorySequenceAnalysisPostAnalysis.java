@@ -239,8 +239,7 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 		//Read RegulatorySequenceAnalysisResults.txt
 		//Under C:\Users\Bur�ak\Google Drive\Output\OCD_RSA\RegulatorySequenceAnalysis
 		
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-
+		
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
 

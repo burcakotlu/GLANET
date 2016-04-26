@@ -1185,7 +1185,7 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 	// give an out of boundry exception in a for loop with this approach.
 	public static void main( String[] args) {
 
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+		//String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();

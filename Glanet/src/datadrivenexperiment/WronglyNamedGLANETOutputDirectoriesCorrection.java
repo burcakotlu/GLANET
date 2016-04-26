@@ -5,7 +5,6 @@ package datadrivenexperiment;
 
 import java.io.File;
 
-import common.Commons;
 import enumtypes.CommandLineArguments;
 
 /**
@@ -52,8 +51,6 @@ public class WronglyNamedGLANETOutputDirectoriesCorrection {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
-		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		
 		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
