@@ -161,7 +161,7 @@ public class GlanetRunner implements Runnable {
 		/******************************************************************************/
 
 		/************************ GLANET execution ends ********************************************/
-		setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[CommandLineArguments.GlanetFolder.value()] + "Output" + System.getProperty( "file.separator") + args[CommandLineArguments.JobName.value()] + System.getProperty( "file.separator"));
+		setCurrentProcessInfo( "GLANET execution has ended. You can reach results under " + args[CommandLineArguments.OutputFolder.value()]);
 
 		if( getMainView() != null){
 			getMainView().enableStartProcess( true);
