@@ -221,6 +221,7 @@ public class MainView extends JPanel {
 				logArea.setText( "");
 				logArea.setCaretPosition( logArea.getDocument().getLength());
 				
+				String outputFolder;
 				//No outputFolder is set by user
 				if( outputFolderTextField.getText().length() < 1){
 					outputFolderTextField.setText(glanetFolderTextField.getText() + Commons.OUTPUT + System.getProperty( "file.separator"));
@@ -231,13 +232,14 @@ public class MainView extends JPanel {
 				}
 				
 				//Update outputFolder with jobName whether jobName is set by user or not.
-				outputFolderTextField.setText( outputFolderTextField.getText() + ((jobName.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobName.getText()) + System.getProperty( "file.separator"));
+				outputFolder = outputFolderTextField.getText() + ((jobName.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobName.getText()) + System.getProperty( "file.separator");
 				
+				System.out.println(outputFolder);
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
 						inputAssembly.getSelectedItem().toString(),
 						glanetFolderTextField.getText(),
-						outputFolderTextField.getText(),
+						outputFolder,
 						inputFormatCombo.getSelectedItem().toString(),
 						associationMeasureTypeCombo.getSelectedItem().toString(),
 						numberOfBases.getText(),
