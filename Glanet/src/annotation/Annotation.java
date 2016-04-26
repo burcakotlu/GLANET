@@ -3554,6 +3554,18 @@ public class Annotation {
 									refSeqGeneNumber2RefSeqGeneNameMap);
 						}
 						// UCSCRefSeqGenes Search ends here
+						
+						// Accumulate search results
+						for( TIntByteIterator it = geneEntrezID2OneorZeroMap.iterator(); it.hasNext();){
+							it.advance();
+
+							if( !geneEntrezID2KMap.containsKey(it.key())){
+								geneEntrezID2KMap.put(it.key(),it.value());
+							}else{
+								geneEntrezID2KMap.put(it.key(),geneEntrezID2KMap.get(it.key()) + it.value());
+							}
+
+						}// End of for
 
 						// Accumulate search results
 						for( TIntByteIterator it = exonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
@@ -9713,7 +9725,7 @@ public class Annotation {
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntIntMap tfNumberCellLineNumber2KMap, 
-			TIntIntMap entrezGeneId2KMap,
+			TIntIntMap geneEntrezID2KMap,
 			TIntIntMap exonBasedKeggPathwayNumber2KMap,
 			TIntIntMap regulationBasedKeggPathwayNumber2KMap, 
 			TIntIntMap allBasedKeggPathwayNumber2KMap,
@@ -9798,7 +9810,7 @@ public class Annotation {
 						tfbsIntervalTree, 
 						ucscRefSeqGenesIntervalTree, 
 						tfNumberCellLineNumber2KMap,
-						entrezGeneId2KMap,
+						geneEntrezID2KMap,
 						exonBasedKeggPathwayNumber2KMap, 
 						regulationBasedKeggPathwayNumber2KMap,
 						allBasedKeggPathwayNumber2KMap, 
@@ -11635,6 +11647,7 @@ public class Annotation {
 						geneEntrezId2GeneOfficialSymbolMap, 
 						outputFolder,
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+							
 
 
 				// TF
