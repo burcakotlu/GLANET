@@ -264,6 +264,8 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | GLANET Folder           | `-g`_         |  Required         | `-c`_        | None ("path/to/file")|
 +-------------------------+---------------+-------------------+--------------+----------------------+
+| Output Folder           | `-o`_         |  Optional         | `-o`_        | GlanetFolder/Output/ |
++-------------------------+---------------+-------------------+--------------+----------------------+
 | Input File Format       | `-f1`_        |  Required         | `-c`_        | `-fbed`_             |
 |                         +---------------+                   |              |                      |
 |                         | `-f0`_        |                   |              |                      |
@@ -366,6 +368,8 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Job Name                | `-j`_         |  Optional         | `-c`_        | "NoName" (String)    |
 +-------------------------+---------------+-------------------+--------------+----------------------+
+| Number of Threads       | `-t`_         |  Optional         | `-t`_        | 80% of all processors|
++-------------------------+---------------+-------------------+--------------+----------------------+
 | Log File                | `-l`_         |  Optional         |              | `-nl`_               |
 |                         +---------------+                   |              |                      |
 |                         | `-nl`_        |                   |              |                      |
@@ -409,6 +413,11 @@ To enable GLANET to run in Terminal or Command Prompt, it must be indicated with
 
 **Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option`-g`.
 Do not forget that GLANET folder must have the Data folder as sub folder.
+
+-o
+^^
+
+Specifies the output folder where the results will be written under. The folder location must be specified after :option`-o`. If the folder does not exists, GLANET creates one.
 
 -f1
 ^^^
@@ -649,6 +658,11 @@ It creates an output folder with the specified Job Name.
 Results will be collected under this folder. 
 Job Name must be specified as the parameter. 
 If you do not set anything, default option is :option:`-j NoName`.
+
+-t
+^^
+
+This option followed by an integer value sets the number of threads allocated for the GLANET run. If the option is not specified, the default value is the 80% of the all processors available in the system.
 
 -l
 ^^

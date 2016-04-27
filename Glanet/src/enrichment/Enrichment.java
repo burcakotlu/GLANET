@@ -71,7 +71,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapability.ChromosomeBasedMappabilityTroveList;
 
-import org.apache.commons.math3.analysis.function.Min;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
