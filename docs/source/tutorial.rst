@@ -411,13 +411,13 @@ To enable GLANET to run in Terminal or Command Prompt, it must be indicated with
 -g
 ^^
 
-**Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option`-g`.
+**Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option:`-g`.
 Do not forget that GLANET folder must have the Data folder as sub folder.
 
 -o
 ^^
 
-Specifies the output folder where the results will be written under. The folder location must be specified after :option`-o`. If the folder does not exists, GLANET creates one.
+Specifies the output folder where the results will be written under. The folder location must be specified after :option:`-o`. If the folder does not exists, GLANET creates one.
 
 -f1
 ^^^
@@ -662,7 +662,7 @@ If you do not set anything, default option is :option:`-j NoName`.
 -t
 ^^
 
-This option followed by an integer value sets the number of threads allocated for the GLANET run. If the option is not specified, the default value is the 80% of the all processors available in the system.
+This option followed by an integer value sets the number of threads allocated for the GLANET run. If the option is not specified, the default value is the 80% of the all processors available in the system. If the number of threads specified exceeds the maximum available threads in your system, maximum available threads will be used.
 
 -l
 ^^
@@ -678,13 +678,13 @@ If this option is set, GLANET Run is not written to a log file.
 GLANET Command-Line Sample Runs
 -------------------------------
 
- Example Annotation Run is as following::
+ Example Annotation Run is as following (Number of threads specified explicitly)::
 
-	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/CVD_all_1_based_snps.txt" -f1 -grch37 -eoo -dnase -histone -tf -kegg -tfkegg -l -j "SampleRun1"
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/CVD_all_1_based_snps.txt" -f1 -grch37 -eoo -dnase -histone -tf -kegg -tfkegg -l -j "SampleRun1" -t 16
 
- Example Annotation and Enrichmnet Run is as following::
+ Example Annotation and Enrichmnet Run is as following (Output folder specified explicitly)::
 
-	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -kegg -e -se 10000  -l -j "SampleRun2"
+	$ java −jar "path/to/GLANET Folder/GLANET.jar" -Xms8G -Xmx8G -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -o "path/to/Desired Output Location" -fdbsnp -dnase -histone -kegg -e -se 10000  -l -j "SampleRun2"
 
  Example Annotation and Enrichmnet Run is as following (Enrichment without ZScores)::
 
