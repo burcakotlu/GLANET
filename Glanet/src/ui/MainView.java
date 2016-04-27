@@ -15,7 +15,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -25,6 +29,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -48,7 +53,8 @@ public class MainView extends JPanel {
 
 	private JScrollPane scrollPane;
 	private MainViewDelegate delegate;
-	private JTextField jobName;
+	private JTextField jobNameTextField;
+	private JTextField numOfThreadsTextField;
 	private JTextField glanetFolderTextField;
 	private JTextField outputFolderTextField;
 	private JTextField inputTextField;
@@ -131,6 +137,7 @@ public class MainView extends JPanel {
 				String givenInputDataType,
 				String glanetRunType,
 				String isochoreFamilyMode,
+				String numOfThreads,
 				String[] cellLinesToBeConsidered);
 
 		public void stopCurrentProcess();
@@ -232,9 +239,8 @@ public class MainView extends JPanel {
 				}
 				
 				//Update outputFolder with jobName whether jobName is set by user or not.
-				outputFolder = outputFolderTextField.getText() + ((jobName.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobName.getText()) + System.getProperty( "file.separator");
+				outputFolder = outputFolderTextField.getText() + ((jobNameTextField.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobNameTextField.getText()) + System.getProperty( "file.separator");
 				
-				System.out.println(outputFolder);
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
 						inputAssembly.getSelectedItem().toString(),
@@ -242,13 +248,13 @@ public class MainView extends JPanel {
 						outputFolder,
 						inputFormatCombo.getSelectedItem().toString(),
 						associationMeasureTypeCombo.getSelectedItem().toString(),
-						numberOfBases.getText(),
+						(numberOfBases.getText().length() < 1)?CommandLineArguments.NumberOfBasesRequiredForOverlap.defaultValue():numberOfBases.getText(),
 						performEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
 						performEnrichmentWithZScoresCheckBox.isSelected()?Commons.PERFORM_ENRICHMENT_WITH_ZSCORE:Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE,
 						generateRandomDataModeCombo.getSelectedItem().toString(),
 						multipleTestingCombo.getSelectedItem().toString(),
-						signifanceCriteria.getText(),
-						falseDiscoveryRate.getText(),
+						(signifanceCriteria.getText().length() < 1)?CommandLineArguments.BonferroniCorrectionSignificanceCriteria.defaultValue():signifanceCriteria.getText(),
+						(falseDiscoveryRate.getText().length() < 1)?CommandLineArguments.FalseDiscoveryRate.defaultValue():falseDiscoveryRate.getText(),
 						numberOfPerCombo.getSelectedItem().toString(),
 						dnaseAnnotation.isSelected()?Commons.DO_DNASE_ANNOTATION:Commons.DO_NOT_DNASE_ANNOTATION,
 						histoneAnnotation.isSelected()?Commons.DO_HISTONE_ANNOTATION:Commons.DO_NOT_HISTONE_ANNOTATION,
@@ -258,7 +264,7 @@ public class MainView extends JPanel {
 						tfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION,
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
-						(jobName.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobName.getText(),
+						(jobNameTextField.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobNameTextField.getText(),
 						Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS,
 						Commons.DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX,
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
@@ -276,6 +282,7 @@ public class MainView extends JPanel {
 						Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS,
 						Commons.GLANET_NORMAL_RUN,
 						Commons.DO_NOT_USE_ISOCHORE_FAMILY,
+						(numOfThreadsTextField.getText().length() < 1)?CommandLineArguments.NumberOfThreads.defaultValue():numOfThreadsTextField.getText(),
 						cellLinesList.getSelectedValuesList().toArray( new String[0]));
 
 				enableStartProcess( false);
@@ -483,7 +490,7 @@ public class MainView extends JPanel {
 
 		// numberOfBases added to numberOfBasesPanel
 		numberOfBases = new JTextField( 30);
-		numberOfBases.setText( "1");
+		numberOfBases.setText( CommandLineArguments.NumberOfBasesRequiredForOverlap.defaultValue());
 		numberOfBasesPanel.add( createPanelWithHint( numberOfBases, Commons.GUI_HINT_NUMBER_OF_BASES));
 		assocAndOverlapDefPanel.add( createBorderedPanel( "Overlap Definition", numberOfBasesPanel));
 		
@@ -673,13 +680,13 @@ public class MainView extends JPanel {
 
 		// falseDiscoveryRate added to fdrAndSigCriteria
 		falseDiscoveryRate = new JTextField( 30);
-		falseDiscoveryRate.setText( "0.05");
+		falseDiscoveryRate.setText( CommandLineArguments.FalseDiscoveryRate.defaultValue());
 		fdrAndSigCriteria.add( createBorderedPanel( "False Discovery Rate",
 				createPanelWithHint( falseDiscoveryRate, Commons.GUI_HINT_FDR)));
 
 		// signifanceCriteria added to fdrAndSigCriteria
 		signifanceCriteria = new JTextField( 30);
-		signifanceCriteria.setText( "0.05");
+		signifanceCriteria.setText( CommandLineArguments.BonferroniCorrectionSignificanceCriteria.defaultValue());
 		fdrAndSigCriteria.add( createBorderedPanel( "Bonferroni Correction Significance Criteria",
 				createPanelWithHint( signifanceCriteria, Commons.GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA)));
 		enrichmentPanel.add( fdrAndSigCriteria);
@@ -716,12 +723,20 @@ public class MainView extends JPanel {
 		listPane.add( createBorderedPanel( "Enrichment", enrichmentPanel));
 
 		// jobNamePanel added to listPane
-		JPanel jobNamePanel = new JPanel( new FlowLayout( FlowLayout.LEFT));
+		JPanel jobNameAndThreadPanel = new JPanel( new GridLayout( 1, 2));
 
 		// jobName added to jobNamePanel
-		jobName = new JTextField( 30);
-		jobNamePanel.add( createPanelWithHint( jobName, Commons.GUI_HINT_JOB_NAME));
-		listPane.add( createBorderedPanel( "Job Name", jobNamePanel));
+		jobNameTextField = new JTextField( 30);
+		numOfThreadsTextField = new JTextField(30);
+		numOfThreadsTextField.setText( CommandLineArguments.NumberOfThreads.defaultValue());
+		JLabel numOfThreadsLabel = new JLabel("Max available processors: " + Runtime.getRuntime().availableProcessors());
+		JPanel threadFieldAndLabelPanel = new JPanel( new GridLayout( 2, 1));
+		threadFieldAndLabelPanel.add(numOfThreadsLabel);
+		threadFieldAndLabelPanel.add(createPanelWithHint( numOfThreadsTextField, Commons.GUI_HINT_NUMBER_OF_THREADS));
+		
+		jobNameAndThreadPanel.add( createBorderedPanel( "Job Name", createPanelWithHint( jobNameTextField, Commons.GUI_HINT_JOB_NAME)));
+		jobNameAndThreadPanel.add( createBorderedPanel( "Number of Threads", threadFieldAndLabelPanel));
+		listPane.add( jobNameAndThreadPanel);
 
 		// currentWorkLabel added to listPane
 		JPanel workPanel = new JPanel( new FlowLayout( FlowLayout.LEFT));
@@ -950,7 +965,7 @@ public class MainView extends JPanel {
 
 	public void enableStartProcess( boolean shouldEnable) {
 
-		jobName.setEnabled( shouldEnable);
+		jobNameTextField.setEnabled( shouldEnable);
 		glanetFolderTextField.setEnabled( shouldEnable);
 		inputTextField.setEnabled( shouldEnable);
 		falseDiscoveryRate.setEnabled( shouldEnable);

@@ -71,6 +71,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import keggpathway.ncbigenes.KeggPathwayUtility;
 import mapability.ChromosomeBasedMappabilityTroveList;
 
+import org.apache.commons.math3.analysis.function.Min;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
@@ -8377,7 +8378,8 @@ public class Enrichment {
 		/***********************************************************************************/
 		
 		//Get Number of processors
-		int numberofProcessors = Commons.NUMBER_OF_AVAILABLE_PROCESSORS;
+		
+		int numberofProcessors = java.lang.Math.min(Integer.parseInt(args[CommandLineArguments.NumberOfThreads.value()]), Runtime.getRuntime().availableProcessors());
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 

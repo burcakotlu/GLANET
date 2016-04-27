@@ -9532,6 +9532,7 @@ public class Annotation {
 			int numberofComparisonsDnase, char[][] dnaseCellLineNames, char[][] fileNames,
 			WriteElementBasedAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode, ForkJoinPool pool) {
 
+		pool = new ForkJoinPool(java.lang.Math.min(4, Commons.NUMBER_OF_AVAILABLE_PROCESSORS/2));
 		FindOverlaps findOverlaps;
 		int[] kArray = new int[numberofComparisonsDnase];
 

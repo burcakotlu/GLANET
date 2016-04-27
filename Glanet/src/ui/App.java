@@ -117,6 +117,21 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.InputFileNameWithFolder))
 			return false;
 		
+		// parsing num of threads
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase( Commons.ARG_NUM_OF_THREADS)){
+				if( argsInOrder[CommandLineArguments.NumberOfThreads.value()].equals( notSet)){
+
+					argsInOrder[CommandLineArguments.NumberOfThreads.value()] = args[i + 1];
+				}else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfThreads))
+			return false;
+		
 		/***************************************************************************************/
 		/**********************************LOG FILE MODE****************************************/
 		/***************************************************************************************/
@@ -889,7 +904,7 @@ public class App {
 	// class paths
 	// argsForGlanetRunner contains only the arguments required in the GUI
 	public static void main( String args[]) throws URISyntaxException, IOException {
-
+		
 		if( args.length > 0 && isCommandLineEnabled( args)){
 
 			// 1024 means 1024 bytes
@@ -911,7 +926,7 @@ public class App {
 
 			GlanetRunner.setMainView( null);
 			GlanetRunner.setArgs( argsForGlanetRunner);
-
+			
 			GlanetRunner runner = new GlanetRunner();
 			new Thread( runner).start();
 

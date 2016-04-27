@@ -129,7 +129,8 @@ public enum CommandLineArguments {
 	LogFile(38, Commons.ARG_NO_LOG_FILE),
 	GLANETRun(39, Commons.GLANET_NORMAL_RUN), //This argument is optional, default is normal run
 	IsochoreFamilyMode(40,Commons.DO_NOT_USE_ISOCHORE_FAMILY), //This argument is internal.
-	NumberOfArguments(41);
+	NumberOfThreads(41, Integer.toString(4*Runtime.getRuntime().availableProcessors()/5)), //This argument is internal.
+	NumberOfArguments(42);
 
 	private final int value;
 	private final String defaultValue;
@@ -137,6 +138,7 @@ public enum CommandLineArguments {
 	private CommandLineArguments( int value, String defaultValue) {
 		this.value = value;
 		this.defaultValue = defaultValue;
+		Integer.toString(Runtime.getRuntime().availableProcessors());
 	}
 	
 

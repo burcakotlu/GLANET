@@ -1481,6 +1481,7 @@ public class Commons {
 	/****************************** HINTS ****************************************/
 	public static final String GUI_HINT_INPUT_FILE_NAME = "Choose An Input Data File";
 	public static final String GUI_HINT_JOB_NAME = "Give A Job Name In Order To Get A Specific Output Folder. Please Choose A Short Job Name For Your Convenience.";
+	public static final String GUI_HINT_NUMBER_OF_THREADS = "Number of threads that will be allocated for the current run (Optional)";
 	public static final String GUI_HINT_INPUT_FORMAT = "Choose Data Format In Input Data File";
 	public static final String GUI_HINT_ASSEMBLY_FORMAT = "Supported Assemblies";
 	public static final String GUI_HINT_GLANET_FOLDER = "Choose GLANET FOLDER Which Is The Parent Of Data Folder";
@@ -1538,6 +1539,7 @@ public class Commons {
 	public static final String GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN = "-dder";
 	public static final String GLANET_NORMAL_RUN = "-nr";
 	public static final String ARG_INPUT_FILE = "-i";
+	public static final String ARG_NUM_OF_THREADS = "-t";
 	public static final String ARG_ASSEMBLY_FORMAT_HG_19 = "-grch37";
 	public static final String ARG_ASSEMBLY_FORMAT_HG_38 = "-grch38";
 	public static final String ARG_NUMBER_OF_OVERLAPPING_BASES = "-noob";

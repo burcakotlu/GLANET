@@ -27,7 +27,7 @@ public class GlanetRunner implements Runnable {
 
 		Preparation.main( args);
 		/************************ Preparation ends **********************************************/
-
+		
 		/************************ InputDataProcess starts ***************************************/
 		setCurrentProcessInfo( "InputDataProcess...");
 
@@ -39,13 +39,13 @@ public class GlanetRunner implements Runnable {
 
 		InputDataRemoveOverlaps.main( args);
 		/************************ RemoveOverlaps ends ********************************************/
-
+		
 		/************************ NCBI REMAP starts ***********************************************/
 		setCurrentProcessInfo( "NCBI REMAP starts...");
 
 		InputDataNCBIRemap.main( args);
 		/************************ NCBI REMAP ends ***********************************************/
-
+		
 		/******************************************************************************************/
 		/************************ Annotation starts ***********************************************/
 		/******************************************************************************************/
