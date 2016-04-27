@@ -264,7 +264,7 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | GLANET Folder           | `-g`_         |  Required         | `-c`_        | None ("path/to/file")|
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Output Folder           | `-o`_         |  Optional         | `-o`_        | GlanetFolder/Output/ |
+| Output Folder           | `-o`_         |  Optional         | `-c`_        | GlanetFolder/Output/ |
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Input File Format       | `-f1`_        |  Required         | `-c`_        | `-fbed`_             |
 |                         +---------------+                   |              |                      |
@@ -368,7 +368,7 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Job Name                | `-j`_         |  Optional         | `-c`_        | "NoName" (String)    |
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Number of Threads       | `-t`_         |  Optional         | `-t`_        | 80% of all processors|
+| Number of Threads       | `-t`_         |  Optional         | `-c`_        | 80% of all processors|
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Log File                | `-l`_         |  Optional         |              | `-nl`_               |
 |                         +---------------+                   |              |                      |
