@@ -2132,32 +2132,9 @@ public class IntervalTree {
 			
 			permutationNumberElementNumberCellLineNumber = itr.key();
 			overlappingNodeList = itr.value();
-			
-//			//debug starts	
-//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
-//					"Constructing the interval tree  from the" + "\t" +
-//					overlappingNodeList.size() + " nodes below starts.");
-//	
-//			for(int i = 0; i<overlappingNodeList.size(); i++){
-//				logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
-//								"ChromName: " + overlappingNodeList.get(i).getChromName() + "\t" + 
-//								"Low: " + overlappingNodeList.get(i).getLow() + "\t" + 
-//								"High: " +  overlappingNodeList.get(i).getHigh() + "\t" + 
-//								"NumberofBases:" + (overlappingNodeList.get(i).getHigh() - overlappingNodeList.get(i).getLow() + 1));				
-//			}//End of FOR				
-//			//debug ends
 	
 			intervalTree = constructAnIntervalTreeWithNonOverlappingNodes(overlappingNodeList);
-			
-//			//debug starts
-//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  
-//					+"Constructed tree has these many NumberofNodes: " + intervalTree.getNumberofNodes() +  "\t" +
-//					"NumberofNonOverlappingBases: " + intervalTree.getNumberofNonOverlappingBases());
-//	
-//			logger.info(	"For permutationNumberMixedNumber: " + permutationNumberElementNumberCellLineNumber +  "\t"  +
-//					"Constructing the interval tree ends." );			
-//			//debug ends
-			
+						
 			permutationNumberElementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap.put(permutationNumberElementNumberCellLineNumber, intervalTree);
 			
 		}//End of FOR each permutationNumberHistoneNumberCellLineNumber in the map
@@ -2167,7 +2144,6 @@ public class IntervalTree {
 	
 	//30 OCT 2015 starts
 	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(
-//			Long permutationNumberMixedNumber,
 			List<IntervalTreeNode> intervalNodeList){
 		
 		//Construct an interval tree consisting of nonOverlapping intervals
@@ -2231,7 +2207,7 @@ public class IntervalTree {
 								((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getFileNumber(), 
 								NodeType.MERGED);
 						
-					}
+					} 
 					
 					else if (intervalTreeNode instanceof DnaseIntervalTreeNodeWithNumbers){
 						
@@ -2241,6 +2217,21 @@ public class IntervalTree {
 								intervalTreeNode.getHigh(),
 								((DnaseIntervalTreeNodeWithNumbers) intervalTreeNode).getCellLineNumber(), 
 								((DnaseIntervalTreeNodeWithNumbers) intervalTreeNode).getFileNumber(), 
+								NodeType.MERGED);
+						
+					}
+					
+					else if (intervalTreeNode instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+						
+						mergedNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
+								intervalTreeNode.getChromName(), 
+								intervalTreeNode.getLow(), 
+								intervalTreeNode.getHigh(),
+								((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getGeneEntrezId(), 
+								((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getRefSeqGeneNumber(), 
+								((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getGeneHugoSymbolNumber(), 
+								((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getIntervalName(),
+								((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getIntervalNumber(), 
 								NodeType.MERGED);
 						
 					}
@@ -5382,33 +5373,33 @@ public class IntervalTree {
 	}
 
 
-	// Annotation
-	// AnnotateGivenIntervals with Numbers
-	public static short getCellLineNumber( 
-			int mixedNumber,
-			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
-
-		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
-		short cellLineNumber = Short.MIN_VALUE;
-
-		switch(generatedMixedNumberDescriptionOrderLength){
-
-			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
-				// example 100_300_020
-				cellLineNumber = ( short)( ( mixedNumber / 1000) % 1000);
-				break;
-	
-			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
-				cellLineNumber = ( short)(mixedNumber % 100000) ;
-				break;
-				
-			default:
-				break;
-
-		}// End of SWITCH
-
-		return cellLineNumber;
-	}
+//	// Annotation
+//	// AnnotateGivenIntervals with Numbers
+//	public static short getCellLineNumber( 
+//			int mixedNumber,
+//			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
+//
+//		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
+//		short cellLineNumber = Short.MIN_VALUE;
+//
+//		switch(generatedMixedNumberDescriptionOrderLength){
+//
+//			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
+//				// example 100_300_020
+//				cellLineNumber = ( short)( ( mixedNumber / 1000) % 1000);
+//				break;
+//	
+//			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
+//				cellLineNumber = ( short)(mixedNumber % 100000) ;
+//				break;
+//				
+//			default:
+//				break;
+//
+//		}// End of SWITCH
+//
+//		return cellLineNumber;
+//	}
 
 	// 17.OCT.2014
 	// called from convert methods in AnnotatePermutations
