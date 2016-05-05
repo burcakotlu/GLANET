@@ -2142,6 +2142,66 @@ public class IntervalTree {
 	}
 	//1 NOV 2015 ends
 	
+	
+	//5 May 2016
+	public static IntervalTreeNode createNewIntervalTreeNode(IntervalTreeNode intervalTreeNode){
+		
+		IntervalTreeNode newIntervalTreeNode = null;
+	
+		if (intervalTreeNode instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			
+			newIntervalTreeNode = new TforHistoneIntervalTreeNodeWithNumbers(
+					intervalTreeNode.getChromName(), 
+					intervalTreeNode.getLow(), 
+					intervalTreeNode.getHigh(), 
+					((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getTforHistoneNumber(),
+					((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getCellLineNumber(), 
+					((TforHistoneIntervalTreeNodeWithNumbers) intervalTreeNode).getFileNumber(), 
+					NodeType.ORIGINAL);
+			
+		} 
+		
+		else if (intervalTreeNode instanceof DnaseIntervalTreeNodeWithNumbers){
+			
+			newIntervalTreeNode = new DnaseIntervalTreeNodeWithNumbers(
+					intervalTreeNode.getChromName(), 
+					intervalTreeNode.getLow(), 
+					intervalTreeNode.getHigh(),
+					((DnaseIntervalTreeNodeWithNumbers) intervalTreeNode).getCellLineNumber(), 
+					((DnaseIntervalTreeNodeWithNumbers) intervalTreeNode).getFileNumber(), 
+					NodeType.ORIGINAL);
+			
+		}
+		
+		else if (intervalTreeNode instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+			
+			newIntervalTreeNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
+					intervalTreeNode.getChromName(), 
+					intervalTreeNode.getLow(), 
+					intervalTreeNode.getHigh(),
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getGeneEntrezId(), 
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getRefSeqGeneNumber(), 
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getGeneHugoSymbolNumber(), 
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getIntervalName(),
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) intervalTreeNode).getIntervalNumber(), 
+					NodeType.ORIGINAL);
+			
+		}
+		
+		else if(intervalTreeNode instanceof IntervalTreeNode){
+			
+			newIntervalTreeNode = new IntervalTreeNode(
+			intervalTreeNode.getChromName(),
+			intervalTreeNode.getLow(), 
+			intervalTreeNode.getHigh(), 
+			NodeType.ORIGINAL);
+		}
+		
+		return newIntervalTreeNode;
+		
+	}
+	
+	
 	//30 OCT 2015 starts
 	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(
 			List<IntervalTreeNode> intervalNodeList){
@@ -2154,25 +2214,17 @@ public class IntervalTree {
 		//Insert one by one into the interval tree
 		for(int i = 0; i < intervalNodeList.size(); i++){
 			
-			intervalTreeNode =  intervalNodeList.get(i);
 			
-//			//debug starts
-//			logger.info("For permutationNumberMixedNumber: " + permutationNumberMixedNumber + " intervalTreeNode to be inserted: " + intervalTreeNode.getChromName() + " " + intervalTreeNode.getColor() + " " +intervalTreeNode.getLow() + " " + intervalTreeNode.getHigh());
-//			//debug ends
+			//Was a big mistake.
+			//intervalTreeNode =  intervalNodeList.get(i);
 			
+			//5 May 2016
+			intervalTreeNode = createNewIntervalTreeNode(intervalNodeList.get(i));
 			
 			//Insertion for the first time
 			if (intervalTree == null){
 				intervalTree = new IntervalTree();
 				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
-				//intervalTree.intervalTreeInsert(permutationNumberMixedNumber,intervalTree, intervalTreeNode);
-				
-//				//debug starts
-//				logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
-//								"Infix traversal of the interval tree before inserting intervalTreeNode");
-//				
-//				intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
-//				//debug ends
 				
 			}//End of IF 
 			
@@ -2251,20 +2303,6 @@ public class IntervalTree {
 					// you may try to delete a node which is already spliced out by former deletions
 					// therefore you must keep track of the real node to be deleted in case of trial of deletion of an already spliced out node.
 					Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
-
-//					//debug starts
-//					logger.info( 		"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
-//										"This node will be merged:" + "\t" + 
-//										mergedNode.getColor() + "\t" +
-//										mergedNode.getChromName() + "\t" +
-//										mergedNode.getLow() + "\t" + 
-//										mergedNode.getHigh() );
-//					
-//					logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
-//									"Infix traversal of the interval tree before inserting mergedNode");
-//					
-//					intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
-//					//debug ends
 					
 					
 					//Delete each overlappedNode in the overlappedNodeList
@@ -2272,15 +2310,6 @@ public class IntervalTree {
 						
 						IntervalTreeNode overlappedNode = overlappedNodeList.get(j);
 						
-//						//debug starts
-//						logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
-//											"there is overlappedNode:" + "\t" +
-//											overlappedNode.getColor() + "\t" +
-//											overlappedNode.getChromName() + "\t" + 
-//											overlappedNode.getLow() + "\t" + 
-//											overlappedNode.getHigh());
-//						//debug ends
-
 						//Update the mergedNode with the overlappedNode
 						//Just update low, high and numberofBases
 						//Therefore checking being instanceof IntervalTreeNode is enough
@@ -2306,11 +2335,6 @@ public class IntervalTree {
 
 						if( nodetoBeDeleted != null){
 							
-//							//debug starts
-//							logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + 
-//										"This nodetoBeDeleted will be deleted " + nodetoBeDeleted.getChromName() + " " + nodetoBeDeleted.getColor() + " " + nodetoBeDeleted.getLow() + " " + nodetoBeDeleted.getHigh());
-//							//debug ends
-							
 							// they are the same
 							// current overlapped node to_be_deleted has been copied to the previously deleted overlapped node
 							// in other words, current overlapped node to_be_deleted is spliced out by the previous delete operation
@@ -2320,37 +2344,16 @@ public class IntervalTree {
 							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, nodetoBeDeleted);
 							//splicedoutNode = intervalTree.intervalTreeDelete(permutationNumberMixedNumber,intervalTree, nodetoBeDeleted);
 							
-//							//debug starts
-//							logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
-//											"Infix traversal of the interval tree after deleting nodetoBeDeleted");
-//							
-//							
-//							intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
-//							//debug ends
-
 
 							if( splicedoutNode != nodetoBeDeleted)
 								splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
 							
 						}else{
-							
-//							//debug starts
-//							logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + 
-//										"This overlappedNode will be deleted " + overlappedNode.getChromName() + " " + overlappedNode.getColor() + " " + overlappedNode.getLow() + " " + overlappedNode.getHigh());
-//							//debug ends
-							
+														
 							// Now we can delete this overlappedNode
 							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
 							//splicedoutNode = intervalTree.intervalTreeDelete(permutationNumberMixedNumber,intervalTree, overlappedNode);
 							
-//							//debug starts
-//							logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
-//											"Infix traversal of the interval tree after deleting overlappedNode");
-//							
-//							
-//							intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
-//							//debug ends
-
 							if( splicedoutNode != overlappedNode)
 								splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
 
@@ -2358,15 +2361,9 @@ public class IntervalTree {
 
 					}// end of FOR: each overlapped node in the list
 					
-					
-//					//debug starts
-//					logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
-//									"This mergedNode is inserted: " + mergedNode.getChromName() + " " + mergedNode.getColor() + " " + mergedNode.getLow() + " " + mergedNode.getHigh());
-//					//debug ends
-					
+										
 					//Insert the mergedNode
 					intervalTree.intervalTreeInsert(intervalTree, mergedNode);
-					//intervalTree.intervalTreeInsert(permutationNumberMixedNumber,intervalTree, mergedNode);
 					
 //					//debug starts
 //					logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
@@ -2386,9 +2383,6 @@ public class IntervalTree {
 					//intervalTree.intervalTreeInsert(permutationNumberMixedNumber,intervalTree, intervalTreeNode);
 					
 //					//debug starts
-//					logger.info(	"permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
-//									"Infix traversal of the interval tree after inserting intervalTreeNode");
-//					
 //					intervalTree.intervalTreeInfixTraversal(permutationNumberMixedNumber,intervalTree.getRoot());
 //					//debug ends
 					
