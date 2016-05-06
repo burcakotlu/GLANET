@@ -10,9 +10,7 @@ package annotation;
  */
 public class TfCellLineOverlapWithNumbers {
 
-	// 10., 9., 8. and 7. digits have tfNumber
-	// 6., 5. and 4. digits have cellLineNumber
-	// 3., 2. and 1. digits have cellLineNumber
+	
 
 	int tfNumberCellLineNumber;
 	int low;

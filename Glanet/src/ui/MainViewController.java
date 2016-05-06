@@ -78,7 +78,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 			String cellLineBasedTfAndKeggPathwayEnrichment, 
 			String regulatorySequenceAnalysisUsingRSAT, 
 			String jobName,
-			String writeElementBasedAnnotationFoundOverlapsMode, 
+			String writeAnnotationFoundOverlapsMode, 
 			String writeAnnotationBinaryMatrixMode,
 			String writeGeneratedRandomDataMode, 
 			String writePermutationBasedandParametricBasedAnnotationResultMode,
@@ -123,7 +123,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()] = cellLineBasedTfAndKeggPathwayEnrichment;
 		args[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()] = regulatorySequenceAnalysisUsingRSAT;
 		args[CommandLineArguments.JobName.value()] = jobName;
-		args[CommandLineArguments.WriteElementBasedAnnotationFoundOverlapsMode.value()] = writeElementBasedAnnotationFoundOverlapsMode;
+		args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = writeAnnotationFoundOverlapsMode;
 		args[CommandLineArguments.WriteAnnotationBinaryMatrixMode.value()] = writeAnnotationBinaryMatrixMode;
 		args[CommandLineArguments.WriteGeneratedRandomDataMode.value()] = writeGeneratedRandomDataMode;
 		args[CommandLineArguments.WritePermutationBasedandParametricBasedAnnotationResultMode.value()] = writePermutationBasedandParametricBasedAnnotationResultMode;

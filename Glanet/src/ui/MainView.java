@@ -116,7 +116,7 @@ public class MainView extends JPanel {
 				String cellLineBasedTfAndKeggPathwayAnnotationType,
 				String regulatorySequenceAnalysisUsingRSAT, 
 				String jobName,
-				String writeElementBasedAnnotationFoundOverlapsMode, 
+				String writeAnnotationFoundOverlapsMode, 
 				String writeAnnotationBinaryMatrixMode,
 				String writeGeneratedRandomDataMode,
 				String writePermutationBasedandParametricBasedAnnotationResultMode,
