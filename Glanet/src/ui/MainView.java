@@ -261,7 +261,7 @@ public class MainView extends JPanel {
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
 						(jobNameTextField.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobNameTextField.getText(),
-						Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS,
+						Commons.DO_WRITE_ELEMENT_TYPE_BASED_ANNOTATION_FOUND_OVERLAPS,
 						Commons.DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX,
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
