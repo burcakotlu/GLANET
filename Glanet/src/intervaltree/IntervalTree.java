@@ -1840,8 +1840,38 @@ public class IntervalTree {
 		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
 			
 			if( root.getChromName().equals(newNode.getChromName()) && overlaps( root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
-				overlappedNodeList.add( root);
-			}
+				
+				//6 May 2016 starts
+				if (root instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers && newNode instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers &&
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getGeneEntrezId() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getGeneEntrezId() &&
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getGeneHugoSymbolNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getGeneHugoSymbolNumber() &&
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getRefSeqGeneNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getRefSeqGeneNumber() &&
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getIntervalName().equals(((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getIntervalName()) && 
+					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getIntervalNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getIntervalNumber()){
+				
+					overlappedNodeList.add(root);
+				}
+				
+				else if (root instanceof TforHistoneIntervalTreeNodeWithNumbers && newNode instanceof TforHistoneIntervalTreeNodeWithNumbers &&
+						((TforHistoneIntervalTreeNodeWithNumbers) root).getTforHistoneNumber() ==  ((TforHistoneIntervalTreeNodeWithNumbers) newNode).getTforHistoneNumber() &&
+						((TforHistoneIntervalTreeNodeWithNumbers) root).getCellLineNumber() ==  ((TforHistoneIntervalTreeNodeWithNumbers) newNode).getCellLineNumber()){
+					
+						overlappedNodeList.add(root);
+				}
+				
+				else if (root instanceof DnaseIntervalTreeNodeWithNumbers && newNode instanceof DnaseIntervalTreeNodeWithNumbers &&
+						((DnaseIntervalTreeNodeWithNumbers) root).getCellLineNumber() ==  ((DnaseIntervalTreeNodeWithNumbers) newNode).getCellLineNumber()){
+					
+						overlappedNodeList.add(root);
+				}
+				
+				else if (root instanceof IntervalTreeNode && newNode instanceof IntervalTreeNode){
+					overlappedNodeList.add( root);
+				}
+				//6 May 2016 ends
+				
+			
+			}//End of IF there is overlap
 
 			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
 				findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, root.getLeft(), newNode);
@@ -2232,6 +2262,8 @@ public class IntervalTree {
 				
 				List<IntervalTreeNode>  overlappedNodeList = new ArrayList<IntervalTreeNode>();
 				
+				//TODO
+				//6 May 2016
 				IntervalTree.findAllOverlappingIntervalsCheckingChrName(
 						overlappedNodeList, 
 						intervalTree.getRoot(),
@@ -10355,13 +10387,13 @@ public class IntervalTree {
 												exonBasedGeneSetNumber2HeaderWrittenMap.put( geneSetNumber, Commons.BYTE_1);
 												bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 														"Hg19 RefSeqGene Chr" + "\t" + "Gene Low" + "\t" + "Gene High" + "\t" + 
-														"RefSeqGeneName" + "\t" + "Gene IntervalName" + "\t" + 
+														"RefSeqGeneName" + "\t" + "Gene IntervalName" + "\t" + "Gene IntervalNumber" + "\t" + 
 														"GeneHugoSymbol" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
 											}
 
 											bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 													ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-													refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName() + "\t" + 
+													refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" +
 													geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
 											
 											bufferedWriter.close();
@@ -10424,13 +10456,13 @@ public class IntervalTree {
 												
 												bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 														"Hg19 RefSeqGene Chr" + "\t" + "Gene Low" + "\t" + "Gene High" + "\t" + 
-														"RefSeqGeneName" + "\t" + "Gene IntervalName" + "\t" + 
+														"RefSeqGeneName" + "\t" + "Gene IntervalName" + "\t" + "Gene IntervalNumber" + "\t" + 
 														"GeneHugoSymbol" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
 											}
 
 											bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 													ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-													refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName() + "\t" + 
+													refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" +
 													geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
 											bufferedWriter.close();
 
@@ -10491,14 +10523,14 @@ public class IntervalTree {
 											
 											bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 													"Hg19 RefSeqGene Chr" + "\t" + "Gene Low" + "\t" + "Gene High" + "\t" + 
-													"RefSeqGeneName" + "\t" + "Gene IntervalName" + "\t" + 
+													"RefSeqGeneName" + "\t" + "Gene IntervalName" + "\t" + "Gene IntervalNumber" + "\t" + 
 													"GeneHugoSymbol" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
 											
 										}
 
 										bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 												ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-												refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName() + "\t" + 
+												refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" +
 												geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
 										
 										bufferedWriter.close();

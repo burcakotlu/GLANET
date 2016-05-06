@@ -3345,7 +3345,13 @@ public class Annotation {
 			TIntByteMap geneEntrezID2HeaderWrittenMap,
 			TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap,
 			TIntByteMap regulationBasedGeneSetNumber2HeaderWrittenMap,
-			TIntByteMap allBasedGeneSetNumber2HeaderWrittenMap, 
+			TIntByteMap allBasedGeneSetNumber2HeaderWrittenMap, 			
+			TIntByteMap tfExonBasedGeneSetNumber2HeaderWrittenMap,
+			TIntByteMap tfRegulationBasedGeneSetNumber2HeaderWrittenMap,
+			TIntByteMap tfAllBasedGeneSetNumber2HeaderWrittenMap,
+			TLongByteMap tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap,
+			TLongByteMap tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap,
+			TLongByteMap tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree tfbsIntervalTree,
@@ -3665,13 +3671,15 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 													
 													bufferedWriter.close();
 												}
@@ -3719,13 +3727,15 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" +  "Gene Interval Number" + "\t" +
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 													}
 
 													bufferedWriter.write(ChromosomeName.convertEnumtoString( chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 													
 													bufferedWriter.close();
 												}
@@ -3771,13 +3781,15 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber()+ "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 												}
@@ -3815,14 +3827,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 														
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" +
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 												}
@@ -3893,14 +3907,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 														
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 												}
@@ -3948,14 +3964,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 
@@ -3999,14 +4017,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" + 
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 												}
@@ -4042,14 +4062,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" + 
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 
@@ -4126,14 +4148,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" + 
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 														
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" +
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 
@@ -4182,14 +4206,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" + 
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 												}
@@ -4234,14 +4260,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" + 
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 
 													}
 
 													bufferedWriter.write( ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 
@@ -4278,14 +4306,16 @@ public class Annotation {
 														bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 																"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 																"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-																"Gene Interval Name" + "\t" + "Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+																"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" + 
+																"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
 
 													}
 
 													bufferedWriter.write(ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 															tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 															refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
-															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+															ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber()+ "\t" + 
+															geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
 
 													bufferedWriter.close();
 												}
@@ -4782,6 +4812,12 @@ public class Annotation {
 										keggPathwayNumber2KeggPathwayNameMap,
 										geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 										refSeqGeneNumber2RefSeqGeneNameMap,
+										tfExonBasedGeneSetNumber2HeaderWrittenMap,
+										tfRegulationBasedGeneSetNumber2HeaderWrittenMap,
+										tfAllBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap,
 										interval,
 										tfNumberCellLineNumber,
 										tfIntervalTreeWithNonOverlappingNodes,
@@ -4810,6 +4846,12 @@ public class Annotation {
 										keggPathwayNumber2KeggPathwayNameMap,
 										geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 										refSeqGeneNumber2RefSeqGeneNameMap,
+										tfExonBasedGeneSetNumber2HeaderWrittenMap,
+										tfRegulationBasedGeneSetNumber2HeaderWrittenMap,
+										tfAllBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap,
 										interval,
 										tfNumberCellLineNumber,
 										tfIntervalTreeWithNonOverlappingNodes,
@@ -4839,6 +4881,12 @@ public class Annotation {
 										keggPathwayNumber2KeggPathwayNameMap,
 										geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 										refSeqGeneNumber2RefSeqGeneNameMap,
+										tfExonBasedGeneSetNumber2HeaderWrittenMap,
+										tfRegulationBasedGeneSetNumber2HeaderWrittenMap,
+										tfAllBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap,
+										tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap,
 										interval,
 										tfNumberCellLineNumber,
 										tfIntervalTreeWithNonOverlappingNodes,
@@ -8117,6 +8165,12 @@ public class Annotation {
 			TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
+			TIntByteMap tfExonBasedGeneSetNumber2HeaderWrittenMap,
+			TIntByteMap tfRegulationBasedGeneSetNumber2HeaderWrittenMap,
+			TIntByteMap tfAllBasedGeneSetNumber2HeaderWrittenMap,
+			TLongByteMap tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap,
+			TLongByteMap tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap,
+			TLongByteMap tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap,
 			Interval interval,
 			int tfNumberCellLineNumber,
 			IntervalTree TFIntervalTreeWithNonOverlappingNodes,
@@ -8154,7 +8208,8 @@ public class Annotation {
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers KEGGPathwayNodeWithGene = null;
 		
 		
-		
+		TIntByteMap  toBeUsedTFKEGGHeaderLineMap = null;
+		TLongByteMap  toBeUsedTFCellLineKEGGHeaderLineMap = null;
 
 		//Generate mixedNumbers
 		switch(annotationType){
@@ -8303,23 +8358,42 @@ public class Annotation {
 							
 								bufferedWriter = new BufferedWriter( fileWriter);
 								
+								//Choose which one to use?
+								if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
+									toBeUsedTFKEGGHeaderLineMap = tfExonBasedGeneSetNumber2HeaderWrittenMap;
+								}
+								else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
+									toBeUsedTFKEGGHeaderLineMap = tfRegulationBasedGeneSetNumber2HeaderWrittenMap;
+								}
+								else if (keggPathwayAnalysisType.isAllBasedKeggPathwayAnalysis()){
+									toBeUsedTFKEGGHeaderLineMap = tfAllBasedGeneSetNumber2HeaderWrittenMap;
+								}
+								
+								
+								
 								//Write header only once
-								bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
-										"TF" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
-										"Hg19 Refseq Gene RNA" + "\t" + 
-										"Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-										"Gene Interval Name" + "\t" + 
-										"Gene Hugo Symbol" + "\t" + 
-										"Gene Entrez ID" + "\t" + 
-										"KEGGPathway" + 
-										System.getProperty( "line.separator"));
-		
+								if (!toBeUsedTFKEGGHeaderLineMap.containsKey(tfNumberKEGGPathwayNumber)){
+									bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
+											"TF" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
+											"Hg19 Refseq Gene RNA" + "\t" + 
+											"Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
+											"Gene Interval Name" + "\t" + 
+											"Gene Interval Number" + "\t" + 
+											"Gene Hugo Symbol" + "\t" + 
+											"Gene Entrez ID" + "\t" + 
+											"KEGGPathway" + 
+											System.getProperty( "line.separator"));
+									
+									toBeUsedTFKEGGHeaderLineMap.put(tfNumberKEGGPathwayNumber, Commons.BYTE_1);
+								}
+								
 							
 								bufferedWriter.write(ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 										tfNumber2TfNameMap.get(tfNumber) + "\t" + TFNode.getLow() + "\t" + TFNode.getHigh() + "\t" + 
 										refSeqGeneNumber2RefSeqGeneNameMap.get(KEGGPathwayNodeWithGene.getRefSeqGeneNumber()) + "\t" + 
 										KEGGPathwayNodeWithGene.getLow() + "\t" + KEGGPathwayNodeWithGene.getHigh() + "\t" + 
 										KEGGPathwayNodeWithGene.getIntervalName() + "\t" + 
+										KEGGPathwayNodeWithGene.getIntervalNumber() + "\t" + 
 										geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(KEGGPathwayNodeWithGene.getGeneHugoSymbolNumber()) + "\t" + 
 										KEGGPathwayNodeWithGene.getGeneEntrezId() + "\t" + 
 										keggPathwayNumber2KeggPathwayNameMap.get(KEGGPathwayNumber) + 
@@ -8345,16 +8419,36 @@ public class Annotation {
 							
 								bufferedWriter = new BufferedWriter( fileWriter);
 								
+								
+								//Choose which one to use?
+								
+								
+								if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
+									toBeUsedTFCellLineKEGGHeaderLineMap = tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap;
+								}
+								else if (keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
+									toBeUsedTFCellLineKEGGHeaderLineMap = tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap;
+								}
+								else if (keggPathwayAnalysisType.isAllBasedKeggPathwayAnalysis()){
+									toBeUsedTFCellLineKEGGHeaderLineMap = tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap;
+								}
+								
+								
 								//Write header only once
-								bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
-										"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
-										"Hg19 Refseq Gene RNA" + "\t" + 
-										"Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
-										"Gene Interval Name" + "\t" + 
-										"Gene Hugo Symbol" + "\t" + 
-										"Gene Entrez ID" + "\t" + 
-										"KEGGPathway" + 
-										System.getProperty( "line.separator"));
+								if (!toBeUsedTFCellLineKEGGHeaderLineMap.containsKey(tfNumberCellLineNumberKEGGPathwayNumber)){
+									bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
+											"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
+											"Hg19 Refseq Gene RNA" + "\t" + 
+											"Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
+											"Gene Interval Name" + "\t" + 
+											"Gene Interval Number" + "\t" + 
+											"Gene Hugo Symbol" + "\t" + 
+											"Gene Entrez ID" + "\t" + 
+											"KEGGPathway" + 
+											System.getProperty( "line.separator"));
+
+									toBeUsedTFCellLineKEGGHeaderLineMap.put(tfNumberCellLineNumberKEGGPathwayNumber, Commons.BYTE_1);
+								}
 		
 							
 								
@@ -8363,6 +8457,7 @@ public class Annotation {
 										refSeqGeneNumber2RefSeqGeneNameMap.get(KEGGPathwayNodeWithGene.getRefSeqGeneNumber()) + "\t" + 
 										KEGGPathwayNodeWithGene.getLow() + "\t" + KEGGPathwayNodeWithGene.getHigh() + "\t" + 
 										KEGGPathwayNodeWithGene.getIntervalName() + "\t" + 
+										KEGGPathwayNodeWithGene.getIntervalNumber() + "\t" +
 										geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(KEGGPathwayNodeWithGene.getGeneHugoSymbolNumber()) + "\t" + 
 										KEGGPathwayNodeWithGene.getGeneEntrezId() + "\t" + 
 										keggPathwayNumber2KeggPathwayNameMap.get(KEGGPathwayNumber) + 
@@ -9988,12 +10083,20 @@ public class Annotation {
 		IntervalTree tfbsIntervalTree;
 		IntervalTree ucscRefSeqGenesIntervalTree;
 		
-		
 		TIntByteMap tfCellLineNumber2HeaderWrittenMap = new TIntByteHashMap();
 		TIntByteMap geneEntrezID2HeaderWrittenMap = new TIntByteHashMap();
+		
 		TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
 		TIntByteMap regulationBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
 		TIntByteMap allBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
+		
+		TIntByteMap tfExonBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
+		TIntByteMap tfRegulationBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
+		TIntByteMap tfAllBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
+		
+		TLongByteMap tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap = new TLongByteHashMap();
+		TLongByteMap tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap = new TLongByteHashMap();
+		TLongByteMap tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap = new TLongByteHashMap();
 		
 		FileWriter hg19RefSeqGenesFileWriter = null;
 		BufferedWriter hg19RefSeqGenesBufferedWriter = null;
@@ -10038,6 +10141,12 @@ public class Annotation {
 						exonBasedGeneSetNumber2HeaderWrittenMap,
 						regulationBasedGeneSetNumber2HeaderWrittenMap,
 						allBasedGeneSetNumber2HeaderWrittenMap, 
+						tfExonBasedGeneSetNumber2HeaderWrittenMap,
+						tfRegulationBasedGeneSetNumber2HeaderWrittenMap,
+						tfAllBasedGeneSetNumber2HeaderWrittenMap,
+						tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap,
+						tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap,
+						tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap,
 						chrName,
 						bufferedReader, 
 						tfbsIntervalTree, 
@@ -10092,6 +10201,14 @@ public class Annotation {
 		exonBasedGeneSetNumber2HeaderWrittenMap = null;
 		regulationBasedGeneSetNumber2HeaderWrittenMap = null;
 		allBasedGeneSetNumber2HeaderWrittenMap = null;
+		
+		tfExonBasedGeneSetNumber2HeaderWrittenMap = null;
+		tfRegulationBasedGeneSetNumber2HeaderWrittenMap = null;
+		tfAllBasedGeneSetNumber2HeaderWrittenMap = null;
+		
+		tfCellLineExonBasedGeneSetNumber2HeaderWrittenMap = null;
+		tfCellLineRegulationBasedGeneSetNumber2HeaderWrittenMap = null;
+		tfCellLineAllBasedGeneSetNumber2HeaderWrittenMap = null;
 
 	}
 
