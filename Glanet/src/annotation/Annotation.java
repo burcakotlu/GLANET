@@ -109,7 +109,7 @@ public class Annotation {
 		private String outputFolder;
 		private ChromosomeName chromName;
 		private List<Interval> data;
-		private WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode;
+		private WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode;
 
 		private int lowTaskIndex;
 		private int highTaskIndex;
@@ -122,7 +122,7 @@ public class Annotation {
 		private char[][] fileNames;
 
 		public FindOverlaps( String outputFolder, ChromosomeName chromName, List<Interval> data,
-				WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+				WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 				int lowTaskIndex, int highTaskIndex, int overlapDefinition, IntervalTree intervalTree,
 				int numberofComparisonsDnase, char[][] dnaseCellLineNames, char[][] fileNames) {
 
@@ -130,7 +130,7 @@ public class Annotation {
 			this.chromName = chromName;
 			this.data = data;
 
-			this.writeElementBasedAnnotationFoundOverlapsMode = writeElementBasedAnnotationFoundOverlapsMode;
+			this.writeFoundOverlapsMode = writeFoundOverlapsMode;
 
 			this.lowTaskIndex = lowTaskIndex;
 			this.highTaskIndex = highTaskIndex;
@@ -166,14 +166,14 @@ public class Annotation {
 			if( highTaskIndex - lowTaskIndex > NUMBER_OF_FIND_OVERLAPS_DONE_SEQUENTIALLY_BY_EACH_PROCESS){
 				middleTaskIndex = lowTaskIndex + ( highTaskIndex - lowTaskIndex) / 2;
 				FindOverlaps left = new FindOverlaps( outputFolder, chromName, data,
-						writeElementBasedAnnotationFoundOverlapsMode, lowTaskIndex, middleTaskIndex, overlapDefinition,
+						writeFoundOverlapsMode, lowTaskIndex, middleTaskIndex, overlapDefinition,
 						intervalTree, numberofComparisonsDnase, dnaseCellLineNames, fileNames);
 
 				// if( GlanetRunner.shouldLog())logger.info("Find Overlaps Left" + "\t" + "lowTaskIndex:" + "\t" + lowTaskIndex + "\t" +
 				// "middleTaskIndex:" + "\t" + middleTaskIndex);
 
 				FindOverlaps right = new FindOverlaps( outputFolder, chromName, data,
-						writeElementBasedAnnotationFoundOverlapsMode, middleTaskIndex, highTaskIndex,
+						writeFoundOverlapsMode, middleTaskIndex, highTaskIndex,
 						overlapDefinition, intervalTree, numberofComparisonsDnase, dnaseCellLineNames, fileNames);
 
 				// if( GlanetRunner.shouldLog())logger.info("Find Overlaps Right" + "\t" + "middleTaskIndex:" + "\t" + middleTaskIndex + "\t" +
@@ -209,7 +209,7 @@ public class Annotation {
 					if( intervalTree.getRoot().getNodeName().isNotSentinel()){
 
 						intervalTree.findAllOverlappingDnaseIntervalsWithNumbers( outputFolder,
-								writeElementBasedAnnotationFoundOverlapsMode, intervalTree.getRoot(), interval,
+								writeFoundOverlapsMode, intervalTree.getRoot(), interval,
 								chromName, oneOrZeroByteArray, overlapDefinition, dnaseCellLineNames, fileNames);
 					}
 
@@ -1837,7 +1837,7 @@ public class Annotation {
 
 	// TShortObjectMap<StringBuilder>
 	public void searchDnaseWithNumbersWithStringBuilder( String dataFolder, String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			int[] dnaseCellLineKArray, int overlapDefinition,
 			TShortObjectMap<StringBuilder> cellLineNumber2CellLineNameMap,
 			TShortObjectMap<StringBuilder> fileNumber2FileNameMap) {
@@ -1853,7 +1853,7 @@ public class Annotation {
 			bufferedReader = FileOperations.createBufferedReader(
 					outputFolder,
 					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchDnaseWithNumbersStringBuilder( outputFolder, writeElementBasedAnnotationFoundOverlapsMode, chrName,
+			searchDnaseWithNumbersStringBuilder( outputFolder, writeFoundOverlapsMode, chrName,
 					bufferedReader, dnaseIntervalTree, dnaseCellLineKArray, overlapDefinition,
 					cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 			dnaseIntervalTree = null;
@@ -1878,7 +1878,7 @@ public class Annotation {
 	// With Numbers
 	// Using int array
 	public void searchDnaseWithNumbers( String dataFolder, String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			int[] dnaseCellLineKArray, int overlapDefinition,
 			TShortObjectMap<CharSequence> cellLineNumber2CellLineNameMap,
 			TShortObjectMap<CharSequence> fileNumber2FileNameMap) {
@@ -1894,7 +1894,7 @@ public class Annotation {
 			bufferedReader = FileOperations.createBufferedReader(
 					outputFolder,
 					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchDnaseWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode, chrName,
+			searchDnaseWithNumbers( outputFolder, writeFoundOverlapsMode, chrName,
 					bufferedReader, dnaseIntervalTree, dnaseCellLineKArray, overlapDefinition,
 					cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 			dnaseIntervalTree = null;
@@ -1920,7 +1920,7 @@ public class Annotation {
 	// With Numbers
 	// Using int array
 	public void searchDnaseWithNumbers( String dataFolder, String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			int[] dnaseCellLineKArray, int overlapDefinition, char[][] dnaseCellLineNames, char[][] fileNames) {
 
 		BufferedReader bufferedReader = null;
@@ -1934,7 +1934,7 @@ public class Annotation {
 			bufferedReader = FileOperations.createBufferedReader(
 					outputFolder,
 					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchDnaseWithNumbers( outputFolder, writeElementBasedAnnotationFoundOverlapsMode, chrName,
+			searchDnaseWithNumbers( outputFolder, writeFoundOverlapsMode, chrName,
 					bufferedReader, dnaseIntervalTree, dnaseCellLineKArray, overlapDefinition, dnaseCellLineNames,
 					fileNames);
 			dnaseIntervalTree = null;
@@ -1960,7 +1960,7 @@ public class Annotation {
 	public void searchDnaseWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntIntMap dnaseCellLineNumber2KMap, 
 			int overlapDefinition,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
@@ -1984,7 +1984,7 @@ public class Annotation {
 			searchDnaseWithNumbers(
 					outputFolder,
 					dnaseCellLineNumber2HeaderWrittenMap,
-					writeElementBasedAnnotationFoundOverlapsMode, 
+					writeFoundOverlapsMode, 
 					chrName,
 					bufferedReader, 
 					dnaseIntervalTree, 
@@ -2018,7 +2018,7 @@ public class Annotation {
 
 	// searchDnaseWithNumbersWithStringBuilder
 	public void searchDnaseWithNumbersStringBuilder( String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree dnaseIntervalTree,
 			int[] dnaseCellLineKArray, int overlapDefinition,
 			TShortObjectMap<StringBuilder> cellLineNumber2CellLineNameMap,
@@ -2054,7 +2054,7 @@ public class Annotation {
 				if( dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
 
 					dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbersStringBuilder( outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, dnaseIntervalTree.getRoot(), interval,
+							writeFoundOverlapsMode, dnaseIntervalTree.getRoot(), interval,
 							chromName, oneOrZeroByteArray, overlapDefinition, cellLineNumber2CellLineNameMap,
 							fileNumber2FileNameMap);
 				}
@@ -2077,7 +2077,7 @@ public class Annotation {
 	// With Numbers
 	// Using TShortObjectMap<CharSequence>
 	public void searchDnaseWithNumbers( String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree dnaseIntervalTree,
 			int[] dnaseCellLineKArray, int overlapDefinition,
 			TShortObjectMap<CharSequence> cellLineNumber2CellLineNameMap,
@@ -2113,7 +2113,7 @@ public class Annotation {
 				if( dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
 
 					dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers( outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, dnaseIntervalTree.getRoot(), interval,
+							writeFoundOverlapsMode, dnaseIntervalTree.getRoot(), interval,
 							chromName, oneOrZeroByteArray, overlapDefinition, cellLineNumber2CellLineNameMap,
 							fileNumber2FileNameMap);
 				}
@@ -2137,7 +2137,7 @@ public class Annotation {
 	// With Numbers
 	// Using int array
 	public void searchDnaseWithNumbers( String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree dnaseIntervalTree,
 			int[] dnaseCellLineKArray, int overlapDefinition, char[][] dnaseCellLineNames, char[][] fileNames) {
 
@@ -2171,7 +2171,7 @@ public class Annotation {
 				if( dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
 
 					dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers( outputFolder,
-							writeElementBasedAnnotationFoundOverlapsMode, dnaseIntervalTree.getRoot(), interval,
+							writeFoundOverlapsMode, dnaseIntervalTree.getRoot(), interval,
 							chromName, oneOrZeroByteArray, overlapDefinition, dnaseCellLineNames, fileNames);
 				}
 
@@ -2195,7 +2195,7 @@ public class Annotation {
 	public void searchDnaseWithNumbers(
 			String outputFolder,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree dnaseIntervalTree,
@@ -2254,7 +2254,7 @@ public class Annotation {
 										
 							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode, 
+									writeFoundOverlapsMode, 
 									dnaseCellLineNumber2HeaderWrittenMap,
 									cellLineNumber2CellLineNameMap, 
 									fileNumber2FileNameMap,
@@ -2300,7 +2300,7 @@ public class Annotation {
 							//Step1: Get all the overlappingIntervals with the inputLine
 							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									dnaseCellLineNumber2HeaderWrittenMap,
 									cellLineNumber2CellLineNameMap, 
 									fileNumber2FileNameMap,
@@ -2721,7 +2721,7 @@ public class Annotation {
 	// Annotation Common for EOO and NOOB
 	public void searchGeneWithNumbers( 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGeneBufferedWriter,
 			TIntByteMap geneEntrezID2HeaderWrittenMap,
 			TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap,
@@ -2808,7 +2808,7 @@ public class Annotation {
 							//Annotation of Hg19 RefSeqGenes EOO
 							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( 
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									hg19RefSeqGeneBufferedWriter, 
 									givenIntervalNumber,
 									givenIntervalNumber2OverlapInformationMap,
@@ -2879,7 +2879,7 @@ public class Annotation {
 									givenIntervalNumber,
 									givenIntervalNumber2OverlapInformationMap,
 									hg19RefSeqGeneBufferedWriter,
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									geneEntrezID2HeaderWrittenMap,
 									exonBasedGeneSetNumber2HeaderWrittenMap,
 									regulationBasedGeneSetNumber2HeaderWrittenMap,
@@ -2943,7 +2943,7 @@ public class Annotation {
 	// UDGS or KEGG
 	public void searchGeneSetWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGeneBufferedWriter,
 			TIntByteMap geneEntrezID2HeaderWrittenMap,
 			TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap,
@@ -3048,7 +3048,7 @@ public class Annotation {
 							
 							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode, 
+									writeFoundOverlapsMode, 
 									hg19RefSeqGeneBufferedWriter, 
 									givenIntervalNumber,
 									givenIntervalNumber2OverlapInformationMap, 
@@ -3187,7 +3187,7 @@ public class Annotation {
 									0,
 									givenIntervalNumber2OverlapInformationMap,
 									hg19RefSeqGeneBufferedWriter,
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									geneEntrezID2HeaderWrittenMap,
 									exonBasedGeneSetNumber2HeaderWrittenMap,
 									regulationBasedGeneSetNumber2HeaderWrittenMap,
@@ -3338,7 +3338,7 @@ public class Annotation {
 	// Both TFKEGG and TFCellLineKEGG	
 	public void searchTfKEGGPathwayWithNumbers( 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGenesBufferedWriter,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntByteMap tfCellLineNumber2HeaderWrittenMap,
@@ -3498,7 +3498,7 @@ public class Annotation {
 
 							tfbsIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									regulatorySequenceAnalysisUsingRSAT,
 									tfCellLineNumber2HeaderWrittenMap,
 									tfNumber2TfNameMap, 
@@ -3533,7 +3533,7 @@ public class Annotation {
 							//TODO Let's use only one such function for gene, geneSet(KEGG or UDGS), TFKEGG, TFCellLineKEGG, Both (TFKEGG and TFCellLineKEGG)
 							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode, 
+									writeFoundOverlapsMode, 
 									hg19RefSeqGenesBufferedWriter, 
 									givenIntervalNumber,
 									givenIntervalNumber2OverlapInformationMap, 
@@ -3659,7 +3659,7 @@ public class Annotation {
 												
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
 															true);
@@ -3714,7 +3714,7 @@ public class Annotation {
 
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
@@ -3769,7 +3769,7 @@ public class Annotation {
 												
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
 															true);
@@ -3814,7 +3814,7 @@ public class Annotation {
 
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_CELLLINE_EXON_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
@@ -3897,7 +3897,7 @@ public class Annotation {
 												
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 													fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",true);
 													bufferedWriter = new BufferedWriter( fileWriter);
 
@@ -3951,7 +3951,7 @@ public class Annotation {
 
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
@@ -4007,7 +4007,7 @@ public class Annotation {
 												
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 													fileWriter = FileOperations.createFileWriter(outputFolder + Commons.TF_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",true);
 													bufferedWriter = new BufferedWriter( fileWriter);
 
@@ -4049,7 +4049,7 @@ public class Annotation {
 
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_CELLLINE_REGULATION_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
@@ -4136,7 +4136,7 @@ public class Annotation {
 												
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
 															true);
@@ -4194,7 +4194,7 @@ public class Annotation {
 
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
 															true);
@@ -4248,7 +4248,7 @@ public class Annotation {
 												
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
 															true);
@@ -4294,7 +4294,7 @@ public class Annotation {
 
 												/*******************************************************************/
 												// Write Annotation Found Overlaps to element Named File
-												if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+												if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 													fileWriter = FileOperations.createFileWriter(
 															outputFolder + Commons.TF_CELLLINE_ALL_BASED_KEGG_PATHWAY_ANNOTATION + tfNumber2TfNameMap.get( tfNumber) + "_" + cellLineNumber2CellLineNameMap.get( cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get( keggPathwayNumber) + ".txt",
 															true);
@@ -4662,7 +4662,7 @@ public class Annotation {
 							//Step1: Get all the overlappingIntervals with the inputLine
 							tfbsIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode, 
+									writeFoundOverlapsMode, 
 									regulatorySequenceAnalysisUsingRSAT,
 									tfCellLineNumber2HeaderWrittenMap,
 									tfNumber2TfNameMap, 
@@ -4715,7 +4715,7 @@ public class Annotation {
 									givenIntervalNumber,
 									givenIntervalNumber2OverlapInformationMap,
 									hg19RefSeqGenesBufferedWriter,
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									geneEntrezID2HeaderWrittenMap,
 									exonBasedGeneSetNumber2HeaderWrittenMap,
 									regulationBasedGeneSetNumber2HeaderWrittenMap,
@@ -4806,7 +4806,7 @@ public class Annotation {
 								
 								findCommonOverlaps(
 										outputFolder,
-										writeElementBasedAnnotationFoundOverlapsMode,
+										writeFoundOverlapsMode,
 										tfNumber2TfNameMap, 
 										cellLineNumber2CellLineNameMap,
 										keggPathwayNumber2KeggPathwayNameMap,
@@ -4840,7 +4840,7 @@ public class Annotation {
 								
 								findCommonOverlaps(
 										outputFolder,
-										writeElementBasedAnnotationFoundOverlapsMode,
+										writeFoundOverlapsMode,
 										tfNumber2TfNameMap, 
 										cellLineNumber2CellLineNameMap,
 										keggPathwayNumber2KeggPathwayNameMap,
@@ -4875,7 +4875,7 @@ public class Annotation {
 								
 								findCommonOverlaps(
 										outputFolder,
-										writeElementBasedAnnotationFoundOverlapsMode,
+										writeFoundOverlapsMode,
 										tfNumber2TfNameMap, 
 										cellLineNumber2CellLineNameMap,
 										keggPathwayNumber2KeggPathwayNameMap,
@@ -5404,7 +5404,7 @@ public class Annotation {
 	// With Numbers
 	public void searchUserDefinedLibraryWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntByteMap elementNumber2HeaderWrittenMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
@@ -5461,7 +5461,7 @@ public class Annotation {
 							
 							userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
 									outputFolder, 
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									elementNumber2HeaderWrittenMap,
 									elementType, 
 									elementNumber2ElementNameMap, 
@@ -5506,7 +5506,7 @@ public class Annotation {
 							//Step1: Get all the overlappingIntervals with the inputLine
 							userDefinedLibraryIntervalTree.findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									elementNumber2HeaderWrittenMap,
 									elementType, 
 									elementNumber2ElementNameMap,
@@ -5572,7 +5572,7 @@ public class Annotation {
 	// With Numbers
 	public void searchTranscriptionFactorWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntByteMap tfCellLineNumber2HeaderWrittenMap,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT, 
 			ChromosomeName chromName,
@@ -5631,7 +5631,7 @@ public class Annotation {
 							
 							tfIntervalTree.findAllOverlappingTfbsIntervalsWithNumbers( 
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode, 
+									writeFoundOverlapsMode, 
 									regulatorySequenceAnalysisUsingRSAT,
 									tfCellLineNumber2HeaderWrittenMap,
 									tfNumber2TFNameMap, 
@@ -5678,7 +5678,7 @@ public class Annotation {
 							//Step1: Get all the overlappingIntervals with the inputLine
 							tfIntervalTree.findAllOverlappingTFIntervalsWithoutIOWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode,
+									writeFoundOverlapsMode,
 									regulatorySequenceAnalysisUsingRSAT,
 									tfCellLineNumber2HeaderWrittenMap,
 									tfNumber2TFNameMap,
@@ -5744,7 +5744,7 @@ public class Annotation {
 	// With Numbers
 	public void searchHistoneWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntByteMap histoneCellLineNumber2HeaderWrittenMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
@@ -5802,7 +5802,7 @@ public class Annotation {
 							
 							histoneIntervalTree.findAllOverlappingHistoneIntervalsWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode, 
+									writeFoundOverlapsMode, 
 									histoneCellLineNumber2HeaderWrittenMap,
 									histoneNumber2HistoneNameMap, 
 									cellLineNumber2CellLineNameMap, 
@@ -5850,7 +5850,7 @@ public class Annotation {
 							//Step1: Get all the overlappingIntervals with the inputLine
 							histoneIntervalTree.findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 									outputFolder,
-									writeElementBasedAnnotationFoundOverlapsMode, 
+									writeFoundOverlapsMode, 
 									histoneCellLineNumber2HeaderWrittenMap,
 									histoneNumber2HistoneNameMap, 
 									cellLineNumber2CellLineNameMap, 
@@ -8159,7 +8159,7 @@ public class Annotation {
 	//Format of tfNumberCellLineNumber is INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER
 	public static void findCommonOverlaps(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntObjectMap<String> tfNumber2TfNameMap, 
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
@@ -8271,7 +8271,7 @@ public class Annotation {
 					chromName = TFNode.getChromName();
 					
 					/* There is overlap */
-					if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+					if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 						
 						try {
 							
@@ -9792,13 +9792,13 @@ public class Annotation {
 	public int[] searchDnaseWithNumbers( String dataFolder, String outputFolder, ChromosomeName chromName,
 			List<Interval> dataArrayList, int overlapDefinition, IntervalTree dnaseIntervalTree,
 			int numberofComparisonsDnase, char[][] dnaseCellLineNames, char[][] fileNames,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode, ForkJoinPool pool) {
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode, ForkJoinPool pool) {
 
 		FindOverlaps findOverlaps;
 		int[] kArray = new int[numberofComparisonsDnase];
 
 		findOverlaps = new FindOverlaps( outputFolder, chromName, dataArrayList,
-				writeElementBasedAnnotationFoundOverlapsMode, Commons.ZERO, dataArrayList.size(), overlapDefinition,
+				writeFoundOverlapsMode, Commons.ZERO, dataArrayList.size(), overlapDefinition,
 				dnaseIntervalTree, numberofComparisonsDnase, dnaseCellLineNames, fileNames);
 
 		kArray = pool.invoke( findOverlaps);
@@ -9819,7 +9819,7 @@ public class Annotation {
 	public void searchGeneWithNumbers( 
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
 			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, 
@@ -9845,7 +9845,7 @@ public class Annotation {
 
 		try{
 
-			if(!writeElementBasedAnnotationFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
+			if(!writeFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
 
 				if( hg19RefSeqGeneBufferedWriter == null){
 					
@@ -9875,7 +9875,7 @@ public class Annotation {
 	
 				searchGeneWithNumbers( 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						hg19RefSeqGeneBufferedWriter,
 						geneEntrezID2HeaderWrittenMap,
 						exonBasedGeneSetNumber2HeaderWrittenMap,
@@ -9926,7 +9926,7 @@ public class Annotation {
 	public void searchGeneSetWithNumbers( 
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntIntMap geneEntrezID2KMap,
 			TIntIntMap exonBasedGeneSetNumber2KMap, 
 			TIntIntMap regulationBasedGeneSetNumber2KMap,
@@ -9960,7 +9960,7 @@ public class Annotation {
 
 		try{
 			
-			if(!writeElementBasedAnnotationFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
+			if(!writeFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
 				
 				if( hg19RefSeqGeneBufferedWriter == null){
 					hg19RefSeqGeneFileWriter = FileOperations.createFileWriter(
@@ -9989,7 +9989,7 @@ public class Annotation {
 	
 				searchGeneSetWithNumbers( 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						hg19RefSeqGeneBufferedWriter,
 						geneEntrezID2HeaderWrittenMap,
 						exonBasedGeneSetNumber2HeaderWrittenMap,
@@ -10052,7 +10052,7 @@ public class Annotation {
 	public void searchTfKEGGPathwayWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntIntMap tfNumberCellLineNumber2KMap, 
 			TIntIntMap geneEntrezID2KMap,
@@ -10105,7 +10105,7 @@ public class Annotation {
 
 		try{
 			
-			if(!writeElementBasedAnnotationFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
+			if(!writeFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
 
 				if( hg19RefSeqGenesBufferedWriter == null){
 					hg19RefSeqGenesFileWriter = FileOperations.createFileWriter(
@@ -10135,7 +10135,7 @@ public class Annotation {
 	
 				searchTfKEGGPathwayWithNumbers( 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode, 
+						writeFoundOverlapsMode, 
 						hg19RefSeqGenesBufferedWriter,
 						regulatorySequenceAnalysisUsingRSAT,
 						tfCellLineNumber2HeaderWrittenMap,
@@ -10222,7 +10222,7 @@ public class Annotation {
 	public void searchUserDefinedLibraryWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			int overlapDefinition, 
 			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap,
 			TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap,
@@ -10259,7 +10259,7 @@ public class Annotation {
 				
 				searchUserDefinedLibraryWithNumbers(
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						elementNumber2HeaderWrittenMap,
 						chrName, 
 						bufferedReader, 
@@ -10297,7 +10297,7 @@ public class Annotation {
 	public void searchTranscriptionFactorWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT, 
 			TIntIntMap tfNumberCellLineNumber2KMap,
 			int overlapDefinition, 
@@ -10323,7 +10323,7 @@ public class Annotation {
 			
 			searchTranscriptionFactorWithNumbers(
 					outputFolder, 
-					writeElementBasedAnnotationFoundOverlapsMode,
+					writeFoundOverlapsMode,
 					tfCellLineNumber2HeaderWrittenMap,
 					regulatorySequenceAnalysisUsingRSAT, 
 					chrName, 
@@ -10361,7 +10361,7 @@ public class Annotation {
 	public void searchHistoneWithNumbers( 
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntIntMap histoneNumberCellLineNumber2KMap, 
 			int overlapDefinition,
 			TIntObjectMap<String> histoneNumber2HistoneNameMap,
@@ -10386,7 +10386,7 @@ public class Annotation {
 			
 			searchHistoneWithNumbers(
 					outputFolder, 
-					writeElementBasedAnnotationFoundOverlapsMode, 
+					writeFoundOverlapsMode, 
 					histoneCellLineNumber2HeaderWrittenMap,
 					chrName,
 					bufferedReader, 
@@ -10417,58 +10417,6 @@ public class Annotation {
 
 	}
 
-	// public void emptyIntervalTree(IntervalTreeNode node) {
-	// if (node != null) {
-	// emptyIntervalTree(node.getRight());
-	// emptyIntervalTree(node.getLeft());
-	//
-	// // if(node.getCellLineName()!=null){
-	// // node.setCellLineName(null);
-	// // }
-	// //
-	// // if(node.getFileName()!=null){
-	// // node.setFileName(null);
-	// // }
-	// //
-	// // if(node.getTfbsorHistoneName()!=null){
-	// // node.setTfbsorHistoneName(null);
-	// // }
-	// //
-	// // if(node.getGeneHugoSymbol()!=null){
-	// // node.setGeneHugoSymbol(null);
-	// // }
-	// //
-	// // if(node.getIntervalName()!=null){
-	// // node.setIntervalName(null);
-	// // }
-	// //
-	// // if(node.getGeneEntrezId()!=null){
-	// // node.setGeneEntrezId(null);
-	// // }
-	// //
-	// // if(node.getRefSeqGeneName()!=null){
-	// // node.setRefSeqGeneName(null);
-	// // }
-	//
-	// if (node.getChromName() != null) {
-	// node.setChromName(null);
-	// }
-	//
-	// if (node.getLeft() != null) {
-	// node.setLeft(null);
-	// }
-	//
-	// if (node.getRight() != null) {
-	// node.setRight(null);
-	// }
-	//
-	// if (node.getParent() != null) {
-	// node.setParent(null);
-	// }
-	//
-	// node = null;
-	// }
-	// }
 
 	public static void writeOverlaps(
 			TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2OverlapListMap,
@@ -11123,7 +11071,7 @@ public class Annotation {
 		// If you want to change this argument
 		// Then update runButtonPressed method of MainView Class for UI and
 		// Update CommandLineArguments constructor of CommandLineArguments class for Command Line.
-		WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
+		WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
 
 		int overlapDefinition = Integer.parseInt( args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 
@@ -11339,7 +11287,7 @@ public class Annotation {
 				searchDnaseWithNumbers(
 						dataFolder, 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						dnaseCellLineNumber2KMap, 
 						overlapDefinition, 
 						dnaseCellLineNumber2NameMap, 
@@ -11388,7 +11336,7 @@ public class Annotation {
 				searchHistoneWithNumbers(
 						dataFolder, 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						histoneNumberCellLineNumber2KMap, 
 						overlapDefinition, 
 						histoneNumber2NameMap,
@@ -11440,7 +11388,7 @@ public class Annotation {
 				searchTranscriptionFactorWithNumbers(
 						dataFolder, 
 						outputFolder,
-						writeElementBasedAnnotationFoundOverlapsMode, 
+						writeFoundOverlapsMode, 
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
 						overlapDefinition, 
@@ -11502,7 +11450,7 @@ public class Annotation {
 				searchGeneWithNumbers(
 						dataFolder, 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						givenIntervalNumber2GivenIntervalNameMap, 
 						givenIntervalNumber2OverlapInformationMap,
 						chromosomeName2CountMap, 
@@ -11586,7 +11534,7 @@ public class Annotation {
 				searchGeneSetWithNumbers( 
 						dataFolder, 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						geneEntrezID2KMap,
 						exonBasedKeggPathway2KMap, 
 						regulationBasedKeggPathway2KMap, 
@@ -11715,7 +11663,7 @@ public class Annotation {
 				searchGeneSetWithNumbers(
 						dataFolder, 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						geneEntrezID2KMap,
 						exonBasedUserDefinedGeneSet2KMap, 
 						regulationBasedUserDefinedGeneSet2KMap,
@@ -11861,7 +11809,7 @@ public class Annotation {
 				searchUserDefinedLibraryWithNumbers(
 						dataFolder, 
 						outputFolder,
-						writeElementBasedAnnotationFoundOverlapsMode, 
+						writeFoundOverlapsMode, 
 						overlapDefinition,
 						elementTypeNumber2ElementNumber2KMapMap, 
 						elementTypeNumber2ElementNumber2ElementNameMapMap,
@@ -11951,7 +11899,7 @@ public class Annotation {
 				searchTfKEGGPathwayWithNumbers( 
 						dataFolder, 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
 						geneEntrezID2KMap,
@@ -12135,7 +12083,7 @@ public class Annotation {
 				searchTfKEGGPathwayWithNumbers( 
 						dataFolder, 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
 						geneEntrezID2KMap,
@@ -12323,7 +12271,7 @@ public class Annotation {
 				searchTfKEGGPathwayWithNumbers( 
 						dataFolder, 
 						outputFolder, 
-						writeElementBasedAnnotationFoundOverlapsMode,
+						writeFoundOverlapsMode,
 						regulatorySequenceAnalysisUsingRSAT,
 						tfNumberCellLineNumber2KMap, 
 						geneEntrezID2KMap,

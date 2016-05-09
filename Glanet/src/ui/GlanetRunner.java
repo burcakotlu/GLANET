@@ -97,11 +97,11 @@ public class GlanetRunner implements Runnable {
 			}
 			
 			/************** Augmentation of Enriched Elements with Given Input Data starts in** GRCh37.p13*******/
-			if( getArgs()[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_WRITE_ELEMENT_BASED_ANNOTATION_FOUND_OVERLAPS)){
+			if( getArgs()[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED)){
 				setCurrentProcessInfo("Write Element Based Annotation Found Overlaps in GRCh37.p13 ...");
 			}
 			
-			if( getArgs()[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_WRITE_ELEMENT_TYPE_BASED_ANNOTATION_FOUND_OVERLAPS)){
+			if( getArgs()[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED)){
 				setCurrentProcessInfo("Write Element Type Based Annotation Found Overlaps in GRCh37.p13 ...");
 
 				//In case of use or need, this class has to be updated since now output have mean, stdDev, zscores amd they can be null
@@ -109,7 +109,7 @@ public class GlanetRunner implements Runnable {
 //				AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates.main( args);
 			}
 			
-			if( getArgs()[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_NOT_WRITE_ANNOTATION_FOUND_OVERLAPS_AT_ALL)){
+			if( getArgs()[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL)){
 				setCurrentProcessInfo("Do Not Write Annotation Found Overlaps At All in GRCh37.p13 ...");
 
 				//In case of use or need, this class has to be updated since now output have mean, stdDev, zscores amd they can be null

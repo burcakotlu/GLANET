@@ -378,7 +378,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
 		WriteAnnotationBinaryMatrixMode writeAnnotationBinaryMatrixMode = WriteAnnotationBinaryMatrixMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationBinaryMatrixMode.value()]);
 
-		if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps() && writeAnnotationBinaryMatrixMode.doWriteAnnotationBinaryMatrixMode()){
+		if( writeElementBasedAnnotationFoundOverlapsMode.isWriteFoundOverlapsElementBased() && writeAnnotationBinaryMatrixMode.doWriteAnnotationBinaryMatrixMode()){
 
 			/****************************************************************/
 			/********** DNASE starts*****************************************/
