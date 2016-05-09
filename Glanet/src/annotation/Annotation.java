@@ -9845,7 +9845,7 @@ public class Annotation {
 
 		try{
 
-			if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+			if(!writeElementBasedAnnotationFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
 
 				if( hg19RefSeqGeneBufferedWriter == null){
 					
@@ -9960,7 +9960,7 @@ public class Annotation {
 
 		try{
 			
-			if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+			if(!writeElementBasedAnnotationFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
 				
 				if( hg19RefSeqGeneBufferedWriter == null){
 					hg19RefSeqGeneFileWriter = FileOperations.createFileWriter(
@@ -9974,7 +9974,7 @@ public class Annotation {
 							"Gene RNANucleotideAccession" + "\t" + "GeneIntervalName" + "\t" + "GeneIntervalNumber" + "\t" + 
 							"GeneHugoSymbol" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
 
-				}
+				}//End of IF hg19RefSeqGeneBufferedWriter is null
 				
 			}// End of IF
 		
@@ -10105,7 +10105,7 @@ public class Annotation {
 
 		try{
 			
-			if( writeElementBasedAnnotationFoundOverlapsMode.isWriteElementBasedAnnotationFoundOverlaps()){
+			if(!writeElementBasedAnnotationFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
 
 				if( hg19RefSeqGenesBufferedWriter == null){
 					hg19RefSeqGenesFileWriter = FileOperations.createFileWriter(
