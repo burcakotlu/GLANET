@@ -5411,7 +5411,8 @@ public class Annotation {
 			IntervalTree userDefinedLibraryIntervalTree,
 			TIntIntMap elementNumber2KMap, 
 			int overlapDefinition, 
-			String elementType,
+			int elementTypeNumber,
+			String elementTypeName,
 			TIntObjectMap<String> elementNumber2ElementNameMap, 
 			TIntObjectMap<String> fileNumber2FileNameMap,
 			AssociationMeasureType associationMeasureType) {
@@ -5463,7 +5464,8 @@ public class Annotation {
 									outputFolder, 
 									writeFoundOverlapsMode,
 									elementNumber2HeaderWrittenMap,
-									elementType, 
+									elementTypeNumber,
+									elementTypeName, 
 									elementNumber2ElementNameMap, 
 									fileNumber2FileNameMap,
 									userDefinedLibraryIntervalTree.getRoot(), 
@@ -5508,7 +5510,8 @@ public class Annotation {
 									outputFolder,
 									writeFoundOverlapsMode,
 									elementNumber2HeaderWrittenMap,
-									elementType, 
+									elementTypeNumber,
+									elementTypeName, 
 									elementNumber2ElementNameMap,
 									fileNumber2FileNameMap,
 									userDefinedLibraryIntervalTree.getRoot(), 
@@ -10237,14 +10240,14 @@ public class Annotation {
 			AssociationMeasureType associationMeasureType) {
 
 		int elementTypeNumber;
-		String elementType;
+		String elementTypeName;
 
 		// Do Annotation With Numbers
 		// For each elementTypeNumber
 		for( TIntObjectIterator<String> it = elementTypeNumber2ElementTypeMap.iterator(); it.hasNext();){
 			it.advance();
 			elementTypeNumber = it.key();
-			elementType = it.value();
+			elementTypeName = it.value();
 
 			BufferedReader bufferedReader = null;
 			IntervalTree userDefinedLibraryIntervalTree;
@@ -10258,7 +10261,7 @@ public class Annotation {
 			for( ChromosomeName chrName : ChromosomeName.values()){
 
 				userDefinedLibraryIntervalTree = createUserDefinedIntervalTreeWithNumbers( dataFolder,
-						elementTypeNumber, elementType, chrName);
+						elementTypeNumber, elementTypeName, chrName);
 				bufferedReader = FileOperations.createBufferedReader(
 						outputFolder,
 						Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
@@ -10272,7 +10275,8 @@ public class Annotation {
 						userDefinedLibraryIntervalTree, 
 						elementNumber2KMap, 
 						overlapDefinition,
-						elementType, 
+						elementTypeNumber,
+						elementTypeName, 
 						elementNumber2ElementNameMap, 
 						fileNumber2FileNameMap,
 						associationMeasureType);
