@@ -9845,7 +9845,8 @@ public class Annotation {
 
 		try{
 
-			if(!writeFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
+			//Do we need it really?
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
 				if( hg19RefSeqGeneBufferedWriter == null){
 					
@@ -9903,8 +9904,9 @@ public class Annotation {
 			}//End of FOR each chromosomeName
 
 			//Close
-			hg19RefSeqGeneFileWriter.close();
-
+			if (hg19RefSeqGeneBufferedWriter!=null){
+			 	hg19RefSeqGeneBufferedWriter.close();
+			}
 			
 		}catch( IOException e){
 				if( GlanetRunner.shouldLog())logger.error( e.toString());
@@ -9960,7 +9962,7 @@ public class Annotation {
 
 		try{
 			
-			if(!writeFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 				
 				if( hg19RefSeqGeneBufferedWriter == null){
 					hg19RefSeqGeneFileWriter = FileOperations.createFileWriter(
@@ -10025,7 +10027,9 @@ public class Annotation {
 			}// End of for each chromosomeName
 		 
 			//Close
-		 	hg19RefSeqGeneBufferedWriter.close();
+			if (hg19RefSeqGeneBufferedWriter!=null){
+			 	hg19RefSeqGeneBufferedWriter.close();
+			}
 			
 		}catch( IOException e){
 			if( GlanetRunner.shouldLog())logger.error( e.toString());
@@ -10105,7 +10109,7 @@ public class Annotation {
 
 		try{
 			
-			if(!writeFoundOverlapsMode.isDoNotWriteAnnotationFoundOverlapsAtAll()){
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
 				if( hg19RefSeqGenesBufferedWriter == null){
 					hg19RefSeqGenesFileWriter = FileOperations.createFileWriter(
@@ -10190,7 +10194,9 @@ public class Annotation {
 			}// End of for each chromosomeName
 			
 			//Close
-			hg19RefSeqGenesBufferedWriter.close();
+			if (hg19RefSeqGenesBufferedWriter!=null){
+			 	hg19RefSeqGenesBufferedWriter.close();
+			}
 			
 		}catch( IOException e){
 			if( GlanetRunner.shouldLog())logger.error( e.toString());

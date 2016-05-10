@@ -8406,7 +8406,9 @@ public class IntervalTree {
 
 					fillGivenIntervalNumber2OverlapInformationMap(castedNode,givenIntervalNumber,givenIntervalNumber2OverlapInformationMap);							
 					
-					hg19RefSeqGenesBufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+					if (hg19RefSeqGenesBufferedWriter!=null){
+						hg19RefSeqGenesBufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+					}
 							
 					writeOverlapsFoundInAnnotation(
 							outputFolder,
