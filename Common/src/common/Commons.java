@@ -1511,7 +1511,7 @@ public class Commons {
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION = "User Defined Library Annotation";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT = "Choose Data Format In User Defined Library Input File";
 	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis is possible  when the input file is comprised of SNPs";
-
+	public static final String GUI_HINT_ANNOTATION_OUTPUT_OPTION = "Annotation Output Options";
 	// Annotation Binary Matrices
 	public static final String ANNOTATIONBINARYMATRIX_DNASE = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty( "file.separator") + "DnaseAnnotationBinaryMatrix.txt";
 	public static final String ANNOTATIONBINARYMATRIX_TF = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty( "file.separator") + "TFAnnotationBinaryMatrix.txt";
@@ -1586,6 +1586,9 @@ public class Commons {
 	public static final String ARG_USER_DEFINED_LIBRARY_ANNOTATION_DATA_FORMAT_1_INCLUSIVE = "-udldf1inc";
 	public static final String ARG_JOB_NAME = "-j";
 	public static final String ARG_RSAT = "-rsa";
+	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT = "-aos";
+	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT_TYPE = "-aoa";
+	public static final String ARG_ANNOTATION_NO_OUTPUT = "-aon";
 
 	// Enum type NumberOfBases
 	public static final String NUMBER_BASES_DEFAULT = "1";

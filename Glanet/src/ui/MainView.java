@@ -69,11 +69,12 @@ public class MainView extends JPanel {
 	private JComboBox<String> generateRandomDataModeCombo;
 	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
-	private JComboBox<String> numberOfPerInEachRun;
+	private JComboBox<String> numberOfPerInEachRunCombo;
 	private JComboBox<String> inputFormatCombo;
-	private JComboBox<String> inputAssembly;
-	private JComboBox<String> userDefinedGeneSetGeneInformation;
+	private JComboBox<String> inputAssemblyCombo;
+	private JComboBox<String> userDefinedGeneSetGeneInformationCombo;
 	private JComboBox<String> userDefinedLibraryDataFormatCombo;
+	private JComboBox<String> writeAnnotationFoundOverlapModeCombo;
 	private JCheckBox performEnrichmentCheckBox;
 	private JCheckBox performEnrichmentWithZScoresCheckBox;
 	private JCheckBox regulatorySequenceAnalysisUsingRSATCheck;
@@ -239,7 +240,7 @@ public class MainView extends JPanel {
 				
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
-						inputAssembly.getSelectedItem().toString(),
+						inputAssemblyCombo.getSelectedItem().toString(),
 						glanetFolderTextField.getText(),
 						outputFolder,
 						inputFormatCombo.getSelectedItem().toString(),
@@ -261,15 +262,15 @@ public class MainView extends JPanel {
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 						regulatorySequenceAnalysisUsingRSATCheck.isSelected()?Commons.DO_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT:Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT,
 						(jobNameTextField.getText().length() == 0)?CommandLineArguments.JobName.defaultValue():jobNameTextField.getText(),
-						Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED,
+						writeAnnotationFoundOverlapModeCombo.getSelectedItem().toString(),
 						Commons.DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX,
 						Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT,
 						Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT,
-						numberOfPerInEachRun.getSelectedItem().toString(),
+						numberOfPerInEachRunCombo.getSelectedItem().toString(),
 						userDefinedGeneSetAnnotation.isSelected()?Commons.DO_USER_DEFINED_GENESET_ANNOTATION:Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION,
 						userDefinedGeneSetInput.getText(),
-						userDefinedGeneSetGeneInformation.getSelectedItem().toString(),
+						userDefinedGeneSetGeneInformationCombo.getSelectedItem().toString(),
 						(userDefinedGeneSetName.getText().length() != 0)?userDefinedGeneSetName.getText():Commons.NO_NAME,
 						(userDefinedGeneSetDescriptionFile.getText().length() != 0)?userDefinedGeneSetDescriptionFile.getText():Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED,
 						userDefinedLibraryAnnotation.isSelected()?Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION:Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION,
@@ -450,9 +451,9 @@ public class MainView extends JPanel {
 				createPanelWithHint( inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
 
 		String[] assemblyFormat = {Commons.GRCH37_P13, Commons.GRCH38};
-		inputAssembly = new JComboBox<String>( assemblyFormat);
+		inputAssemblyCombo = new JComboBox<String>( assemblyFormat);
 		inputBrowseAndOptionPane.add( createBorderedPanel( "Assembly",
-				createPanelWithHint( inputAssembly, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
+				createPanelWithHint( inputAssemblyCombo, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
 
 		listPane.add( inputBrowseAndOptionPane);
 
@@ -565,11 +566,11 @@ public class MainView extends JPanel {
 		// userDefinedGeneSetUpperPanel
 		String[] geneInformation = {Commons.GENE_ID, Commons.GENE_SYMBOL, Commons.RNA_NUCLEOTIDE_ACCESSION};
 
-		userDefinedGeneSetGeneInformation = new JComboBox<String>( geneInformation);
-		userDefinedGeneSetGeneInformation.setSelectedIndex( 1);
+		userDefinedGeneSetGeneInformationCombo = new JComboBox<String>( geneInformation);
+		userDefinedGeneSetGeneInformationCombo.setSelectedIndex( 1);
 		userDefinedGeneSetUpperPanel.add( createBorderedPanel(
 				"Gene Information Type",
-				createPanelWithHint( userDefinedGeneSetGeneInformation,
+				createPanelWithHint( userDefinedGeneSetGeneInformationCombo,
 						Commons.GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE)));
 
 		// userDefinedGeneSetLowerPanel added to userDefinedGeneSetPanel
@@ -627,7 +628,14 @@ public class MainView extends JPanel {
 		userDefinedLibraryPanel.add( userDefinedLibraryLowerPanel);
 		annotationOptions.add( createBorderedPanel( "User Defined Library", userDefinedLibraryPanel));
 		annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));
-
+		
+		String[] writeAnnotationFoundOverlapsFoundModes = {Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED,
+				Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED,
+				Commons.DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL};
+		writeAnnotationFoundOverlapModeCombo = new JComboBox<String>(writeAnnotationFoundOverlapsFoundModes);
+		
+		annotationPanel.add( createBorderedPanel( "Annotation Options", createPanelWithHint( writeAnnotationFoundOverlapModeCombo, Commons.GUI_HINT_ANNOTATION_OUTPUT_OPTION)));
+		
 		// cellLinesScrollPane added to annotationPanel
 		listModel = new DefaultListModel<>();
 		cellLinesList = new JList<String>( listModel); // see the comment on the
@@ -700,11 +708,11 @@ public class MainView extends JPanel {
 
 		// numberOfPerInEachRun added to permutationPanel
 		String[] numberOfPermutationsInEachRun = {"1000", "5000", "10000"};
-		numberOfPerInEachRun = new JComboBox<String>( numberOfPermutationsInEachRun);
+		numberOfPerInEachRunCombo = new JComboBox<String>( numberOfPermutationsInEachRun);
 		//Default number of permutations in each run is 10000
-		numberOfPerInEachRun.setSelectedIndex(2);
+		numberOfPerInEachRunCombo.setSelectedIndex(2);
 		permutationPanel.add( createBorderedPanel( "Number of Permutations In Each Run",
-				createPanelWithHint( numberOfPerInEachRun, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN)));
+				createPanelWithHint( numberOfPerInEachRunCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN)));
 
 		enrichmentPanel.add( permutationPanel);
 
@@ -894,7 +902,7 @@ public class MainView extends JPanel {
 		falseDiscoveryRate.setEnabled( shouldEnable);
 		signifanceCriteria.setEnabled( shouldEnable);
 		numberOfPerCombo.setEnabled( shouldEnable);
-		numberOfPerInEachRun.setEnabled( shouldEnable);
+		numberOfPerInEachRunCombo.setEnabled( shouldEnable);
 
 		revalidate();
 	}
@@ -903,7 +911,7 @@ public class MainView extends JPanel {
 
 		userDefinedGeneSetInput.setEnabled( shouldEnable);
 		userDefinedGeneSetDescriptionFile.setEnabled( shouldEnable);
-		userDefinedGeneSetGeneInformation.setEnabled( shouldEnable);
+		userDefinedGeneSetGeneInformationCombo.setEnabled( shouldEnable);
 		userDefinedGeneSetName.setEnabled( shouldEnable);
 
 		revalidate();
@@ -919,7 +927,7 @@ public class MainView extends JPanel {
 
 	public void enableInputAssembly() {
 
-		inputAssembly.setEnabled( ( inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase( Commons.INPUT_FILE_FORMAT_DBSNP_IDS))?false:true);
+		inputAssemblyCombo.setEnabled( ( inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase( Commons.INPUT_FILE_FORMAT_DBSNP_IDS))?false:true);
 
 		revalidate();
 	}
@@ -976,10 +984,10 @@ public class MainView extends JPanel {
 		generateRandomDataModeCombo.setEnabled( shouldEnable);
 		multipleTestingCombo.setEnabled( shouldEnable);
 		numberOfPerCombo.setEnabled( shouldEnable);
-		numberOfPerInEachRun.setEnabled( shouldEnable);
+		numberOfPerInEachRunCombo.setEnabled( shouldEnable);
 		inputFormatCombo.setEnabled( shouldEnable);
-		inputAssembly.setEnabled( shouldEnable);
-		userDefinedGeneSetGeneInformation.setEnabled( shouldEnable);
+		inputAssemblyCombo.setEnabled( shouldEnable);
+		userDefinedGeneSetGeneInformationCombo.setEnabled( shouldEnable);
 		userDefinedLibraryDataFormatCombo.setEnabled( shouldEnable);
 		performEnrichmentCheckBox.setEnabled( shouldEnable);
 		performEnrichmentWithZScoresCheckBox.setEnabled( shouldEnable);

@@ -861,7 +861,34 @@ public class App {
 					return false;
 				}
 			}
+		
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase( Commons.ARG_ANNOTATION_OUTPUT_ELEMENT))
+				if( argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
 
+			else if( args[i].equalsIgnoreCase( Commons.ARG_ANNOTATION_OUTPUT_ELEMENT_TYPE))
+				if( argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			else if( args[i].equalsIgnoreCase( Commons.ARG_ANNOTATION_NO_OUTPUT))
+				if( argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = Commons.DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL;
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+		
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WriteAnnotationFoundOverlapsMode))
+			return false;
+		
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.JobName))
 			return false;
 
@@ -872,9 +899,6 @@ public class App {
 			return false;
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WritePermutationBasedAnnotationResultMode))
-			return false;
-
-		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WriteAnnotationFoundOverlapsMode))
 			return false;
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WriteAnnotationBinaryMatrixMode))
