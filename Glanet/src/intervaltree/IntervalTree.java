@@ -74,6 +74,7 @@ import gnu.trove.list.TIntList;
 import gnu.trove.map.TIntByteMap;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TLongByteMap;
 import gnu.trove.map.TLongIntMap;
 import gnu.trove.map.TLongObjectMap;
 import gnu.trove.map.TShortObjectMap;
@@ -2874,7 +2875,185 @@ public class IntervalTree {
 	}
 	
 	//10 May 2016
-	//UDGS
+	//TFKEGG TFCellLineKEGG Both(TFKEGG and TFCellLineKEGG)
+	public static void writeOverlapsFoundInAnnotation(
+			String outputFolder,
+			String annotationFolder,
+			String allInOneFileName,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationType annotationType,
+			ChromosomeName chromName,
+			Interval interval,
+			TfCellLineOverlapWithNumbers tfOverlap,
+			UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers,
+			int tfNumber,
+			int cellLineNumber,
+			int keggPathwayNumber,
+			Integer tfNumberKeggPathwayNumber,
+			Long tfNumberCellLineNumberKeggPathwayNumber,
+			TIntObjectMap<String> tfNumber2TfNameMap,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
+			TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			TIntByteMap tfNumberKEGGPathwayNumber2HeaderWrittenMap,
+			TLongByteMap tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap
+			){
+		
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String uniqiueFileName = null;
+		
+		//Decide on uniqiueFileName
+		switch(annotationType){
+		
+			case DO_TF_KEGGPATHWAY_ANNOTATION:
+				uniqiueFileName = tfNumber2TfNameMap.get(tfNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber);
+				break;
+				
+			case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+				uniqiueFileName = tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "_" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber);
+				break;
+				
+			default:
+				break;
+		
+		}//End of SWITCH
+		
+		try {
+			
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT BASED starts**********************************/
+			/**************************************************************************************/
+			if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+				
+				fileWriter = FileOperations.createFileWriter(
+							outputFolder + annotationFolder + uniqiueFileName + ".txt",
+							true);
+				
+				bufferedWriter = new BufferedWriter( fileWriter);
+	
+				//Write Header only once
+				switch(annotationType){
+					case DO_TF_KEGGPATHWAY_ANNOTATION:
+						if( !tfNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(tfNumberKeggPathwayNumber)){
+							tfNumberKEGGPathwayNumber2HeaderWrittenMap.put(tfNumberKeggPathwayNumber,Commons.BYTE_1);
+							
+							bufferedWriter.write(
+									Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
+									"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
+									"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
+									"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+						}
+						break;
+						
+					case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+						if( !tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(tfNumberCellLineNumberKeggPathwayNumber)){
+							tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.put(tfNumberCellLineNumberKeggPathwayNumber,Commons.BYTE_1);
+							
+							bufferedWriter.write(
+									Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
+									"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
+									"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
+									"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+						}
+						break;
+						
+					default:
+						break;
+				
+				}//End of SWITCH
+				
+				
+	
+				bufferedWriter.write(
+						ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
+						tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
+						refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
+						ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+						geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+				
+				bufferedWriter.close();
+			}
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT BASED ends************************************/
+			/**************************************************************************************/
+			
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT TYPE BASED starts*****************************/
+			/**************************************************************************************/
+			else if (writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
+				
+				fileWriter = FileOperations.createFileWriter(
+						outputFolder + annotationFolder + allInOneFileName + ".txt",
+						true);
+			
+				bufferedWriter = new BufferedWriter( fileWriter);
+	
+				//Write Header only once
+				//Decide w.r.t. annotationType
+				switch(annotationType){
+					case DO_TF_KEGGPATHWAY_ANNOTATION:
+						if( !tfNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
+							tfNumberKEGGPathwayNumber2HeaderWrittenMap.put(Commons.ONE,Commons.BYTE_1);
+							
+							bufferedWriter.write(
+									Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
+									"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
+									"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
+									"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+						}
+						break;
+						
+					case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
+						if( !tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
+							tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.put(Commons.ONE,Commons.BYTE_1);
+							
+							bufferedWriter.write(
+									Commons.GLANET_COMMENT_CHARACTER + "Search for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
+									"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
+									"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
+									"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
+									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+						}
+						break;
+						
+					default:
+						break;
+			
+			}//End of SWITCH
+				
+	
+			bufferedWriter.write(
+					ChromosomeName.convertEnumtoString(chromName) + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
+					tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
+					refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
+					ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
+					geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+			
+			bufferedWriter.close();
+				
+		}
+		/**************************************************************************************/
+		/**************************WRITE ELEMENT TYPE BASED ends*******************************/
+		/**************************************************************************************/
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+	}
+			
+	
+	//10 May 2016
+	//UDL
 	public static void writeOverlapsFoundInAnnotation(
 			String outputFolder,
 			int elementTypeNumber,
@@ -2894,8 +3073,9 @@ public class IntervalTree {
 		
 		try {
 		
-			/*******************************************************************/
-			// Write Annotation Found Overlaps to element Named File
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT BASED starts**********************************/
+			/**************************************************************************************/
 			if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 				
 				fileWriter = FileOperations.createFileWriter(
@@ -2917,10 +3097,13 @@ public class IntervalTree {
 						elementNumber2ElementNameMap.get(elementNumber) + "\t" + fileNumber2FileNameMap.get(castedNode.getFileNumber()) + System.getProperty( "line.separator"));
 				bufferedWriter.close();
 			}
-			/*******************************************************************/
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT BASED ends************************************/
+			/**************************************************************************************/
 			
-			/*******************************************************************/
-			// Write Annotation Found Overlaps to Element Type File
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT TYPE BASED starts*****************************/
+			/**************************************************************************************/
 			else if (writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
 				
 				fileWriter = FileOperations.createFileWriter(
@@ -2945,7 +3128,9 @@ public class IntervalTree {
 
 				
 			}
-			/*******************************************************************/
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT TYPE BASED ends*******************************/
+			/**************************************************************************************/
 		
 			
 		} catch (IOException e) {
@@ -3030,7 +3215,7 @@ public class IntervalTree {
 				
 			}
 			/**************************************************************************************/
-			/**************************WRITE ELEMENT BASED starts**********************************/
+			/**************************WRITE ELEMENT BASED ends************************************/
 			/**************************************************************************************/
 			
 			/**************************************************************************************/
