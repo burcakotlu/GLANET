@@ -45,7 +45,6 @@ import annotation.PermutationNumberTfNumberCellLineNumberOverlap;
 import annotation.PermutationNumberUcscRefSeqGeneNumberOverlap;
 import annotation.PermutationNumberUcscRefSeqGeneOverlap;
 import annotation.TFNumberCellLineNumberOverlap;
-import annotation.TfCellLineOverlapWithNumbers;
 import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
@@ -2068,6 +2067,7 @@ public class IntervalTree {
 	
 	
 	//12 April 2016
+	//Find the number of overlapping bases with the given Interval
 	public static void findNumberofOverlappingBases(
 			Interval interval,
 			TIntObjectMap<IntervalTree> elementNumberCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
@@ -2873,7 +2873,8 @@ public class IntervalTree {
 		
 		
 	}
-	
+
+	//modified 11 May 2016
 	//10 May 2016
 	//TFKEGG TFCellLineKEGG Both(TFKEGG and TFCellLineKEGG)
 	public static void writeOverlapsFoundInAnnotation(
@@ -2884,7 +2885,8 @@ public class IntervalTree {
 			AnnotationType annotationType,
 			ChromosomeName chromName,
 			Interval interval,
-			TfCellLineOverlapWithNumbers tfOverlap,
+//			TfCellLineOverlapWithNumbers tfOverlap,
+			IntervalTreeNode tfOverlap,
 			UcscRefSeqGeneOverlapWithNumbers ucscRefSeqGeneOverlapWithNumbers,
 			int tfNumber,
 			int cellLineNumber,
@@ -2933,7 +2935,7 @@ public class IntervalTree {
 							outputFolder + annotationFolder + uniqiueFileName + ".txt",
 							true);
 				
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 	
 				//Write Header only once
 				switch(annotationType){
@@ -5339,6 +5341,7 @@ public class IntervalTree {
 
 	}
 
+	//Modified 11 May 2016
 	//Modified 20 July 2015
 	// Annotation EOO
 	// TF
@@ -5356,7 +5359,8 @@ public class IntervalTree {
 			ChromosomeName chromName, 
 			TIntByteMap tfNumberCellLineNumber2ZeroorOneMap,
 			int overlapDefinition,
-			List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList) {
+//			List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList
+			List<TforHistoneIntervalTreeNodeWithNumbers> tfandCellLineOverlapList) {
 
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
@@ -5374,13 +5378,19 @@ public class IntervalTree {
 			
 			//Not null when called from TFKEGG  TFCellKEGG BOTH analysis
 			if (tfandCellLineOverlapList!=null){
-				tfandCellLineOverlapList.add(new TfCellLineOverlapWithNumbers( 
-						elementNumberCellLineNumber,
+				tfandCellLineOverlapList.add(new TforHistoneIntervalTreeNodeWithNumbers( 
+						castedNode.getChromName(),
 						castedNode.getLow(), 
-						castedNode.getHigh()));
+						castedNode.getHigh(),
+						castedNode.getTforHistoneNumber(),
+						castedNode.getCellLineNumber(),
+						castedNode.getFileNumber(),
+						castedNode.getNodeType()));
 			}
 			
 		
+			
+			
 				
 			writeOverlapsFoundInAnnotation(
 					outputFolder,
@@ -5441,119 +5451,9 @@ public class IntervalTree {
 		}
 	}
 
-	// @todo Annotation with Numbers ends
+	
 
-	// Modified 20 July 2015
-	// Modified on 13 July 2015 
-	// Annotation with Numbers with OverlapList starts
-	public void findAllOverlappingTfbsIntervalsWithNumbers( 
-			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
-			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
-			IntervalTreeNode node, 
-			Interval interval, 
-			ChromosomeName chromName,
-			TIntByteMap tfNumberCellLineNumber2ZeroorOneMap,
-			List<TfCellLineOverlapWithNumbers> tfandCellLineOverlapList, 
-			int overlapDefinition,
-			TIntObjectMap<String> tfNumber2TfNameMap, 
-			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
-			TIntObjectMap<String> fileNumber2FileNameMap) {
-
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
-
-		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
-
-		if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-			castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
-		}
-
-		
-		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
-				castedNode.getTforHistoneNumber(),
-				castedNode.getCellLineNumber(),
-				GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
-
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
-			try{
-
-				/*******************************************************************/
-				// Write Annotation Found Overlaps to element Named File
-				
-				//12 FEB 2016
-				if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased() || regulatorySequenceAnalysisUsingRSAT.isDoRegulatorySequenceAnalysisUsingRSAT()){
-
-
-					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.TF_ANNOTATION_DIRECTORY + tfNumber2TfNameMap.get( castedNode.getTforHistoneNumber()) + "_" + cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber()) + ".txt",
-							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-
-					if( !tfNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
-						tfNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
-						bufferedWriter.write( "#Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "tfbs node Chrom Name" + "\t" + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" + System.getProperty( "line.separator"));
-					}
-
-					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + tfNumber2TfNameMap.get( castedNode.getTforHistoneNumber()) + "\t" + cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber()) + "\t" + fileNumber2FileNameMap.get( castedNode.getFileNumber()) + System.getProperty( "line.separator"));
-					bufferedWriter.close();
-				}
-				/*******************************************************************/
-
-				/*******************************************************************/
-				// Do not Write Annotation Found Overlaps to element Named File
-				else{
-					if( !tfNumberCellLineNumber2ZeroorOneMap.containsKey(elementNumberCellLineNumber)){
-						tfNumberCellLineNumber2ZeroorOneMap.put(elementNumberCellLineNumber, Commons.BYTE_1);
-					}
-				}
-				/*******************************************************************/
-
-				tfandCellLineOverlapList.add( 
-						new TfCellLineOverlapWithNumbers( 
-								elementNumberCellLineNumber,
-								castedNode.getLow(), 
-								castedNode.getHigh()));
-
-			}catch( IOException e){
-
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
-			}
-		}
-
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervalsWithNumbers( 
-					outputFolder, 
-					writeFoundOverlapsMode,
-					regulatorySequenceAnalysisUsingRSAT,
-					node.getLeft(), 
-					interval, 
-					chromName, 
-					tfNumberCellLineNumber2ZeroorOneMap, 
-					tfandCellLineOverlapList,
-					overlapDefinition, 
-					tfNumber2TfNameMap, 
-					cellLineNumber2CellLineNameMap, 
-					fileNumber2FileNameMap);
-		}
-
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervalsWithNumbers(
-					outputFolder, 
-					writeFoundOverlapsMode,
-					regulatorySequenceAnalysisUsingRSAT,
-					node.getRight(), 
-					interval, 
-					chromName, 
-					tfNumberCellLineNumber2ZeroorOneMap,
-					tfandCellLineOverlapList, 
-					overlapDefinition, 
-					tfNumber2TfNameMap, 
-					cellLineNumber2CellLineNameMap,
-					fileNumber2FileNameMap);
-		}
-	}
-	// @todo Annotation with Numbers with OverlapList ends
+	
 
 	// New Functionality added
 	// Search2 For finding the number of each tfbs:k for the given search input
@@ -10688,6 +10588,7 @@ public class IntervalTree {
 	
 	
 
+	// Modified 11 May 2016
 	// Modified 25 April 2016
 	// Annotation EOO
 	// It is called from Genes, KEGGPathway, UDGS, TFKEGG, TFCellLineKEGG and BOTH (TFKEGG or TFCellLineKEGG)
@@ -10780,21 +10681,25 @@ public class IntervalTree {
 							/*******************************************************************/
 							/************Write Exon Based Gene Set results starts***************/
 							/*******************************************************************/
-							if( castedNode.getIntervalName().isExon()){
+							if(castedNode.getIntervalName().isExon()){
 
-								if( geneSetNumberListContainingThisGeneId != null){
+								if(geneSetNumberListContainingThisGeneId != null){
 									
 									//It will be null when called for Annotation EOO is done for Gene or GeneSet case
 									if (exonBasedGeneSetOverlapList!=null){
 										
-										exonBasedGeneSetOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
-												castedNode.getRefSeqGeneNumber(), castedNode.getGeneHugoSymbolNumber(),
-												castedNode.getGeneEntrezId(), geneSetNumberListContainingThisGeneId,
-												castedNode.getIntervalName(), castedNode.getIntervalNumber(), node.getLow(),
+										exonBasedGeneSetOverlapList.add( 
+											new UcscRefSeqGeneOverlapWithNumbers(
+												castedNode.getRefSeqGeneNumber(), 
+												castedNode.getGeneHugoSymbolNumber(),
+												castedNode.getGeneEntrezId(),
+												geneSetNumberListContainingThisGeneId,
+												castedNode.getIntervalName(), 
+												castedNode.getIntervalNumber(), 
+												node.getLow(),
 												node.getHigh()));
 										
 									}//End of IF
-
 									
 									for( TIntIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();){
 										
@@ -10823,8 +10728,10 @@ public class IntervalTree {
 										/*******************************************************************/
 
 									}// End of For: for all geneSets having this gene in their gene list
-								} // End of If: geneSetListContainingThisGeneId is not null
-							}// End of If: Exon Based GeneSet Analysis, Overlapped node is an exon
+										
+								}//End of IF  geneSetListContainingThisGeneId is not null
+
+							}// End of IF Exon Based GeneSet Analysis, Overlapped node is an exon
 							/*******************************************************************/
 							/************Write Exon Based Gene Set results ends*****************/
 							/*******************************************************************/
@@ -10837,18 +10744,24 @@ public class IntervalTree {
 
 								if( geneSetNumberListContainingThisGeneId != null){
 
+									
 									//It will be null when called for Annotation EOO Gene or GeneSet
 									if (regulationBasedGeneSetOverlapList!=null){
 										
-										regulationBasedGeneSetOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
-												castedNode.getRefSeqGeneNumber(), castedNode.getGeneHugoSymbolNumber(),
-												castedNode.getGeneEntrezId(), geneSetNumberListContainingThisGeneId,
-												castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getLow(),
-												castedNode.getHigh()));
+										regulationBasedGeneSetOverlapList.add( 
+												new UcscRefSeqGeneOverlapWithNumbers(
+														castedNode.getRefSeqGeneNumber(), 
+														castedNode.getGeneHugoSymbolNumber(),
+														castedNode.getGeneEntrezId(), 
+														geneSetNumberListContainingThisGeneId,
+														castedNode.getIntervalName(), 
+														castedNode.getIntervalNumber(), 
+														castedNode.getLow(),
+														castedNode.getHigh()));
 									}//End of IF
 									
-
 									for( TIntIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();){
+										
 										geneSetNumber = it.next();
 										
 										writeOverlapsFoundInAnnotation(
@@ -10889,11 +10802,16 @@ public class IntervalTree {
 								//It will be null when called for Annotation EOO Gene or GeneSet
 								if (allBasedGeneSetOverlapList!=null){
 									
-									allBasedGeneSetOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
-											castedNode.getRefSeqGeneNumber(), castedNode.getGeneHugoSymbolNumber(),
-											castedNode.getGeneEntrezId(), geneSetNumberListContainingThisGeneId,
-											castedNode.getIntervalName(), castedNode.getIntervalNumber(), castedNode.getLow(),
-											castedNode.getHigh()));
+									allBasedGeneSetOverlapList.add( 
+											new UcscRefSeqGeneOverlapWithNumbers(
+													castedNode.getRefSeqGeneNumber(), 
+													castedNode.getGeneHugoSymbolNumber(),
+													castedNode.getGeneEntrezId(), 
+													geneSetNumberListContainingThisGeneId,
+													castedNode.getIntervalName(), 
+													castedNode.getIntervalNumber(), 
+													castedNode.getLow(),
+													castedNode.getHigh()));
 
 								}//End of IF
 
