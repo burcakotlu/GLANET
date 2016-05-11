@@ -293,9 +293,9 @@ public class Commons {
 	public static final String DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX = "DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX";
 
 	// EnumType WriteElementBasedAnnotationFoundOverlapsMode
-	public static final String DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED = "Write Overlaps, Each One In Separate File (Element Based)";
-	public static final String DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED = "Write Overlaps, All In One File (Element Type Based)";
-	public static final String DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL = "Do Not Write Overlaps At All";
+	public static final String DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED = "Write Overlaps, Each One In Separate File (Element Based)";
+	public static final String DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED = "Write Overlaps, All In One File (Element Type Based)";
+	public static final String DO_NOT_WRITE_OVERLAPS_AT_ALL = "Do Not Write Overlaps At All";
 
 	// EnumType WriteGeneratedRandomDataMode
 	public static final String DO_WRITE_GENERATED_RANDOM_DATA = "DO_WRITE_GENERATED_RANDOM_DATA";

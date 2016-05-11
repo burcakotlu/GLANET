@@ -14,9 +14,9 @@ import common.Commons;
 public enum WriteAnnotationFoundOverlapsMode {
 	
 
-	DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED(1),
-	DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED(2),
-	DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL(3);
+	DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED(1),
+	DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED(2),
+	DO_NOT_WRITE_OVERLAPS_AT_ALL(3);
 	
 	private final int writeAnnotationFoundOverlapsMode;
 
@@ -32,14 +32,14 @@ public enum WriteAnnotationFoundOverlapsMode {
 	public static WriteAnnotationFoundOverlapsMode convertStringtoEnum(
 			String writeAnnotationFoundOverlapsMode) {
 
-		if( Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED.equals(writeAnnotationFoundOverlapsMode)){
-			return DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED;
+		if( Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED.equals(writeAnnotationFoundOverlapsMode)){
+			return DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED;
 			
-		}else if( Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED.equals(writeAnnotationFoundOverlapsMode)){
-			return DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED;
+		}else if( Commons.DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED.equals(writeAnnotationFoundOverlapsMode)){
+			return DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED;
 		
-		}else if( Commons.DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL.equals(writeAnnotationFoundOverlapsMode)){
-			return DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL;
+		}else if( Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL.equals(writeAnnotationFoundOverlapsMode)){
+			return DO_NOT_WRITE_OVERLAPS_AT_ALL;
 		}
 		else
 			return null;
@@ -47,14 +47,14 @@ public enum WriteAnnotationFoundOverlapsMode {
 
 	public String convertEnumtoString() {
 
-		if( this.equals( DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED))
-			return Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED;
+		if( this.equals( DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED))
+			return Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED;
 		
-		else if( this.equals(DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED))
-			return Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED;
+		else if( this.equals(DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED))
+			return Commons.DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED;
 		
-		else if( this.equals(DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL))
-			return Commons.DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL;
+		else if( this.equals(DO_NOT_WRITE_OVERLAPS_AT_ALL))
+			return Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL;
 		
 		else
 			return null;
@@ -63,14 +63,14 @@ public enum WriteAnnotationFoundOverlapsMode {
 
 	/** An added method.  */
 	public boolean isWriteFoundOverlapsElementBased() {
-		return this == WriteAnnotationFoundOverlapsMode.DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED;
+		return this == WriteAnnotationFoundOverlapsMode.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED;
 	}
 
 	public boolean isWriteFoundOverlapsElementTypeBased() {
-		return this == WriteAnnotationFoundOverlapsMode.DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED;
+		return this == WriteAnnotationFoundOverlapsMode.DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED;
 	}
 	
 	public boolean isDoNotWriteAnnotationFoundOverlapsAtAll() {
-		return this == WriteAnnotationFoundOverlapsMode.DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL;
+		return this == WriteAnnotationFoundOverlapsMode.DO_NOT_WRITE_OVERLAPS_AT_ALL;
 	}
 }

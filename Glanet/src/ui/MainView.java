@@ -629,9 +629,9 @@ public class MainView extends JPanel {
 		annotationOptions.add( createBorderedPanel( "User Defined Library", userDefinedLibraryPanel));
 		annotationPanel.add( createBorderedPanel( "Annotation Options", annotationOptions));
 		
-		String[] writeAnnotationFoundOverlapsFoundModes = {Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_BASED,
-				Commons.DO_WRITE_FOUND_OVERLAPS_ELEMENT_TYPE_BASED,
-				Commons.DO_NOT_WRITE_FOUND_OVERLAPS_AT_ALL};
+		String[] writeAnnotationFoundOverlapsFoundModes = {Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED,
+				Commons.DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED,
+				Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL};
 		writeAnnotationFoundOverlapModeCombo = new JComboBox<String>(writeAnnotationFoundOverlapsFoundModes);
 		
 		annotationPanel.add( createBorderedPanel( "Annotation Options", createPanelWithHint( writeAnnotationFoundOverlapModeCombo, Commons.GUI_HINT_ANNOTATION_OUTPUT_OPTION)));
