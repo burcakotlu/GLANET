@@ -3493,7 +3493,6 @@ public class Annotation {
 						List<UcscRefSeqGeneOverlapWithNumbers> allBasedKeggPathwayOverlapList = new ArrayList<UcscRefSeqGeneOverlapWithNumbers>();
 						
 						
-							
 						// TF Search starts here
 						if( tfbsIntervalTree.getRoot().getNodeName().isNotSentinel()){
 							
@@ -3564,7 +3563,7 @@ public class Annotation {
 						// UCSCRefSeqGenes Search ends here
 						
 						// Accumulate search results
-						for( TIntByteIterator it = geneEntrezID2OneorZeroMap.iterator(); it.hasNext();){
+						for(TIntByteIterator it = geneEntrezID2OneorZeroMap.iterator(); it.hasNext();){
 							it.advance();
 
 							if( !geneEntrezID2KMap.containsKey(it.key())){
@@ -3576,7 +3575,7 @@ public class Annotation {
 						}// End of for
 
 						// Accumulate search results
-						for( TIntByteIterator it = exonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+						for(TIntByteIterator it = exonBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
 							it.advance();
 
 							if( !exonBasedKeggPathwayNumber2KMap.containsKey( it.key())){
@@ -3588,7 +3587,7 @@ public class Annotation {
 						}// End of for
 
 						// Accumulate search results
-						for( TIntByteIterator it = regulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+						for(TIntByteIterator it = regulationBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
 
 							it.advance();
 
@@ -3601,7 +3600,7 @@ public class Annotation {
 						}// End of for
 
 						// Accumulate search results 
-						for( TIntByteIterator it = allBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
+						for(TIntByteIterator it = allBasedKeggPathway2OneorZeroMap.iterator(); it.hasNext();){
 
 							it.advance();
 
@@ -4436,12 +4435,10 @@ public class Annotation {
 							default:
 								break;
 						
-
 						} //End of SWITCH 
 
 
 						// After accumulation set to null
-						
 						//TF
 						tfNumberCellLineNumber2ZeroorOneMap = null;
 						
@@ -8214,8 +8211,7 @@ public class Annotation {
 					//Get chromName
 					chromName = TFNode.getChromName();
 					
-					/* There is overlap */
-						
+					/* There is overlap */	
 					TIntList keggPathwayNumberList = geneId2ListofKeggPathwayNumberMap.get(KEGGPathwayNodeWithGene.getGeneEntrezId());
 					
 					
@@ -8234,7 +8230,6 @@ public class Annotation {
 					/********************************************************************************************/
 					if (folderNameTFKEGG!=null){
 						
-							
 						//Choose which one to use?
 						if (keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 							toBeUsedTFKEGGHeaderLineMap = tfExonBasedGeneSetNumber2HeaderWrittenMap;
@@ -8251,7 +8246,7 @@ public class Annotation {
 								folderNameTFKEGG,
 								allInOneFileNameTFKEGG,
 								writeFoundOverlapsMode,
-								annotationType,
+								AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION,
 								chromName,
 								interval,
 								TFNode,
@@ -8296,7 +8291,7 @@ public class Annotation {
 								folderNameTFCellLineKEGG,
 								allInOneFileNameTFCellLineKEGG,
 								writeFoundOverlapsMode,
-								annotationType,
+								AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
 								chromName,
 								interval,
 								TFNode,
@@ -11462,7 +11457,7 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ USER DEFINED GENESET*****ANNOTATION***starts *********************/
 			/*******************************************************************************/
-			if( userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
+			if(userDefinedGeneSetAnnotationType.doUserDefinedGeneSetAnnotation()){
 				
 				//19 April 2016
 				//Hg19 RefSeq Genes
@@ -11598,7 +11593,7 @@ public class Annotation {
 			/*******************************************************************************/
 			/************ USER DEFINED LIBRARY*****ANNOTATION***starts *********************/
 			/*******************************************************************************/
-			if( userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
+			if(userDefinedLibraryAnnotationType.doUserDefinedLibraryAnnotation()){
 
 				GlanetRunner.appendLog( "**********************************************************");
 				GlanetRunner.appendLog( "User Defined Library Annotation starts: " + new Date());
