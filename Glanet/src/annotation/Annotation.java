@@ -4216,7 +4216,6 @@ public class Annotation {
 
 						}// for each tfOverlap for the given query
 						
-						
 						//Now accumulate results
 						switch(annotationType){
 
@@ -4594,6 +4593,13 @@ public class Annotation {
 							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
 									regulationBasedKEGGPathwayNumber2OverlappingNodeListMap, 
 									regulationBasedKEGGPathwayNumber2IntervalTreeWithNonOverlappingNodesMap);
+							
+							
+							//12 May 2016 debug starts
+							if (chromName.isCHROMOSOMEX() && interval.getLow()==41210941 && interval.getHigh()==41210941){
+								System.out.println("stop here.");
+							}
+							//12 May 2016 debug starts
 
 								
 							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
@@ -8193,6 +8199,7 @@ public class Annotation {
 				break;
 			
 		}//End of SWITCH Annotation Type
+		
 	
 		
 		TFNonOverlappingNodes = getIntervalTreeNodes(TFIntervalTreeWithNonOverlappingNodes);
@@ -8308,9 +8315,7 @@ public class Annotation {
 								geneHugoSymbolNumber2GeneHugoSymbolNameMap,
 								toBeUsedTFKEGGHeaderLineMap,
 								toBeUsedTFCellLineKEGGHeaderLineMap);
-						
-						
-						
+					
 				
 					}
 					/********************************************************************************************/

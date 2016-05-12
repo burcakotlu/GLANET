@@ -1829,7 +1829,7 @@ public class IntervalTree {
 	//27 OCTOBER 2015 ends
 	
 	
-	//27 OCTOBER 2015 starts
+	// 27 OCTOBER 2015 starts
 	// IntervalTree has nodes with mixed chromosome names
 	// So we need to check the equality of chromosome names of nodes in addition to normal overlap check
 	public static void findAllOverlappingIntervalsCheckingChrName(
@@ -1842,29 +1842,37 @@ public class IntervalTree {
 			if( root.getChromName().equals(newNode.getChromName()) && overlaps( root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
 				
 				//6 May 2016 starts
-				if (root instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers && newNode instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers &&
-					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getGeneEntrezId() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getGeneEntrezId() &&
-					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getGeneHugoSymbolNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getGeneHugoSymbolNumber() &&
-					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getRefSeqGeneNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getRefSeqGeneNumber() &&
-					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getIntervalName().equals(((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getIntervalName()) && 
-					((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getIntervalNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getIntervalNumber()){
-				
-					overlappedNodeList.add(root);
-				}
-				
-				else if (root instanceof TforHistoneIntervalTreeNodeWithNumbers && newNode instanceof TforHistoneIntervalTreeNodeWithNumbers &&
-						((TforHistoneIntervalTreeNodeWithNumbers) root).getTforHistoneNumber() ==  ((TforHistoneIntervalTreeNodeWithNumbers) newNode).getTforHistoneNumber() &&
-						((TforHistoneIntervalTreeNodeWithNumbers) root).getCellLineNumber() ==  ((TforHistoneIntervalTreeNodeWithNumbers) newNode).getCellLineNumber()){
+				if (root instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers && newNode instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
 					
-						overlappedNodeList.add(root);
-				}
+					if (((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getGeneEntrezId() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getGeneEntrezId() &&
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getGeneHugoSymbolNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getGeneHugoSymbolNumber() &&
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getRefSeqGeneNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getRefSeqGeneNumber() &&
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getIntervalName().equals(((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getIntervalName()) && 
+							((UcscRefSeqGeneIntervalTreeNodeWithNumbers) root).getIntervalNumber() ==  ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) newNode).getIntervalNumber()){
 				
-				else if (root instanceof DnaseIntervalTreeNodeWithNumbers && newNode instanceof DnaseIntervalTreeNodeWithNumbers &&
-						((DnaseIntervalTreeNodeWithNumbers) root).getCellLineNumber() ==  ((DnaseIntervalTreeNodeWithNumbers) newNode).getCellLineNumber()){
+							overlappedNodeList.add(root);
+					}
+				}
+				else if (root instanceof TforHistoneIntervalTreeNodeWithNumbers && newNode instanceof TforHistoneIntervalTreeNodeWithNumbers){
 					
+					if (((TforHistoneIntervalTreeNodeWithNumbers) root).getTforHistoneNumber() ==  ((TforHistoneIntervalTreeNodeWithNumbers) newNode).getTforHistoneNumber() &&
+							((TforHistoneIntervalTreeNodeWithNumbers) root).getCellLineNumber() ==  ((TforHistoneIntervalTreeNodeWithNumbers) newNode).getCellLineNumber()){
+								overlappedNodeList.add(root);
+							
+					}
+				}		
+				else if (root instanceof DnaseIntervalTreeNodeWithNumbers && newNode instanceof DnaseIntervalTreeNodeWithNumbers){
+					if(((DnaseIntervalTreeNodeWithNumbers) root).getCellLineNumber() ==  ((DnaseIntervalTreeNodeWithNumbers) newNode).getCellLineNumber()){
 						overlappedNodeList.add(root);
+					}
 				}
-				
+				else if (root instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers && newNode instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+					
+					if (((UserDefinedLibraryIntervalTreeNodeWithNumbers)root).getElementTypeNumber() == ((UserDefinedLibraryIntervalTreeNodeWithNumbers)newNode).getElementTypeNumber() && 
+							((UserDefinedLibraryIntervalTreeNodeWithNumbers)root).getElementNumber() == ((UserDefinedLibraryIntervalTreeNodeWithNumbers)newNode).getElementNumber() ){
+							overlappedNodeList.add(root);
+					}
+				}
 				else if (root instanceof IntervalTreeNode && newNode instanceof IntervalTreeNode){
 					overlappedNodeList.add( root);
 				}
