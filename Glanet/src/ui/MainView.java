@@ -634,7 +634,7 @@ public class MainView extends JPanel {
 				Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL};
 		writeAnnotationFoundOverlapModeCombo = new JComboBox<String>(writeAnnotationFoundOverlapsFoundModes);
 		
-		annotationPanel.add( createBorderedPanel( "Annotation Options", createPanelWithHint( writeAnnotationFoundOverlapModeCombo, Commons.GUI_HINT_ANNOTATION_OUTPUT_OPTION)));
+		annotationPanel.add( createBorderedPanel( "Annotation Output", createPanelWithHint( writeAnnotationFoundOverlapModeCombo, Commons.GUI_HINT_ANNOTATION_OUTPUT_OPTION)));
 		
 		// cellLinesScrollPane added to annotationPanel
 		listModel = new DefaultListModel<>();

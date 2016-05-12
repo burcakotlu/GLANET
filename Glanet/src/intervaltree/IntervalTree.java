@@ -2442,145 +2442,145 @@ public class IntervalTree {
 	
 	
 	
-	//Given an intervalNodeList 
-	//Construct an interval tree
-	//By inserting intervals in the given intervalNodeList one by one into the interval tree
-	//While inserting if there is any overlap
-	//Merge them and delete the unnecessary node
-	//At the end, get an interval tree with nonOverlapping nodes
-	//Pay attention the resulting interval tree keeps interval nodes from any chrname
-	//Mixed interval tree w.r.t. chrName
-	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(List<IntervalTreeNode> intervalNodeList, DataDrivenExperimentGeneType geneType){
-		
-		//Construct an interval tree consisting of nonOverlapping intervals
-		IntervalTree intervalTree = null;
-		IntervalTreeNode  intervalTreeNode = null;
-		
-		//Get each interval in the overlappedNodeList
-		//Insert one by one into the interval tree
-		for(int i = 0; i < intervalNodeList.size(); i++){
-			
-			intervalTreeNode =  intervalNodeList.get(i);
-			
-			//Insertion for the first time
-			if (intervalTree == null){
-				intervalTree = new IntervalTree();
-				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
-			}//End of IF 
-			
-			else{
-				
-				List<IntervalTreeNode>  overlappedNodeList = new ArrayList<IntervalTreeNode>();
-				
-				IntervalTree.findAllOverlappingIntervalsCheckingChrName(
-						overlappedNodeList, 
-						intervalTree.getRoot(),
-						intervalTreeNode);
-				
-				
-				// there is overlap
-				if( overlappedNodeList != null && overlappedNodeList.size() > 0){
-					
-					IntervalTreeNode mergedNode  = null;
-
-					//Initialize the mergedNode from the concerned intervalTreeNode
-					 if(intervalTreeNode instanceof DataDrivenExperimentIntervalTreeNode){
-					
-								mergedNode = new DataDrivenExperimentIntervalTreeNode(
-								intervalTreeNode.getChromName(),
-								intervalTreeNode.getLow(), 
-								intervalTreeNode.getHigh(), 
-								((DataDrivenExperimentIntervalTreeNode) intervalTreeNode).getGeneSymbol(),
-								((DataDrivenExperimentIntervalTreeNode) intervalTreeNode).getTpm(),
-								NodeType.MERGED);
-								
-					}else if(intervalTreeNode instanceof IntervalTreeNode){
-						
-						mergedNode = new IntervalTreeNode(
-						intervalTreeNode.getChromName(),
-						intervalTreeNode.getLow(), 
-						intervalTreeNode.getHigh(), 
-						NodeType.MERGED);
-					}
-					
-					
-					
-					IntervalTreeNode splicedoutNode = null;
-					IntervalTreeNode nodetoBeDeleted = null;
-					// you may try to delete a node which is already spliced out by former deletions
-					// therefore you must keep track of the real node to be deleted in case of trial of deletion of an already spliced out node.
-					Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
-
-					for( int j = 0; j < overlappedNodeList.size(); j++){
-
-						IntervalTreeNode overlappedNode = overlappedNodeList.get(j);
-
-						//Update the mergedNode with the overlappedNode
-						if (mergedNode instanceof DataDrivenExperimentIntervalTreeNode){
-							IntervalTree.updateMergedNode((DataDrivenExperimentIntervalTreeNode)mergedNode, (DataDrivenExperimentIntervalTreeNode)overlappedNode,geneType);
-						}else if (mergedNode instanceof IntervalTreeNode){
-							IntervalTree.updateMergedNode(mergedNode,overlappedNode);
-						}
-						
-						// if the to be deleted, intended interval tree node is an already spliced out node
-						// (By the way spliced out node means that a node that is no more valid, a death node)
-						// (Spliced out node  is the node that's content has been copied to a formerly deleted node)
-						// (Since formerly deleted node has one or two children and one of its children (spliced out one) took its place by being copied)
-						// in other words if it is copied into another interval tree node
-						// then you have to delete that node, not the already spliced out node
-
-						//Since we have updated the mergedNode with the overlappedNode
-						//we don't need overlappedNode anymore
-						//Now delete the overlappedNode
-						// If overlappedNode is already an splicedout node
-						// which means that it is no more a valid node of the interval tree
-						// then we need to find the node where the overlapped node is copied into
-						// and delete that node
-						nodetoBeDeleted = IntervalTree.compute(splicedoutNode2CopiedNodeMap, overlappedNode);
-
-						if( nodetoBeDeleted != null){
-							// they are the same
-							// current overlapped node to_be_deleted has been copied to the previously deleted overlapped node
-							// in other words, current overlapped node to_be_deleted is spliced out by the previous delete operation
-							// so delete that previously deleted overlapped node in order to delete the current overlapped node
-							// since current overlapped node is copied to the previously deleted overlapped node
-							// Now we can delete this overlappedNode
-							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, nodetoBeDeleted);
-
-							if( splicedoutNode != nodetoBeDeleted)
-								splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
-							
-						}else{
-							
-							// Now we can delete this overlappedNode
-							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
-
-							if( splicedoutNode != overlappedNode)
-								splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
-
-						}//End of ELSE
-
-					}// end of FOR: each overlapped node in the list
-					
-					intervalTree.intervalTreeInsert( intervalTree, mergedNode);
-
-				}// overlappedNodeList is not null
-				
-				// there is no overlap
-				else{
-					// insert interval
-					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
-				}//End of ELSE
-				
-				
-			}//End of ELSE intervalTree is not null
-			
-		}//End of FOR each interval node to be inserted
-		
-		return intervalTree;
-				
-	}
-	//27 OCTOBER 2015 ends
+//	//Given an intervalNodeList 
+//	//Construct an interval tree
+//	//By inserting intervals in the given intervalNodeList one by one into the interval tree
+//	//While inserting if there is any overlap
+//	//Merge them and delete the unnecessary node
+//	//At the end, get an interval tree with nonOverlapping nodes
+//	//Pay attention the resulting interval tree keeps interval nodes from any chrname
+//	//Mixed interval tree w.r.t. chrName
+//	public static IntervalTree constructAnIntervalTreeWithNonOverlappingNodes(List<IntervalTreeNode> intervalNodeList, DataDrivenExperimentGeneType geneType){
+//		
+//		//Construct an interval tree consisting of nonOverlapping intervals
+//		IntervalTree intervalTree = null;
+//		IntervalTreeNode  intervalTreeNode = null;
+//		
+//		//Get each interval in the overlappedNodeList
+//		//Insert one by one into the interval tree
+//		for(int i = 0; i < intervalNodeList.size(); i++){
+//			
+//			intervalTreeNode =  intervalNodeList.get(i);
+//			
+//			//Insertion for the first time
+//			if (intervalTree == null){
+//				intervalTree = new IntervalTree();
+//				intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+//			}//End of IF 
+//			
+//			else{
+//				
+//				List<IntervalTreeNode>  overlappedNodeList = new ArrayList<IntervalTreeNode>();
+//				
+//				IntervalTree.findAllOverlappingIntervalsCheckingChrName(
+//						overlappedNodeList, 
+//						intervalTree.getRoot(),
+//						intervalTreeNode);
+//				
+//				
+//				// there is overlap
+//				if( overlappedNodeList != null && overlappedNodeList.size() > 0){
+//					
+//					IntervalTreeNode mergedNode  = null;
+//
+//					//Initialize the mergedNode from the concerned intervalTreeNode
+//					 if(intervalTreeNode instanceof DataDrivenExperimentIntervalTreeNode){
+//					
+//								mergedNode = new DataDrivenExperimentIntervalTreeNode(
+//								intervalTreeNode.getChromName(),
+//								intervalTreeNode.getLow(), 
+//								intervalTreeNode.getHigh(), 
+//								((DataDrivenExperimentIntervalTreeNode) intervalTreeNode).getGeneSymbol(),
+//								((DataDrivenExperimentIntervalTreeNode) intervalTreeNode).getTpm(),
+//								NodeType.MERGED);
+//								
+//					}else if(intervalTreeNode instanceof IntervalTreeNode){
+//						
+//						mergedNode = new IntervalTreeNode(
+//						intervalTreeNode.getChromName(),
+//						intervalTreeNode.getLow(), 
+//						intervalTreeNode.getHigh(), 
+//						NodeType.MERGED);
+//					}
+//					
+//					
+//					
+//					IntervalTreeNode splicedoutNode = null;
+//					IntervalTreeNode nodetoBeDeleted = null;
+//					// you may try to delete a node which is already spliced out by former deletions
+//					// therefore you must keep track of the real node to be deleted in case of trial of deletion of an already spliced out node.
+//					Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
+//
+//					for( int j = 0; j < overlappedNodeList.size(); j++){
+//
+//						IntervalTreeNode overlappedNode = overlappedNodeList.get(j);
+//
+//						//Update the mergedNode with the overlappedNode
+//						if (mergedNode instanceof DataDrivenExperimentIntervalTreeNode){
+//							IntervalTree.updateMergedNode((DataDrivenExperimentIntervalTreeNode)mergedNode, (DataDrivenExperimentIntervalTreeNode)overlappedNode,geneType);
+//						}else if (mergedNode instanceof IntervalTreeNode){
+//							IntervalTree.updateMergedNode(mergedNode,overlappedNode);
+//						}
+//						
+//						// if the to be deleted, intended interval tree node is an already spliced out node
+//						// (By the way spliced out node means that a node that is no more valid, a death node)
+//						// (Spliced out node  is the node that's content has been copied to a formerly deleted node)
+//						// (Since formerly deleted node has one or two children and one of its children (spliced out one) took its place by being copied)
+//						// in other words if it is copied into another interval tree node
+//						// then you have to delete that node, not the already spliced out node
+//
+//						//Since we have updated the mergedNode with the overlappedNode
+//						//we don't need overlappedNode anymore
+//						//Now delete the overlappedNode
+//						// If overlappedNode is already an splicedout node
+//						// which means that it is no more a valid node of the interval tree
+//						// then we need to find the node where the overlapped node is copied into
+//						// and delete that node
+//						nodetoBeDeleted = IntervalTree.compute(splicedoutNode2CopiedNodeMap, overlappedNode);
+//
+//						if( nodetoBeDeleted != null){
+//							// they are the same
+//							// current overlapped node to_be_deleted has been copied to the previously deleted overlapped node
+//							// in other words, current overlapped node to_be_deleted is spliced out by the previous delete operation
+//							// so delete that previously deleted overlapped node in order to delete the current overlapped node
+//							// since current overlapped node is copied to the previously deleted overlapped node
+//							// Now we can delete this overlappedNode
+//							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, nodetoBeDeleted);
+//
+//							if( splicedoutNode != nodetoBeDeleted)
+//								splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
+//							
+//						}else{
+//							
+//							// Now we can delete this overlappedNode
+//							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
+//
+//							if( splicedoutNode != overlappedNode)
+//								splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
+//
+//						}//End of ELSE
+//
+//					}// end of FOR: each overlapped node in the list
+//					
+//					intervalTree.intervalTreeInsert( intervalTree, mergedNode);
+//
+//				}// overlappedNodeList is not null
+//				
+//				// there is no overlap
+//				else{
+//					// insert interval
+//					intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
+//				}//End of ELSE
+//				
+//				
+//			}//End of ELSE intervalTree is not null
+//			
+//		}//End of FOR each interval node to be inserted
+//		
+//		return intervalTree;
+//				
+//	}
+//	//27 OCTOBER 2015 ends
 	
 
 	// Normal
