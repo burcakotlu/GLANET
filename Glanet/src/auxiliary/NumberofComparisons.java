@@ -613,7 +613,18 @@ public class NumberofComparisons {
 	}
 
 	public static void main( String[] args) {
+		
+		String glanetFolder = args[0];
+		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator");
 
+		int numberofTFElementsInGM12878 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.GM12878);
+		int numberofHistoneElementsInGM12878 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.GM12878);
+		
+		int numberofTFElementsInK562 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.K562);
+		int numberofHistoneElementsInK562 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.K562);
+
+		System.out.println("Numberof TFElements in GM12878: " + numberofTFElementsInGM12878 + "\tNumberof HM Elements in GM12878: " +  numberofHistoneElementsInGM12878);
+		System.out.println("Numberof TFElements in K562: " + numberofTFElementsInK562 + "\tNumberof HM Elements in K562: " +  numberofHistoneElementsInK562);
 		
 	}
 }

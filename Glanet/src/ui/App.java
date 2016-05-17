@@ -910,7 +910,7 @@ public class App {
 //		if( argsInOrder[CommandLineArguments.OutputFolder.value()].charAt(argsInOrder[CommandLineArguments.OutputFolder.value()].length()-1) != System.getProperty( "file.separator").toCharArray()[0])
 //			argsInOrder[CommandLineArguments.OutputFolder.value()] = argsInOrder[CommandLineArguments.OutputFolder.value()] + System.getProperty( "file.separator");
 		
-		argsInOrder[CommandLineArguments.OutputFolder.value()] =  argsInOrder[CommandLineArguments.OutputFolder.value()] + System.getProperty( "file.separator") + argsInOrder[CommandLineArguments.JobName.value()] + System.getProperty( "file.separator");
+		argsInOrder[CommandLineArguments.OutputFolder.value()] =  argsInOrder[CommandLineArguments.OutputFolder.value()] + System.getProperty( "file.separator") + argsInOrder[CommandLineArguments.JobName.value()] + System.getProperty("file.separator");
 
 		return true;
 	}
