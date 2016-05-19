@@ -321,6 +321,12 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         | `-udldf1exc`_ |                   |              |                      |
 |                         +---------------+                   |              |                      |
 |                         | `-udldf1inc`_ |                   |              |                      |
+|                         +---------------+-------------------+--------------+----------------------+
+|                         | `-aos`_       |  Required         | `-c`_        | `-aos`_              |
+|                         +---------------+                   |              |                      |
+|                         | `-aoo`_       |                   |              |                      |
+|                         +---------------+                   |              |                      |
+|                         | `-aon`_       |                   |              |                      |
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Enrichment              | `-e`_         |  Optional         |`-dnase`_ or  | None                 |
 |                         |               |                   +--------------+                      |
@@ -347,6 +353,10 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         | `-wgcm`_      |  Required         | `-e`_        | `-wgcm`_             |
 |                         +---------------+                   |              |                      |
 |                         | `-wogcm`_     |                   |              |                      |
+|                         +---------------+-------------------+--------------+----------------------+
+|                         | `-wiso`_      |  Required         | `-e`_        | `-woiso`_            |
+|                         +---------------+                   |              |                      |
+|                         | `-woiso`_     |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-bh`_        |  Required         | `-e`_        | `-bh`_               |
 |                         +---------------+                   |              |                      |
@@ -555,20 +565,29 @@ If you do not set any of these options, default option is :option:`-udldf0exc`
 -udldf0inc
 ^^^^^^^^^^
 
-**Required** if :option:`-udl` is set. 
+**Required** if :option:`-udl` is set.
 This option specifies User Defined Library Data Format as "0-based coordinates (End inclusive)". See also `-udldf0inc`_.
 
 -udldf1exc
 ^^^^^^^^^^
 
-**Required** if :option:`-udl` is set. 
+**Required** if :option:`-udl` is set.
 This option specifies User Defined Library Data Format as "1-based coordinates (End exclusive)". See also `-udldf0inc`_.
 
 -udldf1inc
 ^^^^^^^^^^
 
-**Required** if :option:`-udl` is set. 
+**Required** if :option:`-udl` is set.
 This option specifies User Defined Library Data Format as "1-based coordinates (End inclusive)". See also `-udldf0inc`_.
+
+-aos
+^^^^
+
+-aoo
+^^^^
+
+-aon
+^^^^
 
 -e
 ^^
@@ -599,6 +618,12 @@ If you do not set anything, default option is :option:`-wgcm`.
 **Required** if :option:`-e` is set. 
 This option generates random data without GC and Mapability.
 See also `-wgcm`_.
+
+-wiso
+^^^^^
+
+-woiso
+^^^^^^
 
 -bh
 ^^^
