@@ -1559,6 +1559,8 @@ public class Commons {
 	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "-woZS";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-wGCM";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-woGCM";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITH_ISOCHORE_FAMILY_POOLS = "-wIso";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_ISOCHORE_FAMILY_POOLS = "-woIso";
 	public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-bh";
 	public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-bonf";
 	public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";
@@ -1590,6 +1592,10 @@ public class Commons {
 	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT = "-aos";
 	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT_TYPE = "-aoa";
 	public static final String ARG_ANNOTATION_NO_OUTPUT = "-aon";
+	public static final String ARG_GIVEN_INPUT_HAS_SNPTS = "-isnps";
+	public static final String ARG_GIVEN_INPUT_HAS_MIXED_LENGTH_INTERVAL = "-imix";
+	public static final String ARG_GLANET_NORMAL_RUN = "-normalrun";
+	public static final String ARG_GLANET_EXPERIMENT_RUN = "-experiment";
 
 	// Enum type NumberOfBases
 	public static final String NUMBER_BASES_DEFAULT = "1";

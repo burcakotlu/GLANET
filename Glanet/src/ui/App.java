@@ -170,7 +170,7 @@ public class App {
 		/***************************************************************************************/
 		//Parsing GLANET Run Mode
 		for( int i = 0; i < args.length; i++){
-			if( args[i].equalsIgnoreCase( Commons.GLANET_NORMAL_RUN)){
+			if( args[i].equalsIgnoreCase( Commons.ARG_GLANET_NORMAL_RUN)){
 				if( argsInOrder[CommandLineArguments.GLANETRun.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.GLANETRun.value()] = Commons.GLANET_NORMAL_RUN;
 				else{
@@ -179,7 +179,7 @@ public class App {
 				}
 			}
 			
-			else if( args[i].equalsIgnoreCase( Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN)){
+			else if( args[i].equalsIgnoreCase( Commons.ARG_GLANET_EXPERIMENT_RUN)){
 				if( argsInOrder[CommandLineArguments.GLANETRun.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.GLANETRun.value()] = Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN;
 				else{
@@ -203,7 +203,7 @@ public class App {
 		/***************************************************************************************/
 		//Parsing Given Input Data Type
 		for( int i = 0; i < args.length; i++){
-			if( args[i].equalsIgnoreCase( Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS)){
+			if( args[i].equalsIgnoreCase( Commons.ARG_GIVEN_INPUT_HAS_SNPTS)){
 				if( argsInOrder[CommandLineArguments.GivenInputDataType.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.GivenInputDataType.value()] = Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS;
 				else{
@@ -212,7 +212,7 @@ public class App {
 				}
 			}
 			
-			else if( args[i].equalsIgnoreCase( Commons.GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS)){
+			else if( args[i].equalsIgnoreCase( Commons.ARG_GIVEN_INPUT_HAS_MIXED_LENGTH_INTERVAL)){
 				if( argsInOrder[CommandLineArguments.GivenInputDataType.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.GivenInputDataType.value()] = Commons.GIVEN_INPUT_DATA_CONSISTS_OF_MIXED_LENGTH_INTERVALS;
 				else{
@@ -236,7 +236,7 @@ public class App {
 		/***************************************************************************************/
 		//Parsing Isochore Family Mode
 		for( int i = 0; i < args.length; i++){
-			if( args[i].equalsIgnoreCase( Commons.DO_USE_ISOCHORE_FAMILY)){
+			if( args[i].equalsIgnoreCase( Commons.ARG_GENERATE_RANDOM_DATA_WITH_ISOCHORE_FAMILY_POOLS)){
 				if( argsInOrder[CommandLineArguments.IsochoreFamilyMode.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.IsochoreFamilyMode.value()] = Commons.DO_USE_ISOCHORE_FAMILY;
 				else{
@@ -245,7 +245,7 @@ public class App {
 				}
 			}
 			
-			else if( args[i].equalsIgnoreCase( Commons.DO_NOT_USE_ISOCHORE_FAMILY)){
+			else if( args[i].equalsIgnoreCase( Commons.ARG_GENERATE_RANDOM_DATA_WITHOUT_ISOCHORE_FAMILY_POOLS)){
 				if( argsInOrder[CommandLineArguments.IsochoreFamilyMode.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.IsochoreFamilyMode.value()] = Commons.DO_NOT_USE_ISOCHORE_FAMILY;
 				else{
@@ -268,24 +268,6 @@ public class App {
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase( Commons.ARG_GLANET_FOLDER)){
 				if( argsInOrder[CommandLineArguments.GlanetFolder.value()].equals( notSet)){
-
-					// String glanetString = args[i+1];
-					// if( glanetString.charAt(glanetString.length()-1) != '"'){
-					//
-					// int j = i+1;
-					// while( args[j].charAt(args[j].length()-1) != '"' || j <
-					// args.length)
-					// glanetString.concat(args[j++]);
-					//
-					// if( j < args.length) {
-					// glanetString.concat( args[j]);
-					// i = j;
-					// }
-					// else{
-					// System.out.println("Glanet folder location is not specified properly. Exiting...");
-					// return false;
-					// }
-					// }
 
 					argsInOrder[CommandLineArguments.GlanetFolder.value()] = args[i + 1];
 				}else{
