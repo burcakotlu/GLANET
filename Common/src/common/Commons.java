@@ -1511,7 +1511,7 @@ public class Commons {
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE = "Choose User Defined Library Input File";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION = "User Defined Library Annotation";
 	public static final String GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT = "Choose Data Format In User Defined Library Input File";
-	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis is possible  when the input file is comprised of SNPs";
+	public static final String GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT = "Regulatory Sequence Analysis is possible  when the input file is comprised of SNPs and any TF Annotation is checked. " + System.getProperty("line.separator") + "RSA is not supported for \"Do Not Write Overlaps At All\" Annotation Output Option.";
 	public static final String GUI_HINT_ANNOTATION_OUTPUT_OPTION = "Annotation Output Options";
 	// Annotation Binary Matrices
 	public static final String ANNOTATIONBINARYMATRIX_DNASE = ANNOTATION_BINARY_MATRIX_FOR_ONE_PHENOTYPE + System.getProperty( "file.separator") + "DnaseAnnotationBinaryMatrix.txt";
