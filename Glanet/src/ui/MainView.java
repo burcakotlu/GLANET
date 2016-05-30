@@ -66,7 +66,8 @@ public class MainView extends JPanel {
 	private JButton runButton;
 	private JButton stopButton;
 	private JComboBox<String> associationMeasureTypeCombo;
-	private JComboBox<String> generateRandomDataModeCombo;
+	private JComboBox<String> generateRandomDataGCAndMapabilityModeCombo;
+	private JComboBox<String> generateRandomDataIsochoreFamilyModeCombo;
 	private JComboBox<String> multipleTestingCombo;
 	private JComboBox<String> numberOfPerCombo;
 	private JComboBox<String> numberOfPerInEachRunCombo;
@@ -248,7 +249,7 @@ public class MainView extends JPanel {
 						(numberOfBases.getText().length() < 1)?CommandLineArguments.NumberOfBasesRequiredForOverlap.defaultValue():numberOfBases.getText(),
 						performEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
 						performEnrichmentWithZScoresCheckBox.isSelected()?Commons.PERFORM_ENRICHMENT_WITH_ZSCORE:Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE,
-						generateRandomDataModeCombo.getSelectedItem().toString(),
+						generateRandomDataGCAndMapabilityModeCombo.getSelectedItem().toString(),
 						multipleTestingCombo.getSelectedItem().toString(),
 						(signifanceCriteria.getText().length() < 1)?CommandLineArguments.BonferroniCorrectionSignificanceCriteria.defaultValue():signifanceCriteria.getText(),
 						(falseDiscoveryRate.getText().length() < 1)?CommandLineArguments.FalseDiscoveryRate.defaultValue():falseDiscoveryRate.getText(),
@@ -278,7 +279,7 @@ public class MainView extends JPanel {
 						userDefinedLibraryDataFormatCombo.getSelectedItem().toString(),
 						Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS,
 						Commons.GLANET_NORMAL_RUN,
-						Commons.DO_NOT_USE_ISOCHORE_FAMILY,
+						generateRandomDataIsochoreFamilyModeCombo.getSelectedItem().toString(),
 						(numOfThreadsTextField.getText().length() < 1)?CommandLineArguments.NumberOfThreads.defaultValue():numOfThreadsTextField.getText(),
 						cellLinesList.getSelectedValuesList().toArray( new String[0]));
 
@@ -667,11 +668,18 @@ public class MainView extends JPanel {
 		enrichmentPanel.add( performEnrichmentPanel);
 
 		// generateRandomDataModeCombo added to enrichmentPanel
-		String[] generateRandomDataModeSet = {Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT,
-				Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT};
-		generateRandomDataModeCombo = new JComboBox<String>( generateRandomDataModeSet);
-		enrichmentPanel.add( createBorderedPanel( "Generate Random Data Mode",
-				createPanelWithHint( generateRandomDataModeCombo, Commons.GUI_HINT_GENERATE_RANDOM_DATA_MODE)));
+		
+		JPanel randomDataModePanel = new JPanel( new GridLayout( 1, 2));
+		
+		String[] randomDataGCAndMapability = {Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT, Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT};
+		generateRandomDataGCAndMapabilityModeCombo = new JComboBox<String>( randomDataGCAndMapability);
+		randomDataModePanel.add( createPanelWithHint( generateRandomDataGCAndMapabilityModeCombo, Commons.GUI_HINT_GENERATE_RANDOM_DATA_MODE));
+		
+		String[] randomDataIsochoreFamilyMode = { Commons.DO_NOT_USE_ISOCHORE_FAMILY, Commons.DO_USE_ISOCHORE_FAMILY};
+		generateRandomDataIsochoreFamilyModeCombo = new JComboBox<String>( randomDataIsochoreFamilyMode);
+		randomDataModePanel.add( createPanelWithHint( generateRandomDataIsochoreFamilyModeCombo, Commons.GUI_HINT_GENERATE_RANDOM_DATA_MODE));
+		
+		enrichmentPanel.add( createBorderedPanel( "Generate Random Data Mode", randomDataModePanel));
 
 		// multipleTestingCombo added to enrichmentPanel
 		String[] multipleTest = {Commons.BENJAMINI_HOCHBERG_FDR, Commons.BONFERRONI_CORRECTION};
@@ -897,7 +905,8 @@ public class MainView extends JPanel {
 	public void enableEnrichmentOptions( boolean shouldEnable) {
 
 		performEnrichmentWithZScoresCheckBox.setEnabled( shouldEnable);
-		generateRandomDataModeCombo.setEnabled( shouldEnable);
+		generateRandomDataGCAndMapabilityModeCombo.setEnabled( shouldEnable);
+		generateRandomDataIsochoreFamilyModeCombo.setEnabled( shouldEnable);
 		multipleTestingCombo.setEnabled( shouldEnable);
 		falseDiscoveryRate.setEnabled( shouldEnable);
 		signifanceCriteria.setEnabled( shouldEnable);
@@ -981,7 +990,8 @@ public class MainView extends JPanel {
 		userDefinedLibraryInput.setEnabled( shouldEnable);
 		runButton.setEnabled( shouldEnable);
 		stopButton.setEnabled( !shouldEnable);
-		generateRandomDataModeCombo.setEnabled( shouldEnable);
+		generateRandomDataGCAndMapabilityModeCombo.setEnabled( shouldEnable);
+		generateRandomDataIsochoreFamilyModeCombo.setEnabled( shouldEnable);
 		multipleTestingCombo.setEnabled( shouldEnable);
 		numberOfPerCombo.setEnabled( shouldEnable);
 		numberOfPerInEachRunCombo.setEnabled( shouldEnable);

@@ -1555,10 +1555,12 @@ public class Commons {
 	public static final String ARG_INPUT_FORMAT_DBSNP = "-fdbsnp";
 	public static final String ARG_NUMBER_OF_BASES = "-nb";
 	public static final String ARG_PERFORM_ENRICHMENT = "-e";
-	public static final String ARG_PERFORM_ENRICHMENT_WITH_ZSCORES = "-wZS";
-	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "-woZS";
-	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-wGCM";
-	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-woGCM";
+	public static final String ARG_PERFORM_ENRICHMENT_WITH_ZSCORES = "-wzs";
+	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "-wozs";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-wgcm";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-wogcm";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITH_ISOCHORE_FAMILY_POOLS = "-wiso";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_ISOCHORE_FAMILY_POOLS = "-woiso";
 	public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-bh";
 	public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-bonf";
 	public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";
@@ -1588,8 +1590,12 @@ public class Commons {
 	public static final String ARG_JOB_NAME = "-j";
 	public static final String ARG_RSAT = "-rsa";
 	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT = "-aos";
-	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT_TYPE = "-aoa";
+	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT_TYPE = "-aoo";
 	public static final String ARG_ANNOTATION_NO_OUTPUT = "-aon";
+	public static final String ARG_GIVEN_INPUT_HAS_SNPTS = "-isnps";
+	public static final String ARG_GIVEN_INPUT_HAS_MIXED_LENGTH_INTERVAL = "-imix";
+	public static final String ARG_GLANET_NORMAL_RUN = "-normalrun";
+	public static final String ARG_GLANET_EXPERIMENT_RUN = "-experiment";
 
 	// Enum type NumberOfBases
 	public static final String NUMBER_BASES_DEFAULT = "1";
