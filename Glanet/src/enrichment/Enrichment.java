@@ -3953,7 +3953,7 @@ public class Enrichment {
 			bufferedWriter = new BufferedWriter( fileWriter);
 
 			// Header Line
-			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "ElementName" + "_" + 	"CellLineName" + "_" + "KEGGPathwayName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "MixedNumber" + "\t" + "ElementName" + "_" + 	"CellLineName" + "_" + "KEGGPathwayName" + "\t" + "Observed Test Statistic" + "\t" + "NumberofSamplingsThatHasTestStatisticGreaterThanorEqualToObservedTestStatistic" + System.getProperty( "line.separator"));
 
 			for( TLongIntIterator itr = elementNumber2NumberofPermutationsThasHasOverlapsGreaterThanorEqualToOriginalNumberofOverlapsMap.iterator(); itr.hasNext();){
 
@@ -4057,7 +4057,7 @@ public class Enrichment {
 			}//End of SWITCH
 				
 			//Common Header Line
-			bufferedWriter.write("OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsThatHasOverlapsGreaterThanorEqualToNumberofOriginalOverlaps" + System.getProperty( "line.separator"));
+			bufferedWriter.write("Observed Test Statistic" + "\t" + "NumberofSamplingsThatHasTestStatisticGreaterThanorEqualToObservedTestStatistic" + System.getProperty( "line.separator"));
 			/**********************************************************************************************************/
 			/***************************************HeaderLine Ends ***************************************************/
 			/**********************************************************************************************************/
@@ -4537,9 +4537,9 @@ public class Enrichment {
 				/********************************************************************************************************/
 				startTimeGenerateRandomDataForEachChromosome = System.currentTimeMillis() ;
 				
-				GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has started.");
+				GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Generate Random Data for samplings has started.");
 				if( GlanetRunner.shouldLog())
-					logger.info("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations has started.");
+					logger.info("For " + chromName.convertEnumtoString() +  " Generate Random Data for samplings has started.");
 				// First generate Random Data
 				
 				generateRandomData = new GenerateRandomData( 
@@ -4629,8 +4629,8 @@ public class Enrichment {
 			
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog( "DNase Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info( "DNase Annotation of Permutations has started.");
+			GlanetRunner.appendLog( "DNase Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info( "DNase Annotation of Samplings has started.");
 
 			// TLinkable<IntervalTree> dnaseIntervalTreeList = null;
 			TIntObjectMap<IntervalTree> dnaseIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -4731,8 +4731,8 @@ public class Enrichment {
 			
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog( "Transcription Factor Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info( "Transcription Factor Annotation of Permutations has started.");
+			GlanetRunner.appendLog( "Transcription Factor Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info( "Transcription Factor Annotation of Samplings has started.");
 
 			// TLinkable<IntervalTree> dnaseIntervalTreeList = null;
 			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -4832,8 +4832,8 @@ public class Enrichment {
 			
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog("Histone Modifications Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info( "Histone Modifications Annotation of Permutations has started.");
+			GlanetRunner.appendLog("Histone Modifications Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info( "Histone Modifications Annotation of Samplings has started.");
 
 			TIntObjectMap<IntervalTree> histoneIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 
@@ -4931,8 +4931,8 @@ public class Enrichment {
 			
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog("GENE Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog()) logger.info("GENE Annotation of Permutations has started.");
+			GlanetRunner.appendLog("GENE Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog()) logger.info("GENE Annotation of Samplings has started.");
 			
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 
@@ -5031,8 +5031,8 @@ public class Enrichment {
 
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog("KEGG Pathway Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info("KEGG Pathway  Annotation of Permutations has started.");
+			GlanetRunner.appendLog("KEGG Pathway Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info("KEGG Pathway  Annotation of Samplings has started.");
 
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 
@@ -5168,8 +5168,8 @@ public class Enrichment {
 
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog("User Defined GeneSet Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info("User Defined GeneSet Annotation of Permutations has started.");
+			GlanetRunner.appendLog("User Defined GeneSet Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info("User Defined GeneSet Annotation of Samplings has started.");
 
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 
@@ -5318,8 +5318,8 @@ public class Enrichment {
 		
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog("User Defined Library Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info("User Defined Library Annotation of Permutations has started.");
+			GlanetRunner.appendLog("User Defined Library Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info("User Defined Library Annotation of Samplings has started.");
 
 			TIntObjectMap<TIntObjectMap<IntervalTree>> userDefinedLibraryElementTypeNumber2ChrNumber2IntervalTreeMap = new TIntObjectHashMap<TIntObjectMap<IntervalTree>>();
 			TIntObjectMap<IntervalTree> chrNumber2IntervalTreeMap = null;
@@ -5524,8 +5524,8 @@ public class Enrichment {
 			
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog("TF KEGGPathway Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info("TF KEGGPathway Annotation of Permutations has started.");
+			GlanetRunner.appendLog("TF KEGGPathway Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info("TF KEGGPathway Annotation of Samplings has started.");
 
 			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -5746,8 +5746,8 @@ public class Enrichment {
 			
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog("TF CellLine KEGGPathway Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info("TF CellLine KEGGPathway Annotation of Permutations has started.");
+			GlanetRunner.appendLog("TF CellLine KEGGPathway Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info("TF CellLine KEGGPathway Annotation of Samplings has started.");
 
 			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -5965,8 +5965,8 @@ public class Enrichment {
 			
 			startTimeOnlyAnnotationPermutationsForAllChromosome = System.currentTimeMillis();
 
-			GlanetRunner.appendLog("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Permutations has started.");
-			if( GlanetRunner.shouldLog())logger.info("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Permutations has started.");
+			GlanetRunner.appendLog("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Samplings has started.");
+			if( GlanetRunner.shouldLog())logger.info("BOTH TFKEGGPathway and TFCellLineKEGGPathway Annotation of Samplings has started.");
 
 			TIntObjectMap<IntervalTree> tfIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
 			TIntObjectMap<IntervalTree> ucscRefSeqGenesIntervalTreeMap = new TIntObjectHashMap<IntervalTree>();
@@ -6756,8 +6756,8 @@ public class Enrichment {
 				/********************************************************************************************************/
 				/********************************** GENERATE RANDOM DATA STARTS *****************************************/
 				/********************************************************************************************************/
-				GlanetRunner.appendLog( "Generate Random Data for permutations has started.");
-				if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for permutations has started.");
+				GlanetRunner.appendLog( "Generate Random Data for samplings has started.");
+				if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for samplings has started.");
 				// First generate Random Data
 
 				startTimeGenerateRandomData = System.currentTimeMillis();
@@ -6866,8 +6866,8 @@ public class Enrichment {
 				/********************************************************************************************************/
 				/***************************** ANNOTATE PERMUTATIONS STARTS *********************************************/
 				/********************************************************************************************************/				
-				GlanetRunner.appendLog( "Annotation of Permutations has started.");
-				if( GlanetRunner.shouldLog())logger.info( "Annotation of Permutations has started.");
+				GlanetRunner.appendLog( "Annotation of Samplings has started.");
+				if( GlanetRunner.shouldLog())logger.info( "Annotation of Samplings has started.");
 
 				startTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 
@@ -7292,10 +7292,10 @@ public class Enrichment {
 				/********************************************************************************************************/
 
 				endTimeEverythingIncludedAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
-				GlanetRunner.appendLog( "RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + ( float)( ( endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
+				GlanetRunner.appendLog( "RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " samplings where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + ( float)( ( endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
 				GlanetRunner.appendLog( "******************************************************************************************");
 
-				if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " permutations where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + ( float)( ( endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
+				if( GlanetRunner.shouldLog())logger.info( "RunNumber: " + runNumber + " For Chromosome: " + chromName.convertEnumtoString() + " Annotation of " + numberofPermutationsinThisRun + " samplings where each of them has " + chromosomeBaseOriginalInputLines.size() + "  intervals took  " + ( float)( ( endTimeEverythingIncludedAnnotationPermutationsForEachChromosome - startTimeEverythingIncludedAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
 				if( GlanetRunner.shouldLog())logger.info( "******************************************************************************************");
 
 				permutationNumber2RandomlyGeneratedDataHashMap.clear();

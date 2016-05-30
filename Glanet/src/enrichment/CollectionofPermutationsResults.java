@@ -221,7 +221,7 @@ public class CollectionofPermutationsResults {
 		bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( outputFolder + fileName + "_" + jobName + Commons.ALL_WITH_RESPECT_TO_ZSCORE));
 
 		// header line in output file
-		bufferedWriter.write( "ElementNumber" + "\t" + "ElementName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualToIn" + numberofPermutations + "Permutations" + "\t" + "NumberofPermutations" + "\t" + "NumberofcomparisonsforBonferroniCorrection" + "\t" + "mean" + "\t" + "stdDev" + "\t" + "zScore" + "\t" + "empiricalPValueCalculatedFromZScore" + "\t" + "BonferroniCorrectedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "BHFDRAdjustedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "RejectNullHypothesisCalculatedFromBHFDRAdjustedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t" + "BHFDRAdjustedPValue" + "\t" + "RejectNullHypothesisDependingOnBHFDRAdjustedPValueforanFDRof" + FDR + System.getProperty( "line.separator"));
+		bufferedWriter.write("ElementNumber" + "\t" + "ElementName" + "\t" + "Observed Test Statistic" + "\t" + "NumberofSamplingsHavingTestStatisticGreaterThanorEqualToIn" + numberofPermutations + "Samplings" + "\t" + "NumberofSamplings" + "\t" + "NumberofcomparisonsforBonferroniCorrection" + "\t" + "mean" + "\t" + "stdDev" + "\t" + "zScore" + "\t" + "empiricalPValueCalculatedFromZScore" + "\t" + "BonferroniCorrectedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "BHFDRAdjustedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "RejectNullHypothesisCalculatedFromBHFDRAdjustedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t" + "BHFDRAdjustedPValue" + "\t" + "RejectNullHypothesisDependingOnBHFDRAdjustedPValueforanFDRof" + FDR + System.getProperty( "line.separator"));
 
 		Iterator<FunctionalElement> itr = list.iterator();
 
@@ -377,9 +377,9 @@ public class CollectionofPermutationsResults {
 		// header line in output file
 		bufferedWriter.write("ElementNumber" + "\t");
 		bufferedWriter.write("ElementName" + "\t");
-		bufferedWriter.write("OriginalNumberofOverlaps" + "\t");
-		bufferedWriter.write("NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualToIn" + numberofPermutations + "Permutations" + "\t");
-		bufferedWriter.write("NumberofPermutations" + "\t");
+		bufferedWriter.write("Observed Test Statistic" + "\t");
+		bufferedWriter.write("NumberofSamplingsHavingTestStatisticGreaterThanorEqualToIn" + numberofPermutations + "Samplings" + "\t");
+		bufferedWriter.write("NumberofSamplings" + "\t");
 		bufferedWriter.write("NumberofComparisonsforBonferroniCorrection" + "\t");
 		bufferedWriter.write("empiricalPValue" + "\t");
 		bufferedWriter.write("BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t"); 
@@ -540,7 +540,7 @@ public class CollectionofPermutationsResults {
 		/***************** Common for BenjaminiHochberg and BonferroniCorrection starts ******************/
 		/*************************************************************************************************/
 		// header line in output file
-		bufferedWriter.write("ElementNumber" + "\t" + "ElementName" + "\t" + "OriginalNumberofOverlaps" + "\t" + "NumberofPermutationsHavingNumberofOverlapsGreaterThanorEqualToIn" + numberofPermutations + "Permutations" + "\t" + "NumberofPermutations" + "\t" + "NumberofcomparisonsforBonferroniCorrection" + "\t" + "mean" + "\t" + "stdDev" + "\t" + "zScore" + "\t" + "empiricalPValueCalculatedFromZScore" + "\t" + "BonferroniCorrectedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "BHFDRAdjustedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "RejectNullHypothesisBHFDRAdjustedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t" + "BHFDRAdjustedPValue" + "\t" + "RejectNullHypothesisforanFDRof" + FDR + System.getProperty("line.separator"));
+		bufferedWriter.write("ElementNumber" + "\t" + "ElementName" + "\t" + "Observed Test Statistic" + "\t" + "NumberofSamplingsHavingTestStatisticGreaterThanorEqualToIn" + numberofPermutations + "Samplings" + "\t" + "NumberofSamplings" + "\t" + "NumberofcomparisonsforBonferroniCorrection" + "\t" + "mean" + "\t" + "stdDev" + "\t" + "zScore" + "\t" + "empiricalPValueCalculatedFromZScore" + "\t" + "BonferroniCorrectedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "BHFDRAdjustedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "RejectNullHypothesisBHFDRAdjustedPValueCalculatedFromEmpiricalPValueCalculatedFromZScore" + "\t" + "empiricalPValue" + "\t" + "BonfCorrPValuefor" + numberofComparisons + "Comparisons" + "\t" + "BHFDRAdjustedPValue" + "\t" + "RejectNullHypothesisforanFDRof" + FDR + System.getProperty("line.separator"));
 
 		Iterator<FunctionalElement> itr = list.iterator();
 

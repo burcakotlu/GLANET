@@ -9,6 +9,7 @@ import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
 import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly;
 import rsat.GenerationofSequencesandMatricesforSNPs;
+import rsat.RegulatorySequenceAnalysisPostAnalysis;
 import rsat.RegulatorySequenceAnalysisUsingRSATMatrixScan;
 import annotation.Annotation;
 //import augmentation.results.AugmentationofEnrichmentWithAnnotationInGRCh37p13Coordinates;
@@ -165,7 +166,11 @@ public class GlanetRunner implements Runnable {
 
 				setCurrentProcessInfo( "Regulatory Sequence Analysis Using RSAT...");
 
-				RegulatorySequenceAnalysisUsingRSATMatrixScan.main( args);
+				RegulatorySequenceAnalysisUsingRSATMatrixScan.main(args);
+				
+				setCurrentProcessInfo( "Post Analysis of Regulatory Sequence Analysis Results...");
+
+				RegulatorySequenceAnalysisPostAnalysis.main(args);
 			}
 			/*********** Check whether given input data is snps or not ends ****************/
 

@@ -257,9 +257,9 @@ public class Step5_DDE_GLANETResults {
 			
 			// Write Header Line
 			cellLineFilteredEnrichmentBufferedWriter.write("ElementName" + "\t");
-			cellLineFilteredEnrichmentBufferedWriter.write("OriginalNumberofOverlaps" + "\t");
-			cellLineFilteredEnrichmentBufferedWriter.write("NumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps" + "\t");
-			cellLineFilteredEnrichmentBufferedWriter.write("NumberofPermutations" + "\t");
+			cellLineFilteredEnrichmentBufferedWriter.write("Observed Test Statistic" + "\t");
+			cellLineFilteredEnrichmentBufferedWriter.write("NumberofSamplingsHavingTestStatisticGreaterThanorEqualtoObservedTestStatistic" + "\t");
+			cellLineFilteredEnrichmentBufferedWriter.write("NumberofSamplings" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("NumberofComparisons" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("zScore" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("EmpiricalPValueCalculatedFromZScore" + "\t");
@@ -314,7 +314,6 @@ public class Step5_DDE_GLANETResults {
 					}
 					
 					
-
 					//17 May 2016
 					//Let's decide on Enrichment depending on empirical p value
 					if(enrichmentDecisionType.isEnrichedwrtEmpiricalPvalueFromRatioofPermutations()){
@@ -1102,7 +1101,7 @@ public class Step5_DDE_GLANETResults {
 			
 			//Write Header Lines Output ResultFile 
 			bufferedWriter.write("CellLine" + "\t" + "GeneType" + "\t"+ "DnaseOverlapExclusionType" + "\t" + "GenerateRandomDataMode" + "\t" + "AssociationMeasureType"  + "\t" + "NumberofSimulations" +  "\t" + "EnrichmentDecisionType" +System.getProperty("line.separator"));
-			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoString()+ "\t" + associationMeasureType.convertEnumtoShortString() + "\t" + numberofGLANETRuns + "\t" + enrichmentDecisionType.convertEnumtoString() + System.getProperty("line.separator"));
+			bufferedWriter.write(cellLineType.convertEnumtoString() + "\t" + geneType.convertEnumtoString()  + "\t" + dnaseOverlapExclusionType.convertEnumtoString() + "\t" + generateRandomDataMode.convertEnumtoShortString()+ "\t" + associationMeasureType.convertEnumtoShortString() + "\t" + numberofGLANETRuns + "\t" + enrichmentDecisionType.convertEnumtoString() + System.getProperty("line.separator"));
 			bufferedWriter.write("TPM" + "\t" + "NumberofSimulationWithValidEnrichmentDirectoryAndFile"  + System.getProperty("line.separator"));				
 			
 			for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){

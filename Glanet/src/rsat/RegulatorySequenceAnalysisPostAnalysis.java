@@ -4,17 +4,21 @@
 package rsat;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
 
 import auxiliary.FileOperations;
 import auxiliary.GlanetDecimalFormat;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Feb 15, 2016
  * @project Glanet 
  *
@@ -54,16 +58,21 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 		 }
 		 
 		 
-		 return pValue;
-		 
+		 return pValue;		 
 		 
 	 }
 	
 	
-	public static void readFileAndWriteImportantFindings(String regulatorySequenceAnalysisFolder,String RSAFileName){
+	public static void readFileAndWriteImportantFindings(
+			String regulatorySequenceAnalysisFolder,
+			String RSAFileName,
+			String RSAPostAnalysisFileName){
 		
 		FileReader RSAFileReader = null;
 		BufferedReader RSABufferedReader = null;
+		
+		FileWriter RSAPostAnalysisFileWriter = null;
+		BufferedWriter RSAPostAnalysisBufferedWriter = null;
 		
 		String strLine = null;
 		String informationLine = null;
@@ -80,18 +89,21 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 		
 		DecimalFormat df = GlanetDecimalFormat.getGLANETDecimalFormat( "0.######E0");
 		
-		
-		
 		try {
 			
 			RSAFileReader = FileOperations.createFileReader(regulatorySequenceAnalysisFolder + RSAFileName);
 			RSABufferedReader = new BufferedReader(RSAFileReader);
 			
+			RSAPostAnalysisFileWriter = FileOperations.createFileWriter(regulatorySequenceAnalysisFolder + RSAPostAnalysisFileName);
+			RSAPostAnalysisBufferedWriter = new BufferedWriter(RSAPostAnalysisFileWriter);
+			
+			//Write Header Line
+			RSAPostAnalysisBufferedWriter.write("Interesting Finding Number" +  "\t" +  "Chr_Position_rsID_TF" + "\t" + "SNP Effect" + "\t" + "p_Ref" + "\t" + "p_SNP" + "\t" + "p_TFExtended"  + System.getProperty("line.separator"));				
+
 			while((strLine = RSABufferedReader.readLine())!=null){
 				
 				//Get information line, initialize and skip
 				if (strLine.startsWith(Commons.GLANET_COMMENT_STRING) && !strLine.startsWith("#SequenceType")){
-					
 					
 					//Means that a new finding starts
 					informationLine = strLine;
@@ -120,12 +132,6 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 					//Get snpReferenceSequenceHavingSNPPositionPValue;
 					snpReferenceSequenceHavingSNPPositionPValue = getPValue(strLine);
 					
-//					//debug starts
-//					if (savedSnpReferenceSequenceHavingSNPPositionPValue< Float.MAX_VALUE){
-//						System.out.println("stop here ref");
-//					}
-//					//debug ends
-					
 					if(snpReferenceSequenceHavingSNPPositionPValue < savedSnpReferenceSequenceHavingSNPPositionPValue){
 						savedSnpReferenceSequenceHavingSNPPositionPValue = snpReferenceSequenceHavingSNPPositionPValue;
 					}
@@ -139,13 +145,7 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 				if (strLine.contains(Commons.SNP_ALTERED_SEQUENCE) && strLine.contains("Containing SNP Position")){
 					//Get snpReferenceSequenceHavingSNPPositionPValue;
 					snpAlteredSequenceHavingSNPPositionPValue = getPValue(strLine);
-					
-//					//debug starts
-//					if (savedSnpAlteredSequenceHavingSNPPositionPValue< Float.MAX_VALUE){
-//						System.out.println("stop here altered");
-//					}
-//					//debug ends
-					
+										
 					if (snpAlteredSequenceHavingSNPPositionPValue < savedSnpAlteredSequenceHavingSNPPositionPValue){
 						savedSnpAlteredSequenceHavingSNPPositionPValue = snpAlteredSequenceHavingSNPPositionPValue;
 					}
@@ -163,26 +163,57 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 				
 				
 				//We have three not null pValues Case3
+				//p_SNP is less than p_reference and p_extended
+				//Case1
+				//SNP has a better match.
 				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
 						snpAlteredSequenceHavingSNPPositionPValue!=null &&
 								tfExtendedSequencePValue!=null &&
-						(savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)){
+						(	savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue &&
+							savedSnpAlteredSequenceHavingSNPPositionPValue < savedSnpReferenceSequenceHavingSNPPositionPValue )){
 					
-					System.out.println(informationLine);
-					System.out.println(++numberofInterestingFindings +  ": P Values for SNPRefSequence: " + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" + "SNPAlteredSequence: " +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + "TFExtendedSequence: " + df.format(tfExtendedSequencePValue));				
+					
+					RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
+					informationLine = informationLine.replace("*", "");
+					informationLine = informationLine.replace("#", "");
+					RSAPostAnalysisBufferedWriter.write(informationLine);
+					RSAPostAnalysisBufferedWriter.write( "\t"  + " SNP has a better match.\t" + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + df.format(tfExtendedSequencePValue) + System.getProperty("line.separator"));
+					
+					//Initialize
+					snpReferenceSequenceHavingSNPPositionPValue = null;
+					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
+					snpAlteredSequenceHavingSNPPositionPValue = null;
+					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
+					tfExtendedSequencePValue = null;
 				}
 				
 				//We have three not null pValues Case4
-//				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
-//						snpAlteredSequenceHavingSNPPositionPValue!=null &&
-//								tfExtendedSequencePValue!=null &&
-//						(savedSnpReferenceSequenceHavingSNPPositionPValue < savedSnpAlteredSequenceHavingSNPPositionPValue &&
-//								savedSnpReferenceSequenceHavingSNPPositionPValue <= tfExtendedSequencePValue)){
-//					
-//					System.out.println(informationLine);
-//					System.out.println(++numberofInterestingFindings +  ": P Values for SNPRefSequence: " + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" + "SNPAlteredSequence: " +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + "TFExtendedSequence: " + df.format(tfExtendedSequencePValue));				
-//				
-//				}
+				//Case2
+				//SNP has a worse match.
+				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
+						snpAlteredSequenceHavingSNPPositionPValue!=null &&
+								tfExtendedSequencePValue!=null &&
+						(	savedSnpReferenceSequenceHavingSNPPositionPValue < savedSnpAlteredSequenceHavingSNPPositionPValue &&
+							savedSnpReferenceSequenceHavingSNPPositionPValue.equals(tfExtendedSequencePValue))){
+					
+					RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
+					informationLine = informationLine.replace("*", "");
+					informationLine = informationLine.replace("#", "");
+					RSAPostAnalysisBufferedWriter.write(informationLine);
+					RSAPostAnalysisBufferedWriter.write("\t" + " SNP has a worse match (disrupting effect).\t" + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + df.format(tfExtendedSequencePValue) + System.getProperty("line.separator"));
+					
+					//Initialize
+					snpReferenceSequenceHavingSNPPositionPValue = null;
+					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
+					snpAlteredSequenceHavingSNPPositionPValue = null;
+					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
+					tfExtendedSequencePValue = null;
+				
+				}
 				
 				//For debugging1
 				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
@@ -190,40 +221,29 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 								tfExtendedSequencePValue!=null &&
 						(savedSnpReferenceSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)){
 					
-					System.out.println("Is it possible? I guess no");
+					RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
+					informationLine = informationLine.replace("*", "");
+					informationLine = informationLine.replace("#", "");
+					RSAPostAnalysisBufferedWriter.write(informationLine);
+					RSAPostAnalysisBufferedWriter.write("\t" + "Can p_reference less than p_extended ? I guess no. Just for debugging." + System.getProperty("line.separator"));
+					
+					//Initialize
+					snpReferenceSequenceHavingSNPPositionPValue = null;
+					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
+					snpAlteredSequenceHavingSNPPositionPValue = null;
+					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
+					tfExtendedSequencePValue = null;
 				
 				}
-				
-				
-//				//For debugging Case1
-//				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
-//						snpAlteredSequenceHavingSNPPositionPValue!=null &&
-//								tfExtendedSequencePValue!=null &&
-//						(savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)  &&
-//						(savedSnpReferenceSequenceHavingSNPPositionPValue>0.05f)){
-//				
-//					System.out.println(informationLine);
-//					System.out.println("Case1: P Values for SNPRefSequence: " + savedSnpReferenceSequenceHavingSNPPositionPValue + "\t" + "SNPAlteredSequence: " +  savedSnpAlteredSequenceHavingSNPPositionPValue + "\t" + "TFExtendedSequence: " + tfExtendedSequencePValue);
-//					
-//				}
-//				
-//				//For debugging Case2
-//				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
-//						snpAlteredSequenceHavingSNPPositionPValue!=null &&
-//								tfExtendedSequencePValue!=null &&
-//						(savedSnpReferenceSequenceHavingSNPPositionPValue < savedSnpAlteredSequenceHavingSNPPositionPValue)  &&
-//						(savedSnpAlteredSequenceHavingSNPPositionPValue>0.05f)){
-//				
-//					System.out.println(informationLine);
-//					System.out.println("Case2: P Values for SNPRefSequence: " + savedSnpReferenceSequenceHavingSNPPositionPValue + "\t" + "SNPAlteredSequence: " +  savedSnpAlteredSequenceHavingSNPPositionPValue + "\t" + "TFExtendedSequence: " + tfExtendedSequencePValue);
-//							
-//				}
-				
+								
 				
 			}//End of WHILE
 			
 			//Close
 			RSABufferedReader.close();
+			RSAPostAnalysisBufferedWriter.close();
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -237,9 +257,8 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 	public static void main(String[] args) {
 
 		//Read RegulatorySequenceAnalysisResults.txt
-		//Under C:\Users\Bur�ak\Google Drive\Output\OCD_RSA\RegulatorySequenceAnalysis
-		
-		
+		//Under C:\Users\Burcak\Google Drive\Output\OCD_RSA\RegulatorySequenceAnalysis
+				
 		// jobName starts
 		String jobName = args[CommandLineArguments.JobName.value()].trim();
 
@@ -248,14 +267,15 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 		}
 		// jobName ends
 		
+		//When run from GUI, outputFolder has jobName already concatenated.
 		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		String regulatorySequenceAnalysisFolder = outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty( "file.separator");
 
 		String RSAFileName = "RegulatorySequenceAnalysisResults.txt";
+		String RSAPostAnalysisFileName = "PostAnalysisofRegulatorySequenceAnalysisResults.txt";
 		
-		readFileAndWriteImportantFindings(regulatorySequenceAnalysisFolder,RSAFileName);
+		readFileAndWriteImportantFindings(regulatorySequenceAnalysisFolder,RSAFileName,RSAPostAnalysisFileName);
 
-		
 	}
 
 }
