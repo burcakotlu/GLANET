@@ -582,12 +582,15 @@ This option specifies User Defined Library Data Format as "1-based coordinates (
 
 -aos
 ^^^^
+If this option is specified, GLANET outputs annotation results in an element based separate files. See also `-aoo`_.
 
 -aoo
 ^^^^
+If this option is specified, GLANET outputs annotation results for all elements of the same element type in one file. See also `-aos`_.
 
 -aon
 ^^^^
+If this option is specified, GLANET does not output annotation results at all.
 
 -e
 ^^
