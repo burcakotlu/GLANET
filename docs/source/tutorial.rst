@@ -737,3 +737,20 @@ GLANET Command-Line Sample Runs
  Example User Defined Gene Set Annotation and Enrichment Run is as following::
 
 	$ java -Xms8G -Xmx8G -jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wzs -wgcm -bh -s 10000 -se 1000 -l -j "SampleRun8"
+	
+--------------------------------------
+GLANET User Defined Library Sample Run
+--------------------------------------
+
+
+---------------------------------------
+GLANET User Defined Gene Set Sample Run
+---------------------------------------
+
+----------------------------------------------------------------
+GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
+----------------------------------------------------------------
+
+-----------------------------------
+GLANET for OCD GWAS SNPs Sample Run
+-----------------------------------
