@@ -746,7 +746,7 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Facility of GLANET using GUI:**
 
-	* *Load prepared OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
+	* *Load OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
@@ -756,7 +756,7 @@ GLANET User Defined Library Sample Run
 	
 	* *Check User Defined Library Annotation check box in the User Defined Library panel.*
 	
-	* *Load prepared UserDefinedLibraryInputFile.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
+	* *Load UserDefinedLibraryInputFile.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
 	
 	In this input file, you list the file/s that you want to add into library. 
 	With an header line at the top, in each row of this input file, there are 4 columns separated by tab.
@@ -799,11 +799,11 @@ GLANET User Defined Library Sample Run
    GLANET User Defined Library
    
 
-**You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
-
 **In order to make a demo for User Defined Library Facility of GLANET using Command Line Arguments:**
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "SampleUDL"
+
+**You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
 	
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
@@ -813,7 +813,7 @@ GLANET User Defined Gene Set Sample Run
 
 **In order to make a demo for User Defined Gene Set Facility of GLANET using GUI:**
 
-	* *Load prepared OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
+	* *Load OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
@@ -823,13 +823,13 @@ GLANET User Defined Gene Set Sample Run
 	
 	* *Check User Defined Gene Set Annotation check box in the User Defined Gene Set panel.*
 	
-	* *Load prepared GO_gene_associations_human_ref.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
+	* *Load GO_gene_associations_human_ref.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
 	
 	* *Set Gene Symbol as Gene Information Type.*
 	
-	* *Set Name as you wish. e.g.: Let's name as GO since User Defined Gene Set Input File consist of GO Terms.*
+	* *Set Name as you wish. e.g.: Let's name it as GO since User Defined Gene Set Input File consist of GO Terms.*
 	
-	* *Load prepared GO.terms_and_ids.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
+	* *Load GO.terms_and_ids.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
 	
 	* *Check Perform Enrichment Check Box.*
 	
@@ -845,11 +845,13 @@ GLANET User Defined Gene Set Sample Run
 
    GLANET User Defined Gene Set
 
-**You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
    
 **In order to make a demo for User Defined Gene Set Facility of GLANET using Command Line Arguments:**
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -j -l "SampleUDGS"
+
+
+**You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
 
 
 ----------------------------------------------------------------
