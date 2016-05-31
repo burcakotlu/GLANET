@@ -750,9 +750,10 @@ You can add your own library for annotation and enrichment analysis.
 	In this input file, you list the file/s that you want to add into library. 
 	With an header line at the top, in each row of this file, there are 4 tab separated columns.
 	
-	* *Header Line is as follows*
+	* *Header Line*
 	Describes the 4 columns in this input file.
-	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
+	
+		|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
 
 	
 	* *In the first column*
