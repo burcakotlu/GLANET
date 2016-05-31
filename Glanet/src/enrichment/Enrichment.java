@@ -4606,8 +4606,8 @@ public class Enrichment {
 
 		endTimeGenerateRandomData = System.currentTimeMillis();
 
-		GlanetRunner.appendLog( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
-		if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for permutations has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+		GlanetRunner.appendLog( "Generate Random Data for samplings has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+		if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for samplings has taken for all chromosomes " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
 		/******************************************************************************************************/
 		/*********************FILL ALL NECCESSARY DATA STRUCTURES ENDS*****************************************/
 		/******************************************************************************************************/
@@ -6821,8 +6821,8 @@ public class Enrichment {
 
 				endTimeGenerateRandomData = System.currentTimeMillis();
 
-				GlanetRunner.appendLog( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
-				if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for permutations has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+				GlanetRunner.appendLog( "Generate Random Data for samplings has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
+				if( GlanetRunner.shouldLog())logger.info( "Generate Random Data for samplings has taken " + ( float)( ( endTimeGenerateRandomData - startTimeGenerateRandomData) / 1000) + " seconds.");
 				/********************************************************************************************************/
 				/********************************** GENERATE RANDOM DATA ENDS *****************************************/
 				/******************************************************************************************************/

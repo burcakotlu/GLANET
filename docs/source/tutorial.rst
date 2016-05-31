@@ -744,40 +744,6 @@ GLANET User Defined Library Sample Run
 
 **You can add your own library for annotation and enrichment analysis.**
 
-1)	In order to do that you have to check the User Defined Library Annotation check box in the User Defined Library panel. 
-
-2)	You have to provide the User Defined Library Input File. 
-	In this input file, you list the file/s that you want to add into library. 
-	With an header line at the top, in each row of this input file, there are 4 columns separated by tab.
-	
-	* *Header Line describes the 4 columns in this input file.*
-	
-	|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
-
-	
-	* *In the first column*
-	You provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character in each row.
-	
-	* *In the second column*
-	You supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
-	
-	* *In the third column*
-	You provide the specific name of this element in each file. Important point is that each file must consist of same element's genomic intervals. e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
-	
-	* *In the fourth column*
-	You can provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
-
-3)	Then you choose the data format of these file/s you are adding into the library.
-	Important point is that all these files must have same data format.
-	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
-	Choose 0-based coordinates (End Exclusive) for bed, narrowPeak and pk files.
-
-	
-.. figure:: ../images/UserDefinedLibrary_DataFormat.png
-   :alt:  GLANET User Defined Library
-
-   GLANET User Defined Library
-   
 **In order to make a demo for User Defined Library Facility of GLANET using GUI:**
 
 	* *Load prepared OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
@@ -788,12 +754,36 @@ GLANET User Defined Library Sample Run
 
 	* *Set Output Folder as you wish.*
 	
-	* *Check User Defined Library Annotation check box.*
+	* *Check User Defined Library Annotation check box in the User Defined Library panel.*
 	
 	* *Load prepared UserDefinedLibraryInputFile.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
 	
-	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
+	In this input file, you list the file/s that you want to add into library. 
+	With an header line at the top, in each row of this input file, there are 4 columns separated by tab.
 	
+		* *Header Line describes the 4 columns in this input file.*
+	
+		|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
+
+	
+		* *In the first column*
+		You provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character in each row.
+	
+		* *In the second column*
+		You supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
+	
+		* *In the third column*
+		You provide the specific name of this element in each file. Important point is that each file must consist of same element's genomic intervals. e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
+	
+		* *In the fourth column*
+		You can provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
+	
+	
+	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
+	Important point is that all the file/s listed in User Defined Library Input File must have same data format.
+	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
+	Choose 0-based coordinates (End Exclusive) for bed, narrowPeak and pk files.
+
 	* *Check Perform Enrichment Check Box.*
 	
 	* *Provide a Job Name as you wish.*
@@ -801,7 +791,14 @@ GLANET User Defined Library Sample Run
 	* *Let the other options set as default.*
 	
 	* *Then click on Run button.*
+
 	
+.. figure:: ../images/UserDefinedLibrary_DataFormat.png
+   :alt:  GLANET User Defined Library
+
+   GLANET User Defined Library
+   
+
 **You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
 
 **In order to make a demo for User Defined Library Facility of GLANET using Command Line Arguments:**
@@ -811,6 +808,37 @@ GLANET User Defined Library Sample Run
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
 ---------------------------------------
+
+**You can add your own user defined gene sets for annotation and enrichment analysis.**
+
+**In order to make a demo for User Defined Library Facility of GLANET using GUI:**
+
+	* *Load prepared OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
+	
+	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
+	
+	* *Set GLANET Folder where GLANET folder must be set as the parent directory of Data directory.*
+
+	* *Set Output Folder as you wish.*
+	
+	* *Check User Defined Gene Set Annotation check box in the User Defined Gene Set panel.*
+	
+	* *Load prepared GO_gene_associations_human_ref.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
+	
+	* *Set Gene Symbol as Gene Information Type.*
+	
+	* *Set Name as you wish. e.g.: Let's name as GO since User Defined Gene Set Input File consist of GO Terms.*
+	
+	* *Load prepared GO.terms_and_ids.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
+	
+	* *Check Perform Enrichment Check Box.*
+	
+	* *Provide a Job Name as you wish.*
+	
+	* *Let the other options set as default.*
+	
+	* *Then click on Run button.*
+
 
 ----------------------------------------------------------------
 GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
