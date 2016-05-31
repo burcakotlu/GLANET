@@ -778,14 +778,15 @@ You can add your own library for annotation and enrichment analysis.
 
    GLANET User Defined Library
    
-**You can make a demo for User Defined Library Facility of GLANET.**
+**In order to make a demo for User Defined Library Facility of GLANET:**
 
 	* *Check User Defined Library Annotation check box.*
 	
 	* *Load prepared UserDefinedLibraryInputFile.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
 	
 	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
-
+	
+**You can reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
 
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
