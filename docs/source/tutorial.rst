@@ -742,6 +742,11 @@ GLANET Command-Line Sample Runs
 GLANET User Defined Library Sample Run
 --------------------------------------
 
+Users can add their own library for annotation and enrichment analysis.
+In order to that you have to check the User Defined Library check box in the User Defined Library panel. 
+You have to provide the User Defined Library Input File to be added into the library and choose the data format of file/s you are adding into the library.
+Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
+
 
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
