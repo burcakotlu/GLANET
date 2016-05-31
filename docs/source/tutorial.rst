@@ -811,7 +811,7 @@ GLANET User Defined Gene Set Sample Run
 
 **You can add your own user defined gene sets for annotation and enrichment analysis.**
 
-**In order to make a demo for User Defined Library Facility of GLANET using GUI:**
+**In order to make a demo for User Defined Gene Set Facility of GLANET using GUI:**
 
 	* *Load prepared OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
 	
@@ -838,6 +838,18 @@ GLANET User Defined Gene Set Sample Run
 	* *Let the other options set as default.*
 	
 	* *Then click on Run button.*
+	
+
+.. figure:: ../images/UserDefinedGeneSet.png
+   :alt:  GLANET User Defined Gene Set
+
+   GLANET User Defined Gene Set
+
+**You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
+   
+**In order to make a demo for User Defined Gene Set Facility of GLANET using Command Line Arguments:**
+
+	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 1000 -j -l "SampleUDGS"
 
 
 ----------------------------------------------------------------
