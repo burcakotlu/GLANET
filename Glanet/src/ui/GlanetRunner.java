@@ -70,7 +70,7 @@ public class GlanetRunner implements Runnable {
 		if( getArgs()[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH)){
 
 			/************************ Annotate Permutations starts ****************************/
-			setCurrentProcessInfo( "Annotate Permutations for Enrichment...");
+			setCurrentProcessInfo( "Annotate Samplings for Enrichment...");
 
 			Enrichment.main(args);
 			/************************ Annotate Permutations ends ******************************/

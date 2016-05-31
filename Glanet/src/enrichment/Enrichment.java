@@ -4569,8 +4569,8 @@ public class Enrichment {
 				
 				endTimeGenerateRandomDataForEachChromosome = System.currentTimeMillis();
 				
-				GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations took " + ( float)( ( endTimeGenerateRandomDataForEachChromosome - startTimeGenerateRandomDataForEachChromosome) / 1000) + " seconds.");
-				if( GlanetRunner.shouldLog())logger.info("For " + chromName.convertEnumtoString() +  " Generate Random Data for permutations took " + ( float)( ( endTimeGenerateRandomDataForEachChromosome - startTimeGenerateRandomDataForEachChromosome) / 1000) + " seconds.");
+				GlanetRunner.appendLog("For " + chromName.convertEnumtoString() +  " Generate Random Data for samplings took " + ( float)( ( endTimeGenerateRandomDataForEachChromosome - startTimeGenerateRandomDataForEachChromosome) / 1000) + " seconds.");
+				if( GlanetRunner.shouldLog())logger.info("For " + chromName.convertEnumtoString() +  " Generate Random Data for samplings took " + ( float)( ( endTimeGenerateRandomDataForEachChromosome - startTimeGenerateRandomDataForEachChromosome) / 1000) + " seconds.");
 				/********************************************************************************************************/
 				/*************************** GENERATE RANDOM DATA FOR EACH CHROMOSOME ENDS ******************************/
 				/********************************************************************************************************/
@@ -7285,8 +7285,8 @@ public class Enrichment {
 
 				endTimeOnlyAnnotationPermutationsForEachChromosome = System.currentTimeMillis();
 				
-				GlanetRunner.appendLog( "Annotation of Permutations has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
-				if( GlanetRunner.shouldLog())logger.info( "Annotation of Permutations has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
+				GlanetRunner.appendLog("Annotation of Samplings has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
+				if( GlanetRunner.shouldLog())logger.info( "Annotation of Samplings has took " + ( float)( ( endTimeOnlyAnnotationPermutationsForEachChromosome - startTimeOnlyAnnotationPermutationsForEachChromosome) / 1000) + " seconds.");
 				/********************************************************************************************************/
 				/***************************** ANNOTATE PERMUTATIONS ENDS ***********************************************/
 				/********************************************************************************************************/

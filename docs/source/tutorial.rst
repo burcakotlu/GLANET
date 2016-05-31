@@ -750,7 +750,7 @@ GLANET User Defined Library Sample Run
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
-	* *Set GLANET Folder (~path/to/tool/) where GLANET folder must be set as the parent directory of Data directory.*
+	* *Set GLANET Folder (~path/to/tool/) where GLANET Folder must be set as the parent directory of Data directory.*
 
 	* *Set Output Folder as you wish.*
 	
@@ -803,7 +803,7 @@ GLANET User Defined Library Sample Run
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "SampleUDL"
 
-**You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
+**You can also reach main steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
 	
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
@@ -817,7 +817,7 @@ GLANET User Defined Gene Set Sample Run
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
-	* *Set GLANET Folder (~path/to/tool/) where GLANET folder must be set as the parent directory of Data directory.*
+	* *Set GLANET Folder (~path/to/tool/) where GLANET Folder must be set as the parent directory of Data directory.*
 
 	* *Set Output Folder as you wish.*
 	
@@ -827,7 +827,7 @@ GLANET User Defined Gene Set Sample Run
 	
 	* *Set Gene Symbol as Gene Information Type.*
 	
-	* *Set Name as you wish. e.g.: Let's name it as GO since User Defined Gene Set Input File consist of GO Terms.*
+	* *Set Name as you wish, e.g.: Let's name it as GO since User Defined Gene Set Input File consists of GO Terms.*
 	
 	* *Load GO.terms_and_ids.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
 	
@@ -851,7 +851,7 @@ GLANET User Defined Gene Set Sample Run
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -j -l "SampleUDGS"
 
 
-**You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
+**You can also reach main steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
 
 
 ----------------------------------------------------------------
