@@ -750,7 +750,7 @@ GLANET User Defined Library Sample Run
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
-	* *Set GLANET Folder where GLANET folder must be set as the parent directory of Data directory.*
+	* *Set GLANET Folder (~path/to/tool/) where GLANET folder must be set as the parent directory of Data directory.*
 
 	* *Set Output Folder as you wish.*
 	
@@ -817,7 +817,7 @@ GLANET User Defined Gene Set Sample Run
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
-	* *Set GLANET Folder where GLANET folder must be set as the parent directory of Data directory.*
+	* *Set GLANET Folder (~path/to/tool/) where GLANET folder must be set as the parent directory of Data directory.*
 
 	* *Set Output Folder as you wish.*
 	
