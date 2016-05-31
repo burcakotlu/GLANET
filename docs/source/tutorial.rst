@@ -748,7 +748,7 @@ GLANET User Defined Library Sample Run
 
 2)	You have to provide the User Defined Library Input File. 
 	In this input file, you list the file/s that you want to add into library. 
-	With an header line at the top, in each row of this file, there are 4 tab separated columns.
+	With an header line at the top, in each row of this input file, there are 4 columns separated by tab.
 	
 	* *Header Line describes the 4 columns in this input file.*
 	
@@ -756,7 +756,7 @@ GLANET User Defined Library Sample Run
 
 	
 	* *In the first column*
-	You provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character.
+	You provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character in each row.
 	
 	* *In the second column*
 	You supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
@@ -770,6 +770,7 @@ GLANET User Defined Library Sample Run
 3)	Then you choose the data format of these file/s you are adding into the library.
 	Important point is that all these files must have same data format.
 	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
+	Choose 0-based coordinates (End Exclusive) for bed, narrowPeak and pk files.
 
 	
 .. figure:: ../images/UserDefinedLibrary_DataFormat.png
