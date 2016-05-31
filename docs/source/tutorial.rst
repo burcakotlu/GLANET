@@ -756,7 +756,7 @@ GLANET User Defined Library Sample Run
 
 	
 	* *In the first column*
-	You provide the path to the file including file name, 
+	You provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character.
 	
 	* *In the second column*
 	You supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
@@ -772,7 +772,7 @@ GLANET User Defined Library Sample Run
 	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
 
 	
-.. figure:: ../images/UserDefinedLibrary.png
+.. figure:: ../images/UserDefinedLibrary_DataFormat.png
    :alt:  GLANET User Defined Library
 
    GLANET User Defined Library
@@ -783,7 +783,7 @@ GLANET User Defined Library Sample Run
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
-	* *Set GLANET Folder where GLANET folder must be set as the parent directory of Data directory.and Output Folder accordingly.*
+	* *Set GLANET Folder where GLANET folder must be set as the parent directory of Data directory.*
 
 	* *Set Output Folder as you wish.*
 	
@@ -793,7 +793,13 @@ GLANET User Defined Library Sample Run
 	
 	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
 	
+	* *Check Perform Enrichment Check Box.*
+	
+	* *Provide a Job Name as you wish.*
+	
 	* *Let the other options set as default.*
+	
+	* *Then click on Run button.*
 	
 **You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
 
