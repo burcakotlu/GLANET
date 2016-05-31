@@ -780,13 +780,21 @@ GLANET User Defined Library Sample Run
    
 **In order to make a demo for User Defined Library Facility of GLANET using GUI:**
 
+	* *Load prepared OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
+	
+	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
+	
+	* *Set GLANET Folder and Output Folder accordingly.*
+	
 	* *Check User Defined Library Annotation check box.*
 	
 	* *Load prepared UserDefinedLibraryInputFile.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
 	
 	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
 	
-**You can reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
+	* *Let the other options set as default.*
+	
+**You can also reach these steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
 
 **In order to make a demo for User Defined Library Facility of GLANET using Command Line Arguments:**
 
