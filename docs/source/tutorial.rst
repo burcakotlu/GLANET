@@ -748,9 +748,18 @@ You can add your own library for annotation and enrichment analysis.
 
 2)	You have to provide the User Defined Library Input File to be added into the library. 
 	In this input file, you list the file/s that you want to add into library. 
-	After header line, in each row of this file, in the first column, you provide the path to the file including file name, 
-	in the second column you supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (you name it),  
-	in the third column you provide the specific name of this element e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
+	After header line, in each row of this file,
+	
+	* *In the first column*
+	You provide the path to the file including file name, 
+	
+	* *In the second column*
+	You supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (you name it),  
+	
+	* *In the third column*
+	You provide the specific name of this element e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
+	
+	* *In the fourth column*
 	Fourth column is optional you can provide for considering window around summit in bps in  transcription factor case. 
 
 3)	Then you choose the data format of these file/s you are adding into the library.
