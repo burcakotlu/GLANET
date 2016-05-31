@@ -10,8 +10,7 @@ You can browse and download GLANET source code from `here <https://github.com/bu
 
 Executable
 ^^^^^^^^^^
-You can download GLANET executable jar from `here <https://drive.google.com/open?id=0BwmVAJuppNSMSWlNMnYyeXdRXzQ&usp=sharing>`_  and run it.
-
+You can download GLANET executable jar from `here <https://drive.google.com/file/d/0BwmVAJuppNSMRDRCQWxxWFF2anM&usp=sharing>`_  and run it.
 
 .. _data-label:
 
