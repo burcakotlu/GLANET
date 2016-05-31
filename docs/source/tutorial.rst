@@ -748,7 +748,12 @@ You can add your own library for annotation and enrichment analysis.
 
 2)	You have to provide the User Defined Library Input File to be added into the library. 
 	In this input file, you list the file/s that you want to add into library. 
-	After header line, in each row of this file,
+	With an header line at the top, in each row of this file, there are 4 tab separated columns.
+	
+	* *Header Line is as follows*
+	Describes the 4 columns in this input file.
+	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
+
 	
 	* *In the first column*
 	You provide the path to the file including file name, 
@@ -760,7 +765,7 @@ You can add your own library for annotation and enrichment analysis.
 	You provide the specific name of this element e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
 	
 	* *In the fourth column*
-	Fourth column is optional you can provide for considering window around summit in bps in  transcription factor case. 
+	You can provide this column for considering window around summit in bps in  transcription factor case. Fourth column is optional 
 
 3)	Then you choose the data format of these file/s you are adding into the library.
 	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
