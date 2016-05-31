@@ -77,11 +77,11 @@ public class GlanetRunner implements Runnable {
 
 			if( getArgs()[CommandLineArguments.EnrichmentZScoreMode.value()].equalsIgnoreCase( Commons.PERFORM_ENRICHMENT_WITH_ZSCORE)){
 
-				/******************* Collection of Permutations Results starts *******************/
-				setCurrentProcessInfo("Collection of Permutations Results With ZScores...");
+				/******************* Collection of Samplings Results starts *******************/
+				setCurrentProcessInfo("Collection of Samplings Results With ZScores...");
 
 				CollectionofPermutationsResults.main( args);
-				/******************* Collection of Permutations Results ends *********************/
+				/******************* Collection of Samplings Results ends *********************/
 
 			}
 			//10th of September 2015
@@ -90,11 +90,11 @@ public class GlanetRunner implements Runnable {
 			//This is not correct since there can be more than one run in Enrichment
 			//And all of the run results must be collected.
 			else if (getArgs()[CommandLineArguments.EnrichmentZScoreMode.value()].equalsIgnoreCase( Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE)){
-				/******************* Collection of Permutations Results starts *******************/
-				setCurrentProcessInfo("Collection of Permutations Results Without ZScores...");
+				/******************* Collection of Samplings Results starts *******************/
+				setCurrentProcessInfo("Collection of Samplings Results Without ZScores...");
 
 				CollectionofPermutationsResults.main(args);
-				/******************* Collection of Permutations Results ends *********************/
+				/******************* Collection of Samplings Results ends *********************/
 			}
 			
 			/************** Augmentation of Enriched Elements with Given Input Data starts in** GRCh37.p13*******/
