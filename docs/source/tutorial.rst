@@ -743,15 +743,18 @@ GLANET User Defined Library Sample Run
 --------------------------------------
 
 You can add your own library for annotation and enrichment analysis.
-1)In order to do that you have to check the User Defined Library Annotation check box in the User Defined Library panel. 
-2)You have to provide the User Defined Library Input File to be added into the library. 
-In this input file, you list the file/s that you want to add into library. 
-After header line, in each row of this file, in the first column, you provide the path to the file including file name, 
-in the second column you supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (you name it),  
-in the third column you provide the specific name of this element e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
-Fourth column is optional you can provide for considering window around summit in bps in  transcription factor case. 
-3)Then you choose the data format of these file/s you are adding into the library.
-Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
+
+1)	In order to do that you have to check the User Defined Library Annotation check box in the User Defined Library panel. 
+
+2)	You have to provide the User Defined Library Input File to be added into the library. 
+	In this input file, you list the file/s that you want to add into library. 
+	After header line, in each row of this file, in the first column, you provide the path to the file including file name, 
+	in the second column you supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (you name it),  
+	in the third column you provide the specific name of this element e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
+	Fourth column is optional you can provide for considering window around summit in bps in  transcription factor case. 
+
+3)	Then you choose the data format of these file/s you are adding into the library.
+	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
 
 .. figure:: ../images/UserDefinedLibrary.png
    :alt:  GLANET User Defined Library
