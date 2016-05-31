@@ -747,6 +747,10 @@ In order to that you have to check the User Defined Library check box in the Use
 You have to provide the User Defined Library Input File to be added into the library and choose the data format of file/s you are adding into the library.
 Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
 
+.. figure:: ../images/UserDefinedLibrary.png
+   :alt:  GLANET User Defined Library
+
+   GLANET User Defined Library
 
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
