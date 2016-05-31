@@ -746,12 +746,11 @@ GLANET User Defined Library Sample Run
 
 1)	In order to do that you have to check the User Defined Library Annotation check box in the User Defined Library panel. 
 
-2)	You have to provide the User Defined Library Input File to be added into the library. 
+2)	You have to provide the User Defined Library Input File. 
 	In this input file, you list the file/s that you want to add into library. 
 	With an header line at the top, in each row of this file, there are 4 tab separated columns.
 	
-	* *Header Line*
-	Describes the 4 columns in this input file.
+	* *Header Line describes the 4 columns in this input file.*
 	
 	|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
 
@@ -760,16 +759,16 @@ GLANET User Defined Library Sample Run
 	You provide the path to the file including file name, 
 	
 	* *In the second column*
-	You supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (you name it),  
+	You supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
 	
 	* *In the third column*
-	You provide the specific name of this element e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
+	You provide the specific name of this element in each file. Important point is that each file must consist of same element's genomic intervals. e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
 	
 	* *In the fourth column*
-	You can provide this column for considering window around summit in bps in  transcription factor case. Fourth column is optional.
+	You can provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
 
-	
 3)	Then you choose the data format of these file/s you are adding into the library.
+	Important point is that all these files must have same data format.
 	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
 
 	
@@ -784,7 +783,9 @@ GLANET User Defined Library Sample Run
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
-	* *Set GLANET Folder and Output Folder accordingly.*
+	* *Set GLANET Folder where GLANET folder must be set as the parent directory of Data directory.and Output Folder accordingly.*
+
+	* *Set Output Folder as you wish.*
 	
 	* *Check User Defined Library Annotation check box.*
 	
