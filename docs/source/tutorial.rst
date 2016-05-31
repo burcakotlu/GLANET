@@ -753,7 +753,7 @@ You can add your own library for annotation and enrichment analysis.
 	* *Header Line*
 	Describes the 4 columns in this input file.
 	
-		|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
+	|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
 
 	
 	* *In the first column*
@@ -766,15 +766,26 @@ You can add your own library for annotation and enrichment analysis.
 	You provide the specific name of this element e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
 	
 	* *In the fourth column*
-	You can provide this column for considering window around summit in bps in  transcription factor case. Fourth column is optional 
+	You can provide this column for considering window around summit in bps in  transcription factor case. Fourth column is optional.
 
+	
 3)	Then you choose the data format of these file/s you are adding into the library.
 	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
 
+	
 .. figure:: ../images/UserDefinedLibrary.png
    :alt:  GLANET User Defined Library
 
    GLANET User Defined Library
+   
+**You can make a demo for User Defined Library Facility of GLANET.**
+
+	* *Check User Defined Library Annotation check box.*
+	
+	* *Load prepared UserDefinedLibraryInputFile.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
+	
+	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
+
 
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
