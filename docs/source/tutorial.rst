@@ -803,7 +803,7 @@ GLANET User Defined Library Sample Run
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "SampleUDL"
 
-**You can also reach main steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
+**You can also reach main steps of User Defined Library Facility of GLANET in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
 	
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
@@ -824,8 +824,10 @@ GLANET User Defined Gene Set Sample Run
 	* *Check User Defined Gene Set Annotation check box in the User Defined Gene Set panel.*
 	
 	* *Load GO_gene_associations_human_ref.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
-	 User Defined Gene Set Input File is two column (tab separated) text file where first column has the gene set name and the second column has the gene that gene set includes.
-	 (A row from User Defined Gene Set Input File, e.g.: GO:0003779	MACF1)
+	User Defined Gene Set Input File lists each gene in a gene set in one line, in row-based manner.
+	Namely, there will be n lines/rows for a gene set that consists of n genes.
+	User Defined Gene Set Input File is two column (tab separated) text file where first column has the gene set name and the second column has the gene that gene set includes.
+	(A row from User Defined Gene Set Input File, e.g.: GO:0003779	MACF1)
 	
 	* *Set Gene Symbol as Gene Information Type.*
 	The second column of User Defined Gene Set Input File can provide gene information as Gene Symbol (e.g.: MACF1), Gene ID (e.g.: 23499), or RNA Nucleotide Accession (e.g.: NM_012090).
@@ -857,7 +859,7 @@ GLANET User Defined Gene Set Sample Run
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -j -l "SampleUDGS"
 
 
-**You can also reach main steps in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
+**You can also reach main steps of User Defined Gene Set Facility of GLANET in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
 
 
 ----------------------------------------------------------------
