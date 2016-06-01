@@ -42,8 +42,7 @@ During regulatory sequence analysis `RSAT <http://www.rsat.eu/>`_'s matrix scan 
 
 GLANET Pipeline
 
-.. image:: ../images/GLANET_pipeline.jpg
-    :alt: GLANET Pipeline
+![Pipeline](/docs/images/GLANET_pipeline.jpg).
 
 GLANET enables user to load its user defined library and/or user defined gene sets in order to use them as Annotation Library. 
 Namely, genomic intervals obtained from user defined library and/or user defined gene sets will be populated in the Annotation Library
@@ -86,11 +85,11 @@ GLANET Installation
 
 1. Java
 
-Install latest Java SE from `here <http://www.oracle.com/technetwork/articles/javase/index-jsp-138363.html>`_
+Install latest Java SE from [here](http://www.oracle.com/technetwork/articles/javase/index-jsp-138363.html).
 
 2. Perl
 
-For **Windows** users, Strawberry Perl can be downloaded from `here <http://www.strawberryperl.com>`_
+For **Windows** users, Strawberry Perl can be downloaded from [here](http://www.strawberryperl.com>).
 
 For **Mac OS X** users, the operating system comes with the installed Perl. If you want to update or install Perl, open Terminal.app and write the command below::
 
@@ -143,9 +142,9 @@ Install JSON module::
 
 	$ cpanm JSON
 	
-3. Download executable GLANET.jar from :ref:`executable-label`
+3. Download executable GLANET.jar from [here](https://drive.google.com/open?id=0BwmVAJuppNSMOTJJSXZMZDRzSzg&usp=sharing).
 	
-4. Download Data.zip from :ref:`data-label` and extract it under a directory you name it, for example GLANET (e.g.: ~path/to/GLANET/). 
+4. Download Data.zip from [here](https://drive.google.com/open?id=0BwmVAJuppNSMTnlVLWpqdGNzOFk&usp=sharing) and extract it under a directory you name it, for example GLANET (e.g.: ~path/to/GLANET/). 
    Data.zip contains the necessary data for Annotation.	
    The important point is that this directory must be the parent directory of extracted Data directory (e.g.: ~path/to/GLANET/Data).
    
