@@ -784,6 +784,10 @@ GLANET User Defined Library Sample Run
 	
 		* *In the fourth column*
 		You can provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
+		
+	Please be aware that you have to update the absolute path to these files in UserDefinedLibraryInputFile.txt.
+	These sample files are stored under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/TranscriptionFactors directory.
+	Please update the absolute path ot these files accordingly.
 	
 	
 	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
