@@ -9,7 +9,7 @@ In either case, to run GLANET, one should write the following basic command on T
 
 Note that we ask you to allow GLANET to allocate 8GB of memory in order to make use of all GLANET facilities.
 
-\* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar
+\* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar and ~path/to/GLANET Folder/ to indicate your absolute path to GLANET Folder.
 
 -------------------------------
 GLANET Graphical User Interface
@@ -29,8 +29,8 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 1)	**Input File Name**: (Mandatory)
 
 	You have to provide input file which contains user given genomic intervals.
-	Assume that Data.zip is extracted under a directory called tool.
-	Then sample input data can be reached from ~path/to/tool/Data/demo_input_data/.
+	Assume that Data.zip is extracted under a directory called GLANET Folder.
+	Then sample input data can be reached from ~path/to/GLANET Folder/Data/demo_input_data/.
 
 2)	**Input Format**: (Mandatory)
 
@@ -39,30 +39,30 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 	* *dbSNP IDs*
 		-  Sample input data for dbSNP IDs can be reached at
-		| ~path/to/tool/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
+		| ~path/to/GLANET Folder/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
 		-  Input Format must be selected as dbSNP IDs.
 
 	* *BED*
 		-  Sample input data for BED can be reached at
-		| ~path/to/tool/Data/demo_input_data/
+		| ~path/to/GLANET Folder/Data/demo_input_data/
 		| CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed,
 		-  Input Format must be selected as BED.
 
 	* *GFF3*
 		-  Sample input data  can be reached at
-		| ~path/to/tool/Data/demo_input_data/
+		| ~path/to/GLANET Folder/Data/demo_input_data/
 		| CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3,
 		-  Input Format must be selected as GFF3.
 
 	* *1-based coordinates (End Inclusive)*
 		-  Sample input data  can be reached at
-		| ~path/to/tool/Data/demo_input_data/
+		| ~path/to/GLANET Folder/Data/demo_input_data/
 		| OCD_GWAS_SNPs_chrNumber_1Based_GRCh37_p13_Coordinates.txt,
 		-  Input Format must be selected as 1-based coordinates (End Inclusive).
 
 	* *0-based coordinates (End Inclusive)*
 		-  Sample input data  can be reached at
-		| ~path/to/tool/Data/demo_input_data/
+		| ~path/to/GLANET Folder/Data/demo_input_data/
 		| test_interval_data_K562_Usf2_0based_GRCh37_p13_Coordinates.txt,
 		-  Input Format must be selected as 0-based coordinates (End Inclusive).
 
@@ -80,10 +80,10 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	If *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
 	In case of dbSNP IDs, there is no need to set Assembly.
 
-4)	**Glanet Folder**: (Mandatory)
+4)	**GLANET Folder**: (Mandatory)
 
-	Set the Glanet folder (e.g.:  ~path/to/tool).
-	Please note that Glanet folder has to be the parent of Data folder (e.g.:  ~path/to/tool/Data).
+	Set the GLANET Folder (e.g.:  ~path/to/GLANET Folder).
+	Please note that GLANET Folder has to be the parent of Data folder (e.g.:  ~path/to/GLANET Folder/Data).
 
 5)	**Annotation, Overlap Definition, Number of Bases**: (Mandatory)
 
@@ -110,14 +110,14 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 	* *TF and KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites and KEGG Pathways in exon-based, regulation-based and all-based manner.
-		This is a joint annotation which means that given interval has overlapped with TF  and KEGG Pathway intervals, and these TF and KEGG Pathway intervals also overlap with each other.
+		This is a joint annotation which means that given interval, TF  and KEGG Pathway intervals overlap jointly.
 		Here, same TF with different cell lines are pooled.
 		
 		In other words, joint annotation requires trio overlaps.
 
 	* *TF and KEGG Pathway Annotation (CellLine Based)*
 		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites (CellLine Based) and KEGG Pathways in exon-based, regulation-based and all-based manner.
-		This is a joint annotation which means that given interval has overlapped with TF and KEGG Pathway intervals, and these TF and KEGG Pathway also overlaps with each other.
+		This is a joint annotation which means that given interval, TF and KEGG Pathway intervals overlap jointly.
 	
 		In other words, joint annotation requires trio overlaps.
 		
@@ -128,7 +128,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 			-  User Defined Gene Set Input File contains tab delimited GeneSetID and Gene Information per line (e.g:.: GO:0031424	LCE6A).
 			-  Sample User Defined Gene Set Input File can be reached at
 			
-			| ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
+			| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/
 			| GO_gene_associations_human_ref.txt
 
 		-  Gene Information Type (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
@@ -146,7 +146,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 			-  Desription File contains tab delimited GeneSetID and description of GeneSet per line.(e.g.: GO:0000001	mitochondrion inheritance)
 			-  Sample User Defined Gene Set Input File can be reached at
 			
-			   | ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/
+			   | ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/
 			   | GO_ids2terms.txt
 
 
@@ -161,7 +161,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 			
 			-	Sample User Defined Library Input File can be reached at
 				
-				| ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/
+				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 				| UserDefinedLibraryInputFile.txt
 
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* checkbox is checked.)
@@ -231,8 +231,8 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 
 9)	**Job Name**: (Optional)
 
-	Please give a job name, then a directory named with this job name will be created under ~path/to/tool/Output/JobName/.
-	Choose shorter job name so that all the sub folders to be created under ~path/to/tool/Output/JobName/ directory will not exceed the allowable length.
+	Please give a job name, then a directory named with this job name will be created under ~path/to/GLANET Folder/Output/JobName/.
+	Choose shorter job name so that all the sub folders to be created under ~path/to/GLANET Folder/Output/JobName/ directory will not exceed the allowable length.
 	Default is Job Name is  *NoName*.
 	
 **Log File**:
@@ -746,17 +746,17 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Facility of GLANET using GUI:**
 
-	* *Load OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
+	* *Load OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.*
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
-	* *Set GLANET Folder (~path/to/tool/) where GLANET Folder must be set as the parent directory of Data directory.*
+	* *Set GLANET Folder (~path/to/GLANET Folder/) where GLANET Folder must be set as the parent directory of Data directory.*
 
 	* *Set Output Folder as you wish.*
 	
 	* *Check User Defined Library Annotation check box in the User Defined Library panel.*
 	
-	* *Load UserDefinedLibraryInputFile.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
+	* *Load UserDefinedLibraryInputFile.txt under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
 	
 	In this input file, you list the file/s that you want to add into library. 
 	With an header line at the top, in each row of this input file, there are 4 columns separated by tab.
@@ -803,7 +803,7 @@ GLANET User Defined Library Sample Run
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "SampleUDL"
 
-**You can also reach main steps of User Defined Library Facility of GLANET in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedLibrary/.**
+**You can also reach main steps of User Defined Library Facility of GLANET in ReadMe.txt under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/.**
 	
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
@@ -813,17 +813,17 @@ GLANET User Defined Gene Set Sample Run
 
 **In order to make a demo for User Defined Gene Set Facility of GLANET using GUI:**
 
-	* *Load OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/tool/Data/demo_input_data/ as Input File Name.*
+	* *Load OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.*
 	
 	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
 	
-	* *Set GLANET Folder (~path/to/tool/) where GLANET Folder must be set as the parent directory of Data directory.*
+	* *Set GLANET Folder (~path/to/GLANET Folder/) where GLANET Folder must be set as the parent directory of Data directory.*
 
 	* *Set Output Folder as you wish.*
 	
 	* *Check User Defined Gene Set Annotation check box in the User Defined Gene Set panel.*
 	
-	* *Load GO_gene_associations_human_ref.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
+	* *Load GO_gene_associations_human_ref.txt under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
 	User Defined Gene Set Input File lists each gene in a gene set in one line, in row-based manner.
 	Namely, there will be n lines/rows for a gene set that consists of n genes.
 	User Defined Gene Set Input File is two column (tab separated) text file where first column has the gene set name and the second column has the gene that gene set includes.
@@ -835,7 +835,7 @@ GLANET User Defined Gene Set Sample Run
 	
 	* *Set Name as you wish, e.g.: Let's name it as GO since User Defined Gene Set Input File consists of GO Terms.*
 	
-	* *Load GO.terms_and_ids.txt under ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
+	* *Load GO.terms_and_ids.txt under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
 	Description File is a two column (tab separated) text file where first column has the gene set name and the second column has gene set description.
 	(A row from Description File, e.g.: GO:0003779	actin binding)
 	
@@ -859,7 +859,7 @@ GLANET User Defined Gene Set Sample Run
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -j -l "SampleUDGS"
 
 
-**You can also reach main steps of User Defined Gene Set Facility of GLANET in ReadMe.txt under  ~path/to/tool/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
+**You can also reach main steps of User Defined Gene Set Facility of GLANET in ReadMe.txt under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
 
 
 ----------------------------------------------------------------
