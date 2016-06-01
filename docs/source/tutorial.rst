@@ -625,9 +625,15 @@ See also `-wgcm`_.
 
 -wiso
 ^^^^^
+If this option is specified, GLANET performs random interval generation using random interval selection from corresponding isochore family pool.
+If you do not set anything, default option is :option:`-woiso`.
+See also `-woiso`_.
 
 -woiso
 ^^^^^^
+If this option is specified, GLANET performs random interval generation without isochore family pool.
+If you do not set anything, default option is :option:`-woiso`.
+See also `-wiso`_.
 
 -bh
 ^^^
