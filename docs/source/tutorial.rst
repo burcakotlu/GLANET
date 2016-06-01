@@ -806,9 +806,10 @@ GLANET User Defined Library Sample Run
    GLANET User Defined Library
    
 
-**In order to make a demo for User Defined Library Facility of GLANET using Command Line Arguments:**
+**In order to make a demo for User Defined Library Facility of GLANET using Command Line Arguments**::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "SampleUDL"
+
 
 **You can also reach main steps of User Defined Library Facility of GLANET in ReadMe.txt under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/.**
 	
@@ -859,7 +860,7 @@ GLANET User Defined Gene Set Sample Run
    :alt:  GLANET User Defined Gene Set
 
    GLANET User Defined Gene Set
-
+   
 
 **In order to make a demo for User Defined Gene Set Facility of GLANET using Command Line Arguments**::
 
