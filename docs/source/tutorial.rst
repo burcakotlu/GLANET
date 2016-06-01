@@ -787,7 +787,7 @@ GLANET User Defined Library Sample Run
 		
 	Please be aware that you have to update the absolute path to these files in UserDefinedLibraryInputFile.txt.
 	These sample files are stored under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/TranscriptionFactors directory.
-	Please update the absolute path ot these files accordingly.
+	Please update the absolute path of these files accordingly.
 	
 	
 	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
@@ -868,7 +868,7 @@ GLANET User Defined Gene Set Sample Run
 
 **In order to make a demo for User Defined Gene Set Facility of GLANET using Command Line Arguments**::
 
-	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -j -l "SampleUDGS"
+	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -l -j "SampleUDGS"
 
 
 **You can also reach main steps of User Defined Gene Set Facility of GLANET in ReadMe.txt under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
