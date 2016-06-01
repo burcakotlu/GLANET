@@ -337,6 +337,15 @@ public class MainView extends JPanel {
 		}
 	};
 
+	ActionListener writeOverlapModeChanged = new ActionListener() {
+
+		@Override
+		public void actionPerformed( ActionEvent e) {
+
+			checkUsabilityOfRegulatorySequenceAnalysis();
+		}
+	};
+	
 	ItemListener enableUserDefinedGeneSet = new ItemListener() {
 
 		@Override
@@ -448,13 +457,11 @@ public class MainView extends JPanel {
 
 		inputFormatCombo.addActionListener( enableInputAssemblyListener);
 
-		inputBrowseAndOptionPane.add( createBorderedPanel( "Input Format",
-				createPanelWithHint( inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
+		inputBrowseAndOptionPane.add( createBorderedPanel( "Input Format", createPanelWithHint( inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
 
 		String[] assemblyFormat = {Commons.GRCH37_P13, Commons.GRCH38};
 		inputAssemblyCombo = new JComboBox<String>( assemblyFormat);
-		inputBrowseAndOptionPane.add( createBorderedPanel( "Assembly",
-				createPanelWithHint( inputAssemblyCombo, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
+		inputBrowseAndOptionPane.add( createBorderedPanel( "Assembly", createPanelWithHint( inputAssemblyCombo, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
 
 		listPane.add( inputBrowseAndOptionPane);
 
@@ -531,17 +538,14 @@ public class MainView extends JPanel {
 		tfAndKeggPathwayAnnotation.addItemListener( enableEnrichmentListener);
 		tfAndKeggPathwayAnnotation.setName( "TFAndKEGGPathwayEnrichment");
 		tfAndKeggPathwayAnnotation.addItemListener( enableRegulatorySequenceAnalysis);
-		annotationOptions.add( createPanelWithHint( tfAndKeggPathwayAnnotation,
-				Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION));
+		annotationOptions.add( createPanelWithHint( tfAndKeggPathwayAnnotation, Commons.GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION));
 
 		// cellLineBasedTfAndKeggPathwayAnnotation added to annotationOptions
-		cellLineBasedTfAndKeggPathwayAnnotation = new JCheckBox(
-				Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION);
+		cellLineBasedTfAndKeggPathwayAnnotation = new JCheckBox( Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION);
 		cellLineBasedTfAndKeggPathwayAnnotation.addItemListener( enableEnrichmentListener);
 		cellLineBasedTfAndKeggPathwayAnnotation.setName( "cellLineBasedTfAndKeggPathwayEnrichment");
 		cellLineBasedTfAndKeggPathwayAnnotation.addItemListener( enableRegulatorySequenceAnalysis);
-		annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayAnnotation,
-				Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION));
+		annotationOptions.add( createPanelWithHint( cellLineBasedTfAndKeggPathwayAnnotation, Commons.GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION));
 
 		// userDefinedGeneSetPanel added to annotationOptions
 		JPanel userDefinedGeneSetPanel = new JPanel();
@@ -552,16 +556,14 @@ public class MainView extends JPanel {
 		userDefinedGeneSetAnnotation.addItemListener( enableEnrichmentListener);
 		userDefinedGeneSetAnnotation.addItemListener( enableUserDefinedGeneSet);
 
-		userDefinedGeneSetPanel.add( createPanelWithHint( userDefinedGeneSetAnnotation,
-				Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
+		userDefinedGeneSetPanel.add( createPanelWithHint( userDefinedGeneSetAnnotation, Commons.GUI_HINT_USER_DEFINED_GENESET_ANNOTATION));
 
 		// userDefinedGeneSetUpperPanel added to userDefinedGeneSetPanel
 		JPanel userDefinedGeneSetUpperPanel = new JPanel( new GridLayout( 1, 2));
 
 		// userDefinedGeneSetInput added to userDefinedGeneSetUpperPanel
 		userDefinedGeneSetInput = new JTextField( 30);
-		userDefinedGeneSetUpperPanel.add( createBrowseFileArea( "User Defined GeneSet Input File",
-				userDefinedGeneSetInput, Commons.GUI_HINT_USER_DEFINED_GENESET_INPUTFILE));
+		userDefinedGeneSetUpperPanel.add( createBrowseFileArea( "User Defined GeneSet Input File", userDefinedGeneSetInput, Commons.GUI_HINT_USER_DEFINED_GENESET_INPUTFILE));
 
 		// userDefinedGeneSetGeneInformation added to
 		// userDefinedGeneSetUpperPanel
@@ -569,24 +571,19 @@ public class MainView extends JPanel {
 
 		userDefinedGeneSetGeneInformationCombo = new JComboBox<String>( geneInformation);
 		userDefinedGeneSetGeneInformationCombo.setSelectedIndex( 1);
-		userDefinedGeneSetUpperPanel.add( createBorderedPanel(
-				"Gene Information Type",
-				createPanelWithHint( userDefinedGeneSetGeneInformationCombo,
-						Commons.GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE)));
+		userDefinedGeneSetUpperPanel.add( createBorderedPanel( "Gene Information Type", createPanelWithHint( userDefinedGeneSetGeneInformationCombo, Commons.GUI_HINT_USER_DEFINED_GENESET_GENEINFORMATIONTYPE)));
 
 		// userDefinedGeneSetLowerPanel added to userDefinedGeneSetPanel
 		JPanel userDefinedGeneSetLowerPanel = new JPanel( new GridLayout( 1, 2));
 
 		// userDefinedGeneSetName added to userDefinedGeneSetLowerPanel
 		userDefinedGeneSetName = new JTextField( 20);
-		userDefinedGeneSetLowerPanel.add( createBorderedPanel( "Name",
-				createPanelWithHint( userDefinedGeneSetName, Commons.GUI_HINT_USER_DEFINED_GENESET_NAME)));
+		userDefinedGeneSetLowerPanel.add( createBorderedPanel( "Name", createPanelWithHint( userDefinedGeneSetName, Commons.GUI_HINT_USER_DEFINED_GENESET_NAME)));
 
 		// userDefinedGeneSetDescriptionFile added to
 		// userDefinedGeneSetLowerPanel
 		userDefinedGeneSetDescriptionFile = new JTextField( 30);
-		userDefinedGeneSetLowerPanel.add( createBrowseFileArea( "Description File", userDefinedGeneSetDescriptionFile,
-				Commons.GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE));
+		userDefinedGeneSetLowerPanel.add( createBrowseFileArea( "Description File", userDefinedGeneSetDescriptionFile, Commons.GUI_HINT_USER_DEFINED_GENESET_DESCRIPTION_FILE));
 
 		userDefinedGeneSetPanel.add( userDefinedGeneSetUpperPanel);
 		userDefinedGeneSetPanel.add( userDefinedGeneSetLowerPanel);
@@ -603,16 +600,14 @@ public class MainView extends JPanel {
 		userDefinedLibraryAnnotation.addItemListener( enableEnrichmentListener);
 		userDefinedLibraryAnnotation.addItemListener( enableUserDefinedLibrary);
 
-		userDefinedLibraryPanel.add( createPanelWithHint( userDefinedLibraryAnnotation,
-				Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
+		userDefinedLibraryPanel.add( createPanelWithHint( userDefinedLibraryAnnotation, Commons.GUI_HINT_USER_DEFINED_LIBRARY_ANNOTATION));
 
 		// userDefinedLibraryLowerPanel added to userDefinedLibraryPanel
 		JPanel userDefinedLibraryLowerPanel = new JPanel( new GridLayout( 1, 2));
 
 		// userDefinedLibraryInput added to userDefinedLibraryLowerPanel
 		userDefinedLibraryInput = new JTextField( 30);
-		userDefinedLibraryLowerPanel.add( createBrowseFileArea( "User Defined Library Input File",
-				userDefinedLibraryInput, Commons.GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE));
+		userDefinedLibraryLowerPanel.add( createBrowseFileArea( "User Defined Library Input File", userDefinedLibraryInput, Commons.GUI_HINT_USER_DEFINED_LIBRARY_INPUTFILE));
 
 		// inputFormatCombo added to inputBrowseAndOptionPane
 		String[] udlDataFormat = {Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES,
@@ -621,10 +616,7 @@ public class MainView extends JPanel {
 				Commons.USERDEFINEDLIBRARY_DATAFORMAT_1_BASED_START_ENDINCLUSIVE_COORDINATES};
 
 		userDefinedLibraryDataFormatCombo = new JComboBox<String>( udlDataFormat);
-		userDefinedLibraryLowerPanel.add( createBorderedPanel(
-				"User Defined Library Data Format",
-				createPanelWithHint( userDefinedLibraryDataFormatCombo,
-						Commons.GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT)));
+		userDefinedLibraryLowerPanel.add( createBorderedPanel( "User Defined Library Data Format", createPanelWithHint( userDefinedLibraryDataFormatCombo, Commons.GUI_HINT_USER_DEFINED_LIBRARY_DATA_FORMAT)));
 
 		userDefinedLibraryPanel.add( userDefinedLibraryLowerPanel);
 		annotationOptions.add( createBorderedPanel( "User Defined Library", userDefinedLibraryPanel));
@@ -634,6 +626,7 @@ public class MainView extends JPanel {
 				Commons.DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED,
 				Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL};
 		writeAnnotationFoundOverlapModeCombo = new JComboBox<String>(writeAnnotationFoundOverlapsFoundModes);
+		writeAnnotationFoundOverlapModeCombo.addActionListener( writeOverlapModeChanged);
 		
 		annotationPanel.add( createBorderedPanel( "Annotation Output", createPanelWithHint( writeAnnotationFoundOverlapModeCombo, Commons.GUI_HINT_ANNOTATION_OUTPUT_OPTION)));
 		
@@ -684,8 +677,7 @@ public class MainView extends JPanel {
 		// multipleTestingCombo added to enrichmentPanel
 		String[] multipleTest = {Commons.BENJAMINI_HOCHBERG_FDR, Commons.BONFERRONI_CORRECTION};
 		multipleTestingCombo = new JComboBox<String>( multipleTest);
-		enrichmentPanel.add( createBorderedPanel( "Multiple Testing",
-				createPanelWithHint( multipleTestingCombo, Commons.GUI_HINT_MULTIPLE_TESTING)));
+		enrichmentPanel.add( createBorderedPanel( "Multiple Testing", createPanelWithHint( multipleTestingCombo, Commons.GUI_HINT_MULTIPLE_TESTING)));
 
 		// fdrAndSigCriteria added to enrichmentPanel
 		JPanel fdrAndSigCriteria = new JPanel( new GridLayout( 1, 2));
@@ -693,14 +685,12 @@ public class MainView extends JPanel {
 		// falseDiscoveryRate added to fdrAndSigCriteria
 		falseDiscoveryRate = new JTextField( 30);
 		falseDiscoveryRate.setText( CommandLineArguments.FalseDiscoveryRate.defaultValue());
-		fdrAndSigCriteria.add( createBorderedPanel( "False Discovery Rate",
-				createPanelWithHint( falseDiscoveryRate, Commons.GUI_HINT_FDR)));
+		fdrAndSigCriteria.add( createBorderedPanel( "False Discovery Rate", createPanelWithHint( falseDiscoveryRate, Commons.GUI_HINT_FDR)));
 
 		// signifanceCriteria added to fdrAndSigCriteria
 		signifanceCriteria = new JTextField( 30);
 		signifanceCriteria.setText( CommandLineArguments.BonferroniCorrectionSignificanceCriteria.defaultValue());
-		fdrAndSigCriteria.add( createBorderedPanel( "Bonferroni Correction Significance Criteria",
-				createPanelWithHint( signifanceCriteria, Commons.GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA)));
+		fdrAndSigCriteria.add( createBorderedPanel( "Bonferroni Correction Significance Criteria", createPanelWithHint( signifanceCriteria, Commons.GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA)));
 		enrichmentPanel.add( fdrAndSigCriteria);
 
 		// permutationPanel added to enrichmentPanel
@@ -711,16 +701,14 @@ public class MainView extends JPanel {
 		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
 		//Default number of permutations is 10000
 		numberOfPerCombo.setSelectedIndex(2);
-		permutationPanel.add( createBorderedPanel( "Number of Permutations",
-				createPanelWithHint( numberOfPerCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS)));
+		permutationPanel.add( createBorderedPanel( "Number of Permutations", createPanelWithHint( numberOfPerCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS)));
 
 		// numberOfPerInEachRun added to permutationPanel
 		String[] numberOfPermutationsInEachRun = {"1000", "5000", "10000"};
 		numberOfPerInEachRunCombo = new JComboBox<String>( numberOfPermutationsInEachRun);
 		//Default number of permutations in each run is 10000
 		numberOfPerInEachRunCombo.setSelectedIndex(2);
-		permutationPanel.add( createBorderedPanel( "Number of Permutations In Each Run",
-				createPanelWithHint( numberOfPerInEachRunCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN)));
+		permutationPanel.add( createBorderedPanel( "Number of Permutations In Each Run", createPanelWithHint( numberOfPerInEachRunCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN)));
 
 		enrichmentPanel.add( permutationPanel);
 
@@ -730,8 +718,7 @@ public class MainView extends JPanel {
 		// regulatorySequenceAnalysisUsingRSATCheck added to rsatOption
 		regulatorySequenceAnalysisUsingRSATCheck = new JCheckBox( "Regulatory Sequence Analysis Using RSAT");
 		rsatOption.add( regulatorySequenceAnalysisUsingRSATCheck);
-		enrichmentPanel.add( createBorderedPanel( "Regulatory Sequence Analysis",
-				createPanelWithHint( rsatOption, Commons.GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)));
+		enrichmentPanel.add( createBorderedPanel( "Regulatory Sequence Analysis", createPanelWithHint( rsatOption, Commons.GUI_HINT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT)));
 		listPane.add( createBorderedPanel( "Enrichment", enrichmentPanel));
 
 		// jobNamePanel added to listPane
@@ -944,8 +931,13 @@ public class MainView extends JPanel {
 	public void checkUsabilityOfRegulatorySequenceAnalysis() {
 
 		if( tfAnnotation.isSelected() || tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected()){
-			regulatorySequenceAnalysisUsingRSATCheck.setEnabled( true);
+			
+			if( !writeAnnotationFoundOverlapModeCombo.getSelectedItem().toString().equalsIgnoreCase(Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL))
+				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( true);
+			else
+				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( false);
 		}else{
+			
 			regulatorySequenceAnalysisUsingRSATCheck.setSelected( false);
 			regulatorySequenceAnalysisUsingRSATCheck.setEnabled( false);
 		}
