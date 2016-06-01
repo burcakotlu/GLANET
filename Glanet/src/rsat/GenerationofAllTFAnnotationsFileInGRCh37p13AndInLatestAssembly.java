@@ -283,41 +283,47 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 				Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE);
 		
 		
-		/***************************************************************************************/
-		/***************************************************************************************/
-		/***************************************************************************************/
-		String latestAssembyNameReturnedByNCBIEutils = NCBIEutils.getLatestAssemblyNameReturnedByNCBIEutils();
-		/***************************************************************************************/
-		/***************************************************************************************/
-		/***************************************************************************************/
+		//Means that there are no source genomic loci to be remapped to target genomic loci.
+		if (!lineNumber2SourceGenomicLociMap.isEmpty()){
+			
+			/***************************************************************************************/
+			/***************************************************************************************/
+			/***************************************************************************************/
+			String latestAssembyNameReturnedByNCBIEutils = NCBIEutils.getLatestAssemblyNameReturnedByNCBIEutils();
+			/***************************************************************************************/
+			/***************************************************************************************/
+			/***************************************************************************************/
 
+			
+			/***************************************************************************************/
+			/***************************************************************************************/
+			/***************************************************************************************/
+			Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
+			
+			Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+			
+			Remap.fillAssemblyName2RefSeqAssemblyIDMap(
+					dataFolder, 
+					Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
+					assemblyName2RefSeqAssemblyIDMap);
+			/***************************************************************************************/
+			/***************************************************************************************/
+			/***************************************************************************************/
+
+
+			callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
+					dataFolder, 
+					outputFolder,
+					lineNumber2SourceGenomicLociMap, 
+					lineNumber2SourceInformationMap, 
+					lineNumber2TargetGenomicLociMap,
+					Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE,
+					latestAssembyNameReturnedByNCBIEutils,
+					assemblyName2RefSeqAssemblyIDMap);
+			
+		}//End of IF
 		
-		/***************************************************************************************/
-		/***************************************************************************************/
-		/***************************************************************************************/
-		Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
 		
-		Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
-		
-		Remap.fillAssemblyName2RefSeqAssemblyIDMap(
-				dataFolder, 
-				Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
-				assemblyName2RefSeqAssemblyIDMap);
-		/***************************************************************************************/
-		/***************************************************************************************/
-		/***************************************************************************************/
-
-
-		callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
-				dataFolder, 
-				outputFolder,
-				lineNumber2SourceGenomicLociMap, 
-				lineNumber2SourceInformationMap, 
-				lineNumber2TargetGenomicLociMap,
-				Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE,
-				latestAssembyNameReturnedByNCBIEutils,
-				assemblyName2RefSeqAssemblyIDMap);
-
 	}
 
 }

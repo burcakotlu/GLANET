@@ -145,7 +145,8 @@ public class GlanetRunner implements Runnable {
 			setCurrentProcessInfo("GivenInputDataType: " + args[CommandLineArguments.GivenInputDataType.value()]);
 			//debug ennd
 
-			if( args[CommandLineArguments.GivenInputDataType.value()].equalsIgnoreCase( Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS)){
+			if( args[CommandLineArguments.GivenInputDataType.value()].equalsIgnoreCase( Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS) && 
+					!args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL)){
 
 				/************ Creation of NCBI REMAP Input files starts *************************/
 				/************************* CALL NCBI REMAP API starts ***************************/

@@ -1243,6 +1243,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// Therefore each rsInformation can have observedAlleles String. It is rare but it is possible.
 
 		try{
+			
 			allTFAnnotationsFileReader = new FileReader( forRSAFolder + all_TF_Annotations_File_1Based_Start_End_LatestAssemblyReturnedFromNCBIEutils);
 			allTFAnnotationsBufferedReader = new BufferedReader( allTFAnnotationsFileReader);
 
