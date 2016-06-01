@@ -154,17 +154,17 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Library.
 		   Please note that all the files that will be used in User Defined Library Annotation have to reside on your local machine.
 
-		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* checkbox is checked.)
-			- 	User Defined Library Input File contains tab delimited ~path/to/file, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line
+		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* check box is checked.)
+			- 	User Defined Library Input File contains tab delimited, 4 columns, ~path/to/file, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line
 				
-				(e.g:.: G:/DOKTORA_DATA/ENCODE/dnase_jul2010/AG09319-DS12291.peaks.fdr0.01.hg19.bed	Dnase	AG09319).
+				(e.g:.: G:/DATA/ENCODE/dnase_jul2010/AG09319-DS12291.peaks.fdr0.01.hg19.bed	Dnase	AG09319)
 			
 			-	Sample User Defined Library Input File can be reached at
 				
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 				| UserDefinedLibraryInputFile.txt
 
-		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* checkbox is checked.)
+		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
 		   	-  GLANET supports four Data Formats:
 		   	-  0-based coordinates (End Inclusive)
 		   	-  0-based coordinates (End Exclusive)
@@ -182,18 +182,18 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	* *Perform Enrichment*
 		-  Check *Perform Enrichment* check box if you want to achieve Enrichment Analysis.
 		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation Options.
-        -  Perform Enrichment With ZScores (Default) 
-		-  Perform Enrichment Without ZScores 
-		-  Perform Enrichment With ZScores (Default) ranks elements w.r.t. their zScores in addition to their empirical, Bonferroni corrected and Benjamini Hochberg FDR adjusted p values.
-		-  Perform Enrichment Without ZScores is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
-		-  Do not check Perform Enrichment With ZScores if you have hundreds of thousands of elements and you don't have enough memory (at least 16GB)
+        -  Perform Enrichment With Z-Scores (Default) 
+		-  Perform Enrichment Without Z-Scores 
+		-  Perform Enrichment With Z-Scores (Default) ranks elements w.r.t. their z-scores in addition to their empirical, Bonferroni corrected and Benjamini Hochberg FDR adjusted p values.
+		-  Perform Enrichment Without Z-Scores is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
+		-  Do not check Perform Enrichment With Z-Scores if you have hundreds of thousands of elements and you don't have enough memory (at least 16GB)
 		        
 	* *Generate Random Data Mode*
-		-  With GC and Mapability (default)
-		-  Without GC and Mapability
+		-  With GC and Mappability (default)
+		-  Without GC and Mappability
 
-	Choose the *Generate Random Data Mode* which can be either *With GC and Mapability* or *Without GC and Mapability*.
-	Default is *With GC and Mapability*.
+	Choose the *Generate Random Data Mode* which can be either *With GC and Mappability* or *Without GC and Mappability*.
+	Default is *With GC and Mappability*.
 
 	* *Multiple Testing*
 		-  Benjamini Hochberg FDR (Default)
@@ -226,6 +226,7 @@ Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence 
 	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or
 	*TF and KEGG Pathway (CellLine based)*.
 	If you want to carry on Regulatory Sequence Analysis, you must check the Regulatory Sequence Analysis using RSAT check box.
+	Regulatory Sequence Analysis requires *Annotation Output* dropdown box selected as Write Overlaps Element Based or Element Type Based.
 	Please notice that Regulatory Sequence Analysis is carried out for all of the annotated Transcription Factors.
 	Regulatory Sequence Analysis makes use of RSAT web services.
 
