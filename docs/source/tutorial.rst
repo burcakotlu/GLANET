@@ -860,9 +860,6 @@ GLANET User Defined Gene Set Sample Run
 
    GLANET User Defined Gene Set
 
- Example Annotation Run is as following (Number of threads specified explicitly)::
-
-	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/CVD_all_1_based_snps.txt" -f1 -grch37 -eoo -dnase -histone -tf -kegg -tfkegg -l -j "SampleRun1" -t 16
 
 **In order to make a demo for User Defined Gene Set Facility of GLANET using Command Line Arguments**::
 
