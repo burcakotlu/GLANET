@@ -774,16 +774,16 @@ GLANET User Defined Library Sample Run
 
 	
 		* *In the first column*
-		You provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character in each row.
+		Provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character in each row.
 	
 		* *In the second column*
-		You supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
+		Supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
 	
 		* *In the third column*
-		You provide the specific name of this element in each file. Important point is that each file must consist of same element's genomic intervals. e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
+		Provide the specific name of this element in each file. Important point is that each file must consist of same element's genomic intervals. e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
 	
 		* *In the fourth column*
-		You can provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
+		Provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
 		
 	Please be aware that you have to update the absolute path to these files in UserDefinedLibraryInputFile.txt.
 	These sample files are stored under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/TranscriptionFactors directory.
@@ -799,7 +799,7 @@ GLANET User Defined Library Sample Run
 	
 	* *Provide a Job Name as you wish.*
 	
-	* *Let the other options set as default.*
+	* *Leave the other options set as default.*
 	
 	* *Then click on Run button.*
 
