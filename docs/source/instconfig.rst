@@ -37,7 +37,7 @@ Now, install Getopt/Long.pm module. Note that if any of the modules below is ins
 
 	$ sudo cpanm Getopt::Long
 
-**Important**: If you are still having issues for installing a module, try to add them -f option, which will take longer but it will try to force the module to be installed.  Note that if this step still does not work, we suggest you to try installing the modules another time. There might be some problems with the server currently. For example, if Getopt/Long.pm is still not installed, you may want to write::
+**Important**: If you are still having issues for installing a module, try to add them using -f option, which will take longer but it will try to force the module to be installed.  Note that if this step still does not work, we suggest you to try installing the modules another time. There might be some problems with the server at that time. For example, if Getopt/Long.pm is still not installed, you may want to write::
 
 	$ cpan -f Getopt::Long
 
@@ -67,9 +67,9 @@ Install JSON module::
 	
 3. Download executable GLANET.jar from :ref:`executable-label`
 	
-4. Download Data.zip from :ref:`data-label` and extract it under a directory you name it, for example GLANET (e.g.: ~path/to/GLANET/). 
+4. Download Data.zip from :ref:`data-label` and extract it under a directory you name it, for example GLANET Folder (e.g.: ~path/to/GLANET Folder/). 
    Data.zip contains the necessary data for Annotation.	
-   The important point is that this directory must be the parent directory of extracted Data directory (e.g.: ~path/to/GLANET/Data).
+   The important point is that this directory must be the parent directory of extracted Data directory (e.g.: ~path/to/GLANET Folder/Data).
    
 
 Once you have followed all these steps, you should be ready to run GLANET properly.
