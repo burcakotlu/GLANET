@@ -19,7 +19,6 @@ intervals such as DNaseI Hypersensitive sites (DHSs), Transcription Factor
 binding sites (TFs), Histone Modification sites (HMs), exons, introns, proximal and distal of                                                          
 genes and so on.  User can provide the second set using GLANET's user defined gene set
 or user defined library features.
-
                                                                                                                                    
 In order to gain biological insight, intersecting these two sets, annotation of given genomic intervals 
 with respect to the identified/annotated genomic intervals and finding the genomic intervals overlapping significantly are vital 

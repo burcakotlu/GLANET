@@ -5,9 +5,9 @@ GLANET Tutorial
 GLANET includes both graphical user interface (GUI) and command-line interface.
 In either case, to run GLANET, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
 
-	$ java -Xms4096M -Xmx8192M −jar ~path/to/GLANET.jar
+	$ java -Xms8G -Xmx8G −jar ~path/to/GLANET.jar
 
-Note that we ask you to allow GLANET to allocate 8GB of memory in order to make use of all GLANET facilities.
+Note that we ask you to allow GLANET to allocate 8GB of memory in order to make use of all GLANET facilities. If you choose to open the jar file directly without these commands, you may experience memory allocation problems.
 
 \* Throughout the guide, we will use ~path/to/GLANET.jar to indicate your absolute path to GLANET.jar and ~path/to/GLANET Folder/ to indicate your absolute path to GLANET Folder.
 
