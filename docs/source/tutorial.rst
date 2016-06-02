@@ -180,11 +180,10 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 				| UserDefinedLibraryInputFile.txt
 				
-			-	Please be aware that you have to store the files 
+			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** in **UserDefinedLibraryInputFile.txt** accordingly.
 			
 				| e.g:.: G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
 				
-			-	in your disk and change the **~path/to/file** in **UserDefinedLibraryInputFile.txt** accordingly.
 
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
 		   	-  GLANET supports four Data Formats:
@@ -248,14 +247,14 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or
 	*TF and KEGG Pathway (CellLine based)*.
 	If you want to carry on Regulatory Sequence Analysis, you must check the Regulatory Sequence Analysis using RSAT check box.
-	Regulatory Sequence Analysis requires *Annotation Output* dropdown box selected as Write Overlaps Element Based or Element Type Based.
+	Regulatory Sequence Analysis requires *Annotation Output* drop down box selected as *Write Overlaps, Each One In Separate File (Element Based)* or *Write Overlaps, All In One File (Element Type Based)*.
 	Please notice that Regulatory Sequence Analysis is carried out for all of the annotated Transcription Factors.
 	Regulatory Sequence Analysis makes use of RSAT web services.
 
 9)	**Job Name**: (Optional)
 
-	Please give a job name, then a directory named with this job name will be created under ~path/to/GLANET Folder/Output/JobName/.
-	Choose shorter job name so that all the sub folders to be created under ~path/to/GLANET Folder/Output/JobName/ directory will not exceed the allowable length.
+	Please give a job name, then a directory named with this job name will be created under **~path/to/GLANET Folder/Output/JobName/**
+	Choose shorter job name so that all the sub folders to be created under **~path/to/GLANET Folder/Output/JobName/** directory will not exceed the allowable length.
 	Default is Job Name is  *NoName*.
 	
 **Log File**:
