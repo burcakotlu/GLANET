@@ -85,6 +85,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		-  GRCh37.p13 is also known as hg19
 
 	If *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either *GRCh38* or *GRCH37.p13*.
+	
 	In case of dbSNP IDs, there is no need to set Assembly.
 
 4)	**GLANET Folder**: (Mandatory)
@@ -134,26 +135,31 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 	* *User Defined Gene Set Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Gene Set in exon-based, regulation-based and all-based manner.
 
-		-  User Defined Gene Set Input File (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
-			-  User Defined Gene Set Input File contains tab delimited GeneSetID and Gene Information per line (e.g:.: GO:0031424	LCE6A).
+		-  User Defined Gene Set Input File (Mandatory if *User Defined Gene Set Annotation* check box is checked.)
+			-  User Defined Gene Set Input File contains tab delimited GeneSetID and Gene Information per line.
+				| e.g:.: GO:0031424	LCE6A
+				
 			-  Sample User Defined Gene Set Input File can be reached at
 			
 			| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/
 			| GO_gene_associations_human_ref.txt
 
-		-  Gene Information Type (Mandatory if *User Defined Gene Set Annotation* checkbox is checked.)
+		-  Gene Information Type (Mandatory if *User Defined Gene Set Annotation* check box is checked.)
 		   	-  GLANET supports three Gene Information Types:
-		   	-  GENE ID (e.g.: 728927)
-		   	-  GENE SYMBOL (e.g.: TTC26)
-		   	-  RNA NUCLEOTIDE ACCESSION (e.g.: NM_001294255)
+		   	-  GENE ID (e.g.: 84561)
+		   	-  GENE SYMBOL (e.g.: SLC12A8)
+		   	-  RNA NUCLEOTIDE ACCESSION (e.g.: NM_024628)
 			-  Choose the appropriate Gene Information Type. (e.g: Choose GENE SYMBOL if you have loaded GO_gene_associations_human_ref.txt as User Defined Gene Set Input File.)
 
 		-  Name (Optional)
-			-  You can give a name for the User Defined Gene Set (e.g.: GO)
+			-  You can give a name for the User Defined Gene Set
+				| e.g.: GO
 			-  Default Name is *NoName*.
 
 		-  Description File (Optional)
-			-  Desription File contains tab delimited GeneSetID and description of GeneSet per line.(e.g.: GO:0000001	mitochondrion inheritance)
+			-  Desription File contains tab delimited GeneSetID and description of Gene Set per line.
+				| e.g.: GO:0000001	mitochondrion inheritance
+			
 			-  Sample User Defined Gene Set Input File can be reached at
 			
 			   | ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/
