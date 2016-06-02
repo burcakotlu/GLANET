@@ -67,12 +67,12 @@ Install JSON module::
 	
 3. Download executable GLANET.jar from :ref:`executable-label`
 	
-4. Download Data.zip from :ref:`data-label` and extract it under a directory you name it, for example GLANET Folder (e.g.: ~path/to/GLANET Folder/). 
+4. Download Data.zip from :ref:`data-label` and extract it under a directory you name it, for example GLANET Folder. 
 
-			   | ~path/to/GLANET Folder/
+			   | e.g.: ~path/to/GLANET Folder/
 			   
    Data.zip contains the necessary data for Annotation.	
-   The important point is that this directory must be the parent directory of extracted Data directory (e.g.: ~path/to/GLANET Folder/Data).
+   The important point is that this GLANET Folder directory must be the parent directory of extracted **Data** directory.
    
 			   | ~path/to/GLANET Folder/Data/
    
