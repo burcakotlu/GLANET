@@ -244,12 +244,12 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 8)	**Regulatory Sequence Analysis**: (Optional)
 
-	Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or
+		-  Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or
 	*TF and KEGG Pathway (CellLine based)*.
-	If you want to carry on Regulatory Sequence Analysis, you must check the Regulatory Sequence Analysis using RSAT check box.
-	Regulatory Sequence Analysis requires *Annotation Output* drop down box selected as *Write Overlaps, Each One In Separate File (Element Based)* or *Write Overlaps, All In One File (Element Type Based)*.
-	Please notice that Regulatory Sequence Analysis is carried out for all of the annotated Transcription Factors.
-	Regulatory Sequence Analysis makes use of RSAT web services.
+		-  If you want to carry on Regulatory Sequence Analysis, you must check the Regulatory Sequence Analysis using RSAT check box.
+		-  	Regulatory Sequence Analysis requires *Annotation Output* drop down box selected as *Write Overlaps, Each One In Separate File (Element Based)* or *Write Overlaps, All In One File (Element Type Based)*.
+		-  	Please notice that Regulatory Sequence Analysis is carried out for all of the annotated Transcription Factors.
+		-  	Regulatory Sequence Analysis makes use of RSAT web services.
 
 9)	**Job Name**: (Optional)
 
