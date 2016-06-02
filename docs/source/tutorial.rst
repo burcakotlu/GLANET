@@ -732,7 +732,7 @@ If this option is set, GLANET Run is not written to a log file.
 -------------------------------------------------------------
 GLANET Annotation and Enrichment for OCD GWAS SNPs Sample Run
 -------------------------------------------------------------
-**In order to make a demo for Annotation and Enrichment for OCD GWAS SNPs using GLANET Command Line Arguments**::
+**GLANET Command Line Arguments**::
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tf -tfkegg -e -s 10000  -se 10000 -l -j "SampleOCDGWASSNPs"
 
@@ -740,18 +740,17 @@ GLANET Annotation and Enrichment for OCD GWAS SNPs Sample Run
 GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
 ------------------------------------------------------------
 
-**In order to make a demo for Annotation and Enrichment for  trancription factor **srf** binding sites using GLANET Command Line Arguments**::
+**GLANET Command Line Arguments**::
 
-	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/srf.hg19.bed" -fbed -tf -e -s 10000  -se 10000 -l -j "SampleSRF"
+	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "SampleSRF"
 	
 ----------------------------------------------------------------
 GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
 ----------------------------------------------------------------
 
-**In order to make a demo for Regulatory Sequence Analysis for OCD GWAS SNPs using GLANET Command Line Arguments**::
+**GLANET Command Line Arguments**::
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "SampleRSA"
-
 	
 --------------------------------------
 GLANET User Defined Library Sample Run
@@ -890,9 +889,6 @@ Additional GLANET Command-Line Sample Runs
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/CVD_all_1_based_snps.txt" -f1 -grch37 -eoo -dnase -histone -tf -kegg -tfkegg -l -j "SampleRun1" -t 16
 
-.. Example Annotation and Enrichment Run is as following (Output folder specified explicitly)::
-
-..	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -o "path/to/Desired Output Location" -fdbsnp -dnase -histone -kegg -e -se 10000  -l -j "SampleRun2"
 
  Example Annotation and Enrichment Run is as following (Enrichment without ZScores)::
 
@@ -902,16 +898,14 @@ Additional GLANET Command-Line Sample Runs
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tfcellkegg -kegg -e -wogcm -se 10000  -l -j "SampleRun4"
 
-.. Example Annotation and Enrichment and Regulatory Sequence Analysis Run is as following::
-
-..	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tf -tfkegg -rsa -e -s 5000  -l -j "SampleRun5"
-
  Example Annotation (Number of Overlapping Bases is chosen as Association Measure Type) is as following::
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/CVD_all_1_based_snps.txt" -f1 -histone -noob -tf -l -j "SampleRun6"
 
 
 
-
-
+.. Example Annotation and Enrichment Run is as following (Output folder specified explicitly)::
+..	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -o "path/to/Desired Output Location" -fdbsnp -dnase -histone -kegg -e -se 10000  -l -j "SampleRun2"
+.. Example Annotation and Enrichment and Regulatory Sequence Analysis Run is as following::
+..	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tf -tfkegg -rsa -e -s 5000  -l -j "SampleRun5"
 	
