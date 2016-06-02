@@ -232,15 +232,15 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 	* *Number of Samplings*
 		-  Choose the *number of samplings* among 5000, 10000, 50000 and 100000 choices.
-		-  	Start with smaller number of samplings, and increase number of samplings depending on your computer's performance.
+		-  Start with smaller number of samplings, and increase number of samplings depending on your computer's performance.
 
 
 	* *Number of samplings In Each Run*
 		-  Choose the *number of samplings* in each run among 1000, 5000 and 10000 choices.
 	e.g.: Do not forget that increasing the number of runs increases the GLANET execution time.
-	If your system properties are good such as CPU and RAM, prefer minimum number of runs.
-	You may have 10000 samplings, by achieving 10000 samplings in each run, which makes 10000/10000 = 1 run at total.
-	Or you may have 100000 samplings, by achieving 10000 samplings in each run, which makes 100000/10000 = 10 runs at total.
+		-  	If your system properties are good such as CPU and RAM, prefer minimum number of runs.
+		-  	You may have 10000 samplings, by achieving 10000 samplings in each run, which makes 10000/10000 = 1 run at total.
+		-  	Or you may have 100000 samplings, by achieving 10000 samplings in each run, which makes 100000/10000 = 10 runs at total.
 
 8)	**Regulatory Sequence Analysis**: (Optional)
 
@@ -645,7 +645,7 @@ See also `-wgcm`_.
 
 -wiso
 ^^^^^
-If this option is specified, GLANET performs random interval generation using random interval selection from corresponding isochore family pool.
+If this option is specified, GLANET performs random interval generation using random interval selected from corresponding isochore family pool.
 If you do not set anything, default option is :option:`-woiso`.
 See also `-woiso`_.
 
