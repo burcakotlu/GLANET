@@ -8,11 +8,11 @@ You can run GLANET using its graphical user interface (GUI) or command line argu
 By double clicking the GLANET.jar you can open GLANET's GUI. In this case, GUI will be opened with default memory allocated for java applications depending on your operating system.
 In order to allocate specific amount of memory for GLANET.jar and run it through GUI, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
 
-.. In either case, to run GLANET, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
-
 	$ java -Xms8G -Xmx8G −jar ~path/to/GLANET.jar
 
-Note that with this command 8GM of memory is allocated for GLANET.jar. Depending on the number of intervals(given and/or annotation library intervals) and samplings you may need to increase the memory accordingly.
+Note that with this command 8GM of memory is allocated for GLANET.jar. Depending on the number of intervals in the sets and number of samplings you want to achieve you may need to increase the memory accordingly.
+
+In order to run GLANET.jar through command line arguments in addition to the memory allocation parameter above, you must provide other arguments which are explained below.
 
 Throughout the guide, we will use *~path/to/GLANET.jar* to indicate your absolute path to **GLANET.jar** and *~path/to/GLANET Folder/* to indicate your absolute path to **GLANET Folder**.
 
@@ -29,13 +29,15 @@ GLANET Graphical User Interface
 GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE regulatory elements,
 predefined gene sets such as KEGG Pathways, user defined gene sets and user defined library.
 
-Other facilities of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
+Other features of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
 
 1)	**Input File Name**: (Mandatory)
 
 	You have to provide input file which contains user given genomic intervals.
-	Assume that Data.zip is extracted under a directory called GLANET Folder.
-	Then sample input data can be reached from ~path/to/GLANET Folder/Data/demo_input_data/.
+	Assume that Data.zip is extracted under a directory called **GLANET Folder**.
+	Then sample input data can be reached from 
+
+			   | ~path/to/GLANET Folder/Data/demo_input_data/
 
 2)	**Input Format**: (Mandatory)
 

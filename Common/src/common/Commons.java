@@ -1493,8 +1493,8 @@ public class Commons {
 	public static final String GUI_HINT_MULTIPLE_TESTING = "Multiple Testing";
 	public static final String GUI_HINT_FDR = "False Discovery Rate";
 	public static final String GUI_HINT_BONFERONI_CORRECTION_SIGNIFICANCE_CRITERIA = "Bonferroni Correction Significance Criteria";
-	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number Of Total Permutations That Will Be Carried Out For Enrichment";
-	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = "Number Of Permutations That Will Be Carried Out In Each Run";
+	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS = "Number Of Total Samplings That Will Be Carried Out For Enrichment";
+	public static final String GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN = "Number Of Samplings That Will Be Carried Out In Each Run";
 	public static final String GUI_HINT_CELLLINE_BASED_DNASE_ANNOTATION = "DNase Annotation (Cell Line Based)";
 	public static final String GUI_HINT_GENE_ANNOTATION = "RefSeq Gene Annotation";
 	public static final String GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION = "Histone Annotation (Cell Line Based)";
