@@ -171,7 +171,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		   Please note that all the files that will be used in User Defined Library Annotation have to reside on your local machine.
 
 		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* check box is checked.)
-			- 	User Defined Library Input File contains tab delimited, 4 columns, ~path/to/file, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line
+			- 	User Defined Library Input File contains tab delimited, 4 columns, ~path/to/file, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line::
 				
 	$ G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak	TF	CTCF_GM12878
 	
@@ -180,7 +180,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 				| UserDefinedLibraryInputFile.txt
 				
-			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** in **UserDefinedLibraryInputFile.txt** accordingly.
+			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** in **UserDefinedLibraryInputFile.txt** accordingly.::
 			
 
 	$ G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
