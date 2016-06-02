@@ -42,9 +42,13 @@ During regulatory sequence analysis `RSAT <http://www.rsat.eu/>`_'s matrix scan 
 
 GLANET Pipeline
 
-.. image:: ../images/GLANET_1a.jpg
-    :alt: GLANET Flowchart
 
+.. figure:: ../images/GLANET_1a.jpg
+   :alt: GLANET_GUI_UpperPart
+
+   GLANET GUI Upper Part
+
+	
 GLANET enables user to load its user defined library and/or user defined gene sets in order to use them as Annotation Library. 
 Namely, genomic intervals obtained from user defined library and/or user defined gene sets will be populated in the Annotation Library
 and Annotation will be achieved w.r.t. these genomic intervals.
