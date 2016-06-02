@@ -67,7 +67,7 @@ Install JSON module::
 	
 3. Download executable GLANET.jar from :ref:`executable-label`
 	
-4. Download Data.zip from :ref:`data-label` and extract it under a directory you name it, for example *GLANET Folder*. 
+4. Download Data.zip from :ref:`data-label` and extract it as **Data** under a directory you name it, for example *GLANET Folder*. 
 
 			   | e.g.: ~path/to/GLANET Folder/
 			   
