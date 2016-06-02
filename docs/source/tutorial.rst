@@ -177,10 +177,11 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/CVD_all_1_based_snps.txt" -f1 -grch37 -eoo -dnase -histone -tf -kegg -tfkegg -l -j "SampleRun1" -t 16
 
-	Example Annotation Run is as following (Number of threads specified explicitly)::
+	:
 
 	$ G\:\\GLANET_DATA\\ENCODE\\transcription_factors\\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak	TF	CTCF_GM12878
-	
+
+
 			-	Sample User Defined Library Input File can be reached at
 				
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
@@ -188,8 +189,10 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				
 			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** in **UserDefinedLibraryInputFile.txt** accordingly.
 
+	:
 	$ G\:\\GLANET_DATA\\ENCODE\\transcription_factors\\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
-	
+
+
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
 		   	-  GLANET supports four Data Formats:
 		   	-  0-based coordinates (End Inclusive)
