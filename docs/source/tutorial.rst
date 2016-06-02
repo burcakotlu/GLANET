@@ -898,6 +898,17 @@ GLANET User Defined Gene Set Sample Run
 GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
 ----------------------------------------------------------------
 
------------------------------------
-GLANET for OCD GWAS SNPs Sample Run
------------------------------------
+	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "SampleRSA"
+
+-------------------------------------------------------------
+GLANET Annotation and Enrichment for OCD GWAS SNPs Sample Run
+-------------------------------------------------------------
+
+	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tf -tfkegg -e -s 10000  -se 10000 -l -j "SampleOCDGWASSNPs"
+
+------------------------------------------------------------
+GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
+------------------------------------------------------------
+
+	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/srf.hg19.bed" -fbed -tf -e -s 10000  -se 10000 -l -j "SampleSRF"
+	
