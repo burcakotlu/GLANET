@@ -12,7 +12,7 @@ In order to allocate specific amount of memory for GLANET.jar and run it through
 
 Note that with this command 8GM of memory is allocated for GLANET.jar. Depending on the number of intervals in the sets and number of samplings you want to achieve you may need to increase the memory accordingly.
 
-In order to run GLANET.jar through command line arguments in addition to the memory allocation parameter above, you must provide other arguments which are explained below.
+In order to run GLANET.jar through command line arguments, in addition to the memory allocation parameter above, you must provide other arguments which are explained below.
 
 Throughout the guide, we will use *~path/to/GLANET.jar* to indicate your absolute path to **GLANET.jar** and *~path/to/GLANET Folder/* to indicate your absolute path to **GLANET Folder**.
 
@@ -26,7 +26,7 @@ GLANET Graphical User Interface
    GLANET GUI Upper Part
 
 
-GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE regulatory elements,
+GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE DNA regulatory elements,
 predefined gene sets such as KEGG Pathways, user defined gene sets and user defined library.
 
 Other features of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
@@ -45,33 +45,33 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 	For the user given input file, Input Format has to be selected accordingly.
 
 	* *dbSNP IDs*
-		-  Sample input data for dbSNP IDs can be reached at
+		-  Sample input data for *dbSNP IDs* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
-		-  Input Format must be selected as dbSNP IDs.
+		-  Input Format must be selected as *dbSNP IDs*.
 
 	* *BED*
-		-  Sample input data for BED can be reached at
+		-  Sample input data for *BED* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
 		| CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed,
-		-  Input Format must be selected as BED.
+		-  Input Format must be selected as *BED*.
 
 	* *GFF3*
-		-  Sample input data  can be reached at
+		-  Sample input data for *GFF3* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
 		| CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3,
-		-  Input Format must be selected as GFF3.
+		-  Input Format must be selected as *GFF3*.
 
 	* *1-based coordinates (End Inclusive)*
-		-  Sample input data  can be reached at
+		-  Sample input data for *1-based coordinates (End Inclusive)* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
 		| OCD_GWAS_SNPs_chrNumber_1Based_GRCh37_p13_Coordinates.txt,
-		-  Input Format must be selected as 1-based coordinates (End Inclusive).
+		-  Input Format must be selected as *1-based coordinates (End Inclusive)*.
 
 	* *0-based coordinates (End Inclusive)*
-		-  Sample input data  can be reached at
+		-  Sample input data for *0-based coordinates (End Inclusive)* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
 		| test_interval_data_K562_Usf2_0based_GRCh37_p13_Coordinates.txt,
-		-  Input Format must be selected as 0-based coordinates (End Inclusive).
+		-  Input Format must be selected as *0-based coordinates (End Inclusive)*.
 
 
 
@@ -84,14 +84,17 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 	* *GRCH37.p13 (hg19)*
 		-  GRCh37.p13 is also known as hg19
 
-	If *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either GRCh38 or GRCH37.p13.
+	If *BED*, *GFF3*, *1-based coordinates (End Inclusive)* or *0-based coordinates (End Inclusive)* is chosen as Input Format, then Assembly has to be set as either *GRCh38* or *GRCH37.p13*.
 	In case of dbSNP IDs, there is no need to set Assembly.
 
 4)	**GLANET Folder**: (Mandatory)
 
 	Set the GLANET Folder (e.g.:  ~path/to/GLANET Folder).
-	Please note that GLANET Folder has to be the parent of Data folder (e.g.:  ~path/to/GLANET Folder/Data).
+	Please note that GLANET Folder has to be the parent of Data Folder.
 
+	| ~path/to/GLANET Folder/Data/
+
+	
 5)	**Annotation, Overlap Definition, Number of Bases**: (Mandatory)
 
 	For Annotation, set the number of bases for overlap definition.
