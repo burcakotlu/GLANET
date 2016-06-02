@@ -42,7 +42,7 @@ During regulatory sequence analysis `RSAT <http://www.rsat.eu/>`_'s matrix scan 
 
 GLANET Pipeline
 
-.. image:: ../images/GLANET_pipeline.jpg
+.. image:: ../images/GLANET_1a.pdf
     :alt: GLANET Pipeline
 
 GLANET enables user to load its user defined library and/or user defined gene sets in order to use them as Annotation Library. 
