@@ -42,8 +42,7 @@ During regulatory sequence analysis `RSAT <http://www.rsat.eu/>`_'s matrix scan 
 
 GLANET Pipeline
 
-
-.. figure:: ../images/GLANET_1a.jpg
+.. figure:: ../images/GLANET_1a.png
    :alt: GLANET_GUI_UpperPart
 
    GLANET GUI Upper Part
