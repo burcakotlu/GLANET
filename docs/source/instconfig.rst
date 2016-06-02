@@ -25,7 +25,7 @@ For **Linux** users, Perl is probably installed in your operating system. If you
 
 After you have installed Perl, you need to install the required modules.
 
-First install cpanminus, which will allow other modules to be installed easily. Open Terminal (or Command Prompt in Windows) and write the command below::
+First install cpanminus, which will allow other modules to be installed easily. **Open Terminal** (**or Command Prompt in Windows**) and write the command below::
 
 	$ cpan App:cpanminus
 

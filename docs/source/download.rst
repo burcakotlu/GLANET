@@ -3,7 +3,7 @@ Download
 
 Source Code
 ^^^^^^^^^^^
-GLANET is an open source project. 
+GLANET is an open source code project. 
 You can browse and download GLANET source code from `here <https://github.com/burcakotlu/GLANET>`_ and run it as a Java project. 
 
 .. _executable-label:
