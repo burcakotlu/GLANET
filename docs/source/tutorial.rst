@@ -173,10 +173,8 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* check box is checked.)
 			- 	User Defined Library Input File contains tab delimited, 4 columns, ~path/to/file, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line
 				
-
-
 	$ G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak	TF	CTCF_GM12878
-			
+	
 			-	Sample User Defined Library Input File can be reached at
 				
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
@@ -186,8 +184,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 			
 
 	$ G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
-				
-
+	
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
 		   	-  GLANET supports four Data Formats:
 		   	-  0-based coordinates (End Inclusive)
