@@ -43,9 +43,7 @@ During regulatory sequence analysis `RSAT <http://www.rsat.eu/>`_'s matrix scan 
 GLANET Flowchart
 
 .. image:: ../images/GLANET_1a.jpg
-    :width: 200px
     :align: center
-    :height: 100px
     :alt: GLANET Flowchart
 
 GLANET enables user to load its user defined library and/or user defined gene sets in order to use them as Annotation Library. 
