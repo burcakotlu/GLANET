@@ -232,7 +232,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 	* *Number of Samplings*
 		-  Choose the *number of samplings* among 5000, 10000, 50000 and 100000 choices.
-	Start with smaller number of samplings, and increase number of samplings depending on your computer's performance.
+		-  	Start with smaller number of samplings, and increase number of samplings depending on your computer's performance.
 
 
 	* *Number of samplings In Each Run*
@@ -244,8 +244,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 8)	**Regulatory Sequence Analysis**: (Optional)
 
-		-  Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or
-	*TF and KEGG Pathway (CellLine based)*.
+		-  Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or *TF and KEGG Pathway (CellLine based)*.
 		-  If you want to carry on Regulatory Sequence Analysis, you must check the Regulatory Sequence Analysis using RSAT check box.
 		-  	Regulatory Sequence Analysis requires *Annotation Output* drop down box selected as *Write Overlaps, Each One In Separate File (Element Based)* or *Write Overlaps, All In One File (Element Type Based)*.
 		-  	Please notice that Regulatory Sequence Analysis is carried out for all of the annotated Transcription Factors.
@@ -253,9 +252,9 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 9)	**Job Name**: (Optional)
 
-	Please give a job name, then a directory named with this job name will be created under **~path/to/GLANET Folder/Output/JobName/**
-	Choose shorter job name so that all the sub folders to be created under **~path/to/GLANET Folder/Output/JobName/** directory will not exceed the allowable length.
-	Default is Job Name is  *NoName*.
+		-  	Please give a job name, then a directory named with this job name will be created under **~path/to/GLANET Folder/Output/JobName/**
+		-  	Choose shorter job name so that all the sub folders to be created under **~path/to/GLANET Folder/Output/JobName/** directory will not exceed the allowable length.
+		-  	Default is Job Name is  *NoName*.
 	
 **Log File**:
 	
