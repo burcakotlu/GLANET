@@ -741,8 +741,8 @@ GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
 
 **GLANET Command Line Arguments**::
 
-	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "SampleSRF"
-	
+	$ java -Xms8G -Xmx8G −jar "path/to/GLANET Folder/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/GAT_Comparison_Data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "SampleSRF"
+		
 ----------------------------------------------------------------
 GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
 ----------------------------------------------------------------
