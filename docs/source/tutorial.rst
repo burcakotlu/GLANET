@@ -204,9 +204,6 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation Options.
         -  Perform Enrichment With Z-Scores (Default) 
 		-  Perform Enrichment Without Z-Scores 
-..		-  Perform Enrichment With Z-Scores (Default) ranks elements w.r.t. their z-scores in addition to their empirical, Bonferroni corrected and Benjamini Hochberg FDR adjusted p values.
-..		-  Perform Enrichment Without Z-Scores is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
-..		-  Do not check Perform Enrichment With Z-Scores if you have hundreds of thousands of elements and you don't have enough memory (at least 16GB)
 		 
 		-  GLANET can be run with **with z-score** and **without z-score** options. These two options lead to different memory consumptions; if the user is working in scarce memory settings than using $z$-score could be slow.
 		-  When the z-score calculation is requested, GLANET keeps test statistic calculated for each of the $B$ random sample and for each element ($N$) in the memory. 
@@ -917,4 +914,7 @@ Additional GLANET Command-Line Sample Runs
 ..	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -o "path/to/Desired Output Location" -fdbsnp -dnase -histone -kegg -e -se 10000  -l -j "SampleRun2"
 .. Example Annotation and Enrichment and Regulatory Sequence Analysis Run is as following::
 ..	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs_all.txt" -fdbsnp -dnase -histone -tf -tfkegg -rsa -e -s 5000  -l -j "SampleRun5"
+..		-  Perform Enrichment With Z-Scores (Default) ranks elements w.r.t. their z-scores in addition to their empirical, Bonferroni corrected and Benjamini Hochberg FDR adjusted p values.
+..		-  Perform Enrichment Without Z-Scores is recommended when you have hundreds of thousands of elements to be analysed (e.g. In case of Cell Line Based TF and KEGG Pathway Analysis).
+..		-  Do not check Perform Enrichment With Z-Scores if you have hundreds of thousands of elements and you don't have enough memory (at least 16GB)
 	
