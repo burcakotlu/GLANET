@@ -207,7 +207,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		-  Perform Enrichment Without Z-Scores 
 		 
 		-  GLANET can be run with **with z-score** and **without z-score** modes. These two modes lead to different memory consumptions.
-		-  When the z-score calculation is requested, GLANET keeps test statistic calculated for each of the **B** random sampling and for each element **N** in the memory. 
+		-  When the **with z-score** calculation is requested, GLANET keeps test statistic calculated for each of the **B** random sampling and for each element **N** in the memory. 
 		   Accumulation of test statistics is accomplished for each chromosome one at a time and therefore does not require  storing interval trees of all chromosomes in the memory concurrently.  
 		   In this setting, memory consumption is **O(M + B*N)**, where **B** is the number of total samplings, **N** is the number of genomic elements being tested and **M** is the size of one interval tree constructed for the chromosome. 
 		-  Running GLANET **without z-score** calculates the test statistic for each sampling and requires storing the interval trees for all chromosomes at the same time. 
