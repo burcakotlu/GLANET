@@ -207,14 +207,14 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		 
 		-  GLANET can be run with **with z-score** and **without z-score** options. These two options lead to different memory consumptions; if the user is working in scarce memory settings than using $z$-score could be slow.
 		-  When the z-score calculation is requested, GLANET keeps test statistic calculated for each of the $B$ random sample and for each element ($N$) in the memory. 
-		Accumulation of test statistics is accomplished for each chromosome one at a time and therefore does not require  storing interval trees of all chromosomes in the memory concurrently.  
-		In this setting, memory consumption is **O( M + B*N)**, where **B** is the number of total samplings, **N** is the number of genomic elements being tested and **M** is the size of one interval tree constructed for the chromosome. 
+			Accumulation of test statistics is accomplished for each chromosome one at a time and therefore does not require  storing interval trees of all chromosomes in the memory concurrently.  
+			In this setting, memory consumption is **O( M + B*N)**, where **B** is the number of total samplings, **N** is the number of genomic elements being tested and **M** is the size of one interval tree constructed for the chromosome. 
 		-  Running GLANET **without z-score** calculates the test statistic for each sampling and requires storing the interval trees for all chromosomes at the same time. 
-		Then, **without z-score** checks whether sampling has test statistic greater than or equal to original (observed) test statistic. 
-		If yes, it increments the number of such samplings by one. As a result, although **without z-score** calculation increases memory consumption by requiring all of the interval trees for all chromosomes in memory at the same time, it decreases the memory consumption by not keeping test statistics for  each sampling for each element but just the number of samplings (that have test statistic greater than or equal to the original test statistic) per element. 
-		Thus, its memory consumption is proportional to **O(P+N)**, where **P** is the size of the number of total number of trees. 
-		This trade-off between running GLANET in **with z-score** mode or in **without z-score** mode can be solved by considering the number of total samplings **B** times number of elements **N** being analysed.  
-		When $B*N$ is in hundreds of thousands, running GLANET with **with z-score** option could be too memory consuming; therefore, we recommend using **without z-score** option.		 
+			Then, **without z-score** checks whether sampling has test statistic greater than or equal to original (observed) test statistic. 
+			If yes, it increments the number of such samplings by one. As a result, although **without z-score** calculation increases memory consumption by requiring all of the interval trees for all chromosomes in memory at the same time, it decreases the memory consumption by not keeping test statistics for  each sampling for each element but just the number of samplings (that have test statistic greater than or equal to the original test statistic) per element. 
+			Thus, its memory consumption is proportional to **O(P+N)**, where **P** is the size of the number of total number of trees. 
+			This trade-off between running GLANET in **with z-score** mode or in **without z-score** mode can be solved by considering the number of total samplings **B** times number of elements **N** being analysed.  
+			When $B*N$ is in hundreds of thousands, running GLANET with **with z-score** option could be too memory consuming; therefore, we recommend using **without z-score** option.		 
 		
 	* *Generate Random Data Mode*
 		-  With GC and Mappability (default)
