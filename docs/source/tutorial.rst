@@ -184,8 +184,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				The files referred in **UserDefinedLibraryInputFile.txt** are provided under
 				
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
-				| TranscriptionFactors/
-
+				| TranscriptionFactors/::
 				
 					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
 
