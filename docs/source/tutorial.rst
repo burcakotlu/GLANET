@@ -6,11 +6,11 @@ GLANET Tutorial
 You can run GLANET using its graphical user interface (GUI) or command line arguments.
 
 By double clicking the GLANET.jar you can open GLANET's GUI. In this case, GUI will be opened with default memory allocated for java applications depending on your operating system.
-In order to allocate specific amount of memory for GLANET.jar and run it through GUI, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
+In order to allocate specific amount of memory for GLANET.jar and run it through its GUI, one should write the following basic command on Terminal (Linux or Mac OS X) or on Command Prompt (Windows)\*::
 
 	$ java -Xms8G -Xmx8G −jar ~path/to/GLANET.jar
 
-Note that with this command 8GM of memory is allocated for GLANET.jar. Depending on the number of intervals in the sets and number of samplings you want to achieve you may need to increase the memory accordingly.
+Note that with this command above, 8GM of memory is allocated for GLANET.jar. Depending on the number of intervals in the sets and number of samplings you want to achieve you may need to increase the memory accordingly.
 
 In order to run GLANET.jar through command line arguments, in addition to the memory allocation parameter above, you must provide other arguments which are explained below.
 
@@ -26,7 +26,7 @@ GLANET Graphical User Interface
    GLANET GUI Upper Part
 
 
-GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE DNA regulatory elements,
+GLANET provides Annotation by enabling user to annotate given genomic intervals w.r.t. ENCODE DNA regulatory elements, RefSeq genes,
 predefined gene sets such as KEGG Pathways, user defined gene sets and user defined library.
 
 Other features of GLANET includes Enrichment Analysis and Regulatory Sequence Analysis.
