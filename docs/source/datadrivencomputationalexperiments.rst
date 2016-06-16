@@ -6,7 +6,7 @@ In order to assess the statistical power and Type-I error control of GLANET, we 
 These experiments indicated that while GLANET enrichment test often performs conservatively in terms of Type-I error, it has high statistical power.
 
 
-.. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.pdf
+.. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
    :alt: GLANET_GUI_UpperPart
 
-   GLANET GUI Upper Part
+   GM12878 NonExpressing Activators TypeIError SigLev 0.05 CompletelyDiscard
