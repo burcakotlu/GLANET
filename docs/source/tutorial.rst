@@ -180,14 +180,17 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 				| UserDefinedLibraryInputFile.txt
 				
-			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly.
-				The files referred in **UserDefinedLibraryInputFile.txt** are provided under
-				
-				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
-				| TranscriptionFactors/::
-				
+			-	The files referred in **UserDefinedLibraryInputFile.txt** are provided under
+			
+			   | ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
+			   | TranscriptionFactors/
+
+			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly::
+
 					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
 
+
+				
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
 		   GLANET supports four Data Formats:
 			
