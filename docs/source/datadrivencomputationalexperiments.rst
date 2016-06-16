@@ -25,7 +25,11 @@ Therefore we have excluded DNaseI overlap from these promoter regions in two mod
 * TakeTheLongest: : If promoter region overlaps with any DNaseI  hypersensitive sites of the corresponding cell line, remove that overlap, there might be more than one remaining intervals, choose the longest one among remaining intervals
 
 We have defined three genomic interval pools from expressed genes.
-We have sorted the genes w.r.t. their TPM values in descending order and considered the top 5th, top 10th  and top 20th percentile of the genes in expressed genes interval pools.
+We have sorted the genes w.r.t. their TPM values in descending order.
+
+* Top5: We considered the top 5th percentile of the genes in expressed genes interval pools.
+* Top10: We considered the top 10th percentile of the genes in expressed genes interval pools.
+* Top20: We considered the top 20th percentile of the genes in expressed genes interval pools.
 
 As a result, we have 5 pools, 2 pools for non-expressed genes and 3 pools for expressed genes.
 
@@ -36,11 +40,28 @@ For each interval pool, we had 1000 simulations.
 For each simulation, we have sampled 500 random non-overlapping intervals from 	the corresponding interval pool.
 
 We have run each simulation with 4 different settings of GLANET:
+
 * (wGCM, EOO)
 * (woGCM, EOO)
 * (wGCM, NOOB)
 * (woGCM,NOOB)
 
++------------------------------------------------------+ 
+| Data-Driven Computational Experiment                 |
++==========================================+===========+ 
+| Number of interval pools                 | 5         | 
++------------------------------------------+-----------+ 
+| Number of Simulations                    | 1000      | 
++------------------------------------------+-----------+ 
+| Number of GLANET runs for each simulation| 1000      | 
++------------------------------------------+-----------+ 
+| Number of cell lines (GM12878 and K562)  | 2         |
++------------------------------------------+-----------+ 
+| Total number of GLANET Runs              | 40000     |
++------------------------------------------+-----------+ 
+
+
+Number of GLANET runs for each simulation
 
 
 
