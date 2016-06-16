@@ -726,6 +726,7 @@ Default option is :option:`-se 5000`.
 
 If this option is set, GLANET performs Regulatory Sequence Analysis using RSAT. 
 :option:`-rsa` requires that given intervals consist of SNPs and at least one of the following annotations to be set (:option:`-tf`, :option:`-tfkegg` :option:`-tfcellkegg`) as preconditions. 
+:option:`-rsa` requires :option:`-aos` or :option:`-aoo` selected as GLANET annotation results output option.
 Otherwise Regulatory Sequence Analysis is not performed. 
 
 -j
