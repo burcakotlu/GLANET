@@ -6,19 +6,21 @@ GLANET Overview
 GLANET
 ------
 
-GLANET is Genomic Loci AssociatioN and Enrichment Tool.
+GLANET is Genomic Loci ANnotation and Enrichment Tool.
 
-GLANET achieves annotation, enrichment analysis and regulatory sequence analysis 
-between given two sets of genomic intervals.                                                                                                             
-The first set of intervals are the user provided genomic intervals.
-They may come from GWAS yielded genomic variants (SNPs, CNVs) or from a NGS experiment.  
-The important point is that given genomic intervals must be related with each other.
+Genomic studies identify genomic loci of interest representing genetic variations, transcription factor binding, or histone modification through next generation sequencing (NGS) technologies. 
+Interpreting these loci requires evaluating them within the context of known genomic and epigenomic annotations. 
+We present GLANET as a comprehensive annotation and enrichment analysis tool. 
+Input query to GLANET is a set of genomic intervals of any length. 
+GLANET annotates and performs enrichment analysis on these loci with a rich library of genomic elements that includes: 
+* regions defined with a gene-centric approach; 
+* a large collection of cell-type specific regulatory regions from ENCODE, and 
+* gene sets derived from pathways. 
+In order to identify the genomic elements enriched in the query set, GLANET implements a sampling-based enrichment test that accounts for systematic biases such as GC content and mappability inherent to NGS technologies. 
+We present data-driven computational experiments that illustrate high statistical power and well-controlled Type-I error rate for GLANET. 
+Main features of GLANET include assessment of impact of single nucleotide variants on transcription factor binding sites, easy incorporation of user-defined genomic elements to GLANET annotation library, and joint TF-KEGG pathway enrichment analysis. 
+GLANET can be run using its GUI or on command line.
 
-The second set consists of identified/annotated genomic                                                                                 
-intervals such as DNaseI Hypersensitive sites (DHSs), Transcription Factor                                                                              
-binding sites (TFs), Histone Modification sites (HMs), exons, introns, proximal and distal of                                                          
-genes and so on.  User can provide the second set using GLANET's user defined gene set
-or user defined library features.
                                                                                                                                    
 In order to gain biological insight, intersecting these two sets, annotation of given genomic intervals 
 with respect to the identified/annotated genomic intervals and finding the genomic intervals overlapping significantly are vital 

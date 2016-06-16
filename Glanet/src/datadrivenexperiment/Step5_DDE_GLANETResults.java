@@ -62,6 +62,9 @@ import gnu.trove.map.hash.TObjectIntHashMap;
  * In the context of counting the number of simulations that has found the repressor element enriched in the nonExpressing Genes Intervals
  * and the number of simulations that has found the expressor element enriched in the Expressing Genes Intervals.
  * 
+ * 
+ * EnrichmentDecisionType provides which pValue we will use for enrichment decision. 
+ * 
  * We have to provide the
  * 
  *  Glanet Folder
@@ -316,7 +319,7 @@ public class Step5_DDE_GLANETResults {
 					
 					//17 May 2016
 					//Let's decide on Enrichment depending on empirical p value
-					if(enrichmentDecisionType.isEnrichedwrtEmpiricalPvalueFromRatioofPermutations()){
+					if(enrichmentDecisionType.isEnrichedwrtEmpiricalPvalueFromRatioofSamplings()){
 						
 						if( element.getEmpiricalPValue() <= bonferroniCorrectionSignificanceLevel){
 							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
@@ -325,7 +328,7 @@ public class Step5_DDE_GLANETResults {
 					}
 					
 					// BH FDR Adjusted PValue from numberofPermutationsRatio starts
-					else if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromRatioofPermutations()){
+					else if(enrichmentDecisionType.isEnrichedwrtBHFDRAdjustedPvalueFromRatioofSamplings()){
 						
 						if( element.getBHFDRAdjustedPValue() <= FDR){
 							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
@@ -334,7 +337,7 @@ public class Step5_DDE_GLANETResults {
 					}// BH FDR Adjusted PValue from numberofPermutationsRatio ends
 		
 					// Bonferroni Corrected PValue from numberofPermutationsRatio starts
-					else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromRatioofPermutations()){
+					else if (enrichmentDecisionType.isEnrichedwrtBonferroniCorrectedPvalueFromRatioofSamplings()){
 						
 						if( element.getBonferroniCorrectedPValue() <= bonferroniCorrectionSignificanceLevel){
 								elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
