@@ -61,8 +61,6 @@ We have run each simulation with 4 different settings of GLANET:
 +------------------------------------------+-----------+ 
 
 
-Number of GLANET runs for each simulation
-
 
 
 .. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
