@@ -12,15 +12,23 @@ Genomic studies identify genomic loci of interest representing genetic variation
 Interpreting these loci requires evaluating them within the context of known genomic and epigenomic annotations. 
 We present GLANET as a comprehensive annotation and enrichment analysis tool. 
 Input query to GLANET is a set of genomic intervals of any length. 
-GLANET annotates and performs enrichment analysis on these loci with a rich library of genomic elements that includes: 
-* regions defined with a gene-centric approach; 
-* a large collection of cell-type specific regulatory regions from ENCODE, and 
-* gene sets derived from pathways. 
+GLANET annotates and performs enrichment analysis on these loci with a rich library of genomic elements.
+GLANET annotation library includes a rich set of genomic information:
+
+* regions defined on and in the neighborhood of coding regions
+* ENCODE-derived potential regulatory regions that encompass binding sites for multiple transcription factors, DNaseI hypersensitive sites, modification regions for multiple histones across a wide variety of cell types
+* gene sets derived from KEGG pathways.
+
 In order to identify the genomic elements enriched in the query set, GLANET implements a sampling-based enrichment test that accounts for systematic biases such as GC content and mappability inherent to NGS technologies. 
 We present data-driven computational experiments that illustrate high statistical power and well-controlled Type-I error rate for GLANET. 
-Main features of GLANET include assessment of impact of single nucleotide variants on transcription factor binding sites, easy incorporation of user-defined genomic elements to GLANET annotation library, and joint TF-KEGG pathway enrichment analysis. 
-GLANET can be run using its GUI or on command line.
 
+Main features of GLANET include
+
+* assessment of impact of single nucleotide variants on transcription factor binding sites
+* easy incorporation of user-defined genomic elements to GLANET annotation library
+* joint TF-KEGG pathway enrichment analysis
+
+GLANET can be run using its GUI or on command line.
                                                                                                                                    
 In order to gain biological insight, intersecting these two sets, annotation of given genomic intervals 
 with respect to the identified/annotated genomic intervals and finding the genomic intervals overlapping significantly are vital 
@@ -33,7 +41,7 @@ Annotation which is finding overlapping intervals is easily achieved by interval
 represented as an interval tree. 
 However, Enrichment which is finding out the genomic intervals which overlap significantly is not trivial 
 since genome is not homogeneous, gene density differs and genome organization is complex. 
-For Enrichment Analysis, GLANET utilizes sampling based statistical test which takes genomic biases 
+For Enrichment Analysis, GLANET utilizes sampling-based statistical test which takes genomic biases 
 such as GC content and Mappability into account, during random interval generation for samplings. 
 
 And in Regulatory Sequence Analysis, transcription factor annotation results are further analysed whether any SNP (given in the first set) 
