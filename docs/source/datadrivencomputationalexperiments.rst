@@ -7,6 +7,13 @@ These experiments indicated that while GLANET enrichment test often performs con
 
 
 .. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
-   :alt: GLANET_GUI_UpperPart
+   :align: center
+   :alt: GM12878_Non_expressing_genes_alpha_0_05_CompletelyDiscard
 
-   GM12878 NonExpressing Activators TypeIError SigLev 0.05 CompletelyDiscard
+   GM12878, Non-expressing genes, alpha=0.05, CompletelyDiscard, Type-I Error
+   
+.. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_Power_SigLev_0_05_Facet_Top5.png
+   :align: center
+   :alt: GM12878_NonExp_Activators_Power_SigLev_0_05_Facet_Top5
+
+   GM12878, Non-expressing genes, alpha=0.05, Top5, Power
