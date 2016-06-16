@@ -186,6 +186,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 				| TranscriptionFactors/
 
+				
 					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
 
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
@@ -213,7 +214,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 	* *Perform Enrichment*
 		-  Check *Perform Enrichment* check box if you want to achieve Enrichment Analysis.
-		   GLANET will accomplish Enrichment Analysis for the elements checked in Annotation Options.
+		   GLANET will accomplish Enrichment Analysis for the element types checked in Annotation Options.
         
 		-  Perform Enrichment With Z-Scores (Default) 
 		-  Perform Enrichment Without Z-Scores 
@@ -221,13 +222,13 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		-  GLANET can be run with **with z-score** and **without z-score** modes. These two modes lead to different memory consumptions.
 		-  When the **with z-score** calculation is requested, GLANET keeps test statistic calculated for each of the **B** random sampling and for each element **N** in the memory. 
 		   Accumulation of test statistics is accomplished for each chromosome one at a time and therefore does not require  storing interval trees of all chromosomes in the memory concurrently.  
-		   In this setting, memory consumption is **O(M + B*N)**, where **B** is the number of total samplings, **N** is the number of genomic elements being tested and **M** is the size of one interval tree constructed for the chromosome. 
+		   In this setting, memory consumption is **O(M + B*N)**, where **B** is the number of total samplings, **N** is the number of genomic elements being tested and **M** is the size of one interval tree constructed for each chromosome. 
 		-  Running GLANET **without z-score** calculates the test statistic for each sampling and requires storing the interval trees for all chromosomes at the same time. 
-		   Then, **without z-score** checks whether sampling has test statistic greater than or equal to original (observed) test statistic. 
+		   Then, **without z-score** checks whether each sampling has test statistic greater than or equal to original (observed) test statistic. 
 		   If yes, it increments the number of such samplings by one. As a result, although **without z-score** calculation increases memory consumption by requiring all of the interval trees for all chromosomes in memory at the same time, 
 		   it decreases the memory consumption by not keeping test statistics for  each sampling for each element but just the number of samplings (that have test statistic greater than or equal to the original test statistic) per element. 
-		   Thus, its memory consumption is proportional to **O(P+N)**, where **P** is the size of the number of total number of trees. 
-		   This trade-off between running GLANET in **with z-score** mode or in **without z-score** mode can be solved by considering the number of total samplings **B** times number of elements **N** being analysed.  
+		   Thus, its memory consumption is proportional to **O(P+N)**, where **P** is the size of total number of interval trees. 
+		-  This trade-off between running GLANET in **with z-score** mode or in **without z-score** mode can be solved by considering the number of total samplings **B** times number of elements **N** being analysed.  
 		   When **B*N** is in hundreds of thousands, running GLANET with **with z-score** option could be too memory consuming; therefore, we recommend using **without z-score** option.		 
 		
 	* *Generate Random Data Mode*
@@ -259,14 +260,14 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 	* *Number of samplings In Each Run*
 		-  Choose the *number of samplings* in each run among 1000, 5000 and 10000 choices.
 	e.g.: Do not forget that increasing the number of runs increases the GLANET execution time.
-		-  	If your system properties are good such as CPU and RAM, prefer minimum number of runs.
+		-  	If your system performance is high in terms of CPU and RAM, prefer minimum number of runs.
 		-  	You may have 10000 samplings, by achieving 10000 samplings in each run, which makes 10000/10000 = 1 run at total.
-		-  	Or you may have 100000 samplings, by achieving 10000 samplings in each run, which makes 100000/10000 = 10 runs at total.
+		-  	Or you may have 10000 samplings, by achieving 1000 samplings in each run, which makes 10000/1000 = 10 runs at total.
 
 8)	**Regulatory Sequence Analysis**: (Optional)
 
 		-  Please note that Regulatory Sequence Analysis is enabled if you have checked at least one of the following Annotation Options such as *TF*, *TF and KEGG Pathway* or *TF and KEGG Pathway (CellLine based)*.
-		-  If you want to carry on Regulatory Sequence Analysis, you must check the Regulatory Sequence Analysis using RSAT check box.
+		-  If you want to perform Regulatory Sequence Analysis, you must check the Regulatory Sequence Analysis using RSAT check box.
 		-  	Regulatory Sequence Analysis requires *Annotation Output* drop down box selected as *Write Overlaps, Each One In Separate File (Element Based)* or *Write Overlaps, All In One File (Element Type Based)*.
 		-  	Please notice that Regulatory Sequence Analysis is carried out for all of the annotated Transcription Factors.
 		-  	Regulatory Sequence Analysis makes use of RSAT web services.
