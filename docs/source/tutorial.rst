@@ -180,19 +180,27 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 				| UserDefinedLibraryInputFile.txt
 				
-			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly::
-				The files are provided under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/TranscriptionFactors.
+			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly.
+				The files referred in **UserDefinedLibraryInputFile.txt** are provided under
 				
-					G\:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
+				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
+				| TranscriptionFactors/
+
+					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
 
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
 		   GLANET supports four Data Formats:
 			
-		   	-  0-based coordinates (End Inclusive)
 		   	-  0-based coordinates (End Exclusive)
-		   	-  1-based coordinates (End Inclusive)
+		   	-  0-based coordinates (End Inclusive)
 		   	-  1-based coordinates (End Exclusive)
-		   	-  Choose the appropriate the Data Format.
+		   	-  1-based coordinates (End Inclusive)
+		   	
+			Choose the appropriate the Data Format. 
+			Choose 0-based coordinates (End Exclusive) if you have selected 
+
+				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
+				| UserDefinedLibraryInputFile.txt
 
 .. figure:: ../images/GLANET_lower.png
    :alt: GLANET_GUI_LowerPart
