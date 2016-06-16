@@ -53,7 +53,7 @@ We have run each simulation with 4 different settings of GLANET:
 +------------------------------------------+-----------+ 
 | Number of Simulations                    | 1000      | 
 +------------------------------------------+-----------+ 
-| Number of GLANET runs for each simulation| 1000      | 
+| Number of GLANET runs for each simulation| 4         | 
 +------------------------------------------+-----------+ 
 | Number of cell lines (GM12878 and K562)  | 2         |
 +------------------------------------------+-----------+ 
