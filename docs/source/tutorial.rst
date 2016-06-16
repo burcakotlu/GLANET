@@ -58,13 +58,13 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 	* *GFF3*
 		-  Sample input data for *GFF3* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
-		| CVD_Mediation_0Based_Start_End_GRCh37_p13_coordinates.gff3,
+		| test_input_data_GFF3_format.gff3,
 		-  Input Format must be selected as *GFF3*.
 
 	* *1-based coordinates (End Inclusive)*
 		-  Sample input data for *1-based coordinates (End Inclusive)* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
-		| OCD_GWAS_SNPs_chrNumber_1Based_GRCh37_p13_Coordinates.txt,
+		| OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt,
 		-  Input Format must be selected as *1-based coordinates (End Inclusive)*.
 
 	* *0-based coordinates (End Inclusive)*
