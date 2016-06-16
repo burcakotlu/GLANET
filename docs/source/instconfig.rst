@@ -91,4 +91,4 @@ GLANET System Requirements
 
 4. Perl should be installed in your computer.
 
-5. During execution of GLANET, it calls NCBI E-utilities and RSAT web service, therefore GLANET must be run an a computer with an internet connection.
+5. During execution, GLANET makes calls to NCBI E-utilities and RSAT web service, therefore GLANET must be run an a computer with an internet connection.

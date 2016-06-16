@@ -34,7 +34,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 1)	**Input File Name**: (Mandatory)
 
 	You have to provide input file which contains user given genomic intervals.
-	Assume that Data.zip is extracted under a directory called **GLANET Folder**.
+	Assume that Data.zip is extracted under a directory, let's call it **GLANET Folder**.
 	Then sample input data can be reached from 
 
 			   | ~path/to/GLANET Folder/Data/demo_input_data/
@@ -46,31 +46,31 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 	* *dbSNP IDs*
 		-  Sample input data for *dbSNP IDs* can be reached at
-		| ~path/to/GLANET Folder/Data/demo_input_data/CVD_rsIDs_Mediation.txt,
+		| ~path/to/GLANET Folder/Data/demo_input_data/CVD_rsIDs_Mediation.txt
 		-  Input Format must be selected as *dbSNP IDs*.
 
 	* *BED*
 		-  Sample input data for *BED* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
-		| CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed,
+		| CVD_Mediation_0BasedStart_EndExclusive_GRCh37_p13_coordinates.bed
 		-  Input Format must be selected as *BED*.
 
 	* *GFF3*
 		-  Sample input data for *GFF3* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
-		| test_input_data_GFF3_format.gff3,
+		| test_input_data_GFF3_format.gff3
 		-  Input Format must be selected as *GFF3*.
 
 	* *1-based coordinates (End Inclusive)*
 		-  Sample input data for *1-based coordinates (End Inclusive)* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
-		| OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt,
+		| OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt
 		-  Input Format must be selected as *1-based coordinates (End Inclusive)*.
 
 	* *0-based coordinates (End Inclusive)*
 		-  Sample input data for *0-based coordinates (End Inclusive)* can be reached at
 		| ~path/to/GLANET Folder/Data/demo_input_data/
-		| test_interval_data_K562_Usf2_0based_GRCh37_p13_Coordinates.txt,
+		| test_interval_data_K562_Usf2_0based_GRCh37_p13_Coordinates.txt
 		-  Input Format must be selected as *0-based coordinates (End Inclusive)*.
 
 
