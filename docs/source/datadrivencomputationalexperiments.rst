@@ -39,11 +39,13 @@ We have considered the lowest and highest TPM values across replicates for defin
 For each interval pool, we had 1000 simulations.
 For each simulation, we have sampled 500 random non-overlapping intervals from 	the corresponding interval pool.
 
-We have run each simulation with 4 different settings of GLANET:
+We have run each simulation with 6 different settings of GLANET:
 
-* (wGCM, EOO)
+* (wGCM, EOO, woIF)
+* (wGCM, EOO, wIF)
 * (woGCM, EOO)
-* (wGCM, NOOB)
+* (wGCM, NOOB, woIF)
+* (wGCM, NOOB, wIF)
 * (woGCM,NOOB)
 
 +------------------------------------------------------+ 
@@ -53,15 +55,14 @@ We have run each simulation with 4 different settings of GLANET:
 +------------------------------------------+-----------+ 
 | Number of Simulations                    | 1000      | 
 +------------------------------------------+-----------+ 
-| Number of GLANET runs for each simulation| 4         | 
+| Number of GLANET runs for each simulation| 6         | 
 +------------------------------------------+-----------+ 
 | Number of cell lines (GM12878 and K562)  | 2         |
 +------------------------------------------+-----------+ 
-| Total number of GLANET Runs              | 40000     |
+| Total number of GLANET Runs              | 60000     |
 +------------------------------------------+-----------+ 
 
-
-
+All the figures are provided in the Supplementary Materials for GLANET paper.
 
 .. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
    :align: center
