@@ -18,7 +18,7 @@ For **Mac OS X** users, the operating system comes with the installed Perl. If y
 
 	$ sudo curl -L http://xrl.us/installperlosx | bash
 
-For **Linux** users, Perl is probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below. After installing perl, you also may need to install parser library for Perl. You may run the commands below seperately::
+For **Linux** users, Perl is probably installed in your operating system. If you want to update or install Perl, open a Terminal and write the command below. After installing perl, you may also need to install parser library for Perl. You may run the commands below seperately::
 
 	$ sudo curl -L http://xrl.us/installperlnix | bash
 	$ sudo apt-get build-dep libxml-parser-perl
@@ -29,7 +29,7 @@ First install cpanminus, which will allow other modules to be installed easily. 
 
 	$ cpan App:cpanminus
 
-Now, install Getopt/Long.pm module. Note that if any of the modules below is installed in your computer, you will be notified::
+Now, install Getopt/Long.pm module. Note that if any of the modules below is already installed in your computer, you will be notified::
 
 	$ cpanm Getopt::Long
 
@@ -67,11 +67,11 @@ Install JSON module::
 	
 3. Download executable GLANET.jar from :ref:`executable-label`
 	
-4. Download Data.zip from :ref:`data-label` and extract it as **Data** under a directory you name it, for example *GLANET Folder*. 
+4. Download Data.zip from :ref:`data-label` and extract it as **Data** under a directory you name it, which will become your *GLANET Folder*. 
 
 			   | e.g.: ~path/to/GLANET Folder/
 			   
-   Data.zip contains the necessary data for Annotation.	
+   Data.zip contains the all the necessary data for Annotation.	
    The important point is that this *GLANET Folder* directory must be the parent directory of extracted **Data** directory.
    
 			   | ~path/to/GLANET Folder/Data/
@@ -91,4 +91,4 @@ GLANET System Requirements
 
 4. Perl should be installed in your computer.
 
-5. During execution of GLANET calls NCBI E-utilities and RSAT web service, therefore GLANET must be run an a computer with an internet connection.
+5. During execution of GLANET, it calls NCBI E-utilities and RSAT web service, therefore GLANET must be run an a computer with an internet connection.

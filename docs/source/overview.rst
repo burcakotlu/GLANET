@@ -21,7 +21,7 @@ GLANET annotation library includes intervals of genomic elements such as:
 
 In order to identify the genomic elements enriched in the query set, GLANET implements a sampling-based enrichment test that accounts for systematic biases such as GC content and mappability inherent to NGS technologies. 
 When the input intervals are derived from an NGS experiment, these biases constrain regions of the genome that can contribute to interval generation.
-Few of the existing tools account for these biases but at coarse-grain level not at fine-grain level as GLANET does.
+Few of the existing tools account for one or both of these biases at coarse-grain level but not at fine-grain level as GLANET does.
 
 We developed GLANET both as an annotation and enrichment tool with several useful built-in analysis capabilities.
 Users can easily annotate their input intervals with the genomic elements defined in the annotation library and expand the GLANET library by adding user-defined libraries and/or pre-defined gene sets. 
@@ -46,9 +46,9 @@ GLANET Flowchart
 GLANET Features
 ---------------
 
-* Users can query SNPs or varying length genomic intervals for annotation and/or enrichment analysis. GLANET supports commonly used input formats such as BED, GFF3, 0-based or 1-based coordinates, and reference SNP (RS) IDs for SNPs..
+* Users can query SNPs or varying length genomic intervals for annotation and/or enrichment analysis. GLANET supports commonly used input formats such as BED, GFF3, 0-based or 1-based coordinates, and reference SNP (RS) IDs for SNPs.
 * GLANET implements a null model that accounts for systematic biases such as mappability and GC content inherent to NGS in order to evaluate whether the input intervals overlap significantly with the genomic elements in the GLANET annotation library.
-* GLANET's sampling-based enrichment analysis accounts for given interval's length and the chromosome it is located on in addition to the systematic biases such as mappability and GC content.
+* GLANET's sampling-based enrichment analysis also accounts for given interval's length and the chromosome it is located on in addition to the systematic biases such as mappability and GC content.
 * GLANET interprets gene sets in three different ways which are exon-based, regulation-based and all-based manner.
   Exon-based gene set takes exons of genes, regulation-based takes introns, upstream and downstream proximal regions of genes 
   and lastly all-based takes all the defined regions in exon-based and regulation-based, plus upstream and downstream distal regions of genes of each gene set into account.
