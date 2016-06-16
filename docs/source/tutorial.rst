@@ -291,7 +291,7 @@ In the following table, command-line arguments and their prerequisite arguments,
 A command-line argument is required if and only if its precondition argument(s) is specified.
 You must set at most one parameter per argument. 
 For example, if you set both -f0 and -fbed parameters for *Input File Format* argument, then the program will terminate by giving an error message. 
-Details of the command-line arguments with examples are specified below. 
+Details of the command-line arguments with sample runs are specified below. 
 Note that parameter "-c" indicates that GLANET will run in command-line mode, not with GUI.
 
 +-------------------------+---------------+-------------------+--------------+----------------------+
@@ -465,7 +465,7 @@ To enable GLANET to run in Terminal or Command Prompt, it must be indicated with
 ^^
 
 **Required** if :option:`-c` is set. Glanet folder location must be specified just after writing :option:`-g`.
-Do not forget that GLANET folder must have the Data folder as sub folder.
+Do not forget that GLANET folder must have the Data folder as its sub folder.
 
 -o
 ^^
@@ -500,7 +500,7 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 
 -noob
 ^^^^^
-**Required** if :option:`-c` is set. This option specifies that association measure type is Number of Overlapping Bases, it is 0 or more. See also `-eoo`_.
+**Required** if :option:`-c` is set. This option specifies that association measure type is Number of Overlapping Bases, it can be 0 or more. See also `-eoo`_.
 
 -eoo
 ^^^^
@@ -508,7 +508,7 @@ This option specifies that input file contains 1-based coordinates (End Inclusiv
 
 -nb
 ^^^
-**Required** if :option:`-eoo` is set. This option sets the number of bases that must overlap in order to accept that two intervals overlap. A positive integer value must be specified as the parameter. If you do not set anything, default option is :option:`-nb 1`.
+**Required** if :option:`-eoo` is set. This option sets the number of bases that must overlap in order to accept two intervals as overlapping intervals. A positive integer value must be specified as the parameter. If you do not set anything, default option is :option:`-nb 1`.
 
 -dnase
 ^^^^^^
@@ -648,6 +648,7 @@ If this option is specified, GLANET performs enrichment with z-scores.
 -wozs
 ^^^^^
 If this option is specified, GLANET performs enrichment without z-scores.
+:option:`-wozs` is only available for :option:`-eoo`.
 
 
 -wgcm
