@@ -41,22 +41,19 @@ GLANET Flowchart
     :align: center
     :alt: GLANET Flowchart
 
-GLANET enables user to load its user defined library and/or user defined gene sets in order to use them as Annotation Library. 
-Namely, genomic intervals obtained from user defined library and/or user defined gene sets will be populated in the Annotation Library
-and Annotation will be achieved w.r.t. these genomic intervals.
 
 ---------------
 GLANET Features
 ---------------
 
 * Users can query SNPs or varying length genomic intervals for annotation and/or enrichment analysis. GLANET supports commonly used input formats such as BED, GFF3, 0-based or 1-based coordinates, and reference SNP (RS) IDs for SNPs..
-* GLANET implements a null model that accounts for systematic biases such as mappability and GC content inherent to NGS in order to evaluate whether the input intervals overlap significantly with the genomic elements in the GLANET annotation libraryGLANET implements a null model that accounts for systematic biases such as mappability \cite{MapabilityBias1, MapabilityBias2, MapabilityBias3} and GC content \cite{GCBias1, GCBias2, GCBias3} inherent to NGS in order to evaluate whether the input intervals overlap significantly with the genomic elements in the GLANET annotation libraryGLANET implements a null model that accounts for systematic biases such as mappability \cite{MapabilityBias1, MapabilityBias2, MapabilityBias3} and GC content \cite{GCBias1, GCBias2, GCBias3} inherent to NGS in order to evaluate whether the input intervals overlap significantly with the genomic elements in the GLANET annotation libraryGLANET implements a null model that accounts for systematic biases such as mappability \cite{MapabilityBias1, MapabilityBias2, MapabilityBias3} and GC content \cite{GCBias1, GCBias2, GCBias3} inherent to NGS in order to evaluate whether the input intervals overlap significantly with the genomic elements in the GLANET annotation libraryGLANET implements a null model that accounts for systematic biases such as mappability \cite{MapabilityBias1, MapabilityBias2, MapabilityBias3} and GC content \cite{GCBias1, GCBias2, GCBias3} inherent to NGS experiments in order to evaluate whether the input intervals overlap significantly with the genomic elements in the GLANET annotation library.
-* GLANET's sampling-based enrichment analysis accounts for given interval's length and the chromosome it is located on in addition to the systematic biases.
+* GLANET implements a null model that accounts for systematic biases such as mappability and GC content inherent to NGS in order to evaluate whether the input intervals overlap significantly with the genomic elements in the GLANET annotation library.
+* GLANET's sampling-based enrichment analysis accounts for given interval's length and the chromosome it is located on in addition to the systematic biases such as mappability and GC content.
 * GLANET interprets gene sets in three different ways which are exon-based, regulation-based and all-based manner.
   Exon-based gene set takes exons of genes, regulation-based takes introns, upstream and downstream proximal regions of genes 
   and lastly all-based takes all the defined regions in exon-based and regulation-based, plus upstream and downstream distal regions of genes of each gene set into account.
-* GLANET enables user to load user defined gene sets and/or user defined library and to achieve annotation and enrichment w.r.t. the given genomic intervals.
-* GLANET provides Regulatory Sequence Analysis for all of the annotated TFs when the input consists of SNPs only, using `RSAT <http://www.rsat.eu/>`_'s matrix scan web service.
+* GLANET enables user to load user defined gene sets and/or user defined library and to expand annotation library.
+* GLANET provides Regulatory Sequence Analysis using `RSAT <http://www.rsat.eu/>`_'s matrix scan web service for all of the annotated TFs when the input consists of SNPs only.
 * GLANET has assessed its Type-I error and power by designed data-driven computational experiments on two cell lines, GM12878 and K562, which showed that it has a well-controlled Type-I error rate and high statistical power.
 
 
