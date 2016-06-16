@@ -120,15 +120,15 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG Pathways in exon-based, regulation-based and all-based manner.
 
 	* *TF and KEGG Pathway Annotation*
-		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites and KEGG Pathways in exon-based, regulation-based and all-based manner.
-		This is a joint annotation which means that given interval, TF  and KEGG Pathway intervals overlap jointly.
+		-  Check this check box, if you want to annotate given intervals concurrently w.r.t. Transcription Factors binding sites and KEGG Pathways in exon-based, regulation-based and all-based manner.
+		This is a joint annotation which means that given interval, TF  and KEGG Pathway intervals overlap concurrently.
 		Here, same TF with different cell lines are pooled.
 		
 		In other words, joint annotation requires trio overlaps.
 
 	* *TF and KEGG Pathway Annotation (CellLine Based)*
-		-  Check this check box, if you want to annotate given intervals w.r.t. Transcription Factors binding sites (CellLine Based) and KEGG Pathways in exon-based, regulation-based and all-based manner.
-		This is a joint annotation which means that given interval, TF and KEGG Pathway intervals overlap jointly.
+		-  Check this check box, if you want to annotate given intervals concurrently w.r.t. Transcription Factors binding sites (CellLine Based) and KEGG Pathways in exon-based, regulation-based and all-based manner.
+		This is a joint annotation which means that given interval, TF and KEGG Pathway intervals overlap concurrently.
 	
 		In other words, joint annotation requires trio overlaps.
 		
@@ -180,12 +180,12 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 				| UserDefinedLibraryInputFile.txt
 				
-			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** in **UserDefinedLibraryInputFile.txt** accordingly::
+			-	Please be aware that you have to store the files in your disk and change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly::
 
 					G\:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
 
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
-		   	-  GLANET supports four Data Formats:
+		   	GLANET supports four Data Formats:
 		   	-  0-based coordinates (End Inclusive)
 		   	-  0-based coordinates (End Exclusive)
 		   	-  1-based coordinates (End Inclusive)
