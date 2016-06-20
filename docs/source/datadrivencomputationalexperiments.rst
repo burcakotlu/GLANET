@@ -111,7 +111,7 @@ We provide Type-I error and power for significance level of |agr| = 0.05 and |ag
 For **woIF**
 
 Experiments in K562 cell line for H3K27me3 resulted in power of 1 and Type-I error of 0 in all parameter settings. 
-Experiments conducted in GM12878 cell line for H3K27me3 resulted in power of $1$ and Type-I error of $0$ except few cases listed in table below. 
+Experiments conducted in GM12878 cell line for H3K27me3 resulted in power of 1 and Type-I error of 0 except few cases listed in the table below. 
 In each case, Type-I error is below the significance level of |agr| = 0.05.
 
 +-------------------------------------------+ 
@@ -137,6 +137,19 @@ Experiments in K562 and GM12878 cell lines for H3K27me3 resulted in power of 1 a
 
 For **woIF**
 
+Figures below summarizes the results for activator elements. 
+This setting includes expressed genes as the ones with TPM values in the top 5th percentile and non-expressed genes exclude zero TPM genes with DNaseI signal at the promoters with the \texttt{CompletelyDiscard} mode. 
+Results are reported at significance level alpha = 0.05 and alpha = 0.001 for GM12878 and K562, respectively. 
+Overall, we observe that the Type-I error is well below the target significance level for all the experiments where the activator elements are unambiguously related to transcriptional activation and the power is high with all four modes of the GLANET enrichment analysis.
+In Figure~\ref{fig:ddeNew}(a), Type-I error for H3K9me3 is significantly higher than the target level. 
+This could potentially be attributed to repressor properties of H3K9me3.
+The results with other histone marks highlight differences between the four enrichment analysis variations. 
+This is especially evident for the K562 experiments involving H3K4me1. 
+Although H3K4me1 is, in general, tightly linked to enhancer activity, it is also abundantly observed around 5' portions of actively transcribed genes and exhibits repressor features. 
+Interestingly, enrichment assessment of this mark for expressed genes is most affected by the mappability and GC adjustment in the null distribution estimation. 
+The Type-I error involving this mark improves significantly under the **with GC and Mappability** regardless of the association statistics utilized for enrichment without a negative impact on power. 
+Overall, it is evident that Type-I error control is significantly better with the **NOOB* association statistics without loss of power. 
+
 
 For **wIF**
 
@@ -149,11 +162,15 @@ Furthermore, in some cases, decrease in Type-I error has made Type-I error less 
 All the cases where Type-I error has made a change w.r.t. pre-set significance level, |agr| are given below:
 In other words, Type-I error has decreased such that it has become less than or equal to significance level, |agr| however it was greater than pre-set significance level in woIF:
 
-H3K9me3 (Ambiguous) ---- GM12878, non-expressed genes (Completely Discard), (NOOB,wGCM), Type-I error has become equal to significance level of |agr| = 0.001
-H3K4me3  ---- GM12878, non-expressed genes (TakeTheLongest), (EOO,wGCM), Type-I error has become less than significance level of |agr| = 0.05
-H3K4me1 (Ambiguous)  ---- K562, non-expressed genes (Completely Discard), (NOOB,wGCM), Type-I error has become less than significance level of |agr| = 0.05
-H3K4me1 (Ambiguous)  ---- K562, non-expressed genes (Completely Discard), (EOO,wGCM), Type-I error has become 0.004 whereas significance level of |agr|is 0.001
-H3K9ACB, H4K20me1 (Ambiguous)  ---- K562, non-expressed genes (TakeTheLongest), (EOO,wGCM), Type-I error has become less than significance level of |agr| is 0.05. 
+H3K9me3 (Ambiguous) *GM12878, non-expressed genes (Completely Discard), (NOOB,wGCM)*, Type-I error has become equal to significance level of |agr| = 0.001.
+
+H3K4me3  *GM12878, non-expressed genes (TakeTheLongest), (EOO,wGCM)*, Type-I error has become less than significance level of |agr| = 0.05.
+
+H3K4me1 (Ambiguous)  *K562, non-expressed genes (Completely Discard), (NOOB,wGCM)*, Type-I error has become less than significance level of |agr|, 0.05.
+
+H3K4me1 (Ambiguous)  *K562, non-expressed genes (Completely Discard), (EOO,wGCM)*, Type-I error has become 0.004 whereas significance level of |agr| is 0.001.
+
+H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO,wGCM)*, Type-I error has become less than significance level of |agr|, 0.05. 
 
 **Figures**
 
