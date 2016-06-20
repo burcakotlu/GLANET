@@ -1559,8 +1559,8 @@ public class Commons {
 	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "-wozs";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-wgcm";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-wogcm";
-	public static final String ARG_GENERATE_RANDOM_DATA_WITH_ISOCHORE_FAMILY_POOLS = "-wiso";
-	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_ISOCHORE_FAMILY_POOLS = "-woiso";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITH_ISOCHORE_FAMILY_POOLS = "-wif";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_ISOCHORE_FAMILY_POOLS = "-woif";
 	public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-bh";
 	public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-bonf";
 	public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";

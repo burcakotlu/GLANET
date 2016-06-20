@@ -399,9 +399,9 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         +---------------+                   |              |                      |
 |                         | `-wogcm`_     |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
-|                         | `-wiso`_      |  Required         | `-e`_        | `-woiso`_            |
+|                         | `-wif`_       |  Required         | `-e`_        | `-woif`_             |
 |                         +---------------+                   |              |                      |
-|                         | `-woiso`_     |                   |              |                      |
+|                         | `-woif`_      |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-bh`_        |  Required         | `-e`_        | `-bh`_               |
 |                         +---------------+                   |              |                      |
@@ -668,17 +668,17 @@ If you do not set anything, default option is :option:`-wgcm`.
 This option generates random data without GC and Mapability.
 See also `-wgcm`_.
 
--wiso
-^^^^^
+-wif
+^^^^
 If this option is specified, GLANET performs random interval generation using random interval selected from corresponding isochore family pool.
-If you do not set anything, default option is :option:`-woiso`.
-See also `-woiso`_.
+If you do not set anything, default option is :option:`-woif`.
+See also `-woif`_.
 
--woiso
-^^^^^^
+-woif
+^^^^^
 If this option is specified, GLANET performs random interval generation without isochore family pool.
-If you do not set anything, default option is :option:`-woiso`.
-See also `-wiso`_.
+If you do not set anything, default option is :option:`-woif`.
+See also `-wif`_.
 
 -bh
 ^^^
