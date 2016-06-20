@@ -162,6 +162,34 @@ The Type-I error involving this mark improves significantly under the **with GC 
 Overall, it is evident that Type-I error control is significantly better with the **NOOB** association statistics without loss of power. 
 
 
+.. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
+   :align: center
+   :alt: GM12878_Non_expressing_genes_alpha_0_05_CompletelyDiscard
+
+   Figure 2: GM12878, Non-expressing genes, |agr| = 0.05, CompletelyDiscard, Type-I Error
+
+ 
+.. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5.png
+   :align: center
+   :alt: GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5
+
+   Figure 3: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
+
+   
+.. figure:: ../images/ddce/woIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_001_Facet_CompletelyDiscard.png
+   :align: center
+   :alt: K562_Non_expressing_genes_alpha_0_001_CompletelyDiscard
+
+   Figure 4: K562, Non-expressing genes, |agr| = 0.001, CompletelyDiscard, Type-I Error   
+
+
+.. figure:: ../images/ddce/woIF_empiricalPValues/K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5.png
+   :align: center
+   :alt: K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5
+
+   Figure 5: K562, Expressing genes, |agr| = 0.001, Top5, Power   
+	
+	
 For **wIF**
 
 By using wIF option, Type-I error and power both have decreased.
@@ -183,32 +211,6 @@ H3K4me1 (Ambiguous)  *K562, non-expressed genes (Completely Discard), (EOO,wGCM)
 
 H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO,wGCM)*, Type-I error has become less than significance level of |agr|, 0.05. 
 
-**Figures**
 
 
-.. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
-   :align: center
-   :alt: GM12878_Non_expressing_genes_alpha_0_05_CompletelyDiscard
-
-   Figure 2: GM12878, Non-expressing genes, |agr| = 0.05, CompletelyDiscard, Type-I Error
-
- 
-.. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5.png
-   :align: center
-   :alt: GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5
-
-   Figure 3: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
-
-   
-.. figure:: ../images/ddce/woIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_001_Facet_CompletelyDiscard.png
-   :align: center
-   :alt: K562_Non_expressing_genes_alpha_0_001_CompletelyDiscard
-
-    Figure 4: K562, Non-expressing genes, |agr| = 0.001, CompletelyDiscard, Type-I Error   
-
-
-.. figure:: ../images/ddce/woIF_empiricalPValues/K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5.png
-   :align: center
-   :alt: K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5
-
-    Figure 5: K562, Expressing genes, |agr| = 0.001, Top5, Power   
+	
