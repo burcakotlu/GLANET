@@ -103,13 +103,16 @@ In these experiment, our null hypothesis is that there is no enrichment.s
 
 **Data-driven Computational Experiments Results**
 
-We provide Type-I error and power for significance level of alpha =0.05 and alpha =0.001.
+We provide Type-I error and power for significance level of |agr| = 0.05 and |agr| = 0.001.
+
+**Repressor elements**
+For **woIF**
 Experiments in K562 cell line for H3K27me3 resulted in power of 1 and Type-I error of 0 in all parameter settings. 
 Experiments conducted in GM12878 cell line for H3K27me3 resulted in power of $1$ and Type-I error of $0$ except few cases listed in table below. 
-In each case, Type-I error is below the significance level of .. |agr| =0.05.
+In each case, Type-I error is below the significance level of |agr| = 0.05.
 
 +-------------------------------------------+ 
-| Expressed Genes                           |
+| Expressed Genes, |agr| = 0.05.            |
 +===========================+=======+=======+ 
 | Parameters         | Top5 | Top10 | Top20 |
 +--------------------+------+-------+-------+
@@ -122,6 +125,8 @@ In each case, Type-I error is below the significance level of .. |agr| =0.05.
 | GLANET(wGCM,NOOB)  | 0    | 0     | 0     |
 +--------------------+------+-------+-------+
 
+For **wIF**
+Experiments in K562 and GM12878 cell lines for H3K27me3 resulted in power of 1 and Type-I error of 0 in all parameter settings. 
 
 **Figures**
 
