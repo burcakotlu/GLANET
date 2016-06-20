@@ -12,11 +12,13 @@ These experiments indicated that while GLANET enrichment test often performs con
 We have used histone modification, DNA polymerase II (POL2) ChIP-seq and RNA-seq data.
 We have focused on 12 histone modifications and POL2 in promoter regions of expressed and non-expressed genes.
 
+**Elements**
+
 As ground truth, we considered histone modifications  and POL2 occupancy in three groups:
 
-* *Activator elements*: H2AZ, H3K27ac, H3K4me2, H3K4me3, H3K79me2, H3K9ac, H3K9acb, and POL2
-* *Repressor elements*: H3K27me3
-* *Ambigious elements* (exhibit both activator and repressor features): H3K36me3, H3K4me1, H3K9me3 and H4K20me1
+* **Activator elements**: H2AZ, H3K27ac, H3K4me2, H3K4me3, H3K79me2, H3K9ac, H3K9acb, and POL2
+* **Repressor elements**: H3K27me3
+* **Ambigious elements** (exhibit both activator and repressor features): H3K36me3, H3K4me1, H3K9me3 and H4K20me1
   
   
 **Interval Pools**
@@ -30,23 +32,23 @@ We have filled our genomic interval pool by promoter regions of genes by conside
    Data-driven Computational Experiment Interval
 
 We have labeled genes with zero Transcript Per Million (TPM) as non-expressed genes.
-We have defined two genomic interval pools from non-expressed genes.
+We have defined **2 genomic interval pools from non-expressed genes**.
 It has been shown that DNaseI hypersensitivity and gene expression correlate.
 Therefore we have excluded DNaseI overlap from these promoter regions in two modes:
 
-* *CompletelyDiscard*: If promoter region overlaps with any DNaseI hypersensitive sites of the corresponding cell line, discard the interval completely.
-* *TakeTheLongest*: : If promoter region overlaps with any DNaseI hypersensitive sites of the corresponding cell line, remove that overlap, there might be more than one remaining intervals, choose the longest one among remaining intervals.
+1. **CompletelyDiscard**: If promoter region overlaps with any DNaseI hypersensitive sites of the corresponding cell line, discard the interval completely.
+2. **TakeTheLongest**: : If promoter region overlaps with any DNaseI hypersensitive sites of the corresponding cell line, remove that overlap, there might be more than one remaining intervals, choose the longest one among remaining intervals.
 
-We have defined three genomic interval pools from expressed genes.
+We have defined **3 genomic interval pools from expressed genes**.
 We have sorted the genes w.r.t. their TPM values in descending order.
 
-* *Top5*: We considered the top 5th percentile of the genes in expressed genes interval pools.
-* *Top10*: We considered the top 10th percentile of the genes in expressed genes interval pools.
-* *Top20*: We considered the top 20th percentile of the genes in expressed genes interval pools.
+1. **Top5**: We considered the top 5th percentile of the genes in expressed genes interval pools.
+2. **Top10**: We considered the top 10th percentile of the genes in expressed genes interval pools.
+3. **Top20**: We considered the top 20th percentile of the genes in expressed genes interval pools.
 
 As a result, we have 5 interval pools at total, 2 of them from non-expressed genes and 3 of them from expressed genes.
 
-**Note**
+**Note: **
 GM12878 and K562 RNA-seq data have two biological replicates.
 We have considered the lowest and highest TPM values across replicates for defining the expressed and non-expressed genes, respectively.
 
