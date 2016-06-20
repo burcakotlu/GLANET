@@ -3,10 +3,12 @@ GLANET Data Driven Computational Experiments
 ============================================
 
 **Motivation**
+
 In order to assess the statistical power and Type-I error control of GLANET, we designed data-driven computational experiments using large collections of ENCODE ChIP-seq and RNA-seq data. 
 These experiments indicated that while GLANET enrichment test often performs conservatively in terms of Type-I error, it has high statistical power.
 
 **Data**
+
 We have used histone modification, DNA polymerase II (POL2) ChIP-seq and RNA-seq data.
 We have focused on 12 histone modifications and POL2 in promoter regions of expressed and non-expressed genes.
 
@@ -17,7 +19,14 @@ As ground truth, we considered histone modifications  and POL2 occupancy in thre
 * Ambigious elements (exhibit both activator and repressor features): H3K36me3, H3K4me1, H3K9me3 and H4K20me1
 
 **Interval Pools**
+
 We have filled our genomic interval pool by promoter regions of genes by considering 500 bps upstream and 100 bps downstream of genes in GM12878 and K562 RNA-seq data.
+
+.. figure:: ../images/ddce/DataDrivenExperimentInterval.png
+   :align: center
+   :alt: DataDrivenExperimentInterval
+
+   Data-driven Computational Experiment Interval
 
 We have labeled genes with zero Transcript Per Million (TPM) as non-expressed genes.
 We have defined two genomic interval pools from non-expressed genes.
@@ -40,6 +49,7 @@ GM12878 and K562 RNA-seq data have two biological replicates.
 We have considered the lowest and highest TPM values across replicates for defining the expressed and non-expressed genes, respectively.
 
 **Data-driven Computational Experiment Design**
+
 For each interval pool, we had 1000 simulations.
 For each simulation, we have sampled 500 random non-overlapping intervals from 	the corresponding interval pool.
 
