@@ -70,6 +70,7 @@ We have performed the data-driven computational experiments summarized in table 
 | Repressor Elements |          Type-I Error               |                 Power                   |                
 +--------------------+-------------------------------------+-----------------------------------------+ 
 
+We have considered empirical p-values in these experiments.
 We varied the definitions of non-expressed and expressed genes and repeated the experiments for each setting. 
  
 For each interval pool, we had 1000 simulations.
@@ -106,14 +107,16 @@ In these experiment, our null hypothesis is that there is no enrichment.s
 We provide Type-I error and power for significance level of |agr| = 0.05 and |agr| = 0.001.
 
 **Repressor elements**
+
 For **woIF**
+
 Experiments in K562 cell line for H3K27me3 resulted in power of 1 and Type-I error of 0 in all parameter settings. 
 Experiments conducted in GM12878 cell line for H3K27me3 resulted in power of $1$ and Type-I error of $0$ except few cases listed in table below. 
 In each case, Type-I error is below the significance level of |agr| = 0.05.
 
 +-------------------------------------------+ 
 | Expressed Genes, |agr| = 0.05.            |
-+===========================+=======+=======+ 
++====================+======+=======+=======+ 
 | Parameters         | Top5 | Top10 | Top20 |
 +--------------------+------+-------+-------+
 | GLANET(woGCM,EOO)  | 0    | 0     | 0.006 |
@@ -126,7 +129,31 @@ In each case, Type-I error is below the significance level of |agr| = 0.05.
 +--------------------+------+-------+-------+
 
 For **wIF**
+
 Experiments in K562 and GM12878 cell lines for H3K27me3 resulted in power of 1 and Type-I error of 0 in all parameter settings. 
+
+
+**Activator elements**
+
+For **woIF**
+
+
+For **wIF**
+
+By using wIF option, Type-I error and power both have decreased.
+
+This is valid for both of the cell lines (GM12878 and K562), and under all scenarios of non-expressed (CompletelyDiscard, TakeTheLongest) genes and expressed (Top5, Top10, Top20) genes.
+Type-I error has decreased for both activator and ambiguous elements whereas power has decreased only for ambiguous elements.
+Furthermore, in some cases, decrease in Type-I error has made Type-I error less than pre-set significance level, |agr|.
+
+All the cases where Type-I error has made a change w.r.t. pre-set significance level, |agr| are given below:
+In other words, Type-I error has decreased such that it has become less than or equal to significance level, |agr| however it was greater than pre-set significance level in woIF:
+
+H3K9me3 (Ambiguous) ---- GM12878, non-expressed genes (Completely Discard), (NOOB,wGCM), Type-I error has become equal to significance level of |agr| = 0.001
+H3K4me3  ---- GM12878, non-expressed genes (TakeTheLongest), (EOO,wGCM), Type-I error has become less than significance level of |agr| = 0.05
+H3K4me1 (Ambiguous)  ---- K562, non-expressed genes (Completely Discard), (NOOB,wGCM), Type-I error has become less than significance level of |agr| = 0.05
+H3K4me1 (Ambiguous)  ---- K562, non-expressed genes (Completely Discard), (EOO,wGCM), Type-I error has become 0.004 whereas significance level of |agr|is 0.001
+H3K9ACB, H4K20me1 (Ambiguous)  ---- K562, non-expressed genes (TakeTheLongest), (EOO,wGCM), Type-I error has become less than significance level of |agr| is 0.05. 
 
 **Figures**
 
