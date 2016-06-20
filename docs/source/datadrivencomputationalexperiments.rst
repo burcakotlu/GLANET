@@ -15,9 +15,13 @@ We have focused on 12 histone modifications and POL2 in promoter regions of expr
 As ground truth, we considered histone modifications  and POL2 occupancy in three groups:
 
 * Activator elements: H2AZ, H3K27ac, H3K4me2, H3K4me3, H3K79me2, H3K9ac, H3K9acb, and POL2
+  ===================
 * Repressor elements: H3K27me3
+  ===================
 * Ambigious elements (exhibit both activator and repressor features): H3K36me3, H3K4me1, H3K9me3 and H4K20me1
-
+  ===================================================================
+  
+  
 **Interval Pools**
 
 We have filled our genomic interval pool by promoter regions of genes by considering 500 bps upstream and 100 bps downstream of genes in GM12878 and K562 RNA-seq data.
