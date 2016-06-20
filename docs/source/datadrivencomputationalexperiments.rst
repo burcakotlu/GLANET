@@ -159,7 +159,7 @@ Interestingly, enrichment assessment of this mark for expressed genes is most af
 
 The Type-I error involving this mark improves significantly under the **with GC and Mappability** regardless of the association statistics utilized for enrichment without a negative impact on power. 
 
-Overall, it is evident that Type-I error control is significantly better with the **NOOB* association statistics without loss of power. 
+Overall, it is evident that Type-I error control is significantly better with the **NOOB** association statistics without loss of power. 
 
 
 For **wIF**
@@ -186,26 +186,26 @@ H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO
 **Figures**
 
 
-
 .. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
    :align: center
    :alt: GM12878_Non_expressing_genes_alpha_0_05_CompletelyDiscard
 
    Figure 2: GM12878, Non-expressing genes, |agr| = 0.05, CompletelyDiscard, Type-I Error
-   
+
+ 
 .. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5.png
    :align: center
    :alt: GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5
 
    Figure 3: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
-   
-   below is @todo
+
    
 .. figure:: ../images/ddce/woIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_001_Facet_CompletelyDiscard.png
    :align: center
    :alt: K562_Non_expressing_genes_alpha_0_001_CompletelyDiscard
 
     Figure 4: K562, Non-expressing genes, |agr| = 0.001, CompletelyDiscard, Type-I Error   
+
 
 .. figure:: ../images/ddce/woIF_empiricalPValues/K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5.png
    :align: center
