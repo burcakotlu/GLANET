@@ -42,13 +42,13 @@ Therefore we have excluded DNaseI overlap from these promoter regions in two mod
 We have defined **3 genomic interval pools from expressed genes**.
 We have sorted the genes w.r.t. their TPM values in descending order.
 
-1. **Top5**: We considered the top 5th percentile of the genes in expressed genes interval pools.
-2. **Top10**: We considered the top 10th percentile of the genes in expressed genes interval pools.
-3. **Top20**: We considered the top 20th percentile of the genes in expressed genes interval pools.
+1. **Top5**: We considered the top 5th percentile of the genes in expressed genes interval pool.
+2. **Top10**: We considered the top 10th percentile of the genes in expressed genes interval pool.
+3. **Top20**: We considered the top 20th percentile of the genes in expressed genes interval pool.
 
 As a result, we have 5 interval pools at total, 2 of them from non-expressed genes and 3 of them from expressed genes.
 
-**Note: **
+**Note:**
 GM12878 and K562 RNA-seq data have two biological replicates.
 We have considered the lowest and highest TPM values across replicates for defining the expressed and non-expressed genes, respectively.
 
@@ -57,7 +57,8 @@ We have considered the lowest and highest TPM values across replicates for defin
 For each interval pool, we had 1000 simulations.
 For each simulation, we have sampled 500 random non-overlapping intervals from 	the corresponding interval pool.
 
-We have run each simulation with 6 different settings of GLANET:
+We have run each simulation with 6 different settings of GLANET by varying association measure type as **EOO** or **NOOB** and random interval generation mode as **wGCM** or **woGCM**.
+We have run **wGCM** with two modes of Isochore Family, **wIF** or **woIF**.
 
 * *(wGCM, EOO, woIF)*
 * *(wGCM, EOO, wIF)*
@@ -79,6 +80,8 @@ We have run each simulation with 6 different settings of GLANET:
 +------------------------------------------+-----------+ 
 | Total number of GLANET Runs              | 60000     |
 +------------------------------------------+-----------+ 
+
+**Data-driven Computational Experiments Results**
 
 **Figues**
 
