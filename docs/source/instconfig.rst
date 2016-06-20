@@ -12,7 +12,7 @@ Install latest Java SE from `here <http://www.oracle.com/technetwork/articles/ja
 
 2. Perl
 
-**Important:** If you have installed Perl before but it is not a version of Strawberry Perl, we strongly suggest that you, first, uninstall the Perl you have and then follow the steps specified below. It is important that you do that because we assume the required modules will be downloaded from Strawberry Perl's database.
+**Important:** If you have installed Perl before but it is not a version of Strawberry Perl, we strongly suggest that you, first, uninstall the Perl you have and then follow the steps specified below. It is important that you do this because we assume the required modules will be downloaded from Strawberry Perl's database.
 
 For **Windows** users, Strawberry Perl can be downloaded from `here <http://www.strawberryperl.com>`_
 
