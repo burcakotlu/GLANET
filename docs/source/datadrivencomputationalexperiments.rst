@@ -54,11 +54,25 @@ We have considered the lowest and highest TPM values across replicates for defin
 
 **Data-driven Computational Experiment Design**
 
+
++--------------------------------------------------------------------------------------------------------+ 
+|                                               Null Hypotheses                                          |
++=======================+=====================================+==========================================+
+| Genomic Elements      | Promoter regions of expressed genes | Promoter regions of non-expressed genes  |
+|                       |    are not enriched for genomic     |      are not enriched for genomic        |
+|                       |          element j                  |            element j                     |              
++-----------------------+-------------------------------------+------------------------------------------+                                            
+| Activator Elements    |             Power                   |             Type-I Error                 |
++-----------------------+-------------------------------------+------------------------------------------+ 
+| Repressor Elements    |          Type-I Error               |                 Power                    |                
++-----------------------+-------------------------------------+------------------------------------------+ 
+ 
+
 For each interval pool, we had 1000 simulations.
 For each simulation, we have sampled 500 random non-overlapping intervals from 	the corresponding interval pool.
 
-We have run each simulation with 6 different settings of GLANET by varying association measure type as **EOO** or **NOOB** and random interval generation mode as **wGCM** or **woGCM**.
-We have run **wGCM** with two modes of Isochore Family, **wIF** or **woIF**.
+We have run each simulation with 6 different settings of GLANET by varying association measures such as **EOO** or **NOOB** and random interval generation mode sucg as **wGCM** or **woGCM**.
+We have tested **wGCM** with two modes of Isochore Family, **wIF** or **woIF**.
 
 * *(wGCM, EOO, woIF)*
 * *(wGCM, EOO, wIF)*
@@ -80,6 +94,8 @@ We have run **wGCM** with two modes of Isochore Family, **wIF** or **woIF**.
 +------------------------------------------+-----------+ 
 | Total number of GLANET Runs              | 60000     |
 +------------------------------------------+-----------+ 
+
+In these experiment, our null hypothesis is that there is no enrichment.s
 
 **Data-driven Computational Experiments Results**
 
