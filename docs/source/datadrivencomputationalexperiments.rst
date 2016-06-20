@@ -1,3 +1,5 @@
+.. include:: <isogrk1.txt>
+
 ============================================
 GLANET Data Driven Computational Experiments
 ============================================
@@ -12,7 +14,7 @@ These experiments indicated that while GLANET enrichment test often performs con
 We have used histone modification, DNA polymerase II (POL2) ChIP-seq and RNA-seq data.
 We have focused on 12 histone modifications and POL2 in promoter regions of expressed and non-expressed genes.
 
-**Elements**
+**Genomic Elements**
 
 As ground truth, we considered histone modifications  and POL2 occupancy in three groups:
 
@@ -54,7 +56,7 @@ We have considered the lowest and highest TPM values across replicates for defin
 
 **Data-driven Computational Experiment Design**
 
-We have performed the data-driven computational experiments summarized in table below under the six enrichment analysis settings of GLANET by varying association measures as **EOO** or **NOOB** and random interval generation mode as **wGCM** or **woGCM** and tested **wGCM** with two modes of Isochore Family, **wIF** or **woIF** for for null distribution estimation.
+We have performed the data-driven computational experiments summarized in table below under the six enrichment analysis settings of GLANET by varying association measures as **EOO** or **NOOB** and random interval generation mode as **wGCM** or **woGCM** and tested **wGCM** with two modes of Isochore Family, **wIF** or **woIF** for null distribution estimation.
 
 +----------------------------------------------------------------------------------------------------+ 
 |                                               Null Hypotheses                                      |
@@ -101,7 +103,27 @@ In these experiment, our null hypothesis is that there is no enrichment.s
 
 **Data-driven Computational Experiments Results**
 
-**Figues**
+We provide Type-I error and power for significance level of alpha =0.05 and alpha =0.001.
+Experiments in K562 cell line for H3K27me3 resulted in power of 1 and Type-I error of 0 in all parameter settings. 
+Experiments conducted in GM12878 cell line for H3K27me3 resulted in power of $1$ and Type-I error of $0$ except few cases listed in table below. 
+In each case, Type-I error is below the significance level of .. |agr| =0.05.
+
++-------------------------------------------+ 
+| Expressed Genes                           |
++===========================+=======+=======+ 
+| Parameters         | Top5 | Top10 | Top20 |
++--------------------+------+-------+-------+
+| GLANET(woGCM,EOO)  | 0    | 0     | 0.006 |
++--------------------+------+-------+-------+
+| GLANET(woGCM,NOOB) | 0    | 0.002 | 0.008 |
++--------------------+------+-------+-------+
+| GLANET(wGCM,EOO)   | 0    | 0     | 0     |
++--------------------+------+-------+-------+
+| GLANET(wGCM,NOOB)  | 0    | 0     | 0     |
++--------------------+------+-------+-------+
+
+
+**Figures**
 
 All the figures are provided in the Supplementary Materials for GLANET paper.
 
