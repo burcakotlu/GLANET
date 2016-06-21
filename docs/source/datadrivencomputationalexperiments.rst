@@ -177,7 +177,7 @@ Overall, it is evident that Type-I error control is significantly better with th
    :align: center
    :alt: GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5
 
-  Figure 3: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
+   Figure 3: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
   
 .. figure:: ../images/ddce/woIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_001_Facet_CompletelyDiscard.png
    :align: center
@@ -189,29 +189,29 @@ Overall, it is evident that Type-I error control is significantly better with th
    :align: center
    :alt: K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5
 
-  Figure 5: K562, Expressing genes, |agr| = 0.001, Top5, Power   
+   Figure 5: K562, Expressing genes, |agr| = 0.001, Top5, Power   
 	
 	
 For **wIF**
 
-By using wIF option, Type-I error and power both have decreased.
+By using wIF option, both Type-I error and power have decreased.
 
 This is valid for both of the cell lines (GM12878 and K562), and under all scenarios of non-expressed (CompletelyDiscard, TakeTheLongest) genes and expressed (Top5, Top10, Top20) genes.
-Type-I error has decreased for both activator and ambiguous elements whereas power has decreased only for ambiguous elements.
+Type-I error has decreased for activator and ambiguous elements whereas power has decreased only for ambiguous elements.
 Furthermore, in some cases, decrease in Type-I error has made Type-I error less than pre-set significance level, |agr|.
 
 All the cases where Type-I error has made a change w.r.t. pre-set significance level, |agr| are given below:
-In other words, Type-I error has decreased such that it has become less than or equal to significance level, |agr| however it was greater than pre-set significance level in woIF:
+In other words, Type-I error has decreased such that it has become less than or equal to significance level, |agr| however it wasn't in woIF case.
 
-H3K9me3 (Ambiguous) *GM12878, non-expressed genes (Completely Discard), (NOOB,wGCM)*, Type-I error has become equal to significance level of |agr| = 0.001.
+In Figure 8, H3K9me3 (Ambiguous) *GM12878, non-expressed genes (Completely Discard), (NOOB,wGCM)*, Type-I error has become equal to significance level of |agr| = 0.001.
 
-H3K4me3  *GM12878, non-expressed genes (TakeTheLongest), (EOO,wGCM)*, Type-I error has become less than significance level of |agr| = 0.05.
+In Figure 14, H3K4me3  *GM12878, non-expressed genes (TakeTheLongest), (EOO,wGCM)*, Type-I error has become less than significance level of |agr| = 0.05.
 
-H3K4me1 (Ambiguous)  *K562, non-expressed genes (Completely Discard), (NOOB,wGCM)*, Type-I error has become less than significance level of |agr|, 0.05.
+In Figure 10, H3K4me1 (Ambiguous)  *K562, non-expressed genes (Completely Discard), (NOOB,wGCM)*, Type-I error has become less than significance level of |agr|, 0.05.
 
-H3K4me1 (Ambiguous)  *K562, non-expressed genes (Completely Discard), (EOO,wGCM)*, Type-I error has become 0.004 whereas significance level of |agr| is 0.001.
+In Figure 12, H3K4me1 (Ambiguous)  *K562, non-expressed genes (Completely Discard), (EOO,wGCM)*, Type-I error has become 0.004 whereas significance level of |agr| is 0.001.
 
-H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO,wGCM)*, Type-I error has become less than significance level of |agr|, 0.05. 
+In Figure 18, H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO,wGCM)*, Type-I error has become less than significance level of |agr|, 0.05. 
 
 
 .. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
