@@ -217,5 +217,18 @@ H3K4me1 (Ambiguous)  *K562, non-expressed genes (Completely Discard), (EOO,wGCM)
 H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO,wGCM)*, Type-I error has become less than significance level of |agr|, 0.05. 
 
 
+.. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
+   :align: center
+   :alt: GM12878_Non_expressing_genes_alpha_0_05_CompletelyDiscard
+
+   Figure 6: GM12878, Non-expressing genes, |agr| = 0.05, CompletelyDiscard, Type-I Error
+
+
+.. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5.png
+   :align: center
+   :alt: GM12878_Expressing_genes_alpha_0_05_CompletelyDiscard
+
+   Figure 6: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
+
 
 	
