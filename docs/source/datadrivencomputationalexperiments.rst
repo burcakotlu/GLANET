@@ -51,13 +51,14 @@ We have sorted the genes w.r.t. their TPM values in descending order.
 As a result, we have 5 interval pools at total, 2 of them from non-expressed genes and 3 of them from expressed genes.
 
 **Note:**
-GM12878 and K562 RNA-seq data have two biological replicates.
+GM12878 and K562 RNA-seq data had two biological replicates.
 We have considered the lowest and highest TPM values across replicates for defining the expressed and non-expressed genes, respectively.
 
 **Data-driven Computational Experiment Design**
 
-We have performed the data-driven computational experiments summarized in table below under the six enrichment analysis settings of GLANET by varying association measures as **EOO** or **NOOB** and random interval generation mode as **wGCM** or **woGCM** and tested **wGCM** with two modes of Isochore Family, **wIF** or **woIF** for null distribution estimation.
+We have performed the data-driven computational experiments summarized in Table 1 under the six enrichment analysis settings of GLANET by varying association measures as **EOO** or **NOOB** and random interval generation mode as **wGCM** or **woGCM** and tested **wGCM** with two modes of Isochore Family, **wIF** or **woIF** for null distribution estimation.
 
+Table 1
 +----------------------------------------------------------------------------------------------------+ 
 |                                               Null Hypotheses                                      |
 +====================+=====================================+=========================================+
@@ -86,6 +87,7 @@ Furthermore, we have tested **wGCM** with Isochore Family, **wIF**.
 * *(wGCM, NOOB, wIF)*
 * *(woGCM,NOOB)*
 
+Table 2
 +------------------------------------------------------+ 
 | Data-Driven Computational Experiment                 |
 +==========================================+===========+ 
@@ -111,9 +113,10 @@ We provide Type-I error and power for significance level of |agr| = 0.05 and |ag
 For **woIF**
 
 Experiments in K562 cell line for H3K27me3 resulted in power of 1 and Type-I error of 0 in all parameter settings. 
-Experiments conducted in GM12878 cell line for H3K27me3 resulted in power of 1 and Type-I error of 0 except few cases listed in the table below. 
+Experiments conducted in GM12878 cell line for H3K27me3 resulted in power of 1 and Type-I error of 0 except few cases listed in the Table 3 below. 
 In each case, Type-I error is below the significance level of |agr| = 0.05.
 
+Table 3
 +-------------------------------------------+ 
 | Expressed Genes, |agr| = 0.05.            |
 +====================+======+=======+=======+ 
@@ -161,7 +164,6 @@ The Type-I error involving this mark improves significantly under the **with GC 
 
 Overall, it is evident that Type-I error control is significantly better with the **NOOB** association statistics without loss of power. 
 
-
 .. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
    :align: center
    :alt: GM12878_Non_expressing_genes_alpha_0_05_CompletelyDiscard
@@ -173,7 +175,7 @@ Overall, it is evident that Type-I error control is significantly better with th
    :align: center
    :alt: GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5
 
-   Figure 3: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
+  Figure 3: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
 
    
 .. figure:: ../images/ddce/woIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_001_Facet_CompletelyDiscard.png
@@ -187,7 +189,7 @@ Overall, it is evident that Type-I error control is significantly better with th
    :align: center
    :alt: K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5
 
-   Figure 5: K562, Expressing genes, |agr| = 0.001, Top5, Power   
+  Figure 5: K562, Expressing genes, |agr| = 0.001, Top5, Power   
 	
 	
 For **wIF**
