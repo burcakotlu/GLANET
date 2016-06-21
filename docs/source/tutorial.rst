@@ -868,19 +868,19 @@ GLANET User Defined Gene Set Sample Run
 	
 	* *Check User Defined Gene Set Annotation check box in the User Defined Gene Set panel.*
 	
-	* *Load **GO_gene_associations_human_ref.txt** under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
+	* *Load GO_gene_associations_human_ref.txt under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
 	User Defined Gene Set Input File lists each gene in a gene set in one line, in row-based manner.
 	Namely, there will be n lines/rows for a gene set that consists of n genes.
 	User Defined Gene Set Input File is two column (tab separated) text file where first column has the gene set name and the second column has the gene that gene set includes.
 	(A row from User Defined Gene Set Input File, e.g.: GO:0003779	MACF1)
 	
-	* *Set **Gene Symbol** as Gene Information Type.*
+	* *Set Gene Symbol as Gene Information Type.*
 	The second column of User Defined Gene Set Input File can provide gene information as Gene Symbol (e.g.: MACF1), Gene ID (e.g.: 23499), or RNA Nucleotide Accession (e.g.: NM_012090).
 	The important point is that second column must provide the gene information with the same Gene Information Type.
 	
 	* *Set Name as you wish, e.g.: Let's name it as GO since User Defined Gene Set Input File consists of GO Terms.*
 	
-	* *Load **GO_ids2terms.txt** under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
+	* *Load GO_ids2terms.txt under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
 	Description File is a two column (tab separated) text file where first column has the gene set name and the second column has gene set description.
 	(A row from Description File, e.g.: GO:0003779	actin binding)
 	

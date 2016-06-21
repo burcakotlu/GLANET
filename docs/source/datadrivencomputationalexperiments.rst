@@ -173,20 +173,17 @@ Overall, it is evident that Type-I error control is significantly better with th
 
    Figure 2: GM12878, Non-expressing genes, |agr| = 0.05, CompletelyDiscard, Type-I Error
 
- 
 .. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5.png
    :align: center
    :alt: GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5
 
   Figure 3: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
-
-   
+  
 .. figure:: ../images/ddce/woIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_001_Facet_CompletelyDiscard.png
    :align: center
    :alt: K562_Non_expressing_genes_alpha_0_001_CompletelyDiscard
 
    Figure 4: K562, Non-expressing genes, |agr| = 0.001, CompletelyDiscard, Type-I Error   
-
 
 .. figure:: ../images/ddce/woIF_empiricalPValues/K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5.png
    :align: center
