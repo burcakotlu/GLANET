@@ -196,12 +196,12 @@ For **wIF**
 
 By using wIF option, both Type-I error and power have decreased.
 
-This is valid for both of the cell lines (GM12878 and K562), and under all scenarios of non-expressed (CompletelyDiscard, TakeTheLongest) genes and expressed (Top5, Top10, Top20) genes.
+This is valid for both of the cell lines (GM12878 and K562) under all scenarios of non-expressed (CompletelyDiscard, TakeTheLongest) and expressed (Top5, Top10, Top20) genes.
 Type-I error has decreased for activator and ambiguous elements whereas power has decreased only for ambiguous elements.
-Furthermore, in some cases, decrease in Type-I error has made Type-I error less than pre-set significance level, |agr|.
+Furthermore, in some cases, decrease in Type-I error has lead it to become less than pre-set significance level, |agr|.
 
 All the cases where Type-I error has made a change w.r.t. pre-set significance level, |agr| are given below:
-In other words, Type-I error has decreased such that it has become less than or equal to significance level, |agr| however it wasn't in woIF case.
+In other words, Type-I error has decreased such that it has become less than or equal to significance level, |agr|, however it wasn't in woIF case.
 
 In Figure 8, H3K9me3 (Ambiguous) *GM12878, non-expressed genes (Completely Discard), (NOOB,wGCM)*, Type-I error has become equal to significance level of |agr| = 0.001.
 
