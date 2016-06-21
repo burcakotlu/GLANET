@@ -59,6 +59,7 @@ We have considered the lowest and highest TPM values across replicates for defin
 We have performed the data-driven computational experiments summarized in Table 1 under the six enrichment analysis settings of GLANET by varying association measures as **EOO** or **NOOB** and random interval generation mode as **wGCM** or **woGCM** and tested **wGCM** with two modes of Isochore Family, **wIF** or **woIF** for null distribution estimation.
 
 Table 1
+
 +----------------------------------------------------------------------------------------------------+ 
 |                                               Null Hypotheses                                      |
 +====================+=====================================+=========================================+
@@ -88,6 +89,7 @@ Furthermore, we have tested **wGCM** with Isochore Family, **wIF**.
 * *(woGCM,NOOB)*
 
 Table 2
+
 +------------------------------------------------------+ 
 | Data-Driven Computational Experiment                 |
 +==========================================+===========+ 
@@ -117,6 +119,7 @@ Experiments conducted in GM12878 cell line for H3K27me3 resulted in power of 1 a
 In each case, Type-I error is below the significance level of |agr| = 0.05.
 
 Table 3
+
 +-------------------------------------------+ 
 | Expressed Genes, |agr| = 0.05.            |
 +====================+======+=======+=======+ 
