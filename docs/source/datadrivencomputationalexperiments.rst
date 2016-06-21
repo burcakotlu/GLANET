@@ -225,7 +225,7 @@ H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO
 
 .. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top5.png
    :align: center
-   :alt: GM12878_Expressing_genes_alpha_0_05_CompletelyDiscard
+   :alt: GM12878_Expressing_genes_alpha_0_05_Top5
 
    Figure 7: GM12878, Expressing genes, |agr| = 0.05, Top5, Power
 
@@ -237,7 +237,7 @@ H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO
 
 .. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_001_Facet_Top5.png
    :align: center
-   :alt: GM12878_Expressing_genes_alpha_0_001_CompletelyDiscard
+   :alt: GM12878_Expressing_genes_alpha_0_001_Top5
 
    Figure 9: GM12878, Expressing genes, |agr| = 0.001, Top5, Power
    
@@ -249,7 +249,7 @@ H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO
 
 .. figure:: ../images/ddce/wIF_empiricalPValues/K562_Exp_Activators_Power_SigLev_0_05_Facet_Top5.png
    :align: center
-   :alt: K562_Expressing_genes_alpha_0_05_CompletelyDiscard
+   :alt: K562_Expressing_genes_alpha_0_05_Top5
 
    Figure 11: K562, Expressing genes, |agr| = 0.05, Top5, Power
 
@@ -261,9 +261,57 @@ H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeTheLongest), (EOO
 
 .. figure:: ../images/ddce/wIF_empiricalPValues/K562_Exp_Activators_Power_SigLev_0_001_Facet_Top5.png
    :align: center
-   :alt: K562_Expressing_genes_alpha_0_001_CompletelyDiscard
+   :alt: K562_Expressing_genes_alpha_0_001_Top5
 
    Figure 13: K562, Expressing genes, |agr| = 0.001, Top5, Power   
+
+.. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_TakeTheLongest.png
+   :align: center
+   :alt: GM12878_Non_expressing_genes_alpha_0_05_TakeTheLongest
+
+   Figure 14: GM12878, Non-expressing genes, |agr| = 0.05, TakeTheLongest, Type-I Error
+
+.. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_05_Facet_Top20.png
+   :align: center
+   :alt: GM12878_Expressing_genes_alpha_0_05_Top20
+
+   Figure 15: GM12878, Expressing genes, |agr| = 0.05, Top20, Power
+
+.. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_001_Facet_TakeTheLongest.png
+   :align: center
+   :alt: GM12878_Non_expressing_genes_alpha_0_001_TakeTheLongest
+
+   Figure 16: GM12878, Non-expressing genes, |agr| = 0.001, TakeTheLongest, Type-I Error
+
+.. figure:: ../images/ddce/wIF_empiricalPValues/GM12878_Exp_Activators_Power_SigLev_0_001_Facet_Top20.png
+   :align: center
+   :alt: GM12878_Expressing_genes_alpha_0_001_Top20
+
+   Figure 17: GM12878, Expressing genes, |agr| = 0.001, Top20, Power
+   
+.. figure:: ../images/ddce/wIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_05_Facet_TakeTheLongest.png
+   :align: center
+   :alt: K562_Non_expressing_genes_alpha_0_05_TakeTheLongest
+
+   Figure 18: K562, Non-expressing genes, |agr| = 0.05, TakeTheLongest, Type-I Error
+
+.. figure:: ../images/ddce/wIF_empiricalPValues/K562_Exp_Activators_Power_SigLev_0_05_Facet_Top20.png
+   :align: center
+   :alt: K562_Expressing_genes_alpha_0_05_Top20
+
+   Figure 19: K562, Expressing genes, |agr| = 0.05, Top20, Power
+
+.. figure:: ../images/ddce/wIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_001_Facet_TakeTheLongest.png
+   :align: center
+   :alt: K562_Non_expressing_genes_alpha_0_001_TakeTheLongest
+
+   Figure 20: K562, Non-expressing genes, |agr| = 0.001, TakeTheLongest, Type-I Error
+
+.. figure:: ../images/ddce/wIF_empiricalPValues/K562_Exp_Activators_Power_SigLev_0_001_Facet_Top20.png
+   :align: center
+   :alt: K562_Expressing_genes_alpha_0_001_Top20
+
+   Figure 21: K562, Expressing genes, |agr| = 0.001, Top20, Power   
 
 
 	
