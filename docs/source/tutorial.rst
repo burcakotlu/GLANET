@@ -167,14 +167,34 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 
 	* *User Defined Library Annotation*
+	
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Library.
-		   Please note that all the files that will be used in User Defined Library Annotation have to reside on your local machine.
 
 		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* check box is checked.)
+			-	In this input file, you list the file/s that you want to add into library. 
 			- 	User Defined Library Input File contains tab delimited, 4 columns, ~path/to/file, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line::
 
 					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak	TF	CTCF_GM12878
+			
+			-	With an header line at the top, in each row of this input file, there are 4 columns separated by tab.
+	
+			-	Header Line describes the 4 columns in this input file.*
+	
+				|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
 
+	
+			-	*In the first column*
+				Provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character in each row.
+	
+			-	*In the second column*
+				Supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
+	
+			-	*In the third column*
+				Provide the specific name of this element in each file. Important point is that each file must consist of same element's genomic intervals. e.g.: CTCF_GM12878, H3K27ME3_GM12878.
+	
+			-	*In the fourth column*
+				Provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
+			
 			-	Sample User Defined Library Input File can be reached at
 				
 				| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
@@ -185,13 +205,16 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 			   | ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/
 			   | TranscriptionFactors/
 
-			-	Please be aware that you have to store these files in your disk and change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly::
+			-	Please note that all the files that will be used in User Defined Library Annotation have to reside on your local machine.
+			-	Sample files are provided under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/TranscriptionFactors directory.
+			-	Please update the absolute path of these files accordingly in UserDefinedLibraryInputFile.txt.
+			-	Please change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly::
 
-					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak
-
-
+					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak	
+				
 				
 		-  User Defined Library Data Format (Mandatory if *User Defined Library Annotation* check box is checked.)
+		   Important point is that all the file/s listed in User Defined Library Input File must have same data format.
 		   GLANET supports four Data Formats:
 			
 		   	-  0-based coordinates (End Exclusive)
@@ -206,6 +229,8 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				| UserDefinedLibraryInputFile.txt
 
 			as User Defined Library Input File.
+			
+			Choose 0-based coordinates (End Exclusive) for bed, narrowPeak and pk files.
 			
 .. figure:: ../images/GLANET_lower.png
    :alt: GLANET_GUI_LowerPart
@@ -798,35 +823,7 @@ GLANET User Defined Library Sample Run
 	
 	6. Load *UserDefinedLibraryInputFile.txt* under  *~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/* as User Defined Library Input File.
 	
-	In this input file, you list the file/s that you want to add into library. 
-	With an header line at the top, in each row of this input file, there are 4 columns separated by tab.
-	
-		* *Header Line describes the 4 columns in this input file.*
-	
-		|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
-
-	
-		* *In the first column*
-		Provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character in each row.
-	
-		* *In the second column*
-		Supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
-	
-		* *In the third column*
-		Provide the specific name of this element in each file. Important point is that each file must consist of same element's genomic intervals. e.g.: CTCF_GM12878 or H3K27ME3_GM12878.
-	
-		* *In the fourth column*
-		Provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
-		
-	Please be aware that you have to update the absolute path to these files in UserDefinedLibraryInputFile.txt.
-	These sample files are stored under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/TranscriptionFactors directory.
-	Please update the absolute path of these files accordingly.
-	
-	
 	7. Choose *0-based coordinates (End Exclusive)* as User Defined Library Data Format.
-	Important point is that all the file/s listed in User Defined Library Input File must have same data format.
-	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
-	Choose 0-based coordinates (End Exclusive) for bed, narrowPeak and pk files.
 
 	8. Check *Perform Enrichment* Check Box.
 	
