@@ -811,9 +811,10 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Feature of GLANET using GUI:**
 
-	1. Run GLANET.jar java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" 
+	1. Run GLANET.jar java
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
+
 
 	2. Load *OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt* under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.
 	
@@ -837,7 +838,7 @@ GLANET User Defined Library Sample Run
 	
 	12. Then click on Run button.
 	
-	 This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
+	This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
 	
 .. figure:: ../images/UserDefinedLibrary_DataFormat.png
    :alt:  GLANET User Defined Library
