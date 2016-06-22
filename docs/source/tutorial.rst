@@ -811,28 +811,33 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Feature of GLANET using GUI:**
 
-	1. Load *OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt* under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.
-	
-	2. Choose *1-based coordinates (End Inclusive)* as Input Format.
-	
-	3. Set GLANET Folder (*~path/to/GLANET Folder/*) where GLANET Folder must be parent directory of Data directory.
+	1. Run GLANET.jar java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" 
 
-	4. Set Output Folder as you wish.
-	
-	5. Check *User Defined Library Annotation* check box in the User Defined Library panel.
-	
-	6. Load *UserDefinedLibraryInputFile.txt* under  *~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/* as User Defined Library Input File.
-	
-	7. Choose *0-based coordinates (End Exclusive)* as User Defined Library Data Format.
+	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
-	8. Check *Perform Enrichment* Check Box.
+	2. Load *OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt* under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.
 	
-	9. Provide a *Job Name* as you wish.
+	3. Choose *1-based coordinates (End Inclusive)* as Input Format.
 	
-	10. Leave the other options set as default.
-	
-	11. Then click on Run button.
+	4. Set GLANET Folder (*~path/to/GLANET Folder/*) where GLANET Folder must be parent directory of Data directory.
 
+	5. Set Output Folder as you wish.
+	
+	6. Check *User Defined Library Annotation* check box in the User Defined Library panel.
+	
+	7. Load *UserDefinedLibraryInputFile.txt* under  *~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/* as User Defined Library Input File.
+	
+	8. Choose *0-based coordinates (End Exclusive)* as User Defined Library Data Format.
+
+	9. Check *Perform Enrichment* Check Box.
+	
+	10. Provide a *Job Name* as you wish.
+	
+	11. Leave the other options set as default.
+	
+	12. Then click on Run button.
+	
+	 This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
 	
 .. figure:: ../images/UserDefinedLibrary_DataFormat.png
    :alt:  GLANET User Defined Library
