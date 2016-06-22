@@ -811,7 +811,7 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Feature of GLANET using GUI:**
 
-	1. Run GLANET.jar java
+	1. Run GLANET.jar java with 16GB memory using command line argument below::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
