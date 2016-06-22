@@ -163,7 +163,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 			-  Desription File contains tab delimited GeneSetID and description of Gene Set per line.
 				| e.g.: GO:0000001	mitochondrion inheritance
 						
-			-  Sample User Defined Gene Set Input File can be reached at
+			-  Sample Description File can be reached at
 			
 			   | ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/
 			   | GO_ids2terms.txt
@@ -175,7 +175,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 
 		-  User Defined Library Input File (Mandatory if *User Defined Library Annotation* check box is checked.)
 			-	In this input file, you list the file/s that you want to add into library. 
-			- 	User Defined Library Input File contains tab delimited, 4 columns, ~path/to/file, ElementType, ElementName and Optional window-size value for considering window around summit in case of TF Data per line::
+			- 	User Defined Library Input File contains tab delimited, 4 columns, ~path/to/file, ElementType, ElementName and optional window-size value for considering window around summit in case of TF Data per line::
 
 					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak	TF	CTCF_GM12878
 			
@@ -186,17 +186,17 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 				|	![1. Column: FilePath_FileName]	[2. Column: ElementType]	[3. Column: ElementName]	[4. Column: Optional Column for considering window around summit in case of TF Data]
 
 	
-			-	*In the first column*
+			-	*1. column:*
 				Provide the path to the file including file name, these files can be of type bed, narrowPeak, pk or any text file having genomic intervals with their chr name, start position and end position separated by tab character in each row.
 	
-			-	*In the second column*
+			-	*2. column:*
 				Supply the element type e.g.: TF for transcription factors or HISTONE for histone modifications (TF or HISTONE are just examples, you name it),  
 	
-			-	*In the third column*
+			-	*3. column:*
 				Provide the specific name of this element in each file. Important point is that each file must consist of same element's genomic intervals. e.g.: CTCF_GM12878, H3K27ME3_GM12878.
 	
-			-	*In the fourth column*
-				Provide this column for just considering window around summit in bps for narrowPeak files. Fourth column is optional.
+			-	*4. column:*
+				Provide this column for considering only a window around summit in bps for narrowPeak files. Fourth column is optional.
 			
 			-	Sample User Defined Library Input File can be reached at
 				
@@ -211,7 +211,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 			-	Please note that all the files that will be used in User Defined Library Annotation have to reside on your local machine.
 			-	Sample files are provided under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/TranscriptionFactors directory.
 			-	Please update the absolute path of these files accordingly in UserDefinedLibraryInputFile.txt.
-			-	Please change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly::
+			-	Therefore, please change the **~path/to/file** column in **UserDefinedLibraryInputFile.txt** accordingly::
 
 					G:\GLANET_DATA\ENCODE\transcription_factors\spp.optimal.wgEncodeBroadHistoneGm12878CtcfStdAlnRep0_VS_wgEncodeBroadHistoneGm12878ControlStdAlnRep0.narrowPeak	
 				
@@ -814,7 +814,7 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Feature of GLANET using GUI:**
 
-	1. Run GLANET with 16GB memory using command line argument below::
+	1. Open GLANET GUI allocated with 16GB memory using command line argument below::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
@@ -864,7 +864,7 @@ GLANET User Defined Gene Set Sample Run
 
 **In order to make a demo for User Defined Gene Set Feature of GLANET using GUI:**
 
-	1. Run GLANET with 16GB memory using command line argument below::
+	1. Open GLANET GUI allocated with 16GB memory using command line argument below::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
@@ -883,7 +883,7 @@ GLANET User Defined Gene Set Sample Run
 	
 	8.	Set *Gene Symbol* as Gene Information Type.
 	
-	9.	Set Name as you wish, e.g.: Let's name it as GO since User Defined Gene Set Input File consists of GO Terms.
+	9.	Set Name as you wish, e.g.: GO, since User Defined Gene Set Input File consists of GO Terms.
 	
 	10. Load *GO_ids2terms.txt* under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.
 	
