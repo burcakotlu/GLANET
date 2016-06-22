@@ -136,6 +136,9 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		-  Check this check box, if you want to annotate given intervals w.r.t. User Defined Gene Set in exon-based, regulation-based and all-based manner.
 
 		-  User Defined Gene Set Input File (Mandatory if *User Defined Gene Set Annotation* check box is checked.)
+		-  User Defined Gene Set Input File lists each gene in a gene set in one line, in row-based manner.
+		   Namely, there will be n lines/rows for a gene set that consists of n genes.
+	
 			-  User Defined Gene Set Input File contains tab delimited GeneSetID and Gene Information per line.
 				| e.g:.: GO:0031424	LCE6A
 				
@@ -150,7 +153,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		   	-  GENE SYMBOL (e.g.: SLC12A8)
 		   	-  RNA NUCLEOTIDE ACCESSION (e.g.: NM_024628)
 			-  Choose the appropriate Gene Information Type. (e.g: Choose GENE SYMBOL if you have loaded GO_gene_associations_human_ref.txt as User Defined Gene Set Input File.)
-
+	
 		-  Name (Optional)
 			-  You can give a name for the User Defined Gene Set
 				| e.g.: GO
@@ -159,7 +162,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		-  Description File (Optional)
 			-  Desription File contains tab delimited GeneSetID and description of Gene Set per line.
 				| e.g.: GO:0000001	mitochondrion inheritance
-			
+						
 			-  Sample User Defined Gene Set Input File can be reached at
 			
 			   | ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/
@@ -811,7 +814,7 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Feature of GLANET using GUI:**
 
-	1. Run GLANET.jar java with 16GB memory using command line argument below::
+	1. Run GLANET with 16GB memory using command line argument below::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
@@ -838,7 +841,7 @@ GLANET User Defined Library Sample Run
 	
 	12. Then click on Run button.
 	
-	This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
+	This run took ... minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
 	
 .. figure:: ../images/UserDefinedLibrary_DataFormat.png
    :alt:  GLANET User Defined Library
@@ -861,41 +864,40 @@ GLANET User Defined Gene Set Sample Run
 
 **In order to make a demo for User Defined Gene Set Feature of GLANET using GUI:**
 
-	* *Load OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.*
-	
-	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
-	
-	* *Set GLANET Folder (~path/to/GLANET Folder/) where GLANET Folder must be set as the parent directory of Data directory.*
+	1. Run GLANET with 16GB memory using command line argument below::
 
-	* *Set Output Folder as you wish.*
-	
-	* *Check User Defined Gene Set Annotation check box in the User Defined Gene Set panel.*
-	
-	* *Load GO_gene_associations_human_ref.txt under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.*
-	User Defined Gene Set Input File lists each gene in a gene set in one line, in row-based manner.
-	Namely, there will be n lines/rows for a gene set that consists of n genes.
-	User Defined Gene Set Input File is two column (tab separated) text file where first column has the gene set name and the second column has the gene that gene set includes.
-	(A row from User Defined Gene Set Input File, e.g.: GO:0003779	MACF1)
-	
-	* *Set Gene Symbol as Gene Information Type.*
-	The second column of User Defined Gene Set Input File can provide gene information as Gene Symbol (e.g.: MACF1), Gene ID (e.g.: 23499), or RNA Nucleotide Accession (e.g.: NM_012090).
-	The important point is that second column must provide the gene information with the same Gene Information Type.
-	
-	* *Set Name as you wish, e.g.: Let's name it as GO since User Defined Gene Set Input File consists of GO Terms.*
-	
-	* *Load GO_ids2terms.txt under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.*
-	Description File is a two column (tab separated) text file where first column has the gene set name and the second column has gene set description.
-	(A row from Description File, e.g.: GO:0003779	actin binding)
-	
-	* *Check Perform Enrichment Check Box.*
-	
-	* *Provide a Job Name as you wish.*
-	
-	* *Let the other options set as default.*
-	
-	* *Then click on Run button.*
-	
+	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
+
+	2.	Load *OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt* under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.
+	
+	3.	Choose *1-based coordinates (End Inclusive)* as Input Format.
+	
+	4. 	Set GLANET Folder (*~path/to/GLANET Folder/*) where GLANET Folder must be parent directory of Data directory.
+
+	5.	Set Output Folder as you wish.
+	
+	6.	Check User Defined Gene Set Annotation check box in the User Defined Gene Set panel.
+	
+	7.	Load *GO_gene_associations_human_ref.txt* under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.
+	
+	8.	Set *Gene Symbol* as Gene Information Type.
+	
+	9.	Set Name as you wish, e.g.: Let's name it as GO since User Defined Gene Set Input File consists of GO Terms.
+	
+	10. Load *GO_ids2terms.txt* under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.
+	
+	11.	Check Perform Enrichment Check Box.
+	
+	12.	Provide a Job Name as you wish.
+	
+	13.	Let the other options set as default.
+	
+	14. Then click on Run button.
+	
+	This run took ... minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
+
+	
 .. figure:: ../images/UserDefinedGeneSet.png
    :alt:  GLANET User Defined Gene Set
 
