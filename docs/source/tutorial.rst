@@ -786,17 +786,17 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Feature of GLANET using GUI:**
 
-	* *Load OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.*
+	1. Load *OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt* under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.
 	
-	* *Choose 1-based coordinates (End Inclusive) as Input Format.*
+	2. Choose *1-based coordinates (End Inclusive)* as Input Format.
 	
-	* *Set GLANET Folder (~path/to/GLANET Folder/) where GLANET Folder must be set as the parent directory of Data directory.*
+	3. Set GLANET Folder (*~path/to/GLANET Folder/*) where GLANET Folder must be parent directory of Data directory.
 
-	* *Set Output Folder as you wish.*
+	4. Set Output Folder as you wish.
 	
-	* *Check User Defined Library Annotation check box in the User Defined Library panel.*
+	5. Check *User Defined Library Annotation* check box in the User Defined Library panel.
 	
-	* *Load UserDefinedLibraryInputFile.txt under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/ as User Defined Library Input File.*
+	6. Load *UserDefinedLibraryInputFile.txt* under  *~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/* as User Defined Library Input File.
 	
 	In this input file, you list the file/s that you want to add into library. 
 	With an header line at the top, in each row of this input file, there are 4 columns separated by tab.
@@ -823,18 +823,18 @@ GLANET User Defined Library Sample Run
 	Please update the absolute path of these files accordingly.
 	
 	
-	* *Choose 0-based coordinates (End Exclusive) as User Defined Library Data Format.*
+	7. Choose *0-based coordinates (End Exclusive)* as User Defined Library Data Format.
 	Important point is that all the file/s listed in User Defined Library Input File must have same data format.
 	Supported data formats are 0-based or 1-based coordinates, where end coordinates can be either exclusive or inclusive.
 	Choose 0-based coordinates (End Exclusive) for bed, narrowPeak and pk files.
 
-	* *Check Perform Enrichment Check Box.*
+	8. Check *Perform Enrichment* Check Box.
 	
-	* *Provide a Job Name as you wish.*
+	9. Provide a *Job Name* as you wish.
 	
-	* *Leave the other options set as default.*
+	10. Leave the other options set as default.
 	
-	* *Then click on Run button.*
+	11. Then click on Run button.
 
 	
 .. figure:: ../images/UserDefinedLibrary_DataFormat.png

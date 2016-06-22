@@ -167,6 +167,8 @@ The Type-I error involving this mark improves significantly under the **with GC 
 
 Overall, it is evident that Type-I error control is significantly better with the **NOOB** association statistics without loss of power. 
 
+In the figures below, histone marks with ambiguous activator roles are marked  with *.
+
 .. figure:: ../images/ddce/woIF_empiricalPValues/GM12878_NonExp_Activators_TypeIError_SigLev_0_05_Facet_CompletelyDiscard.png
    :align: center
    :alt: GM12878_Non_expressing_genes_alpha_0_05_CompletelyDiscard
