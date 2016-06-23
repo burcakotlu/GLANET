@@ -198,7 +198,7 @@ In the figures below, histone marks with ambiguous activator roles are marked  w
 	
 For **wIF**
 
-All figures for all of the results are provided in Figure starting from 6 to 21.
+All figures for all of the results are provided in figures starting from 6 to 21.
 
 By using wIF option, both Type-I error and power have decreased.
 
@@ -306,6 +306,7 @@ In Figure 18, H3K9ACB, H4K20me1 (Ambiguous)  *K562, non-expressed genes (TakeThe
 
 .. figure:: ../images/ddce/wIF_empiricalPValues/K562_NonExp_Activators_TypeIError_SigLev_0_001_Facet_TakeTheLongest.png
    :align: center
+   :scale: 50 %
    :alt: K562_Non_expressing_genes_alpha_0_001_TakeTheLongest
 
    Figure 20: K562, Non-expressing genes, |agr| = 0.001, TakeTheLongest, Type-I Error
