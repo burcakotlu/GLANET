@@ -790,6 +790,12 @@ GLANET Annotation and Enrichment for OCD GWAS SNPs Sample Run
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tf -tfkegg -e -s 10000  -se 10000 -l -j "SampleOCDGWASSNPs"
 
+
+**You can find a demo video for  Annotation and Enrichment for OCD GWAS SNPs on youtube in the link below.**
+
+`<https://www.youtube.com/watch?v=JwfTkQ8TXmU&feature=youtu.be>`_
+
+This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 ------------------------------------------------------------
 GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
 ------------------------------------------------------------
@@ -797,7 +803,12 @@ GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
 **GLANET Command Line Arguments**::
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/GAT_Comparison_Data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "SampleSRF"
-		
+
+**You can find a demo video for  Annotation and Enrichment for srf.hg19.bed on youtube in the link below.**
+
+`<https://www.youtube.com/watch?v=Ry56H5jLuYI&feature=youtu.be>`_
+
+This run took ... minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 ----------------------------------------------------------------
 GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
 ----------------------------------------------------------------
@@ -805,7 +816,13 @@ GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
 **GLANET Command Line Arguments**::
 
 	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "SampleRSA"
-	
+
+
+**You can find a demo video for Regulatory Sequence Analysis Feature on youtube in the link below.**
+
+`<https://www.youtube.com/watch?v=Ry56H5jLuYI&feature=youtu.be>`_
+
+This run took 57 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 --------------------------------------
 GLANET User Defined Library Sample Run
 --------------------------------------
