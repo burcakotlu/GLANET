@@ -104,7 +104,7 @@ Table 2
 | Total number of GLANET Runs              | 60000     |
 +------------------------------------------+-----------+ 
 
-In these experiment, our null hypothesis is that there is no enrichment.s
+In these experiments, our null hypothesis is that there is no enrichment.
 
 **Data-driven Computational Experiments Results**
 

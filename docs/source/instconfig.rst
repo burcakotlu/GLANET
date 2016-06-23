@@ -91,6 +91,6 @@ GLANET System Requirements
 
 3. Java SE 8 (or higher) should be installed in your computer in order to execute GLANET. We suggest you to use the latest Java SE update.
 
-4. Perl should be installed in your computer.
+4. Strawberry Perl should be installed in your computer.
 
 5. During execution, GLANET makes calls to NCBI E-utilities and RSAT web service, therefore GLANET must be run an a computer with an internet connection.

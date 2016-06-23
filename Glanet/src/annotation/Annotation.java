@@ -2781,12 +2781,12 @@ public class Annotation {
 				/***************************************************************************************/
 				givenIntervalName = chromName.convertEnumtoString() + "_" + low + "_" + high;
 
-				if( !givenIntervalNumber2GivenIntervalNameMap.containsValue( givenIntervalName)){
+				if( !givenIntervalNumber2GivenIntervalNameMap.containsValue(givenIntervalName)){
 
 					// Set Given Interval Number
 					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1;
 
-					givenIntervalNumber2GivenIntervalNameMap.put( givenIntervalNumber, givenIntervalName);
+					givenIntervalNumber2GivenIntervalNameMap.put(givenIntervalNumber, givenIntervalName);
 					chromosomeName2CountMap.put( chromName, chromosomeName2CountMap.get( chromName) + 1);
 
 				}
@@ -3184,7 +3184,7 @@ public class Annotation {
 									Commons.NCBI_GENE_ID,
 									geneSetType,
 									mainGeneSetName,
-									0,
+									givenIntervalNumber,
 									givenIntervalNumber2OverlapInformationMap,
 									hg19RefSeqGeneBufferedWriter,
 									writeFoundOverlapsMode,

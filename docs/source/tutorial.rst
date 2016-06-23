@@ -814,7 +814,7 @@ GLANET User Defined Library Sample Run
 
 **In order to make a demo for User Defined Library Feature of GLANET using GUI:**
 
-	1. Open GLANET GUI allocated with 16GB memory using command line argument below::
+	1. Open GLANET GUI allocated with 16GB memory using command line arguments below::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
@@ -864,7 +864,7 @@ GLANET User Defined Gene Set Sample Run
 
 **In order to make a demo for User Defined Gene Set Feature of GLANET using GUI:**
 
-	1. Open GLANET GUI allocated with 16GB memory using command line argument below::
+	1. Open GLANET GUI allocated with 16GB memory using command line arguments below::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
