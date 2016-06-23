@@ -72,7 +72,8 @@ Table 1
 | Repressor Elements |          Type-I Error               |                 Power                   |                
 +--------------------+-------------------------------------+-----------------------------------------+ 
 
-We have considered empirical p-values in these experiments.
+In these experiments, our null hypothesis is that there is no enrichment.
+We have considered empirical p-values in these experiments for enrichment.
 We varied the definitions of non-expressed and expressed genes and repeated the experiments for each setting. 
  
 For each interval pool, we had 1000 simulations.
@@ -104,7 +105,6 @@ Table 2
 | Total number of GLANET Runs              | 60000     |
 +------------------------------------------+-----------+ 
 
-In these experiments, our null hypothesis is that there is no enrichment.
 
 **Data-driven Computational Experiments Results**
 
@@ -143,7 +143,9 @@ Experiments in K562 and GM12878 cell lines for H3K27me3 resulted in power of 1 a
 
 For **woIF**
 
-Figure 2,3,4, and 5 below summarizes the main results for activator elements, for woIF.  Figures for all results are provided in the Supplementary Materials for GLANET paper.
+Figure 2,3,4, and 5 below summarizes the main results for activator elements, for woIF.  
+
+All figures for all of the results are provided in the Supplementary Materials for GLANET paper.
 
 This setting includes expressed genes as the ones with TPM values in the top 5th percentile and non-expressed genes exclude zero TPM genes with DNaseI signal at the promoters with the **CompletelyDiscard** mode. 
 
@@ -195,6 +197,8 @@ In the figures below, histone marks with ambiguous activator roles are marked  w
 	
 	
 For **wIF**
+
+All figures for all of the results are provided in Figure starting from 6 to 21.
 
 By using wIF option, both Type-I error and power have decreased.
 

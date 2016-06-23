@@ -3017,7 +3017,7 @@ public class Annotation {
 					// Set Given Interval Number
 					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1;
 
-					givenIntervalNumber2GivenIntervalNameMap.put( givenIntervalNumber, givenIntervalName);
+					givenIntervalNumber2GivenIntervalNameMap.put(givenIntervalNumber, givenIntervalName);
 					chromosomeName2CountMap.put( chromName, chromosomeName2CountMap.get( chromName) + 1);
 
 				}
