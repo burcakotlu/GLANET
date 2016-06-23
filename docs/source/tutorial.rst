@@ -840,8 +840,7 @@ GLANET User Defined Library Sample Run
 	11. Leave the other options set as default.
 	
 	12. Then click on Run button.
-	
-	This run took ... minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
+		
 	
 .. figure:: ../images/UserDefinedLibrary_DataFormat.png
    :alt:  GLANET User Defined Library
@@ -849,14 +848,17 @@ GLANET User Defined Library Sample Run
    GLANET User Defined Library
    
 
+**You can find a demo for UDL feature of GLANET on youtube in the link below.**
+
+`<https://www.youtube.com/watch?v=Qcv2SLb2ePA>`_
+
+	This run took 6 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
+
+
 **In order to make a demo for User Defined Library Feature of GLANET using Command Line Arguments**::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "SampleUDL"
 
-
-**You can find a demo video on youtube.**
-
-`<https://www.youtube.com/watch?v=RCvbpx1geOw&feature=youtu.be>`_
 	
 ---------------------------------------
 GLANET User Defined Gene Set Sample Run
@@ -897,13 +899,18 @@ GLANET User Defined Gene Set Sample Run
 	
 	14. Then click on Run button.
 	
-	This run took ... minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
-
+	
 	
 .. figure:: ../images/UserDefinedGeneSet.png
    :alt:  GLANET User Defined Gene Set
 
    GLANET User Defined Gene Set
+   
+**You can find a demo video for UDGS Feature on youtube in the link below.**
+
+`<https://www.youtube.com/watch?v=RCvbpx1geOw&feature=youtu.be>`_
+
+	This run took ... minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
    
 
 **In order to make a demo for User Defined Gene Set Feature of GLANET using Command Line Arguments**::
@@ -911,7 +918,7 @@ GLANET User Defined Gene Set Sample Run
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -l -j "SampleUDGS"
 
 
-**You can also reach main steps of User Defined Gene Set Feature of GLANET in ReadMe.txt under  ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/.**	
+
 
 
 ------------------------------------------
