@@ -796,6 +796,8 @@ GLANET Annotation and Enrichment for OCD GWAS SNPs Sample Run
 `<https://www.youtube.com/watch?v=JwfTkQ8TXmU&feature=youtu.be>`_
 
 This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
+
+
 ------------------------------------------------------------
 GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
 ------------------------------------------------------------
@@ -806,9 +808,11 @@ GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
 
 **You can find a demo video for  Annotation and Enrichment for srf.hg19.bed on youtube in the link below.**
 
-`<https://www.youtube.com/watch?v=Ry56H5jLuYI&feature=youtu.be>`_
+`<...>`_
 
 This run took ... minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
+
+
 ----------------------------------------------------------------
 GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
 ----------------------------------------------------------------
@@ -820,7 +824,7 @@ GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
 
 **You can find a demo video for Regulatory Sequence Analysis Feature on youtube in the link below.**
 
-`<https://www.youtube.com/watch?v=Ry56H5jLuYI&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=Rkg6JdZiFtI&feature=youtu.be>`_
 
 This run took 57 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 --------------------------------------
