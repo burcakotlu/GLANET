@@ -793,7 +793,7 @@ GLANET DEMO for Annotation and Enrichment Analysis of OCD GWAS SNPs
 
 **You can find a demo screencast for Annotation and Enrichment Analysis of OCD GWAS SNPs on youtube in the link below:**
 
-`<https://www.youtube.com/watch?v=293ku2Njwmk&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=tt7FYHMNDG0>`_
 
 This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
