@@ -808,9 +808,9 @@ GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
 
 **You can find a demo video for  Annotation and Enrichment for srf.hg19.bed on youtube in the link below.**
 
-`<...>`_
+`<https://www.youtube.com/watch?v=PFPsxDyBkWg&feature=youtu.be>`_
 
-This run took 5 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
+This run took 8 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
 
 ----------------------------------------------------------------
