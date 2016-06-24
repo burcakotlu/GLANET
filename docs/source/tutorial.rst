@@ -810,7 +810,7 @@ GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
 
 `<...>`_
 
-This run took ... minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
+This run took 5 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
 
 ----------------------------------------------------------------
@@ -819,14 +819,14 @@ GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
 
 **GLANET Command Line Arguments**::
 
-	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "SampleRSA"
+	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "SampleRSA"
 
 
 **You can find a demo video for Regulatory Sequence Analysis Feature on youtube in the link below.**
 
-`<https://www.youtube.com/watch?v=Rkg6JdZiFtI&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=uX6bS575TIw&feature=youtu.be>`_
 
-This run took 57 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
+This run took 54 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
 
 --------------------------------------
