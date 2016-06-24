@@ -783,55 +783,55 @@ If this option is set, GLANET Run is written to a log file. Log file will be sav
 
 If this option is set, GLANET Run is not written to a log file.
 
--------------------------------------------------------------
-GLANET Annotation and Enrichment for OCD GWAS SNPs Sample Run
--------------------------------------------------------------
+-------------------------------------------------------------------
+GLANET DEMO for Annotation and Enrichment Analysis of OCD GWAS SNPs
+-------------------------------------------------------------------
 **GLANET Command Line Arguments**::
 
-	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tf -tfkegg -e -s 10000  -se 10000 -l -j "SampleOCDGWASSNPs"
+	$ java -Xms16G -Xmx16G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tf -tfkegg -e -s 10000  -se 10000 -l -j "SampleOCDGWASSNPs"
 
 
-**You can find a demo video for  Annotation and Enrichment for OCD GWAS SNPs on youtube in the link below.**
+**You can find a demo video for Annotation and Enrichment Analysis of OCD GWAS SNPs on youtube in the link below.**
 
-`<https://www.youtube.com/watch?v=JwfTkQ8TXmU&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=293ku2Njwmk&feature=youtu.be>`_
 
 This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
 
-------------------------------------------------------------
-GLANET Annotation and Enrichment for srf.hg19.bed Sample Run
-------------------------------------------------------------
+------------------------------------------------------------------
+GLANET DEMO for Annotation and Enrichment Analysis of srf.hg19.bed
+------------------------------------------------------------------
 
 **GLANET Command Line Arguments**::
 
-	$ java -Xms8G -Xmx8G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/GAT_Comparison_Data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "SampleSRF"
+	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/GAT_Comparison_Data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "SampleSRF"
 
-**You can find a demo video for  Annotation and Enrichment for srf.hg19.bed on youtube in the link below.**
+**You can find a demo video for Annotation and Enrichment Analysis of srf.hg19.bed on youtube in the link below.**
 
-`<https://www.youtube.com/watch?v=PFPsxDyBkWg&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=K_Yl9D7A-nw&feature=youtu.be>`_
 
 This run took 8 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
 
-----------------------------------------------------------------
-GLANET Regulatory Sequence Analysis for OCD GWAS SNPs Sample Run
-----------------------------------------------------------------
+-------------------------------------------------------------
+GLANET DEMO for Regulatory Sequence Analysis of OCD GWAS SNPs
+-------------------------------------------------------------
 
 **GLANET Command Line Arguments**::
 
 	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "SampleRSA"
 
 
-**You can find a demo video for Regulatory Sequence Analysis Feature on youtube in the link below.**
+**You can find a demo video for Regulatory Sequence Analysis feature on youtube in the link below.**
 
-`<https://www.youtube.com/watch?v=uX6bS575TIw&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=HWNPdO6P5co&feature=youtu.be>`_
 
 This run took 54 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
 
---------------------------------------
-GLANET User Defined Library Sample Run
---------------------------------------
+--------------------------------------------
+GLANET DEMO for User Defined Library Feature
+--------------------------------------------
 
 **You can add your own library for annotation and enrichment analysis.**
 
@@ -842,23 +842,23 @@ GLANET User Defined Library Sample Run
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
 
-	2. Load *OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt* under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.
+	2. Load "OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" under "path/to/GLANET Folder/Data/demo_input_data/" as Input File Name.
 	
-	3. Choose *1-based coordinates (End Inclusive)* as Input Format.
+	3. Choose "1-based coordinates (End Inclusive)" as Input Format.
 	
-	4. Set GLANET Folder (*~path/to/GLANET Folder/*) where GLANET Folder must be parent directory of Data directory.
+	4. Set GLANET Folder ("path/to/GLANET Folder/") where GLANET Folder must be parent directory of Data directory.
 
 	5. Set Output Folder as you wish.
 	
-	6. Check *User Defined Library Annotation* check box in the User Defined Library panel.
+	6. Check "User Defined Library Annotation" check box in the User Defined Library panel.
 	
-	7. Load *UserDefinedLibraryInputFile.txt* under  *~path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/* as User Defined Library Input File.
+	7. Load "UserDefinedLibraryInputFile.txt" under  "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/" as User Defined Library Input File.
 	
-	8. Choose *0-based coordinates (End Exclusive)* as User Defined Library Data Format.
+	8. Choose "0-based coordinates (End Exclusive)" as User Defined Library Data Format.
 
-	9. Check *Perform Enrichment* Check Box.
+	9. Check "Perform Enrichment" Check Box.
 	
-	10. Provide a *Job Name* as you wish.
+	10. Enter a "Job Name" as you wish. e.g.: DEMO_UDL
 	
 	11. Leave the other options set as default.
 	
@@ -873,19 +873,19 @@ GLANET User Defined Library Sample Run
 
 **You can find a demo for User Defined Library feature of GLANET on youtube in the link below.**
 
-`<https://www.youtube.com/watch?v=Qcv2SLb2ePA>`_
+`<https://www.youtube.com/watch?v=Rrfly3vRXD4&feature=youtu.be>`_
 
 This run took 6 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
 
 
-**In order to make a demo for User Defined Library Feature of GLANET using Command Line Arguments**::
+**In order to make a demo for User Defined Library feature of GLANET using Command Line Arguments**::
 
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "SampleUDL"
 
 	
----------------------------------------
-GLANET User Defined Gene Set Sample Run
----------------------------------------
+---------------------------------------------
+GLANET DEMO for User Defined Gene Set Feature
+---------------------------------------------
 
 **You can add your own user defined gene sets for annotation and enrichment analysis.**
 
@@ -896,27 +896,27 @@ GLANET User Defined Gene Set Sample Run
 	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar"
 
 
-	2.	Load *OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt* under ~path/to/GLANET Folder/Data/demo_input_data/ as Input File Name.
+	2.	Load "OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" under "path/to/GLANET Folder/Data/demo_input_data/" as Input File Name.
 	
-	3.	Choose *1-based coordinates (End Inclusive)* as Input Format.
+	3.	Choose "1-based coordinates (End Inclusive)" as Input Format.
 	
-	4. 	Set GLANET Folder (*~path/to/GLANET Folder/*) where GLANET Folder must be parent directory of Data directory.
+	4. 	Set GLANET Folder ("path/to/GLANET Folder/") where GLANET Folder must be parent directory of Data directory.
 
 	5.	Set Output Folder as you wish.
 	
-	6.	Check User Defined Gene Set Annotation check box in the User Defined Gene Set panel.
+	6.	Check "User Defined Gene Set Annotation" check box in the User Defined Gene Set panel.
 	
-	7.	Load *GO_gene_associations_human_ref.txt* under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as User Defined Gene Set Input File.
+	7.	Load "GO_gene_associations_human_ref.txt" under "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/" as User Defined Gene Set Input File.
 	
-	8.	Set *Gene Symbol* as Gene Information Type.
+	8.	Set "Gene Symbol" as Gene Information Type.
 	
 	9.	Set Name as you wish, e.g.: GO, since User Defined Gene Set Input File consists of GO Terms.
 	
-	10. Load *GO_ids2terms.txt* under ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/ as Description File.
+	10. Load "GO_ids2terms.txt" under "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/" as Description File.
 	
-	11.	Check Perform Enrichment Check Box.
+	11.	Check "Perform Enrichment" Check Box.
 	
-	12.	Provide a Job Name as you wish.
+	12.	Enter a Job Name as you wish. e.g.: DEMO_UDGS
 	
 	13.	Let the other options set as default.
 	
@@ -927,9 +927,9 @@ GLANET User Defined Gene Set Sample Run
 
    GLANET User Defined Gene Set
    
-**You can find a demo video for User Defined Gene-set Feature on youtube in the link below.**
+**You can find a demo video for User Defined Gene-set feature on youtube in the link below.**
 
-`<https://www.youtube.com/watch?v=Ry56H5jLuYI&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=Zf6l4ZJsgew&feature=youtu.be>`_
 
 This run took 38 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
    
