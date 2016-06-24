@@ -791,7 +791,7 @@ GLANET DEMO for Annotation and Enrichment Analysis of OCD GWAS SNPs
 	$ java -Xms16G -Xmx16G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tf -tfkegg -e -s 10000  -se 10000 -l -j "SampleOCDGWASSNPs"
 
 
-**You can find a demo video for Annotation and Enrichment Analysis of OCD GWAS SNPs on youtube in the link below.**
+**You can find a demo screencast for Annotation and Enrichment Analysis of OCD GWAS SNPs on youtube in the link below:**
 
 `<https://www.youtube.com/watch?v=293ku2Njwmk&feature=youtu.be>`_
 
@@ -806,7 +806,7 @@ GLANET DEMO for Annotation and Enrichment Analysis of srf.hg19.bed
 
 	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/GAT_Comparison_Data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "SampleSRF"
 
-**You can find a demo video for Annotation and Enrichment Analysis of srf.hg19.bed on youtube in the link below.**
+**You can find a demo screencast for Annotation and Enrichment Analysis of srf.hg19.bed on youtube in the link below:**
 
 `<https://www.youtube.com/watch?v=K_Yl9D7A-nw&feature=youtu.be>`_
 
@@ -822,7 +822,7 @@ GLANET DEMO for Regulatory Sequence Analysis of OCD GWAS SNPs
 	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "SampleRSA"
 
 
-**You can find a demo video for Regulatory Sequence Analysis feature on youtube in the link below.**
+**You can find a demo screencast for Regulatory Sequence Analysis feature on youtube in the link below:**
 
 `<https://www.youtube.com/watch?v=HWNPdO6P5co&feature=youtu.be>`_
 
@@ -871,7 +871,7 @@ GLANET DEMO for User Defined Library Feature
    GLANET User Defined Library
    
 
-**You can find a demo for User Defined Library feature of GLANET on youtube in the link below.**
+**You can find a demo screencast for User Defined Library feature of GLANET on youtube in the link below:**
 
 `<https://www.youtube.com/watch?v=Rrfly3vRXD4&feature=youtu.be>`_
 
@@ -927,7 +927,7 @@ GLANET DEMO for User Defined Gene Set Feature
 
    GLANET User Defined Gene Set
    
-**You can find a demo video for User Defined Gene-set feature on youtube in the link below.**
+**You can find a demo screencast for User Defined Gene Set feature on youtube in the link below:**
 
 `<https://www.youtube.com/watch?v=Zf6l4ZJsgew&feature=youtu.be>`_
 
