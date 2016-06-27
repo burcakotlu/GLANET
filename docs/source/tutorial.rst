@@ -873,14 +873,14 @@ GLANET DEMO for User Defined Library Feature
 
 **You can find a demo screencast for User Defined Library feature of GLANET on youtube in the link below:**
 
-`<https://www.youtube.com/watch?v=Rrfly3vRXD4&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=yJg_l2eEqB8>`_
 
 This run took 6 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
 
 
 **In order to make a demo for User Defined Library feature of GLANET using Command Line Arguments**::
 
-	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1 -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "SampleUDL"
+	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -noob -udl -udlinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedLibrary/UserDefinedLibraryInputFile.txt" -udldf0exc  -e -wzs -wgcm -bh -s 10000 -se 10000 -l -j "DEMO_UDL"
 
 	
 ---------------------------------------------
@@ -929,14 +929,14 @@ GLANET DEMO for User Defined Gene Set Feature
    
 **You can find a demo screencast for User Defined Gene Set feature on youtube in the link below:**
 
-`<https://www.youtube.com/watch?v=Zf6l4ZJsgew&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=ErUMziglK4A>`_
 
 This run took 38 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.
    
 
 **In order to make a demo for User Defined Gene Set Feature of GLANET using Command Line Arguments**::
 
-	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -eoo -nb 1  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -l -j "SampleUDGS"
+	$ java -Xms16G -Xmx16G -jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -grch37 -f1 -noob  -udgs -udgsinput "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_gene_associations_human_ref.txt" -genesym -udgsname "GO" -udgsdfile "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/GO_ids2terms.txt" -e -wgcm -s 10000 -se 10000 -l -j "DEMO_UDGS"
 
 
 
