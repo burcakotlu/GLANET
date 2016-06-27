@@ -819,12 +819,12 @@ GLANET DEMO for Regulatory Sequence Analysis of OCD GWAS SNPs
 
 **GLANET Command Line Arguments**::
 
-	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "SampleRSA"
+	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "DEMO_RSA"
 
 
 **You can find a demo screencast for Regulatory Sequence Analysis feature on youtube in the link below:**
 
-`<https://www.youtube.com/watch?v=HWNPdO6P5co&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=AP63LgsJBlY>`_
 
 This run took 54 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
