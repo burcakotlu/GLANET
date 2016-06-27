@@ -788,12 +788,12 @@ GLANET DEMO for Annotation and Enrichment Analysis of OCD GWAS SNPs
 -------------------------------------------------------------------
 **GLANET Command Line Arguments**::
 
-	$ java -Xms16G -Xmx16G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tf -tfkegg -e -s 10000  -se 10000 -l -j "SampleOCDGWASSNPs"
+	$ java -Xms16G -Xmx16G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_chrNumber_1Based_GRCh37_p13_Coordinates.txt" -f1 -dnase -histone -tf -tfkegg -e -s 10000  -se 10000 -l -j "DEMO_OCD_GWAS_SNPs"
 
 
 **You can find a demo screencast for Annotation and Enrichment Analysis of OCD GWAS SNPs on youtube in the link below:**
 
-`<https://www.youtube.com/watch?v=tt7FYHMNDG0>`_
+`<https://www.youtube.com/watch?v=e6tM71c6olI>`_
 
 This run took 19 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
@@ -804,11 +804,11 @@ GLANET DEMO for Annotation and Enrichment Analysis of srf.hg19.bed
 
 **GLANET Command Line Arguments**::
 
-	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/GAT_Comparison_Data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "SampleSRF"
+	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/GAT_Comparison_Data/srf.hg19.bed" -fbed -tf -e -s 10000 -se 10000 -l -j "DEMO_SRF"
 
 **You can find a demo screencast for Annotation and Enrichment Analysis of srf.hg19.bed on youtube in the link below:**
 
-`<https://www.youtube.com/watch?v=K_Yl9D7A-nw&feature=youtu.be>`_
+`<https://www.youtube.com/watch?v=PW2Oj-MzYkg>`_
 
 This run took 8 minutes on Intel(R) Core i7-3630QM CPU, 2.40 GHz with 16GB RAM.	
 
@@ -819,7 +819,7 @@ GLANET DEMO for Regulatory Sequence Analysis of OCD GWAS SNPs
 
 **GLANET Command Line Arguments**::
 
-	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "DEMO_RSA"
+	$ java -Xms4G -Xmx4G −jar "path/to/GLANET.jar" -c -g "path/to/GLANET Folder/" -i "path/to/GLANET Folder/Data/demo_input_data/OCD_GWAS_SIGNIFICANT_SNP_RSIDs.txt" -fdbsnp -tf -rsa  -l -j "DEMO_OCD_GWAS_SNPs_RSA"
 
 
 **You can find a demo screencast for Regulatory Sequence Analysis feature on youtube in the link below:**
