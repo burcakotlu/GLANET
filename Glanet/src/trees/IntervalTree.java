@@ -6,8 +6,10 @@ package trees;
 import intervaltree.Interval;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+
+import sorting.CountingSorting;
 
 /**
  * @author Burçak Otlu
@@ -48,7 +50,7 @@ import java.util.List;
  * Finding the median of a set of points take linear time.
  * 
  * It is better to find median by pre-sorting the set of points.
- * It is easy to maintain these presorted sets through the recursive calls.
+ * It is easy to maintain these pre-sorted sets through the recursive calls.
  * 
  * Let n_mid = card(I_mid)
  * Creating the lists, L_left and L_right takes O(n_mid log n_mid) time.
@@ -58,6 +60,8 @@ import java.util.List;
  *
  */
 public class IntervalTree {
+	
+	IntervalTreeNode root;
 
 	/**
 	 * 
@@ -67,26 +71,114 @@ public class IntervalTree {
 	}
 	
 	
-	public static IntervalTree constructIntervalTree(List<Interval> list){
+	//TODO
+	//allIntervals are not sorted whether w.r.t. to left or right end points
+	//Take left and right end points and sort the end points and find the median
+	//Having median at hand, find the left node intervals such that right end point is less than median
+	//Having median at hand, find the middle node intervals such that left end point is less than or equal to median and right end point is greater than or equal to median.
+	//Having median at hand, find the right node intervals such that left end point is greater than median
+	public static void findMedianAndFill(
+			List<Interval> allIntervals,
+			Float median,
+			List<Interval> leftNodeIntervals,
+			List<Interval> middleNodeIntervals,
+			List<Interval> rightNodeIntervals){
 		
-		int median = 0;
-		List<Interval> leftSubtreeIntervals  = null;
-		List<Interval> rightSubtreeIntervals = null;
-		List<Interval> medianSubtreeIntervals = null;
+		int numberofIntervals = allIntervals.size();
+		int numberofEndPoints = numberofIntervals*2;
 		
-		IntervalTree intervalTree = null;
+		int[] allEndPoints = new int[numberofEndPoints];
+		int[] allEndPointsSorted = new int[numberofEndPoints];
 		
-		//median = findMedianofEndPoints(list);
+		Interval interval = null;
+		int i=0;
+
+		//Fill allEndPoints
+		for(Iterator<Interval> itr= allIntervals.iterator(); itr.hasNext();){
+			interval = itr.next();	
+			allEndPoints[i++] = interval.getLow();
+			allEndPoints[i++] = interval.getHigh();
+		}
 		
-		//leftSubtreeIntervals = findLeftSubtree(list, median);
+		allEndPointsSorted = CountingSorting.countingSort(allEndPoints);
 		
-		//rightSubtreeIntervals = findRightSubtree(list,median);
+		median = (allEndPointsSorted[numberofIntervals-1] + allEndPointsSorted[numberofIntervals])*1.0f/2;
 		
-		//middleIntervals
+		System.out.println("Median is " + median);
+		//Sorting an array into ascending order. 
+		//This can be done either sequentially, using the sort method, or concurrently, using the parallelSort method introduced in Java SE 8
+		//Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.
+	}
+	
+	//TODO
+	public static void fill(
+			List<Interval> middleNodeIntervals,
+			List<Interval> middleIntervalsLeftEndPointsAscending,
+			List<Interval> middleIntervalsRightEndPointsDescending){
 		
-		return intervalTree;
+		Interval[] middleIntervalsUnsorted = (Interval[]) middleNodeIntervals.toArray();
+		Interval[] middleIntervalsLeftEndPointsAscendingSorted = CountingSorting.countingSort(middleIntervalsUnsorted);
+		
+		CountingSorting.printArray(middleIntervalsLeftEndPointsAscendingSorted);
+	}
+	
+	
+	//list contains unsorted intervals.
+	//First sort the interval end points
+	//Find the median
+	//Find the node intervals
+	//Find the left subtree intervals
+	//Find the right subtree intervals
+	public static IntervalTreeNode constructIntervalTree(List<Interval> allIntervals){
+		
+		IntervalTreeNode node = null;
+		
+		if (allIntervals==null || allIntervals.isEmpty()){
+			
+			return node;
+			
+		}else{
+			
+			Float median = null;
+			List<Interval> leftNodeIntervals =null;
+			List<Interval> middleNodeIntervals = null;
+			List<Interval> rightNodeIntervals =null;
+			
+			IntervalTreeNode leftSubTreeNode = null;
+			IntervalTreeNode rightSubTreeNode =null;
+			
+			List<Interval> middleIntervalsLeftEndPointsAscending = null;
+			List<Interval> middleIntervalsRightEndPointsDescending = null;
+
+			
+			findMedianAndFill(allIntervals,median,leftNodeIntervals,middleNodeIntervals,rightNodeIntervals);
+			
+			fill(middleNodeIntervals,middleIntervalsLeftEndPointsAscending,middleIntervalsRightEndPointsDescending);
+			
+			leftSubTreeNode = constructIntervalTree(leftNodeIntervals);
+			
+			rightSubTreeNode = constructIntervalTree(rightNodeIntervals);
+			
+			node = new IntervalTreeNode(
+					middleIntervalsLeftEndPointsAscending, 
+					middleIntervalsRightEndPointsDescending, 
+					median, 
+					leftSubTreeNode, 
+					rightSubTreeNode);
+			
+		}
+		
+		return node;
 		
 	}
+	
+	
+
+	public IntervalTree(IntervalTreeNode root) {
+		super();
+		this.root = root;
+	}
+
 
 	/**
 	 * @param args
@@ -112,7 +204,9 @@ public class IntervalTree {
 		//Collections.sort(list);
 		
 		//You have a list of intervals
-		constructIntervalTree(list);
+		IntervalTreeNode root = constructIntervalTree(list);
+		
+		//IntervalTree intervalTree = new IntervalTree(root);
 
 		
 

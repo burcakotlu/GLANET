@@ -3530,7 +3530,7 @@ public class Annotation {
 						// UCSCRefSeqGenes Search starts here
 						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
 							
-							//TODO Let's use only one such function for gene, geneSet(KEGG or UDGS), TFKEGG, TFCellLineKEGG, Both (TFKEGG and TFCellLineKEGG)
+							//Let's use only one such function for gene, geneSet(KEGG or UDGS), TFKEGG, TFCellLineKEGG, Both (TFKEGG and TFCellLineKEGG)
 							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 									outputFolder,
 									writeFoundOverlapsMode, 

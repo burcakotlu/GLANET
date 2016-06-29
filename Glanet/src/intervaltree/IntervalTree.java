@@ -8490,7 +8490,7 @@ public class IntervalTree {
 	
 	//13 April 2016 starts
 	//Annotation NOOB
-	//This method is called from gene, geneSet (KEGG or UDGS), TFKEGG, TFCellLineKEGG, Both(TFKEGG and TFCellLineKEGG)
+	//This method is called from Gene, GeneSet (KEGG or UDGS), TFKEGG, TFCellLineKEGG, Both(TFKEGG and TFCellLineKEGG)
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 			String outputFolder,
 			IntervalTreeNode node, 
@@ -10694,6 +10694,7 @@ public class IntervalTree {
 								if(geneSetNumberListContainingThisGeneId != null){
 									
 									//It will be null when called for Annotation EOO is done for Gene or GeneSet case
+									//But not null when called for Annotation EOO is done for TFKEGG and TFCellLineKEGG
 									if (exonBasedGeneSetOverlapList!=null){
 										
 										exonBasedGeneSetOverlapList.add( 

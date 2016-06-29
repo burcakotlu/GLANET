@@ -1252,7 +1252,11 @@ public class Commons {
 	public static final String NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION = "NCBI_RNA_NUCLEOTIDE_ACCESSION_VERSION";
 	public static final String UCSC_GENE_ALTERNATE_NAME = "UCSC_GENE_ALTERNATE_NAME";
 	public static final String CELLLINE = "CELLLINE";
-
+	
+	
+	public static final String INTERVAL_TREE_CORMEN = "INTERVAL_TREE_CORMEN";
+	public static final String INTERVAL_TREE_MARKDEBERG = "INTERVAL_TREE_MARKDEBERG";
+	public static final String SEGMENT_TREE_MARKDEBERG = "SEGMENT_TREE_MARKDEBERG";
 	/**************************************************************************************************/
 	/**************************** ALL POSSIBLE NAMES Directories starts *********************************/
 	/**************************************************************************************************/
