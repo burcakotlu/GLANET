@@ -10,6 +10,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import sorting.CountingSorting;
+import enumtypes.PointType;
+import enumtypes.SortingOrder;
 
 /**
  * @author Burçak Otlu
@@ -71,9 +73,8 @@ public class IntervalTree {
 	}
 	
 	
-	//TODO
 	//allIntervals are not sorted whether w.r.t. to left or right end points
-	//Take left and right end points and sort the end points and find the median
+	//Take left and right end points and sort the all end points and find the median
 	//Having median at hand, find the left node intervals such that right end point is less than median
 	//Having median at hand, find the middle node intervals such that left end point is less than or equal to median and right end point is greater than or equal to median.
 	//Having median at hand, find the right node intervals such that left end point is greater than median
@@ -100,26 +101,58 @@ public class IntervalTree {
 			allEndPoints[i++] = interval.getHigh();
 		}
 		
-		allEndPointsSorted = CountingSorting.countingSort(allEndPoints);
+		allEndPointsSorted = CountingSorting.sort(allEndPoints, SortingOrder.SORTING_IN_ASCENDING_ORDER);
 		
+		//Find median
 		median = (allEndPointsSorted[numberofIntervals-1] + allEndPointsSorted[numberofIntervals])*1.0f/2;
 		
+		//Fill left, middle and right interval lists
+		//Think about if intervals were sorted w.r.t. left end points or right end points how would it be affected?
+		//w.r.t. left end point ascending
+		//w.r.t. left end point descending
+		//w.r.t. right end point ascending
+		//w.r.t. right end point descending
+		
+		//TODO
+		//Assume that we have sorted all the intervals w.r.t. left end points in ascending order O(nlogn) or O(n+k)
+		//Loop until you hit an interval with its low is greater than median
+		//Then exit loop and add all the remaining intervals into right intervals.
+		for(Iterator<Interval> itr= allIntervals.iterator(); itr.hasNext();){
+			interval = itr.next();	
+			
+			if (interval.getHigh() < median){
+				leftNodeIntervals.add(interval);
+			}else if (interval.getLow() > median){
+				rightNodeIntervals.add(interval);
+			}else{
+				middleNodeIntervals.add(interval);
+			}
+		}//End of FOR
+		
 		System.out.println("Median is " + median);
+		System.out.println("Size of all intervals  is: " + allIntervals.size());
+		System.out.println("Size of left node intervals  is: " + leftNodeIntervals.size());
+		System.out.println("Size of middle node intervals  is: " + middleNodeIntervals.size());
+		System.out.println("Size of right node intervals  is: " + rightNodeIntervals.size());
+		
 		//Sorting an array into ascending order. 
 		//This can be done either sequentially, using the sort method, or concurrently, using the parallelSort method introduced in Java SE 8
 		//Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.
 	}
 	
-	//TODO
 	public static void fill(
 			List<Interval> middleNodeIntervals,
-			List<Interval> middleIntervalsLeftEndPointsAscending,
-			List<Interval> middleIntervalsRightEndPointsDescending){
+			Interval[] middleIntervalsLeftEndPointsAscending,
+			Interval[] middleIntervalsRightEndPointsDescending){
 		
-		Interval[] middleIntervalsUnsorted = (Interval[]) middleNodeIntervals.toArray();
-		Interval[] middleIntervalsLeftEndPointsAscendingSorted = CountingSorting.countingSort(middleIntervalsUnsorted);
+		//Does middleNodeIntervals has to be a list? Can it be stored in an array?
+		Interval[] middleIntervalsUnsorted = middleNodeIntervals.toArray(new Interval[middleNodeIntervals.size()]);
 		
-		CountingSorting.printArray(middleIntervalsLeftEndPointsAscendingSorted);
+		CountingSorting.sortLeftEndPointsAscending(middleIntervalsUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER,middleIntervalsLeftEndPointsAscending);
+		CountingSorting.sortRightEndPointsDescending(middleIntervalsUnsorted, SortingOrder.SORTING_IN_DESCENDING_ORDER,middleIntervalsRightEndPointsDescending);
+		
+		CountingSorting.printArray(middleIntervalsLeftEndPointsAscending, PointType.LEFT_END_POINT);
+		CountingSorting.printArray(middleIntervalsRightEndPointsDescending,PointType.RIGHT_END_POINT);
 	}
 	
 	
@@ -139,20 +172,25 @@ public class IntervalTree {
 			
 		}else{
 			
-			Float median = null;
-			List<Interval> leftNodeIntervals =null;
-			List<Interval> middleNodeIntervals = null;
-			List<Interval> rightNodeIntervals =null;
+			Float median = new Float(0);
+			List<Interval> leftNodeIntervals = new ArrayList<>();
+			List<Interval> middleNodeIntervals = new ArrayList<>();
+			List<Interval> rightNodeIntervals = new ArrayList<>();
 			
 			IntervalTreeNode leftSubTreeNode = null;
 			IntervalTreeNode rightSubTreeNode =null;
 			
-			List<Interval> middleIntervalsLeftEndPointsAscending = null;
-			List<Interval> middleIntervalsRightEndPointsDescending = null;
-
 			
+			//allIntervals can be an array
+			//However we do not know how many of the intervals will be in left, middle and right.
 			findMedianAndFill(allIntervals,median,leftNodeIntervals,middleNodeIntervals,rightNodeIntervals);
 			
+			//We don't know the number of middle intervals
+			//middleIntervalsLeftEndPointsAscending can be an array
+			//middleIntervalsRightEndPointsDescending can be an array
+			Interval[] middleIntervalsLeftEndPointsAscending = new Interval[middleNodeIntervals.size()];
+			Interval[] middleIntervalsRightEndPointsDescending = new Interval[middleNodeIntervals.size()];
+
 			fill(middleNodeIntervals,middleIntervalsLeftEndPointsAscending,middleIntervalsRightEndPointsDescending);
 			
 			leftSubTreeNode = constructIntervalTree(leftNodeIntervals);

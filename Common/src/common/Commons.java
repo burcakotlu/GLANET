@@ -1257,6 +1257,13 @@ public class Commons {
 	public static final String INTERVAL_TREE_CORMEN = "INTERVAL_TREE_CORMEN";
 	public static final String INTERVAL_TREE_MARKDEBERG = "INTERVAL_TREE_MARKDEBERG";
 	public static final String SEGMENT_TREE_MARKDEBERG = "SEGMENT_TREE_MARKDEBERG";
+	
+	public static final String SORTING_IN_DESCENDING_ORDER = "SORTING_IN_DESCENDING_ORDER";
+	public static final String SORTING_IN_ASCENDING_ORDER = "SORTING_IN_ASCENDING_ORDER";
+	
+	public static final String LEFT_END_POINT = "LEFT_END_POINT";
+	public static final String RIGHT_END_POINT = "RIGHT_END_POINT";
+	
 	/**************************************************************************************************/
 	/**************************** ALL POSSIBLE NAMES Directories starts *********************************/
 	/**************************************************************************************************/

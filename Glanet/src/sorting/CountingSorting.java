@@ -3,6 +3,8 @@
  */
 package sorting;
 
+import enumtypes.PointType;
+import enumtypes.SortingOrder;
 import intervaltree.Interval;
 
 /**
@@ -10,6 +12,11 @@ import intervaltree.Interval;
  * @date Jun 29, 2016
  * @project Glanet 
  *
+ *
+ * The biggest advantage of counting sort is its complexity – O(n+k), 
+ * where n is the size of the sorted array and 
+ * k is the size of the helper array (range of distinct values).
+ * 
  */
 public class CountingSorting {
 	
@@ -18,7 +25,9 @@ public class CountingSorting {
 	* @param array array to be sorted
 	* @return array sorted in ascending order
 	*/
-	public static int[] countingSort(int[] array) {
+	public static int[] sort(int[] array, SortingOrder sortingOrder) {
+		
+		int arrayTopIndex;
 
 		// array to be sorted in, this array is necessary
 		// when we sort object datatypes, if we don't,
@@ -46,6 +55,8 @@ public class CountingSorting {
 		 
 	
 		// recalculate the array - create the array of occurences
+		// why do we decrease by one?
+		// since we want to have a valid array index, not exceed array size, therefore we decrease by one beforehand.
 		counts[0]--;
 		for (int i = 1; i < counts.length; i++) {
 			counts[i] = counts[i] + counts[i-1];
@@ -56,10 +67,28 @@ public class CountingSorting {
 		// 2) place it into the sorted array
 		// 3) decrement the index of the last occurence of the given value
 		// 4) continue with the previous value of the input array (goto: 1), terminate if all values were already sorted
-		for (int i = array.length - 1; i >= 0; i--) {
-			aux[counts[array[i] - min]--] = array[i];
-		}
+		
+		switch(sortingOrder){
+		
+			case SORTING_IN_ASCENDING_ORDER:
+				for (int i = array.length - 1; i >= 0; i--) {
+					aux[counts[array[i] - min]--] = array[i];
+				}
+				break;
+				
+			case SORTING_IN_DESCENDING_ORDER:
+				arrayTopIndex = array.length-1;
+				for (int i = array.length - 1; i >= 0; i--) {
+					aux[arrayTopIndex-counts[array[i] - min]--] = array[i];
+				}
+				break;
+			
+		}//End of SWITCH
+		
 	
+		//Free space
+		counts = null;
+
 		return aux;
 	}
 	
@@ -69,12 +98,17 @@ public class CountingSorting {
 	* @param array array to be sorted
 	* @return array sorted in ascending order
 	*/
-	public static Interval[] countingSort(Interval[] array) {
+	public static void sortLeftEndPointsAscending(
+			Interval[] array, 
+			SortingOrder sortingOrder,
+			Interval[] intervalsSorted) {
+		
+		int arrayTopIndex;
 
 		// array to be sorted in, this array is necessary
-		// when we sort object datatypes, if we don't,
+		// when we sort object data types, if we don't,
 		// we can sort directly into the input array    
-		Interval[] aux = new Interval[array.length];
+		//Interval[] aux = new Interval[array.length];
 	
 		// find the smallest and the largest value
 		int min = array[0].getLow();
@@ -107,12 +141,98 @@ public class CountingSorting {
 		// 2) place it into the sorted array
 		// 3) decrement the index of the last occurence of the given value
 		// 4) continue with the previous value of the input array (goto: 1), terminate if all values were already sorted
-		for (int i = array.length - 1; i >= 0; i--) {
-			aux[counts[array[i].getLow() - min]--] = array[i];
+		
+		switch(sortingOrder){
+		
+			case SORTING_IN_ASCENDING_ORDER:
+				for (int i = array.length - 1; i >= 0; i--) {
+					intervalsSorted[counts[array[i].getLow() - min]--] = array[i];
+				}
+				break;
+			case SORTING_IN_DESCENDING_ORDER:
+				arrayTopIndex = array.length-1;
+				for (int i = array.length - 1; i >= 0; i--) {
+					intervalsSorted[arrayTopIndex-counts[array[i].getLow() - min]--] = array[i];
+				}
+				break;
+		
+		}//End of SWITCH
+		
+		
+		//Free space
+		counts = null;
+	
+
+	}
+	
+	
+	
+	public static void sortRightEndPointsDescending(
+			Interval[] array, 
+			SortingOrder sortingOrder,
+			Interval[] intervalsSorted) {
+		
+		int arrayTopIndex;
+
+		// array to be sorted in, this array is necessary
+		// when we sort object data types, if we don't,
+		// we can sort directly into the input array    
+		//Interval[] aux = new Interval[array.length];
+	
+		// find the smallest and the largest value
+		int min = array[0].getHigh();
+		int max = array[0].getHigh();
+	
+		for (int i = 1; i < array.length; i++) {
+			if (array[i].getHigh() < min) min = array[i].getHigh();
+			else if (array[i].getHigh() > max) max = array[i].getHigh();
 		}
 	
-		return aux;
+		 
+	
+		// init array of frequencies
+		int[] counts = new int[max - min + 1];
+	
+		// init the frequencies
+		for (int i = 0;  i < array.length; i++) {
+			counts[array[i].getHigh() - min]++;
+		}
+		 
+	
+		// recalculate the array - create the array of occurences
+		counts[0]--;
+		for (int i = 1; i < counts.length; i++) {
+			counts[i] = counts[i] + counts[i-1];
+		}
+	
+		// Sort the array right to the left
+		// 1) look up in the array of occurences the last occurence of the given value
+		// 2) place it into the sorted array
+		// 3) decrement the index of the last occurence of the given value
+		// 4) continue with the previous value of the input array (goto: 1), terminate if all values were already sorted
+		
+		switch(sortingOrder){
+		
+			case SORTING_IN_ASCENDING_ORDER:
+				for (int i = array.length - 1; i >= 0; i--) {
+					intervalsSorted[counts[array[i].getHigh() - min]--] = array[i];
+				}
+				break;
+			case SORTING_IN_DESCENDING_ORDER:
+				arrayTopIndex = array.length-1;
+				for (int i = array.length - 1; i >= 0; i--) {
+					intervalsSorted[arrayTopIndex-counts[array[i].getHigh() - min]--] = array[i];
+				}
+				break;
+		
+		}//End of SWITCH
+		
+		
+		//Free space
+		counts = null;
+
 	}
+
 
 	public static void printArray(int[] array){
 		for(int i = 0; i<array.length; i++ ){
@@ -120,18 +240,28 @@ public class CountingSorting {
 		}
 	}
 	
-	public static void printArray(Interval[] array){
-		for(int i = 0; i<array.length; i++ ){
-			System.out.println(array[i].getLow());
-		}
+	public static void printArray(Interval[] array,PointType pointType){
+		
+		switch(pointType){
+		
+			case LEFT_END_POINT:
+				for(int i = 0; i<array.length; i++ ){
+					System.out.println(array[i].getLow());
+				}
+				break;
+			case RIGHT_END_POINT:
+				for(int i = 0; i<array.length; i++ ){
+					System.out.println(array[i].getHigh());
+				}
+				break;
+			
+		}//End of switch
+		
+		
+		
 	}
 
-	/**
-	 * 
-	 */
-	public CountingSorting() {
-		// TODO Auto-generated constructor stub
-	}
+
 
 	/**
 	 * @param args
@@ -139,11 +269,19 @@ public class CountingSorting {
 	public static void main(String[] args) {
 			
 		
-		int[] arrayToBeSorted = new int[]{10,20,5,40,30,50,0,15,40,60,10,30};
-		int[] arraySorted;
-		arraySorted = countingSort(arrayToBeSorted);
+		int[] arrayToBeSorted = new int[]{-100000000,-10, 10,20,5,40,30,50,0,15,40,60,10,30, 1000,100000000};
 		
-		printArray(arraySorted);
+		System.out.println("*************************");
+
+		arrayToBeSorted = sort(arrayToBeSorted, SortingOrder.SORTING_IN_ASCENDING_ORDER);
+		printArray(arrayToBeSorted);
+
+		System.out.println("*************************");
+		
+		arrayToBeSorted = sort(arrayToBeSorted, SortingOrder.SORTING_IN_DESCENDING_ORDER);
+		printArray(arrayToBeSorted);
+
+		System.out.println("*************************");
 
 	}
 

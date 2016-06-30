@@ -5,8 +5,6 @@ package trees;
 
 import intervaltree.Interval;
 
-import java.util.List;
-
 /**
  * @author Burçak Otlu
  * @date Jun 29, 2016
@@ -16,10 +14,10 @@ import java.util.List;
 public class IntervalTreeNode {
 
 	//List of intervals where intervals are sorted w.r.t. their left end points in ascending order.
-	List<Interval> leftEndPointsAscending;
+	Interval[] leftEndPointsAscending;
 
 	//List of intervals where intervals are sorted w.r.t. their right end points in descending order.
-	List<Interval> rightEndPointsDescending;
+	Interval[] rightEndPointsDescending;
 	
 	Float x_mid;
 	
@@ -31,8 +29,8 @@ public class IntervalTreeNode {
 	 * 
 	 */
 	public IntervalTreeNode(
-			List<Interval> leftEndPointsAscending,
-			List<Interval> rightEndPointsDescending,
+			Interval[] leftEndPointsAscending,
+			Interval[] rightEndPointsDescending,
 			Float x_mid,
 			IntervalTreeNode leftSubTree,
 			IntervalTreeNode rightSubTree) {
