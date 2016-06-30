@@ -239,12 +239,11 @@ public class IntervalTree {
 		list.add(i5);
 		list.add(i6);
 		
-		//Collections.sort(list);
 		
 		//You have a list of intervals
 		IntervalTreeNode root = constructIntervalTree(list);
 		
-		//IntervalTree intervalTree = new IntervalTree(root);
+		System.out.println(root.getMedian());
 
 		
 
