@@ -3,9 +3,9 @@
  */
 package sorting;
 
-import enumtypes.PointType;
-import enumtypes.SortingOrder;
 import intervaltree.Interval;
+import printing.Print;
+import enumtypes.SortingOrder;
 
 /**
  * @author Burçak Otlu
@@ -77,6 +77,10 @@ public class CountingSorting {
 				break;
 				
 			case SORTING_IN_DESCENDING_ORDER:
+				//array and aux have to be of same size.
+				//array is unsorted
+				//aux is sorted
+				//counts is of size range which is equal to the max-min+1
 				arrayTopIndex = array.length-1;
 				for (int i = array.length - 1; i >= 0; i--) {
 					aux[arrayTopIndex-counts[array[i] - min]--] = array[i];
@@ -162,7 +166,6 @@ public class CountingSorting {
 		//Free space
 		counts = null;
 	
-
 	}
 	
 	
@@ -234,34 +237,7 @@ public class CountingSorting {
 	}
 
 
-	public static void printArray(int[] array){
-		for(int i = 0; i<array.length; i++ ){
-			System.out.println(array[i]);
-		}
-	}
 	
-	public static void printArray(Interval[] array,PointType pointType){
-		
-		switch(pointType){
-		
-			case LEFT_END_POINT:
-				for(int i = 0; i<array.length; i++ ){
-					System.out.println(array[i].getLow());
-				}
-				break;
-			case RIGHT_END_POINT:
-				for(int i = 0; i<array.length; i++ ){
-					System.out.println(array[i].getHigh());
-				}
-				break;
-			
-		}//End of switch
-		
-		
-		
-	}
-
-
 
 	/**
 	 * @param args
@@ -274,12 +250,12 @@ public class CountingSorting {
 		System.out.println("*************************");
 
 		arrayToBeSorted = sort(arrayToBeSorted, SortingOrder.SORTING_IN_ASCENDING_ORDER);
-		printArray(arrayToBeSorted);
+		Print.printArray(arrayToBeSorted);
 
 		System.out.println("*************************");
 		
 		arrayToBeSorted = sort(arrayToBeSorted, SortingOrder.SORTING_IN_DESCENDING_ORDER);
-		printArray(arrayToBeSorted);
+		Print.printArray(arrayToBeSorted);
 
 		System.out.println("*************************");
 
