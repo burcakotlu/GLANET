@@ -43,7 +43,6 @@ public class TestingTrees {
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
 
 
-		
 		/**************************************************************************************/
 		/********************TIME MEASUREMENT**************************************************/
 		/**************************************************************************************/
@@ -55,7 +54,6 @@ public class TestingTrees {
 		/**************************************************************************************/
 		/********************TIME MEASUREMENT**************************************************/
 		/**************************************************************************************/
-
 		
 		intervaltree.IntervalTree dnaseIntervalTreeCormen = null;
 		trees.IntervalTreeMarkdeBerg dnaseIntervalTreeMarkdeBerg =null;

@@ -112,7 +112,7 @@ public class CountingSorting {
 		// array to be sorted in, this array is necessary
 		// when we sort object data types, if we don't,
 		// we can sort directly into the input array    
-		//Interval[] aux = new Interval[array.length];
+		// Interval[] aux = new Interval[array.length];
 	
 		// find the smallest and the largest value
 		int min = array[0].getLow();
@@ -123,7 +123,6 @@ public class CountingSorting {
 			else if (array[i].getLow() > max) max = array[i].getLow();
 		}
 	
-		 
 	
 		// init array of frequencies
 		int[] counts = new int[max - min + 1];
@@ -213,7 +212,6 @@ public class CountingSorting {
 		// 2) place it into the sorted array
 		// 3) decrement the index of the last occurence of the given value
 		// 4) continue with the previous value of the input array (goto: 1), terminate if all values were already sorted
-		
 		switch(sortingOrder){
 		
 			case SORTING_IN_ASCENDING_ORDER:

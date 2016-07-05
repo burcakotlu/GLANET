@@ -86,10 +86,14 @@ public class IntervalTreeMarkdeBerg {
 		this.root = root;
 	}
 
-	//TODO
+	
+	
+	
+	public IntervalTreeMarkdeBerg() {
+		super();
+	}
+
 	// Generate Dnase Interval Tree with Numbers starts
-	// For Annotation and Enrichment
-	// Empirical P Value Calculation
 	public static trees.IntervalTreeMarkdeBerg generateEncodeDnaseIntervalTreeWithNumbers(
 			BufferedReader bufferedReader,
 			BufferedWriter bufferedWriter) {
@@ -153,11 +157,16 @@ public class IntervalTreeMarkdeBerg {
 			
 			Interval[] intervalArrayUnsorted = (Interval[]) intervalList.toArray(new Interval[intervalList.size()]);
 			Interval[] intervalArraySorted = new Interval[intervalList.size()];
+			
+			//Do it only once. Sort intervals in ascending order w.r.t. left end points.
 			CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted);			
 			
+			//Free space
+			intervalList = null;
+			
+			//Construct interval tree
 			IntervalTreeMarkdeBergNode root = constructIntervalTree(intervalArraySorted,bufferedWriter);
 			
-			System.out.println("Number of intervals: " + intervalList.size());
 			dnaseIntervalTree.setRoot(root);
 			
 		}catch( IOException e){
@@ -167,8 +176,7 @@ public class IntervalTreeMarkdeBerg {
 		return dnaseIntervalTree;
 	}
 	
-	//TODO
-	//For testing purposes
+
 	public static IntervalTreeMarkdeBerg createDnaseIntervalTreeWithNumbers(String dataFolder, String outputFolder,ChromosomeName chrName){
 		
 		IntervalTreeMarkdeBerg intervalTree = null;
@@ -176,7 +184,6 @@ public class IntervalTreeMarkdeBerg {
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 
-		
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
@@ -188,13 +195,14 @@ public class IntervalTreeMarkdeBerg {
 			
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(outputFolder + "IntervalsDistribution.txt", true);
+			fileWriter = FileOperations.createFileWriter(outputFolder + "IntervalsDistribution.txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			intervalTree = generateEncodeDnaseIntervalTreeWithNumbers(bufferedReader,bufferedWriter);
 			
-			//Close bufferedReader
+			//Close bufferedReader and bufferedWriter
 			bufferedReader.close();
+			bufferedWriter.close();
 
 		}catch( FileNotFoundException e){
 			System.out.println(e.toString());
@@ -206,12 +214,7 @@ public class IntervalTreeMarkdeBerg {
 		
 	}
 
-	/**
-	 * 
-	 */
-	public IntervalTreeMarkdeBerg() {
-		// TODO Auto-generated constructor stub
-	}
+
 	
 	
 	//allIntervals are not sorted whether w.r.t. to left or right end points
@@ -220,27 +223,27 @@ public class IntervalTreeMarkdeBerg {
 	//Having median at hand, find the middle node intervals such that left end point is less than or equal to median and right end point is greater than or equal to median.
 	//Having median at hand, find the right node intervals such that left end point is greater than median
 	public static float findMedianAndFillLeftMiddleRightNodeIntervals(
-			Interval[] allIntervals,
+			Interval[] allIntervalsSorted,
 			List<Interval> leftNodeIntervals,
 			List<Interval> middleNodeIntervals,
 			List<Interval> rightNodeIntervals,
 			BufferedWriter bufferedWriter){
 		
-		int numberofIntervals = allIntervals.length;
+		int numberofIntervals = allIntervalsSorted.length;
 		int numberofEndPoints = numberofIntervals*2;
 		
 		int[] allEndPoints = new int[numberofEndPoints];
 		int[] allEndPointsSorted = new int[numberofEndPoints];
 		
 		int j=0;
-		int saved_i = allIntervals.length;
+		int saved_i = allIntervalsSorted.length;
 
 		float median;
 		
 		//Fill allEndPoints
-		for(int i=0; i<allIntervals.length; i++){
-			allEndPoints[j++] = allIntervals[i].getLow();
-			allEndPoints[j++] = allIntervals[i].getHigh();
+		for(int i=0; i<allIntervalsSorted.length; i++){
+			allEndPoints[j++] = allIntervalsSorted[i].getLow();
+			allEndPoints[j++] = allIntervalsSorted[i].getHigh();
 		}
 		
 		//We have to sort all end points in order to find the median.
@@ -250,41 +253,32 @@ public class IntervalTreeMarkdeBerg {
 		median = (allEndPointsSorted[numberofIntervals-1] + allEndPointsSorted[numberofIntervals])*1.0f/2;
 		
 		//Fill left, middle and right interval lists
-		//Think about what if intervals were sorted w.r.t. left end points or right end points how would be the rest affected?
-		//w.r.t. left end point ascending
-		//w.r.t. left end point descending
-		//w.r.t. right end point ascending
-		//w.r.t. right end point descending
-		
-		//TODO
-		//There is a point here to decide
-		//Assume that we have sorted all the intervals w.r.t. left end points in ascending order O(nlogn) or O(n+k)
+		//We have sorted all the intervals w.r.t. left end points in ascending order O(nlogn) or O(n+k)
 		//Loop until you hit an interval with its low is greater than median
 		//Then exit loop and add all the remaining intervals into right intervals.
-		for(int i= 0 ; i<allIntervals.length; i++){
+		for(int i= 0 ; i<numberofIntervals; i++){
 			
-			if (allIntervals[i].getHigh() < median){
-				leftNodeIntervals.add(allIntervals[i]);
-			}else if (allIntervals[i].getLow() > median){
-				rightNodeIntervals.add(allIntervals[i]);
+			if (allIntervalsSorted[i].getHigh() < median){
+				leftNodeIntervals.add(allIntervalsSorted[i]);
+			}else if (allIntervalsSorted[i].getLow() > median){
+				rightNodeIntervals.add(allIntervalsSorted[i]);
+				//We have inserted interval indexed at i
+				//We know that rest of the intervals will be added to the rightNodeIntervals
 				saved_i = i+1;
-				//we know that rest of the intervals will be added to the rightNodeIntervals
 				break;
 			}else{
-				middleNodeIntervals.add(allIntervals[i]);
+				middleNodeIntervals.add(allIntervalsSorted[i]);
 			}
 		}//End of FOR
 		
 		
-		//Check you don't put the cuf off twice
-		for(int i= saved_i ; i<allIntervals.length; i++){
-			rightNodeIntervals.add(allIntervals[i]);
+		//Check you don't put the cut off value twice
+		for(int i= saved_i ; i<numberofIntervals; i++){
+			rightNodeIntervals.add(allIntervalsSorted[i]);
 		}
 		
-//		System.out.println("****************************************************************");
-//		System.out.println("Median is " + median);
 //		try {
-//			bufferedWriter.write("Number of all intervals  is: " + allIntervals.length + "=[Left: " + leftNodeIntervals.size() +  ", Middle: " + middleNodeIntervals.size() + ", Right: " + rightNodeIntervals.size() + "]" + System.getProperty("line.separator"));
+//			bufferedWriter.write("Median: " + median + " Number of all intervals  is: " + allIntervalsSorted.length + "=[Left: " + leftNodeIntervals.size() +  ", Middle: " + middleNodeIntervals.size() + ", Right: " + rightNodeIntervals.size() + "]" + System.getProperty("line.separator"));
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		} 
@@ -292,7 +286,6 @@ public class IntervalTreeMarkdeBerg {
 		//Sorting an array into ascending order. 
 		//This can be done either sequentially, using the sort method, or concurrently, using the parallelSort method introduced in Java SE 8
 		//Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.
-		
 		return median;
 	}
 	
@@ -317,16 +310,19 @@ public class IntervalTreeMarkdeBerg {
 		//Then there is no need to sort this array in two ways
 		if (middleNodeIntervals!=null && !middleNodeIntervals.isEmpty()){
 			
-			Interval[] middleIntervalsUnsorted = middleNodeIntervals.toArray(new Interval[middleNodeIntervals.size()]);
 			
-			CountingSorting.sortLeftEndPointsAscending(middleIntervalsUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER,middleIntervalsLeftEndPointsAscending);
-			CountingSorting.sortRightEndPointsDescending(middleIntervalsUnsorted, SortingOrder.SORTING_IN_DESCENDING_ORDER,middleIntervalsRightEndPointsDescending);
+			//Since it is already sorted w.r.t. left end points in ascending order
+			//check it more
+//			CountingSorting.sortLeftEndPointsAscending(middleIntervalsUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER,middleIntervalsLeftEndPointsAscending);
+			middleNodeIntervals.toArray(middleIntervalsLeftEndPointsAscending);
+			CountingSorting.sortRightEndPointsDescending(middleIntervalsLeftEndPointsAscending, SortingOrder.SORTING_IN_DESCENDING_ORDER,middleIntervalsRightEndPointsDescending);
 			
 //			System.out.println("*********Middle Intervals Left End Points Ascending*************");
 //			Print.printArray(middleIntervalsLeftEndPointsAscending);
 //			System.out.println("*********Middle Intervals Right End Points Descending***********");
 //			Print.printArray(middleIntervalsRightEndPointsDescending);
 //			System.out.println("****************************************************************");
+			
 		}
 		
 	}
@@ -339,12 +335,12 @@ public class IntervalTreeMarkdeBerg {
 	//Find the left subtree intervals
 	//Find the right subtree intervals
 	public static IntervalTreeMarkdeBergNode constructIntervalTree(
-			Interval[] allIntervals,
+			Interval[] allIntervalsSorted,
 			BufferedWriter bufferedWriter){
 		
 		IntervalTreeMarkdeBergNode node = null;
 		
-		if (allIntervals==null || allIntervals.length==0){
+		if (allIntervalsSorted==null || allIntervalsSorted.length==0){
 			
 			return node;
 			
@@ -362,22 +358,24 @@ public class IntervalTreeMarkdeBerg {
 			//allIntervals can be an array
 			//the filled list can be converted to an array
 			//However we do not know how many of the intervals will be in left, middle and right.
-			//By creating array of size of number of all intervals this can be also done.
-			median = findMedianAndFillLeftMiddleRightNodeIntervals(allIntervals,leftNodeIntervals,middleNodeIntervals,rightNodeIntervals,bufferedWriter);
+			//By creating array of size of number of all intervals can be a solution.
+			median = findMedianAndFillLeftMiddleRightNodeIntervals(allIntervalsSorted,leftNodeIntervals,middleNodeIntervals,rightNodeIntervals,bufferedWriter);
 			
+			//Free space
+			allIntervalsSorted  = null;
+						
 			//We don't know the number of middle intervals
 			//middleIntervalsLeftEndPointsAscending can be an array
 			//middleIntervalsRightEndPointsDescending can be an array
 			Interval[] middleIntervalsLeftEndPointsAscending = new Interval[middleNodeIntervals.size()];
 			Interval[] middleIntervalsRightEndPointsDescending = new Interval[middleNodeIntervals.size()];
-
+			
 			sortMiddleNodeIntervalsInTwoWays(middleNodeIntervals,middleIntervalsLeftEndPointsAscending,middleIntervalsRightEndPointsDescending);
 			
 			//Free Space
 			//We have created middleIntervalsLeftEndPointsAscending and middleIntervalsRightEndPointsDescending from middleNodeIntervals
 			//So remove middleNodeIntervals
 			middleNodeIntervals = null;
-			
 			
 			left = constructIntervalTree(leftNodeIntervals.toArray(new Interval[leftNodeIntervals.size()]),bufferedWriter);
 			
