@@ -4,6 +4,10 @@
 package printing;
 
 import intervaltree.Interval;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+
 import enumtypes.PointType;
 
 /**
@@ -13,6 +17,8 @@ import enumtypes.PointType;
  *
  */
 public class Print {
+	
+
 
 	public static void printArray(int[] array){
 		for(int i = 0; i<array.length; i++ ){
@@ -49,6 +55,23 @@ public class Print {
 		}
 		
 		System.out.println();
+		
+	}
+	
+	
+	public static void printArray(Interval[] array, BufferedWriter bufferedWriter){
+	
+		try {
+			
+			for(int i = 0; i<array.length; i++ ){
+				bufferedWriter.write("[" + array[i].getLow() + "," + array[i].getHigh() + "] ");
+			}//End of for
+			
+			bufferedWriter.write(System.getProperty("line.separator"));
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 

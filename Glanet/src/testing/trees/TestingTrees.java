@@ -3,7 +3,15 @@
  */
 package testing.trees;
 
+import intervaltree.Interval;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import trees.IntervalTreeMarkdeBerg;
 import annotation.Annotation;
+import auxiliary.FileOperations;
 
 import common.Commons;
 
@@ -41,50 +49,108 @@ public class TestingTrees {
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		FileWriter searchFileWriter = null;
+		BufferedWriter searchBufferedWriter = null;
+		
+		
+		try {
+			
+			fileWriter = FileOperations.createFileWriter(outputFolder + "IntervalTreeMarkdeBerg.txt");
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			searchFileWriter = FileOperations.createFileWriter(outputFolder + "SearchOutputIntervalTreeMarkdeBerg.txt");
+			searchBufferedWriter = new BufferedWriter(searchFileWriter);
+			
+			
+			/**************************************************************************************/
+			/********************TIME MEASUREMENT**************************************************/
+			/**************************************************************************************/
+			// if you want to see the current year and day etc. change the line of code below with:
+			// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			// DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			long dateBefore = Long.MIN_VALUE;
+			long dateAfter = Long.MIN_VALUE;
+			/**************************************************************************************/
+			/********************TIME MEASUREMENT**************************************************/
+			/**************************************************************************************/
+			
+			intervaltree.IntervalTree dnaseIntervalTreeCormen = null;
+			trees.IntervalTreeMarkdeBerg dnaseIntervalTreeMarkdeBerg =null;
+			
+			long constructionTimeForIntervalTreeCormen = 0;
+			long constructionTimeForIntervalTreeMarkdeBerg = 0;
+			
+			for (ChromosomeName chrName: ChromosomeName.values()){
+				
+				
+				/********************************************************************************/
+				/***********Construct Interval Tree Cormen starts********************************/
+				/********************************************************************************/
+				
+				System.out.println("*****************************************************");
+				dateBefore = System.currentTimeMillis();
+				dnaseIntervalTreeCormen = createIntervalTreeCormen(dataFolder,chrName);
+				dateAfter = System.currentTimeMillis();
+				constructionTimeForIntervalTreeCormen= dateAfter - dateBefore;
+				System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree Cormen: " + (constructionTimeForIntervalTreeCormen*1.0f)/1000 + " seconds");
+				
+				dnaseIntervalTreeCormen = null;
+				
+				/********************************************************************************/
+				/***********Construct Interval Tree Cormen ends**********************************/
+				/********************************************************************************/
+				
+				
+				/********************************************************************************/
+				/***********Construct Interval Tree Mark de Berg starts**************************/
+				/********************************************************************************/
+				dateBefore = System.currentTimeMillis();
+				dnaseIntervalTreeMarkdeBerg = createIntervalTreeMarkdeBerg(dataFolder,outputFolder,chrName);
+				dateAfter = System.currentTimeMillis();
+				constructionTimeForIntervalTreeMarkdeBerg= dateAfter - dateBefore;
+				System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree Mark de Berg: " + (constructionTimeForIntervalTreeMarkdeBerg*1.0f)/1000 + " seconds");
+				
+				System.out.println("ratio: " + constructionTimeForIntervalTreeMarkdeBerg*1.0f/constructionTimeForIntervalTreeCormen) ;
+				
+				IntervalTreeMarkdeBerg.traverseIntervalTreeBreadthFirstOrder(dnaseIntervalTreeMarkdeBerg,bufferedWriter);
+				
+				/********************************************************************************/
+				/***********Construct Interval Tree Mark de Berg ends****************************/
+				/********************************************************************************/
+				
+				/********************************************************************************/
+				/***********Search Interval Tree Mark de Berg starts*****************************/
+				/********************************************************************************/				
+				//Test search
+				Interval givenInterval = new Interval(100000000,200000000);
+				
+				//Create another bufferedWriter
+				IntervalTreeMarkdeBerg.searchIntervalTreeMarkdeBerg(dnaseIntervalTreeMarkdeBerg.getRoot(),givenInterval,searchBufferedWriter);
+				
+				/********************************************************************************/
+				/***********Search Interval Tree Mark de Berg ends*******************************/
+				/********************************************************************************/
 
 
-		/**************************************************************************************/
-		/********************TIME MEASUREMENT**************************************************/
-		/**************************************************************************************/
-		// if you want to see the current year and day etc. change the line of code below with:
-		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		// DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		long dateBefore = Long.MIN_VALUE;
-		long dateAfter = Long.MIN_VALUE;
-		/**************************************************************************************/
-		/********************TIME MEASUREMENT**************************************************/
-		/**************************************************************************************/
+				//Free space
+				dnaseIntervalTreeMarkdeBerg = null;
+					
+				break;
+	
+			}//End of for each chrName 
+			
+			//Close bufferedWriter
+			bufferedWriter.close();
+			searchBufferedWriter.close();
 		
-		intervaltree.IntervalTree dnaseIntervalTreeCormen = null;
-		trees.IntervalTreeMarkdeBerg dnaseIntervalTreeMarkdeBerg =null;
-		
-		long constructionTimeForIntervalTreeCormen = 0;
-		long constructionTimeForIntervalTreeMarkdeBerg = 0;
-		
-		for (ChromosomeName chrName: ChromosomeName.values()){
-			
-			System.out.println("*****************************************************");
-			dateBefore = System.currentTimeMillis();
-			dnaseIntervalTreeCormen = createIntervalTreeCormen(dataFolder,chrName);
-			dateAfter = System.currentTimeMillis();
-			constructionTimeForIntervalTreeCormen= dateAfter - dateBefore;
-			System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree Cormen: " + (constructionTimeForIntervalTreeCormen*1.0f)/1000 + " seconds");
-			
-			dnaseIntervalTreeCormen = null;
-			
-			dateBefore = System.currentTimeMillis();
-			dnaseIntervalTreeMarkdeBerg = createIntervalTreeMarkdeBerg(dataFolder,outputFolder,chrName);
-			dateAfter = System.currentTimeMillis();
-			constructionTimeForIntervalTreeMarkdeBerg= dateAfter - dateBefore;
-			System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree Mark de Berg: " + (constructionTimeForIntervalTreeMarkdeBerg*1.0f)/1000 + " seconds");
-			
-			dnaseIntervalTreeMarkdeBerg = null;
-			
-			System.out.println("ratio: " + constructionTimeForIntervalTreeMarkdeBerg*1.0f/constructionTimeForIntervalTreeCormen) ;
-			
-			break;
-
-		}//End of for each chrName 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		
 	}

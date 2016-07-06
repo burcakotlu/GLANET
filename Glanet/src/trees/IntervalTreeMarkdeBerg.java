@@ -12,7 +12,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -418,9 +417,11 @@ public class IntervalTreeMarkdeBerg {
 	    while(!queue.isEmpty()){
 	    	
 	        IntervalTreeMarkdeBergNode newNode = queue.remove();
-	        System.out.print("Median:" + newNode.getMedian() + " ");
+	        System.out.print("Median:" + newNode.getMedian());
 	        
-	        System.out.print("Node intervals:");
+	        System.out.print(" Number of node intervals: " + newNode.getIntervalsLeftEndPointsAscending().length);
+		      
+	        System.out.print(" Node intervals:");
 	        Print.printArray(newNode.getIntervalsLeftEndPointsAscending());
 	        
 	        if(newNode.getLeft() != null) queue.add(newNode.getLeft());
@@ -430,8 +431,166 @@ public class IntervalTreeMarkdeBerg {
 
 		System.out.println("Breadth first tree traversal ends.");
 
+	}
+	
+	
+	public static void searchInLeftEndPointsInAscendingOrder(Interval[] leftEndPointsAscending, int high, BufferedWriter bufferedWriter){
+		try {
+
+			for(int i=0; i<leftEndPointsAscending.length;i++){
+				if(leftEndPointsAscending[i].getLow()<=high){
+					//There is overlap
+					//Write it down.
+					bufferedWriter.write("Found Overlap: Low: " + leftEndPointsAscending[i].getLow() + " High: " + leftEndPointsAscending[i].getHigh() + System.getProperty("line.separator"));
+					}//End of IF
+				else{
+					break;
+				}
+			}//End of FOR
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	public static void searchInRightEndPointsInDescendingOrder(Interval[] rightEndPointsDescending, int low, BufferedWriter bufferedWriter){
+		try {
+			
+			for(int i=0; i<rightEndPointsDescending.length;i++){
+				
+				if(low <= rightEndPointsDescending[i].getHigh()){
+					//There is overlap
+					//Write it down.
+					bufferedWriter.write("Found Overlap: Low: " + rightEndPointsDescending[i].getLow() + " High: " + rightEndPointsDescending[i].getHigh() + System.getProperty("line.separator"));
+				}//End of IF
+				else{
+					break;			
+				}
+			}//End of FOR
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	
+	public static void searchIntervalTreeMarkdeBerg(IntervalTreeMarkdeBergNode node, Interval interval, BufferedWriter searchOutputBufferedWriter) throws IOException{
+		
+		if (node!=null){
+			
+			//Case 1
+			//Look at node's intervals left end points in ascendig order
+			//Look at node's left child
+			if (interval.getHigh() <= node.getMedian()){
+				
+				//In case of equality
+				if (interval.getHigh() == node.getMedian()){
+					//We know that interval overlaps with node's intervals
+					//Write node's intervals down
+					searchOutputBufferedWriter.write("Found overlaps: ");
+					Print.printArray(node.getIntervalsLeftEndPointsAscending(),searchOutputBufferedWriter);
+					searchOutputBufferedWriter.write(System.getProperty("line.separator"));
+					 
+					
+				}else{
+					//Search in
+					//Overlaps if node.getIntervalsLeftEndPointsAscending()[i].getLow() <= interval.getHigh()  
+					//else breaks
+					searchInLeftEndPointsInAscendingOrder(node.getIntervalsLeftEndPointsAscending(),interval.getHigh(),searchOutputBufferedWriter);
+				}
+				
+				//Continue search in left node
+				searchIntervalTreeMarkdeBerg(node.getLeft(), interval,searchOutputBufferedWriter);	
+			}
+			
+			//Case 2 
+			//Look at node's intervals right end points in descendig order
+			//Look at node's right child
+			else if (node.getMedian() <= interval.getLow()){
+				
+				//In case of equality
+				if (node.getMedian() == interval.getLow()){
+					//We know that interval overlaps with node's intervals
+					//Write node's intervals down
+					searchOutputBufferedWriter.write("Found overlaps: ");
+					Print.printArray(node.getIntervalsLeftEndPointsAscending(),searchOutputBufferedWriter);
+					searchOutputBufferedWriter.write(System.getProperty("line.separator"));
+					
+				}else{
+					//Search in
+					//Overlaps if interval.getLow() <=  node.getIntervalsRightEndPointsDescending()[i].getHigh()
+					//else breaks
+					searchInRightEndPointsInDescendingOrder(node.getIntervalsRightEndPointsDescending(),interval.getLow(),searchOutputBufferedWriter);	
+				}
+				
+				//Continue search in right node
+				searchIntervalTreeMarkdeBerg(node.getRight(), interval,searchOutputBufferedWriter);	
+			}
+			
+			//Case 3
+			//Look at node's left child
+			//Look at node's right child
+			else if (interval.getLow() <= node.median && node.median <=interval.getHigh()){
+				
+				//We know that interval overlaps with node's intervals
+				//Write node's intervals down
+				searchOutputBufferedWriter.write("Found overlaps: ");
+				Print.printArray(node.getIntervalsLeftEndPointsAscending(),searchOutputBufferedWriter);
+				searchOutputBufferedWriter.write(System.getProperty("line.separator"));
+
+				searchIntervalTreeMarkdeBerg(node.getLeft(), interval,searchOutputBufferedWriter);	
+				searchIntervalTreeMarkdeBerg(node.getRight(), interval,searchOutputBufferedWriter);	
+				
+			}
+			
+			//Control Case
+			else {
+				searchOutputBufferedWriter.write("Security there is a problem." + System.getProperty("line.separator"));
+			}
+			
+		}//End of IF node is not null
 		
 	}
+
+	
+	public static void traverseIntervalTreeBreadthFirstOrder(IntervalTreeMarkdeBerg intervalTree, BufferedWriter bufferedWriter){
+		
+		try {
+			bufferedWriter.write("Breadth first tree traversal starts." + System.getProperty("line.separator"));
+		
+			Queue<IntervalTreeMarkdeBergNode> queue = new LinkedList<IntervalTreeMarkdeBergNode>();
+			
+		    if (intervalTree.getRoot() == null)
+		        return;
+		    
+		    queue.clear();
+		    queue.add(intervalTree.getRoot());
+		    
+		    while(!queue.isEmpty()){
+		    	
+		        IntervalTreeMarkdeBergNode newNode = queue.remove();
+		        bufferedWriter.write("Median:" + newNode.getMedian());
+		        
+		        bufferedWriter.write(" Number of node intervals: " + newNode.getIntervalsLeftEndPointsAscending().length);
+			      
+		        bufferedWriter.write(" Node intervals:");
+		        Print.printArray(newNode.getIntervalsLeftEndPointsAscending(),bufferedWriter);
+		        
+		        if(newNode.getLeft() != null) queue.add(newNode.getLeft());
+		        if(newNode.getRight() != null) queue.add(newNode.getRight());
+		        
+		    }//End of while
+
+		    bufferedWriter.write("Breadth first tree traversal ends."+ System.getProperty("line.separator"));
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	
 	
 	
 	/**
@@ -445,6 +604,11 @@ public class IntervalTreeMarkdeBerg {
 		Interval i4 = new Interval(0, 15);
 		Interval i5 = new Interval(40, 60);
 		Interval i6 = new Interval(10, 30);
+		Interval i7 = new Interval(70, 80);
+		Interval i8 = new Interval(80, 100);
+		Interval i9 = new Interval(0, 100);
+		Interval i10 = new Interval(80, 120);
+		Interval i11 = new Interval(90, 100);
 		
 		List<Interval> list = new ArrayList<Interval>();
 		
@@ -454,6 +618,11 @@ public class IntervalTreeMarkdeBerg {
 		list.add(i4);
 		list.add(i5);
 		list.add(i6);
+		list.add(i7);
+		list.add(i8);
+		list.add(i9);
+		list.add(i10);
+		list.add(i11);
 
 		/**************************************************************************************/
 		/********************TIME MEASUREMENT**************************************************/
@@ -467,17 +636,25 @@ public class IntervalTreeMarkdeBerg {
 		/********************TIME MEASUREMENT**************************************************/
 		/**************************************************************************************/
 
-		
 		//Time before constructing interval tree 
 		dateBefore = System.currentTimeMillis();
 		
 		BufferedWriter bufferedWriter = null;
 		
+		Interval[] intervalArrayUnsorted = (Interval[]) list.toArray(new Interval[list.size()]);
+		Interval[] intervalArraySorted = new Interval[list.size()];
+		
+		//Do it only once. Sort intervals in ascending order w.r.t. left end points.
+		CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted);			
+		
+		//Free space
+		list = null;
+	
 		//You have a list of intervals
-		IntervalTreeMarkdeBergNode root = constructIntervalTree(list.toArray(new Interval[list.size()]),bufferedWriter);
+		IntervalTreeMarkdeBergNode root = constructIntervalTree(intervalArraySorted,bufferedWriter);
 		
 		IntervalTreeMarkdeBerg intervalTree = new IntervalTreeMarkdeBerg(root);
-
+		
 		//Time after constructing interval tree 
 		dateAfter = System.currentTimeMillis();
 
@@ -486,14 +663,12 @@ public class IntervalTreeMarkdeBerg {
 		System.out.println("Construction Time for Interval Tree Mark de Berg: " + (dateAfter - dateBefore) + " milli seconds");
 		System.out.println("****************************************************************");
 
-		
 		if (root!=null){
 			traverseIntervalTreeBreadthFirstOrder(intervalTree);
 		}
 		
-		
-
-		
+		//Close bufferedWriter
+		//bufferedWriter.close();
 
 	}
 
