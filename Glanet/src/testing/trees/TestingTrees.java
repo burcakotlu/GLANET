@@ -65,7 +65,6 @@ public class TestingTrees {
 			searchFileWriter = FileOperations.createFileWriter(outputFolder + "SearchOutputIntervalTreeMarkdeBerg.txt");
 			searchBufferedWriter = new BufferedWriter(searchFileWriter);
 			
-			
 			/**************************************************************************************/
 			/********************TIME MEASUREMENT**************************************************/
 			/**************************************************************************************/
@@ -90,7 +89,6 @@ public class TestingTrees {
 				/********************************************************************************/
 				/***********Construct Interval Tree Cormen starts********************************/
 				/********************************************************************************/
-				
 				System.out.println("*****************************************************");
 				dateBefore = System.currentTimeMillis();
 				dnaseIntervalTreeCormen = createIntervalTreeCormen(dataFolder,chrName);
@@ -99,7 +97,6 @@ public class TestingTrees {
 				System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree Cormen: " + (constructionTimeForIntervalTreeCormen*1.0f)/1000 + " seconds");
 				
 				dnaseIntervalTreeCormen = null;
-				
 				/********************************************************************************/
 				/***********Construct Interval Tree Cormen ends**********************************/
 				/********************************************************************************/
@@ -130,11 +127,29 @@ public class TestingTrees {
 				
 				//Create another bufferedWriter
 				IntervalTreeMarkdeBerg.searchIntervalTreeMarkdeBerg(dnaseIntervalTreeMarkdeBerg.getRoot(),givenInterval,searchBufferedWriter);
-				
 				/********************************************************************************/
 				/***********Search Interval Tree Mark de Berg ends*******************************/
 				/********************************************************************************/
-
+				
+				//TODO 
+				//Search IntervalTreeCormen with real data
+				/********************************************************************************/
+				/***********Search IntervalTreeCormen with real data starts**********************/
+				/********************************************************************************/	
+				
+				/********************************************************************************/
+				/***********Search IntervalTreeCormen with real data ends************************/
+				/********************************************************************************/				
+				
+				//TODO
+				//Search IntervalTreeMarkdeBerg wih real data
+				/********************************************************************************/
+				/***********Search IntervalTreeMarkdeBerg with real data starts******************/
+				/********************************************************************************/	
+				
+				/********************************************************************************/
+				/***********Search IntervalTreeMarkdeBerg with real data ends********************/
+				/********************************************************************************/				
 
 				//Free space
 				dnaseIntervalTreeMarkdeBerg = null;

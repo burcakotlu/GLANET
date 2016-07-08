@@ -3,8 +3,8 @@
  */
 package sorting;
 
-import intervaltree.Interval;
 import printing.Print;
+import trees.IntervalMarkdeBerg;
 import enumtypes.SortingOrder;
 
 /**
@@ -103,9 +103,9 @@ public class CountingSorting {
 	* @return array sorted in ascending order
 	*/
 	public static void sortLeftEndPointsAscending(
-			Interval[] array, 
+			IntervalMarkdeBerg[] array, 
 			SortingOrder sortingOrder,
-			Interval[] intervalsSorted) {
+			IntervalMarkdeBerg[] intervalsSorted) {
 		
 		int arrayTopIndex;
 
@@ -170,9 +170,9 @@ public class CountingSorting {
 	
 	
 	public static void sortRightEndPointsDescending(
-			Interval[] array, 
+			IntervalMarkdeBerg[] array, 
 			SortingOrder sortingOrder,
-			Interval[] intervalsSorted) {
+			IntervalMarkdeBerg[] intervalsSorted) {
 		
 		int arrayTopIndex;
 

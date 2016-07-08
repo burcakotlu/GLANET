@@ -64,6 +64,7 @@ import keggpathway.ncbigenes.KeggPathwayUtility;
 
 import org.apache.log4j.Logger;
 
+import trees.IntervalTreeMarkdeBerg;
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
 import userdefined.library.UserDefinedLibraryUtility;
@@ -89,6 +90,7 @@ import enumtypes.IntervalName;
 import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeType;
 import enumtypes.RegulatorySequenceAnalysisType;
+import enumtypes.TreeType;
 import enumtypes.UserDefinedLibraryDataFormat;
 import enumtypes.WriteAnnotationFoundOverlapsMode;
 
@@ -1835,128 +1837,14 @@ public class Annotation {
 
 	// with number ends
 
-	// TShortObjectMap<StringBuilder>
-	public void searchDnaseWithNumbersWithStringBuilder( String dataFolder, String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
-			int[] dnaseCellLineKArray, int overlapDefinition,
-			TShortObjectMap<StringBuilder> cellLineNumber2CellLineNameMap,
-			TShortObjectMap<StringBuilder> fileNumber2FileNameMap) {
 
-		BufferedReader bufferedReader = null;
 
-		IntervalTree dnaseIntervalTree;
 
-		// For each ChromosomeName
-		for( ChromosomeName chrName : ChromosomeName.values()){
-
-			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers( dataFolder, chrName);
-			bufferedReader = FileOperations.createBufferedReader(
-					outputFolder,
-					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchDnaseWithNumbersStringBuilder( outputFolder, writeFoundOverlapsMode, chrName,
-					bufferedReader, dnaseIntervalTree, dnaseCellLineKArray, overlapDefinition,
-					cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
-			dnaseIntervalTree = null;
-
-			System.gc();
-			System.runFinalization();
-
-			try{
-				// close bufferedReader
-				bufferedReader.close();
-			}catch( IOException e){
-
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
-			}
-
-		}// End of for each chromosomeName
-
-	}
-
-	// new starts
-	// Annotation Sequentially
-	// With Numbers
-	// Using int array
-	public void searchDnaseWithNumbers( String dataFolder, String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
-			int[] dnaseCellLineKArray, int overlapDefinition,
-			TShortObjectMap<CharSequence> cellLineNumber2CellLineNameMap,
-			TShortObjectMap<CharSequence> fileNumber2FileNameMap) {
-
-		BufferedReader bufferedReader = null;
-
-		IntervalTree dnaseIntervalTree;
-
-		// For each ChromosomeName
-		for( ChromosomeName chrName : ChromosomeName.values()){
-
-			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers( dataFolder, chrName);
-			bufferedReader = FileOperations.createBufferedReader(
-					outputFolder,
-					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchDnaseWithNumbers( outputFolder, writeFoundOverlapsMode, chrName,
-					bufferedReader, dnaseIntervalTree, dnaseCellLineKArray, overlapDefinition,
-					cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
-			dnaseIntervalTree = null;
-
-			System.gc();
-			System.runFinalization();
-
-			try{
-				// close bufferedReader
-				bufferedReader.close();
-			}catch( IOException e){
-
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
-			}
-
-		}// End of for each chromosomeName
-
-	}
-
-	// new ends
-
-	// Annotation Sequentially
-	// With Numbers
-	// Using int array
-	public void searchDnaseWithNumbers( String dataFolder, String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
-			int[] dnaseCellLineKArray, int overlapDefinition, char[][] dnaseCellLineNames, char[][] fileNames) {
-
-		BufferedReader bufferedReader = null;
-
-		IntervalTree dnaseIntervalTree;
-
-		// For each ChromosomeName
-		for( ChromosomeName chrName : ChromosomeName.values()){
-
-			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers( dataFolder, chrName);
-			bufferedReader = FileOperations.createBufferedReader(
-					outputFolder,
-					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
-			searchDnaseWithNumbers( outputFolder, writeFoundOverlapsMode, chrName,
-					bufferedReader, dnaseIntervalTree, dnaseCellLineKArray, overlapDefinition, dnaseCellLineNames,
-					fileNames);
-			dnaseIntervalTree = null;
-
-			System.gc();
-			System.runFinalization();
-
-			try{
-				// close bufferedReader
-				bufferedReader.close();
-			}catch( IOException e){
-
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
-			}
-
-		}// End of for each chromosomeName
-
-	}
 
 	// Annotation Sequentially
 	// With Numbers
 	// EOO and NOOB
+	// For testing purposes treeType
 	public void searchDnaseWithNumbers(
 			String dataFolder, 
 			String outputFolder,
@@ -1965,38 +1853,76 @@ public class Annotation {
 			int overlapDefinition,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
 			TIntObjectMap<String> fileNumber2FileNameMap,
-			AssociationMeasureType associationMeasureType) {
+			AssociationMeasureType associationMeasureType,
+			TreeType treeType) {
 
 		BufferedReader bufferedReader = null;
 
 		IntervalTree dnaseIntervalTree;
+		IntervalTreeMarkdeBerg dnaseIntervalTreeMarkdeBerg;
 		
 		TIntByteMap dnaseCellLineNumber2HeaderWrittenMap = new TIntByteHashMap();
 
 		// For each ChromosomeName
 		for( ChromosomeName chrName : ChromosomeName.values()){
 
-			dnaseIntervalTree = createDnaseIntervalTreeWithNumbers( dataFolder, chrName);
-			bufferedReader = FileOperations.createBufferedReader(
-					outputFolder,
-					Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+			switch(treeType){
+				case INTERVAL_TREE_CORMEN:
+					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder,chrName);
+					
+					bufferedReader = FileOperations.createBufferedReader(
+							outputFolder,
+							Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+					
+					searchDnaseWithNumbers(
+							outputFolder,
+							dnaseCellLineNumber2HeaderWrittenMap,
+							writeFoundOverlapsMode, 
+							chrName,
+							bufferedReader, 
+							dnaseIntervalTree, 
+							dnaseCellLineNumber2KMap, 
+							overlapDefinition,
+							cellLineNumber2CellLineNameMap, 
+							fileNumber2FileNameMap,
+							associationMeasureType);
+
+
+					//Free space
+					dnaseIntervalTree = null;
+					break;
+					
+				case INTERVAL_TREE_MARKDEBERG:
+					dnaseIntervalTreeMarkdeBerg = IntervalTreeMarkdeBerg.createDnaseIntervalTreeWithNumbers(dataFolder,outputFolder,chrName);
+					
+					bufferedReader = FileOperations.createBufferedReader(
+							outputFolder,
+							Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+					
+					searchDnaseWithNumbers(
+							outputFolder,
+							dnaseCellLineNumber2HeaderWrittenMap,
+							writeFoundOverlapsMode, 
+							chrName,
+							bufferedReader, 
+							dnaseIntervalTreeMarkdeBerg, 
+							dnaseCellLineNumber2KMap, 
+							overlapDefinition,
+							cellLineNumber2CellLineNameMap, 
+							fileNumber2FileNameMap,
+							associationMeasureType);
+
+
+					//Free space
+					dnaseIntervalTreeMarkdeBerg = null;
+					
+					break;
+					
+				default:
+					break;
 			
-			searchDnaseWithNumbers(
-					outputFolder,
-					dnaseCellLineNumber2HeaderWrittenMap,
-					writeFoundOverlapsMode, 
-					chrName,
-					bufferedReader, 
-					dnaseIntervalTree, 
-					dnaseCellLineNumber2KMap, 
-					overlapDefinition,
-					cellLineNumber2CellLineNameMap, 
-					fileNumber2FileNameMap,
-					associationMeasureType);
-
-
-			//Free space
-			dnaseIntervalTree = null;
+			}//End of switch
+			
 			
 			System.gc();
 			System.runFinalization();
@@ -2189,6 +2115,182 @@ public class Annotation {
 	}
 
 	
+	// 7.7.2016
+	// Annotation Sequentially
+	// EOO and NOOB
+	// For testing purposes 
+	public void searchDnaseWithNumbers(
+			String outputFolder,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			ChromosomeName chromName, 
+			BufferedReader bufferedReader, 
+			IntervalTreeMarkdeBerg dnaseIntervalTreeMarkdeBerg,
+			TIntIntMap dnaseCellLineNumber2KMap, 
+			int overlapDefinition,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			AssociationMeasureType associationMeasureType) {
+
+		String strLine = null;
+		int indexofFirstTab = 0;
+		int indexofSecondTab = 0;
+
+		int low;
+		int high;
+		
+		try{
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+				
+				/***********************************************/
+				/*************Get Interval Starts***************/
+				/***********************************************/
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+
+				low = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
+
+				// indexofSecondTab must be greater than zero if it exists since
+				// indexofFirstTab must exists and can be at least zero
+				// therefore indexofSecondTab can be at least one.
+				if( indexofSecondTab > 0)
+					high = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
+				else
+					high = low;
+
+				Interval interval = new Interval(low, high);
+				/***********************************************/
+				/*************Get Interval Ends*****************/
+				/***********************************************/
+				
+				switch(associationMeasureType){
+				
+					case EXISTENCE_OF_OVERLAP:
+						/*************************************************************************************************/
+						/***********************************EXISTENCE_OF_OVERLAP starts***********************************/
+						/*************************************************************************************************/	
+	
+						// Fill the hits for the given interval in the strLine
+						// A given interval can return 1 or 0 for a dnaseCellLine
+						// Although the given interval can have more than 1 hits with a dnaseCellLine
+						TIntByteMap dnaseCellLineNumber2OneorZeroMap = new TIntByteHashMap();
+						
+						IntervalTreeMarkdeBerg.searchIntervalTreeMarkdeBerg(
+								outputFolder,
+								writeFoundOverlapsMode, 
+								dnaseCellLineNumber2HeaderWrittenMap,
+								cellLineNumber2CellLineNameMap, 
+								fileNumber2FileNameMap,
+								dnaseIntervalTreeMarkdeBerg.getRoot(), 
+								interval,
+								chromName, 
+								dnaseCellLineNumber2OneorZeroMap, 
+								overlapDefinition);
+									
+
+						for( TIntByteIterator it = dnaseCellLineNumber2OneorZeroMap.iterator(); it.hasNext();){
+
+							it.advance();
+
+							if( !dnaseCellLineNumber2KMap.containsKey( it.key())){
+								dnaseCellLineNumber2KMap.put( it.key(), it.value());
+							}else{
+								dnaseCellLineNumber2KMap.put( it.key(), dnaseCellLineNumber2KMap.get(it.key()) + it.value());
+							}
+
+						}// End of FOR
+
+						//After accumulation
+						//Free memory
+						dnaseCellLineNumber2OneorZeroMap = null;
+						/*************************************************************************************************/
+						/***********************************EXISTENCE_OF_OVERLAP ends*************************************/
+						/*************************************************************************************************/	
+						break;
+						
+					case NUMBER_OF_OVERLAPPING_BASES:
+						
+						//TODO 8 July 2016
+						
+//						/*************************************************************************************************/
+//						/*******************************NUMBER_OF_OVERLAPPING_BASES starts********************************/
+//						/*************************************************************************************************/
+//						TIntObjectMap<List<IntervalTreeNode>> dnaseCellLineNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+//						TIntObjectMap<IntervalTree> dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+//						TIntIntMap dnaseCellLineNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
+//
+//						if(dnaseIntervalTree.getRoot().getNodeName().isNotSentinel()){
+//							
+//							//Step1: Get all the overlappingIntervals with the inputLine
+//							dnaseIntervalTree.findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
+//									outputFolder,
+//									writeFoundOverlapsMode,
+//									dnaseCellLineNumber2HeaderWrittenMap,
+//									cellLineNumber2CellLineNameMap, 
+//									fileNumber2FileNameMap,
+//									dnaseIntervalTree.getRoot(), 
+//									interval, 
+//									chromName,
+//									dnaseCellLineNumber2OverlappingNodeListMap);
+//							
+//							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+//							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+//									dnaseCellLineNumber2OverlappingNodeListMap, 
+//									dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap);
+//							
+//							//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+//							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+//							IntervalTree.findNumberofOverlappingBases(
+//									interval,
+//									dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap,
+//									dnaseCellLineNumber2NumberofOverlappingBasesMap);
+//							
+//						}//End of IF
+//
+//						// Accumulate search results of permutationNumberDnaseCellLineNumber2NumberofOverlappingBasesMap in dnaseCellLineNumber2KMap
+//						for( TIntIntIterator it = dnaseCellLineNumber2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+//
+//							it.advance();
+//
+//							if( !dnaseCellLineNumber2KMap.containsKey( it.key())){
+//								dnaseCellLineNumber2KMap.put( it.key(), it.value());
+//							}else{
+//								dnaseCellLineNumber2KMap.put( it.key(), dnaseCellLineNumber2KMap.get( it.key()) + it.value());
+//
+//							}
+//
+//						}// End of FOR
+//						
+//						//Free memory
+//						dnaseCellLineNumber2OverlappingNodeListMap = null;
+//						dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = null;
+//						dnaseCellLineNumber2NumberofOverlappingBasesMap = null;
+//						/*************************************************************************************************/
+//						/*******************************NUMBER_OF_OVERLAPPING_BASES ends**********************************/
+//						/*************************************************************************************************/
+
+						
+						break;
+										
+				}//End of SWITCH
+
+
+			}// End of WHILE
+
+		}catch( NumberFormatException e){
+
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+
+		}catch( IOException e){
+
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+
+		} // End of while
+
+	}
+
+	
 	//Updated 12 April 2016
 	// Annotation Sequentially
 	// EOO and NOOB
@@ -2367,7 +2469,6 @@ public class Annotation {
 
 	}
 
-	// @todo ends
 
 	// Enrichment
 	// With IO
@@ -11110,6 +11211,11 @@ public class Annotation {
 		/********************ANNOTATION SEQUENTIALLY STARTS**********************************************************/
 		/************************************************************************************************************/
 		if( annotation.annotateSequentially()){
+			
+			//For testing purposes
+			TreeType treeType = TreeType.INTERVAL_TREE_CORMEN;
+			//TreeType treeType = TreeType.INTERVAL_TREE_MARKDEBERG;
+			
 
 			/*******************************************************************************/
 			/************DNASE ANNOTATION starts********************************************/
@@ -11131,7 +11237,8 @@ public class Annotation {
 						overlapDefinition, 
 						dnaseCellLineNumber2NameMap, 
 						fileNumber2NameMap,
-						associationMeasureType);
+						associationMeasureType,
+						treeType);
 				
 				writeResultsWithNumbers(
 						associationMeasureType,

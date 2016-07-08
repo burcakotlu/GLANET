@@ -23,7 +23,11 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import enumtypes.SortingOrder;
+import enumtypes.WriteAnnotationFoundOverlapsMode;
+import gnu.trove.map.TIntByteMap;
+import gnu.trove.map.TIntObjectMap;
 
 /**
  * @author Burçak Otlu
@@ -77,6 +81,8 @@ public class IntervalTreeMarkdeBerg {
 	
 	IntervalTreeMarkdeBergNode root;
 	
+	
+	
 	public IntervalTreeMarkdeBergNode getRoot() {
 		return root;
 	}
@@ -109,10 +115,10 @@ public class IntervalTreeMarkdeBerg {
 		int endPosition = 0;
 
 //		ChromosomeName chromName;
-//		short cellLineNumber;
-//		short fileNumber;
+		short cellLineNumber;
+		short fileNumber;
 		
-		List<Interval> intervalList = new ArrayList<Interval>();
+		List<IntervalMarkdeBerg> intervalList = new ArrayList<IntervalMarkdeBerg>();
 
 		try{
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -134,8 +140,8 @@ public class IntervalTreeMarkdeBerg {
 				startPosition = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 				endPosition = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
 
-//				cellLineNumber = Short.parseShort( strLine.substring( indexofThirdTab + 1, indexofFourthTab));
-//				fileNumber = Short.parseShort( strLine.substring( indexofFourthTab + 1));
+				cellLineNumber = Short.parseShort( strLine.substring( indexofThirdTab + 1, indexofFourthTab));
+				fileNumber = Short.parseShort( strLine.substring( indexofFourthTab + 1));
 
 				// important note
 				// while constructing the dnaseIntervalTree
@@ -144,7 +150,7 @@ public class IntervalTreeMarkdeBerg {
 
 				// Creating millions of nodes with six attributes causes out of
 				// memory error
-				Interval interval = new Interval(startPosition,endPosition);
+				DnaseIntervalMarkdeBerg interval = new DnaseIntervalMarkdeBerg(startPosition,endPosition,cellLineNumber,fileNumber);
 				intervalList.add(interval);
 
 			} // End of WHILE
@@ -154,8 +160,8 @@ public class IntervalTreeMarkdeBerg {
 			//Then you don't have to sort middle intervals w.r.t. left end points in in ascending order.
 			//But only sort middle intervals w.r.t. right end points in in descending order.
 			
-			Interval[] intervalArrayUnsorted = (Interval[]) intervalList.toArray(new Interval[intervalList.size()]);
-			Interval[] intervalArraySorted = new Interval[intervalList.size()];
+			IntervalMarkdeBerg[] intervalArrayUnsorted = (IntervalMarkdeBerg[]) intervalList.toArray(new IntervalMarkdeBerg[intervalList.size()]);
+			IntervalMarkdeBerg[] intervalArraySorted = new IntervalMarkdeBerg[intervalList.size()];
 			
 			//Do it only once. Sort intervals in ascending order w.r.t. left end points.
 			CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted);			
@@ -222,10 +228,10 @@ public class IntervalTreeMarkdeBerg {
 	//Having median at hand, find the middle node intervals such that left end point is less than or equal to median and right end point is greater than or equal to median.
 	//Having median at hand, find the right node intervals such that left end point is greater than median
 	public static float findMedianAndFillLeftMiddleRightNodeIntervals(
-			Interval[] allIntervalsSorted,
-			List<Interval> leftNodeIntervals,
-			List<Interval> middleNodeIntervals,
-			List<Interval> rightNodeIntervals,
+			IntervalMarkdeBerg[] allIntervalsSorted,
+			List<IntervalMarkdeBerg> leftNodeIntervals,
+			List<IntervalMarkdeBerg> middleNodeIntervals,
+			List<IntervalMarkdeBerg> rightNodeIntervals,
 			BufferedWriter bufferedWriter){
 		
 		int numberofIntervals = allIntervalsSorted.length;
@@ -295,9 +301,9 @@ public class IntervalTreeMarkdeBerg {
 	 * Using counting sort
 	 */
 	public static void sortMiddleNodeIntervalsInTwoWays(
-			List<Interval> middleNodeIntervals,
-			Interval[] middleIntervalsLeftEndPointsAscending,
-			Interval[] middleIntervalsRightEndPointsDescending){
+			List<IntervalMarkdeBerg> middleNodeIntervals,
+			IntervalMarkdeBerg[] middleIntervalsLeftEndPointsAscending,
+			IntervalMarkdeBerg[] middleIntervalsRightEndPointsDescending){
 		
 		//Does middleNodeIntervals has to be a list? Can it be stored in an array?
 		//Yes it can be stored in an array of size all intervals
@@ -308,7 +314,6 @@ public class IntervalTreeMarkdeBerg {
 		//In that case there is no need to convert it into an array
 		//Then there is no need to sort this array in two ways
 		if (middleNodeIntervals!=null && !middleNodeIntervals.isEmpty()){
-			
 			
 			//Since it is already sorted w.r.t. left end points in ascending order
 			//check it more
@@ -334,7 +339,7 @@ public class IntervalTreeMarkdeBerg {
 	//Find the left subtree intervals
 	//Find the right subtree intervals
 	public static IntervalTreeMarkdeBergNode constructIntervalTree(
-			Interval[] allIntervalsSorted,
+			IntervalMarkdeBerg[] allIntervalsSorted,
 			BufferedWriter bufferedWriter){
 		
 		IntervalTreeMarkdeBergNode node = null;
@@ -346,9 +351,9 @@ public class IntervalTreeMarkdeBerg {
 		}else{
 			
 			Float median = new Float(0);
-			List<Interval> leftNodeIntervals = new ArrayList<>();
-			List<Interval> middleNodeIntervals = new ArrayList<>();
-			List<Interval> rightNodeIntervals = new ArrayList<>();
+			List<IntervalMarkdeBerg> leftNodeIntervals = new ArrayList<>();
+			List<IntervalMarkdeBerg> middleNodeIntervals = new ArrayList<>();
+			List<IntervalMarkdeBerg> rightNodeIntervals = new ArrayList<>();
 			
 			IntervalTreeMarkdeBergNode left = null;
 			IntervalTreeMarkdeBergNode right =null;
@@ -366,8 +371,8 @@ public class IntervalTreeMarkdeBerg {
 			//We don't know the number of middle intervals
 			//middleIntervalsLeftEndPointsAscending can be an array
 			//middleIntervalsRightEndPointsDescending can be an array
-			Interval[] middleIntervalsLeftEndPointsAscending = new Interval[middleNodeIntervals.size()];
-			Interval[] middleIntervalsRightEndPointsDescending = new Interval[middleNodeIntervals.size()];
+			IntervalMarkdeBerg[] middleIntervalsLeftEndPointsAscending = new IntervalMarkdeBerg[middleNodeIntervals.size()];
+			IntervalMarkdeBerg[] middleIntervalsRightEndPointsDescending = new IntervalMarkdeBerg[middleNodeIntervals.size()];
 			
 			sortMiddleNodeIntervalsInTwoWays(middleNodeIntervals,middleIntervalsLeftEndPointsAscending,middleIntervalsRightEndPointsDescending);
 			
@@ -376,9 +381,9 @@ public class IntervalTreeMarkdeBerg {
 			//So remove middleNodeIntervals
 			middleNodeIntervals = null;
 			
-			left = constructIntervalTree(leftNodeIntervals.toArray(new Interval[leftNodeIntervals.size()]),bufferedWriter);
+			left = constructIntervalTree(leftNodeIntervals.toArray(new IntervalMarkdeBerg[leftNodeIntervals.size()]),bufferedWriter);
 			
-			right = constructIntervalTree(rightNodeIntervals.toArray(new Interval[rightNodeIntervals.size()]),bufferedWriter);
+			right = constructIntervalTree(rightNodeIntervals.toArray(new IntervalMarkdeBerg[rightNodeIntervals.size()]),bufferedWriter);
 			
 			node = new IntervalTreeMarkdeBergNode(
 					middleIntervalsLeftEndPointsAscending, 
@@ -434,14 +439,72 @@ public class IntervalTreeMarkdeBerg {
 	}
 	
 	
-	public static void searchInLeftEndPointsInAscendingOrder(Interval[] leftEndPointsAscending, int high, BufferedWriter bufferedWriter){
+	//8 July 2016 starts
+	public static void searchInLeftEndPointsInAscendingOrder(
+			String outputFolder,
+			String annotationFolder,
+			String elementTypeName,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
+			TIntObjectMap<String>fileNumber2FileNameMap,
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
+			TIntByteMap dnaseCellLineNumber2OneorZeroMap,
+			IntervalMarkdeBerg[] intervalsLeftEndPointsAscending, 
+			int high){
+		
+		DnaseIntervalMarkdeBerg dnaseIntervalMarkdeBerg = null;
+		
+		
+		for(int i=0; i<intervalsLeftEndPointsAscending.length;i++){
+			
+			//Case given interval high < median
+			//Therefore given interval low <  node's interval's high
+			//So we are looking for node's intervals such that their low <= given interval high
+			//which means that there is overlap
+			if(intervalsLeftEndPointsAscending[i].getLow()<=high){
+				
+				dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsLeftEndPointsAscending[i];
+				
+				//There is overlap
+				//Write it down.
+				writeOverlapsFoundInAnnotation(
+						outputFolder,
+						annotationFolder,
+						elementTypeName,
+						writeFoundOverlapsMode,
+						cellLineNumber2CellLineNameMap,
+						fileNumber2FileNameMap,
+						interval, 
+						chromName,
+						dnaseIntervalMarkdeBerg,
+						dnaseCellLineNumber2HeaderWrittenMap);
+				
+				
+					if( !dnaseCellLineNumber2OneorZeroMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
+						dnaseCellLineNumber2OneorZeroMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(), Commons.BYTE_1);
+					}
+			}//End of IF
+			
+			else{
+					break;
+			}
+		}//End of FOR each interval in the node
+
+	}
+	//8 July 2016 ends
+
+	
+	
+	public static void searchInLeftEndPointsInAscendingOrder(IntervalMarkdeBerg[] leftEndPointsAscending, int high, BufferedWriter bufferedWriter){
 		try {
 
 			for(int i=0; i<leftEndPointsAscending.length;i++){
 				if(leftEndPointsAscending[i].getLow()<=high){
 					//There is overlap
 					//Write it down.
-					bufferedWriter.write("Found Overlap: Low: " + leftEndPointsAscending[i].getLow() + " High: " + leftEndPointsAscending[i].getHigh() + System.getProperty("line.separator"));
+					bufferedWriter.write("Found Overlap: [" + leftEndPointsAscending[i].getLow() + "," + leftEndPointsAscending[i].getHigh() +"]" + System.getProperty("line.separator"));
 					}//End of IF
 				else{
 					break;
@@ -454,7 +517,65 @@ public class IntervalTreeMarkdeBerg {
 
 	}
 	
-	public static void searchInRightEndPointsInDescendingOrder(Interval[] rightEndPointsDescending, int low, BufferedWriter bufferedWriter){
+	//8 July 2016 starts
+	public static void searchInRightEndPointsInDescendingOrder(
+			String outputFolder,
+			String annotationFolder,
+			String elementTypeName,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
+			TIntObjectMap<String>fileNumber2FileNameMap,
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
+			TIntByteMap dnaseCellLineNumber2OneorZeroMap,
+			IntervalMarkdeBerg[] intervalsRightEndPointsDescending, 
+			int low){
+		
+		
+		DnaseIntervalMarkdeBerg dnaseIntervalMarkdeBerg = null;
+		
+			
+		for(int i=0; i<intervalsRightEndPointsDescending.length;i++){
+			
+			//Case median < given interval low
+			//Therefore node's interval's low  < given interval high  
+			//So we are looking for node's intervals such that given interval low <= node's interval's high
+			//which means that there is overlap
+			if(low <= intervalsRightEndPointsDescending[i].getHigh()){
+				//There is overlap
+				//Write it down.
+				dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsRightEndPointsDescending[i];
+				
+				//There is overlap
+				//Write it down.
+				writeOverlapsFoundInAnnotation(
+						outputFolder,
+						annotationFolder,
+						elementTypeName,
+						writeFoundOverlapsMode,
+						cellLineNumber2CellLineNameMap,
+						fileNumber2FileNameMap,
+						interval, 
+						chromName,
+						dnaseIntervalMarkdeBerg,
+						dnaseCellLineNumber2HeaderWrittenMap);
+				
+				
+					if( !dnaseCellLineNumber2OneorZeroMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
+						dnaseCellLineNumber2OneorZeroMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(), Commons.BYTE_1);
+					}
+			
+			}//End of IF
+			else{
+				break;			
+			}
+		}//End of FOR
+	
+	}
+	//8 July 2016 ends
+	
+	public static void searchInRightEndPointsInDescendingOrder(IntervalMarkdeBerg[] rightEndPointsDescending, int low, BufferedWriter bufferedWriter){
 		try {
 			
 			for(int i=0; i<rightEndPointsDescending.length;i++){
@@ -462,7 +583,7 @@ public class IntervalTreeMarkdeBerg {
 				if(low <= rightEndPointsDescending[i].getHigh()){
 					//There is overlap
 					//Write it down.
-					bufferedWriter.write("Found Overlap: Low: " + rightEndPointsDescending[i].getLow() + " High: " + rightEndPointsDescending[i].getHigh() + System.getProperty("line.separator"));
+					bufferedWriter.write("Found Overlap: [" + rightEndPointsDescending[i].getLow() + "," + rightEndPointsDescending[i].getHigh() + "]"+ System.getProperty("line.separator"));
 				}//End of IF
 				else{
 					break;			
@@ -473,9 +594,352 @@ public class IntervalTreeMarkdeBerg {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public static void processOverlaps(
+			String outputFolder,
+			String annotationFolder,
+			String elementTypeName,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
+			TIntObjectMap<String>fileNumber2FileNameMap,
+			Interval interval, 
+			ChromosomeName chromName,
+			IntervalTreeMarkdeBergNode node,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
+			TIntByteMap dnaseCellLineNumber2OneorZeroMap){
+		
+		DnaseIntervalMarkdeBerg dnaseIntervalMarkdeBerg = null;
+		
+		// We know that all the intervals of node overlaps with given interval
+		for(int i=0; i<node.getIntervalsLeftEndPointsAscending().length; i++){
+			
+			dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg) node.getIntervalsLeftEndPointsAscending()[i];
+			
+			writeOverlapsFoundInAnnotation(
+					outputFolder,
+					annotationFolder,
+					elementTypeName,
+					writeFoundOverlapsMode,
+					cellLineNumber2CellLineNameMap,
+					fileNumber2FileNameMap,
+					interval, 
+					chromName,
+					dnaseIntervalMarkdeBerg,
+					dnaseCellLineNumber2HeaderWrittenMap);
+			
+			
+			if( !dnaseCellLineNumber2OneorZeroMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
+				dnaseCellLineNumber2OneorZeroMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(), Commons.BYTE_1);
+			}
+			
+		}//End of for each interval
+		
+	}
 
 	
-	public static void searchIntervalTreeMarkdeBerg(IntervalTreeMarkdeBergNode node, Interval interval, BufferedWriter searchOutputBufferedWriter) throws IOException{
+	// 8 July 2016
+	// For testing purposes
+	// Dnase
+	public static void writeOverlapsFoundInAnnotation(
+			String outputFolder,
+			String annotationFolder,
+			String elementTypeName,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
+			TIntObjectMap<String>fileNumber2FileNameMap,
+			Interval interval, 
+			ChromosomeName chromName,
+			DnaseIntervalMarkdeBerg dnaseIntervalMarkdeBerg,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		String cellLineName = null;
+		String fileName = null;
+
+		try {
+			
+
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT BASED starts**********************************/
+			/**************************************************************************************/
+			if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+	
+				cellLineName = cellLineNumber2CellLineNameMap.get(dnaseIntervalMarkdeBerg.getCellLineNumber());
+				fileName = fileNumber2FileNameMap.get(dnaseIntervalMarkdeBerg.getFileNumber());
+	
+				fileWriter = FileOperations.createFileWriter(outputFolder + annotationFolder + cellLineName + ".txt", true);
+				bufferedWriter = new BufferedWriter(fileWriter);
+					 
+				//Write header only once for each DNase cellLine
+				if (!dnaseCellLineNumber2HeaderWrittenMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
+					dnaseCellLineNumber2HeaderWrittenMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(),Commons.BYTE_1);
+	
+					bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" +
+							 "Given Interval High" + "\t" + "DNase Chr" + "\t" + "DNase Interval Low" + "\t" +
+							 "DNase Interval High" + "\t" + "CellLineName" + "\t" + "FileName" +
+							 System.getProperty("line.separator"));
+				}
+				
+				//Write each overlap
+				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" +
+						ChromosomeName.convertEnumtoString(chromName) + "\t" + dnaseIntervalMarkdeBerg.getLow() + "\t" + dnaseIntervalMarkdeBerg.getHigh() + "\t" + 
+						cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+	
+				bufferedWriter.close();
+	
+			}// End of IF Element Based
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT BASED ends************************************/
+			/**************************************************************************************/
+	
+			
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT TYPE BASED starts*****************************/
+			/**************************************************************************************/
+			else if( writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
+				
+				cellLineName = cellLineNumber2CellLineNameMap.get(dnaseIntervalMarkdeBerg.getCellLineNumber());
+				fileName = fileNumber2FileNameMap.get(dnaseIntervalMarkdeBerg.getFileNumber());
+	
+				fileWriter = FileOperations.createFileWriter(outputFolder + annotationFolder + elementTypeName  + ".txt", true);
+				bufferedWriter = new BufferedWriter( fileWriter);
+			
+				//Write header only once for each DNase cellLine
+				if (!dnaseCellLineNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
+					dnaseCellLineNumber2HeaderWrittenMap.put(Commons.ONE,Commons.BYTE_1);
+	
+					bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" +
+							 "Given Interval High" + "\t" + "DNase Chr" + "\t" + "DNase Interval Low" + "\t" +
+							 "DNase Interval High" + "\t" + "CellLineName" + "\t" + "FileName" +
+							 System.getProperty("line.separator"));
+				}
+				
+				//Write each overlap
+				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" +
+						ChromosomeName.convertEnumtoString(chromName) + "\t" + dnaseIntervalMarkdeBerg.getLow() + "\t" + dnaseIntervalMarkdeBerg.getHigh() + "\t" + 
+						cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+	
+				bufferedWriter.close();
+				
+			}// End of IF Element Type Based
+			/**************************************************************************************/
+			/**************************WRITE ELEMENT TYPE BASED ends*******************************/
+			/**************************************************************************************/
+
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+	
+	//For testing purposes
+	//Dnase
+	//EOO
+	//IntervalTreeMarkdeBerg
+	//TODO has to be changed accordingly
+	public static void searchIntervalTreeMarkdeBerg(
+			String outputFolder,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
+			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
+			TIntObjectMap<String> fileNumber2FileNameMap,
+			IntervalTreeMarkdeBergNode node, 
+			Interval interval, 
+			ChromosomeName chromName,
+			TIntByteMap dnaseCellLineNumber2OneorZeroMap, 
+			int overlapDefinition) {
+		
+		//new code starts
+		if (node!=null){
+			
+			//Case 1
+			//Look at node's intervals left end points in ascendig order
+			//Look at node's left child
+			if (interval.getHigh() <= node.getMedian()){
+				
+				//Overlaps with median
+				if (interval.getHigh() == node.getMedian()){
+					
+					//There are overlaps
+					//We know that interval overlaps with node's intervals
+					//Write node's intervals down
+					processOverlaps(
+							outputFolder,
+							Commons.DNASE_ANNOTATION_DIRECTORY,
+							Commons.DNASE,
+							writeFoundOverlapsMode,
+							cellLineNumber2CellLineNameMap,
+							fileNumber2FileNameMap,
+							interval, 
+							chromName,
+							node,
+							dnaseCellLineNumber2HeaderWrittenMap,
+							dnaseCellLineNumber2OneorZeroMap);
+				}
+				else{
+					//Search in
+					//Overlaps if node.getIntervalsLeftEndPointsAscending()[i].getLow() <= interval.getHigh()  
+					//else breaks
+					searchInLeftEndPointsInAscendingOrder(
+							outputFolder,
+							Commons.DNASE_ANNOTATION_DIRECTORY,
+							Commons.DNASE,
+							writeFoundOverlapsMode,
+							cellLineNumber2CellLineNameMap,
+							fileNumber2FileNameMap,
+							interval, 
+							chromName,
+							dnaseCellLineNumber2HeaderWrittenMap,
+							dnaseCellLineNumber2OneorZeroMap,
+							node.getIntervalsLeftEndPointsAscending(),
+							interval.getHigh());
+
+				}
+				
+				//Continue search in left node
+				searchIntervalTreeMarkdeBerg(
+						outputFolder,
+						writeFoundOverlapsMode,
+						dnaseCellLineNumber2HeaderWrittenMap,
+						cellLineNumber2CellLineNameMap, 
+						fileNumber2FileNameMap,
+						node.getLeft(), 
+						interval, 
+						chromName,
+						dnaseCellLineNumber2OneorZeroMap, 
+						overlapDefinition);	
+			}
+			
+			//Case 2 
+			//Look at node's intervals right end points in descendig order
+			//Look at node's right child
+			else if (node.getMedian() <= interval.getLow()){
+				
+				//Overlaps with median
+				if (node.getMedian() == interval.getLow()){
+					
+					//There are overlaps
+					//We know that interval overlaps with node's intervals
+					//Write node's intervals down
+					processOverlaps(
+							outputFolder,
+							Commons.DNASE_ANNOTATION_DIRECTORY,
+							Commons.DNASE,
+							writeFoundOverlapsMode,
+							cellLineNumber2CellLineNameMap,
+							fileNumber2FileNameMap,
+							interval, 
+							chromName,
+							node,
+							dnaseCellLineNumber2HeaderWrittenMap,
+							dnaseCellLineNumber2OneorZeroMap);
+
+				}else{
+					
+					//Search in
+					//Overlaps if interval.getLow() <=  node.getIntervalsRightEndPointsDescending()[i].getHigh()
+					//else breaks
+					searchInRightEndPointsInDescendingOrder(
+							 outputFolder,
+							 Commons.DNASE_ANNOTATION_DIRECTORY,
+							 Commons.DNASE,
+							 writeFoundOverlapsMode,
+							 cellLineNumber2CellLineNameMap,
+							 fileNumber2FileNameMap,
+							 interval, 
+							 chromName,
+							 dnaseCellLineNumber2HeaderWrittenMap,
+							 dnaseCellLineNumber2OneorZeroMap,
+							 node.getIntervalsRightEndPointsDescending(), 
+							 interval.getLow());	
+
+				}
+				
+					
+				//Continue search in right node
+				searchIntervalTreeMarkdeBerg(
+						outputFolder,
+						writeFoundOverlapsMode,
+						dnaseCellLineNumber2HeaderWrittenMap,
+						cellLineNumber2CellLineNameMap, 
+						fileNumber2FileNameMap,
+						node.getRight(), 
+						interval, 
+						chromName,
+						dnaseCellLineNumber2OneorZeroMap, 
+						overlapDefinition);	
+			}
+			
+
+			//Case3
+			else if (interval.getLow() <= node.median && node.median <=interval.getHigh()){
+				
+				//There are overlaps
+				//We know that interval overlaps with node's intervals
+				//Write node's intervals down
+				processOverlaps(
+						outputFolder,
+						Commons.DNASE_ANNOTATION_DIRECTORY,
+						Commons.DNASE,
+						writeFoundOverlapsMode,
+						cellLineNumber2CellLineNameMap,
+						fileNumber2FileNameMap,
+						interval, 
+						chromName,
+						node,
+						dnaseCellLineNumber2HeaderWrittenMap,
+						dnaseCellLineNumber2OneorZeroMap);
+				
+				//Continue search in left node
+				searchIntervalTreeMarkdeBerg(
+						outputFolder,
+						writeFoundOverlapsMode,
+						dnaseCellLineNumber2HeaderWrittenMap,
+						cellLineNumber2CellLineNameMap, 
+						fileNumber2FileNameMap,
+						node.getLeft(), 
+						interval, 
+						chromName,
+						dnaseCellLineNumber2OneorZeroMap, 
+						overlapDefinition);	
+	
+				//Continue search in right node
+				searchIntervalTreeMarkdeBerg(
+						outputFolder,
+						writeFoundOverlapsMode,
+						dnaseCellLineNumber2HeaderWrittenMap,
+						cellLineNumber2CellLineNameMap, 
+						fileNumber2FileNameMap,
+						node.getRight(), 
+						interval, 
+						chromName,
+						dnaseCellLineNumber2OneorZeroMap, 
+						overlapDefinition);	
+
+			}
+
+			//Control Case
+			else {
+				System.out.println("Security there is a problem. There is an unhandled case." + System.getProperty("line.separator"));
+			}
+			
+		}//End of IF node is not null
+		//new code ends
+		
+
+				
+	}//End of search method
+
+	
+	public static void searchIntervalTreeMarkdeBerg(
+			IntervalTreeMarkdeBergNode node, 
+			Interval interval, 
+			BufferedWriter searchOutputBufferedWriter) throws IOException{
 		
 		if (node!=null){
 			
@@ -486,12 +950,12 @@ public class IntervalTreeMarkdeBerg {
 				
 				//In case of equality
 				if (interval.getHigh() == node.getMedian()){
+					
 					//We know that interval overlaps with node's intervals
 					//Write node's intervals down
 					searchOutputBufferedWriter.write("Found overlaps: ");
 					Print.printArray(node.getIntervalsLeftEndPointsAscending(),searchOutputBufferedWriter);
 					searchOutputBufferedWriter.write(System.getProperty("line.separator"));
-					 
 					
 				}else{
 					//Search in
@@ -546,7 +1010,7 @@ public class IntervalTreeMarkdeBerg {
 			
 			//Control Case
 			else {
-				searchOutputBufferedWriter.write("Security there is a problem." + System.getProperty("line.separator"));
+				searchOutputBufferedWriter.write("Security there is a problem. There is an unhandled case." + System.getProperty("line.separator"));
 			}
 			
 		}//End of IF node is not null
@@ -598,77 +1062,99 @@ public class IntervalTreeMarkdeBerg {
 	 */
 	public static void main(String[] args) {
 	
-		Interval i1 = new Interval(10, 20);
-		Interval i2 = new Interval(5, 40);
-		Interval i3 = new Interval(30, 50);
-		Interval i4 = new Interval(0, 15);
-		Interval i5 = new Interval(40, 60);
-		Interval i6 = new Interval(10, 30);
-		Interval i7 = new Interval(70, 80);
-		Interval i8 = new Interval(80, 100);
-		Interval i9 = new Interval(0, 100);
-		Interval i10 = new Interval(80, 120);
-		Interval i11 = new Interval(90, 100);
-		
-		List<Interval> list = new ArrayList<Interval>();
-		
-		list.add(i1);
-		list.add(i2);
-		list.add(i3);
-		list.add(i4);
-		list.add(i5);
-		list.add(i6);
-		list.add(i7);
-		list.add(i8);
-		list.add(i9);
-		list.add(i10);
-		list.add(i11);
-
-		/**************************************************************************************/
-		/********************TIME MEASUREMENT**************************************************/
-		/**************************************************************************************/
-		// if you want to see the current year and day etc. change the line of code below with:
-		// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		// DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-		long dateBefore = Long.MIN_VALUE;
-		long dateAfter = Long.MIN_VALUE;
-		/**************************************************************************************/
-		/********************TIME MEASUREMENT**************************************************/
-		/**************************************************************************************/
-
-		//Time before constructing interval tree 
-		dateBefore = System.currentTimeMillis();
-		
-		BufferedWriter bufferedWriter = null;
-		
-		Interval[] intervalArrayUnsorted = (Interval[]) list.toArray(new Interval[list.size()]);
-		Interval[] intervalArraySorted = new Interval[list.size()];
-		
-		//Do it only once. Sort intervals in ascending order w.r.t. left end points.
-		CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted);			
-		
-		//Free space
-		list = null;
+		try {
+			
+			String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+			String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+			String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
+			
+			IntervalMarkdeBerg i1 = new IntervalMarkdeBerg(10, 20);
+			IntervalMarkdeBerg i2 = new IntervalMarkdeBerg(5, 40);
+			IntervalMarkdeBerg i3 = new IntervalMarkdeBerg(30, 50);
+			IntervalMarkdeBerg i4 = new IntervalMarkdeBerg(0, 15);
+			IntervalMarkdeBerg i5 = new IntervalMarkdeBerg(40, 60);
+			IntervalMarkdeBerg i6 = new IntervalMarkdeBerg(10, 30);
+			IntervalMarkdeBerg i7 = new IntervalMarkdeBerg(70, 80);
+			IntervalMarkdeBerg i8 = new IntervalMarkdeBerg(80, 100);
+			IntervalMarkdeBerg i9 = new IntervalMarkdeBerg(0, 100);
+			IntervalMarkdeBerg i10 = new IntervalMarkdeBerg(80, 120);
+			IntervalMarkdeBerg i11 = new IntervalMarkdeBerg(90, 100);
+			
+			List<IntervalMarkdeBerg> list = new ArrayList<IntervalMarkdeBerg>();
+			
+			list.add(i1);
+			list.add(i2);
+			list.add(i3);
+			list.add(i4);
+			list.add(i5);
+			list.add(i6);
+			list.add(i7);
+			list.add(i8);
+			list.add(i9);
+			list.add(i10);
+			list.add(i11);
 	
-		//You have a list of intervals
-		IntervalTreeMarkdeBergNode root = constructIntervalTree(intervalArraySorted,bufferedWriter);
+			/**************************************************************************************/
+			/********************TIME MEASUREMENT**************************************************/
+			/**************************************************************************************/
+			// if you want to see the current year and day etc. change the line of code below with:
+			// DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			// DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+			long dateBefore = Long.MIN_VALUE;
+			long dateAfter = Long.MIN_VALUE;
+			/**************************************************************************************/
+			/********************TIME MEASUREMENT**************************************************/
+			/**************************************************************************************/
+	
+			//Time before constructing interval tree 
+			dateBefore = System.currentTimeMillis();
+			
+			BufferedWriter bufferedWriter = null;
+			
+			FileWriter searchFileWriter = null;
+			BufferedWriter searchBufferedWriter = null;
+			
+			
+			searchFileWriter = FileOperations.createFileWriter(outputFolder + "SearchOutputIntervalTreeMarkdeBerg.txt");
+			searchBufferedWriter = new BufferedWriter(searchFileWriter);
 		
-		IntervalTreeMarkdeBerg intervalTree = new IntervalTreeMarkdeBerg(root);
+			IntervalMarkdeBerg[] intervalArrayUnsorted = (IntervalMarkdeBerg[]) list.toArray(new IntervalMarkdeBerg[list.size()]);
+			IntervalMarkdeBerg[] intervalArraySorted = new IntervalMarkdeBerg[list.size()];
+			
+			//Do it only once. Sort intervals in ascending order w.r.t. left end points.
+			CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted);			
+			
+			//Free space
+			list = null;
 		
-		//Time after constructing interval tree 
-		dateAfter = System.currentTimeMillis();
-
-		//How much did it take to construct interval tree using Mark de Berg?
-		System.out.println("Construction Time for Interval Tree Mark de Berg: " + ((dateAfter - dateBefore)*1.0f)/1000 + " seconds");
-		System.out.println("Construction Time for Interval Tree Mark de Berg: " + (dateAfter - dateBefore) + " milli seconds");
-		System.out.println("****************************************************************");
-
-		if (root!=null){
-			traverseIntervalTreeBreadthFirstOrder(intervalTree);
+			//You have a list of intervals
+			IntervalTreeMarkdeBergNode root = constructIntervalTree(intervalArraySorted,bufferedWriter);
+			
+			IntervalTreeMarkdeBerg intervalTree = new IntervalTreeMarkdeBerg(root);
+			
+			//Time after constructing interval tree 
+			dateAfter = System.currentTimeMillis();
+	
+			//How much did it take to construct interval tree using Mark de Berg?
+			System.out.println("Construction Time for Interval Tree Mark de Berg: " + ((dateAfter - dateBefore)*1.0f)/1000 + " seconds");
+			System.out.println("Construction Time for Interval Tree Mark de Berg: " + (dateAfter - dateBefore) + " milli seconds");
+			System.out.println("****************************************************************");
+	
+			if (root!=null){
+				traverseIntervalTreeBreadthFirstOrder(intervalTree);
+			}
+			
+			Interval givenInterval = new Interval(96,96);
+			searchIntervalTreeMarkdeBerg(intervalTree.getRoot(), givenInterval, searchBufferedWriter);
+				
+			//Close bufferedWriter
+			//bufferedWriter.close();
+			searchBufferedWriter.close();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		
-		//Close bufferedWriter
-		//bufferedWriter.close();
+
 
 	}
 

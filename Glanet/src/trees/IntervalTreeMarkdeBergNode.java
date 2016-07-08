@@ -3,7 +3,6 @@
  */
 package trees;
 
-import intervaltree.Interval;
 
 /**
  * @author Burçak Otlu
@@ -14,10 +13,10 @@ import intervaltree.Interval;
 public class IntervalTreeMarkdeBergNode {
 
 	//List of intervals where intervals are sorted w.r.t. their left end points in ascending order.
-	Interval[] intervalsLeftEndPointsAscending;
+	IntervalMarkdeBerg[] intervalsLeftEndPointsAscending;
 
 	//List of intervals where intervals are sorted w.r.t. their right end points in descending order.
-	Interval[] intervalsRightEndPointsDescending;
+	IntervalMarkdeBerg[] intervalsRightEndPointsDescending;
 	
 	Float median;
 	
@@ -27,14 +26,14 @@ public class IntervalTreeMarkdeBergNode {
 	
 
 	
-	public Interval[] getIntervalsLeftEndPointsAscending() {
+	public IntervalMarkdeBerg[] getIntervalsLeftEndPointsAscending() {
 		return intervalsLeftEndPointsAscending;
 	}
 
 
 
 
-	public void setIntervalsLeftEndPointsAscending(Interval[] intervalsLeftEndPointsAscending) {
+	public void setIntervalsLeftEndPointsAscending(IntervalMarkdeBerg[] intervalsLeftEndPointsAscending) {
 		this.intervalsLeftEndPointsAscending = intervalsLeftEndPointsAscending;
 	}
 
@@ -44,7 +43,7 @@ public class IntervalTreeMarkdeBergNode {
 
 
 
-	public Interval[] getIntervalsRightEndPointsDescending() {
+	public IntervalMarkdeBerg[] getIntervalsRightEndPointsDescending() {
 		return intervalsRightEndPointsDescending;
 	}
 
@@ -54,7 +53,7 @@ public class IntervalTreeMarkdeBergNode {
 
 
 
-	public void setIntervalsRightEndPointsDescending(Interval[] intervalsRightEndPointsDescending) {
+	public void setIntervalsRightEndPointsDescending(IntervalMarkdeBerg[] intervalsRightEndPointsDescending) {
 		this.intervalsRightEndPointsDescending = intervalsRightEndPointsDescending;
 	}
 
@@ -125,8 +124,8 @@ public class IntervalTreeMarkdeBergNode {
 
 
 	public IntervalTreeMarkdeBergNode(
-			Interval[] intervalsLeftEndPointsAscending,
-			Interval[] intervalsRightEndPointsDescending,
+			IntervalMarkdeBerg[] intervalsLeftEndPointsAscending,
+			IntervalMarkdeBerg[] intervalsRightEndPointsDescending,
 			Float median,
 			IntervalTreeMarkdeBergNode left,
 			IntervalTreeMarkdeBergNode right) {

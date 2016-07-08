@@ -8,6 +8,7 @@ import intervaltree.Interval;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import trees.IntervalMarkdeBerg;
 import enumtypes.PointType;
 
 /**
@@ -26,7 +27,7 @@ public class Print {
 		}
 	}
 	
-	public static void printArray(Interval[] array,PointType pointType){
+	public static void printArray(IntervalMarkdeBerg[] array,PointType pointType){
 		
 		switch(pointType){
 		
@@ -47,7 +48,7 @@ public class Print {
 		
 	}
 
-	public static void printArray(Interval[] array){
+	public static void printArray(IntervalMarkdeBerg[] array){
 		
 	
 		for(int i = 0; i<array.length; i++ ){
@@ -59,7 +60,7 @@ public class Print {
 	}
 	
 	
-	public static void printArray(Interval[] array, BufferedWriter bufferedWriter){
+	public static void printArray(IntervalMarkdeBerg[] array, BufferedWriter bufferedWriter){
 	
 		try {
 			
