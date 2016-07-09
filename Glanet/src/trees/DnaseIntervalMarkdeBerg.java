@@ -13,8 +13,6 @@ public class DnaseIntervalMarkdeBerg extends IntervalMarkdeBerg {
 	
 	int cellLineNumber;
 	int fileNumber;
-	
-	
 
 	public int getCellLineNumber() {
 		return cellLineNumber;
@@ -32,27 +30,10 @@ public class DnaseIntervalMarkdeBerg extends IntervalMarkdeBerg {
 		this.fileNumber = fileNumber;
 	}
 	
-	
-
 	public DnaseIntervalMarkdeBerg(int low, int high, int cellLineNumber, int fileNumber) {
 		super(low, high);
 		this.cellLineNumber = cellLineNumber;
 		this.fileNumber = fileNumber;
-	}
-
-	/**
-	 * 
-	 */
-	public DnaseIntervalMarkdeBerg() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

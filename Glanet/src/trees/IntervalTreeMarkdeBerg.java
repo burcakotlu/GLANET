@@ -81,8 +81,6 @@ public class IntervalTreeMarkdeBerg {
 	
 	IntervalTreeMarkdeBergNode root;
 	
-	
-	
 	public IntervalTreeMarkdeBergNode getRoot() {
 		return root;
 	}
@@ -91,9 +89,6 @@ public class IntervalTreeMarkdeBerg {
 		this.root = root;
 	}
 
-	
-	
-	
 	public IntervalTreeMarkdeBerg() {
 		super();
 	}
@@ -148,8 +143,6 @@ public class IntervalTreeMarkdeBerg {
 				// we don't check for overlaps
 				// we insert any given interval without overlap check
 
-				// Creating millions of nodes with six attributes causes out of
-				// memory error
 				DnaseIntervalMarkdeBerg interval = new DnaseIntervalMarkdeBerg(startPosition,endPosition,cellLineNumber,fileNumber);
 				intervalList.add(interval);
 
@@ -168,6 +161,7 @@ public class IntervalTreeMarkdeBerg {
 			
 			//Free space
 			intervalList = null;
+			intervalArrayUnsorted = null;
 			
 			//Construct interval tree
 			IntervalTreeMarkdeBergNode root = constructIntervalTree(intervalArraySorted,bufferedWriter);
@@ -182,7 +176,10 @@ public class IntervalTreeMarkdeBerg {
 	}
 	
 
-	public static IntervalTreeMarkdeBerg createDnaseIntervalTreeWithNumbers(String dataFolder, String outputFolder,ChromosomeName chrName){
+	public static IntervalTreeMarkdeBerg createDnaseIntervalTreeWithNumbers(
+			String dataFolder, 
+			String outputFolder,
+			ChromosomeName chrName){
 		
 		IntervalTreeMarkdeBerg intervalTree = null;
 		
@@ -253,6 +250,9 @@ public class IntervalTreeMarkdeBerg {
 		
 		//We have to sort all end points in order to find the median.
 		allEndPointsSorted = CountingSorting.sort(allEndPoints, SortingOrder.SORTING_IN_ASCENDING_ORDER);
+		
+		//Free space
+		allEndPoints = null;
 		
 		//Find median
 		median = (allEndPointsSorted[numberofIntervals-1] + allEndPointsSorted[numberofIntervals])*1.0f/2;
@@ -760,10 +760,10 @@ public class IntervalTreeMarkdeBerg {
 			//Case 1
 			//Look at node's intervals left end points in ascendig order
 			//Look at node's left child
-			if (interval.getHigh() <= node.getMedian()){
+			if (interval.getHigh() <= node.getMedian().intValue()){
 				
 				//Overlaps with median
-				if (interval.getHigh() == node.getMedian()){
+				if (interval.getHigh() == node.getMedian().intValue()){
 					
 					//There are overlaps
 					//We know that interval overlaps with node's intervals
@@ -818,10 +818,10 @@ public class IntervalTreeMarkdeBerg {
 			//Case 2 
 			//Look at node's intervals right end points in descendig order
 			//Look at node's right child
-			else if (node.getMedian() <= interval.getLow()){
+			else if (node.getMedian().intValue() <= interval.getLow()){
 				
 				//Overlaps with median
-				if (node.getMedian() == interval.getLow()){
+				if (node.getMedian().intValue() == interval.getLow()){
 					
 					//There are overlaps
 					//We know that interval overlaps with node's intervals
@@ -877,7 +877,7 @@ public class IntervalTreeMarkdeBerg {
 			
 
 			//Case3
-			else if (interval.getLow() <= node.median && node.median <=interval.getHigh()){
+			else if (interval.getLow() <= node.getMedian().intValue() && node.getMedian().intValue() <=interval.getHigh()){
 				
 				//There are overlaps
 				//We know that interval overlaps with node's intervals

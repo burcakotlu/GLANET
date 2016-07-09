@@ -1862,18 +1862,35 @@ public class Annotation {
 		IntervalTreeMarkdeBerg dnaseIntervalTreeMarkdeBerg;
 		
 		TIntByteMap dnaseCellLineNumber2HeaderWrittenMap = new TIntByteHashMap();
+		
+		//For testing purposes
+		long dateBefore = Long.MIN_VALUE;
+		long dateAfter = Long.MIN_VALUE;
+		
+		long constructionTimeForIntervalTreeCormen = 0;
+		long constructionTimeForIntervalTreeMarkdeBerg = 0;
+		
+		long searchTimeForIntervalTreeCormen = 0;
+		long searchTimeForIntervalTreeMarkdeBerg = 0;
+
 
 		// For each ChromosomeName
 		for( ChromosomeName chrName : ChromosomeName.values()){
 
 			switch(treeType){
 				case INTERVAL_TREE_CORMEN:
+					
+					dateBefore = System.currentTimeMillis();
 					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder,chrName);
+					dateAfter = System.currentTimeMillis();
+					constructionTimeForIntervalTreeCormen = dateAfter - dateBefore;
+					System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree Cormen: \t" +(constructionTimeForIntervalTreeCormen*1.0f)/1000 + "\t seconds");
 					
 					bufferedReader = FileOperations.createBufferedReader(
 							outputFolder,
 							Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 					
+					dateBefore = System.currentTimeMillis();
 					searchDnaseWithNumbers(
 							outputFolder,
 							dnaseCellLineNumber2HeaderWrittenMap,
@@ -1886,6 +1903,10 @@ public class Annotation {
 							cellLineNumber2CellLineNameMap, 
 							fileNumber2FileNameMap,
 							associationMeasureType);
+					dateAfter = System.currentTimeMillis();
+					searchTimeForIntervalTreeCormen = dateAfter - dateBefore;
+					System.out.println(chrName.convertEnumtoString() + ": Search Time for Interval Tree Cormen: \t" + (searchTimeForIntervalTreeCormen*1.0f)/1000 + "\t seconds");
+
 
 
 					//Free space
@@ -1893,12 +1914,18 @@ public class Annotation {
 					break;
 					
 				case INTERVAL_TREE_MARKDEBERG:
+					
+					dateBefore = System.currentTimeMillis();
 					dnaseIntervalTreeMarkdeBerg = IntervalTreeMarkdeBerg.createDnaseIntervalTreeWithNumbers(dataFolder,outputFolder,chrName);
+					dateAfter = System.currentTimeMillis();
+					constructionTimeForIntervalTreeMarkdeBerg = dateAfter - dateBefore;
+					System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree MarkdeBerg: \t" + (constructionTimeForIntervalTreeMarkdeBerg*1.0f)/1000 + "\t seconds");
 					
 					bufferedReader = FileOperations.createBufferedReader(
 							outputFolder,
 							Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 					
+					dateBefore = System.currentTimeMillis();
 					searchDnaseWithNumbers(
 							outputFolder,
 							dnaseCellLineNumber2HeaderWrittenMap,
@@ -1911,6 +1938,9 @@ public class Annotation {
 							cellLineNumber2CellLineNameMap, 
 							fileNumber2FileNameMap,
 							associationMeasureType);
+					dateAfter = System.currentTimeMillis();
+					searchTimeForIntervalTreeMarkdeBerg = dateAfter - dateBefore;
+					System.out.println(chrName.convertEnumtoString() + ": Search Time for Interval Tree MarkdeBerg: \t" + (searchTimeForIntervalTreeMarkdeBerg*1.0f)/1000 + "\t seconds");
 
 
 					//Free space
@@ -2163,6 +2193,7 @@ public class Annotation {
 				/***********************************************/
 				/*************Get Interval Ends*****************/
 				/***********************************************/
+								
 				
 				switch(associationMeasureType){
 				
