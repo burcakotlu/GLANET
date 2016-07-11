@@ -4,6 +4,7 @@
 package trees;
 
 import intervaltree.Interval;
+import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -19,9 +20,7 @@ import java.util.Queue;
 import printing.Print;
 import sorting.CountingSorting;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.SortingOrder;
@@ -452,44 +451,50 @@ public class IntervalTreeMarkdeBerg {
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
 			TIntByteMap dnaseCellLineNumber2OneorZeroMap,
 			IntervalMarkdeBerg[] intervalsLeftEndPointsAscending, 
-			int high){
+			int overlapDefinition){
 		
 		DnaseIntervalMarkdeBerg dnaseIntervalMarkdeBerg = null;
 		
 		
 		for(int i=0; i<intervalsLeftEndPointsAscending.length;i++){
 			
-			//Case given interval high < median
-			//Therefore given interval low <  node's interval's high
-			//So we are looking for node's intervals such that their low <= given interval high
+			//Case where interval_high < median
+			//Therefore interval_low <  node's interval's high
+			//So we are looking for node's intervals such that their low <= interval_high
 			//which means that there is overlap
-			if(intervalsLeftEndPointsAscending[i].getLow()<=high){
+
+			dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsLeftEndPointsAscending[i];
+			
+			if(dnaseIntervalMarkdeBerg.getLow()<=interval.getHigh()){	
 				
-				dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsLeftEndPointsAscending[i];
-				
-				//There is overlap
-				//Write it down.
-				writeOverlapsFoundInAnnotation(
-						outputFolder,
-						annotationFolder,
-						elementTypeName,
-						writeFoundOverlapsMode,
-						cellLineNumber2CellLineNameMap,
-						fileNumber2FileNameMap,
-						interval, 
-						chromName,
-						dnaseIntervalMarkdeBerg,
-						dnaseCellLineNumber2HeaderWrittenMap);
-				
-				
+				if(overlapsForLeftEndPointsInDescendingOrder(dnaseIntervalMarkdeBerg.getLow(),dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+					
+					//There is overlap
+					//Write it down.
+					writeOverlapsFoundInAnnotation(
+							outputFolder,
+							annotationFolder,
+							elementTypeName,
+							writeFoundOverlapsMode,
+							cellLineNumber2CellLineNameMap,
+							fileNumber2FileNameMap,
+							interval, 
+							chromName,
+							dnaseIntervalMarkdeBerg,
+							dnaseCellLineNumber2HeaderWrittenMap);
+					
+					
 					if( !dnaseCellLineNumber2OneorZeroMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
 						dnaseCellLineNumber2OneorZeroMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(), Commons.BYTE_1);
 					}
-			}//End of IF
-			
+
+				}//End of If there is overlap w.r.t. overlapDefinition
+
+			}//End of IF there is a chance of overlap
 			else{
 					break;
-			}
+			}//End of IF there is no chance of overlap
+			
 		}//End of FOR each interval in the node
 
 	}
@@ -517,6 +522,40 @@ public class IntervalTreeMarkdeBerg {
 
 	}
 	
+	// overlap definition: number of overlapping bases necessary for overlap
+	//We know that node_interval_low < interval_high
+	//Since node_interval_low <= median and median < interval_low
+	//Therefore  node_interval_low < interval_high
+	public static boolean overlapsForRightEndPointsInDescendingOrder( int node_interval_low, int node_interval_high, int interval_low, int interval_high, int numberofOverlappingBases) {
+
+		if( ( interval_low <= node_interval_high)){
+
+			if( ( Math.min( node_interval_high, interval_high) - Math.max( node_interval_low, interval_low) + 1) >= numberofOverlappingBases){
+				return true;
+			}else
+				return false;
+		}else
+			return false;
+	}
+
+	
+	//Case where interval_high < median
+	//Therefore interval_low <  node's interval's high
+	//So we are looking for node's intervals such that their low <= interval_high
+	//which means that there is overlap
+	public static boolean overlapsForLeftEndPointsInDescendingOrder( int node_interval_low, int node_interval_high, int interval_low, int interval_high, int numberofOverlappingBases) {
+
+		if( ( node_interval_low <= interval_high)){
+
+			if( ( Math.min( node_interval_high, interval_high) - Math.max( node_interval_low, interval_low) + 1) >= numberofOverlappingBases){
+				return true;
+			}else
+				return false;
+		}else
+			return false;
+	}
+
+	
 	//8 July 2016 starts
 	public static void searchInRightEndPointsInDescendingOrder(
 			String outputFolder,
@@ -529,47 +568,58 @@ public class IntervalTreeMarkdeBerg {
 			ChromosomeName chromName,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
 			TIntByteMap dnaseCellLineNumber2OneorZeroMap,
-			IntervalMarkdeBerg[] intervalsRightEndPointsDescending, 
-			int low){
-		
+			IntervalMarkdeBerg[] intervalsRightEndPointsDescending,
+			int overlapDefinition){
 		
 		DnaseIntervalMarkdeBerg dnaseIntervalMarkdeBerg = null;
-		
 			
 		for(int i=0; i<intervalsRightEndPointsDescending.length;i++){
 			
-			//Case median < given interval low
-			//Therefore node's interval's low  < given interval high  
-			//So we are looking for node's intervals such that given interval low <= node's interval's high
+			//Case where median < interval_low
+			//Therefore node's interval's low  < interval_high  
+			//So we are looking for node's intervals such that interval_low <= node's interval's high
 			//which means that there is overlap
-			if(low <= intervalsRightEndPointsDescending[i].getHigh()){
-				//There is overlap
-				//Write it down.
-				dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsRightEndPointsDescending[i];
-				
-				//There is overlap
-				//Write it down.
-				writeOverlapsFoundInAnnotation(
-						outputFolder,
-						annotationFolder,
-						elementTypeName,
-						writeFoundOverlapsMode,
-						cellLineNumber2CellLineNameMap,
-						fileNumber2FileNameMap,
-						interval, 
-						chromName,
-						dnaseIntervalMarkdeBerg,
-						dnaseCellLineNumber2HeaderWrittenMap);
-				
-				
-					if( !dnaseCellLineNumber2OneorZeroMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
-						dnaseCellLineNumber2OneorZeroMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(), Commons.BYTE_1);
-					}
+//			if(low <= intervalsRightEndPointsDescending[i].getHigh()){
+//				//There is overlap
+//				//Write it down.
+//				dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsRightEndPointsDescending[i];				
+//			}//End of IF
+		
+			dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsRightEndPointsDescending[i];
 			
-			}//End of IF
+			if(interval.getLow() <= dnaseIntervalMarkdeBerg.getHigh()){
+				if(overlapsForRightEndPointsInDescendingOrder(dnaseIntervalMarkdeBerg.getLow(),dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+					
+					//There is overlap
+					//Write it down.
+					writeOverlapsFoundInAnnotation(
+							outputFolder,
+							annotationFolder,
+							elementTypeName,
+							writeFoundOverlapsMode,
+							cellLineNumber2CellLineNameMap,
+							fileNumber2FileNameMap,
+							interval, 
+							chromName,
+							dnaseIntervalMarkdeBerg,
+							dnaseCellLineNumber2HeaderWrittenMap);
+					
+					
+						if( !dnaseCellLineNumber2OneorZeroMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
+							dnaseCellLineNumber2OneorZeroMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(), Commons.BYTE_1);
+						}
+						
+				}//End of IF there is overlap w.r.t. overlapDefinition
+			
+			}//There is a chance of overlap
+			
 			else{
 				break;			
-			}
+			}//There is no chance of overlap	
+			
+			
+			
+			
 		}//End of FOR
 	
 	}
@@ -607,31 +657,43 @@ public class IntervalTreeMarkdeBerg {
 			ChromosomeName chromName,
 			IntervalTreeMarkdeBergNode node,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
-			TIntByteMap dnaseCellLineNumber2OneorZeroMap){
+			TIntByteMap dnaseCellLineNumber2OneorZeroMap,
+			int overlapDefinition){
 		
 		DnaseIntervalMarkdeBerg dnaseIntervalMarkdeBerg = null;
 		
-		// We know that all the intervals of node overlaps with given interval
+		// We know that all the intervals of node and given interval have median common
 		for(int i=0; i<node.getIntervalsLeftEndPointsAscending().length; i++){
 			
 			dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg) node.getIntervalsLeftEndPointsAscending()[i];
 			
-			writeOverlapsFoundInAnnotation(
-					outputFolder,
-					annotationFolder,
-					elementTypeName,
-					writeFoundOverlapsMode,
-					cellLineNumber2CellLineNameMap,
-					fileNumber2FileNameMap,
-					interval, 
-					chromName,
-					dnaseIntervalMarkdeBerg,
-					dnaseCellLineNumber2HeaderWrittenMap);
-			
-			
-			if( !dnaseCellLineNumber2OneorZeroMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
-				dnaseCellLineNumber2OneorZeroMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(), Commons.BYTE_1);
-			}
+			// Use overlapDefinition
+			// For case1 we know that interval_high = median
+			// Therefore we know that node_interval_low < interval_high
+			// We have to check whether interval_low <  node_interval_high
+			// TODO call different  overlaps method for case1
+			// TODO call different  overlaps method for case2
+			// TODO call different  overlaps method for case3
+			if (IntervalTree.overlaps(dnaseIntervalMarkdeBerg.getLow(), dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+				
+				writeOverlapsFoundInAnnotation(
+						outputFolder,
+						annotationFolder,
+						elementTypeName,
+						writeFoundOverlapsMode,
+						cellLineNumber2CellLineNameMap,
+						fileNumber2FileNameMap,
+						interval, 
+						chromName,
+						dnaseIntervalMarkdeBerg,
+						dnaseCellLineNumber2HeaderWrittenMap);
+				
+				
+				if( !dnaseCellLineNumber2OneorZeroMap.containsKey(dnaseIntervalMarkdeBerg.getCellLineNumber())){
+					dnaseCellLineNumber2OneorZeroMap.put(dnaseIntervalMarkdeBerg.getCellLineNumber(), Commons.BYTE_1);
+				}
+				
+			}//End of IF There is overlap w.r.t. overlapDefinition
 			
 		}//End of for each interval
 		
@@ -738,10 +800,9 @@ public class IntervalTreeMarkdeBerg {
 
 	
 	//For testing purposes
-	//Dnase
+	//Search Dnase
 	//EOO
 	//IntervalTreeMarkdeBerg
-	//TODO has to be changed accordingly
 	public static void searchIntervalTreeMarkdeBerg(
 			String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
@@ -754,20 +815,18 @@ public class IntervalTreeMarkdeBerg {
 			TIntByteMap dnaseCellLineNumber2OneorZeroMap, 
 			int overlapDefinition) {
 		
-		//new code starts
 		if (node!=null){
 			
-			//Case 1
-			//Look at node's intervals left end points in ascendig order
+			//Case1 starts
+			//Look at node's intervals left end points in ascending order
 			//Look at node's left child
 			if (interval.getHigh() <= node.getMedian().intValue()){
 				
 				//Overlaps with median
 				if (interval.getHigh() == node.getMedian().intValue()){
 					
-					//There are overlaps
-					//We know that interval overlaps with node's intervals
-					//Write node's intervals down
+					//There might be overlaps w.r.t. overlap definition
+					//We know that interval overlaps with median
 					processOverlaps(
 							outputFolder,
 							Commons.DNASE_ANNOTATION_DIRECTORY,
@@ -779,7 +838,8 @@ public class IntervalTreeMarkdeBerg {
 							chromName,
 							node,
 							dnaseCellLineNumber2HeaderWrittenMap,
-							dnaseCellLineNumber2OneorZeroMap);
+							dnaseCellLineNumber2OneorZeroMap,
+							overlapDefinition);
 				}
 				else{
 					//Search in
@@ -797,7 +857,7 @@ public class IntervalTreeMarkdeBerg {
 							dnaseCellLineNumber2HeaderWrittenMap,
 							dnaseCellLineNumber2OneorZeroMap,
 							node.getIntervalsLeftEndPointsAscending(),
-							interval.getHigh());
+							overlapDefinition);
 
 				}
 				
@@ -813,19 +873,18 @@ public class IntervalTreeMarkdeBerg {
 						chromName,
 						dnaseCellLineNumber2OneorZeroMap, 
 						overlapDefinition);	
-			}
+			}//Case1 ends 
 			
-			//Case 2 
-			//Look at node's intervals right end points in descendig order
+			//Case 2  starts
+			//Look at node's intervals right end points in descending order
 			//Look at node's right child
 			else if (node.getMedian().intValue() <= interval.getLow()){
 				
 				//Overlaps with median
 				if (node.getMedian().intValue() == interval.getLow()){
 					
-					//There are overlaps
-					//We know that interval overlaps with node's intervals
-					//Write node's intervals down
+					//There might be overlaps
+					//We know that interval overlaps with median
 					processOverlaps(
 							outputFolder,
 							Commons.DNASE_ANNOTATION_DIRECTORY,
@@ -837,7 +896,8 @@ public class IntervalTreeMarkdeBerg {
 							chromName,
 							node,
 							dnaseCellLineNumber2HeaderWrittenMap,
-							dnaseCellLineNumber2OneorZeroMap);
+							dnaseCellLineNumber2OneorZeroMap,
+							overlapDefinition);
 
 				}else{
 					
@@ -856,7 +916,7 @@ public class IntervalTreeMarkdeBerg {
 							 dnaseCellLineNumber2HeaderWrittenMap,
 							 dnaseCellLineNumber2OneorZeroMap,
 							 node.getIntervalsRightEndPointsDescending(), 
-							 interval.getLow());	
+							 overlapDefinition);	
 
 				}
 				
@@ -873,10 +933,10 @@ public class IntervalTreeMarkdeBerg {
 						chromName,
 						dnaseCellLineNumber2OneorZeroMap, 
 						overlapDefinition);	
-			}
+			}//Case2 ends
 			
 
-			//Case3
+			//Case3 starts
 			else if (interval.getLow() <= node.getMedian().intValue() && node.getMedian().intValue() <=interval.getHigh()){
 				
 				//There are overlaps
@@ -893,7 +953,8 @@ public class IntervalTreeMarkdeBerg {
 						chromName,
 						node,
 						dnaseCellLineNumber2HeaderWrittenMap,
-						dnaseCellLineNumber2OneorZeroMap);
+						dnaseCellLineNumber2OneorZeroMap,
+						overlapDefinition);
 				
 				//Continue search in left node
 				searchIntervalTreeMarkdeBerg(
@@ -921,7 +982,7 @@ public class IntervalTreeMarkdeBerg {
 						dnaseCellLineNumber2OneorZeroMap, 
 						overlapDefinition);	
 
-			}
+			}//Case3 ends
 
 			//Control Case
 			else {
@@ -929,9 +990,7 @@ public class IntervalTreeMarkdeBerg {
 			}
 			
 		}//End of IF node is not null
-		//new code ends
 		
-
 				
 	}//End of search method
 

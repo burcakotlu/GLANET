@@ -64,6 +64,7 @@ import keggpathway.ncbigenes.KeggPathwayUtility;
 
 import org.apache.log4j.Logger;
 
+import trees.DnaseIntervalMarkdeBerg;
 import trees.IntervalTreeMarkdeBerg;
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
@@ -1867,12 +1868,8 @@ public class Annotation {
 		long dateBefore = Long.MIN_VALUE;
 		long dateAfter = Long.MIN_VALUE;
 		
-		long constructionTimeForIntervalTreeCormen = 0;
-		long constructionTimeForIntervalTreeMarkdeBerg = 0;
-		
-		long searchTimeForIntervalTreeCormen = 0;
-		long searchTimeForIntervalTreeMarkdeBerg = 0;
-
+		long constructionTime = 0;
+		long searchTime = 0;
 
 		// For each ChromosomeName
 		for( ChromosomeName chrName : ChromosomeName.values()){
@@ -1883,8 +1880,8 @@ public class Annotation {
 					dateBefore = System.currentTimeMillis();
 					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder,chrName);
 					dateAfter = System.currentTimeMillis();
-					constructionTimeForIntervalTreeCormen = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree Cormen: \t" +(constructionTimeForIntervalTreeCormen*1.0f)/1000 + "\t seconds");
+					constructionTime = dateAfter - dateBefore;
+					System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeCormen: \t" +(constructionTime*1.0f)/1000 + "\t seconds");
 					
 					bufferedReader = FileOperations.createBufferedReader(
 							outputFolder,
@@ -1904,8 +1901,8 @@ public class Annotation {
 							fileNumber2FileNameMap,
 							associationMeasureType);
 					dateAfter = System.currentTimeMillis();
-					searchTimeForIntervalTreeCormen = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Search Time for Interval Tree Cormen: \t" + (searchTimeForIntervalTreeCormen*1.0f)/1000 + "\t seconds");
+					searchTime = dateAfter - dateBefore;
+					System.out.println(chrName.convertEnumtoString() + ": Search Time for IntervalTreeCormen: \t" + (searchTime*1.0f)/1000 + "\t seconds");
 
 
 
@@ -1918,8 +1915,8 @@ public class Annotation {
 					dateBefore = System.currentTimeMillis();
 					dnaseIntervalTreeMarkdeBerg = IntervalTreeMarkdeBerg.createDnaseIntervalTreeWithNumbers(dataFolder,outputFolder,chrName);
 					dateAfter = System.currentTimeMillis();
-					constructionTimeForIntervalTreeMarkdeBerg = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Construction Time for Interval Tree MarkdeBerg: \t" + (constructionTimeForIntervalTreeMarkdeBerg*1.0f)/1000 + "\t seconds");
+					constructionTime = dateAfter - dateBefore;
+					System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeMarkdeBerg: \t" + (constructionTime*1.0f)/1000 + "\t seconds");
 					
 					bufferedReader = FileOperations.createBufferedReader(
 							outputFolder,
@@ -1939,8 +1936,8 @@ public class Annotation {
 							fileNumber2FileNameMap,
 							associationMeasureType);
 					dateAfter = System.currentTimeMillis();
-					searchTimeForIntervalTreeMarkdeBerg = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Search Time for Interval Tree MarkdeBerg: \t" + (searchTimeForIntervalTreeMarkdeBerg*1.0f)/1000 + "\t seconds");
+					searchTime = dateAfter - dateBefore;
+					System.out.println(chrName.convertEnumtoString() + ": Search Time for IntervalTreeMarkdeBerg: \t" + (searchTime*1.0f)/1000 + "\t seconds");
 
 
 					//Free space
@@ -2247,7 +2244,7 @@ public class Annotation {
 //						/*************************************************************************************************/
 //						/*******************************NUMBER_OF_OVERLAPPING_BASES starts********************************/
 //						/*************************************************************************************************/
-//						TIntObjectMap<List<IntervalTreeNode>> dnaseCellLineNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+//						TIntObjectMap<List<DnaseIntervalMarkdeBerg>> dnaseCellLineNumber2OverlappingNodeListMap = new TIntObjectHashMap<List<DnaseIntervalMarkdeBerg>>();
 //						TIntObjectMap<IntervalTree> dnaseCellLineNumber2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
 //						TIntIntMap dnaseCellLineNumber2NumberofOverlappingBasesMap = new TIntIntHashMap();
 //
@@ -11244,8 +11241,8 @@ public class Annotation {
 		if( annotation.annotateSequentially()){
 			
 			//For testing purposes
-			TreeType treeType = TreeType.INTERVAL_TREE_CORMEN;
-			//TreeType treeType = TreeType.INTERVAL_TREE_MARKDEBERG;
+			//TreeType treeType = TreeType.INTERVAL_TREE_CORMEN;
+			TreeType treeType = TreeType.INTERVAL_TREE_MARKDEBERG;
 			
 
 			/*******************************************************************************/
@@ -11260,6 +11257,7 @@ public class Annotation {
 				GlanetRunner.appendLog( "CellLine Based DNASE annotation using TShortIntMap starts: " + new Date());
 				dateBefore = System.currentTimeMillis();
 
+				//treeType is added July2016
 				searchDnaseWithNumbers(
 						dataFolder, 
 						outputFolder, 
