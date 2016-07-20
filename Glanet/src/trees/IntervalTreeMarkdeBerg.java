@@ -4,7 +4,6 @@
 package trees;
 
 import intervaltree.Interval;
-import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -20,7 +20,9 @@ import java.util.Queue;
 import printing.Print;
 import sorting.CountingSorting;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.SortingOrder;
@@ -80,6 +82,62 @@ public class IntervalTreeMarkdeBerg {
 	
 	IntervalTreeMarkdeBergNode root;
 	
+	long constructionTimeCost1;
+	long constructionTimeCost2_1;
+	long constructionTimeCost2_2;
+	long constructionTimeCost2_3;
+	long constructionTimeCost3_1;
+	long constructionTimeCost3_2;
+	
+	
+	public long getConstructionTimeCost1() {
+		return constructionTimeCost1;
+	}
+
+	public void setConstructionTimeCost1(long constructionTimeCost1) {
+		this.constructionTimeCost1 = constructionTimeCost1;
+	}
+
+	public long getConstructionTimeCost2_1() {
+		return constructionTimeCost2_1;
+	}
+
+	public void setConstructionTimeCost2_1(long constructionTimeCost2_1) {
+		this.constructionTimeCost2_1 = constructionTimeCost2_1;
+	}
+
+	public long getConstructionTimeCost2_2() {
+		return constructionTimeCost2_2;
+	}
+
+	public void setConstructionTimeCost2_2(long constructionTimeCost2_2) {
+		this.constructionTimeCost2_2 = constructionTimeCost2_2;
+	}
+
+	public long getConstructionTimeCost2_3() {
+		return constructionTimeCost2_3;
+	}
+
+	public void setConstructionTimeCost2_3(long constructionTimeCost2_3) {
+		this.constructionTimeCost2_3 = constructionTimeCost2_3;
+	}
+
+	public long getConstructionTimeCost3_1() {
+		return constructionTimeCost3_1;
+	}
+
+	public void setConstructionTimeCost3_1(long constructionTimeCost3_1) {
+		this.constructionTimeCost3_1 = constructionTimeCost3_1;
+	}
+
+	public long getConstructionTimeCost3_2() {
+		return constructionTimeCost3_2;
+	}
+
+	public void setConstructionTimeCost3_2(long constructionTimeCost3_2) {
+		this.constructionTimeCost3_2 = constructionTimeCost3_2;
+	}
+
 	public IntervalTreeMarkdeBergNode getRoot() {
 		return root;
 	}
@@ -111,6 +169,9 @@ public class IntervalTreeMarkdeBerg {
 //		ChromosomeName chromName;
 		short cellLineNumber;
 		short fileNumber;
+		
+		long dateBefore;
+		long dateAfter;
 		
 		List<IntervalMarkdeBerg> intervalList = new ArrayList<IntervalMarkdeBerg>();
 
@@ -153,17 +214,27 @@ public class IntervalTreeMarkdeBerg {
 			//But only sort middle intervals w.r.t. right end points in in descending order.
 			
 			IntervalMarkdeBerg[] intervalArrayUnsorted = (IntervalMarkdeBerg[]) intervalList.toArray(new IntervalMarkdeBerg[intervalList.size()]);
-			IntervalMarkdeBerg[] intervalArraySorted = new IntervalMarkdeBerg[intervalList.size()];
+			//IntervalMarkdeBerg[] intervalArraySorted = new IntervalMarkdeBerg[intervalList.size()];
 			
+			//Cost1
 			//Do it only once. Sort intervals in ascending order w.r.t. left end points.
-			CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted);			
+			dateBefore = System.currentTimeMillis();
+			//CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted); 	
+			//To be tested starts
+			//parallelSort(T[] a, Comparator<? super T> cmp)
+			//Sorts the specified array of objects according to the order induced by the specified comparator.
+			Arrays.parallelSort(intervalArrayUnsorted,IntervalMarkdeBerg.INTERVALTREEMARKDEBERG_LEFTENDPOINT_ASCENDING);
+			//To be tested ends
+			dateAfter = System.currentTimeMillis();
+			dnaseIntervalTree.setConstructionTimeCost1(dateAfter - dateBefore);
 			
 			//Free space
 			intervalList = null;
-			intervalArrayUnsorted = null;
+			//intervalArrayUnsorted = null;
 			
 			//Construct interval tree
-			IntervalTreeMarkdeBergNode root = constructIntervalTree(intervalArraySorted,bufferedWriter);
+			//IntervalTreeMarkdeBergNode root = constructIntervalTree(dnaseIntervalTree,intervalArraySorted,bufferedWriter);
+			IntervalTreeMarkdeBergNode root = constructIntervalTree(dnaseIntervalTree,intervalArrayUnsorted,bufferedWriter);
 			
 			dnaseIntervalTree.setRoot(root);
 			
@@ -199,6 +270,7 @@ public class IntervalTreeMarkdeBerg {
 			fileWriter = FileOperations.createFileWriter(outputFolder + "IntervalsDistribution.txt");
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
+			//Create IntervalTreeMarkdeBerg
 			intervalTree = generateEncodeDnaseIntervalTreeWithNumbers(bufferedReader,bufferedWriter);
 			
 			//Close bufferedReader and bufferedWriter
@@ -224,11 +296,15 @@ public class IntervalTreeMarkdeBerg {
 	//Having median at hand, find the middle node intervals such that left end point is less than or equal to median and right end point is greater than or equal to median.
 	//Having median at hand, find the right node intervals such that left end point is greater than median
 	public static float findMedianAndFillLeftMiddleRightNodeIntervals(
+			IntervalTreeMarkdeBerg intervalTreeMarkdeBerg,
 			IntervalMarkdeBerg[] allIntervalsSorted,
 			List<IntervalMarkdeBerg> leftNodeIntervals,
 			List<IntervalMarkdeBerg> middleNodeIntervals,
 			List<IntervalMarkdeBerg> rightNodeIntervals,
 			BufferedWriter bufferedWriter){
+		
+		long dateBefore;
+		long dateAfter;
 		
 		int numberofIntervals = allIntervalsSorted.length;
 		int numberofEndPoints = numberofIntervals*2;
@@ -241,14 +317,32 @@ public class IntervalTreeMarkdeBerg {
 
 		float median;
 		
+		//Cost2_1 starts
 		//Fill allEndPoints
+		dateBefore = System.currentTimeMillis();
 		for(int i=0; i<allIntervalsSorted.length; i++){
 			allEndPoints[j++] = allIntervalsSorted[i].getLow();
 			allEndPoints[j++] = allIntervalsSorted[i].getHigh();
-		}
+		}//End of For Fill allEndPoints 
+		dateAfter = System.currentTimeMillis();
+		intervalTreeMarkdeBerg.setConstructionTimeCost2_1(intervalTreeMarkdeBerg.getConstructionTimeCost2_1() + (dateAfter- dateBefore));
+		//Cost2_1 ends
 		
+		
+		//Cost2_2 starts
 		//We have to sort all end points in order to find the median.
-		allEndPointsSorted = CountingSorting.sort(allEndPoints, SortingOrder.SORTING_IN_ASCENDING_ORDER);
+		//Sorting an array into ascending order. 
+		//This can be done either sequentially, using the sort method, or concurrently, using the parallelSort method introduced in Java SE 8
+		//Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.
+		//TODO different sortings must be tried.
+		dateBefore = System.currentTimeMillis();
+		//allEndPointsSorted = CountingSorting.sort(allEndPoints, SortingOrder.SORTING_IN_ASCENDING_ORDER);
+		Arrays.parallelSort(allEndPoints);
+		allEndPointsSorted = allEndPoints;
+		dateAfter = System.currentTimeMillis();
+		intervalTreeMarkdeBerg.setConstructionTimeCost2_2(intervalTreeMarkdeBerg.getConstructionTimeCost2_2() + (dateAfter- dateBefore));
+		//Cost2_2 ends
+		
 		
 		//Free space
 		allEndPoints = null;
@@ -256,10 +350,12 @@ public class IntervalTreeMarkdeBerg {
 		//Find median
 		median = (allEndPointsSorted[numberofIntervals-1] + allEndPointsSorted[numberofIntervals])*1.0f/2;
 		
+		//Cost2_3 starts
 		//Fill left, middle and right interval lists
 		//We have sorted all the intervals w.r.t. left end points in ascending order O(nlogn) or O(n+k)
 		//Loop until you hit an interval with its low is greater than median
 		//Then exit loop and add all the remaining intervals into right intervals.
+		dateBefore = System.currentTimeMillis();
 		for(int i= 0 ; i<numberofIntervals; i++){
 			
 			if (allIntervalsSorted[i].getHigh() < median){
@@ -280,6 +376,9 @@ public class IntervalTreeMarkdeBerg {
 		for(int i= saved_i ; i<numberofIntervals; i++){
 			rightNodeIntervals.add(allIntervalsSorted[i]);
 		}
+		dateAfter = System.currentTimeMillis();
+		intervalTreeMarkdeBerg.setConstructionTimeCost2_3(intervalTreeMarkdeBerg.getConstructionTimeCost2_3() + (dateAfter- dateBefore));
+		//Cost2_3 ends
 		
 //		try {
 //			bufferedWriter.write("Median: " + median + " Number of all intervals  is: " + allIntervalsSorted.length + "=[Left: " + leftNodeIntervals.size() +  ", Middle: " + middleNodeIntervals.size() + ", Right: " + rightNodeIntervals.size() + "]" + System.getProperty("line.separator"));
@@ -287,9 +386,6 @@ public class IntervalTreeMarkdeBerg {
 //			e.printStackTrace();
 //		} 
 		
-		//Sorting an array into ascending order. 
-		//This can be done either sequentially, using the sort method, or concurrently, using the parallelSort method introduced in Java SE 8
-		//Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.
 		return median;
 	}
 	
@@ -300,9 +396,14 @@ public class IntervalTreeMarkdeBerg {
 	 * Using counting sort
 	 */
 	public static void sortMiddleNodeIntervalsInTwoWays(
+			IntervalTreeMarkdeBerg intervalTreeMarkdeBerg,
 			List<IntervalMarkdeBerg> middleNodeIntervals,
 			IntervalMarkdeBerg[] middleIntervalsLeftEndPointsAscending,
 			IntervalMarkdeBerg[] middleIntervalsRightEndPointsDescending){
+		
+		
+		long dateBefore;
+		long dateAfter;
 		
 		//Does middleNodeIntervals has to be a list? Can it be stored in an array?
 		//Yes it can be stored in an array of size all intervals
@@ -317,8 +418,24 @@ public class IntervalTreeMarkdeBerg {
 			//Since it is already sorted w.r.t. left end points in ascending order
 			//check it more
 //			CountingSorting.sortLeftEndPointsAscending(middleIntervalsUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER,middleIntervalsLeftEndPointsAscending);
+			
+			//Cost3_1
+			dateBefore = System.currentTimeMillis();
 			middleNodeIntervals.toArray(middleIntervalsLeftEndPointsAscending);
-			CountingSorting.sortRightEndPointsDescending(middleIntervalsLeftEndPointsAscending, SortingOrder.SORTING_IN_DESCENDING_ORDER,middleIntervalsRightEndPointsDescending);
+			dateAfter = System.currentTimeMillis();
+			intervalTreeMarkdeBerg.setConstructionTimeCost3_1(intervalTreeMarkdeBerg.getConstructionTimeCost3_1() + (dateAfter- dateBefore));
+			
+			//Cost3_2
+			//Sorting an array into ascending order. 
+			//This can be done either sequentially, using the sort method, or concurrently, using the parallelSort method introduced in Java SE 8
+			//Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.
+			//TODO different sortings must be tried.
+			dateBefore = System.currentTimeMillis();
+			middleIntervalsRightEndPointsDescending = middleIntervalsLeftEndPointsAscending.clone();
+			//CountingSorting.sortRightEndPointsDescending(middleIntervalsLeftEndPointsAscending, SortingOrder.SORTING_IN_DESCENDING_ORDER,middleIntervalsRightEndPointsDescending);
+			Arrays.parallelSort(middleIntervalsRightEndPointsDescending,IntervalMarkdeBerg.INTERVALTREEMARKDEBERG_RIGHTENDPOINT_DESCENDING);
+			dateAfter = System.currentTimeMillis();
+			intervalTreeMarkdeBerg.setConstructionTimeCost3_2(intervalTreeMarkdeBerg.getConstructionTimeCost3_2() + (dateAfter- dateBefore));
 			
 //			System.out.println("*********Middle Intervals Left End Points Ascending*************");
 //			Print.printArray(middleIntervalsLeftEndPointsAscending);
@@ -338,10 +455,13 @@ public class IntervalTreeMarkdeBerg {
 	//Find the left subtree intervals
 	//Find the right subtree intervals
 	public static IntervalTreeMarkdeBergNode constructIntervalTree(
+			IntervalTreeMarkdeBerg intervalTreeMarkdeBerg,
 			IntervalMarkdeBerg[] allIntervalsSorted,
 			BufferedWriter bufferedWriter){
 		
 		IntervalTreeMarkdeBergNode node = null;
+		
+		
 		
 		if (allIntervalsSorted==null || allIntervalsSorted.length==0){
 			
@@ -357,12 +477,12 @@ public class IntervalTreeMarkdeBerg {
 			IntervalTreeMarkdeBergNode left = null;
 			IntervalTreeMarkdeBergNode right =null;
 			
-			
+			//Cost2
 			//allIntervals can be an array
 			//the filled list can be converted to an array
 			//However we do not know how many of the intervals will be in left, middle and right.
 			//By creating array of size of number of all intervals can be a solution.
-			median = findMedianAndFillLeftMiddleRightNodeIntervals(allIntervalsSorted,leftNodeIntervals,middleNodeIntervals,rightNodeIntervals,bufferedWriter);
+			median = findMedianAndFillLeftMiddleRightNodeIntervals(intervalTreeMarkdeBerg,allIntervalsSorted,leftNodeIntervals,middleNodeIntervals,rightNodeIntervals,bufferedWriter);
 			
 			//Free space
 			allIntervalsSorted  = null;
@@ -373,16 +493,17 @@ public class IntervalTreeMarkdeBerg {
 			IntervalMarkdeBerg[] middleIntervalsLeftEndPointsAscending = new IntervalMarkdeBerg[middleNodeIntervals.size()];
 			IntervalMarkdeBerg[] middleIntervalsRightEndPointsDescending = new IntervalMarkdeBerg[middleNodeIntervals.size()];
 			
-			sortMiddleNodeIntervalsInTwoWays(middleNodeIntervals,middleIntervalsLeftEndPointsAscending,middleIntervalsRightEndPointsDescending);
+			//Cost3
+			sortMiddleNodeIntervalsInTwoWays(intervalTreeMarkdeBerg,middleNodeIntervals,middleIntervalsLeftEndPointsAscending,middleIntervalsRightEndPointsDescending);
 			
 			//Free Space
 			//We have created middleIntervalsLeftEndPointsAscending and middleIntervalsRightEndPointsDescending from middleNodeIntervals
 			//So remove middleNodeIntervals
 			middleNodeIntervals = null;
 			
-			left = constructIntervalTree(leftNodeIntervals.toArray(new IntervalMarkdeBerg[leftNodeIntervals.size()]),bufferedWriter);
+			left = constructIntervalTree(intervalTreeMarkdeBerg,leftNodeIntervals.toArray(new IntervalMarkdeBerg[leftNodeIntervals.size()]),bufferedWriter);
 			
-			right = constructIntervalTree(rightNodeIntervals.toArray(new IntervalMarkdeBerg[rightNodeIntervals.size()]),bufferedWriter);
+			right = constructIntervalTree(intervalTreeMarkdeBerg,rightNodeIntervals.toArray(new IntervalMarkdeBerg[rightNodeIntervals.size()]),bufferedWriter);
 			
 			node = new IntervalTreeMarkdeBergNode(
 					middleIntervalsLeftEndPointsAscending, 
@@ -459,15 +580,16 @@ public class IntervalTreeMarkdeBerg {
 		for(int i=0; i<intervalsLeftEndPointsAscending.length;i++){
 			
 			//Case where interval_high < median
-			//Therefore interval_low <  node's interval's high
-			//So we are looking for node's intervals such that their low <= interval_high
+			//Therefore interval_low <  node's interval's high : Condition1 is satisfied for overlap
+			//So we are looking for node's intervals such that their node_interval_low <= interval_high : Condition2 has to be checked 
 			//which means that there is overlap
 
 			dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsLeftEndPointsAscending[i];
 			
+			//Condition2 is checked here.
 			if(dnaseIntervalMarkdeBerg.getLow()<=interval.getHigh()){	
 				
-				if(overlapsForLeftEndPointsInDescendingOrder(dnaseIntervalMarkdeBerg.getLow(),dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+				if(overlaps(dnaseIntervalMarkdeBerg.getLow(),dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 					
 					//There is overlap
 					//Write it down.
@@ -538,21 +660,15 @@ public class IntervalTreeMarkdeBerg {
 			return false;
 	}
 
-	
-	//Case where interval_high < median
-	//Therefore interval_low <  node's interval's high
-	//So we are looking for node's intervals such that their low <= interval_high
-	//which means that there is overlap
-	public static boolean overlapsForLeftEndPointsInDescendingOrder( int node_interval_low, int node_interval_high, int interval_low, int interval_high, int numberofOverlappingBases) {
+	// We know that low_x <= high_y and low_y <= high_x
+	// overlapDefinition: number of overlapping bases necessary for overlap
+	public static boolean overlaps(int low_x, int high_x, int low_y, int high_y, int numberofOverlappingBases) {
 
-		if( ( node_interval_low <= interval_high)){
-
-			if( ( Math.min( node_interval_high, interval_high) - Math.max( node_interval_low, interval_low) + 1) >= numberofOverlappingBases){
-				return true;
-			}else
-				return false;
+		if( ( Math.min( high_x, high_y) - Math.max( low_x, low_y) + 1) >= numberofOverlappingBases){
+			return true;
 		}else
 			return false;
+		
 	}
 
 	
@@ -575,20 +691,13 @@ public class IntervalTreeMarkdeBerg {
 			
 		for(int i=0; i<intervalsRightEndPointsDescending.length;i++){
 			
-			//Case where median < interval_low
-			//Therefore node's interval's low  < interval_high  
-			//So we are looking for node's intervals such that interval_low <= node's interval's high
-			//which means that there is overlap
-//			if(low <= intervalsRightEndPointsDescending[i].getHigh()){
-//				//There is overlap
-//				//Write it down.
-//				dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsRightEndPointsDescending[i];				
-//			}//End of IF
+
 		
 			dnaseIntervalMarkdeBerg = (DnaseIntervalMarkdeBerg)intervalsRightEndPointsDescending[i];
 			
+			//OverlapDefinition is satisfied.
 			if(interval.getLow() <= dnaseIntervalMarkdeBerg.getHigh()){
-				if(overlapsForRightEndPointsInDescendingOrder(dnaseIntervalMarkdeBerg.getLow(),dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+				if(overlaps(dnaseIntervalMarkdeBerg.getLow(),dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 					
 					//There is overlap
 					//Write it down.
@@ -645,7 +754,9 @@ public class IntervalTreeMarkdeBerg {
 		}
 	}
 	
-	
+	//From Case1 interval_high equality with median
+	//From Case2 interval_low equality with median
+	//From Case3 interval_low <= median <= interval_high
 	public static void processOverlaps(
 			String outputFolder,
 			String annotationFolder,
@@ -669,12 +780,23 @@ public class IntervalTreeMarkdeBerg {
 			
 			// Use overlapDefinition
 			// For case1 we know that interval_high = median
-			// Therefore we know that node_interval_low < interval_high
-			// We have to check whether interval_low <  node_interval_high
-			// TODO call different  overlaps method for case1
-			// TODO call different  overlaps method for case2
-			// TODO call different  overlaps method for case3
-			if (IntervalTree.overlaps(dnaseIntervalMarkdeBerg.getLow(), dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+			// Therefore we know that node_interval_low < interval_high : condition1 is satisfied for overlap
+			// Since node_interval_low < median 
+			// Therefore we know that interval_low < node_interval_high since  interval_low < interval_high == median < node_interval_high : : condition2 is satisfied for overlap
+			// We have to check number of overlapping bases satisfies overlapDefinition or not. 
+			
+	
+			// For case2 we know that interval_low = median
+			// Therefore we know that node_interval_low < interval_high : condition1 is satisfied for overlap
+			// Since node_interval_low < median 
+			// Therefore we know that interval_low < node_interval_high since  interval_low = median < node_interval_high : : condition2 is satisfied for overlap
+			// We have to check number of overlapping bases satisfies overlapDefinition or not. 
+			
+			// For case3 interval_low <= median <= interval_high
+			// Therefore interval_low < node_interval_high : condition1 is satisfied for overlap
+			// Therefore node_interval_low < interval_high : condition2 is satisfied for overlap
+
+			if (IntervalTreeMarkdeBerg.overlaps(dnaseIntervalMarkdeBerg.getLow(), dnaseIntervalMarkdeBerg.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 				
 				writeOverlapsFoundInAnnotation(
 						outputFolder,
@@ -822,7 +944,7 @@ public class IntervalTreeMarkdeBerg {
 			//Look at node's left child
 			if (interval.getHigh() <= node.getMedian().intValue()){
 				
-				//Overlaps with median
+				//interval_high equality with median
 				if (interval.getHigh() == node.getMedian().intValue()){
 					
 					//There might be overlaps w.r.t. overlap definition
@@ -841,6 +963,7 @@ public class IntervalTreeMarkdeBerg {
 							dnaseCellLineNumber2OneorZeroMap,
 							overlapDefinition);
 				}
+				//interval_high is less than with median
 				else{
 					//Search in
 					//Overlaps if node.getIntervalsLeftEndPointsAscending()[i].getLow() <= interval.getHigh()  
@@ -880,11 +1003,10 @@ public class IntervalTreeMarkdeBerg {
 			//Look at node's right child
 			else if (node.getMedian().intValue() <= interval.getLow()){
 				
-				//Overlaps with median
+				//Interval_low equality with median
 				if (node.getMedian().intValue() == interval.getLow()){
 					
-					//There might be overlaps
-					//We know that interval overlaps with median
+					//There might be overlaps w.r.t. overlapDefinition
 					processOverlaps(
 							outputFolder,
 							Commons.DNASE_ANNOTATION_DIRECTORY,
@@ -941,7 +1063,7 @@ public class IntervalTreeMarkdeBerg {
 				
 				//There are overlaps
 				//We know that interval overlaps with node's intervals
-				//Write node's intervals down
+				//Write node's intervals down if there is overlap w.r.t. overlapDefinition
 				processOverlaps(
 						outputFolder,
 						Commons.DNASE_ANNOTATION_DIRECTORY,
@@ -1124,7 +1246,7 @@ public class IntervalTreeMarkdeBerg {
 		try {
 			
 			String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-			String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+			//String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 			String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator");
 			
 			IntervalMarkdeBerg i1 = new IntervalMarkdeBerg(10, 20);
@@ -1185,11 +1307,13 @@ public class IntervalTreeMarkdeBerg {
 			
 			//Free space
 			list = null;
+			
+			IntervalTreeMarkdeBerg intervalTree = new IntervalTreeMarkdeBerg();
 		
 			//You have a list of intervals
-			IntervalTreeMarkdeBergNode root = constructIntervalTree(intervalArraySorted,bufferedWriter);
+			IntervalTreeMarkdeBergNode root = constructIntervalTree(intervalTree,intervalArraySorted,bufferedWriter);
 			
-			IntervalTreeMarkdeBerg intervalTree = new IntervalTreeMarkdeBerg(root);
+			intervalTree.setRoot(root);
 			
 			//Time after constructing interval tree 
 			dateAfter = System.currentTimeMillis();

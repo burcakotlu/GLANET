@@ -64,7 +64,6 @@ import keggpathway.ncbigenes.KeggPathwayUtility;
 
 import org.apache.log4j.Logger;
 
-import trees.DnaseIntervalMarkdeBerg;
 import trees.IntervalTreeMarkdeBerg;
 import ui.GlanetRunner;
 import userdefined.geneset.UserDefinedGeneSetUtility;
@@ -72,7 +71,9 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsKeysWithNumbersAndValuesOneorZero;
@@ -1916,7 +1917,7 @@ public class Annotation {
 					dnaseIntervalTreeMarkdeBerg = IntervalTreeMarkdeBerg.createDnaseIntervalTreeWithNumbers(dataFolder,outputFolder,chrName);
 					dateAfter = System.currentTimeMillis();
 					constructionTime = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeMarkdeBerg: \t" + (constructionTime*1.0f)/1000 + "\t seconds");
+					System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeMarkdeBerg: \t" + (constructionTime*1.0f)/1000 + "\t seconds" +  " Cost1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost1() + "\tCost2_1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_1() + "\tCost2_2: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_2() + "\tCost2_3: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_3() + "\tCost3_1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_1() + "\tCost3_2: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_2() + "\tTotal: " + (dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_2() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_3() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_2()) );
 					
 					bufferedReader = FileOperations.createBufferedReader(
 							outputFolder,
@@ -11279,7 +11280,6 @@ public class Annotation {
 				dateAfter = System.currentTimeMillis();
 
 				GlanetRunner.appendLog( "CellLine Based DNASE annotation using TShortIntMap ends: " + new Date());
-
 				GlanetRunner.appendLog( "CellLine Based Dnase annotation using TShortIntMap took: " + ( float)( ( dateAfter - dateBefore) / 1000) + " seconds");
 				GlanetRunner.appendLog( "**********************************************************");
 
