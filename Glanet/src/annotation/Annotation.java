@@ -1876,6 +1876,7 @@ public class Annotation {
 		for( ChromosomeName chrName : ChromosomeName.values()){
 
 			switch(treeType){
+			
 				case INTERVAL_TREE_CORMEN:
 					
 					dateBefore = System.currentTimeMillis();
@@ -1943,7 +1944,6 @@ public class Annotation {
 
 					//Free space
 					dnaseIntervalTreeMarkdeBerg = null;
-					
 					break;
 					
 				default:

@@ -18,7 +18,7 @@ import enumtypes.SortingOrder;
  * k is the size of the helper array (range of distinct values).
  * 
  */
-public class CountingSorting {
+public class CountingSort {
 	
 	/**
 	* Counting sort
@@ -190,7 +190,7 @@ public class CountingSorting {
 			else if (array[i].getHigh() > max) max = array[i].getHigh();
 		}
 	
-		 
+		//System.out.println("Range: " + (max-min+1) + "\tArray.length: " + array.length);
 	
 		// init array of frequencies
 		int[] counts = new int[max - min + 1];

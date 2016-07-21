@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Queue;
 
 import printing.Print;
-import sorting.CountingSorting;
+import sorting.CountingSort;
 import auxiliary.FileOperations;
 
 import common.Commons;
@@ -213,17 +213,15 @@ public class IntervalTreeMarkdeBerg {
 			//Then you don't have to sort middle intervals w.r.t. left end points in in ascending order.
 			//But only sort middle intervals w.r.t. right end points in in descending order.
 			
-			IntervalMarkdeBerg[] intervalArrayUnsorted = (IntervalMarkdeBerg[]) intervalList.toArray(new IntervalMarkdeBerg[intervalList.size()]);
-			//IntervalMarkdeBerg[] intervalArraySorted = new IntervalMarkdeBerg[intervalList.size()];
+			IntervalMarkdeBerg[] intervalArray = (IntervalMarkdeBerg[]) intervalList.toArray(new IntervalMarkdeBerg[intervalList.size()]);
 			
 			//Cost1
 			//Do it only once. Sort intervals in ascending order w.r.t. left end points.
+			//Usage of parallel sort has reduced sorting time by 50%.
 			dateBefore = System.currentTimeMillis();
-			//CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted); 	
-			//To be tested starts
 			//parallelSort(T[] a, Comparator<? super T> cmp)
 			//Sorts the specified array of objects according to the order induced by the specified comparator.
-			Arrays.parallelSort(intervalArrayUnsorted,IntervalMarkdeBerg.INTERVALTREEMARKDEBERG_LEFTENDPOINT_ASCENDING);
+			Arrays.parallelSort(intervalArray,IntervalMarkdeBerg.INTERVALTREEMARKDEBERG_LEFTENDPOINT_ASCENDING);
 			//To be tested ends
 			dateAfter = System.currentTimeMillis();
 			dnaseIntervalTree.setConstructionTimeCost1(dateAfter - dateBefore);
@@ -234,7 +232,7 @@ public class IntervalTreeMarkdeBerg {
 			
 			//Construct interval tree
 			//IntervalTreeMarkdeBergNode root = constructIntervalTree(dnaseIntervalTree,intervalArraySorted,bufferedWriter);
-			IntervalTreeMarkdeBergNode root = constructIntervalTree(dnaseIntervalTree,intervalArrayUnsorted,bufferedWriter);
+			IntervalTreeMarkdeBergNode root = constructIntervalTree(dnaseIntervalTree,intervalArray,bufferedWriter);
 			
 			dnaseIntervalTree.setRoot(root);
 			
@@ -290,14 +288,14 @@ public class IntervalTreeMarkdeBerg {
 
 	
 	
-	//allIntervals are not sorted whether w.r.t. to left or right end points
+	//allIntervals are sorted w.r.t. to left end points ascending order.
 	//Take left and right end points and sort the all end points and find the median
 	//Having median at hand, find the left node intervals such that right end point is less than median
 	//Having median at hand, find the middle node intervals such that left end point is less than or equal to median and right end point is greater than or equal to median.
 	//Having median at hand, find the right node intervals such that left end point is greater than median
 	public static float findMedianAndFillLeftMiddleRightNodeIntervals(
 			IntervalTreeMarkdeBerg intervalTreeMarkdeBerg,
-			IntervalMarkdeBerg[] allIntervalsSorted,
+			IntervalMarkdeBerg[] allIntervalsLeftEndPointsAscendingSorted,
 			List<IntervalMarkdeBerg> leftNodeIntervals,
 			List<IntervalMarkdeBerg> middleNodeIntervals,
 			List<IntervalMarkdeBerg> rightNodeIntervals,
@@ -306,23 +304,22 @@ public class IntervalTreeMarkdeBerg {
 		long dateBefore;
 		long dateAfter;
 		
-		int numberofIntervals = allIntervalsSorted.length;
+		int numberofIntervals = allIntervalsLeftEndPointsAscendingSorted.length;
 		int numberofEndPoints = numberofIntervals*2;
 		
 		int[] allEndPoints = new int[numberofEndPoints];
-		int[] allEndPointsSorted = new int[numberofEndPoints];
 		
 		int j=0;
-		int saved_i = allIntervalsSorted.length;
+		int saved_i = allIntervalsLeftEndPointsAscendingSorted.length;
 
 		float median;
 		
 		//Cost2_1 starts
 		//Fill allEndPoints
 		dateBefore = System.currentTimeMillis();
-		for(int i=0; i<allIntervalsSorted.length; i++){
-			allEndPoints[j++] = allIntervalsSorted[i].getLow();
-			allEndPoints[j++] = allIntervalsSorted[i].getHigh();
+		for(int i=0; i<allIntervalsLeftEndPointsAscendingSorted.length; i++){
+			allEndPoints[j++] = allIntervalsLeftEndPointsAscendingSorted[i].getLow();
+			allEndPoints[j++] = allIntervalsLeftEndPointsAscendingSorted[i].getHigh();
 		}//End of For Fill allEndPoints 
 		dateAfter = System.currentTimeMillis();
 		intervalTreeMarkdeBerg.setConstructionTimeCost2_1(intervalTreeMarkdeBerg.getConstructionTimeCost2_1() + (dateAfter- dateBefore));
@@ -334,22 +331,21 @@ public class IntervalTreeMarkdeBerg {
 		//Sorting an array into ascending order. 
 		//This can be done either sequentially, using the sort method, or concurrently, using the parallelSort method introduced in Java SE 8
 		//Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.
-		//TODO different sortings must be tried.
 		dateBefore = System.currentTimeMillis();
-		//allEndPointsSorted = CountingSorting.sort(allEndPoints, SortingOrder.SORTING_IN_ASCENDING_ORDER);
+		//Usage of parallelSort decreased sorting time enormously.
 		Arrays.parallelSort(allEndPoints);
-		allEndPointsSorted = allEndPoints;
 		dateAfter = System.currentTimeMillis();
 		intervalTreeMarkdeBerg.setConstructionTimeCost2_2(intervalTreeMarkdeBerg.getConstructionTimeCost2_2() + (dateAfter- dateBefore));
 		//Cost2_2 ends
 		
 		
+		//Find median
+		median = (allEndPoints[numberofIntervals-1] + allEndPoints[numberofIntervals])*1.0f/2;
+
+		
 		//Free space
 		allEndPoints = null;
-		
-		//Find median
-		median = (allEndPointsSorted[numberofIntervals-1] + allEndPointsSorted[numberofIntervals])*1.0f/2;
-		
+
 		//Cost2_3 starts
 		//Fill left, middle and right interval lists
 		//We have sorted all the intervals w.r.t. left end points in ascending order O(nlogn) or O(n+k)
@@ -358,23 +354,23 @@ public class IntervalTreeMarkdeBerg {
 		dateBefore = System.currentTimeMillis();
 		for(int i= 0 ; i<numberofIntervals; i++){
 			
-			if (allIntervalsSorted[i].getHigh() < median){
-				leftNodeIntervals.add(allIntervalsSorted[i]);
-			}else if (allIntervalsSorted[i].getLow() > median){
-				rightNodeIntervals.add(allIntervalsSorted[i]);
+			if (allIntervalsLeftEndPointsAscendingSorted[i].getHigh() < median){
+				leftNodeIntervals.add(allIntervalsLeftEndPointsAscendingSorted[i]);
+			}else if (allIntervalsLeftEndPointsAscendingSorted[i].getLow() > median){
+				rightNodeIntervals.add(allIntervalsLeftEndPointsAscendingSorted[i]);
 				//We have inserted interval indexed at i
 				//We know that rest of the intervals will be added to the rightNodeIntervals
 				saved_i = i+1;
 				break;
 			}else{
-				middleNodeIntervals.add(allIntervalsSorted[i]);
+				middleNodeIntervals.add(allIntervalsLeftEndPointsAscendingSorted[i]);
 			}
 		}//End of FOR
 		
 		
 		//Check you don't put the cut off value twice
 		for(int i= saved_i ; i<numberofIntervals; i++){
-			rightNodeIntervals.add(allIntervalsSorted[i]);
+			rightNodeIntervals.add(allIntervalsLeftEndPointsAscendingSorted[i]);
 		}
 		dateAfter = System.currentTimeMillis();
 		intervalTreeMarkdeBerg.setConstructionTimeCost2_3(intervalTreeMarkdeBerg.getConstructionTimeCost2_3() + (dateAfter- dateBefore));
@@ -415,10 +411,7 @@ public class IntervalTreeMarkdeBerg {
 		//Then there is no need to sort this array in two ways
 		if (middleNodeIntervals!=null && !middleNodeIntervals.isEmpty()){
 			
-			//Since it is already sorted w.r.t. left end points in ascending order
-			//check it more
-//			CountingSorting.sortLeftEndPointsAscending(middleIntervalsUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER,middleIntervalsLeftEndPointsAscending);
-			
+			//Since it is already sorted w.r.t. left end points in ascending order			
 			//Cost3_1
 			dateBefore = System.currentTimeMillis();
 			middleNodeIntervals.toArray(middleIntervalsLeftEndPointsAscending);
@@ -426,23 +419,15 @@ public class IntervalTreeMarkdeBerg {
 			intervalTreeMarkdeBerg.setConstructionTimeCost3_1(intervalTreeMarkdeBerg.getConstructionTimeCost3_1() + (dateAfter- dateBefore));
 			
 			//Cost3_2
-			//Sorting an array into ascending order. 
-			//This can be done either sequentially, using the sort method, or concurrently, using the parallelSort method introduced in Java SE 8
 			//Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.
-			//TODO different sortings must be tried.
+			//Since middleNodeIntervals size is not high, parallelSort costs more than normal sorting.
+			// TODO Try heapSort
+			// TODO Try quickSort
 			dateBefore = System.currentTimeMillis();
-			middleIntervalsRightEndPointsDescending = middleIntervalsLeftEndPointsAscending.clone();
-			//CountingSorting.sortRightEndPointsDescending(middleIntervalsLeftEndPointsAscending, SortingOrder.SORTING_IN_DESCENDING_ORDER,middleIntervalsRightEndPointsDescending);
-			Arrays.parallelSort(middleIntervalsRightEndPointsDescending,IntervalMarkdeBerg.INTERVALTREEMARKDEBERG_RIGHTENDPOINT_DESCENDING);
+			CountingSort.sortRightEndPointsDescending(middleIntervalsLeftEndPointsAscending, SortingOrder.SORTING_IN_DESCENDING_ORDER,middleIntervalsRightEndPointsDescending);
 			dateAfter = System.currentTimeMillis();
 			intervalTreeMarkdeBerg.setConstructionTimeCost3_2(intervalTreeMarkdeBerg.getConstructionTimeCost3_2() + (dateAfter- dateBefore));
-			
-//			System.out.println("*********Middle Intervals Left End Points Ascending*************");
-//			Print.printArray(middleIntervalsLeftEndPointsAscending);
-//			System.out.println("*********Middle Intervals Right End Points Descending***********");
-//			Print.printArray(middleIntervalsRightEndPointsDescending);
-//			System.out.println("****************************************************************");
-			
+						
 		}
 		
 	}
@@ -456,14 +441,14 @@ public class IntervalTreeMarkdeBerg {
 	//Find the right subtree intervals
 	public static IntervalTreeMarkdeBergNode constructIntervalTree(
 			IntervalTreeMarkdeBerg intervalTreeMarkdeBerg,
-			IntervalMarkdeBerg[] allIntervalsSorted,
+			IntervalMarkdeBerg[] allIntervalsLeftEndPointsAscendingSorted,
 			BufferedWriter bufferedWriter){
 		
 		IntervalTreeMarkdeBergNode node = null;
 		
 		
 		
-		if (allIntervalsSorted==null || allIntervalsSorted.length==0){
+		if (allIntervalsLeftEndPointsAscendingSorted==null || allIntervalsLeftEndPointsAscendingSorted.length==0){
 			
 			return node;
 			
@@ -482,10 +467,10 @@ public class IntervalTreeMarkdeBerg {
 			//the filled list can be converted to an array
 			//However we do not know how many of the intervals will be in left, middle and right.
 			//By creating array of size of number of all intervals can be a solution.
-			median = findMedianAndFillLeftMiddleRightNodeIntervals(intervalTreeMarkdeBerg,allIntervalsSorted,leftNodeIntervals,middleNodeIntervals,rightNodeIntervals,bufferedWriter);
+			median = findMedianAndFillLeftMiddleRightNodeIntervals(intervalTreeMarkdeBerg,allIntervalsLeftEndPointsAscendingSorted,leftNodeIntervals,middleNodeIntervals,rightNodeIntervals,bufferedWriter);
 			
 			//Free space
-			allIntervalsSorted  = null;
+			allIntervalsLeftEndPointsAscendingSorted  = null;
 						
 			//We don't know the number of middle intervals
 			//middleIntervalsLeftEndPointsAscending can be an array
@@ -494,7 +479,11 @@ public class IntervalTreeMarkdeBerg {
 			IntervalMarkdeBerg[] middleIntervalsRightEndPointsDescending = new IntervalMarkdeBerg[middleNodeIntervals.size()];
 			
 			//Cost3
-			sortMiddleNodeIntervalsInTwoWays(intervalTreeMarkdeBerg,middleNodeIntervals,middleIntervalsLeftEndPointsAscending,middleIntervalsRightEndPointsDescending);
+			sortMiddleNodeIntervalsInTwoWays(
+					intervalTreeMarkdeBerg,
+					middleNodeIntervals,
+					middleIntervalsLeftEndPointsAscending,
+					middleIntervalsRightEndPointsDescending);
 			
 			//Free Space
 			//We have created middleIntervalsLeftEndPointsAscending and middleIntervalsRightEndPointsDescending from middleNodeIntervals
@@ -1303,7 +1292,7 @@ public class IntervalTreeMarkdeBerg {
 			IntervalMarkdeBerg[] intervalArraySorted = new IntervalMarkdeBerg[list.size()];
 			
 			//Do it only once. Sort intervals in ascending order w.r.t. left end points.
-			CountingSorting.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted);			
+			CountingSort.sortLeftEndPointsAscending(intervalArrayUnsorted, SortingOrder.SORTING_IN_ASCENDING_ORDER, intervalArraySorted);			
 			
 			//Free space
 			list = null;
