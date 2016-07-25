@@ -319,7 +319,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 						}// End of IF: For this geneId, interval will be created.
 						
 						break;
-					}
+					}//Non-expressed Genes
 						
 					case EXPRESSING_PROTEINCODING_GENES:{
 						
@@ -375,7 +375,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 							
 						}// End of IF: For this geneId, interval will be created.
 						break;
-					}
+					}//Expressed Genes
 					
 					default: 
 						break;
@@ -813,7 +813,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 						expressingProteinCodingGenesIntervalsFile = dataDrivenExperimentFolder + Commons.DDE_INTERVAL_POOL + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() +  "_IntervalPool.txt";
 						
 						// Generate Intervals for the expressing genes in the ensemblGeneID2TPMMapforUnionofRep1andRep2 according to
-						// the Top tmpType using female.gtf to expressingGenesIntervalsFile
+						// the Bottom tmpType using female.gtf to expressingGenesIntervalsFile
 						generateIntervalsFromFemaleGTFFile(
 								ensemblGeneID2TPMMapforUnionofRep1andRep2, 
 								femaleGTFFileName, 

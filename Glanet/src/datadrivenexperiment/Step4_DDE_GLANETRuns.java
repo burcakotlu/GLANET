@@ -22,6 +22,7 @@ import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentOperatingSystem;
 import enumtypes.DataDrivenExperimentTPMType;
 import enumtypes.GenerateRandomDataMode;
+import enumtypes.ToolType;
 
 /**
  * @author Burcak Otlu
@@ -37,6 +38,275 @@ import enumtypes.GenerateRandomDataMode;
  *
  */
 public class Step4_DDE_GLANETRuns {
+	
+	
+	//25 July 2016 starts
+	public static void writeGATRuns(
+			int numberofSimulations, 
+			DataDrivenExperimentCellLineType cellLineType,
+			DataDrivenExperimentGeneType geneType,
+			DataDrivenExperimentOperatingSystem operatingSystem,
+			DataDrivenExperimentTPMType tpmType,
+			AssociationMeasureType associationMeasureType,
+			GenerateRandomDataMode generateRandomDataMode,
+			String args[],
+			String dataDrivenExperimentScriptFolder)throws IOException{
+		
+		String rootCommand = null;
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		String fileName = null;
+		
+		FileWriter call_Runs_WithGCM_FileWriter = null;
+		BufferedWriter call_Runs_WithGCM_BufferedWriter = null;
+		
+		FileWriter call_Runs_WithoutGCM_FileWriter = null;
+		BufferedWriter call_Runs_WithoutGCM_BufferedWriter = null;
+		
+		String fileExtension = null;
+		
+		String GENERAL_JOBNAME = null;
+		
+		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
+			
+			//Add GCM extension
+			GENERAL_JOBNAME = Commons.GAT + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString(); 
+			
+			
+			//Add associationMeasureType extension
+			GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + associationMeasureType.convertEnumtoShortString();
+			
+			//We want to get rid of NonExpressingGenes and NoDiscard Case
+			//We want to run ExpressingGenes and NoDiscard Case only
+			if ((geneType.isNonExpressingProteinCodingGenes() && !dnaseOverlapExclusionType.isNoDiscard()) || 
+				(geneType.isExpressingProteinCodingGenes() && dnaseOverlapExclusionType.isNoDiscard())){
+				
+				//Decide on file extension w.r.t. OperatingSystem
+				switch(operatingSystem){
+				
+					case WINDOWS: 	{
+						fileExtension = Commons.BAT_FILE_EXTENSION;
+						break;
+					}
+																		
+					case LINUX:
+					case TURENG_MACHINE:{
+						fileExtension = Commons.SH_FILE_EXTENSION;
+						break;
+					}
+					
+					case TRUBA:
+					case TRUBA_FAST: {
+						fileExtension = Commons.SLURM_FILE_EXTENSION;
+						
+						break;
+					}
+								
+				}//End of SWITCH
+				
+				
+				//Text Files 
+				switch(generateRandomDataMode){
+				
+					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:	
+						call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + Commons.WGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
+						call_Runs_WithGCM_BufferedWriter = new BufferedWriter(call_Runs_WithGCM_FileWriter);						
+						break;
+					
+					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
+						call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() + "_" + Commons.WOGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
+						call_Runs_WithoutGCM_BufferedWriter = new BufferedWriter(call_Runs_WithoutGCM_FileWriter);
+						break;
+					
+				}//End of GenerateRandomDataMode
+				
+				
+				//Decide on fileName
+				fileName = dataDrivenExperimentScriptFolder + "GAT_DDE_" + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_"  + tpmType.convertEnumtoString() + "_"  + dnaseOverlapExclusionType.convertEnumtoString() + "_"+  generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + fileExtension;
+				
+				fileWriter = FileOperations.createFileWriter(fileName);	
+				bufferedWriter = new BufferedWriter(fileWriter);
+				
+				//Adding Header lines
+				//Adding qsub call in qsubFile
+				switch(operatingSystem){
+				
+					case WINDOWS:{
+						if(generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+							if (call_Runs_WithGCM_BufferedWriter!=null){
+								call_Runs_WithGCM_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));
+							}
+						}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
+							if (call_Runs_WithoutGCM_BufferedWriter!=null){
+								call_Runs_WithoutGCM_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));								
+							}
+						}
+						break;
+					}
+					
+					case LINUX:{ 
+						bufferedWriter.write("#!/bin/sh" + System.getProperty("line.separator"));
+						bufferedWriter.write("#PBS -l nodes=1:ppn=16" + System.getProperty("line.separator"));
+						bufferedWriter.write("# name of the queue that the job will be sent" + System.getProperty("line.separator"));
+						bufferedWriter.write("#PBS -q cenga" + System.getProperty("line.separator"));
+						bufferedWriter.write("# to use the environment variables of the shell that the job sent" + System.getProperty("line.separator"));
+						bufferedWriter.write("#PBS -V" + System.getProperty("line.separator"));
+						bufferedWriter.write("#!Running the program" + System.getProperty("line.separator"));
+						
+						bufferedWriter.write(System.getProperty("line.separator"));
+						
+						if(generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+							if (call_Runs_WithGCM_BufferedWriter!=null){
+								call_Runs_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));								
+							}
+						}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
+							if (call_Runs_WithoutGCM_BufferedWriter!=null){
+								call_Runs_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+							}
+						}
+						
+						break;
+					}
+					
+					
+					case TRUBA_FAST:	{					
+						bufferedWriter.write("#!/bin/bash" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -M truba" + System.getProperty("line.separator"));
+						
+						
+						//One core jobs can be sent to single and mercan.
+						bufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
+						
+						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -J " + GENERAL_JOBNAME + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -N 1" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH -n 8" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --time=8-00:00:00" + System.getProperty("line.separator"));
+						
+						
+						//We don't want to get email for each of the 1000 GLANET Runs begins and ends but fails
+						bufferedWriter.write("#SBATCH --mail-type=FAIL" + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
+						
+						//newly added
+						bufferedWriter.write("#SBATCH --array=0-" + (numberofSimulations-1) + System.getProperty("line.separator"));
+						
+						
+						bufferedWriter.write(System.getProperty("line.separator"));
+						bufferedWriter.write("which java" + System.getProperty("line.separator"));
+						bufferedWriter.write("echo \"SLURM_NODELIST $SLURM_NODELIST\"" + System.getProperty("line.separator"));
+						bufferedWriter.write("echo \"NUMBER OF CORES $SLURM_NTASKS\"" + System.getProperty("line.separator"));
+						bufferedWriter.write("echo \"SLURM_ARRAY_TASK_ID $SLURM_ARRAY_TASK_ID\"" + System.getProperty("line.separator"));
+				
+						bufferedWriter.write(System.getProperty("line.separator"));
+						
+						if(generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+							if (call_Runs_WithGCM_BufferedWriter!=null){
+								call_Runs_WithGCM_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));								
+							}
+						}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
+							if (call_Runs_WithoutGCM_BufferedWriter!=null){
+								call_Runs_WithoutGCM_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));								
+							}
+						}
+	
+						break;
+					}
+
+					
+					default: 
+						break;
+					
+				}//End of SWITCH for writing header lines
+				
+				
+				//rootCommand for GAT call
+				//gat-run.py --segments=srf.hg19.bed --annotations=jurkat.hg19.dhs.bed --workspace=contigs.bed --ignore-segment-tracks --num-samples=1000 --log=gat.log > gat.tsv
+
+				//we have to have gat-run for each element
+				rootCommand = "gat-run.py --segments=" + args[1] + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID.txt\" " 
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H2AZ.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K27AC.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME2.bed" 
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME3.bed" 
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K79ME2.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9AC.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9ACB.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_POL2.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K36ME3.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME1.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9ME3.bed"
+				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H4K20ME1.bed"
+				+ " --workspace=contigs.bed --ignore-segment-tracks --num-samples=10000 --log=gat$SLURM_ARRAY_TASK_ID.log > gat$SLURM_ARRAY_TASK_ID.tsv";
+
+				
+				
+				switch(operatingSystem){
+					case TRUBA_FAST:{
+					
+							String command = null;
+							
+							if(associationMeasureType.isAssociationMeasureExistenceofOverlap()){
+								command = rootCommand;							
+							}else if(associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
+								command = rootCommand;							
+							}
+							
+							bufferedWriter.write(command + System.getProperty("line.separator"));
+							
+						}
+						break;
+						
+					default:
+						break;
+				}
+				
+				//Add Line Separator
+				bufferedWriter.write(System.getProperty("line.separator"));
+				
+				if (call_Runs_WithGCM_BufferedWriter!=null){
+					call_Runs_WithGCM_BufferedWriter.write(System.getProperty("line.separator"));					
+				}
+				if(call_Runs_WithoutGCM_BufferedWriter!=null){
+					call_Runs_WithoutGCM_BufferedWriter.write(System.getProperty("line.separator"));
+				}
+				
+				//Adding Exit line
+				switch(operatingSystem){
+				
+					case TRUBA:
+					case TRUBA_FAST:
+						bufferedWriter.write("exit");
+						break;
+						
+					default: 
+						break;
+				
+				}//End of SWITCH for adding exit line.				
+				
+				//Close bufferedWriters
+				bufferedWriter.close();
+				fileWriter.close();
+				
+				if (call_Runs_WithGCM_BufferedWriter!=null){
+					call_Runs_WithGCM_BufferedWriter.close();
+					call_Runs_WithGCM_FileWriter.close();
+				}
+				
+				
+				if(call_Runs_WithoutGCM_BufferedWriter!=null){
+					call_Runs_WithoutGCM_BufferedWriter.close();
+					call_Runs_WithoutGCM_FileWriter.close();
+				}
+				
+			}//End of IF geneType is NonExpressingGenes or ExpressingGenesAndNoDiscard
+		}//End of For traversing each value in enum DnaseOverlapExclusionType
+
+	}	
+	//25 July 2016 ends
+
+	
 
 	//For NonExpressingGenes, all of the DataDrivenExperimentDnaseOverlapExclusionType: CompletelyDiscard, TakeTheLongest
 	//For ExpressingGenes, only NoDiscard
@@ -426,7 +696,6 @@ public class Step4_DDE_GLANETRuns {
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
 
-		
 		// x1000
 		int numberOfDDERuns = Integer.parseInt(args[4]);
 		
@@ -436,57 +705,107 @@ public class Step4_DDE_GLANETRuns {
 		//Operating System where the Data Driven Experiment will run
 		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[5]);
 		
+		ToolType toolType = ToolType.convertStringtoEnum(args[6]);
+		
 		DataDrivenExperimentTPMType tpmType = null;
 
 		try{
 			
-			//*************************************************************************************************************//
-			//****************************************************SIMULATIONS**********************************************//
-			//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
-			//**************************************************GLANET RUNS************************************************//
-			//*************************************************************************************************************//
-			for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
-				
-				tpmType = itr.next();
-				
-				for(AssociationMeasureType associationMeasureType: AssociationMeasureType.values()){
+			
+			switch(toolType){
+			
+				case GLANET:
 					
-					//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-					// With GC and Mapability
-					writeGLANETRuns( 
-							numberOfDDERuns, 
-							cellLineType,
-							geneType,
-							operatingSystem,
-							tpmType, 
-							associationMeasureType,
-							withGCandMapability,
-							args,
-							dataDrivenExperimentScriptFolder);
-					//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+					//*************************************************************************************************************//
+					//****************************************************SIMULATIONS**********************************************//
+					//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
+					//**************************************************GLANET RUNS************************************************//
+					//*************************************************************************************************************//
+					for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
+						
+						tpmType = itr.next();
+						
+						for(AssociationMeasureType associationMeasureType: AssociationMeasureType.values()){
+							
+							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+							// With GC and Mapability
+							writeGLANETRuns( 
+									numberOfDDERuns, 
+									cellLineType,
+									geneType,
+									operatingSystem,
+									tpmType, 
+									associationMeasureType,
+									withGCandMapability,
+									args,
+									dataDrivenExperimentScriptFolder);
+							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+							
+							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+							// Without GC and Mapability
+							writeGLANETRuns(
+									numberOfDDERuns, 
+									cellLineType,
+									geneType,
+									operatingSystem,
+									tpmType, 
+									associationMeasureType,
+									withoutGCandMapability,
+									args,
+									dataDrivenExperimentScriptFolder);
+							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+							
+						}//End of FOR each Association Measure Type
+						
+					}//End of FOR each tpmValue
+					//*************************************************************************************************************//
+					//****************************************************SIMULATIONS**********************************************//
+					//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
+					//**************************************************GLANET RUNS************************************************//
+					//*************************************************************************************************************//
+					break;
 					
-					//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
-					// Without GC and Mapability
-					writeGLANETRuns(
-							numberOfDDERuns, 
-							cellLineType,
-							geneType,
-							operatingSystem,
-							tpmType, 
-							associationMeasureType,
-							withoutGCandMapability,
-							args,
-							dataDrivenExperimentScriptFolder);
-					//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+				case GAT:
 					
-				}//End of FOR each Association Measure Type
-				
-			}//End of FOR each tpmValue
-			//*************************************************************************************************************//
-			//****************************************************SIMULATIONS**********************************************//
-			//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
-			//**************************************************GLANET RUNS************************************************//
-			//*************************************************************************************************************//
+					//*************************************************************************************************************//
+					//****************************************************SIMULATIONS**********************************************//
+					//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
+					//**************************************************GAT RUNS***************************************************//
+					//*************************************************************************************************************//
+					for(Iterator<DataDrivenExperimentTPMType> itr = tpmTypes.iterator();itr.hasNext();){
+						
+						tpmType = itr.next();
+						
+						for(AssociationMeasureType associationMeasureType: AssociationMeasureType.values()){
+							
+							
+							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+							// Without GC and Mapability
+							writeGATRuns(
+									numberOfDDERuns, 
+									cellLineType,
+									geneType,
+									operatingSystem,
+									tpmType, 
+									associationMeasureType,
+									GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT,
+									args,
+									dataDrivenExperimentScriptFolder);
+							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+							
+						}//End of FOR each Association Measure Type
+						
+					}//End of FOR each tpmValue
+					//*************************************************************************************************************//
+					//****************************************************SIMULATIONS**********************************************//
+					//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
+					//**************************************************GAT RUNS***************************************************//
+					//*************************************************************************************************************//
+
+					
+					break;
+			} //End of ToolType
+			
 
 		
 		}catch( IOException e){

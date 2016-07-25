@@ -423,8 +423,13 @@ public class IntervalTreeMarkdeBerg {
 			//Since middleNodeIntervals size is not high, parallelSort costs more than normal sorting.
 			// TODO Try heapSort
 			// TODO Try quickSort
+			// DONE Try CountingSort : seems better
+			// DONE Try Arrays.sort
+			// DONE Try parallelSort
 			dateBefore = System.currentTimeMillis();
 			CountingSort.sortRightEndPointsDescending(middleIntervalsLeftEndPointsAscending, SortingOrder.SORTING_IN_DESCENDING_ORDER,middleIntervalsRightEndPointsDescending);
+			//middleNodeIntervals.toArray(middleIntervalsRightEndPointsDescending);
+			//Arrays.sort(middleIntervalsRightEndPointsDescending, IntervalMarkdeBerg.INTERVALTREEMARKDEBERG_RIGHTENDPOINT_DESCENDING);
 			dateAfter = System.currentTimeMillis();
 			intervalTreeMarkdeBerg.setConstructionTimeCost3_2(intervalTreeMarkdeBerg.getConstructionTimeCost3_2() + (dateAfter- dateBefore));
 						
