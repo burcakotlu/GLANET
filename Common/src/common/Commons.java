@@ -93,8 +93,8 @@ public class Commons {
 	public static final String SCRIPT_FILES = "ScriptFiles";
 	
 	//1 March 2016
-	public static final String GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE_START = "GLANET_DDE";
-	public static final String GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE_REST = "_Unaccomplished_GLANET_RUNS.txt";
+	public static final String DDE_UNACCOMPLISHED_RUNS_FILE_START = "DDE";
+	public static final String DDE_UNACCOMPLISHED_RUNS_FILE_REST = "_Unaccomplished_RUNS.txt";
 	
 	public static final String SCRIPT_FILES_FOR_RERUNS = "ScriptFilesForReruns";
 	public static final String SLURM_FILE_EXTENSION = ".slurm";
@@ -106,12 +106,12 @@ public class Commons {
 	public static final String GLANET_DDE = "GLANET_DDE";
 	
 	//8 March 2016
-	public static final String GLANET_DDE_OVERALL_SITUATION_FILE_START = "GLANET_DDE";
-	public static final String GLANET_DDE_OVERALL_SITUATION_FILE_REST = "_Overall_Situation.txt";
+	public static final String DDE_OVERALL_SITUATION_FILE_START = "DDE";
+	public static final String DDE_OVERALL_SITUATION_FILE_REST = "_Overall_Situation.txt";
 	
-	public static final String GLANET_DDE_RESULTS_FILE_START = "GLANET_DDE";
-	public static final String GLANET_DDE_RESULTS_FILE_MIDDLE = "_Results_";
-	public static final String GLANET_DDE_RESULTS_FILE_END = ".txt";
+	public static final String DDE_RESULTS_FILE_START 	= "DDE";
+	public static final String DDE_RESULTS_FILE_MIDDLE 	= "_Results_";
+	public static final String DDE_RESULTS_FILE_END 	= ".txt";
 	
 	
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL_STATISTICS_FILE = "DnaseOverlapsExcludedIntervalPoolStatistics.txt";
@@ -185,6 +185,9 @@ public class Commons {
 	public static final String GLANET = "GLANET";
 	public static final String GAT = "GAT";
 	public static final String DDE = "DDE";
+	
+	//TAB SEPARATED VALUES 
+	public static final String TSV = ".tsv";
 	
 	// Sub Folders, Internal Folders
 	public static final String RESULTS = "Results";

@@ -37,7 +37,7 @@ import enumtypes.ToolType;
  * By the way, SLURM stands for Simple LinUx Resource Management
  *
  */
-public class Step4_DDE_GLANETRuns {
+public class Step4_DDE_ScriptFiles {
 	
 	
 	//25 July 2016 starts
@@ -226,19 +226,30 @@ public class Step4_DDE_GLANETRuns {
 
 				//we have to have gat-run for each element
 				rootCommand = "gat-run.py --segments=" + args[1] + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID.txt\" " 
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H2AZ.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K27AC.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME2.bed" 
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME3.bed" 
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K79ME2.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9AC.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9ACB.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_POL2.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K36ME3.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME1.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9ME3.bed"
-				+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H4K20ME1.bed"
-				+ " --workspace=contigs.bed --ignore-segment-tracks --num-samples=10000 --log=gat$SLURM_ARRAY_TASK_ID.log > gat$SLURM_ARRAY_TASK_ID.tsv";
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H2AZ.bed"
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K27AC.bed"
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME2.bed" 
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME3.bed" 
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K79ME2.bed"
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9AC.bed";
+				
+				//We look for H3K9ACB only for K562 cellLine
+				if (cellLineType.isK562()){
+					rootCommand = rootCommand 
+							+ 	" --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9ACB.bed";
+				}
+					
+				rootCommand = rootCommand	
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_POL2.bed"
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K36ME3.bed"
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME1.bed"
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9ME3.bed"
+					+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H4K20ME1.bed"
+					+ " --workspace=contigs.bed"
+					+ " --ignore-segment-tracks"
+					+ " --num-samples=10000"
+					+ " --log=gat$SLURM_ARRAY_TASK_ID.log"
+					+ " > gat$SLURM_ARRAY_TASK_ID.tsv";
 
 				
 				

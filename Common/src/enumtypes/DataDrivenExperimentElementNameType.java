@@ -281,5 +281,20 @@ public enum DataDrivenExperimentElementNameType {
 	}
 	
 	
+	public boolean isTF(){
+		if (this == DataDrivenExperimentElementNameType.POL2 ||
+			this == DataDrivenExperimentElementNameType.CTCF ){
+				return true;
+			}
+			return false;
+	}
+	
+	public boolean isHISTONE(){
+		if (this == DataDrivenExperimentElementNameType.POL2 ||
+			this == DataDrivenExperimentElementNameType.CTCF ){
+				return false;
+			}
+			return true;
+	}
 	
 }

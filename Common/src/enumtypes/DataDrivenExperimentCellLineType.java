@@ -64,7 +64,7 @@ public enum DataDrivenExperimentCellLineType {
 		return ( this == DataDrivenExperimentCellLineType.GM12878);
 	}
 
-	public boolean isPartiallyDiscardIntervalTakeTheLongestRemainingInterval() {
+	public boolean isK562() {
 		return ( this == DataDrivenExperimentCellLineType.K562);
 	}
 

@@ -361,6 +361,7 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 
 							} // End of SWITCH for strand
 
+							//There can be more one intervals for each geneID
 							proteinCodingGeneExonNumberOneIntervalList = proteinCodingGeneId2GeneExonNumberOneIntervalsMap.get( ensemblGeneID);
 
 							if( proteinCodingGeneExonNumberOneIntervalList == null){
@@ -833,8 +834,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 					
 			}//End of SWITCH for geneType
 			//17 OCT 
-			
-			
 			
 			//Close the tpmBufferedWriter
 			tpmBufferedWriter.close();

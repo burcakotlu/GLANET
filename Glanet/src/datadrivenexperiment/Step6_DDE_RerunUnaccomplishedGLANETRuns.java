@@ -537,7 +537,7 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 			int DDENumber){
 		
 		// Read unaccomplishedGLANETRunFile
-		String unaccomplishedGLANETRunFile = DDEFolder + System.getProperty("file.separator") + Commons.GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE_START + DDENumber + Commons.GLANET_DDE_UNACCOMPLISHED_GLANET_RUNS_FILE_REST  ;
+		String unaccomplishedGLANETRunFile = DDEFolder + System.getProperty("file.separator") + Commons.GLANET + "_" + Commons.DDE_UNACCOMPLISHED_RUNS_FILE_START + DDENumber + Commons.DDE_UNACCOMPLISHED_RUNS_FILE_REST  ;
 		
 		FileReader fileReader =  null;
 		BufferedReader bufferedReader = null;
