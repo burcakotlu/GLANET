@@ -281,26 +281,26 @@ public class Step4_DDE_ScriptFiles {
 								//gat-run.py --segments=srf.hg19.bed --annotations=jurkat.hg19.dhs.bed --workspace=contigs.bed --ignore-segment-tracks --num-samples=1000 --log=gat.log > gat.tsv
 
 								//we have to have gat-run for each element
-								rootCommand = "gat-run.py --segments=" + "/home/burcakotlu/ddce/data/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt\" " 
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString()+  "_H2AZ.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K27AC.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K4ME2.narrowPeak" 
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K4ME3.narrowPeak" 
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K79ME2.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K9AC.narrowPeak";
+								rootCommand = "gat-run.py --segments=" + "/home/burcakotlu/ddce/data/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt " 
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H2AZ.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27AC.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME2.narrowPeak" 
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME3.narrowPeak" 
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K79ME2.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +  cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9AC.narrowPeak";
 								
 								//We look for H3K9ACB only for K562 cellLine
 								if (cellLineType.isK562()){
 									rootCommand = rootCommand 
-											+ 	" --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K9ACB.narrowPeak";
+											+ 	" --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ACB.narrowPeak";
 								}
 									
 								rootCommand = rootCommand	
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_POL2.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K36ME3.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K4ME1.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H3K9ME3.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +cellLineType.convertEnumtoString()+  "_H4K20ME1.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_POL2.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K36ME3.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME1.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ME3.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H4K20ME1.narrowPeak"
 									+ " --workspace=/home/burcakotlu/ddce/workspace/contigs.bed"
 									+ " --ignore-segment-tracks"
 									+ " --num-samples=10000"
