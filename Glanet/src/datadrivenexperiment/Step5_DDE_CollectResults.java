@@ -411,6 +411,7 @@ public class Step5_DDE_CollectResults {
 	
 	//For collecting GAT results
 	public static void readGATResults(
+			String gatFolder,
 			DataDrivenExperimentCellLineType cellLineType, 
 			DataDrivenExperimentGeneType geneType,
 			DataDrivenExperimentTPMType TPMType,
@@ -444,8 +445,9 @@ public class Step5_DDE_CollectResults {
 				
 				//Initialization
 				//So that unexisting run can not use the last valid gatTSV file and copy its content.
-				gatTSVFile = new File(ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + Commons.TSV);
-	
+				gatTSVFile = new File(gatFolder + System.getProperty("file.separator") + "output" + System.getProperty("file.separator") + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TSV);
+//				gatTSVFile = new File(gatFolder + System.getProperty("file.separator") + "output" + System.getProperty("file.separator") + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TEXT_FILE_EXTENSION);
+				
 				
 				if (gatTSVFile.exists() && gatTSVFile.isFile()){
 					
@@ -469,10 +471,10 @@ public class Step5_DDE_CollectResults {
 						processLine(strLine,0.05f,TPMType, elementNameTPMName2NumberofEnrichmentMap,elementTypeTpmName2NumberofValidRunMap);
 					}// End of WHILE
 					
-					elementTypeTPMName = ElementType.TF + "_" + TPMType.convertEnumtoString();
+					elementTypeTPMName = ElementType.TF.convertEnumtoString() + "_" + TPMType.convertEnumtoString();
 					elementTypeTpmName2NumberofValidRunMap.put(elementTypeTPMName, elementTypeTpmName2NumberofValidRunMap.get(elementTypeTpmName2NumberofValidRunMap)+1);
 				
-					elementTypeTPMName = ElementType.HISTONE + "_" + TPMType.convertEnumtoString();
+					elementTypeTPMName = ElementType.HISTONE.convertEnumtoString() + "_" + TPMType.convertEnumtoString();
 					elementTypeTpmName2NumberofValidRunMap.put(elementTypeTPMName, elementTypeTpmName2NumberofValidRunMap.get(elementTypeTpmName2NumberofValidRunMap)+1);
 			
 					// Close
@@ -1072,6 +1074,23 @@ public class Step5_DDE_CollectResults {
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT 	+ System.getProperty("file.separator");
 		String ddeFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DDE 	+ System.getProperty("file.separator");
 		
+		//ToolType
+		ToolType toolType = ToolType.convertStringtoEnum(args[12]);
+		
+		String gatFolder = null; 
+
+		switch(toolType){
+			
+			case GAT:
+				gatFolder = args[0] +  System.getProperty("file.separator") + "GAT_DDCE";;
+				break;
+				
+			default:
+				break;
+			
+		}//End of switch
+
+		
 		//cellLineType
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
 		
@@ -1144,10 +1163,7 @@ public class Step5_DDE_CollectResults {
 		
 		//DDE Number
 		int DDENumber = Integer.parseInt(args[11]);
-		
-		//ToolType
-		ToolType toolType = ToolType.convertStringtoEnum(args[12]);
-		
+				
 		int numberofTFElementsInThisCellLine = 0;
 		int numberofHistoneElementsInThisCellLine = 0;
 		
@@ -1321,6 +1337,7 @@ public class Step5_DDE_CollectResults {
 					
 					case GAT:
 						readGATResults(
+								gatFolder,
 								cellLineType, 
 								geneType,
 								TPMType,
@@ -1365,6 +1382,7 @@ public class Step5_DDE_CollectResults {
 			//Check ddeElementList whether there is any missing elementNameTPMName2NumberofEnrichment is missing
 			//So let's traverse ddeElementList tpmTypes.size()  by tpmTypes.size()
 			//Now, We have to write results here for each TPM
+			//Please notice that We expect we have the results for all possible TPM types.
 			writeResults(resultsBufferedWriter,ddeElementList,tpmValues,tpmTypes,generateRandomDataMode);
 			
 			//Flush BufferedWriter

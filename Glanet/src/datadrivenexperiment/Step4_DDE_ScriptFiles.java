@@ -12,9 +12,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.AssociationMeasureType;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
@@ -70,12 +68,7 @@ public class Step4_DDE_ScriptFiles {
 		
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 			
-			//Add GCM extension
-			GENERAL_JOBNAME = Commons.GAT + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString(); 
-			
-			
-			//Add associationMeasureType extension
-			GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + associationMeasureType.convertEnumtoShortString();
+			GENERAL_JOBNAME = Commons.GAT + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() +  "_" + associationMeasureType.convertEnumtoShortString(); 
 			
 			//We want to get rid of NonExpressingGenes and NoDiscard Case
 			//We want to run ExpressingGenes and NoDiscard Case only
@@ -248,11 +241,28 @@ public class Step4_DDE_ScriptFiles {
 					+ " --workspace=contigs.bed"
 					+ " --ignore-segment-tracks"
 					+ " --num-samples=10000"
-					+ " --log=gat$SLURM_ARRAY_TASK_ID.log"
-					+ " > gat$SLURM_ARRAY_TASK_ID.tsv";
+					+ " --log=" + 
+					Commons.GAT + "_" +
+					cellLineType.convertEnumtoString() + "_" +
+					geneType.convertEnumtoString() + "_" + 
+					tpmType.convertEnumtoString() + "_" + 
+					dnaseOverlapExclusionType.convertEnumtoString() + "_" + 
+					generateRandomDataMode.convertEnumtoShortString() +  "_" + 
+					associationMeasureType.convertEnumtoShortString() + "_" + 
+					Commons.DDE_RUN +
+					"$SLURM_ARRAY_TASK_ID.log"
+					+ " > " + Commons.GAT + "_" +
+					cellLineType.convertEnumtoString() + "_" +
+					geneType.convertEnumtoString() + "_" + 
+					tpmType.convertEnumtoString() + "_" + 
+					dnaseOverlapExclusionType.convertEnumtoString() + "_" + 
+					generateRandomDataMode.convertEnumtoShortString() +  "_" + 
+					associationMeasureType.convertEnumtoShortString() + "_" + 
+					Commons.DDE_RUN +
+					"$SLURM_ARRAY_TASK_ID.tsv";
+				
+				
 
-				
-				
 				switch(operatingSystem){
 					case TRUBA_FAST:{
 					
