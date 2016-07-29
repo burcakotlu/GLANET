@@ -20,15 +20,14 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.InputLine;
 import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
+import enumtypes.ToolType;
 
 /**
  * @author Burcak Otlu
@@ -319,14 +318,14 @@ public class Step3_DDE_DataCreation {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
 				//tpmValues = expGenesTPMValue2TPMTypeSortedMap.keySet();
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
 				//tpmValues = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				break;

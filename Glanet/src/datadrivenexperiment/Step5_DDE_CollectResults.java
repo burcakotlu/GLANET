@@ -411,7 +411,7 @@ public class Step5_DDE_CollectResults {
 	
 	//For collecting GAT results
 	public static void readGATResults(
-			String gatFolder,
+			String gatOutputFolder,
 			DataDrivenExperimentCellLineType cellLineType, 
 			DataDrivenExperimentGeneType geneType,
 			DataDrivenExperimentTPMType TPMType,
@@ -445,7 +445,7 @@ public class Step5_DDE_CollectResults {
 				
 				//Initialization
 				//So that unexisting run can not use the last valid gatTSV file and copy its content.
-				gatTSVFile = new File(gatFolder + System.getProperty("file.separator") + "output" + System.getProperty("file.separator") + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TSV);
+				gatTSVFile = new File(gatOutputFolder + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TSV);
 //				gatTSVFile = new File(gatFolder + System.getProperty("file.separator") + "output" + System.getProperty("file.separator") + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TEXT_FILE_EXTENSION);
 				
 				
@@ -472,10 +472,10 @@ public class Step5_DDE_CollectResults {
 					}// End of WHILE
 					
 					elementTypeTPMName = ElementType.TF.convertEnumtoString() + "_" + TPMType.convertEnumtoString();
-					elementTypeTpmName2NumberofValidRunMap.put(elementTypeTPMName, elementTypeTpmName2NumberofValidRunMap.get(elementTypeTpmName2NumberofValidRunMap)+1);
+					elementTypeTpmName2NumberofValidRunMap.put(elementTypeTPMName, elementTypeTpmName2NumberofValidRunMap.get(elementTypeTPMName)+1);
 				
 					elementTypeTPMName = ElementType.HISTONE.convertEnumtoString() + "_" + TPMType.convertEnumtoString();
-					elementTypeTpmName2NumberofValidRunMap.put(elementTypeTPMName, elementTypeTpmName2NumberofValidRunMap.get(elementTypeTpmName2NumberofValidRunMap)+1);
+					elementTypeTpmName2NumberofValidRunMap.put(elementTypeTPMName, elementTypeTpmName2NumberofValidRunMap.get(elementTypeTPMName)+1);
 			
 					// Close
 					gatTSVBufferedReader.close();
@@ -1077,12 +1077,14 @@ public class Step5_DDE_CollectResults {
 		//ToolType
 		ToolType toolType = ToolType.convertStringtoEnum(args[12]);
 		
-		String gatFolder = null; 
+		String gatOutputFolder = null; 
 
 		switch(toolType){
 			
 			case GAT:
-				gatFolder = args[0] +  System.getProperty("file.separator") + "GAT_DDCE";;
+				//For Ubuntu VM in my laptop
+				dataFolder = "/home/burcakotlu/glanet/Data/";
+				gatOutputFolder = "/home/burcakotlu/ddce/output/";
 				break;
 				
 			default:
@@ -1112,14 +1114,14 @@ public class Step5_DDE_CollectResults {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,toolType);
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				tpmValues = expGenesTPMType2TPMValueSortedMap.values();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,toolType);
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				tpmValues = nonExpGenesTPMType2TPMValueSortedMap.values();
 				break;
@@ -1337,7 +1339,7 @@ public class Step5_DDE_CollectResults {
 					
 					case GAT:
 						readGATResults(
-								gatFolder,
+								gatOutputFolder,
 								cellLineType, 
 								geneType,
 								TPMType,

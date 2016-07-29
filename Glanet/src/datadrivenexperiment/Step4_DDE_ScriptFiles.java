@@ -754,13 +754,13 @@ public class Step4_DDE_ScriptFiles {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				break;
 				

@@ -20,14 +20,13 @@ import java.util.TreeMap;
 
 import annotation.Annotation;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
+import enumtypes.ToolType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
@@ -598,13 +597,13 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap, ToolType.GLANET);
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				tpmValues = expGenesTPMType2TPMValueSortedMap.values();
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				tpmValues = nonExpGenesTPMType2TPMValueSortedMap.values();
 				break;

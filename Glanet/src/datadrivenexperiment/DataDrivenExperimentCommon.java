@@ -15,10 +15,13 @@ import java.util.Map;
 import java.util.SortedMap;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
+import enumtypes.ToolType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
@@ -35,12 +38,24 @@ public class DataDrivenExperimentCommon {
 			String glanetFolder,
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
-			SortedMap<DataDrivenExperimentTPMType,Float> tpmType2TPMValueSortedMap){
+			SortedMap<DataDrivenExperimentTPMType,Float> tpmType2TPMValueSortedMap,
+			ToolType toolType){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		
-		String tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
+		String tpmValuesFileName = null;
+		
+		switch(toolType){
+			case GLANET:
+				tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
+				break;
+			case GAT:
+				tpmValuesFileName = "/home/burcakotlu/ddce/tpmValues/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
+				break;
+		}
+		
+		
 		String strLine = null;
 		
 		int indexofFirstTab;
