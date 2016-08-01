@@ -27,7 +27,7 @@ import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Aug 16, 2015
  * @project Glanet 
  *
@@ -51,7 +51,7 @@ public class DataDrivenExperimentCommon {
 				tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
 				break;
 			case GAT:
-				tpmValuesFileName = "/home/burcakotlu/ddce/tpmValues/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
+				tpmValuesFileName = "/home/burcakotlu/DDCE/tpmValues/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
 				break;
 		}
 		

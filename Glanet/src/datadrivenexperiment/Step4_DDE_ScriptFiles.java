@@ -281,30 +281,30 @@ public class Step4_DDE_ScriptFiles {
 								//gat-run.py --segments=srf.hg19.bed --annotations=jurkat.hg19.dhs.bed --workspace=contigs.bed --ignore-segment-tracks --num-samples=1000 --log=gat.log > gat.tsv
 
 								//we have to have gat-run for each element
-								rootCommand = "gat-run.py --segments=" + "/home/burcakotlu/ddce/data/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt " 
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H2AZ.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27AC.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME2.narrowPeak" 
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME3.narrowPeak" 
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K79ME2.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" +  cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9AC.narrowPeak";
+								rootCommand = "gat-run.py --segments=" + "/home/burcakotlu/DDCE/Data/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt " 
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H2AZ.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27AC.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME2.narrowPeak" 
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME3.narrowPeak" 
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K79ME2.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" +  cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9AC.narrowPeak";
 								
 								//We look for H3K9ACB only for K562 cellLine
 								if (cellLineType.isK562()){
 									rootCommand = rootCommand 
-											+ 	" --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ACB.narrowPeak";
+											+ 	" --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ACB.narrowPeak";
 								}
 									
 								rootCommand = rootCommand	
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_POL2.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K36ME3.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME1.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ME3.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/ddce/annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H4K20ME1.narrowPeak"
-									+ " --workspace=/home/burcakotlu/ddce/workspace/contigs.bed"
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_POL2.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K36ME3.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME1.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ME3.narrowPeak"
+									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H4K20ME1.narrowPeak"
+									+ " --workspace=/home/burcakotlu/DDCE/Workspace/contigs.bed"
 									+ " --ignore-segment-tracks"
 									+ " --num-samples=10000"
-									+ " --log=/home/burcakotlu/ddce/output/" + 
+									+ " --log=/home/burcakotlu/DDCE/Output/" + 
 									Commons.GAT + "_" +
 									cellLineType.convertEnumtoString() + "_" +
 									geneType.convertEnumtoString() + "_" + 
@@ -314,7 +314,7 @@ public class Step4_DDE_ScriptFiles {
 									associationMeasureType.convertEnumtoShortString() + "_" + 
 									Commons.DDE_RUN + i + 
 									".log"
-									+ " > " + "/home/burcakotlu/ddce/output/" + Commons.GAT + "_" +
+									+ " > " + "/home/burcakotlu/DDCE/Output/" + Commons.GAT + "_" +
 									cellLineType.convertEnumtoString() + "_" +
 									geneType.convertEnumtoString() + "_" + 
 									tpmType.convertEnumtoString() + "_" + 
@@ -741,6 +741,9 @@ public class Step4_DDE_ScriptFiles {
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[2]);
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[3]);
 		
+		ToolType toolType = ToolType.convertStringtoEnum(args[6]);
+		
+		
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
@@ -754,13 +757,13 @@ public class Step4_DDE_ScriptFiles {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,toolType);
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,toolType);
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				break;
 				
@@ -777,9 +780,7 @@ public class Step4_DDE_ScriptFiles {
 		
 		//Operating System where the Data Driven Experiment will run
 		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[5]);
-		
-		ToolType toolType = ToolType.convertStringtoEnum(args[6]);
-		
+			
 		DataDrivenExperimentTPMType tpmType = null;
 
 		try{
@@ -854,6 +855,9 @@ public class Step4_DDE_ScriptFiles {
 							
 						
 						//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+						
+						dataDrivenExperimentScriptFolder = "/home/burcakotlu/DDCE/ScriptFiles/";
+						
 						// Without GC and Mapability
 						writeGATRuns(
 								numberOfDDERuns, 
