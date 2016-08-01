@@ -1083,8 +1083,9 @@ public class Step5_DDE_CollectResults {
 			
 			case GAT:
 				//For Ubuntu VM in my laptop
-				dataFolder = "/home/burcakotlu/glanet/Data/";
-				gatOutputFolder = "/home/burcakotlu/ddce/output/";
+				ddeFolder = "/home/burcakotlu/DDCE/";
+				dataFolder = "/home/burcakotlu/GLANET/Data/";
+				gatOutputFolder = "/home/burcakotlu/DDCE/Output/";
 				break;
 				
 			default:
