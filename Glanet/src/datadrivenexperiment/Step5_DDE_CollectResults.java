@@ -1069,23 +1069,23 @@ public class Step5_DDE_CollectResults {
 	public static void main( String[] args) {
 
 		//glanetFolder
-		String glanetFolder = args[0];
-		String dataFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DATA 	+ System.getProperty("file.separator");
+		String glanetFolder     = args[0];
+		String glanetDataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA 	+ System.getProperty("file.separator");
 		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT 	+ System.getProperty("file.separator");
 		String ddeFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DDE 	+ System.getProperty("file.separator");
 		
 		//ToolType
 		ToolType toolType = ToolType.convertStringtoEnum(args[12]);
 		
-		String gatOutputFolder = null; 
+		String ddceOutputFolder = null; 
 
 		switch(toolType){
 			
 			case GAT:
-				//For Ubuntu VM in my laptop
+				//For Ubuntu VM in my desktop
 				ddeFolder = "/home/burcakotlu/DDCE/";
-				dataFolder = "/home/burcakotlu/GLANET/Data/";
-				gatOutputFolder = "/home/burcakotlu/DDCE/Output/";
+				glanetDataFolder = glanetFolder + "Data" + System.getProperty("file.separator") ;
+				ddceOutputFolder = ddeFolder +  "Output" + System.getProperty("file.separator") ;
 				break;
 				
 			default:
@@ -1218,14 +1218,14 @@ public class Step5_DDE_CollectResults {
 			switch(cellLineType){
 			
 				case GM12878: {
-					numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.GM12878);
-					numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.GM12878);
+					numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(glanetDataFolder, ElementType.TF, Commons.GM12878);
+					numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(glanetDataFolder, ElementType.HISTONE, Commons.GM12878);
 					break;				
 				}
 				
 				case K562: {
-					numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.TF, Commons.K562);
-					numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder, ElementType.HISTONE, Commons.K562);
+					numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(glanetDataFolder, ElementType.TF, Commons.K562);
+					numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(glanetDataFolder, ElementType.HISTONE, Commons.K562);
 					break;				
 				}
 					
@@ -1340,7 +1340,7 @@ public class Step5_DDE_CollectResults {
 					
 					case GAT:
 						readGATResults(
-								gatOutputFolder,
+								ddceOutputFolder,
 								cellLineType, 
 								geneType,
 								TPMType,

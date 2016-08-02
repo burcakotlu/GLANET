@@ -219,6 +219,7 @@ public class Step4_DDE_ScriptFiles {
 				
 
 				switch(operatingSystem){
+					//TODO has to be updated.
 					case TRUBA_FAST:{
 						
 						//rootCommand for GAT call
@@ -245,7 +246,16 @@ public class Step4_DDE_ScriptFiles {
 							+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K4ME1.narrowPeak"
 							+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H3K9ME3.narrowPeak"
 							+ " --annotations=" + cellLineType.convertEnumtoString()+  "_H4K20ME1.narrowPeak"
-							+ " --workspace=contigs.bed"
+							+ " --workspace=contigs.bed";
+						
+						
+						//consider isochore or not
+						if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+							rootCommand = rootCommand 
+									+ 	" –isochore-file=/home/burcakotlu/DDCE/Isochore/gcprofile_bins.bed";
+						}
+						
+						rootCommand = rootCommand  
 							+ " --ignore-segment-tracks"
 							+ " --num-samples=10000"
 							+ " --log=" + 
@@ -282,8 +292,9 @@ public class Step4_DDE_ScriptFiles {
 
 								//we have to have gat-run for each element
 								rootCommand = "gat-run.py --segments=" + "/home/burcakotlu/DDCE/Data/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt " 
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H2AZ.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27AC.narrowPeak"
+										+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27ME3.narrowPeak"
+										+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H2AZ.narrowPeak"
+										+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27AC.narrowPeak"
 									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME2.narrowPeak" 
 									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME3.narrowPeak" 
 									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K79ME2.narrowPeak"
@@ -301,7 +312,17 @@ public class Step4_DDE_ScriptFiles {
 									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME1.narrowPeak"
 									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ME3.narrowPeak"
 									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H4K20ME1.narrowPeak"
-									+ " --workspace=/home/burcakotlu/DDCE/Workspace/contigs.bed"
+									+ " --workspace=/home/burcakotlu/DDCE/Workspace/contigs.bed";
+								
+								
+								//consider isochore or not
+								if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+									rootCommand = rootCommand 
+											+ 	" –isochore-file=/home/burcakotlu/DDCE/Isochore/gcprofile_bins.bed";
+								}
+								
+								
+								rootCommand = rootCommand	
 									+ " --ignore-segment-tracks"
 									+ " --num-samples=10000"
 									+ " --log=/home/burcakotlu/DDCE/Output/" + 
@@ -743,6 +764,17 @@ public class Step4_DDE_ScriptFiles {
 		
 		ToolType toolType = ToolType.convertStringtoEnum(args[6]);
 		
+		switch(toolType){
+
+			case GAT:
+				dataDrivenExperimentScriptFolder = "/home/burcakotlu/DDCE/ScriptFiles/";
+				break;
+				
+			default:
+				break;
+		
+		}//End of switch
+		
 		
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
@@ -852,12 +884,23 @@ public class Step4_DDE_ScriptFiles {
 						
 						AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
 						
-							
-						
+
+						//***************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//						
+						// With GC and Mapability
+						writeGATRuns(
+								numberOfDDERuns, 
+								cellLineType,
+								geneType,
+								operatingSystem,
+								tpmType, 
+								associationMeasureType,
+								withGCandMapability,
+								args,
+								dataDrivenExperimentScriptFolder);
 						//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+
 						
-						dataDrivenExperimentScriptFolder = "/home/burcakotlu/DDCE/ScriptFiles/";
-						
+						//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//						
 						// Without GC and Mapability
 						writeGATRuns(
 								numberOfDDERuns, 
@@ -866,7 +909,7 @@ public class Step4_DDE_ScriptFiles {
 								operatingSystem,
 								tpmType, 
 								associationMeasureType,
-								GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT,
+								withoutGCandMapability,
 								args,
 								dataDrivenExperimentScriptFolder);
 						//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
