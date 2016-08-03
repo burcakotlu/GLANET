@@ -18,16 +18,15 @@ import java.util.TreeMap;
 import org.apache.log4j.Logger;
 
 import auxiliary.FileOperations;
-import ui.GlanetRunner;
 import common.Commons;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
-import enumtypes.ToolType;
+import ui.GlanetRunner;
 
 /**
- * @author Burçak Otlu
+ * @author Burï¿½ak Otlu
  * @date Oct 25, 2015
  * @project Glanet 
  *
@@ -201,13 +200,13 @@ public class AnalysisForEachGLANETDDERun {
 			switch(geneType){
 			
 				case EXPRESSING_PROTEINCODING_GENES:
-					DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
+					DataDrivenExperimentCommon.fillTPMType2TPMValueMap(dataDrivenExperimentFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
 					tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 					tpmValues = expGenesTPMType2TPMValueSortedMap.values();
 					break;
 					
 				case NONEXPRESSING_PROTEINCODING_GENES:
-					DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
+					DataDrivenExperimentCommon.fillTPMType2TPMValueMap(dataDrivenExperimentFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
 					tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 					tpmValues = nonExpGenesTPMType2TPMValueSortedMap.values();
 					break;

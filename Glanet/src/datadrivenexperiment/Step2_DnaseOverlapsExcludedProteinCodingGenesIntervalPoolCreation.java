@@ -3,8 +3,6 @@
  */
 package datadrivenexperiment;
 
-import intervaltree.IntervalTree;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -26,7 +24,6 @@ import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
-import enumtypes.ToolType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
@@ -34,6 +31,7 @@ import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.TObjectShortMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import gnu.trove.map.hash.TObjectShortHashMap;
+import intervaltree.IntervalTree;
 
 /**
  * @author Burcak Otlu
@@ -597,13 +595,13 @@ public class Step2_DnaseOverlapsExcludedProteinCodingGenesIntervalPoolCreation {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap, ToolType.GLANET);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(dataDrivenExperimentFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				tpmValues = expGenesTPMType2TPMValueSortedMap.values();
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(dataDrivenExperimentFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				tpmValues = nonExpGenesTPMType2TPMValueSortedMap.values();
 				break;

@@ -3,9 +3,6 @@
  */
 package datadrivenexperiment;
 
-import intervaltree.IntervalTree;
-import intervaltree.IntervalTreeNode;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -27,7 +24,8 @@ import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
-import enumtypes.ToolType;
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
 
 /**
  * @author Burcak Otlu
@@ -318,14 +316,14 @@ public class Step3_DDE_DataCreation {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(dataDrivenExperimentFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
 				//tpmValues = expGenesTPMValue2TPMTypeSortedMap.keySet();
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,ToolType.GLANET);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(dataDrivenExperimentFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
 				//tpmValues = nonExpGenesTPMValue2TPMTypeSortedMap.keySet();
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				break;

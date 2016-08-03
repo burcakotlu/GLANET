@@ -1070,22 +1070,21 @@ public class Step5_DDE_CollectResults {
 
 		//glanetFolder
 		String glanetFolder     = args[0];
-		String glanetDataFolder = glanetFolder + System.getProperty("file.separator") + Commons.DATA 	+ System.getProperty("file.separator");
-		String outputFolder = glanetFolder + System.getProperty("file.separator") + Commons.OUTPUT 	+ System.getProperty("file.separator");
-		String ddeFolder 	= glanetFolder + System.getProperty("file.separator") + Commons.DDE 	+ System.getProperty("file.separator");
+		String glanetDataFolder = glanetFolder + Commons.DATA 	+ System.getProperty("file.separator");
+		String outputFolder 	= glanetFolder + Commons.OUTPUT + System.getProperty("file.separator");
+		String ddeFolder 		= glanetFolder + Commons.DDE 	+ System.getProperty("file.separator");
 		
 		//ToolType
 		ToolType toolType = ToolType.convertStringtoEnum(args[12]);
 		
-		String ddceOutputFolder = null; 
+		String ddeOutputFolder = null; 
 
 		switch(toolType){
 			
 			case GAT:
 				//For Ubuntu VM in my desktop
-				ddeFolder = "/home/burcakotlu/DDCE/";
-				glanetDataFolder = glanetFolder + "Data" + System.getProperty("file.separator") ;
-				ddceOutputFolder = ddeFolder +  "Output" + System.getProperty("file.separator") ;
+				ddeFolder = "/home/burcakotlu/DDE/";
+				ddeOutputFolder = ddeFolder +  "Output" + System.getProperty("file.separator") ;
 				break;
 				
 			default:
@@ -1115,14 +1114,14 @@ public class Step5_DDE_CollectResults {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,toolType);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(ddeFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				tpmValues = expGenesTPMType2TPMValueSortedMap.values();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,toolType);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(ddeFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				tpmValues = nonExpGenesTPMType2TPMValueSortedMap.values();
 				break;
@@ -1340,7 +1339,7 @@ public class Step5_DDE_CollectResults {
 					
 					case GAT:
 						readGATResults(
-								ddceOutputFolder,
+								ddeOutputFolder,
 								cellLineType, 
 								geneType,
 								TPMType,

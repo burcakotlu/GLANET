@@ -15,19 +15,16 @@ import java.util.Map;
 import java.util.SortedMap;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
-import enumtypes.ToolType;
 import gnu.trove.iterator.TObjectFloatIterator;
 import gnu.trove.map.TObjectFloatMap;
 import gnu.trove.map.hash.TObjectFloatHashMap;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Aug 16, 2015
  * @project Glanet 
  *
@@ -35,31 +32,24 @@ import gnu.trove.map.hash.TObjectFloatHashMap;
 public class DataDrivenExperimentCommon {
 	
 	public static void fillTPMType2TPMValueMap(
-			String glanetFolder,
+			String ddeFolder,
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
-			SortedMap<DataDrivenExperimentTPMType,Float> tpmType2TPMValueSortedMap,
-			ToolType toolType){
+			SortedMap<DataDrivenExperimentTPMType,Float> tpmType2TPMValueSortedMap){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		
 		String tpmValuesFileName = null;
 		
-		switch(toolType){
-			case GLANET:
-				tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
-				break;
-			case GAT:
-				tpmValuesFileName = "/home/burcakotlu/DDCE/tpmValues/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
-				break;
-		}
-		
+	
+		//tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
+		//tpmValuesFileName = "/home/burcakotlu/DDCE/TPMValues/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
+		tpmValuesFileName = ddeFolder  + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
 		
 		String strLine = null;
 		
 		int indexofFirstTab;
-		
 		
 //		Top20	0.0
 //		Top10	0.0

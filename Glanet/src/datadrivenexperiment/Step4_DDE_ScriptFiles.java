@@ -764,18 +764,6 @@ public class Step4_DDE_ScriptFiles {
 		
 		ToolType toolType = ToolType.convertStringtoEnum(args[6]);
 		
-		switch(toolType){
-
-			case GAT:
-				dataDrivenExperimentScriptFolder = "/home/burcakotlu/DDCE/ScriptFiles/";
-				break;
-				
-			default:
-				break;
-		
-		}//End of switch
-		
-		
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
 		/*************************************************************************************************/
@@ -789,13 +777,13 @@ public class Step4_DDE_ScriptFiles {
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap,toolType);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(dataDrivenExperimentFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
-				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(glanetFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap,toolType);
+				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(dataDrivenExperimentFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
 				break;
 				
