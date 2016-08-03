@@ -43,8 +43,6 @@ public class DataDrivenExperimentCommon {
 		String tpmValuesFileName = null;
 		
 	
-		//tpmValuesFileName = glanetFolder +  Commons.DDE + System.getProperty("file.separator") + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
-		//tpmValuesFileName = "/home/burcakotlu/DDCE/TPMValues/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
 		tpmValuesFileName = ddeFolder  + Commons.DDE_TPM_VALUES + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + ".txt";
 		
 		String strLine = null;

@@ -8,16 +8,24 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 import common.Commons;
+import enumtypes.ChromosomeName;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
 import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
+import gnu.trove.list.TIntList;
+import gnu.trove.list.TShortList;
+import gnu.trove.list.array.TIntArrayList;
+import gnu.trove.list.array.TShortArrayList;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+import intervaltree.Interval;
+import mapability.ChromosomeBasedMappabilityTroveList;
 import mapability.Mapability;
 
 /**
@@ -32,55 +40,63 @@ public class AuxiliaryMappability {
 	
 	
 	public static void readDDCEData(
-			String ddceFolder,
-			String ddceDataFolder,
+			String ddeFolder,
+			String ddeDataFolder,
 			DataDrivenExperimentCellLineType cellLineType, 
 			DataDrivenExperimentGeneType geneType, 
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType,
 			int numberofRuns,
-			Set<DataDrivenExperimentTPMType> tpmTypes){
+			Set<DataDrivenExperimentTPMType> tpmTypes,
+			TIntObjectMap<TIntList> chrName2MapabilityChromosomePositionList,
+			TIntObjectMap<TShortList> chrName2MapabilityShortValueList
+			){
 		
 		
 		try {
 			FileReader fileReader = null;
 			BufferedReader bufferedReader = null;
 			
+			String dataFileName = null;
+			
 			FileWriter fileWriter = null;
 			BufferedWriter bufferedWriter = null;
-			
 			
 			String strLine = null;
 			
 			int indexofFirstTab;
 			int indexofSecondTab;
 			
-			String chrName;
+			ChromosomeName chrName;
 			int low;
 			int high;
+			Interval interval = null;
 			
+			TIntList mapabilityChromosomePositionList = null;
+			TShortList mapabilityShortValueList = null;
+
+
 			float mappability = 0;
 			float accumulatedMappability = 0;
 			float avgMappabilityPerDataFile = 0;
 			
 			int numberofIntervals = 0;
 			
-			String dataFileName = null;
+			fileWriter = new FileWriter(ddeFolder + "Mappabilities.txt", true);
+			bufferedWriter = new BufferedWriter(fileWriter);
 			
-			
+			float lowestAvgMappabilityPerDataFile = 1f;
+			float highestAvgMappabilityPerDataFile = 0f;			
 			
 			for(int i=0; i<numberofRuns; i++){
 				
 				for(DataDrivenExperimentTPMType TPMType: tpmTypes) {
 			
-					dataFileName = ddceDataFolder + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt";
+					dataFileName = ddeDataFolder + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt";
 					
 					fileReader = new FileReader(dataFileName);
 					bufferedReader = new BufferedReader(fileReader);
 					
-					fileWriter = new FileWriter(ddceFolder + "Mappabilities.txt", true);
-					bufferedWriter = new BufferedWriter(fileWriter);
-					
-					
+						
 					//Initialization
 					numberofIntervals = 0;
 					accumulatedMappability = 0;
@@ -93,17 +109,33 @@ public class AuxiliaryMappability {
 						indexofFirstTab = strLine.indexOf("\t");
 						indexofSecondTab = strLine.indexOf("\t", indexofFirstTab+1);
 						
-						chrName = strLine.substring(0,indexofFirstTab);
+						chrName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 						low = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
 						high = Integer.parseInt(strLine.substring(indexofSecondTab+1));
 						
-						//TODO
-						//mappability = Mapability.calculateMappability(chrName,low,high);
+						interval = new Interval(low, high);
 						
+						mapabilityChromosomePositionList = chrName2MapabilityChromosomePositionList.get(chrName.getChromosomeName());
+						mapabilityShortValueList = chrName2MapabilityShortValueList.get(chrName.getChromosomeName());
+						
+						
+						/**************************************************************************************************/
+						/**********************MAPABILITY Calculation for Original Input Line starts***********************/
+						/**************************************************************************************************/
+						// Mapability New Way
+						// Using MapabilitShortList
+						mappability = Mapability.calculateMapabilityofIntervalUsingTroveList(interval, mapabilityChromosomePositionList, mapabilityShortValueList);
+						/**************************************************************************************************/
+						/**********************MAPABILITY Calculation for Original Input Line ends*************************/
+						/**************************************************************************************************/
+						
+//						if (mappability > 1f){
+//							bufferedWriter.write(dataFileName + "\t" + mappability + System.getProperty("line.separator"));
+//						}
+						
+				
 						accumulatedMappability += mappability;
 						numberofIntervals++;
-						
-						
 						
 					}//End of WHILE reading one data file
 					
@@ -111,14 +143,27 @@ public class AuxiliaryMappability {
 					bufferedReader.close();
 					avgMappabilityPerDataFile = accumulatedMappability/numberofIntervals;
 					
-					bufferedWriter.write(dataFileName + "\t" +avgMappabilityPerDataFile);
 					
-				
+					if(avgMappabilityPerDataFile < lowestAvgMappabilityPerDataFile){
+						lowestAvgMappabilityPerDataFile = avgMappabilityPerDataFile;
+					}
+					
+					if (avgMappabilityPerDataFile > highestAvgMappabilityPerDataFile){
+						highestAvgMappabilityPerDataFile = avgMappabilityPerDataFile;
+					}
+
+					
+					bufferedWriter.write(dataFileName + "\t" + avgMappabilityPerDataFile + System.getProperty("line.separator"));
+					
+					
 				}//End of each tpm type
 				
 				
 				
 			}//End of FOR each run number 
+			
+			
+			bufferedWriter.write("lowestAvgMappabilityPerDataFile: " + "\t" + lowestAvgMappabilityPerDataFile + "\t" +  "highestAvgMappabilityPerDataFile: " + highestAvgMappabilityPerDataFile + System.getProperty("line.separator"));
 			
 			//Close
 			bufferedWriter.close();
@@ -134,14 +179,16 @@ public class AuxiliaryMappability {
 	 */
 	public static void main(String[] args) {
 		
-		String ddeFolder = args[0];
-		String ddeDataFolder = args[0] + Commons.DATA + System.getProperty("file.separator");
+		String glanetDataFolder = args[0];
 		
-		DataDrivenExperimentCellLineType cellLineType =  DataDrivenExperimentCellLineType.convertStringtoEnum(args[1]);
-		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[2]);
-		DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(args[3]);
+		String ddeFolder = args[1];
+		String ddeDataFolder = args[1] + Commons.DATA + System.getProperty("file.separator");
 		
-		int numberofRuns = Integer.parseInt(args[4]);
+		DataDrivenExperimentCellLineType cellLineType =  DataDrivenExperimentCellLineType.convertStringtoEnum(args[2]);
+		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[3]);
+		DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(args[4]);
+		
+		int numberofRuns = Integer.parseInt(args[5]);
 		
 		
 		/*************************************************************************************************/
@@ -154,21 +201,21 @@ public class AuxiliaryMappability {
 		SortedMap<DataDrivenExperimentTPMType,Float> nonExpGenesTPMType2TPMValueSortedMap = new TreeMap<DataDrivenExperimentTPMType,Float>(DataDrivenExperimentTPMType.TPM_TYPE);
 		
 		Set<DataDrivenExperimentTPMType> tpmTypes = null;
-		Collection<Float> tpmValues = null;
+		//Collection<Float> tpmValues = null;
 		
 		switch(geneType){
 		
 			case EXPRESSING_PROTEINCODING_GENES:
 				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(ddeFolder,cellLineType,geneType,expGenesTPMType2TPMValueSortedMap);
 				tpmTypes = expGenesTPMType2TPMValueSortedMap.keySet();
-				tpmValues = expGenesTPMType2TPMValueSortedMap.values();
+				//tpmValues = expGenesTPMType2TPMValueSortedMap.values();
 				
 				break;
 				
 			case NONEXPRESSING_PROTEINCODING_GENES:
 				DataDrivenExperimentCommon.fillTPMType2TPMValueMap(ddeFolder,cellLineType,geneType,nonExpGenesTPMType2TPMValueSortedMap);
 				tpmTypes = nonExpGenesTPMType2TPMValueSortedMap.keySet();
-				tpmValues = nonExpGenesTPMType2TPMValueSortedMap.values();
+				//tpmValues = nonExpGenesTPMType2TPMValueSortedMap.values();
 				break;
 				
 		}//End of SWITCH for geneType
@@ -177,8 +224,44 @@ public class AuxiliaryMappability {
 		/*************************************************************************************************/
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
-
 		
+		
+		/*************************************************************************************************/
+		/*******************Get mappability data structures being filled starts***************************/
+		/*************************************************************************************************/
+		TIntObjectMap<TIntList> chrName2MapabilityChromosomePositionList = new TIntObjectHashMap<TIntList>();
+		TIntObjectMap<TShortList> chrName2MapabilityShortValueList = new TIntObjectHashMap<TShortList>();
+		
+		for(ChromosomeName chrName : ChromosomeName.values() ){
+			
+			TIntList mapabilityChromosomePositionList = new TIntArrayList();
+			TShortList mapabilityShortValueList = new TShortArrayList();
+		
+			// GLANET Always Fills
+			// for Mappability
+			// mapabilityChromosomePositionList
+			// mapabilityShortValueList
+			ChromosomeBasedMappabilityTroveList.fillTroveList( 
+					glanetDataFolder, 
+					chrName,
+					mapabilityChromosomePositionList, 
+					mapabilityShortValueList);
+			
+			//Put into a map
+			chrName2MapabilityChromosomePositionList.put(chrName.getChromosomeName(), mapabilityChromosomePositionList);
+			chrName2MapabilityShortValueList.put(chrName.getChromosomeName(), mapabilityShortValueList);
+
+			
+		}//End of for each chromosome
+		
+		
+		
+
+
+		/*************************************************************************************************/
+		/*******************Get mappability data structures being filled ends*****************************/
+		/*************************************************************************************************/
+
 		
 		readDDCEData(
 				ddeFolder,
@@ -187,7 +270,9 @@ public class AuxiliaryMappability {
 				geneType, 
 				dnaseOverlapExclusionType,
 				numberofRuns,
-				tpmTypes);
+				tpmTypes,
+				chrName2MapabilityChromosomePositionList,
+				chrName2MapabilityShortValueList);
 		
 	}
 
