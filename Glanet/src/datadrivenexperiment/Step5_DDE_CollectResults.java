@@ -464,8 +464,7 @@ public class Step5_DDE_CollectResults {
 
 					// Skip HeaderLine
 					strLine = gatTSVBufferedReader.readLine();
-					
-					
+										
 					// Read gatTSVFile
 					while( ( strLine = gatTSVBufferedReader.readLine()) != null){
 						processLine(strLine,0.05f,TPMType, elementNameTPMName2NumberofEnrichmentMap,elementTypeTpmName2NumberofValidRunMap);
@@ -481,8 +480,7 @@ public class Step5_DDE_CollectResults {
 					gatTSVBufferedReader.close();
 					
 				}//End of IF gatTSVFile exists
-				
-		
+						
 			}// End of FOR each run
 			
 			
@@ -1082,7 +1080,7 @@ public class Step5_DDE_CollectResults {
 		switch(toolType){
 			
 			case GAT:
-				//For Ubuntu VM in my desktop
+				//For Ubuntu in my desktop
 				ddeFolder = "/home/burcakotlu/DDE/";
 				ddeOutputFolder = ddeFolder +  "Output" + System.getProperty("file.separator") ;
 				break;

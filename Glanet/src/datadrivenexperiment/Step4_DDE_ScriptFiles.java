@@ -48,6 +48,7 @@ public class Step4_DDE_ScriptFiles {
 			AssociationMeasureType associationMeasureType,
 			GenerateRandomDataMode generateRandomDataMode,
 			String args[],
+			String dataDrivenExperimentFolder,
 			String dataDrivenExperimentScriptFolder)throws IOException{
 		
 		String rootCommand = null;
@@ -252,7 +253,7 @@ public class Step4_DDE_ScriptFiles {
 						//consider isochore or not
 						if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 							rootCommand = rootCommand 
-									+ 	" –isochore-file=/home/burcakotlu/DDCE/Isochore/gcprofile_bins.bed";
+									+ 	" --isochore-file=/home/burcakotlu/DDE/Isochore/gcprofile_bins.bed";
 						}
 						
 						rootCommand = rootCommand  
@@ -291,41 +292,41 @@ public class Step4_DDE_ScriptFiles {
 								//gat-run.py --segments=srf.hg19.bed --annotations=jurkat.hg19.dhs.bed --workspace=contigs.bed --ignore-segment-tracks --num-samples=1000 --log=gat.log > gat.tsv
 
 								//we have to have gat-run for each element
-								rootCommand = "gat-run.py --segments=" + "/home/burcakotlu/DDCE/Data/" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt " 
-										+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27ME3.narrowPeak"
-										+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H2AZ.narrowPeak"
-										+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27AC.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME2.narrowPeak" 
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME3.narrowPeak" 
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K79ME2.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" +  cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9AC.narrowPeak";
+								rootCommand = "gat-run.py --segments=" + dataDrivenExperimentFolder + Commons.DATA + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN + i + ".txt " 
+										+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27ME3.narrowPeak"
+										+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H2AZ.narrowPeak"
+										+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K27AC.narrowPeak"
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME2.narrowPeak" 
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME3.narrowPeak" 
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K79ME2.narrowPeak"
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") +  cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9AC.narrowPeak";
 								
 								//We look for H3K9ACB only for K562 cellLine
 								if (cellLineType.isK562()){
 									rootCommand = rootCommand 
-											+ 	" --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ACB.narrowPeak";
+											+ 	" --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ACB.narrowPeak";
 								}
 									
 								rootCommand = rootCommand	
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_POL2.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K36ME3.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME1.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ME3.narrowPeak"
-									+ " --annotations=" + "/home/burcakotlu/DDCE/Annotations/" + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H4K20ME1.narrowPeak"
-									+ " --workspace=/home/burcakotlu/DDCE/Workspace/contigs.bed";
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_POL2.narrowPeak"
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K36ME3.narrowPeak"
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K4ME1.narrowPeak"
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H3K9ME3.narrowPeak"
+									+ " --annotations=" + dataDrivenExperimentFolder + "Annotations" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "/" + cellLineType.convertEnumtoString()+  "_H4K20ME1.narrowPeak"
+									+ " --workspace=" + dataDrivenExperimentFolder + "Workspace" + System.getProperty("file.separator") + "contigs.bed";
 								
 								
 								//consider isochore or not
 								if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 									rootCommand = rootCommand 
-											+ 	" –isochore-file=/home/burcakotlu/DDCE/Isochore/gcprofile_bins.bed";
+											+ 	" --isochore-file=" +  dataDrivenExperimentFolder + "Isochore" + System.getProperty("file.separator") + "gcprofile_bins.bed";
 								}
 								
 								
 								rootCommand = rootCommand	
 									+ " --ignore-segment-tracks"
 									+ " --num-samples=10000"
-									+ " --log=/home/burcakotlu/DDCE/Output/" + 
+									+ " --log=" + dataDrivenExperimentFolder + Commons.OUTPUT + System.getProperty("file.separator") +
 									Commons.GAT + "_" +
 									cellLineType.convertEnumtoString() + "_" +
 									geneType.convertEnumtoString() + "_" + 
@@ -335,7 +336,7 @@ public class Step4_DDE_ScriptFiles {
 									associationMeasureType.convertEnumtoShortString() + "_" + 
 									Commons.DDE_RUN + i + 
 									".log"
-									+ " > " + "/home/burcakotlu/DDCE/Output/" + Commons.GAT + "_" +
+									+ " > " + dataDrivenExperimentFolder + Commons.OUTPUT + System.getProperty("file.separator") + Commons.GAT + "_" +
 									cellLineType.convertEnumtoString() + "_" +
 									geneType.convertEnumtoString() + "_" + 
 									tpmType.convertEnumtoString() + "_" + 
@@ -861,6 +862,8 @@ public class Step4_DDE_ScriptFiles {
 					
 				case GAT:
 					
+				
+					
 					//*************************************************************************************************************//
 					//****************************************************SIMULATIONS**********************************************//
 					//**********************************************DATA DRIVEN EXPERIMENT*****************************************//
@@ -884,6 +887,7 @@ public class Step4_DDE_ScriptFiles {
 								associationMeasureType,
 								withGCandMapability,
 								args,
+								dataDrivenExperimentFolder,
 								dataDrivenExperimentScriptFolder);
 						//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 
@@ -899,6 +903,7 @@ public class Step4_DDE_ScriptFiles {
 								associationMeasureType,
 								withoutGCandMapability,
 								args,
+								dataDrivenExperimentFolder,
 								dataDrivenExperimentScriptFolder);
 						//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 							
