@@ -134,6 +134,7 @@ public class Step5_DDE_CollectResults {
 		
 		
 		float empiricalPValue;
+		float ln2Fold;
 		
 		int indexofUnderscore;
 
@@ -165,13 +166,21 @@ public class Step5_DDE_CollectResults {
 		elementName = cellLineNameElementName.substring(indexofUnderscore+1);
 		elementNameTPMType = elementName + "_" +  TPMType.convertEnumtoString();
 		
+		//In case of enrichment ln2Fold must be positive and pValue must be less than significance level
+		//In case of depletion ln2Fold must be negative and pValue must be less than significance level
+				
+		
+		//ln2fold is between 8thTab and 9thTab
+		ln2Fold = Float.parseFloat(strLine.substring(indexofEigthTab + 1, indexofNinethTab));
+		
 		//pValue is between 9thTab and 10thTab
+		//pValue is both used for enrichment and depletion
 		empiricalPValue = Float.parseFloat(strLine.substring(indexofNinethTab + 1, indexofTenthTab));
 		
 		
 		
 		//Update and Accumulate
-		if (empiricalPValue <= significanceLevel){
+		if (ln2Fold > 0 && empiricalPValue <= significanceLevel){
 			elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMType, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMType)+1);
 		}
 		

@@ -1,1 +1,0 @@
-cellLineType_geneType_TPMType_dnaseOverlapExclusionType_generateRandomDataMode_associationMeasureType_DDE_RUNNumber

@@ -1,6 +1,0 @@
-qsub	C:\Users\Burçak\Google Drive\DDE/ScriptFiles/GAT_DDE_GM12878_ExpressingGenes_Top5_NoDiscard_woGCM_NOOB.sh
-
-qsub	C:\Users\Burçak\Google Drive\DDE/ScriptFiles/GAT_DDE_GM12878_ExpressingGenes_Top10_NoDiscard_woGCM_NOOB.sh
-
-qsub	C:\Users\Burçak\Google Drive\DDE/ScriptFiles/GAT_DDE_GM12878_ExpressingGenes_Top20_NoDiscard_woGCM_NOOB.sh
-
