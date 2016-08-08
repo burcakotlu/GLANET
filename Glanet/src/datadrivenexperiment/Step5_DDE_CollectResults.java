@@ -125,7 +125,8 @@ public class Step5_DDE_CollectResults {
 			Float significanceLevel,
 			DataDrivenExperimentTPMType TPMType,
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap,
-			TObjectIntMap<String> elementTypeTpmName2NumberofValidRunMap){
+			TObjectIntMap<String> elementTypeTpmName2NumberofValidRunMap,
+			List<DataDrivenExperimentElementNameType> elementNameTypeList){
 		
 		
 		String cellLineNameElementName = null;
@@ -165,6 +166,17 @@ public class Step5_DDE_CollectResults {
 		indexofUnderscore = cellLineNameElementName.indexOf("_");
 		elementName = cellLineNameElementName.substring(indexofUnderscore+1);
 		elementNameTPMType = elementName + "_" +  TPMType.convertEnumtoString();
+		
+		if (elementNameTypeList.contains(DataDrivenExperimentElementNameType.convertStringtoEnum(elementName))){
+		
+			//Just put if not put before
+			//But set the numberofEnrichment to zero
+			//Since we don't know whether it is enriched or not yet.
+			if (elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMType) == 0){
+				elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMType, 0);
+			}
+		}//End of if element exists
+			
 		
 		//In case of enrichment ln2Fold must be positive and pValue must be less than significance level
 		//In case of depletion ln2Fold must be negative and pValue must be less than significance level
@@ -476,7 +488,7 @@ public class Step5_DDE_CollectResults {
 										
 					// Read gatTSVFile
 					while( ( strLine = gatTSVBufferedReader.readLine()) != null){
-						processLine(strLine,0.05f,TPMType, elementNameTPMName2NumberofEnrichmentMap,elementTypeTpmName2NumberofValidRunMap);
+						processLine(strLine,0.05f,TPMType, elementNameTPMName2NumberofEnrichmentMap,elementTypeTpmName2NumberofValidRunMap,elementNameTypeList);
 					}// End of WHILE
 					
 					elementTypeTPMName = ElementType.TF.convertEnumtoString() + "_" + TPMType.convertEnumtoString();
