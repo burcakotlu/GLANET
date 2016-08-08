@@ -1092,7 +1092,7 @@ public class Step5_DDE_CollectResults {
 				//For Ubuntu in my desktop
 				ddeFolder = "/home/burcakotlu/DDE/";
 				//ddeOutputFolder = ddeFolder +  "Output" + System.getProperty("file.separator") ;
-				ddeOutputFolder = ddeFolder +  "Saved_GAT_DDE11_2000_Runs_Output" + System.getProperty("file.separator") ;
+				ddeOutputFolder = ddeFolder +  "Saved_GAT_DDE11_Merged_2000_Runs_woGCM_wIsochore_Output" + System.getProperty("file.separator") ;
 				break;
 				
 			default:
