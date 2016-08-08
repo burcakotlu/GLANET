@@ -286,7 +286,7 @@ public class Step4_DDE_ScriptFiles {
 						
 					case LINUX:{
 						
-							for(int i=0; i< numberofRuns; i++){
+							for(int i=100; i< numberofRuns; i++){
 								 
 								//rootCommand for GAT call
 								//gat-run.py --segments=srf.hg19.bed --annotations=jurkat.hg19.dhs.bed --workspace=contigs.bed --ignore-segment-tracks --num-samples=1000 --log=gat.log > gat.tsv
