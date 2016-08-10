@@ -162,40 +162,46 @@ public class Step5_DDE_CollectResults {
 		indexofTenthTab = ( indexofNinethTab > 0)?strLine.indexOf( '\t', indexofNinethTab + 1):-1;
 		
 		
-		cellLineNameElementName = strLine.substring(indexofFirstTab + 1, indexofSecondTab);
-		indexofUnderscore = cellLineNameElementName.indexOf("_");
-		elementName = cellLineNameElementName.substring(indexofUnderscore+1);
-		elementNameTPMType = elementName + "_" +  TPMType.convertEnumtoString();
 		
-		if (elementNameTypeList.contains(DataDrivenExperimentElementNameType.convertStringtoEnum(elementName))){
-		
-			//Just put if not put before
-			//But set the numberofEnrichment to zero
-			//Since we don't know whether it is enriched or not yet.
-			if (elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMType) == 0){
-				elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMType, 0);
-			}
-		}//End of if element exists
+		if(indexofFirstTab!=-1 && indexofSecondTab!=-1 && indexofNinethTab!=-1 && indexofTenthTab!=-1){
 			
-		
-		//In case of enrichment ln2Fold must be positive and pValue must be less than significance level
-		//In case of depletion ln2Fold must be negative and pValue must be less than significance level
+			cellLineNameElementName = strLine.substring(indexofFirstTab + 1, indexofSecondTab);
+			indexofUnderscore = cellLineNameElementName.indexOf("_");
+			elementName = cellLineNameElementName.substring(indexofUnderscore+1);
+			elementNameTPMType = elementName + "_" +  TPMType.convertEnumtoString();
+			
+			if (elementNameTypeList.contains(DataDrivenExperimentElementNameType.convertStringtoEnum(elementName))){
+			
+				//Just put if not put before
+				//But set the numberofEnrichment to zero
+				//Since we don't know whether it is enriched or not yet.
+				if (elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMType) == 0){
+					elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMType, 0);
+				}
+			}//End of if element exists
 				
+			
+			//In case of enrichment ln2Fold must be positive and pValue must be less than significance level
+			//In case of depletion ln2Fold must be negative and pValue must be less than significance level
+					
+			
+			//ln2fold is between 8thTab and 9thTab
+			ln2Fold = Float.parseFloat(strLine.substring(indexofEigthTab + 1, indexofNinethTab));
+			
+			//pValue is between 9thTab and 10thTab
+			//pValue is both used for enrichment and depletion
+			empiricalPValue = Float.parseFloat(strLine.substring(indexofNinethTab + 1, indexofTenthTab));
+			
+			
+			
+			//Update and Accumulate
+			if (ln2Fold > 0 && empiricalPValue <= significanceLevel){
+				elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMType, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMType)+1);
+			}
+			
+		}//End of IF valid strLine control
 		
-		//ln2fold is between 8thTab and 9thTab
-		ln2Fold = Float.parseFloat(strLine.substring(indexofEigthTab + 1, indexofNinethTab));
-		
-		//pValue is between 9thTab and 10thTab
-		//pValue is both used for enrichment and depletion
-		empiricalPValue = Float.parseFloat(strLine.substring(indexofNinethTab + 1, indexofTenthTab));
-		
-		
-		
-		//Update and Accumulate
-		if (ln2Fold > 0 && empiricalPValue <= significanceLevel){
-			elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMType, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMType)+1);
-		}
-		
+
 		
 	}
 
@@ -446,7 +452,8 @@ public class Step5_DDE_CollectResults {
 			TObjectIntMap<String> elementNameTPMName2NumberofEnrichmentMap,
 			TObjectIntMap<String> elementTypeTpmName2NumberofValidRunMap,
 			DateFormat dateFormat,
-			Date date){
+			Date date,
+			BufferedWriter unaccomplishedGLANETRunsBufferedWriter){
 		
 		String strLine = null;
 
@@ -462,7 +469,7 @@ public class Step5_DDE_CollectResults {
 		try{
 
 			// For each run
-			for(int i = 0; i <numberofRuns; i++){
+			for(int i = 100; i <numberofRuns; i++){
 				
 				//Initialization
 				//So that unexisting run can not use the last valid gatTSV file and copy its content.
@@ -488,6 +495,7 @@ public class Step5_DDE_CollectResults {
 										
 					// Read gatTSVFile
 					while( ( strLine = gatTSVBufferedReader.readLine()) != null){
+						
 						processLine(strLine,0.05f,TPMType, elementNameTPMName2NumberofEnrichmentMap,elementTypeTpmName2NumberofValidRunMap,elementNameTypeList);
 					}// End of WHILE
 					
@@ -501,6 +509,15 @@ public class Step5_DDE_CollectResults {
 					gatTSVBufferedReader.close();
 					
 				}//End of IF gatTSVFile exists
+				
+				else{
+					//Write down this file does not exists
+					//Exit from loop
+					unaccomplishedGLANETRunsBufferedWriter.write(System.getProperty("line.separator"));
+					unaccomplishedGLANETRunsBufferedWriter.write("Former i:" + (i-1) + "\t" +gatTSVFile.getAbsolutePath()+ System.getProperty("line.separator"));
+					unaccomplishedGLANETRunsBufferedWriter.write(System.getProperty("line.separator"));
+					break;
+				}
 						
 			}// End of FOR each run
 			
@@ -943,7 +960,8 @@ public class Step5_DDE_CollectResults {
 			List<DataDrivenExperimentElementTPM> ddeElementList,
 			Collection<Float> tpmValues,
 			Set<DataDrivenExperimentTPMType> tpmTypes,
-			GenerateRandomDataMode generateRandomDataMode) throws IOException{
+			GenerateRandomDataMode generateRandomDataMode,
+			TObjectIntMap<String> elementTypeTpmName2NumberofValidRunMap) throws IOException{
 		
 		
 		DataDrivenExperimentElementTPM elementTPM = null;
@@ -953,6 +971,11 @@ public class Step5_DDE_CollectResults {
 		
 		Float typeOneError = null;
 		Float power = null;
+		
+		for(TObjectIntIterator<String> itr = elementTypeTpmName2NumberofValidRunMap.iterator();itr.hasNext();){
+			itr.advance();
+			bufferedWriter.write(itr.key() + "\t" + itr.value() + System.getProperty("line.separator"));
+		}
 		
 		//First Header Line starts
 		//The order of writing TPMType:TPMValue must match the order we put elements in the ddeElementList
@@ -1103,8 +1126,8 @@ public class Step5_DDE_CollectResults {
 			case GAT:
 				//For Ubuntu in my desktop
 				ddeFolder = "/home/burcakotlu/DDE/";
-				//ddeOutputFolder = ddeFolder +  "Output" + System.getProperty("file.separator") ;
-				ddeOutputFolder = ddeFolder +  "Saved_GAT_DDE11_Merged_2000_Runs_woGCM_wIsochore_Output" + System.getProperty("file.separator") ;
+				ddeOutputFolder = ddeFolder +  "Output" + System.getProperty("file.separator") ;
+				//ddeOutputFolder = ddeFolder +  "Saved_GAT_DDE11_Merged_2000_Runs_woGCM_wIsochore_Output" + System.getProperty("file.separator") ;
 				break;
 				
 			default:
@@ -1372,7 +1395,8 @@ public class Step5_DDE_CollectResults {
 								elementNameTPMName2NumberofEnrichmentMap,
 								elementTypeTpmName2NumberofValidRunMap,
 								dateFormat,
-								date);
+								date,
+								unaccomplishedGLANETRunsBufferedWriter);
 						break;						
 				
 				}//End of switch toolType 
@@ -1405,7 +1429,7 @@ public class Step5_DDE_CollectResults {
 			//So let's traverse ddeElementList tpmTypes.size()  by tpmTypes.size()
 			//Now, We have to write results here for each TPM
 			//Please notice that We expect we have the results for all possible TPM types.
-			writeResults(resultsBufferedWriter,ddeElementList,tpmValues,tpmTypes,generateRandomDataMode);
+			writeResults(resultsBufferedWriter,ddeElementList,tpmValues,tpmTypes,generateRandomDataMode,elementTypeTpmName2NumberofValidRunMap);
 			
 			//Flush BufferedWriter
 			resultsBufferedWriter.flush();

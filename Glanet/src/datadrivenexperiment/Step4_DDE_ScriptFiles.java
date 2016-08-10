@@ -40,7 +40,8 @@ public class Step4_DDE_ScriptFiles {
 	
 	//25 July 2016 starts
 	public static void writeGATRuns(
-			int numberofRuns, 
+			int startingRunNumber, 
+			int endingRunNumber,
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			DataDrivenExperimentOperatingSystem operatingSystem,
@@ -184,7 +185,7 @@ public class Step4_DDE_ScriptFiles {
 						bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
 						
 						//newly added
-						bufferedWriter.write("#SBATCH --array=0-" + (numberofRuns-1) + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --array="+ startingRunNumber + "-" + (endingRunNumber-1) + System.getProperty("line.separator"));
 						
 						
 						bufferedWriter.write(System.getProperty("line.separator"));
@@ -213,11 +214,7 @@ public class Step4_DDE_ScriptFiles {
 						break;
 					
 				}//End of SWITCH for writing header lines
-				
-				
-	
-				
-				
+					
 
 				switch(operatingSystem){
 					//TODO has to be updated.
@@ -286,7 +283,7 @@ public class Step4_DDE_ScriptFiles {
 						
 					case LINUX:{
 						
-							for(int i=100; i< numberofRuns; i++){
+							for(int i=startingRunNumber; i< endingRunNumber; i++){
 								 
 								//rootCommand for GAT call
 								//gat-run.py --segments=srf.hg19.bed --annotations=jurkat.hg19.dhs.bed --workspace=contigs.bed --ignore-segment-tracks --num-samples=1000 --log=gat.log > gat.tsv
@@ -407,7 +404,8 @@ public class Step4_DDE_ScriptFiles {
 	//For ExpressingGenes, only NoDiscard
 	//For AssociationMeasureType NumberofOverlappingBases and ExistenceofOverlap
 	public static void writeGLANETRuns( 
-			int numberofSimulations, 
+			int startingRunNumber, 
+			int endingRunNumber,
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentGeneType geneType,
 			DataDrivenExperimentOperatingSystem operatingSystem,
@@ -589,7 +587,7 @@ public class Step4_DDE_ScriptFiles {
 						bufferedWriter.write("#SBATCH --mail-user=burcak@ceng.metu.edu.tr" + System.getProperty("line.separator"));
 						
 						//newly added
-						bufferedWriter.write("#SBATCH --array=0-" + (numberofSimulations-1) + System.getProperty("line.separator"));
+						bufferedWriter.write("#SBATCH --array=" + startingRunNumber + "-" + (endingRunNumber-1) + System.getProperty("line.separator"));
 						
 						
 						bufferedWriter.write(System.getProperty("line.separator"));
@@ -657,7 +655,7 @@ public class Step4_DDE_ScriptFiles {
 					case TRUBA:
 					{
 
-						for( int i = 0; i < numberofSimulations; i++){
+						for( int i = startingRunNumber; i < endingRunNumber; i++){
 
 							
 							String command = null;
@@ -763,7 +761,6 @@ public class Step4_DDE_ScriptFiles {
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[2]);
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[3]);
 		
-		ToolType toolType = ToolType.convertStringtoEnum(args[6]);
 		
 		/*************************************************************************************************/
 		/******************************Get the tpmValues starts*******************************************/
@@ -793,16 +790,23 @@ public class Step4_DDE_ScriptFiles {
 		/******************************Get the tpmValues ends*********************************************/
 		/*************************************************************************************************/
 
-		// x1000
-		int numberOfDDERuns = Integer.parseInt(args[4]);
+		
+		//10 August 2016
+		//startingRunNumber is inclusive
+		//endingRunNumber is exclusive
+		int startingRunNumber= Integer.parseInt(args[4]); 
+		int endingRunNumber= Integer.parseInt(args[5]);;
 		
 		GenerateRandomDataMode withGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
 		GenerateRandomDataMode withoutGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
 		
 		//Operating System where the Data Driven Experiment will run
-		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[5]);
+		DataDrivenExperimentOperatingSystem operatingSystem = DataDrivenExperimentOperatingSystem.convertStringtoEnum(args[6]);
 			
 		DataDrivenExperimentTPMType tpmType = null;
+		
+		ToolType toolType = ToolType.convertStringtoEnum(args[7]);
+		
 
 		try{
 			
@@ -825,7 +829,8 @@ public class Step4_DDE_ScriptFiles {
 							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
 							// With GC and Mapability
 							writeGLANETRuns( 
-									numberOfDDERuns, 
+									startingRunNumber, 
+									endingRunNumber,
 									cellLineType,
 									geneType,
 									operatingSystem,
@@ -839,7 +844,8 @@ public class Step4_DDE_ScriptFiles {
 							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 							// Without GC and Mapability
 							writeGLANETRuns(
-									numberOfDDERuns, 
+									startingRunNumber, 
+									endingRunNumber,
 									cellLineType,
 									geneType,
 									operatingSystem,
@@ -879,7 +885,8 @@ public class Step4_DDE_ScriptFiles {
 						//***************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//						
 						// With GC and Mapability
 						writeGATRuns(
-								numberOfDDERuns, 
+								startingRunNumber, 
+								endingRunNumber,
 								cellLineType,
 								geneType,
 								operatingSystem,
@@ -895,7 +902,8 @@ public class Step4_DDE_ScriptFiles {
 						//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//						
 						// Without GC and Mapability
 						writeGATRuns(
-								numberOfDDERuns, 
+								startingRunNumber, 
+								endingRunNumber,
 								cellLineType,
 								geneType,
 								operatingSystem,
