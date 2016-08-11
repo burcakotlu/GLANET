@@ -10,6 +10,9 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import auxiliary.FileOperations;
 
 /**
@@ -82,15 +85,136 @@ public class GOAnnotationsInputFileGeneration {
 
 	}
 
+	
+	public static void readGeneAssociationGOPRefHumanFileWriteGOTermGeneEvidenceCodeOntology(
+			String geneAssociationGOARefHumanFile,
+			String GOTermGeneSymbolEvidenceCodeOntologyFile,
+			List<String> experimentalEvidenceCodeList){
+		
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+		
+		FileWriter fileWriter =null;
+		BufferedWriter bufferedWriter = null;
+		
+		String strLine = null;
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		
+		String geneSymbol = null;
+		String GOTerm = null;
+		String evidenceCode = null;
+		String ontology = null;
+		
+
+		
+		try {
+			fileReader = FileOperations.createFileReader(geneAssociationGOARefHumanFile);
+			bufferedReader = new BufferedReader(fileReader);
+			
+			fileWriter = FileOperations.createFileWriter(GOTermGeneSymbolEvidenceCodeOntologyFile);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+		
+			while( ( strLine = bufferedReader.readLine()) != null){
+
+				// Skip comment lines
+				if( !( strLine.startsWith( "!"))){
+
+					//example strLine
+					//Please notice that there are two tabs between third column and fourth column
+					//UniProtKB	A0A024R161	DNAJC25-GNG10		GO:0004871	GO_REF:0000038	IEA	UniProtKB-KW:KW-0807	F	Guanine nucleotide-binding protein subunit gamma	A0A024R161_HUMAN|DNAJC25-GNG10|hCG_1994888	protein	taxon:9606	20160507	UniProt		
+					
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
+					indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
+					indexofFourthTab = strLine.indexOf('\t', indexofThirdTab + 1);
+					indexofFifthTab = strLine.indexOf('\t', indexofFourthTab + 1);
+					indexofSixthTab = strLine.indexOf('\t', indexofFifthTab + 1);
+					indexofSeventhTab = strLine.indexOf('\t', indexofSixthTab + 1);
+					indexofEigthTab = strLine.indexOf('\t', indexofSeventhTab + 1);
+					indexofNinethTab = strLine.indexOf('\t', indexofEigthTab + 1);
+
+					geneSymbol = strLine.substring( indexofSecondTab + 1, indexofThirdTab);
+					GOTerm = strLine.substring( indexofFourthTab + 1, indexofFifthTab);
+					
+					//evidenceCode is between six and seven
+					evidenceCode = strLine.substring( indexofSixthTab + 1, indexofSeventhTab);
+					
+					//ontology is between eight and nine
+					ontology = strLine.substring( indexofEigthTab + 1, indexofNinethTab);
+					
+					if (experimentalEvidenceCodeList.contains(evidenceCode)){
+						bufferedWriter.write( GOTerm + "\t" + geneSymbol + "\t" + evidenceCode + "\t" + ontology + System.getProperty( "line.separator"));
+					}
+					
+					
+				}//End of IF
+			
+			}//End of WHILE
+			
+			//close
+			bufferedReader.close();
+			bufferedWriter.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+			
+	}
+	
+	public static void fillExperimentalEvidenceCodeList(List<String> experimentalEvidenceCodeList){
+		
+//		The Experimental Evidence codes are:
+//		Inferred from Experiment (EXP)
+//		Inferred from Direct Assay (IDA)
+//		Inferred from Physical Interaction (IPI)
+//		Inferred from Mutant Phenotype (IMP)
+//		Inferred from Genetic Interaction (IGI)
+//		Inferred from Expression Pattern (IEP)
+
+		experimentalEvidenceCodeList.add("EXP");
+		experimentalEvidenceCodeList.add("IDA");
+		experimentalEvidenceCodeList.add("IPI");
+		experimentalEvidenceCodeList.add("IMP");
+		experimentalEvidenceCodeList.add("IGI");
+		experimentalEvidenceCodeList.add("IEP");
+		
+		
+	}
+	
+	
 	public static void main( String[] args) {
 
-		// TODO Auto-generated method stub
-
-		String GOAnnotationsInputFileName = "G:\\DOKTORA_DATA\\GO\\gene_association.goa_ref_human";
-		String GOAnnotationsOutputFileName = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
-
-		readGOAnnotatiosInputFileAndWriteGOAnnotationsOutputFile( GOAnnotationsInputFileName,
-				GOAnnotationsOutputFileName);
+//		String GOAnnotationsInputFileName = "G:\\DOKTORA_DATA\\GO\\gene_association.goa_ref_human";
+//		String GOAnnotationsOutputFileName = "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
+//
+//		readGOAnnotatiosInputFileAndWriteGOAnnotationsOutputFile(
+//				GOAnnotationsInputFileName,
+//				GOAnnotationsOutputFileName);
+		
+		
+		//11 August 2016
+		String geneAssociationGOARefHumanFile = "G:\\GLANET_DATA\\GO\\gene_association.goa_ref_human_5_21_2016";
+		String GOTermGeneSymbolEvidenceCodeOntologyFile = "G:\\GLANET_DATA\\GO\\GOTerm_GeneSymbol_EvidenceCode_Ontology.txt";
+		
+		List<String> experimentalEvidenceCodeList = new ArrayList<String>();
+		fillExperimentalEvidenceCodeList(experimentalEvidenceCodeList);
+		
+		
+		//gene_association.goa_ref_human.gz
+		readGeneAssociationGOPRefHumanFileWriteGOTermGeneEvidenceCodeOntology(
+				geneAssociationGOARefHumanFile,
+				GOTermGeneSymbolEvidenceCodeOntologyFile,
+				experimentalEvidenceCodeList);
 
 	}
 
