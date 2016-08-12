@@ -115,7 +115,6 @@ public class GOAnnotationsInputFileGeneration {
 		String ontology = null;
 		
 
-		
 		try {
 			fileReader = FileOperations.createFileReader(geneAssociationGOARefHumanFile);
 			bufferedReader = new BufferedReader(fileReader);
@@ -123,7 +122,6 @@ public class GOAnnotationsInputFileGeneration {
 			fileWriter = FileOperations.createFileWriter(GOTermGeneSymbolEvidenceCodeOntologyFile);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
-		
 			while( ( strLine = bufferedReader.readLine()) != null){
 
 				// Skip comment lines
@@ -143,21 +141,27 @@ public class GOAnnotationsInputFileGeneration {
 					indexofEigthTab = strLine.indexOf('\t', indexofSeventhTab + 1);
 					indexofNinethTab = strLine.indexOf('\t', indexofEigthTab + 1);
 
+					//GeneSymbol is between theSecondTab and theThirdTab
 					geneSymbol = strLine.substring( indexofSecondTab + 1, indexofThirdTab);
+					
+					//GOTerm is between the FourthTab and the FifthTab
 					GOTerm = strLine.substring( indexofFourthTab + 1, indexofFifthTab);
 					
-					//evidenceCode is between six and seven
+					//evidenceCode is between theSixthTab and theSeventhTab
 					evidenceCode = strLine.substring( indexofSixthTab + 1, indexofSeventhTab);
 					
-					//ontology is between eight and nine
+					//ontology is between theeEighthTab and theNinethTab
 					ontology = strLine.substring( indexofEigthTab + 1, indexofNinethTab);
 					
+					//Write only GOTerm geneSymbol couples with Experimental Evidence Codes
+					//In order to form GOTerm from geneSymbols with experimental evidence codes
+					//http://geneontology.org/book/export/html/799
 					if (experimentalEvidenceCodeList.contains(evidenceCode)){
-						bufferedWriter.write( GOTerm + "\t" + geneSymbol + "\t" + evidenceCode + "\t" + ontology + System.getProperty( "line.separator"));
-					}
+						bufferedWriter.write(GOTerm + "\t" + geneSymbol + "\t" + evidenceCode + "\t" + ontology + System.getProperty( "line.separator"));
+					}//End of IF experimental evidence code
 					
 					
-				}//End of IF
+				}//End of IF not a header line
 			
 			}//End of WHILE
 			
@@ -173,7 +177,11 @@ public class GOAnnotationsInputFileGeneration {
 	
 	public static void fillExperimentalEvidenceCodeList(List<String> experimentalEvidenceCodeList){
 		
+		
+//		Use of an experimental evidence code in a GO annotation indicates that 
+//		the cited paper displayed results from a physical characterization of a gene or gene product that has supported the association of a GO term.
 //		The Experimental Evidence codes are:
+
 //		Inferred from Experiment (EXP)
 //		Inferred from Direct Assay (IDA)
 //		Inferred from Physical Interaction (IPI)
@@ -188,7 +196,7 @@ public class GOAnnotationsInputFileGeneration {
 		experimentalEvidenceCodeList.add("IGI");
 		experimentalEvidenceCodeList.add("IEP");
 		
-		
+	
 	}
 	
 	
@@ -203,7 +211,7 @@ public class GOAnnotationsInputFileGeneration {
 		
 		
 		//11 August 2016
-		String geneAssociationGOARefHumanFile = "G:\\GLANET_DATA\\GO\\gene_association.goa_ref_human_5_21_2016";
+		String geneAssociationGOARefHumanFile = "G:\\GLANET_DATA\\GO\\gene_association.goa_ref_human_May_2016";
 		String GOTermGeneSymbolEvidenceCodeOntologyFile = "G:\\GLANET_DATA\\GO\\GOTerm_GeneSymbol_EvidenceCode_Ontology.txt";
 		
 		List<String> experimentalEvidenceCodeList = new ArrayList<String>();
@@ -215,6 +223,9 @@ public class GOAnnotationsInputFileGeneration {
 				geneAssociationGOARefHumanFile,
 				GOTermGeneSymbolEvidenceCodeOntologyFile,
 				experimentalEvidenceCodeList);
+		
+		//After preparation copy the output files under 
+		//C:\Users\Burçak\Google Drive\Data\demo_input_data\UserDefinedGeneSet\GO
 
 	}
 

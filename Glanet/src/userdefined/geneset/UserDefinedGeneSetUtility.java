@@ -65,32 +65,41 @@ public class UserDefinedGeneSetUtility {
 
 	}
 
-	public static void fillUserDefinedGeneSetID2TermMap( String userDefinedGeneSetOptionalDescriptionInputFile,
-			Map<String, String> ID2TermMap) {
+	public static void fillUserDefinedGeneSetID2TermMap( 
+			String userDefinedGeneSetOptionalDescriptionInputFile,
+			Map<String,String> ID2TermMap) {
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;
 
 		String strLine;
 		int indexofFirstTab;
+		//int indexofSecondTab;
 
 		String ID;
 		String term;
+		//String ontology;
 
 		try{
-			fileReader = new FileReader( userDefinedGeneSetOptionalDescriptionInputFile);
+			fileReader = FileOperations.createFileReader(userDefinedGeneSetOptionalDescriptionInputFile);
 			bufferedReader = new BufferedReader( fileReader);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 				// GO:0000001 mitochondrion inheritance
+				//GO:0000001	mitochondrion inheritance	P
 
-				indexofFirstTab = strLine.indexOf( '\t');
+				indexofFirstTab = strLine.indexOf('\t');
+				//indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+				
 				ID = strLine.substring( 0, indexofFirstTab);
-				term = strLine.substring( indexofFirstTab + 1);
+				term = strLine.substring(indexofFirstTab+1);
+				//ontology = strLine.substring(indexofSecondTab+1);
 
 				ID = removeIllegalCharacters( ID);
 
-				ID2TermMap.put( ID, term);
+				//Check whether there are any duplicates
+				ID2TermMap.put(ID,term);
+				//ID2OntologyMap.put(ID,ontology);
 
 			}// End of While
 
@@ -108,6 +117,7 @@ public class UserDefinedGeneSetUtility {
 			List<FunctionalElement> list) {
 
 		Map<String, String> ID2TermMap = new HashMap<String, String>();
+		//Map<String, String> ID2TermMap = new HashMap<String, String>();
 
 		String userDefinedGeneSetID;
 		String userDefinedGeneSetTerm;
@@ -151,6 +161,7 @@ public class UserDefinedGeneSetUtility {
 		// Read the user defined geneset inputFile
 		String strLine;
 		int indexofFirstTab;
+		int indexofSecondTab;
 		String geneSetName;
 		String geneInformation;
 
@@ -188,14 +199,19 @@ public class UserDefinedGeneSetUtility {
 			BufferedReader bufferedReader = new BufferedReader( fileReader);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
+				
+				//example strLine
+				//GO:0005737	CYP2D7	IDA	C
 
-				indexofFirstTab = strLine.indexOf( '\t');
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+				
 				geneSetName = strLine.substring( 0, indexofFirstTab);
 
 				geneSetName = removeIllegalCharacters( geneSetName);
 
 				// geneInformation can be geneID, geneSymbol or RNANucleotideAccession
-				geneInformation = strLine.substring( indexofFirstTab + 1);
+				geneInformation = strLine.substring(indexofFirstTab+1,indexofSecondTab);
 
 				// For debugging purposes
 				// To get number of all unique geneInformation

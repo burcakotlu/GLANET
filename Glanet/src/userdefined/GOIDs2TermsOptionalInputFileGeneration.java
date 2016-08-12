@@ -22,9 +22,10 @@ public class GOIDs2TermsOptionalInputFileGeneration {
 		String strLine;
 		int indexofFirstTab;
 		int indexofSecondTab;
-
+	
 		String GOID;
 		String GOTerm;
+		String ontology;
 
 		try{
 			FileReader fileReader = FileOperations.createFileReader( inputFileName);
@@ -38,13 +39,14 @@ public class GOIDs2TermsOptionalInputFileGeneration {
 				// Skip comment lines
 				if( !( strLine.startsWith( "!"))){
 
-					indexofFirstTab = strLine.indexOf( '\t');
-					indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
-
-					GOID = strLine.substring( 0, indexofFirstTab);
-					GOTerm = strLine.substring( indexofFirstTab + 1, indexofSecondTab);
-
-					bufferedWriter.write( GOID + "\t" + GOTerm + System.getProperty( "line.separator"));
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = strLine.indexOf('\t', indexofFirstTab+1);
+					
+					GOID = strLine.substring(0, indexofFirstTab);
+					GOTerm = strLine.substring(indexofFirstTab+1, indexofSecondTab);
+					ontology = strLine.substring(indexofSecondTab+1);
+					
+					bufferedWriter.write( GOID + "\t" + GOTerm + "\t" + ontology + System.getProperty( "line.separator"));
 
 				}// End of IF
 
@@ -61,11 +63,14 @@ public class GOIDs2TermsOptionalInputFileGeneration {
 	}
 
 	public static void main( String[] args) {
-
-		String GOIDs2TermsInputFileName = "G:\\DOKTORA_DATA\\GO\\GO.terms_and_ids";
-		String GOIDs2TermsOutputFileName = "G:\\DOKTORA_DATA\\GO\\GO_ids2terms.txt";
+		
+		String GOIDs2TermsInputFileName = "G:\\GLANET_DATA\\GO\\GO.terms_and_ids";
+		String GOIDs2TermsOutputFileName = "G:\\GLANET_DATA\\GO\\GO_ids2terms.txt";
 
 		readGOIDs2TermsInputFileAndWriteGOIDs2TermsOutputFile( GOIDs2TermsInputFileName, GOIDs2TermsOutputFileName);
+
+		//After preparation copy the output files under 
+		//C:\Users\Burçak\Google Drive\Data\demo_input_data\UserDefinedGeneSet\GO
 
 	}
 
