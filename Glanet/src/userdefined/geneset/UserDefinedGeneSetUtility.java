@@ -74,33 +74,31 @@ public class UserDefinedGeneSetUtility {
 
 		String strLine;
 		int indexofFirstTab;
-		//int indexofSecondTab;
-
+		
 		String ID;
 		String term;
-		//String ontology;
-
+		
 		try{
 			fileReader = FileOperations.createFileReader(userDefinedGeneSetOptionalDescriptionInputFile);
 			bufferedReader = new BufferedReader( fileReader);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
-				// GO:0000001 mitochondrion inheritance
 				//GO:0000001	mitochondrion inheritance	P
 
 				indexofFirstTab = strLine.indexOf('\t');
 				//indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
 				
 				ID = strLine.substring( 0, indexofFirstTab);
+
+				//please note that in fact term contains ontology separated by tab character
 				term = strLine.substring(indexofFirstTab+1);
-				//ontology = strLine.substring(indexofSecondTab+1);
+
 
 				ID = removeIllegalCharacters( ID);
 
 				//Check whether there are any duplicates
 				ID2TermMap.put(ID,term);
-				//ID2OntologyMap.put(ID,ontology);
-
+				
 			}// End of While
 
 			bufferedReader.close();

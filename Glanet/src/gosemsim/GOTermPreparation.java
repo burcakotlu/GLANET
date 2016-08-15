@@ -4,16 +4,17 @@
 package gosemsim;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import userdefined.GOAnnotationsInputFileGeneration;
-import common.Commons;
-import enumtypes.EnrichmentDecisionType;
 import auxiliary.FileOperations;
+
+import common.Commons;
+
+import enumtypes.EnrichmentDecisionType;
 
 /**
  * @author Burçak Otlu
@@ -49,6 +50,7 @@ public class GOTermPreparation {
 		String GOTermforGOSemSim = null;
 		String GOTerm = null;
 		int i=0;
+		int numberofGOTermsPerline = 0;
 		
 		if (GOTermList.size()>0){
 			
@@ -58,9 +60,14 @@ public class GOTermPreparation {
 			
 			//For each GOTerm except the last one
 			for(i=0; i<(GOTermList.size()-1);i++){
-				
+				numberofGOTermsPerline++;
 				GOTerm = GOTermList.get(i);
-				GOTermforGOSemSim = 	GOTermforGOSemSim + "\"" + GOTerm + "\","  ;
+				
+				if (numberofGOTermsPerline%100==0){
+					GOTermforGOSemSim = GOTermforGOSemSim + System.getProperty("line.separator") + "\"" + GOTerm + "\"," ; 
+				}else{
+					GOTermforGOSemSim = GOTermforGOSemSim + "\"" + GOTerm + "\","  ;
+				}
 				
 			}//End of for
 			
@@ -68,7 +75,6 @@ public class GOTermPreparation {
 			GOTerm = GOTermList.get(i);
 			GOTermforGOSemSim = 	GOTermforGOSemSim + "\"" + GOTerm + "\")"  ;
 
-			
 		}//There is at least one GOTerm
 		
 		
@@ -78,7 +84,7 @@ public class GOTermPreparation {
 	
 	public static void getGOTermAndAccumulate(
 			String strLine,
-			List<String> GOTermList,
+			List<String> enrichedGOTerms_ALL,
 			List<String> enrichedGOTerms_BiologicalProcess_P,
 			List<String> enrichedGOTerms_MolecularFunction_F,
 			List<String> enrichedGOTerms_CellularComponent_C,
@@ -186,16 +192,18 @@ public class GOTermPreparation {
 		
 		if (enriched){
 			
-			if (!GOTermList.contains(newGOTerm)){
-				GOTermList.add(newGOTerm);
+			if (!enrichedGOTerms_ALL.contains(newGOTerm)){
+				enrichedGOTerms_ALL.add(newGOTerm);
 			}//End of IF list does not contain newGOTerm
 			
-			if (ontology.equals("P")){
+			if (ontology.equals("P") && !enrichedGOTerms_BiologicalProcess_P.contains(newGOTerm)){
 				enrichedGOTerms_BiologicalProcess_P.add(newGOTerm);
-			}else if (ontology.equals("F")){
+			}else if (ontology.equals("F") && !enrichedGOTerms_MolecularFunction_F.contains(newGOTerm)){
 				enrichedGOTerms_MolecularFunction_F.add(newGOTerm);
-			}else if (ontology.equals("C")){
+			}else if (ontology.equals("C") && !enrichedGOTerms_CellularComponent_C.contains(newGOTerm)){
 				enrichedGOTerms_CellularComponent_C.add(newGOTerm);
+			}else if (!ontology.equals("P") && !ontology.equals("F") && !ontology.equals("C")){
+				System.out.println("Situation: " + strLine + " Ontology: " + ontology);
 			}
 		
 		}//End of IF enriched
@@ -204,8 +212,9 @@ public class GOTermPreparation {
 		
 	}
 	
-	public static String readEnrichmentFileAndFormGOTermList(
+	public static void readEnrichmentFileAndFormGOTermList(
 			String fileName,
+			List<String> enrichedGOTerms_ALL,
 			List<String> enrichedGOTerms_BiologicalProcess_P,
 			List<String> enrichedGOTerms_MolecularFunction_F,
 			List<String> enrichedGOTerms_CellularComponent_C,
@@ -216,9 +225,8 @@ public class GOTermPreparation {
 		BufferedReader bufferedReader = null;
 		
 		String strLine = null;
-		List<String> GOTermList = new ArrayList<String>();
-		String GOTermforGOSemSim = null;
 		
+		String GOTerms_ALL = null;		
 		String GOTerms_BiologicalProcess = null;
 		String GOTerms_MolecularFunction = null;
 		String GOTerms_CellularComponent = null;
@@ -234,7 +242,7 @@ public class GOTermPreparation {
 				
 				getGOTermAndAccumulate(
 						strLine,
-						GOTermList,
+						enrichedGOTerms_ALL,
 						enrichedGOTerms_BiologicalProcess_P,
 						enrichedGOTerms_MolecularFunction_F,
 						enrichedGOTerms_CellularComponent_C,
@@ -243,15 +251,21 @@ public class GOTermPreparation {
 				
 			}//End of while
 			
-			GOTermforGOSemSim = convert(GOTermList,auxiliaryName + "_ALL");
+			//Number of elements in each list
+			System.out.println("P: " + enrichedGOTerms_BiologicalProcess_P.size() + 
+					"\tF: " + enrichedGOTerms_MolecularFunction_F.size() +
+					"\tC: " + enrichedGOTerms_CellularComponent_C.size() +
+					"\tALL: " + enrichedGOTerms_ALL.size());
 			
 			GOTerms_BiologicalProcess = convert(enrichedGOTerms_BiologicalProcess_P, auxiliaryName + "_P");
 			GOTerms_MolecularFunction = convert(enrichedGOTerms_MolecularFunction_F, auxiliaryName + "_F");
 			GOTerms_CellularComponent = convert(enrichedGOTerms_CellularComponent_C, auxiliaryName + "_C");
+			GOTerms_ALL = convert(enrichedGOTerms_ALL,auxiliaryName + "_ALL");
 			
 			System.out.println(GOTerms_BiologicalProcess);
 			System.out.println(GOTerms_MolecularFunction);
 			System.out.println(GOTerms_CellularComponent);
+			System.out.println(GOTerms_ALL);
 			
 			//Close
 			bufferedReader.close();
@@ -260,7 +274,7 @@ public class GOTermPreparation {
 			e.printStackTrace();
 		}
 		
-		return GOTermforGOSemSim;
+		
 		
 	}
 
@@ -341,16 +355,19 @@ public class GOTermPreparation {
 					//http://geneontology.org/book/export/html/799
 					if (geneSymbol.equals("GATA2") && experimentalEvidenceCodeList.contains(evidenceCode)){
 						
-						if (ontology.equals("P")){
+						if (ontology.equals("P") && !GATA2_GO_TERMS_P.contains(GOTerm)){							
 							GATA2_GO_TERMS_P.add(GOTerm);
-						}else if (ontology.equals("F")){
+						}else if (ontology.equals("F") && !GATA2_GO_TERMS_F.contains(GOTerm)){
 							GATA2_GO_TERMS_F.add(GOTerm);
-						}else if (ontology.equals("C")){
+						}else if (ontology.equals("C") && !GATA2_GO_TERMS_C.contains(GOTerm)){
 							GATA2_GO_TERMS_C.add(GOTerm);
+						}else if (!ontology.equals("P") && !ontology.equals("F") && !ontology.equals("C")) {
+							System.out.println("Situation!!\t" + ontology);
 						}
 						
-						GATA2_GO_TERMS_ALL.add(GOTerm);
-						
+						if(!GATA2_GO_TERMS_ALL.contains(GOTerm)){
+							GATA2_GO_TERMS_ALL.add(GOTerm);
+						}
 							
 						
 					}//End of IF experimental evidence code
@@ -359,6 +376,14 @@ public class GOTermPreparation {
 				}//End of IF not a header line
 			
 			}//End of WHILE
+			
+			
+			//Number of elements in each list
+			System.out.println("P: " + GATA2_GO_TERMS_P.size() + 
+					"\tF: " + GATA2_GO_TERMS_F.size() +
+					"\tC: " + GATA2_GO_TERMS_C.size() +
+					"\tALL: " + GATA2_GO_TERMS_ALL.size());
+
 			
 			GATA2_GOTerms_P = convert(GATA2_GO_TERMS_P, "GATA2_P");
 			GATA2_GOTerms_F = convert(GATA2_GO_TERMS_F, "GATA2_F");
@@ -370,7 +395,6 @@ public class GOTermPreparation {
 			System.out.println(GATA2_GOTerms_C);
 			System.out.println(GATA2_GOTerms_ALL);
 
-			
 			//close
 			bufferedReader.close();
 		
@@ -398,61 +422,70 @@ public class GOTermPreparation {
 		String regulationBasedEnrichmentFileName = "C:\\Users\\Burçak\\Google Drive\\Output\\new_sydh_gata2_k562_GO\\Enrichment\\UserDefinedGeneSet\\GO\\RegulationBased\\RegulationBased_GO_new_sydh_gata2_k562_GO_wrt_BH_FDR_adjusted_pValue.txt";
 		String allBasedEnrichmentFileName = "C:\\Users\\Burçak\\Google Drive\\Output\\new_sydh_gata2_k562_GO\\Enrichment\\UserDefinedGeneSet\\GO\\AllBased\\AllBased_GO_new_sydh_gata2_k562_GO_wrt_BH_FDR_adjusted_pValue.txt";
 				
-		String GOTermforGOSemSim = null;
-		
-		//ExonBased starts
+			
+		/***************************************************************************************************/
+		//Enriched GOTerms_ExonBased_for_Sydh2_GATA2_K562 starts
+		List<String> exonbasedEnrichedGOTerms_ALL = new ArrayList<String>(); 
 		List<String> exonBasedEnrichedGOTerms_BiologicalProcess_P = new ArrayList<String>();
 		List<String> exonBasedEnrichedGOTerms_MolecularFunction_F = new ArrayList<String>();
 		List<String> exonBasedEnrichedGOTerms_CellularComponent_C = new ArrayList<String>();
 		
-		GOTermforGOSemSim = readEnrichmentFileAndFormGOTermList(
+		 readEnrichmentFileAndFormGOTermList(
 				exonBasedEnrichmentFileName,
+				exonbasedEnrichedGOTerms_ALL,
 				exonBasedEnrichedGOTerms_BiologicalProcess_P,
 				exonBasedEnrichedGOTerms_MolecularFunction_F,
 				exonBasedEnrichedGOTerms_CellularComponent_C,
 				EnrichmentDecisionType.ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_SAMPLINGS,
 				Commons.EXON_BASED);
 		
-		System.out.println(GOTermforGOSemSim);
 		System.out.println("********************************************");
-		//ExonBased ends
+		//Enriched GOTerms_ExonBased_for_Sydh2_GATA2_K562 ends
+		/***************************************************************************************************/
 
 		
-		//RegulationBased starts
+		/***************************************************************************************************/
+		//Enriched GOTerms_RegulationBased_for_Sydh2_GATA2_K562 starts
+		List<String> regulationBasedEnrichedGOTerms_ALL = new ArrayList<String>(); 
 		List<String> regulationBasedEnrichedGOTerms_BiologicalProcess_P = new ArrayList<String>();
 		List<String> regulationBasedEnrichedGOTerms_MolecularFunction_F = new ArrayList<String>();
 		List<String> regulationBasedEnrichedGOTerms_CellularComponent_C = new ArrayList<String>();
 		
-		GOTermforGOSemSim = readEnrichmentFileAndFormGOTermList(
+		 readEnrichmentFileAndFormGOTermList(
 				regulationBasedEnrichmentFileName,
+				regulationBasedEnrichedGOTerms_ALL,
 				regulationBasedEnrichedGOTerms_BiologicalProcess_P,
 				regulationBasedEnrichedGOTerms_MolecularFunction_F,
 				regulationBasedEnrichedGOTerms_CellularComponent_C,
 				EnrichmentDecisionType.ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_SAMPLINGS,
 				Commons.REGULATION_BASED);
 		
-		System.out.println(GOTermforGOSemSim);		
 		System.out.println("********************************************");
-		//RegulationBased ends
+		//Enriched GOTerms_RegulationBased_for_Sydh2_GATA2_K562 ends
+		/***************************************************************************************************/
 
-		//AllBased starts
+		/***************************************************************************************************/
+		//Enriched GOTerms_AllBased_for_Sydh2_GATA2_K562 starts
+		List<String> allBasedEnrichedGOTerms_ALL = new ArrayList<String>(); 
 		List<String> allBasedEnrichedGOTerms_BiologicalProcess_P = new ArrayList<String>();
 		List<String> allBasedEnrichedGOTerms_MolecularFunction_F = new ArrayList<String>();
 		List<String> allBasedEnrichedGOTerms_CellularComponent_C = new ArrayList<String>();
 		
-		GOTermforGOSemSim = readEnrichmentFileAndFormGOTermList(
+		readEnrichmentFileAndFormGOTermList(
 				allBasedEnrichmentFileName,
+				allBasedEnrichedGOTerms_ALL,
 				allBasedEnrichedGOTerms_BiologicalProcess_P,
 				allBasedEnrichedGOTerms_MolecularFunction_F,
 				allBasedEnrichedGOTerms_CellularComponent_C,
 				EnrichmentDecisionType.ENRICHED_WRT_BONFERRONI_CORRECTED_PVALUE_FROM_RATIO_OF_SAMPLINGS,
 				Commons.ALL_BASED);
 		
-		System.out.println(GOTermforGOSemSim);
 		System.out.println("********************************************");
-		//AllBased ends
+		//Enriched GOTerms_AllBased_for_Sydh2_GATA2_K562 ends
+		/***************************************************************************************************/
 
 		
+		/***************************************************************************************************/
 		//Prepare GATA2 GOTerms starts
 		//read gene_association.goa_ref_human_May_2016 under G:\GLANET_DATA\GO
 		String geneAssociationGOARefHumanFile = "G:\\GLANET_DATA\\GO\\gene_association.goa_ref_human_May_2016";
@@ -464,9 +497,9 @@ public class GOTermPreparation {
 				geneAssociationGOARefHumanFile,
 				experimentalEvidenceCodeList);
 	
-
 		//Prepare GATA2 GOTerms ends
-		
+		/***************************************************************************************************/
+
 
 	}
 
