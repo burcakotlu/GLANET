@@ -97,7 +97,7 @@ public enum CommandLineArguments {
 	NumberOfBasesRequiredForOverlap(6, Commons.NUMBER_BASES_DEFAULT),
 	PerformEnrichment(7, Commons.DO_NOT_ENRICH),
 	EnrichmentZScoreMode( 8,Commons.PERFORM_ENRICHMENT_WITH_ZSCORE),
-	GenerateRandomDataMode( 9, Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT),
+	GenerateRandomDataMode( 9, Commons.GENERATE_RANDOM_DATA_WITH_GC_CONTENT),
 	MultipleTesting( 10, Commons.BENJAMINI_HOCHBERG_FDR),
 	BonferroniCorrectionSignificanceCriteria( 11, Commons.SIGNIFICANCE_CRITERIA_DEFAULT),
 	FalseDiscoveryRate( 12, Commons.FDR_DEFAULT),
