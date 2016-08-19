@@ -114,6 +114,9 @@ public class Step4_DDE_ScriptFiles {
 						call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() + "_" + Commons.WOGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
 						call_Runs_WithoutGCM_BufferedWriter = new BufferedWriter(call_Runs_WithoutGCM_FileWriter);
 						break;
+						
+					default:
+						break;
 					
 				}//End of GenerateRandomDataMode
 				
@@ -436,7 +439,7 @@ public class Step4_DDE_ScriptFiles {
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 			
 			//Add GCM extension
-			GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString(); 
+			GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString();  
 			
 			//Add associationMeasureType extension
 			GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + associationMeasureType.convertEnumtoShortString();
@@ -478,7 +481,7 @@ public class Step4_DDE_ScriptFiles {
 				call_Runs_WithoutGCM_BufferedWriter = new BufferedWriter(call_Runs_WithoutGCM_FileWriter);
 				
 				//Decide on fileName
-				fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_"  + tpmType.convertEnumtoString() + "_"  + dnaseOverlapExclusionType.convertEnumtoString() + "_"+  generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + fileExtension;
+				fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_"  + tpmType.convertEnumtoString() + "_"  + dnaseOverlapExclusionType.convertEnumtoString() + "_"+  generateRandomDataMode.convertEnumtoShortString() + "_" +  isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + fileExtension;
 				
 				fileWriter = FileOperations.createFileWriter(fileName);	
 				bufferedWriter = new BufferedWriter(fileWriter);
@@ -662,33 +665,48 @@ public class Step4_DDE_ScriptFiles {
 							
 							String command = null;
 							
-							command = rootCommand + i + ".txt\" " + "-f0 " + "-udl -udlinput " + "\"" + args[1] + Commons.DATA + System.getProperty("file.separator") + "demo_input_data" + System.getProperty("file.separator") +  "UserDefinedLibrary" + System.getProperty("file.separator") + "DDCE_UserDefinedLibraryInputFile.txt\"" +  " -udldf0exc"  + " -e " + "-ewz " + "-noob -wgc -wif";							
+							command = rootCommand + i + ".txt\" " + "-f0 " + "-udl -udlinput " + "\"" + args[1] + Commons.DATA + System.getProperty("file.separator") + "demo_input_data" + System.getProperty("file.separator") +  "UserDefinedLibrary" + System.getProperty("file.separator") + "DDCE_UserDefinedLibraryInputFile.txt\"" +  " -udldf0exc"  + " -e " + "-ewz ";							
+								
+							switch(generateRandomDataMode){
+								case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
+									command = command + " -wgcm";
+									break;
+								case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
+									command = command + " -wogcm";
+									break;
+								case GENERATE_RANDOM_DATA_WITH_MAPPABILITY:
+									command = command + " -wm";
+									break;
+								case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:
+									command = command + " -wgc";
+									break;
+										
+								
+							}
 							
 							
-//							if(associationMeasureType.isAssociationMeasureExistenceofOverlap()){
-//								command = rootCommand + i + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-existOv ";							
-//							}else if(associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
-//								command = rootCommand + i + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-numOvBas ";							
-//							}
+							switch(isochoreFamilyMode){
+								case DO_USE_ISOCHORE_FAMILY:
+									command = command + " -wif";
+									break;
+								case DO_NOT_USE_ISOCHORE_FAMILY:
+									command = command + " -woif";
+									break;
 							
+							}
+							
+							switch(associationMeasureType){
+								case NUMBER_OF_OVERLAPPING_BASES:
+									command = command + " -noob";
+									break;
+								case EXISTENCE_OF_OVERLAP:
+									command = command + " -eoo";
+									break;
+							
+							}
+
 							bufferedWriter.write( command + " -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + isochoreFamilyMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString()+  Commons.DDE_RUN + i + System.getProperty( "line.separator"));
 							
-//							switch(generateRandomDataMode){
-//							
-//								case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-//					
-//									bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString()+  Commons.DDE_RUN + i + System.getProperty( "line.separator"));
-//									break;
-//					
-//								case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-//					
-//									bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty( "line.separator"));
-//									break;
-//					
-//								default:
-//									break;
-//
-//							}// End of SWITCH
 
 						}// End of FOR each simulation
 					}
@@ -803,9 +821,6 @@ public class Step4_DDE_ScriptFiles {
 		int startingRunNumber= Integer.parseInt(args[4]); 
 		int endingRunNumber= Integer.parseInt(args[5]);;
 		
-		//18 August 2016
-		GenerateRandomDataMode withGC = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_GC_CONTENT;
-		IsochoreFamilyMode isochoreFamilyMode = IsochoreFamilyMode.DO_USE_ISOCHORE_FAMILY;
 		
 		GenerateRandomDataMode withGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
 		GenerateRandomDataMode withoutGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
@@ -836,57 +851,64 @@ public class Step4_DDE_ScriptFiles {
 						
 						for(AssociationMeasureType associationMeasureType: AssociationMeasureType.values()){
 							
-							//18 August 2016
-							//******************************************WITH_GC_CONTENT and IsochoreFamily************************************//
-							// With GC and IsochoreFamily
-							writeGLANETRuns( 
-									startingRunNumber, 
-									endingRunNumber,
-									cellLineType,
-									geneType,
-									operatingSystem,
-									tpmType, 
-									associationMeasureType,
-									withGC,
-									isochoreFamilyMode,
-									args,
-									dataDrivenExperimentScriptFolder);
-							//******************************************WITH_GC_CONTENT and IsochoreFamily************************************//
+							//18 August 2016 starts
+							for(GenerateRandomDataMode generateRandomDataMode: GenerateRandomDataMode.values()){
+								
+								for(IsochoreFamilyMode isochoreFamilyMode : IsochoreFamilyMode.values()){
+									
+									writeGLANETRuns( 
+											startingRunNumber, 
+											endingRunNumber,
+											cellLineType,
+											geneType,
+											operatingSystem,
+											tpmType, 
+											associationMeasureType,
+											generateRandomDataMode,
+											isochoreFamilyMode,
+											args,
+											dataDrivenExperimentScriptFolder);
+
+									
+								}//End of for each isochoreFamilyMode
+								
+							}//End of for each generateRandomDataMode
+							//18 August 2016 ends
 
 							
 							
 							
-							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-							// With GC and Mapability
-							writeGLANETRuns( 
-									startingRunNumber, 
-									endingRunNumber,
-									cellLineType,
-									geneType,
-									operatingSystem,
-									tpmType, 
-									associationMeasureType,
-									withGCandMapability,
-									isochoreFamilyMode,
-									args,
-									dataDrivenExperimentScriptFolder);
-							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-							
-							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
-							// Without GC and Mapability
-							writeGLANETRuns(
-									startingRunNumber, 
-									endingRunNumber,
-									cellLineType,
-									geneType,
-									operatingSystem,
-									tpmType, 
-									associationMeasureType,
-									withoutGCandMapability,
-									isochoreFamilyMode,
-									args,
-									dataDrivenExperimentScriptFolder);
-							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+//							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+//							// With GC and Mapability
+//							writeGLANETRuns( 
+//									startingRunNumber, 
+//									endingRunNumber,
+//									cellLineType,
+//									geneType,
+//									operatingSystem,
+//									tpmType, 
+//									associationMeasureType,
+//									withGCandMapability,
+//									IsochoreFamilyMode.DO_USE_ISOCHORE_FAMILY,
+//									args,
+//									dataDrivenExperimentScriptFolder);
+//							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
+//							
+//							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
+//							// Without GC and Mapability
+//							writeGLANETRuns(
+//									startingRunNumber, 
+//									endingRunNumber,
+//									cellLineType,
+//									geneType,
+//									operatingSystem,
+//									tpmType, 
+//									associationMeasureType,
+//									withoutGCandMapability,
+//									IsochoreFamilyMode.DO_USE_ISOCHORE_FAMILY,
+//									args,
+//									dataDrivenExperimentScriptFolder);
+//							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
 							
 						}//End of FOR each Association Measure Type
 						

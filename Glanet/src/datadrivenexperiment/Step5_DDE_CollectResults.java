@@ -649,7 +649,7 @@ public class Step5_DDE_CollectResults {
 					//There is enrichment file but there is no result in it Case
 					else{
 						//Write unaccomplished GLANET runs to a file under DDE directory
-						lookFor = cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i;
+						lookFor = cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + isochoreFamilyMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i;
 						
 						if (!unaccomplishedGLANETRunsList.contains(lookFor)){
 							unaccomplishedGLANETRunsBufferedWriter.write(lookFor + System.getProperty("line.separator"));
@@ -684,7 +684,7 @@ public class Step5_DDE_CollectResults {
 				else{
 					
 					//Write unaccomplished GLANET runs to a file under DDE directory
-					lookFor = cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i;
+					lookFor = cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + isochoreFamilyMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i;
 					
 					if (!unaccomplishedGLANETRunsList.contains(lookFor)){
 						unaccomplishedGLANETRunsBufferedWriter.write(lookFor + System.getProperty("line.separator"));
