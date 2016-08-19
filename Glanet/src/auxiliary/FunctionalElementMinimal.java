@@ -18,7 +18,7 @@ public class FunctionalElementMinimal implements Comparable<FunctionalElementMin
 	int originalNumberofOverlaps;
 	int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
 	int numberofPermutations;
-	int numberofComparisons;
+	//int numberofComparisons;
 
 	Float empiricalPValue;
 	Float bonferroniCorrectedPValue;
@@ -33,6 +33,18 @@ public class FunctionalElementMinimal implements Comparable<FunctionalElementMin
 	Double bonferroniCorrectedPValueCalculatedFromZScore;
 	Double BHFDRAdjustedPValueCalculatedFromZScore;
 	Boolean rejectNullHypothesisCalculatedFromZScore;
+	
+	int numberofComparisons;
+	
+	
+
+	public int getNumberofComparisons() {
+		return numberofComparisons;
+	}
+
+	public void setNumberofComparisons(int numberofComparisons) {
+		this.numberofComparisons = numberofComparisons;
+	}
 
 	public Double getMean() {
 
@@ -145,15 +157,7 @@ public class FunctionalElementMinimal implements Comparable<FunctionalElementMin
 		this.numberofPermutations = numberofPermutations;
 	}
 
-	public int getNumberofComparisons() {
 
-		return numberofComparisons;
-	}
-
-	public void setNumberofComparisons( int numberofComparisons) {
-
-		this.numberofComparisons = numberofComparisons;
-	}
 
 	public Float getEmpiricalPValue() {
 

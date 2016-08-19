@@ -29,6 +29,8 @@ public class FunctionalElement extends FunctionalElementMinimal {
 	List<Integer> keggPathwayGeneIdList;
 	List<String> keggPathwayRefSeqGeneNameList;
 	List<String> keggPathwayAlternateGeneNameList;
+	
+	
 
 	public String getUserDefinedGeneSetDescription() {
 

@@ -190,9 +190,6 @@ public class Enrichment {
 			this.mapabilityChromosomePositionList = mapabilityChromosomePositionList;
 			this.mapabilityShortValueList = mapabilityShortValueList;
 
-			// this.mapabilityByteValueList =mapabilityByteValueList;
-			// this.mapabilityIntervalTree = mapabilityIntervalTree;
-
 		}
 
 		protected TIntObjectMap<List<Interval>> compute() {
@@ -6964,7 +6961,8 @@ public class Enrichment {
 				}//End of IF Use Isochore Family 
 				
 		
-				if (generateRandomDataMode.isGenerateRandomDataModeWithGC()){
+				//Usage of Isochore Family requires gcDataStructures
+				if (generateRandomDataMode.isGenerateRandomDataModeWithGC() || isochoreFamilyMode.useIsochoreFamily()){
 					
 					gcByteList = new TByteArrayList();
 					gcIntervalTree = new IntervalTree();
@@ -6976,7 +6974,9 @@ public class Enrichment {
 									gcByteList,
 									gcIntervalTree);
 					
-				}else if(generateRandomDataMode.isGenerateRandomDataModeWithMapability()){
+				}
+				
+				if(generateRandomDataMode.isGenerateRandomDataModeWithMapability()){
 					
 					mapabilityChromosomePositionList = new TIntArrayList();
 					mapabilityShortValueList = new TShortArrayList();
@@ -6987,7 +6987,9 @@ public class Enrichment {
 							mapabilityChromosomePositionList,
 							mapabilityShortValueList);
 					
-				} else if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+				}
+				
+				if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
 					
 					gcByteList = new TByteArrayList();
 					gcIntervalTree = new IntervalTree();
@@ -7002,10 +7004,7 @@ public class Enrichment {
 							gcIntervalTree,
 							mapabilityChromosomePositionList,
 							mapabilityShortValueList);
-					
-					
-				}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
-					//No need 
+						
 				}
 
 //				calculateGC = fillGCandMappabilityDataStructures(

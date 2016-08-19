@@ -1229,7 +1229,10 @@ public class Commons {
 	public static final String DNASE = "Dnase";
 	public static final String TF = "TF";
 	public static final String HISTONE = "Histone";
-
+	
+	
+	public static final String HM = "HM";
+	
 	public static final String EXON_BASED = "ExonBased";
 	public static final String REGULATION_BASED = "RegulationBased";
 	public static final String ALL_BASED = "AllBased";

@@ -64,5 +64,16 @@ public enum ElementType {
 		else
 			return null;
 	}
+	
+
+	public String convertEnumtoShortString() {
+
+		if( this.equals( ElementType.HISTONE))
+			return Commons.HM;
+		else if( this.equals( ElementType.TF))
+			return Commons.TF;
+		else
+			return null;
+	}
 
 }

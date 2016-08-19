@@ -22,12 +22,9 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import multipletesting.BenjaminiandHochberg;
-import multipletesting.BonferroniCorrection;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElementMinimal;
 import auxiliary.GlanetDecimalFormat;
-import auxiliary.NumberofComparisons;
 
 import common.Commons;
 
@@ -42,6 +39,7 @@ import enumtypes.DataDrivenExperimentTPMType;
 import enumtypes.ElementType;
 import enumtypes.EnrichmentDecisionType;
 import enumtypes.GenerateRandomDataMode;
+import enumtypes.IsochoreFamilyMode;
 import enumtypes.MultipleTestingType;
 import enumtypes.SignificanceLevel;
 import enumtypes.ToolType;
@@ -205,9 +203,7 @@ public class Step5_DDE_CollectResults {
 		
 	}
 
-	public static FunctionalElementMinimal getElement(
-			String strLine, 
-			int numberofComparisons) {
+	public static FunctionalElementMinimal getElement(String strLine) {
 
 		String elementName;
 
@@ -277,8 +273,7 @@ public class Step5_DDE_CollectResults {
 		element.setNumberofPermutations( numberofPermutations);
 		element.setNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps( numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps);
 		element.setOriginalNumberofOverlaps( originalNumberofOverlaps);
-		element.setNumberofComparisons( numberofComparisons);
-
+		
 			
 
 		if( !strLine.substring( indexofEigthTab + 1, indexofNinethTab).equals("NaN") &&
@@ -339,7 +334,6 @@ public class Step5_DDE_CollectResults {
 			cellLineFilteredEnrichmentBufferedWriter.write("Observed Test Statistic" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("NumberofSamplingsHavingTestStatisticGreaterThanorEqualtoObservedTestStatistic" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("NumberofSamplings" + "\t");
-			cellLineFilteredEnrichmentBufferedWriter.write("NumberofComparisons" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("zScore" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("EmpiricalPValueCalculatedFromZScore" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("BonferroniCorrectedPValueCalculatedFromZScore" + "\t");
@@ -361,15 +355,14 @@ public class Step5_DDE_CollectResults {
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getOriginalNumberofOverlaps() + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getNumberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps() + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getNumberofPermutations() + "\t");
-				cellLineFilteredEnrichmentBufferedWriter.write(element.getNumberofComparisons() + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(( element.getZScore() == null?element.getZScore():df.format( element.getZScore())) + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(( element.getEmpiricalPValueCalculatedFromZScore() == null?element.getEmpiricalPValueCalculatedFromZScore():df.format( element.getEmpiricalPValueCalculatedFromZScore())) + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(( element.getBonferroniCorrectedPValueCalculatedFromZScore() == null?element.getBonferroniCorrectedPValueCalculatedFromZScore():df.format( element.getBonferroniCorrectedPValueCalculatedFromZScore())) + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(( element.getBHFDRAdjustedPValueCalculatedFromZScore() == null?element.getBHFDRAdjustedPValueCalculatedFromZScore():df.format( element.getBHFDRAdjustedPValueCalculatedFromZScore())) + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.getRejectNullHypothesisCalculatedFromZScore() + "\t");
-				cellLineFilteredEnrichmentBufferedWriter.write(df.format( element.getEmpiricalPValue()) + "\t");
-				cellLineFilteredEnrichmentBufferedWriter.write(df.format( element.getBonferroniCorrectedPValue()) + "\t");
-				cellLineFilteredEnrichmentBufferedWriter.write(df.format( element.getBHFDRAdjustedPValue()) + "\t");
+				cellLineFilteredEnrichmentBufferedWriter.write((element.getEmpiricalPValue()==null? element.getEmpiricalPValue():df.format(element.getEmpiricalPValue())) + "\t");
+				cellLineFilteredEnrichmentBufferedWriter.write((element.getBonferroniCorrectedPValue()==null?element.getBonferroniCorrectedPValue():df.format(element.getBonferroniCorrectedPValue())) + "\t");
+				cellLineFilteredEnrichmentBufferedWriter.write((element.getBHFDRAdjustedPValue()==null?element.getBHFDRAdjustedPValue():df.format(element.getBHFDRAdjustedPValue())) + "\t");
 				cellLineFilteredEnrichmentBufferedWriter.write(element.isRejectNullHypothesis() + System.getProperty( "line.separator"));
 
 
@@ -535,7 +528,6 @@ public class Step5_DDE_CollectResults {
 			DataDrivenExperimentTPMType TPMType,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType, 
 			int numberofRuns, 
-			int numberofComparisons,
 			ElementType elementType, 
 			DataDrivenExperimentCellLineType cellLineType, 
 			DataDrivenExperimentGeneType geneType,
@@ -547,6 +539,7 @@ public class Step5_DDE_CollectResults {
 			MultipleTestingType multipleTestingParameter,
 			EnrichmentDecisionType enrichmentDecisionType,
 			GenerateRandomDataMode generateRandomDataMode,
+			IsochoreFamilyMode isochoreFamilyMode,
 			AssociationMeasureType associationMeasureType,
 			BufferedWriter unaccomplishedGLANETRunsBufferedWriter,
 			List<String> unaccomplishedGLANETRunsList,
@@ -585,15 +578,17 @@ public class Step5_DDE_CollectResults {
 				cellLineSpecificElementList = new ArrayList<FunctionalElementMinimal>();
 				
 				switch(generateRandomDataMode){
+				
+					case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() +  isochoreFamilyMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty( "file.separator"));
+						break;
 					
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
-
+					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
+						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 						break;
 						
-					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "woGCM" + associationMeasureType.convertEnumtoShortString() +Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
-
+					default:
 						break;
 				
 				}//End of SWITCH
@@ -608,12 +603,12 @@ public class Step5_DDE_CollectResults {
 					for( File eachEnrichmentFile : enrichmentDirectory.listFiles()){
 
 						if( !eachEnrichmentFile.isDirectory() && 
-								(eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE) || eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE)) ){
+								(eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BONF_CORRECTED_P_VALUE) || eachEnrichmentFile.getAbsolutePath().contains(Commons.ALL_WITH_RESPECT_TO_BH_FDR_ADJUSTED_P_VALUE)) &&
+								//Added for GLANET run with UserDefinedLibrary Mode
+								eachEnrichmentFile.getAbsolutePath().contains(elementType.convertEnumtoShortString())){
 
 							enrichmentFile = eachEnrichmentFile.getAbsolutePath();
 							
-							//It has been increased by one if cellLineSpecificElementList size is greater than zero
-							//numberofExistingEnrichmentDirectories++;
 							break;
 
 						}// End of IF EnrichmentFile under EnrichmentDirectory
@@ -639,7 +634,7 @@ public class Step5_DDE_CollectResults {
 
 						if( strLine.contains(cellLineType.convertEnumtoString())){
 							// Fill elementList
-							cellLineSpecificElementList.add(getElement(strLine, numberofComparisons));
+							cellLineSpecificElementList.add(getElement(strLine));
 						}
 
 					}// End of WHILE
@@ -661,49 +656,9 @@ public class Step5_DDE_CollectResults {
 							unaccomplishedGLANETRunsList.add(lookFor);
 						}
 					}
-
-					/**********************************************************************************/
-					// Calculate Bonferroni Corrected P Value
-					// Number of comparisons is used here
-					BonferroniCorrection.calculateBonferroniCorrectedPValue(cellLineSpecificElementList);
-
+					
 					// Sort w.r.t. empiricalPValue
 					Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE);
-
-					// Calculate BH FDR Adjusted PValue
-					BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValue(cellLineSpecificElementList, FDR);
-					/**********************************************************************************/
-
-					/**********************************************************************************/
-					//By the way do we need this calculation?
-					// Yes, since we also write pValues calculated from ZScores to the outputFile
-					// although output lines are sorted w.r.t BonfCorrected or BH FDR adjusted pValues.
-					// Calculate BonferroniCorrectedPValue Calculated From ZScore
-					// Number of comparisons is used here
-					BonferroniCorrection.calculateBonferroniCorrectedPValueCalculatedFromZScore(cellLineSpecificElementList);
-
-					// Sort w.r.t. empiricalPValue Calculated From ZScore
-					Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.EMPIRICAL_P_VALUE_CALCULATED_FROM_Z_SCORE);
-
-					// Calculate BH FDR Adjusted PValue Calculated From ZScore
-					BenjaminiandHochberg.calculateBenjaminiHochbergFDRAdjustedPValueCalculatedFromZScore(cellLineSpecificElementList, FDR);
-					/**********************************************************************************/
-
-					// sort w.r.t. BH or BonferroniCorrection
-					switch( multipleTestingParameter){
-
-						case BONFERRONI_CORRECTION:
-							Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.BONFERRONI_CORRECTED_P_VALUE);
-							break;
-		
-						case BENJAMINI_HOCHBERG_FDR:
-							Collections.sort(cellLineSpecificElementList, FunctionalElementMinimal.BENJAMINI_HOCHBERG_FDR_ADJUSTED_P_VALUE);
-							break;
-		
-						default:
-							break;
-
-					}// End of switch
 					
 					
 					//8 OCT 2015 starts
@@ -727,7 +682,6 @@ public class Step5_DDE_CollectResults {
 				
 				//There is no enrichment file at all Case
 				else{
-					
 					
 					//Write unaccomplished GLANET runs to a file under DDE directory
 					lookFor = cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i;
@@ -1117,7 +1071,7 @@ public class Step5_DDE_CollectResults {
 		String ddeFolder 		= glanetFolder + Commons.DDE 	+ System.getProperty("file.separator");
 		
 		//ToolType
-		ToolType toolType = ToolType.convertStringtoEnum(args[12]);
+		ToolType toolType = ToolType.convertStringtoEnum(args[13]);
 		
 		String ddeOutputFolder = null; 
 
@@ -1203,14 +1157,16 @@ public class Step5_DDE_CollectResults {
 		//generateRandomDataMode
 		GenerateRandomDataMode generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(args[9]);
 		
+		//19 August 2016 
+		//Isochore Family Mode
+		IsochoreFamilyMode isochoreFamilyMode = IsochoreFamilyMode.convertStringtoEnum(args[10]);
+		
 		//associationMeasureType
-		AssociationMeasureType associationMeasureType = AssociationMeasureType.convertStringtoEnum(args[10]);
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.convertStringtoEnum(args[11]);
 		
 		//DDE Number
-		int DDENumber = Integer.parseInt(args[11]);
+		int DDENumber = Integer.parseInt(args[12]);
 				
-		int numberofTFElementsInThisCellLine = 0;
-		int numberofHistoneElementsInThisCellLine = 0;
 		
 		FileWriter resultsFileWriter = null;
 		BufferedWriter resultsBufferedWriter = null;
@@ -1242,7 +1198,7 @@ public class Step5_DDE_CollectResults {
 			overallSituationBufferedWriter = new BufferedWriter(overallSituationFileWriter);
 			
 			//Write Header Line For UnaccomplishedGLANETRunsBufferedWriter
-			unaccomplishedGLANETRunsBufferedWriter.write("cellLineType_geneType_TPMType_dnaseOverlapExclusionType_generateRandomDataMode_associationMeasureType_DDE_RUNNumber");
+			unaccomplishedGLANETRunsBufferedWriter.write("cellLineType_geneType_TPMType_dnaseOverlapExclusionType_generateRandomDataMode_associationMeasureType_DDE_RUNNumber" + System.getProperty("line.separator"));
 		
 				
 			//Writer Header Line For Overall Situation Information
@@ -1257,25 +1213,6 @@ public class Step5_DDE_CollectResults {
 					"ElementType" + "\t" + "ElementTypeTpmName2NumberofValidSimulationMap" + "\t" +
 					"ElementType" + "\t" + "ElementTypeTpmName2NumberofValidSimulationMap" +System.getProperty("line.separator"));
 			
-			switch(cellLineType){
-			
-				case GM12878: {
-					numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(glanetDataFolder, ElementType.TF, Commons.GM12878);
-					numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(glanetDataFolder, ElementType.HISTONE, Commons.GM12878);
-					break;				
-				}
-				
-				case K562: {
-					numberofTFElementsInThisCellLine 		= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(glanetDataFolder, ElementType.TF, Commons.K562);
-					numberofHistoneElementsInThisCellLine 	= NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(glanetDataFolder, ElementType.HISTONE, Commons.K562);
-					break;				
-				}
-					
-				default: 
-					break;
-			
-			
-			}//end of SWITCH
 			
 			
 			DataDrivenExperimentTPMType TPMType = null;
@@ -1314,29 +1251,29 @@ public class Step5_DDE_CollectResults {
 				
 					case GLANET:
 						
-						//TF
-						readSimulationGLANETResults(
-								outputFolder, 
-								TPMType, 
-								dnaseOverlapExclusionType, 
-								numberofRuns,
-								numberofTFElementsInThisCellLine, 
-								ElementType.TF, 
-								cellLineType, 
-								geneType,
-								elementNameTypeList,
-								elementNameTPMName2NumberofEnrichmentMap,
-								elementTypeTpmName2NumberofValidRunMap,
-								bonferroniCorrectionSignificanceLevel, 
-								FDR, 
-								multipleTestingParameter, 
-								enrichmentDecisionType,
-								generateRandomDataMode,
-								associationMeasureType,
-								unaccomplishedGLANETRunsBufferedWriter,
-								unaccomplishedGLANETRunsList,
-								dateFormat,
-								date);
+//						//TF
+//						readSimulationGLANETResults(
+//								outputFolder, 
+//								TPMType, 
+//								dnaseOverlapExclusionType, 
+//								numberofRuns,
+//								ElementType.TF, 
+//								cellLineType, 
+//								geneType,
+//								elementNameTypeList,
+//								elementNameTPMName2NumberofEnrichmentMap,
+//								elementTypeTpmName2NumberofValidRunMap,
+//								bonferroniCorrectionSignificanceLevel, 
+//								FDR, 
+//								multipleTestingParameter, 
+//								enrichmentDecisionType,
+//								generateRandomDataMode,
+//								isochoreFamilyMode,
+//								associationMeasureType,
+//								unaccomplishedGLANETRunsBufferedWriter,
+//								unaccomplishedGLANETRunsList,
+//								dateFormat,
+//								date);
 						
 						
 						//HISTONE
@@ -1345,7 +1282,6 @@ public class Step5_DDE_CollectResults {
 								TPMType, 
 								dnaseOverlapExclusionType, 
 								numberofRuns,
-								numberofHistoneElementsInThisCellLine, 
 								ElementType.HISTONE, 
 								cellLineType,
 								geneType,
@@ -1357,6 +1293,7 @@ public class Step5_DDE_CollectResults {
 								multipleTestingParameter, 
 								enrichmentDecisionType,
 								generateRandomDataMode,
+								isochoreFamilyMode,
 								associationMeasureType,
 								unaccomplishedGLANETRunsBufferedWriter,
 								unaccomplishedGLANETRunsList,
