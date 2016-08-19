@@ -469,7 +469,7 @@ public class Step5_DDE_CollectResults {
 		try{
 
 			// For each run
-			for(int i = 100; i <numberofRuns; i++){
+			for(int i = 0; i <numberofRuns; i++){
 				
 				//Initialization
 				//So that unexisting run can not use the last valid gatTSV file and copy its content.
