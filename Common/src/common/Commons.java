@@ -316,10 +316,13 @@ public class Commons {
 	// Enum type GenerateRandomDataMode
 	public static final String GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT = "Without GC and Mappability";
 	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT = "With GC and Mappability";
+	public static final String GENERATE_RANDOM_DATA_WITH_GC_CONTENT = "With GC";
+	public static final String GENERATE_RANDOM_DATA_WITH_MAPPABILITY = "With Mappability";
 
 	public static final String WOGCM = "woGCM";
 	public static final String WGCM = "wGCM";
-
+	public static final String WGC = "wGC";
+	public static final String WM = "wM";
 	
 	// EnumType RegulatorySequenceAnalysisType
 	// RSAT PARAMETER
@@ -426,6 +429,10 @@ public class Commons {
 	
 	public static final String DO_USE_ISOCHORE_FAMILY = "With Isochore Family Pools";
 	public static final String DO_NOT_USE_ISOCHORE_FAMILY = "Without Isochore Family Pools";
+
+	public static final String SHORT_DO_USE_ISOCHORE_FAMILY = "wIF";
+	public static final String SHORT_DO_NOT_USE_ISOCHORE_FAMILY = "woIF";
+
 	
 	//AssociationMeasureType
 	public static final String NUMBER_OF_OVERLAPPING_BASES = "Number of Overlapping Bases";
@@ -1573,6 +1580,12 @@ public class Commons {
 	public static final String ARG_PERFORM_ENRICHMENT_WITH_ZSCORES = "-wzs";
 	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "-wozs";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-wgcm";
+	
+	//18 August 2016
+	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC = "-wgc";
+	public static final String ARG_GENERATE_RANDOM_DATA_WITH_MAPPABILITY = "-wm";
+	
+	
 	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-wogcm";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_ISOCHORE_FAMILY_POOLS = "-wif";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_ISOCHORE_FAMILY_POOLS = "-woif";

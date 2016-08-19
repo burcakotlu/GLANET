@@ -204,60 +204,13 @@ public class FileOperations {
 
 	// Added method 31.OCT.2014
 	// GET Chromosome Based BufferedWriter
-	public static BufferedWriter getChromosomeBasedBufferedWriter( ChromosomeName chromName,
+	public static BufferedWriter getChromosomeBasedBufferedWriter(
+			ChromosomeName chromName,
 			List<BufferedWriter> bufferedWriterList) {
 
 		BufferedWriter bufferedWriter = null;
-
-		if( chromName.isCHROMOSOME1()){
-			bufferedWriter = bufferedWriterList.get( 0);
-		}else if( chromName.isCHROMOSOME2()){
-			bufferedWriter = bufferedWriterList.get( 1);
-		}else if( chromName.isCHROMOSOME3()){
-			bufferedWriter = bufferedWriterList.get( 2);
-		}else if( chromName.isCHROMOSOME4()){
-			bufferedWriter = bufferedWriterList.get( 3);
-		}else if( chromName.isCHROMOSOME5()){
-			bufferedWriter = bufferedWriterList.get( 4);
-		}else if( chromName.isCHROMOSOME6()){
-			bufferedWriter = bufferedWriterList.get( 5);
-		}else if( chromName.isCHROMOSOME7()){
-			bufferedWriter = bufferedWriterList.get( 6);
-		}else if( chromName.isCHROMOSOME8()){
-			bufferedWriter = bufferedWriterList.get( 7);
-		}else if( chromName.isCHROMOSOME9()){
-			bufferedWriter = bufferedWriterList.get( 8);
-		}else if( chromName.isCHROMOSOME10()){
-			bufferedWriter = bufferedWriterList.get( 9);
-		}else if( chromName.isCHROMOSOME11()){
-			bufferedWriter = bufferedWriterList.get( 10);
-		}else if( chromName.isCHROMOSOME12()){
-			bufferedWriter = bufferedWriterList.get( 11);
-		}else if( chromName.isCHROMOSOME13()){
-			bufferedWriter = bufferedWriterList.get( 12);
-		}else if( chromName.isCHROMOSOME14()){
-			bufferedWriter = bufferedWriterList.get( 13);
-		}else if( chromName.isCHROMOSOME15()){
-			bufferedWriter = bufferedWriterList.get( 14);
-		}else if( chromName.isCHROMOSOME16()){
-			bufferedWriter = bufferedWriterList.get( 15);
-		}else if( chromName.isCHROMOSOME17()){
-			bufferedWriter = bufferedWriterList.get( 16);
-		}else if( chromName.isCHROMOSOME18()){
-			bufferedWriter = bufferedWriterList.get( 17);
-		}else if( chromName.isCHROMOSOME19()){
-			bufferedWriter = bufferedWriterList.get( 18);
-		}else if( chromName.isCHROMOSOME20()){
-			bufferedWriter = bufferedWriterList.get( 19);
-		}else if( chromName.isCHROMOSOME21()){
-			bufferedWriter = bufferedWriterList.get( 20);
-		}else if( chromName.isCHROMOSOME22()){
-			bufferedWriter = bufferedWriterList.get( 21);
-		}else if( chromName.isCHROMOSOMEX()){
-			bufferedWriter = bufferedWriterList.get( 22);
-		}else if( chromName.isCHROMOSOMEY()){
-			bufferedWriter = bufferedWriterList.get( 23);
-		}
+		
+		bufferedWriter = bufferedWriterList.get(chromName.getChromosomeName()-1);
 
 		return bufferedWriter;
 	}

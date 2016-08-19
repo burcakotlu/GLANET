@@ -344,7 +344,7 @@ public class UserDefinedLibraryUtility {
 
 			// Read UserDefinedLibraryInputFile
 			fileReader = FileOperations.createFileReader( userDefinedLibraryInputFile);
-			bufferedReader = new BufferedReader( fileReader);
+			bufferedReader = new BufferedReader(fileReader);
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 

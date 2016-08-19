@@ -722,6 +722,23 @@ public class App {
 						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 						return false;
 					}
+		
+				else if (args[i].equalsIgnoreCase(Commons.ARG_GENERATE_RANDOM_DATA_WITH_GC)){
+					if( argsInOrder[CommandLineArguments.GenerateRandomDataMode.value()].equals( notSet))
+						argsInOrder[CommandLineArguments.GenerateRandomDataMode.value()] = Commons.GENERATE_RANDOM_DATA_WITH_GC_CONTENT;
+					else{
+						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+						return false;
+					}
+					
+				}else if (args[i].equalsIgnoreCase(Commons.ARG_GENERATE_RANDOM_DATA_WITH_MAPPABILITY)){
+					if( argsInOrder[CommandLineArguments.GenerateRandomDataMode.value()].equals( notSet))
+						argsInOrder[CommandLineArguments.GenerateRandomDataMode.value()] = Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY;
+					else{
+						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+						return false;
+					}
+				}
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.GenerateRandomDataMode))
 			return false;

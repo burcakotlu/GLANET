@@ -6282,11 +6282,234 @@ public class Enrichment {
 		/*************************************************************************************************************************/
 
 	}
-
 	// 24 June 2015 ends
 	// DO NOT KEEP NUMBER OF OVERLAPS COMING FROM EACH PERMUTATION ends
 	
 	
+	//18 August 2016
+	public static void fillIsochoreFamilyPools(
+			String dataFolder,
+			ChromosomeName chromName,
+			List<Interval> gcIsochoreFamilyL1Pool,
+			List<Interval> gcIsochoreFamilyL2Pool,
+			List<Interval> gcIsochoreFamilyH1Pool,
+			List<Interval> gcIsochoreFamilyH2Pool,
+			List<Interval> gcIsochoreFamilyH3Pool){
+		
+		/*******************************************************************************/
+		/*********************Fill Isochore Family Pools starts*************************/
+		/*******************************************************************************/
+			
+		// Fill Isochore Family Pools for random Isochore Interval selection depending on the Isochore Family of the original interval.
+		// GC Isochore Family L1 Pool
+		ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+				dataFolder, 
+				chromName, 
+				IsochoreFamily.L1,
+				gcIsochoreFamilyL1Pool);
+
+		// GC Isochore Family L2 Pool
+		ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+				dataFolder, 
+				chromName, 
+				IsochoreFamily.L2,
+				gcIsochoreFamilyL2Pool);
+
+		// GC Isochore Family H1 Pool
+		ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+				dataFolder, 
+				chromName, 
+				IsochoreFamily.H1,
+				gcIsochoreFamilyH1Pool);
+
+		// GC Isochore Family H2 Pool
+		ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+				dataFolder, 
+				chromName, 
+				IsochoreFamily.H2,
+				gcIsochoreFamilyH2Pool);
+
+		// GC Isochore Family H3 Pool
+		ChromosomeBasedGCIntervalTree.fillIsochoreFamilyPool(
+				dataFolder, 
+				chromName, 
+				IsochoreFamily.H3,
+				gcIsochoreFamilyH3Pool);
+		
+		/*******************************************************************************/
+		/*********************Fill Isochore Family Pools ends***************************/
+		/*******************************************************************************/
+		
+	}
+	
+	//18 August 2016
+	public static void fillMappabilityDataStructures(
+			String dataFolder,
+			ChromosomeName chromName,
+			TIntList mapabilityChromosomePositionList,
+			TShortList mapabilityShortValueList){
+		
+		/************************************************/
+		/**************MAPABILITY************************/
+		/************************************************/ 
+		ChromosomeBasedMappabilityTroveList.fillTroveList( 
+				dataFolder, 
+				chromName,
+				mapabilityChromosomePositionList, 
+				mapabilityShortValueList);		 
+		/************************************************/
+		/**************MAPABILITY************************/
+		/************************************************/
+	}
+			
+	//18 August 2016
+	public static CalculateGC fillGCDataStructures(
+			String dataFolder,
+			ChromosomeName chromName,
+			int chromBasedModeofGivenIntervalLength,
+			TByteList gcByteList,
+			IntervalTree gcIntervalTree){
+		
+		CalculateGC calculateGC = null;
+		
+		/************************************************/
+		/*********************GC*************************/
+		/************************************************/
+		
+		//Decide on which gcIntervalTree to use depending on the chrBasedAverageGivenIntervalLength
+		if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100){						
+			// Fill GCByteList if givenData contains interval of length <= 100
+			//gcByteList = new TByteArrayList();
+			ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
+		}
+		else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
+			//gcIntervalTree = new IntervalTree();
+
+			ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+		}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
+			//gcIntervalTree = new IntervalTree();
+			ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_1000,gcIntervalTree);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+		}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
+			//gcIntervalTree = new IntervalTree();
+			ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+		}else {						
+			//Will we generate random data w.r.t. GC and Mappability if modeofIntervalLength is > 100000? NO
+			//We said that if mode of given interval lengths is greater than 100000 bp, then we will not generate random interval wGCM
+			//Then, is filling gcIntervalTree with intervals of 100000 bp meaningful?
+			
+			//We give this decision w.r.t to the mode of the given intervals.
+			//Mode of given intervals can be > 100000 bp
+			//But there can be still given intervals with length less than 100000 bp
+			
+			//So why to use gcIsochoreIntervalTree for intervals less than 100000bp?
+			//We may not have all of gcIntervalTrees because of memory bottleneck
+			//But we can have the gcIntervalTree with longest interval length shorter than 100000 which is gcIntervalTree with 10000 bp
+			//gcIntervalTree = new IntervalTree();
+
+			//ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
+			//calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+			
+			ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+		}
+		/************************************************/
+		/*********************GC*************************/
+		/************************************************/
+		
+		return calculateGC;
+		
+	}
+	
+	//18 August 2016
+	public static CalculateGC fillGCandMappabilityDataStructures(
+			String dataFolder,
+			ChromosomeName chromName,
+			int chromBasedModeofGivenIntervalLength,
+			TByteList gcByteList,
+			IntervalTree gcIntervalTree,
+			TIntList mapabilityChromosomePositionList,
+			TShortList mapabilityShortValueList){
+		
+		CalculateGC calculateGC = null;
+		
+		/************************************************/
+		/*********************GC*************************/
+		/************************************************/
+		//Decide on which gcIntervalTree to use depending on the chrBasedAverageGivenIntervalLength
+		if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100){						
+			// Fill GCByteList if givenData contains interval of length <= 100
+			//gcByteList = new TByteArrayList();
+			ChromosomeBasedGCTroveList.fillTroveList(dataFolder,chromName,gcByteList);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_BYTE_LIST;
+		}
+		else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_1000) {
+			//gcIntervalTree = new IntervalTree();
+
+			ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+		}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_10000) {
+			//gcIntervalTree = new IntervalTree();
+			ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_1000,gcIntervalTree);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+		}else if (chromBasedModeofGivenIntervalLength<=Commons.INTERVAL_LENGTH_100000) {
+			//gcIntervalTree = new IntervalTree();
+			ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+		}else {						
+			//Will we generate random data w.r.t. GC and Mappability if modeofIntervalLength is > 100000? NO
+			//We said that if mode of given interval lengths is greater than 100000 bp, then we will not generate random interval wGCM
+			//Then, is filling gcIntervalTree with intervals of 100000 bp meaningful?
+			
+			//We give this decision w.r.t to the mode of the given intervals.
+			//Mode of given intervals can be > 100000 bp
+			//But there can be still given intervals with length less than 100000 bp
+			
+			//So why to use gcIsochoreIntervalTree for intervals less than 100000bp?
+			//We may not have all of gcIntervalTrees because of memory bottleneck
+			//But we can have the gcIntervalTree with longest interval length shorter than 100000 which is gcIntervalTree with 10000 bp
+			//gcIntervalTree = new IntervalTree();
+
+			//ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_100000,gcIntervalTree);
+			//calculateGC = CalculateGC.CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE;
+			
+			ChromosomeBasedGCIntervalTree.fillIntervalTree(dataFolder,chromName,Commons.INTERVAL_LENGTH_10000,gcIntervalTree);
+			calculateGC = CalculateGC.CALCULATE_GC_USING_GC_INTERVAL_TREE;
+
+		}
+		/************************************************/
+		/*********************GC*************************/
+		/************************************************/
+		
+		/************************************************/
+		/**************MAPABILITY************************/
+		/************************************************/ 
+		ChromosomeBasedMappabilityTroveList.fillTroveList( 
+				dataFolder, 
+				chromName,
+				mapabilityChromosomePositionList, 
+				mapabilityShortValueList); 
+		/************************************************/
+		/**************MAPABILITY************************/
+		/************************************************/
+		
+		
+		return calculateGC;
+		
+	}
+	
+	
+	//Not called anymore
 	//26 FEB 2016
 	//For code simplification
 	public static CalculateGC fillGCandMappabilityDataStructures(
@@ -6719,36 +6942,87 @@ public class Enrichment {
 
 				/*******************************************************************************************************************************/
 				/************************ FILL GC and Mapability Data Structures STARTS ********************************************************/
-				/*******************************************************************************************************************************/				
-				if( generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+				/*******************************************************************************************************************************/	
+				
+				if (isochoreFamilyMode.useIsochoreFamily()){
 					
-					gcByteList = new TByteArrayList();
-					gcIntervalTree = new IntervalTree();
 					gcIsochoreFamilyL1Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyL2Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH1Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH2Pool = new ArrayList<Interval>();
 					gcIsochoreFamilyH3Pool = new ArrayList<Interval>();
+					
+					fillIsochoreFamilyPools(
+							dataFolder,
+							chromName,
+							gcIsochoreFamilyL1Pool,
+							gcIsochoreFamilyL2Pool,
+							gcIsochoreFamilyH1Pool,
+							gcIsochoreFamilyH2Pool,
+							gcIsochoreFamilyH3Pool);
+					
+				}//End of IF Use Isochore Family 
+				
+		
+				if (generateRandomDataMode.isGenerateRandomDataModeWithGC()){
+					
+					gcByteList = new TByteArrayList();
+					gcIntervalTree = new IntervalTree();
+					
+					calculateGC = fillGCDataStructures(
+									dataFolder,
+									chromName,
+									chromBasedModeofGivenIntervalLength,
+									gcByteList,
+									gcIntervalTree);
+					
+				}else if(generateRandomDataMode.isGenerateRandomDataModeWithMapability()){
+					
 					mapabilityChromosomePositionList = new TIntArrayList();
 					mapabilityShortValueList = new TShortArrayList();
-
+					
+					fillMappabilityDataStructures(
+							dataFolder,
+							chromName,
+							mapabilityChromosomePositionList,
+							mapabilityShortValueList);
+					
+				} else if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+					
+					gcByteList = new TByteArrayList();
+					gcIntervalTree = new IntervalTree();
+					mapabilityChromosomePositionList = new TIntArrayList();
+					mapabilityShortValueList = new TShortArrayList();
+					
+					calculateGC = fillGCandMappabilityDataStructures(
+							dataFolder,
+							chromName,
+							chromBasedModeofGivenIntervalLength,
+							gcByteList,
+							gcIntervalTree,
+							mapabilityChromosomePositionList,
+							mapabilityShortValueList);
+					
+					
+				}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
+					//No need 
 				}
 
-				calculateGC = fillGCandMappabilityDataStructures(
-						dataFolder,
-						chromName,
-						chromBasedModeofGivenIntervalLength,
-						generateRandomDataMode,
-						isochoreFamilyMode,
-						gcByteList,
-						gcIntervalTree,
-						gcIsochoreFamilyL1Pool,
-						gcIsochoreFamilyL2Pool,
-						gcIsochoreFamilyH1Pool,
-						gcIsochoreFamilyH2Pool,
-						gcIsochoreFamilyH3Pool,
-						mapabilityChromosomePositionList,
-						mapabilityShortValueList);
+//				calculateGC = fillGCandMappabilityDataStructures(
+//						dataFolder,
+//						chromName,
+//						chromBasedModeofGivenIntervalLength,
+//						generateRandomDataMode,
+//						isochoreFamilyMode,
+//						gcByteList,
+//						gcIntervalTree,
+//						gcIsochoreFamilyL1Pool,
+//						gcIsochoreFamilyL2Pool,
+//						gcIsochoreFamilyH1Pool,
+//						gcIsochoreFamilyH2Pool,
+//						gcIsochoreFamilyH3Pool,
+//						mapabilityChromosomePositionList,
+//						mapabilityShortValueList);
 				/*******************************************************************************************************************************/
 				/************************ FILL GC and Mapability Data Structures ENDS **********************************************************/
 				/*******************************************************************************************************************************/

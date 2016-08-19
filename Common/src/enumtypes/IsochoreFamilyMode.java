@@ -47,6 +47,17 @@ public enum IsochoreFamilyMode {
 			return null;
 
 	}
+	
+	public String convertEnumtoShortString() {
+
+		if( this.equals(DO_USE_ISOCHORE_FAMILY))
+			return Commons.SHORT_DO_USE_ISOCHORE_FAMILY;
+		else if( this.equals(DO_NOT_USE_ISOCHORE_FAMILY))
+			return Commons.SHORT_DO_NOT_USE_ISOCHORE_FAMILY;
+		else
+			return null;
+
+	}
 
 	/** An added method.  */
 	public boolean useIsochoreFamily() {

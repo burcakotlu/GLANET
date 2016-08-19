@@ -11242,8 +11242,8 @@ public class Annotation {
 		if( annotation.annotateSequentially()){
 			
 			//For testing purposes
-			//TreeType treeType = TreeType.INTERVAL_TREE_CORMEN;
-			TreeType treeType = TreeType.INTERVAL_TREE_MARKDEBERG;
+			TreeType treeType = TreeType.INTERVAL_TREE_CORMEN;
+			//TreeType treeType = TreeType.INTERVAL_TREE_MARKDEBERG;
 			
 
 			/*******************************************************************************/
