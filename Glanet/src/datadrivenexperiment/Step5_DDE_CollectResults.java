@@ -1198,7 +1198,7 @@ public class Step5_DDE_CollectResults {
 			overallSituationBufferedWriter = new BufferedWriter(overallSituationFileWriter);
 			
 			//Write Header Line For UnaccomplishedGLANETRunsBufferedWriter
-			unaccomplishedGLANETRunsBufferedWriter.write("cellLineType_geneType_TPMType_dnaseOverlapExclusionType_generateRandomDataMode_associationMeasureType_DDE_RUNNumber" + System.getProperty("line.separator"));
+			unaccomplishedGLANETRunsBufferedWriter.write("#cellLineType_geneType_TPMType_dnaseOverlapExclusionType_generateRandomDataMode_associationMeasureType_DDE_RUNNumber" + System.getProperty("line.separator"));
 		
 				
 			//Writer Header Line For Overall Situation Information

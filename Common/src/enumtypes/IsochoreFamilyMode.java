@@ -29,9 +29,9 @@ public enum IsochoreFamilyMode {
 	public static IsochoreFamilyMode convertStringtoEnum(
 			String isochoreFamilyMode) {
 
-		if( Commons.DO_USE_ISOCHORE_FAMILY.equals( isochoreFamilyMode)){
+		if( Commons.DO_USE_ISOCHORE_FAMILY.equals(isochoreFamilyMode) || Commons.WIF.equals(isochoreFamilyMode)){
 			return DO_USE_ISOCHORE_FAMILY;
-		}else if( Commons.DO_NOT_USE_ISOCHORE_FAMILY.equals( isochoreFamilyMode)){
+		}else if( Commons.DO_NOT_USE_ISOCHORE_FAMILY.equals(isochoreFamilyMode) ||  Commons.WOIF.equals(isochoreFamilyMode)){
 			return DO_NOT_USE_ISOCHORE_FAMILY;
 		}else
 			return null;
@@ -51,9 +51,9 @@ public enum IsochoreFamilyMode {
 	public String convertEnumtoShortString() {
 
 		if( this.equals(DO_USE_ISOCHORE_FAMILY))
-			return Commons.SHORT_DO_USE_ISOCHORE_FAMILY;
+			return Commons.WIF;
 		else if( this.equals(DO_NOT_USE_ISOCHORE_FAMILY))
-			return Commons.SHORT_DO_NOT_USE_ISOCHORE_FAMILY;
+			return Commons.WOIF;
 		else
 			return null;
 

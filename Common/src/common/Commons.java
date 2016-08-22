@@ -430,8 +430,8 @@ public class Commons {
 	public static final String DO_USE_ISOCHORE_FAMILY = "With Isochore Family Pools";
 	public static final String DO_NOT_USE_ISOCHORE_FAMILY = "Without Isochore Family Pools";
 
-	public static final String SHORT_DO_USE_ISOCHORE_FAMILY = "wIF";
-	public static final String SHORT_DO_NOT_USE_ISOCHORE_FAMILY = "woIF";
+	public static final String WIF = "wIF";
+	public static final String WOIF = "woIF";
 
 	
 	//AssociationMeasureType

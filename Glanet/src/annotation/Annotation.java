@@ -669,12 +669,12 @@ public class Annotation {
 		int indexofFourthTab = 0;
 		int indexofFifthTab = 0;
 
-		ChromosomeName chromName;
-		int startPosition = 0;
-		int endPosition = 0;
-		int elementTypeNumber;
-		int elementNumber;
-		int fileNumber;
+		ChromosomeName chromName = null;
+		int startPosition = -1;
+		int endPosition = -1;
+		int elementTypeNumber = -1;
+		int elementNumber = -1;
+		int fileNumber = -1;
 
 		try{
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -688,22 +688,75 @@ public class Annotation {
 				indexofFourthTab = ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
 				indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
 
-				chromName = ChromosomeName.convertStringtoEnum( strLine.substring( 0, indexofFirstTab));
-
-				startPosition = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-				endPosition = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
-				elementTypeNumber = Integer.parseInt( strLine.substring( indexofThirdTab + 1, indexofFourthTab));
-				elementNumber = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
-				fileNumber = Integer.parseInt( strLine.substring( indexofFifthTab + 1));
-
+				
+				
+				if (indexofFirstTab>0){
+					chromName = ChromosomeName.convertStringtoEnum( strLine.substring( 0, indexofFirstTab));	
+				}else{
+					//debug delete
+					System.out.println(strLine);
+					//debug delete
+				}
+				
+				if (indexofFirstTab>0 && indexofSecondTab>0 ){
+					startPosition = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
+				}else{
+					//debug delete
+					System.out.println(strLine);
+					//debug delete
+				}
+				
+				if(indexofSecondTab>0 && indexofThirdTab>0){
+					endPosition = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
+				}else{
+					//debug delete
+					System.out.println(strLine);
+					//debug delete	
+				}
+				
+				if (indexofThirdTab>0 && indexofFourthTab>0){
+					elementTypeNumber = Integer.parseInt( strLine.substring( indexofThirdTab + 1, indexofFourthTab));
+				}else{
+					//debug delete
+					System.out.println(strLine);
+					//debug delete
+				}
+				
+				if (indexofFourthTab>0 && indexofFifthTab>0){
+					elementNumber = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
+				}else{
+					//debug delete
+					System.out.println(strLine);
+					//debug delete
+				}
+				
+				if (indexofFifthTab>0){
+					fileNumber = Integer.parseInt( strLine.substring( indexofFifthTab + 1));
+				}else{
+					//debug delete
+					System.out.println(strLine);
+					//debug delete
+				}
+				
 				// Creating millions of nodes with six attributes causes out of memory error
 				UserDefinedLibraryIntervalTreeNodeWithNumbers node = new UserDefinedLibraryIntervalTreeNodeWithNumbers(
-						chromName, startPosition, endPosition, elementTypeNumber, elementNumber, fileNumber,
+						chromName, 
+						startPosition, 
+						endPosition, 
+						elementTypeNumber, 
+						elementNumber, 
+						fileNumber,
 						NodeType.ORIGINAL);
-				userDefinedLibraryIntervalTree.intervalTreeInsert( userDefinedLibraryIntervalTree, node);
+				
+				userDefinedLibraryIntervalTree.intervalTreeInsert(userDefinedLibraryIntervalTree, node);
 
 				chromName = null;
 				strLine = null;
+				startPosition = -1;
+				endPosition = -1;
+				elementTypeNumber = -1;
+				elementNumber = -1;
+				fileNumber = -1;
 
 			}//End of WHILE
 			
