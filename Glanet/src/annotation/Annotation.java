@@ -14694,7 +14694,7 @@ public class Annotation {
 		String glanetRunType = args[CommandLineArguments.GLANETRun.value()];
 		
 		//Annotate GLANET normal run, do not annotate GLANET Data Driven Experiment run
-		if(!glanetRunType.equalsIgnoreCase(Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN)){
+		if(!glanetRunType.equalsIgnoreCase(Commons.ARG_GLANET_EXPERIMENT_RUN)){
 			Annotation annotateIntervals = new Annotation();
 			annotateIntervals.annotate(args);
 		}//End of IF

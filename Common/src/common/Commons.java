@@ -1563,8 +1563,18 @@ public class Commons {
 	public static final String ARG_IS_COMMAND_LINE_ENABLED = "-c";
 	public static final String ARG_LOG_FILE = "-l";
 	public static final String ARG_NO_LOG_FILE = "-nl";
-	public static final String GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN = "-dder";
-	public static final String GLANET_NORMAL_RUN = "-nr";
+	
+	//normally arguments shown on the GUI are longer
+	//but this argument is internal.
+	//public static final String GLANET_NORMAL_RUN = "-nr";
+	//public static final String GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN = "-dder";
+	
+	//normally arguments must be shorter
+	//but this argument is internal.
+	public static final String ARG_GLANET_NORMAL_RUN = "-nr";
+	public static final String ARG_GLANET_EXPERIMENT_RUN = "-dder";
+
+	
 	public static final String ARG_INPUT_FILE = "-i";
 	public static final String ARG_NUM_OF_THREADS = "-t";
 	public static final String ARG_ASSEMBLY_FORMAT_HG_19 = "-grch37";
@@ -1582,16 +1592,15 @@ public class Commons {
 	public static final String ARG_PERFORM_ENRICHMENT = "-e";
 	public static final String ARG_PERFORM_ENRICHMENT_WITH_ZSCORES = "-wzs";
 	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "-wozs";
-	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-wgcm";
-	
-	//18 August 2016
+		
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC = "-wgc";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_MAPPABILITY = "-wm";
-	
-	
+	public static final String ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP = "-wgcm";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_GC_AND_MAP = "-wogcm";
+	
 	public static final String ARG_GENERATE_RANDOM_DATA_WITH_ISOCHORE_FAMILY_POOLS = "-wif";
 	public static final String ARG_GENERATE_RANDOM_DATA_WITHOUT_ISOCHORE_FAMILY_POOLS = "-woif";
+
 	public static final String ARG_MULTIPLE_TESTING_BENJAMINI = "-bh";
 	public static final String ARG_MULTIPLE_TESTING_BONFERRONI = "-bonf";
 	public static final String ARG_FALSE_DISCOVERY_RATE = "-fdr";
@@ -1625,8 +1634,6 @@ public class Commons {
 	public static final String ARG_ANNOTATION_NO_OUTPUT = "-aon";
 	public static final String ARG_GIVEN_INPUT_HAS_SNPTS = "-isnps";
 	public static final String ARG_GIVEN_INPUT_HAS_MIXED_LENGTH_INTERVAL = "-imix";
-	public static final String ARG_GLANET_NORMAL_RUN = "-normalrun";
-	public static final String ARG_GLANET_EXPERIMENT_RUN = "-experiment";
 
 	// Enum type NumberOfBases
 	public static final String NUMBER_BASES_DEFAULT = "1";

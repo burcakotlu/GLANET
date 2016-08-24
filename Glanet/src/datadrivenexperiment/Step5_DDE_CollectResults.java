@@ -82,6 +82,7 @@ import gnu.trove.map.hash.TObjectIntHashMap;
  */
 public class Step5_DDE_CollectResults {
 
+	//isEnriched w.r.t. bonferroniCorrectedPValue 
 	public static boolean isEnriched( String strLine) {
 
 		boolean isEnriched = false;
@@ -118,6 +119,7 @@ public class Step5_DDE_CollectResults {
 
 	}
 	
+	//For collecting GAT results
 	public static void processLine(
 			String strLine,
 			Float significanceLevel,
@@ -126,11 +128,9 @@ public class Step5_DDE_CollectResults {
 			TObjectIntMap<String> elementTypeTpmName2NumberofValidRunMap,
 			List<DataDrivenExperimentElementNameType> elementNameTypeList){
 		
-		
 		String cellLineNameElementName = null;
 		String elementName = null;
 		String elementNameTPMType = null;
-		
 		
 		float empiricalPValue;
 		float ln2Fold;
@@ -159,8 +159,6 @@ public class Step5_DDE_CollectResults {
 		indexofNinethTab = ( indexofEigthTab > 0)?strLine.indexOf( '\t', indexofEigthTab + 1):-1;
 		indexofTenthTab = ( indexofNinethTab > 0)?strLine.indexOf( '\t', indexofNinethTab + 1):-1;
 		
-		
-		
 		if(indexofFirstTab!=-1 && indexofSecondTab!=-1 && indexofNinethTab!=-1 && indexofTenthTab!=-1){
 			
 			cellLineNameElementName = strLine.substring(indexofFirstTab + 1, indexofSecondTab);
@@ -178,19 +176,15 @@ public class Step5_DDE_CollectResults {
 				}
 			}//End of if element exists
 				
-			
 			//In case of enrichment ln2Fold must be positive and pValue must be less than significance level
 			//In case of depletion ln2Fold must be negative and pValue must be less than significance level
 					
-			
 			//ln2fold is between 8thTab and 9thTab
 			ln2Fold = Float.parseFloat(strLine.substring(indexofEigthTab + 1, indexofNinethTab));
 			
 			//pValue is between 9thTab and 10thTab
 			//pValue is both used for enrichment and depletion
 			empiricalPValue = Float.parseFloat(strLine.substring(indexofNinethTab + 1, indexofTenthTab));
-			
-			
 			
 			//Update and Accumulate
 			if (ln2Fold > 0 && empiricalPValue <= significanceLevel){
@@ -199,10 +193,9 @@ public class Step5_DDE_CollectResults {
 			
 		}//End of IF valid strLine control
 		
-
-		
 	}
 
+	//For GLANET Results
 	public static FunctionalElementMinimal getElement(String strLine) {
 
 		String elementName;
@@ -217,6 +210,9 @@ public class Step5_DDE_CollectResults {
 		// Calculated from zScore
 		double zScore;
 		double empiricalPValueCalculatedFromZScore;
+		
+		boolean rejectNullHypothesisCalculatedFromZScore;
+		boolean rejectNullHypothesis;
 
 		int indexofFirstTab;
 		int indexofSecondTab;
@@ -232,6 +228,8 @@ public class Step5_DDE_CollectResults {
 		int indexofTwelfthTab;
 		int indexofThirteenthTab;
 		int indexofFourteenthTab;
+		int indexofFifteenthTab;
+		int indexofSixteenthTab;
 
 		// Case P_VALUE_CALCULATED_FROM_NUMBER_OF_PERMUTATIONS_RATIO
 		// example strLine
@@ -261,6 +259,8 @@ public class Step5_DDE_CollectResults {
 		indexofTwelfthTab = ( indexofEleventhTab > 0)?strLine.indexOf( '\t', indexofEleventhTab + 1):-1;
 		indexofThirteenthTab = ( indexofTwelfthTab > 0)?strLine.indexOf( '\t', indexofTwelfthTab + 1):-1;
 		indexofFourteenthTab = ( indexofThirteenthTab > 0)?strLine.indexOf( '\t', indexofThirteenthTab + 1):-1;
+		indexofFifteenthTab = ( indexofFourteenthTab > 0)?strLine.indexOf( '\t', indexofFourteenthTab + 1):-1;
+		indexofSixteenthTab = ( indexofFifteenthTab > 0)?strLine.indexOf( '\t', indexofFifteenthTab + 1):-1;
 
 		FunctionalElementMinimal element = new FunctionalElementMinimal();
 
@@ -275,15 +275,17 @@ public class Step5_DDE_CollectResults {
 		element.setOriginalNumberofOverlaps( originalNumberofOverlaps);
 		
 			
-
 		if( !strLine.substring( indexofEigthTab + 1, indexofNinethTab).equals("NaN") &&
 				!strLine.substring( indexofEigthTab + 1, indexofNinethTab).equals("null")	){
 			
-			zScore = Double.parseDouble( strLine.substring( indexofEigthTab + 1, indexofNinethTab));
-			element.setZScore( zScore);
+			zScore = Double.parseDouble( strLine.substring(indexofEigthTab+1,indexofNinethTab));
+			element.setZScore(zScore);
 
 			empiricalPValueCalculatedFromZScore = Double.parseDouble( strLine.substring( indexofNinethTab + 1,indexofTenthTab));
 			element.setEmpiricalPValueCalculatedFromZScore( empiricalPValueCalculatedFromZScore);
+			
+			rejectNullHypothesisCalculatedFromZScore = Boolean.parseBoolean(strLine.substring(indexofTwelfthTab+1, indexofThirteenthTab));
+			element.setRejectNullHypothesisCalculatedFromZScore(rejectNullHypothesisCalculatedFromZScore);
 
 		}else{
 			element.setZScore( null);
@@ -291,17 +293,17 @@ public class Step5_DDE_CollectResults {
 		}
 
 		if (indexofThirteenthTab>=0 && indexofFourteenthTab>=0){
-			
 			empiricalPValue = Float.parseFloat( strLine.substring(indexofThirteenthTab + 1, indexofFourteenthTab));
 			element.setEmpiricalPValue(empiricalPValue);
 			
+			rejectNullHypothesis = Boolean.parseBoolean(strLine.substring(indexofSixteenthTab+1));
+			element.setRejectNullHypothesis(rejectNullHypothesis);
 		}
-		
-		
 					
 		return element;
 	}
 
+	//For GLANET
 	public static void writeCellLineFilteredEnrichmentFile(
 			DataDrivenExperimentCellLineType cellLineType,
 			DataDrivenExperimentTPMType TPMType,
@@ -330,7 +332,7 @@ public class Step5_DDE_CollectResults {
 		try{
 			
 			// Write Header Line
-			cellLineFilteredEnrichmentBufferedWriter.write("ElementName" + "\t");
+			cellLineFilteredEnrichmentBufferedWriter.write("#ElementName" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("Observed Test Statistic" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("NumberofSamplingsHavingTestStatisticGreaterThanorEqualtoObservedTestStatistic" + "\t");
 			cellLineFilteredEnrichmentBufferedWriter.write("NumberofSamplings" + "\t");
@@ -391,6 +393,9 @@ public class Step5_DDE_CollectResults {
 					if(enrichmentDecisionType.isEnrichedwrtEmpiricalPvalueFromRatioofSamplings()){
 						
 						if( element.getEmpiricalPValue() <= bonferroniCorrectionSignificanceLevel){
+							//debug delete
+							System.out.println("enriched");
+							//debug delete
 							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
 						}
 						
@@ -618,6 +623,10 @@ public class Step5_DDE_CollectResults {
 				}// End of IF EnrichmentDirectory Exists
 				
 				if (enrichmentFile!=null){
+					
+					//debug delete
+					System.out.println(enrichmentFile);
+					//debug delete
 					
 					enrichmentFileReader = FileOperations.createFileReader(enrichmentFile);
 					enrichmentBufferedReader = new BufferedReader( enrichmentFileReader);

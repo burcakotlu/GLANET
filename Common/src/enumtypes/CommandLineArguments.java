@@ -127,7 +127,7 @@ public enum CommandLineArguments {
 	UserDefinedLibraryDataFormat( 36,Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES), 
 	GivenInputDataType(37,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS), //This argument is internal.
 	LogFile(38, Commons.ARG_NO_LOG_FILE),
-	GLANETRun(39, Commons.GLANET_NORMAL_RUN), //This argument is optional, default is normal run
+	GLANETRun(39, Commons.ARG_GLANET_NORMAL_RUN), //This argument is optional, default is normal run
 	IsochoreFamilyMode(40,Commons.DO_NOT_USE_ISOCHORE_FAMILY), //This argument is internal.
 	NumberOfThreads(41, Integer.toString(4*Runtime.getRuntime().availableProcessors()/5)), //This argument is internal.
 	NumberOfArguments(42);

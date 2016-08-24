@@ -278,7 +278,7 @@ public class MainView extends JPanel {
 						userDefinedLibraryInput.getText(),
 						userDefinedLibraryDataFormatCombo.getSelectedItem().toString(),
 						Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS,
-						Commons.GLANET_NORMAL_RUN,
+						Commons.ARG_GLANET_NORMAL_RUN,
 						generateRandomDataIsochoreFamilyModeCombo.getSelectedItem().toString(),
 						(numOfThreadsTextField.getText().length() < 1)?CommandLineArguments.NumberOfThreads.defaultValue():numOfThreadsTextField.getText(),
 						cellLinesList.getSelectedValuesList().toArray( new String[0]));

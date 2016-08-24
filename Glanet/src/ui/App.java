@@ -171,8 +171,8 @@ public class App {
 		//Parsing GLANET Run Mode
 		for( int i = 0; i < args.length; i++){
 			if( args[i].equalsIgnoreCase( Commons.ARG_GLANET_NORMAL_RUN)){
-				if( argsInOrder[CommandLineArguments.GLANETRun.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.GLANETRun.value()] = Commons.GLANET_NORMAL_RUN;
+				if( argsInOrder[CommandLineArguments.GLANETRun.value()].equals(notSet))
+					argsInOrder[CommandLineArguments.GLANETRun.value()] = Commons.ARG_GLANET_NORMAL_RUN;
 				else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
@@ -180,8 +180,8 @@ public class App {
 			}
 			
 			else if( args[i].equalsIgnoreCase( Commons.ARG_GLANET_EXPERIMENT_RUN)){
-				if( argsInOrder[CommandLineArguments.GLANETRun.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.GLANETRun.value()] = Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN;
+				if( argsInOrder[CommandLineArguments.GLANETRun.value()].equals(notSet))
+					argsInOrder[CommandLineArguments.GLANETRun.value()] = Commons.ARG_GLANET_EXPERIMENT_RUN;
 				else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;

@@ -8670,7 +8670,7 @@ public class Enrichment {
 		//Write if this is a commandLine DataDrivenExperiment Run
 		String glanetRunType = args[CommandLineArguments.GLANETRun.value()];
 		
-		if(glanetRunType.equalsIgnoreCase(Commons.GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN)){
+		if(glanetRunType.equalsIgnoreCase(Commons.ARG_GLANET_EXPERIMENT_RUN)){
 			System.out.println("JobName: " + jobName + "\t" + "Number of processors: " + numberofProcessors); 
 		}
 		/***********************************************************************************/

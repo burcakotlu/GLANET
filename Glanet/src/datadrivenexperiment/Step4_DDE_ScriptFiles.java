@@ -404,9 +404,9 @@ public class Step4_DDE_ScriptFiles {
 
 	
 
-	//For NonExpressingGenes, all of the DataDrivenExperimentDnaseOverlapExclusionType: CompletelyDiscard, TakeTheLongest
+	//For NonExpressingGenes, only CompletelyDiscard, TakeTheLongest
 	//For ExpressingGenes, only NoDiscard
-	//For AssociationMeasureType NumberofOverlappingBases and ExistenceofOverlap
+	//For AssociationMeasureType only NumberofOverlappingBases
 	public static void writeGLANETRuns( 
 			int startingRunNumber, 
 			int endingRunNumber,
@@ -426,11 +426,8 @@ public class Step4_DDE_ScriptFiles {
 		BufferedWriter bufferedWriter = null;
 		String fileName = null;
 		
-		FileWriter call_Runs_WithGCM_FileWriter = null;
-		BufferedWriter call_Runs_WithGCM_BufferedWriter = null;
-		
-		FileWriter call_Runs_WithoutGCM_FileWriter = null;
-		BufferedWriter call_Runs_WithoutGCM_BufferedWriter = null;
+		FileWriter call_Runs_FileWriter = null;
+		BufferedWriter call_Runs_BufferedWriter = null;
 		
 		String fileExtension = null;
 		
@@ -438,12 +435,17 @@ public class Step4_DDE_ScriptFiles {
 			
 		for(DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType: DataDrivenExperimentDnaseOverlapExclusionType.values()){
 			
-			//Add GCM extension
-			GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString();  
+			//Add cellLineTyoe geneType tpmType dnaseOverlapExclusionType
+			GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString();  
+			
+			//Add isochoreFamilyMode extension
+			GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + generateRandomDataMode.convertEnumtoShortString() ;
+
+			//Add isochoreFamilyMode extension
+			GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + isochoreFamilyMode.convertEnumtoShortString();
 			
 			//Add associationMeasureType extension
 			GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + associationMeasureType.convertEnumtoShortString();
-			
 			
 			//We want to get rid of NonExpressingGenes and NoDiscard Case
 			//We want to run ExpressingGenes and NoDiscard Case only
@@ -467,22 +469,18 @@ public class Step4_DDE_ScriptFiles {
 					case TRUBA:
 					case TRUBA_FAST: {
 						fileExtension = Commons.SLURM_FILE_EXTENSION;
-						
 						break;
 					}
 								
-				}//End of SWITCH
+				}//End of SWITCH for file extension
 				
 				
-				call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + Commons.WGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
-				call_Runs_WithGCM_BufferedWriter = new BufferedWriter(call_Runs_WithGCM_FileWriter);
-				
-				call_Runs_WithoutGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() + "_" + Commons.WOGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
-				call_Runs_WithoutGCM_BufferedWriter = new BufferedWriter(call_Runs_WithoutGCM_FileWriter);
+				call_Runs_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_"  +  associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
+				call_Runs_BufferedWriter = new BufferedWriter(call_Runs_FileWriter);
 				
 				//Decide on fileName
 				fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_"  + tpmType.convertEnumtoString() + "_"  + dnaseOverlapExclusionType.convertEnumtoString() + "_"+  generateRandomDataMode.convertEnumtoShortString() + "_" +  isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + fileExtension;
-				
+								
 				fileWriter = FileOperations.createFileWriter(fileName);	
 				bufferedWriter = new BufferedWriter(fileWriter);
 				
@@ -491,11 +489,7 @@ public class Step4_DDE_ScriptFiles {
 				switch(operatingSystem){
 				
 					case WINDOWS:{
-						if(generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
-							call_Runs_WithGCM_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));
-						}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
-							call_Runs_WithoutGCM_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));
-						}
+						call_Runs_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));
 						break;
 					}
 					
@@ -510,12 +504,7 @@ public class Step4_DDE_ScriptFiles {
 						
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						if(generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
-							call_Runs_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
-						}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
-							call_Runs_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
-						}
-						
+						call_Runs_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));	
 						break;
 					}
 					
@@ -524,12 +513,7 @@ public class Step4_DDE_ScriptFiles {
 						bufferedWriter.write("#!/bin/sh" + System.getProperty("line.separator"));
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						if(generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
-							call_Runs_WithGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
-						}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
-							call_Runs_WithoutGCM_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
-						}
-						
+						call_Runs_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
 						break;
 						
 					}
@@ -558,12 +542,7 @@ public class Step4_DDE_ScriptFiles {
 						bufferedWriter.write("echo \"NUMBER OF CORES $SLURM_NTASKS\"" + System.getProperty("line.separator"));
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						if(generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
-							call_Runs_WithGCM_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
-						}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
-							call_Runs_WithoutGCM_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
-						}
-
+						call_Runs_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
 						break;
 					}
 					
@@ -603,54 +582,77 @@ public class Step4_DDE_ScriptFiles {
 				
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						if(generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
-							call_Runs_WithGCM_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
-						}else if (generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
-							call_Runs_WithoutGCM_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
-						}
-	
+						call_Runs_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
 						break;
 					}
 
-					
 					default: 
 						break;
 					
 				}//End of SWITCH for writing header lines
-				
-				
-				
+						
 				//rootCommand for GLANET.jar call
-				rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + System.getProperty( "file.separator") + "\" -i \"" + args[1] + System.getProperty("file.separator") + Commons.DATA + System.getProperty("file.separator") + "DDE11Data" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN;
+				rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + "\" -i \"" + args[1] + Commons.DDE + System.getProperty("file.separator") + "DDEData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN;
 
-				
 				switch(operatingSystem){
+					
 					case TRUBA_FAST:{
 						
 						String command = null;
 						
-						if(associationMeasureType.isAssociationMeasureExistenceofOverlap()){
-							command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-existOv ";							
-						}else if(associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
-							command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-numOvBas ";							
-						}
+						//old one
+						//command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
+						command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-udl -udlinput " + "\"" + args[1] + Commons.DATA + System.getProperty("file.separator") + "demo_input_data" + System.getProperty("file.separator") +  "UserDefinedLibrary" + System.getProperty("file.separator") + "DDCE_UserDefinedLibraryInputFile.txt\"" +  " -udldf0exc"  + " -e " + "-ewz ";
+					
 						
 						switch(generateRandomDataMode){
-
-							case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:				
-								bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "wGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
-								break;
-				
-							case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:				
-								bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() +"woGCM" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
-								break;
-				
-							default:
-								break;
-
-						}// End of SWITCH for wGCM or woGCM
-
 						
+							case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:	
+								command = command + " -wgc ";
+								break;
+								
+							case GENERATE_RANDOM_DATA_WITH_MAPPABILITY:	
+								command = command + " -wm ";
+								break;
+						
+							case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:	
+								command = command + " -wgcm ";
+								break;
+
+							case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:	
+								command = command + " -wogcm ";
+								break;
+								
+						}//End of switch adding parameter for generateRandomDataMode
+						
+						
+						switch(isochoreFamilyMode){
+						
+							case DO_USE_ISOCHORE_FAMILY:	
+								command = command + " -wif ";
+								break;
+								
+							case DO_NOT_USE_ISOCHORE_FAMILY:	
+								command = command + " -woif ";
+								break;
+						
+						}//End of switch adding parameter for generateRandomDataMode
+						
+						switch(associationMeasureType){
+						
+							case EXISTENCE_OF_OVERLAP:	
+								command = command + " -eoo ";
+								break;
+								
+							case NUMBER_OF_OVERLAPPING_BASES:	
+								command = command + " -noob ";
+								break;
+						
+						}//End of switch adding parameter for generateRandomDataMode
+
+
+						bufferedWriter.write( command + " -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
+
 					}
 					break;
 						
@@ -679,8 +681,7 @@ public class Step4_DDE_ScriptFiles {
 									break;
 								case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:
 									command = command + " -wgc";
-									break;
-										
+									break;		
 								
 							}
 							
@@ -719,9 +720,7 @@ public class Step4_DDE_ScriptFiles {
 				
 				//Add Line Separator
 				bufferedWriter.write(System.getProperty("line.separator"));
-				call_Runs_WithGCM_BufferedWriter.write(System.getProperty("line.separator"));
-				call_Runs_WithoutGCM_BufferedWriter.write(System.getProperty("line.separator"));
-				
+				call_Runs_BufferedWriter.write(System.getProperty("line.separator"));
 				
 				//Adding Exit line
 				switch(operatingSystem){
@@ -740,12 +739,8 @@ public class Step4_DDE_ScriptFiles {
 				bufferedWriter.close();
 				fileWriter.close();
 				
-				call_Runs_WithGCM_BufferedWriter.close();
-				call_Runs_WithGCM_FileWriter.close();
-				
-				call_Runs_WithoutGCM_BufferedWriter.close();
-				call_Runs_WithoutGCM_FileWriter.close();
-				
+				call_Runs_BufferedWriter.close();
+				call_Runs_FileWriter.close();
 				
 			}//End of IF geneType is NonExpressingGenes or ExpressingGenesAndNoDiscard
 			
@@ -781,7 +776,7 @@ public class Step4_DDE_ScriptFiles {
 		String glanetFolder = args[1];
 		String dataDrivenExperimentFolder = glanetFolder + Commons.DDE + System.getProperty("file.separator");
 		String dataDrivenExperimentScriptFolder =  dataDrivenExperimentFolder +  Commons.SCRIPT_FILES + System.getProperty("file.separator");
-
+		
 		DataDrivenExperimentCellLineType cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(args[2]);
 		DataDrivenExperimentGeneType geneType = DataDrivenExperimentGeneType.convertStringtoEnum(args[3]);
 		
@@ -851,67 +846,39 @@ public class Step4_DDE_ScriptFiles {
 						
 						for(AssociationMeasureType associationMeasureType: AssociationMeasureType.values()){
 							
-							//18 August 2016 starts
-							for(GenerateRandomDataMode generateRandomDataMode: GenerateRandomDataMode.values()){
+							//Let's create runs only for NOOB
+							if(associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
 								
-								for(IsochoreFamilyMode isochoreFamilyMode : IsochoreFamilyMode.values()){
+								//18 August 2016 starts
+								for(GenerateRandomDataMode generateRandomDataMode: GenerateRandomDataMode.values()){
 									
-									writeGLANETRuns( 
-											startingRunNumber, 
-											endingRunNumber,
-											cellLineType,
-											geneType,
-											operatingSystem,
-											tpmType, 
-											associationMeasureType,
-											generateRandomDataMode,
-											isochoreFamilyMode,
-											args,
-											dataDrivenExperimentScriptFolder);
+									for(IsochoreFamilyMode isochoreFamilyMode : IsochoreFamilyMode.values()){
+										
+										writeGLANETRuns( 
+												startingRunNumber, 
+												endingRunNumber,
+												cellLineType,
+												geneType,
+												operatingSystem,
+												tpmType, 
+												associationMeasureType,
+												generateRandomDataMode,
+												isochoreFamilyMode,
+												args,
+												dataDrivenExperimentScriptFolder);
 
+										
+									}//End of for each isochoreFamilyMode
 									
-								}//End of for each isochoreFamilyMode
+								}//End of for each generateRandomDataMode
+								//18 August 2016 ends
 								
-							}//End of for each generateRandomDataMode
-							//18 August 2016 ends
-
+								
+							}//End of IF associationMeasureType = NOOB
 							
+						}//End of For each associationMeasureType
 							
-							
-//							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-//							// With GC and Mapability
-//							writeGLANETRuns( 
-//									startingRunNumber, 
-//									endingRunNumber,
-//									cellLineType,
-//									geneType,
-//									operatingSystem,
-//									tpmType, 
-//									associationMeasureType,
-//									withGCandMapability,
-//									IsochoreFamilyMode.DO_USE_ISOCHORE_FAMILY,
-//									args,
-//									dataDrivenExperimentScriptFolder);
-//							//******************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//
-//							
-//							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
-//							// Without GC and Mapability
-//							writeGLANETRuns(
-//									startingRunNumber, 
-//									endingRunNumber,
-//									cellLineType,
-//									geneType,
-//									operatingSystem,
-//									tpmType, 
-//									associationMeasureType,
-//									withoutGCandMapability,
-//									IsochoreFamilyMode.DO_USE_ISOCHORE_FAMILY,
-//									args,
-//									dataDrivenExperimentScriptFolder);
-//							//***************************************WITHOUT_MAPPABILITY_AND_GC_CONTENT************************************//
-							
-						}//End of FOR each Association Measure Type
-						
+		
 					}//End of FOR each tpmValue
 					//*************************************************************************************************************//
 					//****************************************************SIMULATIONS**********************************************//
