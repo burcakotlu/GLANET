@@ -426,8 +426,8 @@ public class Step4_DDE_ScriptFiles {
 		BufferedWriter bufferedWriter = null;
 		String fileName = null;
 		
-		FileWriter call_Runs_FileWriter = null;
-		BufferedWriter call_Runs_BufferedWriter = null;
+		FileWriter sbatch_calls_FileWriter = null;
+		BufferedWriter sbatch_calls_BufferedWriter = null;
 		
 		String fileExtension = null;
 		
@@ -475,8 +475,8 @@ public class Step4_DDE_ScriptFiles {
 				}//End of SWITCH for file extension
 				
 				
-				call_Runs_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_"  +  associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
-				call_Runs_BufferedWriter = new BufferedWriter(call_Runs_FileWriter);
+				sbatch_calls_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_"  + tpmType.convertEnumtoString() + "_"  + dnaseOverlapExclusionType.convertEnumtoString() + Commons.TEXT_FILE_EXTENSION, true);
+				sbatch_calls_BufferedWriter = new BufferedWriter(sbatch_calls_FileWriter);
 				
 				//Decide on fileName
 				fileName = dataDrivenExperimentScriptFolder + "GLANET_DDE_" + cellLineType.convertEnumtoString() + "_" +  geneType.convertEnumtoString() + "_"  + tpmType.convertEnumtoString() + "_"  + dnaseOverlapExclusionType.convertEnumtoString() + "_"+  generateRandomDataMode.convertEnumtoShortString() + "_" +  isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + fileExtension;
@@ -489,7 +489,7 @@ public class Step4_DDE_ScriptFiles {
 				switch(operatingSystem){
 				
 					case WINDOWS:{
-						call_Runs_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));
+						sbatch_calls_BufferedWriter.write("cmd /c" +  "\t" + fileName + System.getProperty("line.separator"));
 						break;
 					}
 					
@@ -504,7 +504,7 @@ public class Step4_DDE_ScriptFiles {
 						
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						call_Runs_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));	
+						sbatch_calls_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));	
 						break;
 					}
 					
@@ -513,7 +513,7 @@ public class Step4_DDE_ScriptFiles {
 						bufferedWriter.write("#!/bin/sh" + System.getProperty("line.separator"));
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						call_Runs_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
+						sbatch_calls_BufferedWriter.write("qsub" + "\t" + fileName + System.getProperty("line.separator"));
 						break;
 						
 					}
@@ -542,7 +542,7 @@ public class Step4_DDE_ScriptFiles {
 						bufferedWriter.write("echo \"NUMBER OF CORES $SLURM_NTASKS\"" + System.getProperty("line.separator"));
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						call_Runs_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
+						sbatch_calls_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
 						break;
 					}
 					
@@ -582,7 +582,7 @@ public class Step4_DDE_ScriptFiles {
 				
 						bufferedWriter.write(System.getProperty("line.separator"));
 						
-						call_Runs_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
+						sbatch_calls_BufferedWriter.write("sbatch" + "\t" + fileName + System.getProperty("line.separator"));
 						break;
 					}
 
@@ -592,7 +592,7 @@ public class Step4_DDE_ScriptFiles {
 				}//End of SWITCH for writing header lines
 						
 				//rootCommand for GLANET.jar call
-				rootCommand = "java -jar \"" + args[0] + "\" -Xms4G -Xmx4G -c -g \"" + args[1] + "\" -i \"" + args[1] + Commons.DDE + System.getProperty("file.separator") + "DDEData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN;
+				rootCommand = "java -Xms4G -Xmx4G -jar \"" + args[0] + "\" -c -g \"" + args[1] + "\" -i \"" + args[1] + Commons.DDE + System.getProperty("file.separator") + "DDEData" + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN;
 
 				switch(operatingSystem){
 					
@@ -601,8 +601,10 @@ public class Step4_DDE_ScriptFiles {
 						String command = null;
 						
 						//old one
-						//command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
-						command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-udl -udlinput " + "\"" + args[1] + Commons.DATA + System.getProperty("file.separator") + "demo_input_data" + System.getProperty("file.separator") +  "UserDefinedLibrary" + System.getProperty("file.separator") + "DDCE_UserDefinedLibraryInputFile.txt\"" +  " -udldf0exc"  + " -e " + "-ewz ";
+						command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
+						
+						// Using UDL lead to write errors since each experiment tries to write under the same directory with same file names.
+						//command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-udl -udldf0exc -udlinput " + "\"" + args[1] + Commons.DATA + System.getProperty("file.separator") + "demo_input_data" + System.getProperty("file.separator") +  "UserDefinedLibrary" + System.getProperty("file.separator") + "DDCE_UserDefinedLibraryInputFile.txt\"" + " -e " + "-ewz ";
 					
 						
 						switch(generateRandomDataMode){
@@ -651,7 +653,7 @@ public class Step4_DDE_ScriptFiles {
 						}//End of switch adding parameter for generateRandomDataMode
 
 
-						bufferedWriter.write( command + " -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
+						bufferedWriter.write( command + " -s 10000 -se 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
 
 					}
 					break;
@@ -667,7 +669,7 @@ public class Step4_DDE_ScriptFiles {
 							
 							String command = null;
 							
-							command = rootCommand + i + ".txt\" " + "-f0 " + "-udl -udlinput " + "\"" + args[1] + Commons.DATA + System.getProperty("file.separator") + "demo_input_data" + System.getProperty("file.separator") +  "UserDefinedLibrary" + System.getProperty("file.separator") + "DDCE_UserDefinedLibraryInputFile.txt\"" +  " -udldf0exc"  + " -e " + "-ewz ";							
+							command = rootCommand + i + ".txt\" " + "-f0 " + "-udl -udldf0exc -udlinput " + "\"" + args[1] + Commons.DATA + System.getProperty("file.separator") + "demo_input_data" + System.getProperty("file.separator") +  "UserDefinedLibrary" + System.getProperty("file.separator") + "DDCE_UserDefinedLibraryInputFile.txt\"" + " -e " + "-ewz ";							
 								
 							switch(generateRandomDataMode){
 								case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
@@ -706,7 +708,7 @@ public class Step4_DDE_ScriptFiles {
 							
 							}
 
-							bufferedWriter.write( command + " -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + isochoreFamilyMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString()+  Commons.DDE_RUN + i + System.getProperty( "line.separator"));
+							bufferedWriter.write(command + " -s 10000 -se 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + isochoreFamilyMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString()+  Commons.DDE_RUN + i + System.getProperty( "line.separator"));
 							
 
 						}// End of FOR each simulation
@@ -720,7 +722,7 @@ public class Step4_DDE_ScriptFiles {
 				
 				//Add Line Separator
 				bufferedWriter.write(System.getProperty("line.separator"));
-				call_Runs_BufferedWriter.write(System.getProperty("line.separator"));
+				sbatch_calls_BufferedWriter.write(System.getProperty("line.separator"));
 				
 				//Adding Exit line
 				switch(operatingSystem){
@@ -739,8 +741,8 @@ public class Step4_DDE_ScriptFiles {
 				bufferedWriter.close();
 				fileWriter.close();
 				
-				call_Runs_BufferedWriter.close();
-				call_Runs_FileWriter.close();
+				sbatch_calls_BufferedWriter.close();
+				sbatch_calls_FileWriter.close();
 				
 			}//End of IF geneType is NonExpressingGenes or ExpressingGenesAndNoDiscard
 			

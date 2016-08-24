@@ -18,6 +18,7 @@ import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.GivenInputDataType;
 import enumtypes.IsochoreFamily;
 import enumtypes.IsochoreFamilyMode;
+import enumtypes.UserDefinedLibraryDataFormat;
 import enumtypes.WriteGeneratedRandomDataMode;
 import enumtypes.WritePermutationBasedAnnotationResultMode;
 import enumtypes.WritePermutationBasedandParametricBasedAnnotationResultMode;
@@ -80,7 +81,6 @@ import annotation.Annotation;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
 
 /**
@@ -6918,6 +6918,7 @@ public class Enrichment {
 		/******************************************************************************************************/
 		for( int i = 1; i <= Commons.NUMBER_OF_CHROMOSOMES_HG19; i++){
 			
+			
 			chromName = GRCh37Hg19Chromosome.getChromosomeName(i);
 			chromSize = hg19ChromosomeSizes.get(i - 1);
 			
@@ -9036,12 +9037,55 @@ public class Enrichment {
 			userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap = new TIntObjectHashMap<TIntObjectMap<String>> ();
 			TIntIntMap userDefinedLibraryElementTypeNumber2NumberofComparisonMap = new TIntIntHashMap();
 			
-					
-			UserDefinedLibraryUtility.fillNumber2NameMap( 
-					userDefinedLibraryElementTypeNumber2NameMap, 
-					dataFolder,
-					Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME,
-					Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
+			//24 August 2016 starts
+			//If this is a data driven experiment run
+			if (glanetRunType.equalsIgnoreCase(Commons.ARG_GLANET_EXPERIMENT_RUN)){
+				String userDefinedLibraryInputFile = args[CommandLineArguments.UserDefinedLibraryInput.value()];
+
+				UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum( args[CommandLineArguments.UserDefinedLibraryDataFormat.value()]);
+				
+				
+				// used in write results
+				TObjectIntMap<String> userDefinedLibraryElementType2ElementTypeNumberMap = new TObjectIntHashMap<String>();
+				TIntObjectMap<String> userDefinedLibraryElementTypeNumber2ElementTypeMap = new TIntObjectHashMap<String>();
+
+				// This has to be ElementType Specific for Bonferroni Correction
+				TIntObjectMap<TObjectIntMap<String>> elementTypeNumber2ElementName2ElementNumberMapMap = new TIntObjectHashMap<TObjectIntMap<String>>();
+				TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap = new TIntObjectHashMap<TIntObjectMap<String>>();
+
+				TObjectIntMap<String> userDefinedLibraryFileName2FileNumberMap = new TObjectIntHashMap<String>();
+				TIntObjectMap<String> userDefinedLibraryFileNumber2FileNameMap = new TIntObjectHashMap<String>();
+
+
+				UserDefinedLibraryUtility.readUserDefinedLibraryInputFileCreateUnsortedChromosomeBasedFilesWithNumbersFillMapsWriteMaps(
+						dataFolder, 
+						userDefinedLibraryInputFile, 
+						userDefinedLibraryDataFormat,
+						userDefinedLibraryElementType2ElementTypeNumberMap,
+						userDefinedLibraryElementTypeNumber2ElementTypeMap,
+						elementTypeNumber2ElementName2ElementNumberMapMap,
+						elementTypeNumber2ElementNumber2ElementNameMapMap, 
+						userDefinedLibraryFileName2FileNumberMap,
+						userDefinedLibraryFileNumber2FileNameMap);
+				
+				//Please note that userDefinedLibraryElementTypeNumber2ElementTypeMap and userDefinedLibraryElementTypeNumber2NameMap are the same
+
+				userDefinedLibraryElementTypeNumber2NameMap = userDefinedLibraryElementTypeNumber2ElementTypeMap;
+			
+			}//End of If this is data driven experiment run
+			//24 August 2016 ends
+			
+			//This is a normal run
+			else{
+				
+				UserDefinedLibraryUtility.fillNumber2NameMap( 
+						userDefinedLibraryElementTypeNumber2NameMap, 
+						dataFolder,
+						Commons.ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME,
+						Commons.ALL_POSSIBLE_USERDEFINEDLIBRARY_ELEMENTTYPE_NUMBER_2_NAME_OUTPUT_FILENAME);
+
+			}
+			
 			
 			for(TIntObjectIterator<String> itr = userDefinedLibraryElementTypeNumber2NameMap.iterator();itr.hasNext();){
 				

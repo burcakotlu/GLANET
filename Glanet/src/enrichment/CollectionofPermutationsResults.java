@@ -2538,6 +2538,15 @@ public class CollectionofPermutationsResults {
 		/******************************* BOTH ***************************************/
 		/****************************************************************************/
 
+		//24 August 2016 starts
+		String glanetRunType = args[CommandLineArguments.GLANETRun.value()];
+		
+		if(glanetRunType.equalsIgnoreCase(Commons.ARG_GLANET_EXPERIMENT_RUN)){
+			System.out.println("Collection of samplings results has just ended."); 
+		}
+		//24 August 2016 ends
+
+		
 	}
 
 }

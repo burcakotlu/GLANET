@@ -582,22 +582,7 @@ public class Step5_DDE_CollectResults {
 				// Initialize elementList for each simulation (GLANET run)
 				cellLineSpecificElementList = new ArrayList<FunctionalElementMinimal>();
 				
-				switch(generateRandomDataMode){
-				
-					case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() +  isochoreFamilyMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty( "file.separator"));
-						break;
-					
-					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-					case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-						enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
-						break;
-						
-					default:
-						break;
-				
-				}//End of SWITCH
-				
+				enrichmentDirectory = new File(outputFolder + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" +generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i + System.getProperty( "file.separator") + Commons.ENRICHMENT + System.getProperty( "file.separator") + elementType.convertEnumtoString() + System.getProperty( "file.separator"));
 				
 				// Get the enrichmentFile in this folder for this simulation
 				// There must only one enrichmentFile
@@ -624,9 +609,9 @@ public class Step5_DDE_CollectResults {
 				
 				if (enrichmentFile!=null){
 					
-					//debug delete
+					//debug delete later
 					System.out.println(enrichmentFile);
-					//debug delete
+					//debug delete later
 					
 					enrichmentFileReader = FileOperations.createFileReader(enrichmentFile);
 					enrichmentBufferedReader = new BufferedReader( enrichmentFileReader);
@@ -647,6 +632,13 @@ public class Step5_DDE_CollectResults {
 						}
 
 					}// End of WHILE
+					
+					//debug delete later
+					for(Iterator<FunctionalElementMinimal> itr = cellLineSpecificElementList.iterator();itr.hasNext();){
+						FunctionalElementMinimal element = itr.next();
+						System.out.println(element.getName() + "\t" + element.getEmpiricalPValue());
+					}
+					//debug delete laer
 					
 					
 					//There must be at least one result other than header line
@@ -693,7 +685,7 @@ public class Step5_DDE_CollectResults {
 				else{
 					
 					//Write unaccomplished GLANET runs to a file under DDE directory
-					lookFor = cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + isochoreFamilyMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i;
+					lookFor = cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + i;
 					
 					if (!unaccomplishedGLANETRunsList.contains(lookFor)){
 						unaccomplishedGLANETRunsBufferedWriter.write(lookFor + System.getProperty("line.separator"));
@@ -711,7 +703,6 @@ public class Step5_DDE_CollectResults {
 			elementTypeTpmName2NumberofValidRunMap.put(elementType.convertEnumtoString() + "_" + TPMType.convertEnumtoString(), numberofExistingEnrichmentDirectories);
 			
 		}catch( IOException e){
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -1075,7 +1066,7 @@ public class Step5_DDE_CollectResults {
 
 		//glanetFolder
 		String glanetFolder     = args[0];
-		String glanetDataFolder = glanetFolder + Commons.DATA 	+ System.getProperty("file.separator");
+		//String glanetDataFolder = glanetFolder + Commons.DATA 	+ System.getProperty("file.separator");
 		String outputFolder 	= glanetFolder + Commons.OUTPUT + System.getProperty("file.separator");
 		String ddeFolder 		= glanetFolder + Commons.DDE 	+ System.getProperty("file.separator");
 		
@@ -1260,29 +1251,29 @@ public class Step5_DDE_CollectResults {
 				
 					case GLANET:
 						
-//						//TF
-//						readSimulationGLANETResults(
-//								outputFolder, 
-//								TPMType, 
-//								dnaseOverlapExclusionType, 
-//								numberofRuns,
-//								ElementType.TF, 
-//								cellLineType, 
-//								geneType,
-//								elementNameTypeList,
-//								elementNameTPMName2NumberofEnrichmentMap,
-//								elementTypeTpmName2NumberofValidRunMap,
-//								bonferroniCorrectionSignificanceLevel, 
-//								FDR, 
-//								multipleTestingParameter, 
-//								enrichmentDecisionType,
-//								generateRandomDataMode,
-//								isochoreFamilyMode,
-//								associationMeasureType,
-//								unaccomplishedGLANETRunsBufferedWriter,
-//								unaccomplishedGLANETRunsList,
-//								dateFormat,
-//								date);
+						//TF
+						readSimulationGLANETResults(
+								outputFolder, 
+								TPMType, 
+								dnaseOverlapExclusionType, 
+								numberofRuns,
+								ElementType.TF, 
+								cellLineType, 
+								geneType,
+								elementNameTypeList,
+								elementNameTPMName2NumberofEnrichmentMap,
+								elementTypeTpmName2NumberofValidRunMap,
+								bonferroniCorrectionSignificanceLevel, 
+								FDR, 
+								multipleTestingParameter, 
+								enrichmentDecisionType,
+								generateRandomDataMode,
+								isochoreFamilyMode,
+								associationMeasureType,
+								unaccomplishedGLANETRunsBufferedWriter,
+								unaccomplishedGLANETRunsList,
+								dateFormat,
+								date);
 						
 						
 						//HISTONE
