@@ -847,9 +847,6 @@ public class Step4_DDE_ScriptFiles {
 						tpmType = itr.next();
 						
 						for(AssociationMeasureType associationMeasureType: AssociationMeasureType.values()){
-							
-							//Let's create runs only for NOOB
-							if(associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
 								
 								//18 August 2016 starts
 								for(GenerateRandomDataMode generateRandomDataMode: GenerateRandomDataMode.values()){
@@ -875,8 +872,6 @@ public class Step4_DDE_ScriptFiles {
 								}//End of for each generateRandomDataMode
 								//18 August 2016 ends
 								
-								
-							}//End of IF associationMeasureType = NOOB
 							
 						}//End of For each associationMeasureType
 							
