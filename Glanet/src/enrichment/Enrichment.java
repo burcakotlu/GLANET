@@ -180,7 +180,6 @@ public class Enrichment {
 			this.gcIntervalTree = gcIntervalTree;
 			this.calculateGC = calculateGC;
 			
-
 			this.gcIsochoreFamilyL1Pool = gcIsochoreFamilyL1Pool;
 			this.gcIsochoreFamilyL2Pool = gcIsochoreFamilyL2Pool;
 			this.gcIsochoreFamilyH1Pool = gcIsochoreFamilyH1Pool;

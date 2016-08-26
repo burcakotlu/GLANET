@@ -1567,10 +1567,7 @@ public class Commons {
 	//normally arguments shown on the GUI are longer
 	//but this argument is internal.
 	//public static final String GLANET_NORMAL_RUN = "-nr";
-	//public static final String GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN = "-dder";
-	
-	//normally arguments must be shorter
-	//but this argument is internal.
+	//public static final String GLANET_COMMANDLINE_DATADRIVENEXPERIMENT_RUN = "-dder";	
 	public static final String ARG_GLANET_NORMAL_RUN = "-nr";
 	public static final String ARG_GLANET_EXPERIMENT_RUN = "-dder";
 

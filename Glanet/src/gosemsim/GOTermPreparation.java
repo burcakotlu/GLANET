@@ -4,7 +4,9 @@
 package gosemsim;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 import enumtypes.EnrichmentDecisionType;
+import enumtypes.GeneSetAnalysisType;
 
 /**
  * @author Burçak Otlu
@@ -88,7 +91,10 @@ public class GOTermPreparation {
 			List<String> enrichedGOTerms_BiologicalProcess_P,
 			List<String> enrichedGOTerms_MolecularFunction_F,
 			List<String> enrichedGOTerms_CellularComponent_C,
-			EnrichmentDecisionType enrichmentDecisionType){
+			EnrichmentDecisionType enrichmentDecisionType,
+			BufferedWriter bufferedWriterForBiologicalProcess,
+			BufferedWriter bufferedWriterForMolecularFunction,
+			BufferedWriter bufferedWriterForCellularComponent) throws IOException{
 		
 		String GOTerm = null;
 		Boolean enriched = null;
@@ -198,10 +204,13 @@ public class GOTermPreparation {
 			
 			if (ontology.equals("P") && !enrichedGOTerms_BiologicalProcess_P.contains(newGOTerm)){
 				enrichedGOTerms_BiologicalProcess_P.add(newGOTerm);
+				bufferedWriterForBiologicalProcess.write(strLine + System.getProperty("line.separator"));
 			}else if (ontology.equals("F") && !enrichedGOTerms_MolecularFunction_F.contains(newGOTerm)){
 				enrichedGOTerms_MolecularFunction_F.add(newGOTerm);
+				bufferedWriterForMolecularFunction.write(strLine + System.getProperty("line.separator"));
 			}else if (ontology.equals("C") && !enrichedGOTerms_CellularComponent_C.contains(newGOTerm)){
 				enrichedGOTerms_CellularComponent_C.add(newGOTerm);
+				bufferedWriterForCellularComponent.write(strLine + System.getProperty("line.separator"));
 			}else if (!ontology.equals("P") && !ontology.equals("F") && !ontology.equals("C")){
 				System.out.println("Situation: " + strLine + " Ontology: " + ontology);
 			}
@@ -214,6 +223,8 @@ public class GOTermPreparation {
 	
 	public static void readEnrichmentFileAndFormGOTermList(
 			String fileName,
+			String outputDirectory,
+			GeneSetAnalysisType geneSetAnalysisType,
 			List<String> enrichedGOTerms_ALL,
 			List<String> enrichedGOTerms_BiologicalProcess_P,
 			List<String> enrichedGOTerms_MolecularFunction_F,
@@ -223,6 +234,15 @@ public class GOTermPreparation {
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
+		
+		FileWriter fileWriterForBiologicalProcess = null;
+		BufferedWriter bufferedWriterForBiologicalProcess = null;
+		
+		FileWriter fileWriterForMolecularFunction = null;
+		BufferedWriter bufferedWriterForMolecularFunction = null;
+
+		FileWriter fileWriterForCellularComponent = null;
+		BufferedWriter bufferedWriterForCellularComponent = null;
 		
 		String strLine = null;
 		
@@ -235,8 +255,22 @@ public class GOTermPreparation {
 			fileReader = FileOperations.createFileReader(fileName);
 			bufferedReader = new BufferedReader(fileReader);
 			
+			fileWriterForBiologicalProcess = FileOperations.createFileWriter(outputDirectory + geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty("file.separator") + geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + "_Enriched_GOTerms_BP.txt");
+			bufferedWriterForBiologicalProcess = new BufferedWriter(fileWriterForBiologicalProcess);
+			
+			fileWriterForMolecularFunction = FileOperations.createFileWriter(outputDirectory + geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty("file.separator") + geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + "_Enriched_GOTerms_MF.txt");
+			bufferedWriterForMolecularFunction = new BufferedWriter(fileWriterForMolecularFunction);
+			
+			fileWriterForCellularComponent = FileOperations.createFileWriter(outputDirectory + geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty("file.separator") + geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + "_Enriched_GOTerms_CC.txt");
+			bufferedWriterForCellularComponent = new BufferedWriter(fileWriterForCellularComponent);
+		
 			//Skip header line
 			strLine= bufferedReader.readLine();
+			
+			//Write header line
+			bufferedWriterForBiologicalProcess.write(strLine + System.getProperty("line.separator"));
+			bufferedWriterForMolecularFunction.write(strLine + System.getProperty("line.separator"));
+			bufferedWriterForCellularComponent.write(strLine + System.getProperty("line.separator"));
 			
 			while((strLine= bufferedReader.readLine())!=null){
 				
@@ -246,7 +280,10 @@ public class GOTermPreparation {
 						enrichedGOTerms_BiologicalProcess_P,
 						enrichedGOTerms_MolecularFunction_F,
 						enrichedGOTerms_CellularComponent_C,
-						enrichmentDecisionType);
+						enrichmentDecisionType,
+						bufferedWriterForBiologicalProcess,
+						bufferedWriterForMolecularFunction,
+						bufferedWriterForCellularComponent);
 				
 				
 			}//End of while
@@ -269,6 +306,9 @@ public class GOTermPreparation {
 			
 			//Close
 			bufferedReader.close();
+			bufferedWriterForBiologicalProcess.close();
+			bufferedWriterForMolecularFunction.close();
+			bufferedWriterForCellularComponent.close();
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -411,17 +451,12 @@ public class GOTermPreparation {
 	 */
 	public static void main(String[] args) {
 		
-		//C:\Users\Burçak\Google Drive\Output\GLANET_SydhGATA2K562_GOTerms\Enrichment\UserDefinedGeneSet\GO\ExonBased\ExonBased_GO_GLANET_SydhGATA2K562_GOTerms_wrt_zScore.txt
-		//RegulationBased_GO_GLANET_SydhGATA2K562_GOTerms_wrt_zScore.txt
-		//AllBased_GO_GLANET_SydhGATA2K562_GOTerms_wrt_zScore.txt
-		
-		//String fileName = args[0];
-		
-		
 		String exonBasedEnrichmentFileName = "C:\\Users\\Burçak\\Google Drive\\Output\\new_sydh_gata2_k562_GO\\Enrichment\\UserDefinedGeneSet\\GO\\ExonBased\\ExonBased_GO_new_sydh_gata2_k562_GO_wrt_BH_FDR_adjusted_pValue.txt";
 		String regulationBasedEnrichmentFileName = "C:\\Users\\Burçak\\Google Drive\\Output\\new_sydh_gata2_k562_GO\\Enrichment\\UserDefinedGeneSet\\GO\\RegulationBased\\RegulationBased_GO_new_sydh_gata2_k562_GO_wrt_BH_FDR_adjusted_pValue.txt";
 		String allBasedEnrichmentFileName = "C:\\Users\\Burçak\\Google Drive\\Output\\new_sydh_gata2_k562_GO\\Enrichment\\UserDefinedGeneSet\\GO\\AllBased\\AllBased_GO_new_sydh_gata2_k562_GO_wrt_BH_FDR_adjusted_pValue.txt";
 				
+		String outputDirectory = "C:\\Users\\Burçak\\Google Drive\\Output\\new_sydh_gata2_k562_GO\\Enrichment\\UserDefinedGeneSet\\GO\\";
+		
 			
 		/***************************************************************************************************/
 		//Enriched GOTerms_ExonBased_for_Sydh2_GATA2_K562 starts
@@ -432,6 +467,8 @@ public class GOTermPreparation {
 		
 		 readEnrichmentFileAndFormGOTermList(
 				exonBasedEnrichmentFileName,
+				outputDirectory,
+				GeneSetAnalysisType.EXONBASEDGENESETANALYSIS,
 				exonbasedEnrichedGOTerms_ALL,
 				exonBasedEnrichedGOTerms_BiologicalProcess_P,
 				exonBasedEnrichedGOTerms_MolecularFunction_F,
@@ -453,6 +490,8 @@ public class GOTermPreparation {
 		
 		 readEnrichmentFileAndFormGOTermList(
 				regulationBasedEnrichmentFileName,
+				outputDirectory,
+				GeneSetAnalysisType.REGULATIONBASEDGENESETANALYSIS,
 				regulationBasedEnrichedGOTerms_ALL,
 				regulationBasedEnrichedGOTerms_BiologicalProcess_P,
 				regulationBasedEnrichedGOTerms_MolecularFunction_F,
@@ -473,6 +512,8 @@ public class GOTermPreparation {
 		
 		readEnrichmentFileAndFormGOTermList(
 				allBasedEnrichmentFileName,
+				outputDirectory,
+				GeneSetAnalysisType.ALLBASEDGENESETANALYSIS,
 				allBasedEnrichedGOTerms_ALL,
 				allBasedEnrichedGOTerms_BiologicalProcess_P,
 				allBasedEnrichedGOTerms_MolecularFunction_F,

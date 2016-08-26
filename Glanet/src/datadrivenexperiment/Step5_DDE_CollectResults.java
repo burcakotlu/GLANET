@@ -393,9 +393,6 @@ public class Step5_DDE_CollectResults {
 					if(enrichmentDecisionType.isEnrichedwrtEmpiricalPvalueFromRatioofSamplings()){
 						
 						if( element.getEmpiricalPValue() <= significanceLevel){
-							//debug delete
-							System.out.println("enriched");
-							//debug delete
 							elementNameTPMName2NumberofEnrichmentMap.put(elementNameTPMName, elementNameTPMName2NumberofEnrichmentMap.get(elementNameTPMName)+1);
 						}
 						
@@ -595,10 +592,6 @@ public class Step5_DDE_CollectResults {
 				// Get the enrichmentFile in this folder for this simulation
 				// There must only one enrichmentFile
 				if( enrichmentDirectory.exists() && enrichmentDirectory.isDirectory()){
-
-					//debug delete later
-					System.out.println("directory: " + enrichmentDirectory.getAbsolutePath());
-					//debug delete later
 					
 					for( File eachEnrichmentFile : enrichmentDirectory.listFiles()){
 
@@ -608,12 +601,7 @@ public class Step5_DDE_CollectResults {
 								//eachEnrichmentFile.getAbsolutePath().contains(elementType.convertEnumtoShortString())
 						{
 
-							enrichmentFile = eachEnrichmentFile.getAbsolutePath();
-							
-							//debug delete later
-							System.out.println("file: " + enrichmentDirectory.getAbsolutePath());
-							//debug delete later
-							
+							enrichmentFile = eachEnrichmentFile.getAbsolutePath();							
 							break;
 
 						}// End of IF EnrichmentFile under EnrichmentDirectory
@@ -643,14 +631,6 @@ public class Step5_DDE_CollectResults {
 						}
 
 					}// End of WHILE
-					
-					//debug delete later
-					for(Iterator<FunctionalElementMinimal> itr = cellLineSpecificElementList.iterator();itr.hasNext();){
-						FunctionalElementMinimal element = itr.next();
-						System.out.println(element.getName() + "\t" + element.getEmpiricalPValue());
-					}
-					//debug delete later
-					
 					
 					//There must be at least one result other than header line
 					//In order to make this simulation valid.
