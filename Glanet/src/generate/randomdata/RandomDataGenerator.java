@@ -17,6 +17,7 @@ import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -24,8 +25,8 @@ import mapability.Mapability;
 
 import org.apache.log4j.Logger;
 
+import ui.GlanetRunner;
 import common.Commons;
-
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
@@ -243,6 +244,7 @@ public class RandomDataGenerator {
 		//float savedDifferencebetweenMapabilities = Float.MAX_VALUE;;
 		Interval savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = null;
 		float savedSumofDifferencebetweenGCandMapabilities = Float.MAX_VALUE;
+		int savedCount = Integer.MIN_VALUE;
 
 		//18 August 2016 
 		Interval savedBestRandomlyGeneratedLineUpToNowWRTGCDifference = null;
@@ -257,12 +259,18 @@ public class RandomDataGenerator {
 		float dynamicMapabilityThreshold;
 
 		int count;
-		int countForIntervalTreeOverlap;
 		int counterThreshold;
+		
+		int countForIsochoreFamily;
+		int countForIntervalTreeOverlap;
+		
+		float averageCount = 0.0f;
+		int minCount = Integer.MAX_VALUE;
+		int maxCount = Integer.MIN_VALUE;
 
 
 		/**************************************************************************************************/
-		/***********************************WITHOUT GC  and Mappability starts*****************************/
+		/***********************************WITHOUT GC and Mappability starts******************************/
 		/**************************************************************************************************/
 		if( generateRandomDataMode.isGenerateRandomDataModeWithoutMapabilityandGc()){
 
@@ -309,7 +317,7 @@ public class RandomDataGenerator {
 					
 						
 						//Initialize for each interval
-						//countForIsochoreFamily = 0;
+						countForIsochoreFamily = 0;
 						do{
 							// Randomly generated interval will have the same isochore family of the original interval
 							randomlyGeneratedLine = getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine(
@@ -323,9 +331,17 @@ public class RandomDataGenerator {
 									gcIsochoreFamilyH2Pool, 
 									gcIsochoreFamilyH3Pool);
 							
-							//countForIsochoreFamily++;
+							countForIsochoreFamily++;
 						
 						} while(randomlyGeneratedLine==null);
+						
+						
+						//debug delete later
+						if( GlanetRunner.shouldLog() && countForIsochoreFamily > 100){
+							logger.info("woGCM wIF " + "countForIsochoreFamily: " + countForIsochoreFamily);
+						}
+						//debug delete later
+						
 						
 					}else {
 						randomlyGeneratedLine = getRandomInterval(chromSize,originalInputLineLength,threadLocalRandom);
@@ -345,6 +361,12 @@ public class RandomDataGenerator {
 					countForIntervalTreeOverlap++;
 					
 				}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0) && (countForIntervalTreeOverlap<=Commons.CUT_OFF_VALUE));
+				
+				//debug delete later
+				if( GlanetRunner.shouldLog() && countForIntervalTreeOverlap>100){
+					logger.info("woGCM " + "countForIntervalTreeOverlap: " + countForIntervalTreeOverlap);
+				}
+				//debug delete later
 				
 				
 				// Insert this interval if it does not overlap with the already randomly created intervals in the interval tree.
@@ -371,6 +393,12 @@ public class RandomDataGenerator {
 			IntervalTreeNode intervalTreeNode = null;
 			List<IntervalTreeNode> overlappedNodeList  = null;
 			//28 OCT 2015 ends
+			
+			//debug delete later
+			averageCount = 0.0f;
+			minCount = Integer.MAX_VALUE;
+			maxCount = Integer.MIN_VALUE;
+			//debug delete later
 
 			// For Each Original InputLine starts
 			for( int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++){
@@ -421,8 +449,10 @@ public class RandomDataGenerator {
 					/**********************Initialization for each original interval starts****************************/
 					/**************************************************************************************************/
 					count = 0;
+					
 					savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = null;
 					savedSumofDifferencebetweenGCandMapabilities = Float.MAX_VALUE;
+					savedCount = Integer.MIN_VALUE;
 					
 					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 					dynamicGCThreshold = Commons.GC_THRESHOLD_LOWER_VALUE;
@@ -453,7 +483,7 @@ public class RandomDataGenerator {
 							if (isochoreFamilyMode.useIsochoreFamily()){
 								
 								//Initialize for each interval
-								//countForIsochoreFamily = 0;
+								countForIsochoreFamily = 0;
 								do{
 									// Randomly generated interval will have the same isochore family of the original interval
 									randomlyGeneratedLine = getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine(
@@ -467,15 +497,21 @@ public class RandomDataGenerator {
 											gcIsochoreFamilyH2Pool, 
 											gcIsochoreFamilyH3Pool);
 									
-									//countForIsochoreFamily++;
+									countForIsochoreFamily++;
 								
 								} while(randomlyGeneratedLine==null);
+								
+								
+								//debug delete later
+								if( GlanetRunner.shouldLog() && countForIsochoreFamily>100 ){
+									logger.info("wGCM wIF " + "countForIsochoreFamily: " + countForIsochoreFamily);
+								}
+								//debug delete later
 								
 							}else {
 								randomlyGeneratedLine = getRandomInterval(chromSize,originalInputLineLength,threadLocalRandom);
 							}
 								
-
 							intervalTreeNode = new IntervalTreeNode(chromName,randomlyGeneratedLine.getLow(),randomlyGeneratedLine.getHigh());
 							overlappedNodeList = new ArrayList<IntervalTreeNode>();
 
@@ -484,6 +520,13 @@ public class RandomDataGenerator {
 							countForIntervalTreeOverlap++;
 							
 						}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0)  && (countForIntervalTreeOverlap<=Commons.CUT_OFF_VALUE));	
+						
+						//debug delete later
+						if( GlanetRunner.shouldLog() && countForIntervalTreeOverlap>100){
+							logger.info("wGCM " + "countForIntervalTreeOverlap: " + countForIntervalTreeOverlap);
+						}
+						//debug delete later
+
 						/********************************************************************************************************************************************************/
 						/**********************Generate a random line for each originalInputLine ends****************************************************************************/
 						/********************************************************************************************************************************************************/
@@ -534,6 +577,7 @@ public class RandomDataGenerator {
 							
 							savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = randomlyGeneratedLine;
 							savedSumofDifferencebetweenGCandMapabilities = differencebetweenGCs + differencebetweenMapabilities;	
+							savedCount = count;
 						}
 						//Saved best randomlyGeneratedLine up to now wrt to sum of differences ends
 						
@@ -545,7 +589,7 @@ public class RandomDataGenerator {
 							// Increase dynamicMapabilityThreshold starts
 							// as number of trials increases, increase dynamicMapabilityThreshold more
 							if( differencebetweenMapabilities > dynamicMapabilityThreshold){
-								if( !( dynamicMapabilityThreshold >= Commons.MAPABILITY_THRESHOLD_UPPER_VALUE)){
+								if(dynamicMapabilityThreshold<Commons.MAPABILITY_THRESHOLD_UPPER_VALUE){
 
 									if( count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL){
 										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
@@ -564,7 +608,7 @@ public class RandomDataGenerator {
 							// Increase dynamicGCThreshold starts
 							// as number of trials increases, increase dynamicGCThreshold more
 							if( differencebetweenGCs > dynamicGCThreshold){
-								if( !( dynamicGCThreshold >= Commons.GC_THRESHOLD_UPPER_VALUE)){
+								if(dynamicGCThreshold<Commons.GC_THRESHOLD_UPPER_VALUE){
 
 									if( count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL){
 										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
@@ -592,6 +636,20 @@ public class RandomDataGenerator {
 					//In this case we add the saved best randomlyGeneratedLine up to now.
 					if ((count>Commons.CUT_OFF_VALUE) && (differencebetweenGCs > dynamicGCThreshold || differencebetweenMapabilities > dynamicMapabilityThreshold)){
 						
+						//debug delete later
+//						if( GlanetRunner.shouldLog()){
+//							logger.info("wGCM savedCount: " + savedCount);
+//						}
+						averageCount += savedCount;
+						
+						if (savedCount< minCount){
+							minCount = savedCount;
+						}
+						if (savedCount> maxCount){
+							maxCount = savedCount;
+						}
+						//debug delete later
+					
 						randomlyGeneratedLine = savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference;
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						
@@ -601,6 +659,20 @@ public class RandomDataGenerator {
 						
 					}else {
 						
+						//debug delete later
+//						if( GlanetRunner.shouldLog() && count >100){
+//							logger.info("wGCM count: " + count);
+//						}
+						averageCount += count;
+						
+						if (count< minCount){
+							minCount = count;
+						}
+						if (count> maxCount){
+							maxCount = count;
+						}
+						//debug delete later
+
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 					}
@@ -657,6 +729,13 @@ public class RandomDataGenerator {
 				
 			}// End of FOR: each original input line
 			
+			//debug delete later
+			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
+			
+			if( GlanetRunner.shouldLog()){
+				logger.info("wGCM averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" +  "maxCount:" + "\t" + maxCount);
+			}
+			//debug delete later
 
 		}// End of IF generateRandomInterval with GC and Mapability
 		/**************************************************************************************************/
@@ -676,6 +755,13 @@ public class RandomDataGenerator {
 			IntervalTreeNode intervalTreeNode = null;
 			List<IntervalTreeNode> overlappedNodeList  = null;
 			//28 OCT 2015 ends
+			
+			//debug delete later
+			averageCount = 0.0f;
+			minCount = Integer.MAX_VALUE;
+			maxCount = Integer.MIN_VALUE;
+			//debug delete later
+
 
 			// For Each Original InputLine starts
 			for( int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++){
@@ -717,6 +803,7 @@ public class RandomDataGenerator {
 					
 					savedBestRandomlyGeneratedLineUpToNowWRTGCDifference = null;
 					savedGCDifference = Float.MAX_VALUE;
+					savedCount = Integer.MIN_VALUE;
 					
 					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 					dynamicGCThreshold = Commons.GC_THRESHOLD_LOWER_VALUE;
@@ -747,7 +834,7 @@ public class RandomDataGenerator {
 							if (isochoreFamilyMode.useIsochoreFamily()){
 								
 								//Initialize for each interval
-								//countForIsochoreFamily = 0;
+								countForIsochoreFamily = 0;
 								do{
 									// Randomly generated interval will have the same isochore family of the original interval
 									randomlyGeneratedLine = getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine(
@@ -761,9 +848,15 @@ public class RandomDataGenerator {
 											gcIsochoreFamilyH2Pool, 
 											gcIsochoreFamilyH3Pool);
 									
-									//countForIsochoreFamily++;
+									countForIsochoreFamily++;
 								
 								} while(randomlyGeneratedLine==null);
+								
+								//debug delete later
+								if( GlanetRunner.shouldLog() && countForIsochoreFamily>100){
+									logger.info("wGC wIF " + "countForIsochoreFamily: " + countForIsochoreFamily);
+								}
+								//debug delete later
 								
 							}else {
 								randomlyGeneratedLine = getRandomInterval(chromSize,originalInputLineLength,threadLocalRandom);
@@ -777,7 +870,16 @@ public class RandomDataGenerator {
 							
 							countForIntervalTreeOverlap++;
 							
-						}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0)  && (countForIntervalTreeOverlap<=Commons.CUT_OFF_VALUE));	
+						}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0)  && (countForIntervalTreeOverlap<=Commons.CUT_OFF_VALUE));
+						
+						
+						
+						//debug delete later
+						if( GlanetRunner.shouldLog() && countForIntervalTreeOverlap>100){
+							logger.info("wGC " + "countForIntervalTreeOverlap: " + countForIntervalTreeOverlap);
+						}
+						//debug delete later
+
 						/********************************************************************************************************************************************************/
 						/**********************Generate a random line for each originalInputLine ends****************************************************************************/
 						/********************************************************************************************************************************************************/
@@ -812,6 +914,7 @@ public class RandomDataGenerator {
 						if ((differencebetweenGCs) < savedGCDifference){
 							savedBestRandomlyGeneratedLineUpToNowWRTGCDifference = randomlyGeneratedLine;
 							savedGCDifference = differencebetweenGCs;	
+							savedCount = count;
 						}
 						//Saved best randomlyGeneratedLine up to now wrt to GC differences ends
 						
@@ -821,7 +924,7 @@ public class RandomDataGenerator {
 							// Increase dynamicGCThreshold starts
 							// as number of trials increases, increase dynamicGCThreshold more
 							if( differencebetweenGCs > dynamicGCThreshold){
-								if( !( dynamicGCThreshold >= Commons.GC_THRESHOLD_UPPER_VALUE)){
+								if(dynamicGCThreshold<Commons.GC_THRESHOLD_UPPER_VALUE){
 
 									if( count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL){
 										dynamicGCThreshold = dynamicGCThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
@@ -848,6 +951,21 @@ public class RandomDataGenerator {
 					//In this case we add the saved best randomlyGeneratedLine up to now.
 					if ((count>Commons.CUT_OFF_VALUE) && (differencebetweenGCs > dynamicGCThreshold)){
 						
+						//debug delete later
+//						if( GlanetRunner.shouldLog()){
+//							logger.info("wGC savedCount: " + savedCount);
+//						}
+						
+						averageCount += savedCount;
+						
+						if (savedCount< minCount){
+							minCount = savedCount;
+						}
+						if (savedCount> maxCount){
+							maxCount = savedCount;
+						}
+						//debug delete later
+
 						randomlyGeneratedLine = savedBestRandomlyGeneratedLineUpToNowWRTGCDifference;
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						
@@ -856,7 +974,22 @@ public class RandomDataGenerator {
 						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 						
 					}else {
+
+						//debug delete later
+//						if( GlanetRunner.shouldLog() && count>100){
+//							logger.info("wGC count: " + count);
+//						}
+						averageCount += count;
 						
+						if (count< minCount){
+							minCount = count;
+						}
+						if (count> maxCount){
+							maxCount = count;
+						}
+
+						//debug delete later
+
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 					}
@@ -912,6 +1045,15 @@ public class RandomDataGenerator {
 				
 			}// End of FOR: each original input line
 			
+			//debug delete later
+			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
+			
+			if( GlanetRunner.shouldLog()){
+				logger.info("wGC averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" + "maxCount:" + "\t" + maxCount);
+			}
+			//debug delete later
+
+			
 		}// End of IF generateRandomInterval with GC
 		/**************************************************************************************************/
 		/***********************************WITH GC ends***************************************************/
@@ -931,6 +1073,13 @@ public class RandomDataGenerator {
 			IntervalTreeNode intervalTreeNode = null;
 			List<IntervalTreeNode> overlappedNodeList  = null;
 			//28 OCT 2015 ends
+			
+			//debug delete later
+			averageCount = 0.0f;
+			minCount = Integer.MAX_VALUE;
+			maxCount = Integer.MIN_VALUE;
+			//debug delete later
+
 
 			// For Each Original InputLine starts
 			for( int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++){
@@ -961,6 +1110,7 @@ public class RandomDataGenerator {
 					count = 0;
 					savedBestRandomlyGeneratedLineUpToNowWRTMappabilityDifference = null;
 					savedMapabilityDifference = Float.MAX_VALUE;
+					savedCount = Integer.MIN_VALUE;
 					
 					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 					dynamicMapabilityThreshold = Commons.MAPABILITY_THRESHOLD_LOWER_VALUE;
@@ -1012,7 +1162,7 @@ public class RandomDataGenerator {
 							if (isochoreFamilyMode.useIsochoreFamily()){
 								
 								//Initialize for each interval
-								//countForIsochoreFamily = 0;
+								countForIsochoreFamily = 0;
 								do{
 									// Randomly generated interval will have the same isochore family of the original interval
 									randomlyGeneratedLine = getRandomIntervalDependingOnIsochoreFamilyofOriginalInputLine(
@@ -1026,9 +1176,16 @@ public class RandomDataGenerator {
 											gcIsochoreFamilyH2Pool, 
 											gcIsochoreFamilyH3Pool);
 									
-									//countForIsochoreFamily++;
+									countForIsochoreFamily++;
 								
 								} while(randomlyGeneratedLine==null);
+								
+								
+								//debug delete later
+								if( GlanetRunner.shouldLog() && countForIsochoreFamily>100){
+									logger.info("wM wIF " + "countForIsochoreFamily: " + countForIsochoreFamily);
+								}
+								//debug delete later
 								
 							}else {
 								randomlyGeneratedLine = getRandomInterval(chromSize,originalInputLineLength,threadLocalRandom);
@@ -1043,6 +1200,15 @@ public class RandomDataGenerator {
 							countForIntervalTreeOverlap++;
 							
 						}while((overlappedNodeList!=null) && (overlappedNodeList.size()>0)  && (countForIntervalTreeOverlap<=Commons.CUT_OFF_VALUE));	
+						
+						
+						//debug delete later
+						if( GlanetRunner.shouldLog() && countForIntervalTreeOverlap>100){
+							logger.info("wM " + "countForIntervalTreeOverlap: " + countForIntervalTreeOverlap);
+						}
+						//debug delete later
+
+
 						/********************************************************************************************************************************************************/
 						/**********************Generate a random line for each originalInputLine ends****************************************************************************/
 						/********************************************************************************************************************************************************/
@@ -1075,6 +1241,7 @@ public class RandomDataGenerator {
 							
 							savedBestRandomlyGeneratedLineUpToNowWRTMappabilityDifference = randomlyGeneratedLine;
 							savedMapabilityDifference =  differencebetweenMapabilities;	
+							savedCount = count;
 						}
 						//Saved best randomlyGeneratedLine up to now wrt to sum of differences ends
 						
@@ -1084,7 +1251,8 @@ public class RandomDataGenerator {
 							// Increase dynamicMapabilityThreshold starts
 							// as number of trials increases, increase dynamicMapabilityThreshold more
 							if( differencebetweenMapabilities > dynamicMapabilityThreshold){
-								if( !( dynamicMapabilityThreshold >= Commons.MAPABILITY_THRESHOLD_UPPER_VALUE)){
+								
+								if(dynamicMapabilityThreshold<Commons.MAPABILITY_THRESHOLD_UPPER_VALUE){
 
 									if( count > Commons.NUMBER_OF_TRIAL_FOURTH_LEVEL){
 										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_020;
@@ -1095,7 +1263,7 @@ public class RandomDataGenerator {
 									}else{
 										dynamicMapabilityThreshold = dynamicMapabilityThreshold + Commons.THRESHOLD_INCREASE_VALUE_0_POINT_005;
 									}
-
+									
 								}
 							}
 							// Increase dynamicMapabilityThreshold ends
@@ -1114,6 +1282,21 @@ public class RandomDataGenerator {
 					//In this case we add the saved best randomlyGeneratedLine up to now.
 					if ((count>Commons.CUT_OFF_VALUE) && (differencebetweenMapabilities > dynamicMapabilityThreshold)){
 						
+						//debug delete later
+//						if( GlanetRunner.shouldLog()){
+//							logger.info("wM savedCount: " + savedCount);
+//						}
+						averageCount += savedCount;
+						
+						if (savedCount< minCount){
+							minCount = savedCount;
+						}
+						if (savedCount> maxCount){
+							maxCount = savedCount;
+						}
+						//debug delete later
+
+						
 						randomlyGeneratedLine = savedBestRandomlyGeneratedLineUpToNowWRTMappabilityDifference;						
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						
@@ -1122,6 +1305,20 @@ public class RandomDataGenerator {
 						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
 						
 					}else {
+						
+						//debug delete later
+//						if( GlanetRunner.shouldLog() && count>100){
+//							logger.info("wM count: " + count);
+//						}
+						averageCount += count;
+						
+						if (count< minCount){
+							minCount = count;
+						}
+						if (count> maxCount){
+							maxCount = count;
+						}
+						//debug delete later
 						
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
@@ -1177,14 +1374,19 @@ public class RandomDataGenerator {
 				
 			}// End of FOR: each original input line
 			
+			//debug delete later
+			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
+			
+			if( GlanetRunner.shouldLog()){
+				logger.info("wM averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" + "maxCount:" + "\t" + maxCount);
+			}
+			//debug delete later
 
 		}// End of IF generateRandomInterval with Mapability
 		/**************************************************************************************************/
 		/***********************************WITH Mappability ends******************************************/
 		/**************************************************************************************************/
 
-		
-		
 		return randomlyGeneratedInputLines;
 	}
 
