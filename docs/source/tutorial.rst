@@ -324,7 +324,6 @@ For example, if you set both -f0 and -fbed parameters for *Input File Format* ar
 Details of the command-line arguments with sample runs are specified below. 
 Note that parameter "-c" indicates that GLANET will run in command-line mode, not with GUI.
 
-
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Description             | Parameter     | Optional/Required | Precondition | Default Parameter    |
 +=========================+===============+===================+==============+======================+
@@ -428,14 +427,14 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         +---------------+                   |              |                      |
 |                         | `-wm`_        |                   |              |                      |
 |                         +---------------+                   |              |                      |
-|						  | `-wgcm`_      |                   |              |                      |
-|						  +---------------+                   |              |                      |
-|						  | `-wogcm`_     |                   |              |                      |
+|                         | `-wgcm`_      |                   |              |                      |
+|                         +---------------+                   |              |                      |
+|                         | `-wogcm`_     |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-wif`_       |  Required         | `-e`_        | `-wif`_              |
 |                         +---------------+                   |              |                      |
 |                         | `-woif`_      |                   |              |                      |
-|                         +---------------+-------------------+--------------+----------------------+  
+|                         +---------------+-------------------+--------------+----------------------+
 |                         | `-bh`_        |  Required         | `-e`_        | `-bh`_               |
 |                         +---------------+                   |              |                      |
 |                         | `-bonf`_      |                   |              |                      |
