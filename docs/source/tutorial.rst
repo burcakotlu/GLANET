@@ -324,6 +324,7 @@ For example, if you set both -f0 and -fbed parameters for *Input File Format* ar
 Details of the command-line arguments with sample runs are specified below. 
 Note that parameter "-c" indicates that GLANET will run in command-line mode, not with GUI.
 
+
 +-------------------------+---------------+-------------------+--------------+----------------------+
 | Description             | Parameter     | Optional/Required | Precondition | Default Parameter    |
 +=========================+===============+===================+==============+======================+
