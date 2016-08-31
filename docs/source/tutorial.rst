@@ -423,14 +423,18 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         +---------------+                   |              |                      |
 |                         | `-wozs`_      |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
-|                         | `-wgcm`_      |  Required         | `-e`_        | `-wgcm`_             |
+|                         | `-wgc`_       |  Required         | `-e`_        | `-wgcm`_             |
 |                         +---------------+                   |              |                      |
-|                         | `-wogcm`_     |                   |              |                      |
+|                         | `-wm`_        |                   |              |                      |
+                          +---------------+                   |              |                      |
+						  | `-wgcm`_      |                   |              |                      |
+						  +---------------+                   |              |                      |
+						  | `-wogcm`_     |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-wif`_       |  Required         | `-e`_        | `-woif`_             |
 |                         +---------------+                   |              |                      |
 |                         | `-woif`_      |                   |              |                      |
-|                         +---------------+-------------------+--------------+----------------------+
+|                         +---------------+-------------------+--------------+----------------------+  
 |                         | `-bh`_        |  Required         | `-e`_        | `-bh`_               |
 |                         +---------------+                   |              |                      |
 |                         | `-bonf`_      |                   |              |                      |
@@ -680,13 +684,28 @@ If this option is specified, GLANET performs enrichment with z-scores.
 If this option is specified, GLANET performs enrichment without z-scores.
 :option:`-wozs` is only available for :option:`-eoo`.
 
+-wgc
+^^^^
+
+**Required** if :option:`-e` is set. 
+This option generates random data with GC. 
+You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
+If you do not set anything, default option is :option:`-wgcm`.
+
+-wm
+^^^
+
+**Required** if :option:`-e` is set. 
+This option generates random data with Mappability. 
+You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
+If you do not set anything, default option is :option:`-wgcm`.
 
 -wgcm
 ^^^^^
 
 **Required** if :option:`-e` is set. 
 This option generates random data with GC and Mapability. 
-You must either set :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
+You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
 If you do not set anything, default option is :option:`-wgcm`.
 
 -wogcm
@@ -694,7 +713,8 @@ If you do not set anything, default option is :option:`-wgcm`.
 
 **Required** if :option:`-e` is set. 
 This option generates random data without GC and Mapability.
-See also `-wgcm`_.
+You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
+If you do not set anything, default option is :option:`-wgcm`.
 
 -wif
 ^^^^
