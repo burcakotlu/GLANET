@@ -668,7 +668,7 @@ public class MainView extends JPanel {
 		generateRandomDataGCAndMapabilityModeCombo = new JComboBox<String>( randomDataGCAndMapability);
 		randomDataModePanel.add( createPanelWithHint( generateRandomDataGCAndMapabilityModeCombo, Commons.GUI_HINT_GENERATE_RANDOM_DATA_MODE));
 		
-		String[] randomDataIsochoreFamilyMode = { Commons.DO_NOT_USE_ISOCHORE_FAMILY, Commons.DO_USE_ISOCHORE_FAMILY};
+		String[] randomDataIsochoreFamilyMode = {Commons.DO_USE_ISOCHORE_FAMILY,Commons.DO_NOT_USE_ISOCHORE_FAMILY};
 		generateRandomDataIsochoreFamilyModeCombo = new JComboBox<String>( randomDataIsochoreFamilyMode);
 		randomDataModePanel.add( createPanelWithHint( generateRandomDataIsochoreFamilyModeCombo, Commons.GUI_HINT_GENERATE_RANDOM_DATA_MODE));
 		

@@ -423,7 +423,7 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         +---------------+                   |              |                      |
 |                         | `-wozs`_      |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
-|                         | `-wgc`_       |  Required         | `-e`_        | `-wgcm`_             |
+|                         | `-wgc`_       |  Required         | `-e`_        | `-wgc`_              |
 |                         +---------------+                   |              |                      |
 |                         | `-wm`_        |                   |              |                      |
 |                         +---------------+                   |              |                      |
@@ -431,7 +431,7 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |						  +---------------+                   |              |                      |
 |						  | `-wogcm`_     |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
-|                         | `-wif`_       |  Required         | `-e`_        | `-woif`_             |
+|                         | `-wif`_       |  Required         | `-e`_        | `-wif`_              |
 |                         +---------------+                   |              |                      |
 |                         | `-woif`_      |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+  
@@ -690,7 +690,7 @@ If this option is specified, GLANET performs enrichment without z-scores.
 **Required** if :option:`-e` is set. 
 This option generates random data with GC. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-wgcm`.
+If you do not set anything, default option is :option:`-wgc`.
 
 -wm
 ^^^
@@ -698,7 +698,7 @@ If you do not set anything, default option is :option:`-wgcm`.
 **Required** if :option:`-e` is set. 
 This option generates random data with Mappability. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-wgcm`.
+If you do not set anything, default option is :option:`-wgc`.
 
 -wgcm
 ^^^^^
@@ -706,7 +706,7 @@ If you do not set anything, default option is :option:`-wgcm`.
 **Required** if :option:`-e` is set. 
 This option generates random data with GC and Mapability. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-wgcm`.
+If you do not set anything, default option is :option:`-wgc`.
 
 -wogcm
 ^^^^^^
@@ -714,18 +714,18 @@ If you do not set anything, default option is :option:`-wgcm`.
 **Required** if :option:`-e` is set. 
 This option generates random data without GC and Mapability.
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-wgcm`.
+If you do not set anything, default option is :option:`-wgc`.
 
 -wif
 ^^^^
 If this option is specified, GLANET performs random interval generation using random interval selected from corresponding isochore family pool.
-If you do not set anything, default option is :option:`-woif`.
+If you do not set anything, default option is :option:`-wif`.
 See also `-woif`_.
 
 -woif
 ^^^^^
 If this option is specified, GLANET performs random interval generation without isochore family pool.
-If you do not set anything, default option is :option:`-woif`.
+If you do not set anything, default option is :option:`-wif`.
 See also `-wif`_.
 
 -bh
