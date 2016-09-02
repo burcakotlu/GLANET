@@ -24,7 +24,9 @@ import java.util.List;
 import java.util.Map;
 
 import auxiliary.FileOperations;
+
 import common.Commons;
+
 import enumtypes.AssociationMeasureType;
 import enumtypes.DataDrivenExperimentCellLineType;
 import enumtypes.DataDrivenExperimentDnaseOverlapExclusionType;
@@ -49,11 +51,12 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 			String glanetFolder,			
 			String ddeFolder,
 			DataDrivenExperimentCellLineType cellLineType,
-			GenerateRandomDataMode generateRandomDataMode,
-			AssociationMeasureType associationMeasureType,
 			DataDrivenExperimentGeneType geneType,
-			DataDrivenExperimentTPMType tpmType,
 			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType,
+			DataDrivenExperimentTPMType tpmType,
+			GenerateRandomDataMode generateRandomDataMode,
+			IsochoreFamilyMode isochoreFamilyMode,
+			AssociationMeasureType associationMeasureType,
 			int runNumber,
 			DataDrivenExperimentOperatingSystem operatingSystem){
 				
@@ -64,7 +67,7 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 		
 		//root Command for TRUBA and WINDOWS
 		//rootCommand for GLANET.jar call
-		rootCommand = "java -jar \"" + GLANETJarFile + "\" -Xms4G -Xmx4G -c -g \"" + glanetFolder + System.getProperty( "file.separator") + "\" -i \"" + glanetFolder + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" +  Commons.DDE_RUN + runNumber;
+		rootCommand = "java -Xms4G -Xmx4G -jar \"" + GLANETJarFile + "\"  -c -g \"" + glanetFolder + System.getProperty( "file.separator") + "\" -i \"" + glanetFolder + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" +  Commons.DDE_RUN + runNumber;
 
 		String fileExtension = null;
 		
@@ -84,42 +87,64 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 			
 			}//End of SWITCH
 			
-			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.SCRIPT_FILES_FOR_RERUNS + System.getProperty("file.separator") + cellLineType + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + fileExtension, true);
+			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.SCRIPT_FILES_FOR_RERUNS + System.getProperty("file.separator") + cellLineType + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + fileExtension, true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			switch(operatingSystem){
 			
 				case TRUBA:
-				case WINDOWS:
+				case WINDOWS:{
 					
-					String command = null;
-					
-					if(associationMeasureType.isAssociationMeasureExistenceofOverlap()){
-						command = rootCommand  + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-existOv ";							
-					}else if(associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
-						command = rootCommand  + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-numOvBas ";							
-					}
-					
-
+					String command = rootCommand  + ".txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
+						
 					switch(generateRandomDataMode){
-
-						case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:
-			
-							bufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString()+  Commons.DDE_RUN + runNumber + System.getProperty( "line.separator"));
-							break;
-			
-						case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:
-			
-							bufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + runNumber + System.getProperty( "line.separator"));
-							break;
-			
-						default:
-							break;
-
-					}// End of SWITCH
+						
+							case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:	
+								command = command + " -wgc ";
+								break;
+								
+							case GENERATE_RANDOM_DATA_WITH_MAPPABILITY:	
+								command = command + " -wm ";
+								break;
+						
+							case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:	
+								command = command + " -wgcm ";
+								break;
+		
+							case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:	
+								command = command + " -wogcm ";
+								break;
+							
+					}//End of switch adding parameter for generateRandomDataMode
 					
-					break;
 					
+					switch(isochoreFamilyMode){
+					
+						case DO_USE_ISOCHORE_FAMILY:	
+							command = command + " -wif ";
+							break;
+							
+						case DO_NOT_USE_ISOCHORE_FAMILY:	
+							command = command + " -woif ";
+							break;
+					
+					}//End of switch adding parameter for generateRandomDataMode
+					
+					switch(associationMeasureType){
+					
+						case EXISTENCE_OF_OVERLAP:	
+							command = command + " -eoo ";
+							break;
+							
+						case NUMBER_OF_OVERLAPPING_BASES:	
+							command = command + " -noob ";
+							break;
+					
+					}//End of switch adding parameter for generateRandomDataMode
+	
+					bufferedWriter.write(command + " -s 10000 -se 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + runNumber + System.getProperty("line.separator"));	
+				}				
+				break;
 				
 				default:
 					break;
@@ -141,8 +166,9 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 	public static void writeHeaderLines(
 			String ddeFolder,
 			DataDrivenExperimentCellLineType cellLineType,
-			GenerateRandomDataMode generateRandomDataMode,
-			AssociationMeasureType associationMeasureType,
+			DataDrivenExperimentGeneType geneType,
+			DataDrivenExperimentDnaseOverlapExclusionType dnaseOverlapExclusionType,
+			DataDrivenExperimentTPMType tpmType,
 			DataDrivenExperimentOperatingSystem operatingSystem){
 		
 		
@@ -167,9 +193,9 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 		
 			}//End of SWITCH
 			
-			GENERAL_JOBNAME = cellLineType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString();
+			GENERAL_JOBNAME = cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + tpmType.convertEnumtoString();
 			
-			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.SCRIPT_FILES_FOR_RERUNS + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + fileExtension, true);
+			fileWriter = FileOperations.createFileWriter(ddeFolder + Commons.SCRIPT_FILES_FOR_RERUNS + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + fileExtension, true);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			//Write the header lines
@@ -178,6 +204,7 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 					bufferedWriter.write("#!/bin/bash" + System.getProperty("line.separator"));
 					bufferedWriter.write("#SBATCH -M truba" + System.getProperty("line.separator"));
 					bufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
+					//bufferedWriter.write("#SBATCH -p orkinos" + System.getProperty("line.separator"));
 					
 					bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
 					bufferedWriter.write("#SBATCH -J " + GENERAL_JOBNAME + System.getProperty("line.separator"));
@@ -433,12 +460,14 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 		String rootCommand = null;
 		String command = null;
 		
+
+		GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString(); 		
 		
-		//Add GCM extension
-		GENERAL_JOBNAME = Commons.GLANET + "_" + Commons.DDE + "_" + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString(); 
+		//Add generateRandomDataMode extension
+		GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + generateRandomDataMode.convertEnumtoShortString();
+				
 		
-		
-		//Add associationMeasureType extension
+		//Add isochoreFamilyMode extension
 		GENERAL_JOBNAME = GENERAL_JOBNAME + "_" + isochoreFamilyMode.convertEnumtoShortString();
 				
 		//Add associationMeasureType extension
@@ -450,6 +479,7 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 				
 		//One core jobs can be sent to single and mercan.
 		subKeySlurmBufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
+		//subKeySlurmBufferedWriter.write("#SBATCH -p orkinos" + System.getProperty("line.separator"));
 		
 		subKeySlurmBufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
 		subKeySlurmBufferedWriter.write("#SBATCH -J " + GENERAL_JOBNAME + System.getProperty("line.separator"));
@@ -490,30 +520,58 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 		subKeySlurmBufferedWriter.write(System.getProperty("line.separator"));
 
 		//rootCommand for GLANET.jar call
-		rootCommand = "java -jar \"" + GLANETJarFile + "\" -Xms4G -Xmx4G -c -g \"" + GLANETFolder + System.getProperty( "file.separator") + "\" -i \"" + GLANETFolder + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN;
+		rootCommand = "java -Xms4G -Xmx4G -jar \"" + GLANETJarFile + "\" -c -g \"" + GLANETFolder + System.getProperty( "file.separator") + "\" -i \"" + GLANETFolder + System.getProperty("file.separator") + Commons.DDE + System.getProperty("file.separator") + Commons.DDE_DATA + System.getProperty("file.separator") + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + Commons.DDE_RUN;
 
-		
-		if(associationMeasureType.isAssociationMeasureExistenceofOverlap()){
-			command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-existOv ";							
-		}else if(associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
-			command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz " + "-numOvBas ";							
-		}
+		command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
 		
 		switch(generateRandomDataMode){
-
-			case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:				
-				subKeySlurmBufferedWriter.write( command + " -rdgcm -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
+		
+			case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:	
+				command = command + "-wgc ";
 				break;
-
-			case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:				
-				subKeySlurmBufferedWriter.write( command + "-rd -pe 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString()  + "_"  + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + generateRandomDataMode.convertEnumtoShortString() + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
+				
+			case GENERATE_RANDOM_DATA_WITH_MAPPABILITY:	
+				command = command + "-wm ";
 				break;
-
-			default:
+		
+			case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:	
+				command = command + "-wgcm ";
 				break;
-
-		}// End of SWITCH for wGCM or woGCM
-
+	
+			case GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT:	
+				command = command + "-wogcm ";
+				break;
+				
+		}//End of switch adding parameter for generateRandomDataMode
+		
+	
+		switch(isochoreFamilyMode){
+		
+			case DO_USE_ISOCHORE_FAMILY:	
+				command = command + "-wif ";
+				break;
+				
+			case DO_NOT_USE_ISOCHORE_FAMILY:	
+				command = command + "-woif ";
+				break;
+		
+		}//End of switch adding parameter for generateRandomDataMode
+	
+		switch(associationMeasureType){
+		
+			case EXISTENCE_OF_OVERLAP:	
+				command = command + " -eoo ";
+				break;
+				
+			case NUMBER_OF_OVERLAPPING_BASES:	
+				command = command + " -noob ";
+				break;
+		
+		}//End of switch adding parameter for generateRandomDataMode
+		
+		
+		subKeySlurmBufferedWriter.write(command + " -s 10000 -se 10000 -dder -j " + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + isochoreFamilyMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + Commons.DDE_RUN + "$SLURM_ARRAY_TASK_ID" + System.getProperty("line.separator"));
+		
 		//Add Line Separator
 		subKeySlurmBufferedWriter.write(System.getProperty("line.separator"));
 		
@@ -599,7 +657,7 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 
 	
 
-	//TRUBA with array index case
+	//TRUBA FAST with array index case
 	public static void fillSlurmFiles(
 			String GLANETJarFile,
 			String GLANETFolder,
@@ -682,17 +740,13 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 		BufferedReader bufferedReader = null;
 		
 		String strLine = null;
-		int indexofFirstUnderscore = -1;
+		
+		int indexofFirstUnderscore 	= -1;
 		int indexofSecondUnderscore = -1;
-		int indexofThirdUnderscore = -1;
-		
-		int indexofwGC = -1;
-		int indexofwIF = -1;
-		
-		int indexofwGCM = -1;
-		int indexofwoGCM = -1;
-		//int indexofEOO = -1;
-		int indexofNOOB = -1;
+		int indexofThirdUnderscore 	= -1;
+		int indexofFourthUnderscore = -1;
+		int indexofFifthUnderscore 	= -1;
+		int indexofSixthUnderscore 	= -1;
 		int indexofRun = -1;
 		
 		//cellLineType
@@ -707,16 +761,13 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 		//TPMType
 		DataDrivenExperimentTPMType tpmType = null;
 		
-		String remaining = null;
-		
-			
-		//generateRandomDataMode
+		//Generate Random Data Mode
 		GenerateRandomDataMode generateRandomDataMode = null;
 		
-		//isochore Family mode
+		//Isochore Family Mode
 		IsochoreFamilyMode isochoreFamilyMode = null;
 		
-		//associationMeasureType
+		//Association Measure Type
 		AssociationMeasureType associationMeasureType = null;
 		
 		int runNumber = -1;
@@ -724,8 +775,8 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 		List<String> cellLineGenerateRandomDataModeAssociationMeasureTypeList = new ArrayList<String>();
 		
 		//9 March 2016
-		//Main case consists of cellLineType generateRandomDataMode associationMeasureType
-		//Inner case consists of geneType tpmType dnaseOverlapExclusionType
+		//Mainkey consists of cellLineType geneType tpmType dnaseOverlapExclusionType 
+		//Subkey consists of   generateRandomDataMode isochoreFamilyMode associationMeasureType
 		Map<String,Map<String,List<Integer>>> mainKey2SubKey2RunNumberListMap = new HashMap<String,Map<String,List<Integer>>>();		
 		Map<String,List<Integer>> subKey2RunNumberListMap = null;
 		List<Integer> runNumberList = null;
@@ -739,6 +790,9 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 			
 			while((strLine = bufferedReader.readLine())!=null){
 				
+				//e.g.: example strLine
+				//GM12878_NonExpressingGenes_TopUnknown_CompletelyDiscard_wM_wIF_EOORun185
+				
 				//Not a comment line
 				if(!strLine.startsWith("#")){
 					
@@ -746,9 +800,11 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 					cellLineType = null;
 					geneType = null;
 					tpmType = null;
-					remaining = null;
+					
 					dnaseOverlapExclusionType = null;
+					
 					generateRandomDataMode = null;
+					isochoreFamilyMode = null;
 					associationMeasureType = null;
 					runNumber = -1;
 					
@@ -758,48 +814,24 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 					indexofFirstUnderscore = strLine.indexOf('_');
 					indexofSecondUnderscore = (indexofFirstUnderscore>0)? strLine.indexOf('_',indexofFirstUnderscore+1):-1;
 					indexofThirdUnderscore = (indexofSecondUnderscore>0)? strLine.indexOf('_',indexofSecondUnderscore+1):-1;
+					indexofFourthUnderscore = (indexofThirdUnderscore>0)? strLine.indexOf('_',indexofThirdUnderscore+1):-1;
+					indexofFifthUnderscore = (indexofFourthUnderscore>0)? strLine.indexOf('_',indexofFourthUnderscore+1):-1;
+					indexofSixthUnderscore = (indexofFifthUnderscore>0)? strLine.indexOf('_',indexofFifthUnderscore+1):-1;
+					
+					indexofRun = strLine.indexOf(Commons.DDE_RUN);
 					
 					cellLineType = DataDrivenExperimentCellLineType.convertStringtoEnum(strLine.substring(0, indexofFirstUnderscore));
 					geneType = DataDrivenExperimentGeneType.convertStringtoEnum(strLine.substring(indexofFirstUnderscore+1, indexofSecondUnderscore));
 					tpmType =  DataDrivenExperimentTPMType.convertStringtoEnum(strLine.substring(indexofSecondUnderscore+1, indexofThirdUnderscore));
 					
-					remaining= strLine.substring(indexofThirdUnderscore+1);
+					dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(strLine.substring(indexofThirdUnderscore+1, indexofFourthUnderscore));
 					
-					indexofwGC = remaining.indexOf(Commons.WGC);
-					indexofwIF = remaining.indexOf(Commons.WIF);
-					
-					indexofwGCM = remaining.indexOf(Commons.WGCM);
-					indexofwoGCM = remaining.indexOf(Commons.WOGCM);
-					indexofNOOB = remaining.indexOf(Commons.NUMBER_OF_OVERLAPPING_BASES_SHORT);
-					//indexofEOO = remaining.indexOf(Commons.EXISTENCE_OF_OVERLAP_SHORT);
-					
-					if (indexofwGCM>0){
-						generateRandomDataMode = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
-						dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(remaining.substring(0,indexofwGCM));
-						
-					} else if (indexofwGC>0){
-						generateRandomDataMode = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_GC_CONTENT;
-						dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(remaining.substring(0,indexofwGC));
-
-					}else {
-						generateRandomDataMode = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
-						dnaseOverlapExclusionType = DataDrivenExperimentDnaseOverlapExclusionType.convertStringtoEnum(remaining.substring(0,indexofwoGCM));
-					}
-					
-					if(indexofwIF>0){
-						isochoreFamilyMode = IsochoreFamilyMode.DO_USE_ISOCHORE_FAMILY;
-					}
-					
-					if (indexofNOOB>0){
-						associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
-					}else{
-						associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
-					}
-					
-					indexofRun = remaining.indexOf(Commons.DDE_RUN);
+					generateRandomDataMode = GenerateRandomDataMode.convertStringtoEnum(strLine.substring(indexofFourthUnderscore+1, indexofFifthUnderscore));					
+					isochoreFamilyMode = IsochoreFamilyMode.convertStringtoEnum(strLine.substring(indexofFifthUnderscore+1, indexofSixthUnderscore));					
+					associationMeasureType = AssociationMeasureType.convertStringtoEnum(strLine.substring(indexofSixthUnderscore+1, indexofRun));
 					
 					//Accumulate the runNumbers in a list
-					runNumber = Integer.parseInt(remaining.substring(indexofRun+3));
+					runNumber = Integer.parseInt(strLine.substring(indexofRun+3));
 					
 					//Form mainKey
 					mainKey = 	cellLineType.convertEnumtoString() +  "_" + 
@@ -842,11 +874,29 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 						
 						//Write header lines for the fist time
 						if (!cellLineGenerateRandomDataModeAssociationMeasureTypeList.contains(mainKey)){
-							writeHeaderLines(DDEFolder,cellLineType,generateRandomDataMode,associationMeasureType,operatingSystem);
+							mainKey = 	cellLineType.convertEnumtoString() +  "_" + 
+										geneType.convertEnumtoString() + "_" + 
+										dnaseOverlapExclusionType.convertEnumtoString()  + "_"  + 
+										tpmType.convertEnumtoString(); 
+						
+							writeHeaderLines(DDEFolder,cellLineType,geneType,dnaseOverlapExclusionType,tpmType,operatingSystem);
 							cellLineGenerateRandomDataModeAssociationMeasureTypeList.add(mainKey);
 						}
 						
-						writeGLANETRunToSLURMFile(GLANETJarFile,GLANETFolder,DDEFolder,cellLineType,generateRandomDataMode,associationMeasureType,geneType,tpmType,dnaseOverlapExclusionType,runNumber,operatingSystem);
+
+						writeGLANETRunToSLURMFile(
+								GLANETJarFile,
+								GLANETFolder,
+								DDEFolder,
+								cellLineType,
+								geneType,
+								dnaseOverlapExclusionType,
+								tpmType,
+								generateRandomDataMode,
+								isochoreFamilyMode,
+								associationMeasureType,
+								runNumber,
+								operatingSystem);
 
 					}//End of IF OS is WINDOWS or TRUBA without ArrayIndex Case
 					
@@ -860,6 +910,8 @@ public class Step6_DDE_RerunUnaccomplishedGLANETRuns {
 			//Close
 			bufferedReader.close();
 			
+			
+			//For TRUBA_FAST
 			writeRerunCommands(
 					GLANETJarFile,
 					GLANETFolder,

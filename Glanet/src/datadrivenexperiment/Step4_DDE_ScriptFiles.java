@@ -558,6 +558,7 @@ public class Step4_DDE_ScriptFiles {
 						
 						//One core jobs can be sent to single and mercan.
 						bufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
+						//bufferedWriter.write("#SBATCH -p orkinos" + System.getProperty("line.separator"));
 						
 						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
 						bufferedWriter.write("#SBATCH -J " + GENERAL_JOBNAME + System.getProperty("line.separator"));
