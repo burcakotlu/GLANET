@@ -59,6 +59,9 @@ public class Step4_DDE_ScriptFiles {
 		BufferedWriter bufferedWriter = null;
 		String fileName = null;
 		
+		FileWriter call_Runs_WithGC_FileWriter = null;
+		BufferedWriter call_Runs_WithGC_BufferedWriter = null;		
+		
 		FileWriter call_Runs_WithGCM_FileWriter = null;
 		BufferedWriter call_Runs_WithGCM_BufferedWriter = null;
 		
@@ -104,6 +107,11 @@ public class Step4_DDE_ScriptFiles {
 				
 				//Text Files 
 				switch(generateRandomDataMode){
+				
+					case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:	
+						call_Runs_WithGC_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + Commons.WGC + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
+						call_Runs_WithGC_BufferedWriter = new BufferedWriter(call_Runs_WithGC_FileWriter);						
+						break;
 				
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:	
 						call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + Commons.WGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
@@ -318,12 +326,21 @@ public class Step4_DDE_ScriptFiles {
 								
 								
 								//consider isochore or not
-								if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc()){
+								if (generateRandomDataMode.isGenerateRandomDataModeWithMapabilityandGc() || generateRandomDataMode.isGenerateRandomDataModeWithGC()){
 									rootCommand = rootCommand 
 											+ 	" --isochore-file=" +  dataDrivenExperimentFolder + "Isochore" + System.getProperty("file.separator") + "gcprofile_bins.bed";
 								}
 								
 								
+								//consider association measure type
+								if (associationMeasureType.isAssociationMeasureExistenceofOverlap()){
+									rootCommand = rootCommand 
+											+ 	" --counter=segment-overlap";
+								}else if (associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
+									rootCommand = rootCommand 
+											+ 	" --counter=nucleotide-overlap";
+								}
+																
 								rootCommand = rootCommand	
 									+ " --ignore-segment-tracks"
 									+ " --num-samples=10000"
@@ -820,7 +837,7 @@ public class Step4_DDE_ScriptFiles {
 		int endingRunNumber= Integer.parseInt(args[5]);;
 		
 		
-		GenerateRandomDataMode withGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT;
+		GenerateRandomDataMode withGC = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITH_GC_CONTENT;
 		GenerateRandomDataMode withoutGCandMapability = GenerateRandomDataMode.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT;
 		
 		//Operating System where the Data Driven Experiment will run
@@ -898,7 +915,8 @@ public class Step4_DDE_ScriptFiles {
 						
 						tpmType = itr.next();
 						
-						AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
+						AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
+						//AssociationMeasureType associationMeasureType = AssociationMeasureType.NUMBER_OF_OVERLAPPING_BASES;
 						
 
 						//***************************************WITH_MAPPABILITY_AND_GC_CONTENT************************************//						
@@ -911,7 +929,7 @@ public class Step4_DDE_ScriptFiles {
 								operatingSystem,
 								tpmType, 
 								associationMeasureType,
-								withGCandMapability,
+								withGC,
 								args,
 								dataDrivenExperimentFolder,
 								dataDrivenExperimentScriptFolder);
