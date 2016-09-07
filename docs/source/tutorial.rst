@@ -926,7 +926,7 @@ GLANET DEMO for User Defined Gene Set Feature
 	
 	6.	Check "User Defined Gene Set Annotation" check box in the User Defined Gene Set panel.
 	
-	7.	Load "GO_gene_associations_human_ref.txt" under "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/" as User Defined Gene Set Input File.
+	7.	Load "GOTerm_GeneSymbol_EvidenceCode_Ontology.txt" under "path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/" as User Defined Gene Set Input File.
 	
 	8.	Set "Gene Symbol" as Gene Information Type.
 	
