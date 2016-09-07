@@ -145,7 +145,7 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 			-  Sample User Defined Gene Set Input File can be reached at
 			
 			| ~path/to/GLANET Folder/Data/demo_input_data/UserDefinedGeneSet/GO/
-			| GO_gene_associations_human_ref.txt
+			| GOTerm_GeneSymbol_EvidenceCode_Ontology.txt
 
 		-  Gene Information Type (Mandatory if *User Defined Gene Set Annotation* check box is checked.)
 		   	-  GLANET supports three Gene Information Types:
