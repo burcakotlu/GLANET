@@ -59,8 +59,8 @@ public class Step4_DDE_ScriptFiles {
 		BufferedWriter bufferedWriter = null;
 		String fileName = null;
 		
-		FileWriter call_Runs_WithGC_FileWriter = null;
-		BufferedWriter call_Runs_WithGC_BufferedWriter = null;		
+		//FileWriter call_Runs_WithGC_FileWriter = null;
+		//BufferedWriter call_Runs_WithGC_BufferedWriter = null;		
 		
 		FileWriter call_Runs_WithGCM_FileWriter = null;
 		BufferedWriter call_Runs_WithGCM_BufferedWriter = null;
@@ -107,11 +107,7 @@ public class Step4_DDE_ScriptFiles {
 				
 				//Text Files 
 				switch(generateRandomDataMode){
-				
-					case GENERATE_RANDOM_DATA_WITH_GC_CONTENT:	
-						call_Runs_WithGC_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + Commons.WGC + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
-						call_Runs_WithGC_BufferedWriter = new BufferedWriter(call_Runs_WithGC_FileWriter);						
-						break;
+									
 				
 					case GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT:	
 						call_Runs_WithGCM_FileWriter = FileOperations.createFileWriter(dataDrivenExperimentScriptFolder + Commons.SBATCH_CALLS + cellLineType.convertEnumtoString() +  "_" + Commons.WGCM + "_" + associationMeasureType.convertEnumtoShortString() + Commons.TEXT_FILE_EXTENSION, true);
@@ -574,7 +570,10 @@ public class Step4_DDE_ScriptFiles {
 //						}
 						
 						//One core jobs can be sent to single and mercan.
-						bufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
+						//bufferedWriter.write("#SBATCH -p mercan" + System.getProperty("line.separator"));
+						
+						//levrekv2 can be faster than mercan
+						bufferedWriter.write("#SBATCH -p levrekv2" + System.getProperty("line.separator"));
 						//bufferedWriter.write("#SBATCH -p orkinos" + System.getProperty("line.separator"));
 						
 						bufferedWriter.write("#SBATCH -A botlu" + System.getProperty("line.separator"));
@@ -618,7 +617,7 @@ public class Step4_DDE_ScriptFiles {
 						
 						String command = null;
 						
-						//old one
+						//Using -tf -histone
 						command = rootCommand + "$SLURM_ARRAY_TASK_ID.txt\" " + "-f0 " + "-tf " + "-histone " + "-e " + "-ewz ";
 						
 						// Using UDL lead to write errors since each experiment tries to write under the same directory with same file names.

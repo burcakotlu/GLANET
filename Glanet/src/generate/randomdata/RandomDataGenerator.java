@@ -17,7 +17,6 @@ import intervaltree.IntervalTree;
 import intervaltree.IntervalTreeNode;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -26,7 +25,9 @@ import mapability.Mapability;
 import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
+
 import common.Commons;
+
 import enumtypes.CalculateGC;
 import enumtypes.ChromosomeName;
 import enumtypes.GenerateRandomDataMode;
@@ -244,7 +245,6 @@ public class RandomDataGenerator {
 		//float savedDifferencebetweenMapabilities = Float.MAX_VALUE;;
 		Interval savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = null;
 		float savedSumofDifferencebetweenGCandMapabilities = Float.MAX_VALUE;
-		int savedCount = Integer.MIN_VALUE;
 
 		//18 August 2016 
 		Interval savedBestRandomlyGeneratedLineUpToNowWRTGCDifference = null;
@@ -264,9 +264,10 @@ public class RandomDataGenerator {
 		int countForIsochoreFamily;
 		int countForIntervalTreeOverlap;
 		
-		float averageCount = 0.0f;
-		int minCount = Integer.MAX_VALUE;
-		int maxCount = Integer.MIN_VALUE;
+//		int savedCount = Integer.MIN_VALUE;
+//		float averageCount = 0.0f;
+//		int minCount = Integer.MAX_VALUE;
+//		int maxCount = Integer.MIN_VALUE;
 
 
 		/**************************************************************************************************/
@@ -394,11 +395,11 @@ public class RandomDataGenerator {
 			List<IntervalTreeNode> overlappedNodeList  = null;
 			//28 OCT 2015 ends
 			
-			//debug delete later
-			averageCount = 0.0f;
-			minCount = Integer.MAX_VALUE;
-			maxCount = Integer.MIN_VALUE;
-			//debug delete later
+//			//debug delete later
+//			averageCount = 0.0f;
+//			minCount = Integer.MAX_VALUE;
+//			maxCount = Integer.MIN_VALUE;
+//			//debug delete later
 
 			// For Each Original InputLine starts
 			for( int j = 0; j < chromosomeBasedOriginalInputLines.size(); j++){
@@ -452,7 +453,7 @@ public class RandomDataGenerator {
 					
 					savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = null;
 					savedSumofDifferencebetweenGCandMapabilities = Float.MAX_VALUE;
-					savedCount = Integer.MIN_VALUE;
+					//savedCount = Integer.MIN_VALUE;
 					
 					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 					dynamicGCThreshold = Commons.GC_THRESHOLD_LOWER_VALUE;
@@ -577,7 +578,7 @@ public class RandomDataGenerator {
 							
 							savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference = randomlyGeneratedLine;
 							savedSumofDifferencebetweenGCandMapabilities = differencebetweenGCs + differencebetweenMapabilities;	
-							savedCount = count;
+//							savedCount = count;
 						}
 						//Saved best randomlyGeneratedLine up to now wrt to sum of differences ends
 						
@@ -636,19 +637,16 @@ public class RandomDataGenerator {
 					//In this case we add the saved best randomlyGeneratedLine up to now.
 					if ((count>Commons.CUT_OFF_VALUE) && (differencebetweenGCs > dynamicGCThreshold || differencebetweenMapabilities > dynamicMapabilityThreshold)){
 						
-						//debug delete later
-//						if( GlanetRunner.shouldLog()){
-//							logger.info("wGCM savedCount: " + savedCount);
+//						//debug delete later
+//						averageCount += savedCount;
+//						
+//						if (savedCount< minCount){
+//							minCount = savedCount;
 //						}
-						averageCount += savedCount;
-						
-						if (savedCount< minCount){
-							minCount = savedCount;
-						}
-						if (savedCount> maxCount){
-							maxCount = savedCount;
-						}
-						//debug delete later
+//						if (savedCount> maxCount){
+//							maxCount = savedCount;
+//						}
+//						//debug delete later
 					
 						randomlyGeneratedLine = savedBestRandomlyGeneratedLineUpToNowWRTSumofGCandMappabilityDifference;
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
@@ -659,19 +657,16 @@ public class RandomDataGenerator {
 						
 					}else {
 						
-						//debug delete later
-//						if( GlanetRunner.shouldLog() && count >100){
-//							logger.info("wGCM count: " + count);
+//						//debug delete later
+//						averageCount += count;
+//						
+//						if (count< minCount){
+//							minCount = count;
 //						}
-						averageCount += count;
-						
-						if (count< minCount){
-							minCount = count;
-						}
-						if (count> maxCount){
-							maxCount = count;
-						}
-						//debug delete later
+//						if (count> maxCount){
+//							maxCount = count;
+//						}
+//						//debug delete later
 
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
@@ -729,13 +724,13 @@ public class RandomDataGenerator {
 				
 			}// End of FOR: each original input line
 			
-			//debug delete later
-			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
-			
-			if( GlanetRunner.shouldLog()){
-				logger.info("wGCM averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" +  "maxCount:" + "\t" + maxCount);
-			}
-			//debug delete later
+//			//debug delete later
+//			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
+//			
+//			if( GlanetRunner.shouldLog()){
+//				logger.info("wGCM averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" +  "maxCount:" + "\t" + maxCount);
+//			}
+//			//debug delete later
 
 		}// End of IF generateRandomInterval with GC and Mapability
 		/**************************************************************************************************/
@@ -756,11 +751,11 @@ public class RandomDataGenerator {
 			List<IntervalTreeNode> overlappedNodeList  = null;
 			//28 OCT 2015 ends
 			
-			//debug delete later
-			averageCount = 0.0f;
-			minCount = Integer.MAX_VALUE;
-			maxCount = Integer.MIN_VALUE;
-			//debug delete later
+//			//debug delete later
+//			averageCount = 0.0f;
+//			minCount = Integer.MAX_VALUE;
+//			maxCount = Integer.MIN_VALUE;
+//			//debug delete later
 
 
 			// For Each Original InputLine starts
@@ -803,7 +798,7 @@ public class RandomDataGenerator {
 					
 					savedBestRandomlyGeneratedLineUpToNowWRTGCDifference = null;
 					savedGCDifference = Float.MAX_VALUE;
-					savedCount = Integer.MIN_VALUE;
+//					savedCount = Integer.MIN_VALUE;
 					
 					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 					dynamicGCThreshold = Commons.GC_THRESHOLD_LOWER_VALUE;
@@ -914,7 +909,7 @@ public class RandomDataGenerator {
 						if ((differencebetweenGCs) < savedGCDifference){
 							savedBestRandomlyGeneratedLineUpToNowWRTGCDifference = randomlyGeneratedLine;
 							savedGCDifference = differencebetweenGCs;	
-							savedCount = count;
+//							savedCount = count;
 						}
 						//Saved best randomlyGeneratedLine up to now wrt to GC differences ends
 						
@@ -951,20 +946,16 @@ public class RandomDataGenerator {
 					//In this case we add the saved best randomlyGeneratedLine up to now.
 					if ((count>Commons.CUT_OFF_VALUE) && (differencebetweenGCs > dynamicGCThreshold)){
 						
-						//debug delete later
-//						if( GlanetRunner.shouldLog()){
-//							logger.info("wGC savedCount: " + savedCount);
+//						//debug delete later						
+//						averageCount += savedCount;
+//						
+//						if (savedCount< minCount){
+//							minCount = savedCount;
 //						}
-						
-						averageCount += savedCount;
-						
-						if (savedCount< minCount){
-							minCount = savedCount;
-						}
-						if (savedCount> maxCount){
-							maxCount = savedCount;
-						}
-						//debug delete later
+//						if (savedCount> maxCount){
+//							maxCount = savedCount;
+//						}
+//						//debug delete later
 
 						randomlyGeneratedLine = savedBestRandomlyGeneratedLineUpToNowWRTGCDifference;
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
@@ -975,20 +966,16 @@ public class RandomDataGenerator {
 						
 					}else {
 
-						//debug delete later
-//						if( GlanetRunner.shouldLog() && count>100){
-//							logger.info("wGC count: " + count);
+//						//debug delete later
+//						averageCount += count;
+//						
+//						if (count< minCount){
+//							minCount = count;
 //						}
-						averageCount += count;
-						
-						if (count< minCount){
-							minCount = count;
-						}
-						if (count> maxCount){
-							maxCount = count;
-						}
-
-						//debug delete later
+//						if (count> maxCount){
+//							maxCount = count;
+//						}
+//						//debug delete later
 
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
@@ -1045,13 +1032,13 @@ public class RandomDataGenerator {
 				
 			}// End of FOR: each original input line
 			
-			//debug delete later
-			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
-			
-			if( GlanetRunner.shouldLog()){
-				logger.info("wGC averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" + "maxCount:" + "\t" + maxCount);
-			}
-			//debug delete later
+//			//debug delete later
+//			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
+//			
+//			if( GlanetRunner.shouldLog()){
+//				logger.info("wGC averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" + "maxCount:" + "\t" + maxCount);
+//			}
+//			//debug delete later
 
 			
 		}// End of IF generateRandomInterval with GC
@@ -1074,11 +1061,11 @@ public class RandomDataGenerator {
 			List<IntervalTreeNode> overlappedNodeList  = null;
 			//28 OCT 2015 ends
 			
-			//debug delete later
-			averageCount = 0.0f;
-			minCount = Integer.MAX_VALUE;
-			maxCount = Integer.MIN_VALUE;
-			//debug delete later
+//			//debug delete later
+//			averageCount = 0.0f;
+//			minCount = Integer.MAX_VALUE;
+//			maxCount = Integer.MIN_VALUE;
+//			//debug delete later
 
 
 			// For Each Original InputLine starts
@@ -1110,7 +1097,7 @@ public class RandomDataGenerator {
 					count = 0;
 					savedBestRandomlyGeneratedLineUpToNowWRTMappabilityDifference = null;
 					savedMapabilityDifference = Float.MAX_VALUE;
-					savedCount = Integer.MIN_VALUE;
+//					savedCount = Integer.MIN_VALUE;
 					
 					counterThreshold = Commons.NUMBER_OF_TRIAL_FIRST_LEVEL;
 					dynamicMapabilityThreshold = Commons.MAPABILITY_THRESHOLD_LOWER_VALUE;
@@ -1241,7 +1228,7 @@ public class RandomDataGenerator {
 							
 							savedBestRandomlyGeneratedLineUpToNowWRTMappabilityDifference = randomlyGeneratedLine;
 							savedMapabilityDifference =  differencebetweenMapabilities;	
-							savedCount = count;
+//							savedCount = count;
 						}
 						//Saved best randomlyGeneratedLine up to now wrt to sum of differences ends
 						
@@ -1282,19 +1269,16 @@ public class RandomDataGenerator {
 					//In this case we add the saved best randomlyGeneratedLine up to now.
 					if ((count>Commons.CUT_OFF_VALUE) && (differencebetweenMapabilities > dynamicMapabilityThreshold)){
 						
-						//debug delete later
-//						if( GlanetRunner.shouldLog()){
-//							logger.info("wM savedCount: " + savedCount);
+//						//debug delete later
+//						averageCount += savedCount;
+//						
+//						if (savedCount< minCount){
+//							minCount = savedCount;
 //						}
-						averageCount += savedCount;
-						
-						if (savedCount< minCount){
-							minCount = savedCount;
-						}
-						if (savedCount> maxCount){
-							maxCount = savedCount;
-						}
-						//debug delete later
+//						if (savedCount> maxCount){
+//							maxCount = savedCount;
+//						}
+//						//debug delete later
 
 						
 						randomlyGeneratedLine = savedBestRandomlyGeneratedLineUpToNowWRTMappabilityDifference;						
@@ -1306,19 +1290,16 @@ public class RandomDataGenerator {
 						
 					}else {
 						
-						//debug delete later
-//						if( GlanetRunner.shouldLog() && count>100){
-//							logger.info("wM count: " + count);
+//						//debug delete later
+//						averageCount += count;
+//						
+//						if (count< minCount){
+//							minCount = count;
 //						}
-						averageCount += count;
-						
-						if (count< minCount){
-							minCount = count;
-						}
-						if (count> maxCount){
-							maxCount = count;
-						}
-						//debug delete later
+//						if (count> maxCount){
+//							maxCount = count;
+//						}
+//						//debug delete later
 						
 						randomlyGeneratedInputLines.add(randomlyGeneratedLine);
 						intervalTree.intervalTreeInsert(intervalTree, intervalTreeNode);
@@ -1374,13 +1355,13 @@ public class RandomDataGenerator {
 				
 			}// End of FOR: each original input line
 			
-			//debug delete later
-			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
-			
-			if( GlanetRunner.shouldLog()){
-				logger.info("wM averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" + "maxCount:" + "\t" + maxCount);
-			}
-			//debug delete later
+//			//debug delete later
+//			averageCount = averageCount/chromosomeBasedOriginalInputLines.size();
+//			
+//			if( GlanetRunner.shouldLog()){
+//				logger.info("wM averageCount:" + "\t" + averageCount + "\t" + "minCount:" + "\t" + minCount + "\t" + "maxCount:" + "\t" + maxCount);
+//			}
+//			//debug delete later
 
 		}// End of IF generateRandomInterval with Mapability
 		/**************************************************************************************************/

@@ -116,7 +116,19 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		
 	}
 	
-	
+	/*
+	 * Question: Why GM12878 and K562 have the same number of genes?
+	 * Their top5 and top20 number of expressed genes  are the same, 1013 and 4052, respectively.Why?
+	 * 
+	 * Answer: GeneIds are filled from related cell lines Rep1 and Rep2 files. 
+	 * Both GM12878 and K562 have 57241 genes from Rep1 and Rep2 files.
+	 * If geneID is in female.gtf file it is written.
+	 * These genes are considered if they have a corresponding line from female.gtf file.
+	 * And as a result 20260 genes remain after filtering for both cell lines. 
+	 * Therefore top5 expressed genes have 1013 genes for GM12878 and K562, respectively.
+	 * And top20 expressed genes have 4052 genes for GM12878 and K562, respectively.
+	 * 
+	 */
 	public static void generateIntervalsFromFemaleGTFFile(
 			TObjectFloatMap<String> ensemblGeneID2TPMMap,
 			String femaleGTFFileName, 

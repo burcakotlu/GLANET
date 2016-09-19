@@ -91,6 +91,7 @@ public class Commons {
 	public static final String DDE_DNASEOVERLAPSEXCLUDED_INTERVAL_POOL = "DnaseOverlapsExcludedIntervalPool";
 	public static final String DDE_RUN = "Run";
 	public static final String SCRIPT_FILES = "ScriptFiles";
+	public static final String INTERVAL_POOL = "IntervalPool";
 	
 	//1 March 2016
 	public static final String DDE_UNACCOMPLISHED_RUNS_FILE_START = "DDE";
@@ -971,7 +972,8 @@ public class Commons {
 	public static final int NUMBER_OF_TRIAL_THIRD_LEVEL = 1500;
 	public static final int NUMBER_OF_TRIAL_FOURTH_LEVEL = 2000;
 	
-	public static final int CUT_OFF_VALUE = 5000;
+	//Formerly it was 5000
+	public static final int CUT_OFF_VALUE = 4000;
 
 	public static final String ORIGINAL_INPUT_DATA_FILE = "ORIGINAL_INPUT_DATA_FILE";
 
