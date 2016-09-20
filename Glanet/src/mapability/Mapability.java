@@ -351,6 +351,8 @@ public class Mapability {
 			TShortList mapabilityShortValueList) {
 
 		float accumulatedMapability = 0;
+		
+		int newLengthOfInterval = 0;
 
 		// Interval is in the same block
 		if( startIndex == endIndex){
@@ -362,18 +364,27 @@ public class Mapability {
 
 			// First Block
 			accumulatedMapability = (mapabilityChromosomePositionList.get(startIndex+1) - low + 1) * mapabilityShortValueList.get(startIndex);
+			newLengthOfInterval += mapabilityChromosomePositionList.get(startIndex+1) - low + 1;
 
 			// Middle Blocks
 			for( int i = startIndex + 1; i < endIndex; i++){
 				accumulatedMapability += (mapabilityChromosomePositionList.get(i+1) - mapabilityChromosomePositionList.get(i) + 1) * mapabilityShortValueList.get(i);
+				newLengthOfInterval += mapabilityChromosomePositionList.get(i+1) - mapabilityChromosomePositionList.get(i) + 1;
 
 			}// End of for
 
 			// Last Block
 			accumulatedMapability += (high - mapabilityChromosomePositionList.get(endIndex) + 1) * mapabilityShortValueList.get(endIndex);
+			newLengthOfInterval += high - mapabilityChromosomePositionList.get(endIndex) + 1;
+
 
 			// Calculate Mapability Value
-			accumulatedMapability = accumulatedMapability / ( high - low + 1);
+			//Old way was accumulating more mappability for as many more bases as the number of blocks exists.
+			//accumulatedMapability = accumulatedMapability / ( high - low + 1);
+			
+			//New way of computing accumulatedMapability
+			accumulatedMapability = accumulatedMapability/newLengthOfInterval;
+			
 		}// End of ELSE IF
 
 		return accumulatedMapability;

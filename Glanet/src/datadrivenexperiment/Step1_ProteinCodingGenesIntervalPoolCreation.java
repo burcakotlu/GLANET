@@ -593,9 +593,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 		ProteinCodingGeneExonNumberOneInterval  proteinCodingGeneExonNumberOneInterval = null;
 		
 		switch(tpmType){
-			case TOP2:
-				index = numberofIntervals*2/100;
-				break;
 			case TOP5:
 				index = numberofIntervals*5/100;
 				break;
@@ -604,9 +601,6 @@ public class Step1_ProteinCodingGenesIntervalPoolCreation {
 				break;
 			case TOP20:
 				index = numberofIntervals*20/100;
-				break;
-			case TOP25:
-				index = numberofIntervals*25/100;
 				break;
 			case TOPUNKNOWN:
 				index = numberofIntervals;

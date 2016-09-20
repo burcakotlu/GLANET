@@ -330,14 +330,7 @@ public class DataDrivenExperimentCommon {
 		if (topPercentage.equals("FIRST_GENE_TPM")){
 			index = 0;
 		}
-		else if (topPercentage.isTOP1()){
-			index = list.size()*1/100;
-			
-		}
-		else if (topPercentage.isTOP2()){
-			index = list.size()*2/100;
-			
-		}
+		
 		else if (topPercentage.isTOP5()){
 			index = list.size()*5/100;
 			
@@ -347,20 +340,6 @@ public class DataDrivenExperimentCommon {
 			
 		}else if (topPercentage.isTOP20()){
 			index = list.size()*20/100;
-			
-		}else 	if (topPercentage.isTOP25()){
-			index = list.size()*25/100;
-			
-		}else 	if (topPercentage.isTOP50()){
-			index = list.size()*50/100;
-			
-		}
-		else 	if (topPercentage.isTOP55()){
-			index = list.size()*55/100;
-			
-		}
-		else 	if (topPercentage.isTOP60()){
-			index = list.size()*60/100;
 			
 		}else if (topPercentage.equals("LAST_GENE_TPM")){
 			index = list.size()-1;

@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -27,8 +28,10 @@ import enumtypes.DataDrivenExperimentGeneType;
 import enumtypes.DataDrivenExperimentTPMType;
 import gc.ChromosomeBasedGCIntervalTree;
 import gc.GC;
+import gnu.trove.list.TFloatList;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.TShortList;
+import gnu.trove.list.array.TFloatArrayList;
 import gnu.trove.list.array.TIntArrayList;
 import gnu.trove.list.array.TShortArrayList;
 import gnu.trove.map.TIntObjectMap;
@@ -37,15 +40,147 @@ import gnu.trove.map.hash.TIntObjectHashMap;
 /**
  * @author burcakotlu
  * 
- * In this class, our aim is to calculate the mappability of randomly generated intervals of Data Driven Computational Experiments Data
+ * In this class, our aim is to calculate gc and mappability of intervals in the interval pools.
  * 
- * Motivation: In this way, we may know the workspace files we need to provide to GAT for mappability.
+ * We have one nonexpressed interval pool and three expressed interval pools for each cell line: GM12878 and K562
+ * 
+ * Motivation: In this way, we want to know the GC and mappability distribution difference between expressed and nonexpresssed scenario in two cell lines.
  *
  */
 public class AuxiliaryGCandMappability {
 	
+	//cellLineType at hundred position
+	//geneType at ten position
+	//tpmType at one position
+	public static DataDrivenExperimentCellLineType getCellLine(int key){
+		
+		DataDrivenExperimentCellLineType cellLineType = null;
+		
+		int geneTypeNumberTPMTypeNumber = key%100;
+		
+		int cellLineNumber = (key-geneTypeNumberTPMTypeNumber)/100;
+		
+		if (cellLineNumber==1)
+			return DataDrivenExperimentCellLineType.GM12878;
+		else if (cellLineNumber==2){
+			return DataDrivenExperimentCellLineType.K562;
+		}
+
+		return cellLineType;
+		
+	}
 	
-	public static void readDDCEData(
+	public static DataDrivenExperimentGeneType getGeneType(int key){
+		
+		DataDrivenExperimentGeneType geneType = null;
+		
+		int geneTypeNumber = key%100;
+		int tpmTypeNumber = key%10;
+		
+		geneTypeNumber = (geneTypeNumber-tpmTypeNumber)/10;
+		
+		if (geneTypeNumber==1)
+			return DataDrivenExperimentGeneType.NONEXPRESSING_PROTEINCODING_GENES;
+		else if (geneTypeNumber==2){
+			return DataDrivenExperimentGeneType.EXPRESSING_PROTEINCODING_GENES;
+		}
+		
+		return geneType;
+		
+	}
+	
+	
+	public static DataDrivenExperimentTPMType getTPMType(int key){
+		
+		DataDrivenExperimentTPMType tpmType = null;
+		
+		int tpmTypeNumber = key%10;
+		
+		if (tpmTypeNumber==1)
+			return DataDrivenExperimentTPMType.TOPUNKNOWN;
+		else if (tpmTypeNumber==2){
+			return DataDrivenExperimentTPMType.TOP5;
+		}else if (tpmTypeNumber==3){
+			return DataDrivenExperimentTPMType.TOP10;
+		}else if (tpmTypeNumber==4){
+			return DataDrivenExperimentTPMType.TOP20;
+		}
+		
+		return tpmType;
+		
+	}
+	
+	public static void writeToFiles(
+			TIntObjectMap<TFloatList> cellLineGeneTypeTPMType2FloatListMap,
+			String ddeFolder, 
+			String mappabilityOrGC ){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		int key = 0;
+		int[] keys = cellLineGeneTypeTPMType2FloatListMap.keys();
+		
+		Arrays.sort(keys);
+
+		DataDrivenExperimentCellLineType cellLine = null;
+		DataDrivenExperimentGeneType geneType = null;
+		DataDrivenExperimentTPMType tpmType = null;
+		
+		try {
+			
+			fileWriter = new FileWriter(ddeFolder + mappabilityOrGC + ".txt");
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			//Write header line
+			for(int i= 0; i<keys.length; i++){
+				
+				cellLine = getCellLine(keys[i]);
+				geneType = getGeneType(keys[i]);
+				tpmType = getTPMType(keys[i]);
+				
+				bufferedWriter.write(cellLine.convertEnumtoString() + " " + geneType.convertEnumtoString() + " " + tpmType.convertEnumtoString()  + "\t");
+			}	
+			bufferedWriter.write(System.getProperty("line.separator"));
+			
+			for(int i=0; i<4616; i++){
+
+				for(int j= 0; j<keys.length; j++){
+					
+					key = keys[j];
+					
+					//last key
+					if (j==keys.length-1){
+						if (i<cellLineGeneTypeTPMType2FloatListMap.get(key).size()){
+							bufferedWriter.write(cellLineGeneTypeTPMType2FloatListMap.get(key).get(i) + System.getProperty("line.separator"));
+						}else{
+							bufferedWriter.write(" " + System.getProperty("line.separator"));
+						}
+					}else {
+						if (i<cellLineGeneTypeTPMType2FloatListMap.get(key).size()){
+							bufferedWriter.write(cellLineGeneTypeTPMType2FloatListMap.get(key).get(i) + "\t");
+
+						}else{
+							bufferedWriter.write(" " + "\t");
+						}
+					}
+					
+				}//End of for each key --column
+				
+			}//End of for each --row
+			
+			//Close
+			bufferedWriter.close();
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	
+	
+	public static void readIntervalsInDDCEIntervalPoolComputeGCMappability(
 			String ddeFolder,
 			String ddeIntervalPoolFolder,
 			DataDrivenExperimentCellLineType cellLineType, 
@@ -53,26 +188,27 @@ public class AuxiliaryGCandMappability {
 			Set<DataDrivenExperimentTPMType> tpmTypes,
 			TIntObjectMap<TIntList> chrName2MapabilityChromosomePositionList,
 			TIntObjectMap<TShortList> chrName2MapabilityShortValueList,
-			TIntObjectMap<IntervalTree> chrName2GCIntervalTreeMap){
+			TIntObjectMap<IntervalTree> chrName2GCIntervalTreeMap,
+			TIntObjectMap<TFloatList>  cellLineGeneTypeTPMType2GCListMap,
+			TIntObjectMap<TFloatList>  cellLineGeneTypeTPMType2MappabilityListMap){
 		
 		try {
 			FileReader fileReader = null;
 			BufferedReader bufferedReader = null;
-			
-			String dataFileName = null;
-			
+						
 			FileWriter mappabilityFileWriter = null;
 			BufferedWriter mappabilityBufferedWriter = null;
 			
 			FileWriter gcFileWriter = null;
 			BufferedWriter gcBufferedWriter = null;
 			
+			String dataFileName = null;
+			
 			String strLine = null;
 			
 			int indexofFirstTab;
 			int indexofSecondTab;
 			int indexofThirdTab;
-			
 			
 			ChromosomeName chrName;
 			int low;
@@ -86,11 +222,12 @@ public class AuxiliaryGCandMappability {
 			TShortList mapabilityShortValueList = null;
 
 			float mappability = 0;
-			float accumulatedMappability = 0;
-			float avgMappability = 0;
 			
-			int numberoIntervalsWithMappabilityGreaterThanOne =0;
-			int numberoIntervalsWithMappabilityLessThanPointFive =0;
+//			float accumulatedMappability = 0;
+//			float avgMappability = 0;	
+//			int numberoIntervalsWithMappabilityGreaterThanOne =0;
+//			int numberoIntervalsWithMappabilityLessThanZero =0;
+//			int numberoIntervalsWithMappabilityLessThanPointFive =0;
 			
 			//*****************************//
 			//******** Mappability ********//
@@ -103,45 +240,73 @@ public class AuxiliaryGCandMappability {
 			IntervalTree gcIntervalTree = null;
 			
 			float gc = 0;
-			float accumulatedGC = 0;
-			float avgGC = 0;
 			
-			int numberoIntervalsWithGCGreaterThanOne =0;
-			int numberoIntervalsWithGCLessThanPointFive =0;
+//			float accumulatedGC = 0;			
+//			float avgGC = 0;
+//			int numberoIntervalsWithGCGreaterThanOne =0;
+//			int numberoIntervalsWithGCLessThanZero =0;
+//			int numberoIntervalsWithGCLessThanPointFive =0;
 			//*****************************//
 			//************ GC *************//
 			//*****************************//
 
-			int numberofIntervals = 0;
+//			int numberofIntervals = 0;
+			
+			int computedKey = 0;
+			TFloatList GCArrayList = null;
+			TFloatList MappabilityArrayList = null;
 			
 			for(DataDrivenExperimentTPMType TPMType: tpmTypes) {
-			
+				
+				if (TPMType.isTOP20() || TPMType.isTOPUnknown()){
+					
+					
+					computedKey = cellLineType.getDataDrivenExperimentCellLineType()*100 + geneType.getDataDrivenExperimentGeneType()*10 + TPMType.getDataDrivenExperimentTopPercentageType(); 
+					
+					GCArrayList = cellLineGeneTypeTPMType2GCListMap.get(computedKey);
+					MappabilityArrayList = cellLineGeneTypeTPMType2MappabilityListMap.get(computedKey);
+					
+					if (GCArrayList== null){
+						GCArrayList =new TFloatArrayList();
+					}
+						
+					if (MappabilityArrayList== null){
+						MappabilityArrayList =new TFloatArrayList();
+					}
+					
+							
 					dataFileName = ddeIntervalPoolFolder + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString()  + "_" +  Commons.INTERVAL_POOL + ".txt";
 					
 					fileReader = new FileReader(dataFileName);
 					bufferedReader = new BufferedReader(fileReader);
-					
-					
+										
 					mappabilityFileWriter = new FileWriter(ddeFolder + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString()  +  "_Mappabilities.txt");
 					mappabilityBufferedWriter = new BufferedWriter(mappabilityFileWriter);
 						
 					gcFileWriter = new FileWriter(ddeFolder + cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString()  + "_GC.txt");
 					gcBufferedWriter = new BufferedWriter(gcFileWriter);
 
+					//Write header lines
+					mappabilityBufferedWriter.write(cellLineType.convertEnumtoString() + " " + geneType.convertEnumtoString() + " " + TPMType.convertEnumtoString() + " " + "Mappability" + System.getProperty("line.separator"));
+					gcBufferedWriter.write(cellLineType.convertEnumtoString() + " " + geneType.convertEnumtoString() + " " + TPMType.convertEnumtoString() + " " + "GC" + System.getProperty("line.separator"));
 
+					mappabilityBufferedWriter.write(cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString() + "_" + "Mappability" + "<- c(");
+					gcBufferedWriter.write(cellLineType.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + TPMType.convertEnumtoString() + "_" + "GC" + "<-c(");
+									
+					//Initialization before entering while loop
+//					numberofIntervals = 0;
 					
-					//Initialization
-					numberofIntervals = 0;
+//					accumulatedMappability = 0;
+//					avgMappability = 0;
+//					numberoIntervalsWithMappabilityGreaterThanOne =0;
+//					numberoIntervalsWithMappabilityLessThanZero =0;
+//					numberoIntervalsWithMappabilityLessThanPointFive =0;
 					
-					accumulatedMappability = 0;
-					avgMappability = 0;
-					numberoIntervalsWithMappabilityGreaterThanOne =0;
-					numberoIntervalsWithMappabilityLessThanPointFive =0;
-					
-					accumulatedGC = 0;
-					avgGC = 0;
-					numberoIntervalsWithGCGreaterThanOne =0;
-					numberoIntervalsWithGCLessThanPointFive =0;
+//					accumulatedGC = 0;
+//					avgGC = 0;
+//					numberoIntervalsWithGCGreaterThanOne =0;
+//					numberoIntervalsWithGCLessThanZero =0;
+//					numberoIntervalsWithGCLessThanPointFive =0;
 					
 					//read file
 					while((strLine=bufferedReader.readLine())!=null){
@@ -155,8 +320,7 @@ public class AuxiliaryGCandMappability {
 						high = Integer.parseInt(strLine.substring(indexofSecondTab+1,indexofThirdTab));
 						
 						interval = new Interval(low, high);
-						
-						
+												
 						/**************************************************************************************************/
 						/***************************Filling of MAPPABILITY Data Structures starts**************************/
 						/**************************************************************************************************/
@@ -191,42 +355,61 @@ public class AuxiliaryGCandMappability {
 						/**************************************************************************************************/
 						/**********************GC Calculation ends*********************************************************/
 						/**************************************************************************************************/
+												
+//						mappabilityBufferedWriter.write(mappability + System.getProperty("line.separator"));
+//						gcBufferedWriter.write(gc + System.getProperty("line.separator"));
 						
-						
-						mappabilityBufferedWriter.write(dataFileName + "\t" + mappability + System.getProperty("line.separator"));
-						gcBufferedWriter.write(dataFileName + "\t" + gc + System.getProperty("line.separator"));
+						mappabilityBufferedWriter.write(mappability + ", +" + System.getProperty("line.separator"));
+						gcBufferedWriter.write(gc + ", +" + System.getProperty("line.separator"));
 
-						if (mappability > 1f){
-							numberoIntervalsWithMappabilityGreaterThanOne++;
-							//bufferedWriter.write("There is a situation: " + dataFileName + "\t" + mappability + System.getProperty("line.separator"));
-						}else if (mappability < 0.5f){
-							numberoIntervalsWithMappabilityLessThanPointFive++;
-						}
-						
-						if (gc > 1f){
-							numberoIntervalsWithGCGreaterThanOne++;
-							//bufferedWriter.write("There is a situation: " + dataFileName + "\t" + mappability + System.getProperty("line.separator"));
-						}else if (gc < 0.5f){
-							numberoIntervalsWithGCLessThanPointFive++;
-						}
-				
-						accumulatedMappability += mappability;
-						accumulatedGC += gc;
-						numberofIntervals++;
+						GCArrayList.add(gc);
+						MappabilityArrayList.add(mappability);
+
+//						if (mappability > 1f){
+//							numberoIntervalsWithMappabilityGreaterThanOne++;
+//							mappabilityBufferedWriter.write("There is a situation: " + dataFileName + "\t" + chrName +  "\t" + low + "\t" + high +  "\t" + mappability + System.getProperty("line.separator"));
+//						}else if (mappability<0f){
+//							numberoIntervalsWithMappabilityLessThanZero++;
+//						}
+//						else if (mappability < 0.5f){
+//							numberoIntervalsWithMappabilityLessThanPointFive++;
+//						}
+//						
+//						if (gc > 1f){
+//							numberoIntervalsWithGCGreaterThanOne++;
+//							gcBufferedWriter.write("There is a situation: " + dataFileName + "\t" + chrName +  "\t" + low + "\t" + high +  "\t" + gc + System.getProperty("line.separator"));
+//						}else if (gc<0f){
+//							numberoIntervalsWithGCLessThanZero++;
+//						}else if (gc < 0.5f){
+//							numberoIntervalsWithGCLessThanPointFive++;
+//						}
+//				
+//						accumulatedMappability += mappability;
+//						accumulatedGC += gc;
+
+//						numberofIntervals++;
 						
 					}//End of WHILE reading one data file
 					
+					cellLineGeneTypeTPMType2GCListMap.put(computedKey, GCArrayList);
+					cellLineGeneTypeTPMType2MappabilityListMap.put(computedKey, MappabilityArrayList);
 					
-					avgMappability = accumulatedMappability/numberofIntervals;
-					avgGC = accumulatedGC/numberofIntervals;
 					
-					mappabilityBufferedWriter.write("AvgMappability" + "\t" + avgMappability + System.getProperty("line.separator"));
-					mappabilityBufferedWriter.write("Number of Intervals with Mappability Less Than Point Five" + "\t" + numberoIntervalsWithMappabilityLessThanPointFive + System.getProperty("line.separator"));
-					mappabilityBufferedWriter.write("Number of Intervals with Mappability Greater Than One" + "\t" + numberoIntervalsWithMappabilityGreaterThanOne + System.getProperty("line.separator"));
+					mappabilityBufferedWriter.write( ")");
+					gcBufferedWriter.write(")");
 
-					gcBufferedWriter.write("AvgGC" + "\t" + avgGC + System.getProperty("line.separator"));
-					gcBufferedWriter.write("Number of Intervals with GC Less Than Point Five" + "\t" + numberoIntervalsWithGCLessThanPointFive + System.getProperty("line.separator"));
-					gcBufferedWriter.write("Number of Intervals with GC Greater Than One" + "\t" + numberoIntervalsWithGCGreaterThanOne + System.getProperty("line.separator"));
+//					avgMappability = accumulatedMappability/numberofIntervals;
+//					avgGC = accumulatedGC/numberofIntervals;
+					
+//					mappabilityBufferedWriter.write("AvgMappability" + "\t" + avgMappability + System.getProperty("line.separator"));
+//					mappabilityBufferedWriter.write("Number of Intervals with Mappability Less Than Point Five" + "\t" + numberoIntervalsWithMappabilityLessThanPointFive + "\t" + "Ratio:" + "\t" + (numberoIntervalsWithMappabilityLessThanPointFive*1f/numberofIntervals) + System.getProperty("line.separator"));
+//					mappabilityBufferedWriter.write("Number of Intervals with Mappability Greater Than One" + "\t" + numberoIntervalsWithMappabilityGreaterThanOne + System.getProperty("line.separator"));
+//					mappabilityBufferedWriter.write("Number of Intervals with Mappability Less Than Zero" + "\t" + numberoIntervalsWithMappabilityLessThanZero + System.getProperty("line.separator"));
+
+//					gcBufferedWriter.write("AvgGC" + "\t" + avgGC + System.getProperty("line.separator"));
+//					gcBufferedWriter.write("Number of Intervals with GC Less Than Point Five" + "\t" + numberoIntervalsWithGCLessThanPointFive + "\t" + "Ratio:" + "\t" + (numberoIntervalsWithGCLessThanPointFive*1f/numberofIntervals)  +System.getProperty("line.separator"));
+//					gcBufferedWriter.write("Number of Intervals with GC Greater Than One" + "\t" + numberoIntervalsWithGCGreaterThanOne + System.getProperty("line.separator"));
+//					gcBufferedWriter.write("Number of Intervals with GC Less Than Zero" + "\t" + numberoIntervalsWithGCLessThanZero + System.getProperty("line.separator"));
 
 					//Close
 					mappabilityBufferedWriter.close();
@@ -234,8 +417,12 @@ public class AuxiliaryGCandMappability {
 					
 					//Close
 					bufferedReader.close();
+
+					
+				}//End of IF tpMType is TOP20 or TopUnknown
+				
 		
-				}//End of each tpm type
+			}//End of each tpm type
 				
 			
 			
@@ -314,6 +501,7 @@ public class AuxiliaryGCandMappability {
 			
 			ChromosomeBasedGCIntervalTree.fillIntervalTree(glanetDataFolder,chrName,Commons.INTERVAL_LENGTH_100,gcIntervalTree);
 			
+			//Put into a map
 			chrName2GCIntervalTreeMap.put(chrName.getChromosomeName(),gcIntervalTree);
 			/*************************************************/
 			/***************GC ends***************************/
@@ -324,6 +512,9 @@ public class AuxiliaryGCandMappability {
 		/*************************************************************************************************/
 		/*******************Get GC and mappability data structures being filled ends**********************/
 		/*************************************************************************************************/
+		
+		TIntObjectMap<TFloatList>  cellLineGeneTypeTPMType2GCListMap = new TIntObjectHashMap<TFloatList>();
+		TIntObjectMap<TFloatList>  cellLineGeneTypeTPMType2MappabilityListMap = new TIntObjectHashMap<TFloatList>();
 
 		for(DataDrivenExperimentCellLineType cellLineType: DataDrivenExperimentCellLineType.values()){
 			
@@ -344,7 +535,7 @@ public class AuxiliaryGCandMappability {
 				}//End of SWITCH for geneType
 
 				
-				readDDCEData(
+				readIntervalsInDDCEIntervalPoolComputeGCMappability(
 						ddeFolder,
 						ddeIntervalPoolFolder,
 						cellLineType, 
@@ -352,11 +543,20 @@ public class AuxiliaryGCandMappability {
 						tpmTypes,
 						chrName2MapabilityChromosomePositionList,
 						chrName2MapabilityShortValueList,
-						chrName2GCIntervalTreeMap);
+						chrName2GCIntervalTreeMap,
+						cellLineGeneTypeTPMType2GCListMap,
+						cellLineGeneTypeTPMType2MappabilityListMap);
 				
 			}//End of for each gene type 
 			
 		}//End of for each cell line
+		
+		
+		writeToFiles(cellLineGeneTypeTPMType2GCListMap,ddeFolder,Commons.GC);
+		
+		writeToFiles(cellLineGeneTypeTPMType2MappabilityListMap,ddeFolder,Commons.MAPABILITY);
+	
+		
 		
 		
 		
