@@ -502,7 +502,7 @@ public class Commons {
 	public static Long LONG_ONE = ( long)1;
 
 	public static final String GC = "GC";
-	public static final String MAPABILITY = "MAPABILITY";
+	public static final String MAPPABILITY = "MAPPABILITY";
 
 	public static final String RANDOM_DATA_GENERATION_LOG_FILE = "generate" + System.getProperty( "file.separator") + "randomdata" + System.getProperty( "file.separator") + "GenerateRandomDataLog.txt";
 

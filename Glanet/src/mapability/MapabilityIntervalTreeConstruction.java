@@ -28,7 +28,7 @@ public class MapabilityIntervalTreeConstruction {
 	public static void fillIntervalTree( String dataFolder, ChromosomeName chromName,
 			IntervalTree mapabilityIntervalTree) {
 
-		String mapabilityFileName = Commons.MAPABILITY + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.MAPABILITY_HG19_FILE_END;
+		String mapabilityFileName = Commons.MAPPABILITY + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.MAPABILITY_HG19_FILE_END;
 
 		FileReader fileReader;
 		BufferedReader bufferedReader;

@@ -345,11 +345,11 @@ public class MeanandStandardDeviationofGCandMapabilityofFileBasedDnaseTfbsHiston
 			fileName = name.substring( indexofSecondTab + 1);
 
 			if( Commons.DNASE.equals( functionalElementType)){
-				mapabilityFileName = elementFileOutputFolder + Commons.DNASE + System.getProperty("file.separator") + Commons.MAPABILITY + System.getProperty("file.separator") + Commons.MAPABILITY + "_" + fileName;
+				mapabilityFileName = elementFileOutputFolder + Commons.DNASE + System.getProperty("file.separator") + Commons.MAPPABILITY + System.getProperty("file.separator") + Commons.MAPPABILITY + "_" + fileName;
 			}else if( Commons.TF.equals( functionalElementType)){
-				mapabilityFileName = elementFileOutputFolder + Commons.TF + System.getProperty("file.separator") + Commons.MAPABILITY + System.getProperty("file.separator")  + Commons.MAPABILITY + "_" + fileName;
+				mapabilityFileName = elementFileOutputFolder + Commons.TF + System.getProperty("file.separator") + Commons.MAPPABILITY + System.getProperty("file.separator")  + Commons.MAPPABILITY + "_" + fileName;
 			}else if( Commons.HISTONE.equals( functionalElementType)){
-				mapabilityFileName = elementFileOutputFolder + Commons.HISTONE + System.getProperty("file.separator") + Commons.MAPABILITY + System.getProperty("file.separator")  + Commons.MAPABILITY + "_" + fileName;
+				mapabilityFileName = elementFileOutputFolder + Commons.HISTONE + System.getProperty("file.separator") + Commons.MAPPABILITY + System.getProperty("file.separator")  + Commons.MAPPABILITY + "_" + fileName;
 			}
 
 			try{
@@ -502,7 +502,7 @@ public class MeanandStandardDeviationofGCandMapabilityofFileBasedDnaseTfbsHiston
 			fileWriter = FileOperations.createFileWriter( mapabilityFileName, true);
 			bufferedWriter = new BufferedWriter( fileWriter);
 
-			MeanandStandardDeviation meanandStdDev = mapabilityHashMap.get( Commons.MAPABILITY + "\t" + functionalElementType + "\t" + inputFileName);
+			MeanandStandardDeviation meanandStdDev = mapabilityHashMap.get( Commons.MAPPABILITY + "\t" + functionalElementType + "\t" + inputFileName);
 
 			if( Commons.DNASE.equals( functionalElementType)){
 				// Get the cell line name from file name
@@ -667,11 +667,11 @@ public class MeanandStandardDeviationofGCandMapabilityofFileBasedDnaseTfbsHiston
 					filePath = file.getPath();
 
 					if( Commons.DNASE.equals( functionalElementType)){
-						mapabilityFileName = functionalElementFileBasedOutputFolder + Commons.DNASE + System.getProperty("file.separator") + Commons.MAPABILITY + System.getProperty("file.separator") + Commons.MAPABILITY + "_" + fileName;
+						mapabilityFileName = functionalElementFileBasedOutputFolder + Commons.DNASE + System.getProperty("file.separator") + Commons.MAPPABILITY + System.getProperty("file.separator") + Commons.MAPPABILITY + "_" + fileName;
 					}else if( Commons.TF.equals( functionalElementType)){
-						mapabilityFileName = functionalElementFileBasedOutputFolder + Commons.TF + System.getProperty("file.separator") + Commons.MAPABILITY + System.getProperty("file.separator") + Commons.MAPABILITY + "_" + fileName;
+						mapabilityFileName = functionalElementFileBasedOutputFolder + Commons.TF + System.getProperty("file.separator") + Commons.MAPPABILITY + System.getProperty("file.separator") + Commons.MAPPABILITY + "_" + fileName;
 					}else if( Commons.HISTONE.equals( functionalElementType)){
-						mapabilityFileName = functionalElementFileBasedOutputFolder + Commons.HISTONE + System.getProperty("file.separator") + Commons.MAPABILITY + System.getProperty("file.separator") + Commons.MAPABILITY + "_" + fileName;
+						mapabilityFileName = functionalElementFileBasedOutputFolder + Commons.HISTONE + System.getProperty("file.separator") + Commons.MAPPABILITY + System.getProperty("file.separator") + Commons.MAPPABILITY + "_" + fileName;
 					}
 
 					calculateMeanMapability( fileName, filePath, mapabilityFileName, mapabilityHashMap,mapabilityIntervalTree, functionalElementType);
@@ -813,7 +813,7 @@ public class MeanandStandardDeviationofGCandMapabilityofFileBasedDnaseTfbsHiston
 					// filePath = file.getPath();
 
 					MeanandStandardDeviation meanandStandardDeviation = new MeanandStandardDeviation();
-					mapabilityHashMap.put(Commons.MAPABILITY + "\t" + functionalElementType + "\t" + fileName,meanandStandardDeviation);
+					mapabilityHashMap.put(Commons.MAPPABILITY + "\t" + functionalElementType + "\t" + fileName,meanandStandardDeviation);
 
 				}// Check for each file and read each file
 					

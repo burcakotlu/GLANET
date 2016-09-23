@@ -234,7 +234,7 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 			fileReader = new FileReader( chromBasedMapabilityFileName);
 			bufferedReader = new BufferedReader( fileReader);
 
-			values = mapabilityHashMap.get( chromName + "\t" + functionalElementType + "\t" + Commons.MAPABILITY);
+			values = mapabilityHashMap.get( chromName + "\t" + functionalElementType + "\t" + Commons.MAPPABILITY);
 			mean = values.getMean();
 
 			// initialize
@@ -418,16 +418,16 @@ public class MeanandStandardDeviationofGCandMapabilityofChromosomeBasedDnaseTfbs
 
 		if( Commons.DNASE.equals( functionalElementType)){
 			meanandStandardDeviation = new MeanandStandardDeviation();
-			mapabilityHashMap.put( chromName + "\t" + Commons.DNASE + "\t" + Commons.MAPABILITY,
+			mapabilityHashMap.put( chromName + "\t" + Commons.DNASE + "\t" + Commons.MAPPABILITY,
 					meanandStandardDeviation);
 
 		}else if( Commons.TF.equals( functionalElementType)){
 			meanandStandardDeviation = new MeanandStandardDeviation();
-			mapabilityHashMap.put( chromName + "\t" + Commons.TF + "\t" + Commons.MAPABILITY, meanandStandardDeviation);
+			mapabilityHashMap.put( chromName + "\t" + Commons.TF + "\t" + Commons.MAPPABILITY, meanandStandardDeviation);
 
 		}else if( Commons.HISTONE.equals( functionalElementType)){
 			meanandStandardDeviation = new MeanandStandardDeviation();
-			mapabilityHashMap.put( chromName + "\t" + Commons.HISTONE + "\t" + Commons.MAPABILITY,
+			mapabilityHashMap.put( chromName + "\t" + Commons.HISTONE + "\t" + Commons.MAPPABILITY,
 					meanandStandardDeviation);
 		}
 

@@ -34,7 +34,7 @@ public class ChromosomeBasedMappabilityTroveList {
 			// TByteList mapabilityByteValueList
 	) {
 
-		String fileName = Commons.MAPABILITY + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.MAPABILITY_HG19_FILE_END;
+		String fileName = Commons.MAPPABILITY + System.getProperty( "file.separator") + chromName.convertEnumtoString() + Commons.MAPABILITY_HG19_FILE_END;
 
 		BufferedReader bufferedReader = FileOperations.createBufferedReader( dataFolder, fileName);
 		String strLine = null;

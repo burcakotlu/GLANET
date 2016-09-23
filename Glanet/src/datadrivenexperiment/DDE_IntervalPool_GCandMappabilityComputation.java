@@ -46,7 +46,7 @@ import gnu.trove.map.hash.TIntObjectHashMap;
  * Motivation: In this way, we want to know the GC and mappability distribution difference between expressed and nonexpresssed scenario in two cell lines.
  *
  */
-public class AuxiliaryGCandMappability {
+public class DDE_IntervalPool_GCandMappabilityComputation {
 	
 	//cellLineType at hundred position
 	//geneType at ten position
@@ -133,14 +133,15 @@ public class AuxiliaryGCandMappability {
 			String ddeFolder, 
 			String mappabilityOrGC){
 		
-		FileWriter fileWriter = null;
-		BufferedWriter bufferedWriter = null;
 		
 		FileWriter fileWriter_GM12878 = null;
 		BufferedWriter bufferedWriter_GM12878 = null;
 		
 		FileWriter fileWriter_K562 = null;
 		BufferedWriter bufferedWriter_K562 = null;
+		
+		FileWriter fileWriter_GM12878_K562_ALL = null;
+		BufferedWriter bufferedWriter_GM12878_K562_ALL = null;
 		
 		int key = 0;
 		TFloatList floatList= null;
@@ -159,18 +160,23 @@ public class AuxiliaryGCandMappability {
 			fileWriter_K562 = new FileWriter(ddeFolder + Commons.K562 + "_" + mappabilityOrGC + ".txt");
 			bufferedWriter_K562 = new BufferedWriter(fileWriter_K562);
 
+			fileWriter_GM12878_K562_ALL = new FileWriter(ddeFolder + Commons.GM12878 + "_" +Commons.K562 + "_ALL_" + mappabilityOrGC + ".txt");
+			bufferedWriter_GM12878_K562_ALL = new BufferedWriter(fileWriter_GM12878_K562_ALL);
+
 			//Write header line
 			bufferedWriter_GM12878.write("Value" + "\t" + "IntervalPool"  + System.getProperty("line.separator"));
 			bufferedWriter_K562.write("Value" + "\t" + "IntervalPool"  + System.getProperty("line.separator"));
-
+			bufferedWriter_GM12878_K562_ALL.write("Value" + "\t" + "IntervalPool"  + System.getProperty("line.separator"));
 			
+			int [] keys = cellLineGeneTypeTPMType2FloatListMap.keys();
 			
-			for(TIntObjectIterator<TFloatList> itr =cellLineGeneTypeTPMType2FloatListMap.iterator();itr.hasNext();){
+			Arrays.sort(keys);
+			
 
-				itr.advance();
+			for(int i=0; i<keys.length;i++){
 				
-				key = itr.key();
-				floatList = itr.value();
+				key = keys[i];
+				floatList = cellLineGeneTypeTPMType2FloatListMap.get(key);
 				
 				cellLine = getCellLine(key);
 				geneType = getGeneType(key);
@@ -178,23 +184,27 @@ public class AuxiliaryGCandMappability {
 				
 				keyString = cellLine.convertEnumtoString() + "_" + geneType.convertEnumtoString() + "_" + tpmType.convertEnumtoString();
 				
-				for(int i= 0; i<floatList.size(); i++){
+				for(int j= 0; j<floatList.size(); j++){
 					
 					if (cellLine.isGM12878()){
-						bufferedWriter_GM12878.write(floatList.get(i)+ "\t" + keyString +  System.getProperty("line.separator"));
+						bufferedWriter_GM12878.write(floatList.get(j)+ "\t" + keyString +  System.getProperty("line.separator"));
 					}else if (cellLine.isK562()){
-						bufferedWriter_K562.write(floatList.get(i)+ "\t" + keyString +  System.getProperty("line.separator"));
+						bufferedWriter_K562.write(floatList.get(j)+ "\t" + keyString +  System.getProperty("line.separator"));
 					}
 					
-					
+					bufferedWriter_GM12878_K562_ALL.write(floatList.get(j)+ "\t" + keyString +  System.getProperty("line.separator"));
 
 				}//End of for each value in TFloatList
-				
-			}//End of for each TFloatList
+	
+			}//End of each sorted key
+			
+
 			
 			//Close
 			bufferedWriter_GM12878.close();
 			bufferedWriter_K562.close();
+			bufferedWriter_GM12878_K562_ALL.close();
+			
 		
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -629,7 +639,7 @@ public class AuxiliaryGCandMappability {
 //		writeToFiles(cellLineGeneTypeTPMType2MappabilityListMap,ddeFolder,Commons.MAPABILITY,maxNumberofIntervals);	
 		
 		writeToFilesForSMPackage(cellLineGeneTypeTPMType2GCListMap,ddeFolder,Commons.GC);
-		writeToFilesForSMPackage(cellLineGeneTypeTPMType2MappabilityListMap,ddeFolder,Commons.MAPABILITY);
+		writeToFilesForSMPackage(cellLineGeneTypeTPMType2MappabilityListMap,ddeFolder,Commons.MAPPABILITY);
 		
 	}
 

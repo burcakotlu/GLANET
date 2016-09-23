@@ -104,7 +104,7 @@ public class CreationofChromosomeBasedMapabilityFilesFromWigFiles {
 
 			for( ChromosomeName chrName : ChromosomeName.values()){
 
-				chromBasedMapabilityFileName = Commons.MAPABILITY + System.getProperty( "file.separator") + chrName.convertEnumtoString() + Commons.MAPABILITY_HG19_FILE_END;
+				chromBasedMapabilityFileName = Commons.MAPPABILITY + System.getProperty( "file.separator") + chrName.convertEnumtoString() + Commons.MAPABILITY_HG19_FILE_END;
 				fileWriter = FileOperations.createFileWriter( dataFolder, chromBasedMapabilityFileName);
 				bufferedWriter = new BufferedWriter( fileWriter);
 				chromName2BufferedWriterMap.put( chrName.getChromosomeName(), bufferedWriter);
