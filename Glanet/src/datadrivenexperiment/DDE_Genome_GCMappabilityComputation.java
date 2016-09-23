@@ -29,7 +29,6 @@ import intervaltree.IntervalTree;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,6 +39,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import mapability.ChromosomeBasedMappabilityTroveList;
 import mapability.Mapability;
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 
@@ -49,10 +49,10 @@ import common.Commons;
  * @project Glanet 
  *
  */
-public class DDE_NullDistribution_GCMappabilityComputation {
+public class DDE_Genome_GCMappabilityComputation {
 
 
-	public DDE_NullDistribution_GCMappabilityComputation() {
+	public DDE_Genome_GCMappabilityComputation() {
 
 	}
 	
