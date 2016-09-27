@@ -39,7 +39,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import mapability.ChromosomeBasedMappabilityTroveList;
 import mapability.Mapability;
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 
@@ -139,11 +138,15 @@ public class DDE_Genome_GCMappabilityComputation {
 		
 		try {
 			
-			gcFileWriter = FileOperations.createFileWriter(glanetDDEFolder + Commons.GC + "_NullDistribution.txt");
+			gcFileWriter = FileOperations.createFileWriter(glanetDDEFolder + Commons.GC + "_Genome.txt");
 			gcBufferedWriter = new BufferedWriter(gcFileWriter);
 			
-			mappabilityFileWriter = FileOperations.createFileWriter(glanetDDEFolder + Commons.MAPPABILITY + "_NullDistribution.txt");
+			mappabilityFileWriter = FileOperations.createFileWriter(glanetDDEFolder + Commons.MAPPABILITY + "_Genome.txt");
 			mappabilityBufferedWriter = new BufferedWriter(mappabilityFileWriter);
+			
+			//Write header
+			gcBufferedWriter.write("Value" + "\t" + "IntervalPool"  + System.getProperty("line.separator"));
+			mappabilityBufferedWriter.write("Value" + "\t" + "IntervalPool"  + System.getProperty("line.separator"));
 			
 			for(TIntObjectIterator<List<Interval>>  itr=chrNumber2RandomIntervalsMap.iterator();itr.hasNext();){
 				
@@ -197,8 +200,8 @@ public class DDE_Genome_GCMappabilityComputation {
 					avgMappability += mappability;
 					avgGC += gc;
 					
-					mappabilityBufferedWriter.write(mappability  + "\t" +  "Mappability_NullDistribution" +  System.getProperty("line.separator"));				
-					gcBufferedWriter.write(gc + "\t" +  "GC_NullDistribution" + System.getProperty("line.separator"));
+					mappabilityBufferedWriter.write(mappability  + "\t" +  "Mappability_Genome" +  System.getProperty("line.separator"));				
+					gcBufferedWriter.write(gc + "\t" +  "GC_Genome" + System.getProperty("line.separator"));
 	
 					
 				}//End of for each intervalList for each chromosome
