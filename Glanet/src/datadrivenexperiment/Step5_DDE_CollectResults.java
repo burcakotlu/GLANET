@@ -466,10 +466,18 @@ public class Step5_DDE_CollectResults {
 			// For each run
 			for(int i = 0; i <numberofRuns; i++){
 				
-				//Initialization
-				//So that unexisting run can not use the last valid gatTSV file and copy its content.
-				gatTSVFile = new File(gatOutputFolder + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TSV);
-//				gatTSVFile = new File(gatFolder + System.getProperty("file.separator") + "output" + System.getProperty("file.separator") + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TEXT_FILE_EXTENSION);
+				
+				//12 October 2016 starts
+				if (generateRandomDataMode.isGenerateRandomDataModeWithGC() && associationMeasureType.isAssociationMeasureNumberOfOverlappingBases()){
+					gatTSVFile = new File(gatOutputFolder + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + "wGCM" + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TSV);
+				}else
+				//12 October 2016 ends
+				{
+					//Initialization
+					//So that unexisting run can not use the last valid gatTSV file and copy its content.
+					gatTSVFile = new File(gatOutputFolder + ToolType.GAT.convertEnumtoString() + "_" + cellLineType.convertEnumtoString()  + "_" +  geneType.convertEnumtoString() + "_" +  TPMType.convertEnumtoString() + "_" + dnaseOverlapExclusionType.convertEnumtoString() + "_" + generateRandomDataMode.convertEnumtoShortString() + "_" + associationMeasureType.convertEnumtoShortString() + "_" + Commons.DDE_RUN + i + Commons.TSV);
+				}
+				
 				
 				
 				if (gatTSVFile.exists() && gatTSVFile.isFile()){

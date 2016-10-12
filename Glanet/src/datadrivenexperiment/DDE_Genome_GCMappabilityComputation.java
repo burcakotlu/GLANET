@@ -138,10 +138,10 @@ public class DDE_Genome_GCMappabilityComputation {
 		
 		try {
 			
-			gcFileWriter = FileOperations.createFileWriter(glanetDDEFolder + Commons.GC + "_Genome.txt");
+			gcFileWriter = FileOperations.createFileWriter(glanetDDEFolder + "Genome_"  + Commons.GC + ".txt");
 			gcBufferedWriter = new BufferedWriter(gcFileWriter);
 			
-			mappabilityFileWriter = FileOperations.createFileWriter(glanetDDEFolder + Commons.MAPPABILITY + "_Genome.txt");
+			mappabilityFileWriter = FileOperations.createFileWriter(glanetDDEFolder + "Genome_" + Commons.MAPPABILITY + ".txt");
 			mappabilityBufferedWriter = new BufferedWriter(mappabilityFileWriter);
 			
 			//Write header
