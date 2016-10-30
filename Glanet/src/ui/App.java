@@ -606,7 +606,7 @@ public class App {
 					return false;
 				}
 
-		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.UserDefinedLibraryInput) && argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase( Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION)){
+		if( !setWithDefaultValueIfNotSet(argsInOrder,CommandLineArguments.UserDefinedLibraryInput) && argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION)){
 
 			// System.out.println( CommandLineArguments.UserDefinedLibraryInput
 			// + " not specified, exiting...");

@@ -262,11 +262,13 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 		   When **B*N** is in hundreds of thousands, running GLANET with **with z-score** option could be too memory consuming; therefore, we recommend using **without z-score** option.		 
 		
 	* *Generate Random Data Mode*
-		-  With GC and Mappability (default)
+		-  With GC (default)
+		-  With Mappability
+		-  With GC and Mappability
 		-  Without GC and Mappability
 
-	Choose the *Generate Random Data Mode* which can be either *With GC and Mappability* or *Without GC and Mappability*.
-	Default is *With GC and Mappability*.
+	Choose the *Generate Random Data Mode* which can be either *With GC*, *With Mappability*, *With GC and Mappability* or *Without GC and Mappability*.
+	Default is *With GC*.
 
 	* *Multiple Testing*
 		-  Benjamini Hochberg FDR (Default)
