@@ -425,7 +425,7 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         +---------------+                   |              |                      |
 |                         | `-wozs`_      |                   |              |                      |
 |                         +---------------+-------------------+--------------+----------------------+
-|                         | `-wgc`_       |  Required         | `-e`_        | `-wgc`_              |
+|                         | `-wgc`_       |  Required         | `-e`_        | `-wgcm`_             |
 |                         +---------------+                   |              |                      |
 |                         | `-wm`_        |                   |              |                      |
 |                         +---------------+                   |              |                      |
@@ -692,7 +692,7 @@ If this option is specified, GLANET performs enrichment without z-scores.
 **Required** if :option:`-e` is set. 
 This option generates random data with GC. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-wgc`.
+If you do not set anything, default option is :option:`-wgcm`.
 
 -wm
 ^^^
@@ -700,7 +700,7 @@ If you do not set anything, default option is :option:`-wgc`.
 **Required** if :option:`-e` is set. 
 This option generates random data with Mappability. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-wgc`.
+If you do not set anything, default option is :option:`-wgcm`.
 
 -wgcm
 ^^^^^
@@ -708,7 +708,7 @@ If you do not set anything, default option is :option:`-wgc`.
 **Required** if :option:`-e` is set. 
 This option generates random data with GC and Mapability. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-wgc`.
+If you do not set anything, default option is :option:`-wgcm`.
 
 -wogcm
 ^^^^^^
@@ -716,7 +716,7 @@ If you do not set anything, default option is :option:`-wgc`.
 **Required** if :option:`-e` is set. 
 This option generates random data without GC and Mapability.
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
-If you do not set anything, default option is :option:`-wgc`.
+If you do not set anything, default option is :option:`-wgcm`.
 
 -wif
 ^^^^
