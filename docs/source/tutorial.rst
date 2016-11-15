@@ -243,9 +243,10 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 7)	**Enrichment**: (Optional)
 
 	* *Perform Enrichment*
-		-  Check *Perform Enrichment* check box if you want to achieve Enrichment Analysis.
+		-  Choose *Perform Enrichment* or *Perform Enrichment without Annotation* from the related combo box if you want to achieve Enrichment Analysis.
 		   GLANET will accomplish Enrichment Analysis for the element types checked in Annotation Options.
-        
+		   When you choose *Perform Enrichment without Annotation*, GLANET will not do any Annotation analysis for the given input but only Enrichment analysis for them.
+		
 		-  Perform Enrichment With Z-Scores (Default) 
 		-  Perform Enrichment Without Z-Scores 
 		 
@@ -403,8 +404,8 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         +---------------+                   |              |                      |
 |                         | `-aon`_       |                   |              |                      |
 +-------------------------+---------------+-------------------+--------------+----------------------+
-| Enrichment              | `-e`_         |  Optional         |`-dnase`_ or  | None                 |
-|                         |               |                   +--------------+                      |
+| Enrichment              | `-e`_  or     |  Optional         |`-dnase`_ or  | None                 |
+|                         | `-ewoa`_      |                   +--------------+                      |
 |                         |               |                   |`-tf`_ or     |                      |
 |                         |               |                   +--------------+                      |
 |                         |               |                   |`-histone`_ or|                      |
@@ -677,6 +678,12 @@ If this option is specified, GLANET does not output annotation results at all.
 If this option is specified, GLANET performs enrichment. 
 Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-tfcellkegg`, :option:`-udgs`, :option:`-udl`) to be set.
 
+-ewoa
+^^^^^
+
+If this option is specified, GLANET performs enrichment without annotation. 
+Enrichment operation requires at least one annotation option (:option:`-dnase`, :option:`-histone`, :option:`-tf`, :option:`-kegg`, :option:`-tfkegg`, :option:`-tfcellkegg`, :option:`-udgs`, :option:`-udl`) to be set.
+
 -wzs
 ^^^^
 If this option is specified, GLANET performs enrichment with z-scores.
@@ -689,7 +696,7 @@ If this option is specified, GLANET performs enrichment without z-scores.
 -wgc
 ^^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option generates random data with GC. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
 If you do not set anything, default option is :option:`-wgcm`.
@@ -697,7 +704,7 @@ If you do not set anything, default option is :option:`-wgcm`.
 -wm
 ^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option generates random data with Mappability. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
 If you do not set anything, default option is :option:`-wgcm`.
@@ -705,7 +712,7 @@ If you do not set anything, default option is :option:`-wgcm`.
 -wgcm
 ^^^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option generates random data with GC and Mapability. 
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
 If you do not set anything, default option is :option:`-wgcm`.
@@ -713,7 +720,7 @@ If you do not set anything, default option is :option:`-wgcm`.
 -wogcm
 ^^^^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option generates random data without GC and Mapability.
 You must either set :option:`-wgc`, :option:`-wm`, :option:`-wgcm` or :option:`-wogcm` to specify generating random data mode. 
 If you do not set anything, default option is :option:`-wgcm`.
@@ -733,7 +740,7 @@ See also `-wif`_.
 -bh
 ^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option sets Multiple Testing correction as "Benjamini-Hochberg FDR". 
 You must either set :option:`-bh` or :option:`-bonf` to specify multiple testing correction option. 
 If you do not set anything, default option is :option:`-bh`.
@@ -741,35 +748,35 @@ If you do not set anything, default option is :option:`-bh`.
 -bonf
 ^^^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option sets Multiple Testing correction as "Bonferroni Correction". 
 See also `-bh`_.
 
 -fdr
 ^^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option followed by a float value sets False Discovery Rate for Benjamini-Hochberg multiple testing. 
 Default option is :option:`-fdr 0.05`.
 
 -sl
 ^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option followed by a float value sets Significance Level for Bonferroni Correction multiple testing. 
 Default option is :option:`-sl 0.05`.
 
 -s
 ^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option followed by an integer value sets the total number of samplings in Enrichment. 
 Default option is :option:`-s 10000`.
 
 -se
 ^^^
 
-**Required** if :option:`-e` is set. 
+**Required** if :option:`-e` or :option:`-ewoa` are set. 
 This option followed by an integer value sets number of samplings in each run. 
 Default option is :option:`-se 5000`.
 
