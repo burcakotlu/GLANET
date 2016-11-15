@@ -676,13 +676,11 @@ public class MainView extends JPanel {
 		//performEnrichmentPanel.add( performEnrichmentCheckBox);
 
 		
-		String[] enrichmentModes = {Commons.DO_ENRICH,Commons.DO_ENRICH_WITHOUT_ANNOTATION, Commons.DO_NOT_ENRICH};
-		
+		String[] enrichmentModes = {Commons.DO_ENRICH,Commons.DO_ENRICH_WITHOUT_ANNOTATION, Commons.DO_NOT_ENRICH};		
 		performEnrichmentComboBox = new JComboBox<String>(enrichmentModes);
 		performEnrichmentComboBox.setSelectedIndex(0);
-		performEnrichmentComboBox.addItemListener( enableEnrichmentOptionsListener);
-		performEnrichmentComboBox.addItemListener( enableRegulatorySequenceAnalysis);
-
+		performEnrichmentComboBox.addItemListener(enableEnrichmentOptionsListener);
+		performEnrichmentComboBox.addItemListener(enableRegulatorySequenceAnalysis);
 		performEnrichmentPanel.add(createPanelWithHint(performEnrichmentComboBox, Commons.GUI_HINT_ENRICHMENT_MODE));
 		
 		

@@ -9,7 +9,6 @@
 package auxiliary;
 
 import enumtypes.AnnotationType;
-import enumtypes.CommandLineArguments;
 import enumtypes.ElementType;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntIntMap;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import userdefined.library.UserDefinedLibraryUtility;
+
 import common.Commons;
 
 public class NumberofComparisons {
