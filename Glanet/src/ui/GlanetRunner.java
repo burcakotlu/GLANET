@@ -67,7 +67,8 @@ public class GlanetRunner implements Runnable {
 		/******************************************************************************************/
 		/************************ Enrichment starts ***********************************************/
 		/******************************************************************************************/
-		if( getArgs()[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH)){
+		if( (getArgs()[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH) || 
+			getArgs()[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION))){
 
 			/************************ Annotate Permutations starts ****************************/
 			setCurrentProcessInfo( "Annotate Samplings for Enrichment...");

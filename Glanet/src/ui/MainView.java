@@ -76,7 +76,11 @@ public class MainView extends JPanel {
 	private JComboBox<String> userDefinedGeneSetGeneInformationCombo;
 	private JComboBox<String> userDefinedLibraryDataFormatCombo;
 	private JComboBox<String> writeAnnotationFoundOverlapModeCombo;
-	private JCheckBox performEnrichmentCheckBox;
+	
+	//14 Nov 2016
+	//private JCheckBox performEnrichmentCheckBox;
+	private JComboBox<String> performEnrichmentComboBox;
+	
 	private JCheckBox performEnrichmentWithZScoresCheckBox;
 	private JCheckBox regulatorySequenceAnalysisUsingRSATCheck;
 	private JCheckBox dnaseAnnotation;
@@ -247,7 +251,11 @@ public class MainView extends JPanel {
 						inputFormatCombo.getSelectedItem().toString(),
 						associationMeasureTypeCombo.getSelectedItem().toString(),
 						(numberOfBases.getText().length() < 1)?CommandLineArguments.NumberOfBasesRequiredForOverlap.defaultValue():numberOfBases.getText(),
-						performEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
+						
+						//14 Nov 2016
+						//performEnrichmentCheckBox.isSelected()?Commons.DO_ENRICH:Commons.DO_NOT_ENRICH,
+						performEnrichmentComboBox.getSelectedItem().toString(),
+												
 						performEnrichmentWithZScoresCheckBox.isSelected()?Commons.PERFORM_ENRICHMENT_WITH_ZSCORE:Commons.PERFORM_ENRICHMENT_WITHOUT_ZSCORE,
 						generateRandomDataGCAndMapabilityModeCombo.getSelectedItem().toString(),
 						multipleTestingCombo.getSelectedItem().toString(),
@@ -306,7 +314,14 @@ public class MainView extends JPanel {
 		public void itemStateChanged( ItemEvent itemEvent) {
 
 			checkUsabilityOfEnrichmentOptions();
-			enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
+			//14 Nov 2016
+			//enableEnrichmentOptions(performEnrichmentCheckBox.isSelected());
+			
+			if (performEnrichmentComboBox.isEnabled() && (performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH) || performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH_WITHOUT_ANNOTATION))){
+				enableEnrichmentOptions(true);
+			} else{
+				enableEnrichmentOptions(false);
+			}
 		}
 	};
 	
@@ -323,8 +338,14 @@ public class MainView extends JPanel {
 
 		@Override
 		public void itemStateChanged( ItemEvent itemEvent) {
-
-			enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
+			
+			//14 nov 2016
+			//enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
+			if (performEnrichmentComboBox.isEnabled() && (performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH) || performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH_WITHOUT_ANNOTATION))){
+				enableEnrichmentOptions(true);
+			} else{
+				enableEnrichmentOptions(false);
+			}
 		}
 	};
 
@@ -648,12 +669,23 @@ public class MainView extends JPanel {
 
 		// enableEnrichmentCheckBox added to enrichmentPanel
 		JPanel performEnrichmentPanel = new JPanel( new FlowLayout( FlowLayout.LEFT));
-		performEnrichmentCheckBox = new JCheckBox( "Perform Enrichment");
-		performEnrichmentCheckBox.addItemListener( enableEnrichmentOptionsListener);
-		performEnrichmentCheckBox.addItemListener( enableRegulatorySequenceAnalysis);
+		//14 Nov 2016
+		//performEnrichmentCheckBox = new JCheckBox( "Perform Enrichment");
+		//performEnrichmentCheckBox.addItemListener( enableEnrichmentOptionsListener);
+		//performEnrichmentCheckBox.addItemListener( enableRegulatorySequenceAnalysis);
+		//performEnrichmentPanel.add( performEnrichmentCheckBox);
 
-		performEnrichmentPanel.add( performEnrichmentCheckBox);
+		
+		String[] enrichmentModes = {Commons.DO_ENRICH,Commons.DO_ENRICH_WITHOUT_ANNOTATION, Commons.DO_NOT_ENRICH};
+		
+		performEnrichmentComboBox = new JComboBox<String>(enrichmentModes);
+		performEnrichmentComboBox.setSelectedIndex(0);
+		performEnrichmentComboBox.addItemListener( enableEnrichmentOptionsListener);
+		performEnrichmentComboBox.addItemListener( enableRegulatorySequenceAnalysis);
 
+		performEnrichmentPanel.add(createPanelWithHint(performEnrichmentComboBox, Commons.GUI_HINT_ENRICHMENT_MODE));
+		
+		
 		performEnrichmentWithZScoresCheckBox = new JCheckBox( "Enrichment With ZScores");
 		performEnrichmentWithZScoresCheckBox.setSelected(true);
 		performEnrichmentPanel.add( performEnrichmentWithZScoresCheckBox);
@@ -782,7 +814,14 @@ public class MainView extends JPanel {
 
 	void refreshButtons() {
 
-		enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
+		// 14 Nov 2016
+		//enableEnrichmentOptions( performEnrichmentCheckBox.isSelected());
+		if (performEnrichmentComboBox.isEnabled() && (performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH) || performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH_WITHOUT_ANNOTATION))){
+			enableEnrichmentOptions(true);
+		} else{
+			enableEnrichmentOptions(false);
+		}
+		
 		checkUsabilityOfEnrichmentOptions();
 		checkUsabilityOfRegulatorySequenceAnalysis();
 		checkUsabilityOfNumberOfBases( associationMeasureTypeCombo.getSelectedItem().toString() == Commons.EXISTENCE_OF_OVERLAP);
@@ -886,11 +925,21 @@ public class MainView extends JPanel {
 
 		if( dnaseAnnotation.isSelected() || geneAnnotation.isSelected() || histoneAnnotation.isSelected() || tfAnnotation.isSelected() || keggPathwayAnnotation.isSelected() || tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected() || userDefinedGeneSetAnnotation.isSelected() || userDefinedLibraryAnnotation.isSelected()){
 
-			performEnrichmentCheckBox.setEnabled( true);
+			//14 Nov 2016
+			//performEnrichmentCheckBox.setEnabled( true);
+			performEnrichmentComboBox.setEnabled(true);
+			if (performEnrichmentComboBox.isEnabled() && (performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH) || performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH_WITHOUT_ANNOTATION))){
+				enableEnrichmentOptions(true);
+			} else{
+				enableEnrichmentOptions(false);
+			}
+					
 		}else{
-
-			performEnrichmentCheckBox.setSelected( false);
-			performEnrichmentCheckBox.setEnabled( false);
+			//14 Nov 2016
+			//performEnrichmentCheckBox.setSelected( false);
+			//performEnrichmentCheckBox.setEnabled( false);
+			performEnrichmentComboBox.setEnabled(false);
+			enableEnrichmentOptions(false);
 		}
 	}
 
@@ -937,7 +986,8 @@ public class MainView extends JPanel {
 
 		if( tfAnnotation.isSelected() || tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected()){
 			
-			if( !writeAnnotationFoundOverlapModeCombo.getSelectedItem().toString().equalsIgnoreCase(Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL))
+			if( !writeAnnotationFoundOverlapModeCombo.getSelectedItem().toString().equalsIgnoreCase(Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL) &&
+				!performEnrichmentComboBox.getSelectedItem().toString().equals(Commons.DO_ENRICH_WITHOUT_ANNOTATION))
 				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( true);
 			else
 				regulatorySequenceAnalysisUsingRSATCheck.setEnabled( false);
@@ -996,7 +1046,10 @@ public class MainView extends JPanel {
 		inputAssemblyCombo.setEnabled( shouldEnable);
 		userDefinedGeneSetGeneInformationCombo.setEnabled( shouldEnable);
 		userDefinedLibraryDataFormatCombo.setEnabled( shouldEnable);
-		performEnrichmentCheckBox.setEnabled( shouldEnable);
+		//14 Nov 2016
+		//performEnrichmentCheckBox.setEnabled( shouldEnable);
+		performEnrichmentComboBox.setEnabled( shouldEnable);
+		
 		performEnrichmentWithZScoresCheckBox.setEnabled( shouldEnable);
 		regulatorySequenceAnalysisUsingRSATCheck.setEnabled( shouldEnable);
 		dnaseAnnotation.setEnabled( shouldEnable);

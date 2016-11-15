@@ -88,6 +88,7 @@ import common.Commons;
 
 public enum CommandLineArguments {
 
+	//Default values
 	InputFileNameWithFolder( 0),
 	InputFileAssembly(1, Commons.GRCH37_P13),
 	GlanetFolder(2),

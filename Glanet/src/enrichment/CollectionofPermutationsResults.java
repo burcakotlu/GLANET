@@ -1902,34 +1902,21 @@ public class CollectionofPermutationsResults {
 		String dataFolder 	= glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 
-		NumberofComparisons numberofComparisons = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(dataFolder);
-
-		int numberofPermutations = Integer.parseInt( args[CommandLineArguments.NumberOfPermutation.value()]);
-
-		float FDR = Float.parseFloat( args[CommandLineArguments.FalseDiscoveryRate.value()]);
-		float bonferroniCorrectionSignificanceLevel = Float.parseFloat( args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()]);
-
-		AnnotationType dnaseAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.DnaseAnnotation.value()]);
+		
+		//14 Nov 2016 starts
+		AnnotationType dnaseAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.DnaseAnnotation.value()]);
 		AnnotationType histoneAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.HistoneAnnotation.value()]);
 		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.TfAnnotation.value()]);
 		AnnotationType geneAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.GeneAnnotation.value()]);
 		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.KeggPathwayAnnotation.value()]);
 		AnnotationType tfKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
-
+		//14 Nov 2016 ends
+		
 		/***********************************************************************************/
 		/************************** USER DEFINED GENESET ***********************************/
 		// User Defined GeneSet Enrichment, DO or DO_NOT
 		AnnotationType userDefinedGeneSetAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.UserDefinedGeneSetAnnotation.value()]);
-
-		// String userDefinedGeneSetInputFile = args[23];
-		// String userDefinedGeneSetInputFile =
-		// "G:\\DOKTORA_DATA\\GO\\GO_gene_associations_human_ref.txt";
-
-		// GeneInformationType geneInformationType =
-		// GeneInformationType.convertStringtoEnum(args[24]);
-		// GeneInformationType geneInformationType =
-		// GeneInformationType.GENE_SYMBOL;
 
 		String userDefinedGeneSetName = args[CommandLineArguments.UserDefinedGeneSetName.value()];
 		// String userDefinedGeneSetName = "GO";
@@ -1944,14 +1931,30 @@ public class CollectionofPermutationsResults {
 		/************************** USER DEFINED LIBRARY ***********************************/
 		// User Defined Library Enrichment, DO or DO_NOT
 		AnnotationType userDefinedLibraryAnnotationType = AnnotationType.convertStringtoEnum( args[CommandLineArguments.UserDefinedLibraryAnnotation.value()]);
-		// EnrichmentType userDefinedLibraryEnrichmentType =
-		// EnrichmentType.DO_USER_DEFINED_LIBRARY_ENRICHMENT;
 
 		// String userDefinedLibraryInputFile = args[28];
 		// String userDefinedLibraryInputFile =
 		// "C:\\Users\\burcakotlu\\GLANET\\UserDefinedLibraryInputFile.txt";
 		/************************** USER DEFINED LIBRARY ***********************************/
 		/***********************************************************************************/
+		
+		
+		NumberofComparisons numberofComparisons = NumberofComparisons.getNumberofComparisonsforBonferroniCorrection(
+				dataFolder,
+				dnaseAnnotationType,
+				histoneAnnotationType,
+				tfAnnotationType,
+				geneAnnotationType,
+				keggPathwayAnnotationType,
+				tfKeggPathwayAnnotationType,
+				tfCellLineKeggPathwayAnnotationType,
+				userDefinedGeneSetAnnotationType,
+				userDefinedLibraryAnnotationType);
+
+		int numberofPermutations = Integer.parseInt( args[CommandLineArguments.NumberOfPermutation.value()]);
+
+		float FDR = Float.parseFloat( args[CommandLineArguments.FalseDiscoveryRate.value()]);
+		float bonferroniCorrectionSignificanceLevel = Float.parseFloat( args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()]);
 
 		// set the number of permutations in each run
 		int numberofPermutationsInEachRun = Integer.parseInt( args[CommandLineArguments.NumberOfPermutationsInEachRun.value()]);

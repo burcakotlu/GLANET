@@ -1214,8 +1214,9 @@ public class Commons {
 	// Enrichment parameter
 	// Enumtypes
 	// Enrichment
-	public static final String DO_ENRICH = "DO_ENRICH";
-	public static final String DO_NOT_ENRICH = "DO_NOT_ENRICH";
+	public static final String DO_ENRICH = "Perform Enrichment";
+	public static final String DO_ENRICH_WITHOUT_ANNOTATION = "Perform Enrichment without Annotation";
+	public static final String DO_NOT_ENRICH = "Do not Perform Enrichment";
 
 	// ENRICHMENT KEEPING NUMBER OF OVERLAPS COMING FROM EACH PERMUTATION DECISION
 	// Consumes more memory
@@ -1516,6 +1517,7 @@ public class Commons {
 	public static final String GUI_HINT_GLANET_FOLDER = "Choose GLANET FOLDER Which Is The Parent Of Data Folder";
 	public static final String GUI_HINT_OUTPUT_FOLDER = "Output folder where the results will be located (Optional)";
 	public static final String GUI_HINT_NUMBER_OF_BASES = "Number Of Bases That Must Overlap In Order To Accept That Two Intervals Overlap";
+	public static final String GUI_HINT_ENRICHMENT_MODE = "Perform Enrichment with or without Annotation or do not Perform Enrichment at all";
 	public static final String GUI_HINT_GENERATE_RANDOM_DATA_MODE = "Generate Random Data Mode";
 	public static final String GUI_HINT_MULTIPLE_TESTING = "Multiple Testing";
 	public static final String GUI_HINT_FDR = "False Discovery Rate";
@@ -1589,6 +1591,7 @@ public class Commons {
 	public static final String ARG_INPUT_FORMAT_DBSNP = "-fdbsnp";
 	public static final String ARG_NUMBER_OF_BASES = "-nb";
 	public static final String ARG_PERFORM_ENRICHMENT = "-e";
+	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ANNOTATION = "-ewoa";
 	public static final String ARG_PERFORM_ENRICHMENT_WITH_ZSCORES = "-wzs";
 	public static final String ARG_PERFORM_ENRICHMENT_WITHOUT_ZSCORES = "-wozs";
 		
@@ -1631,7 +1634,7 @@ public class Commons {
 	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT = "-aos";
 	public static final String ARG_ANNOTATION_OUTPUT_ELEMENT_TYPE = "-aoo";
 	public static final String ARG_ANNOTATION_NO_OUTPUT = "-aon";
-	public static final String ARG_GIVEN_INPUT_HAS_SNPTS = "-isnps";
+	public static final String ARG_GIVEN_INPUT_HAS_SNPS = "-isnps";
 	public static final String ARG_GIVEN_INPUT_HAS_MIXED_LENGTH_INTERVAL = "-imix";
 
 	// Enum type NumberOfBases

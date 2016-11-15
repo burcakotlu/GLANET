@@ -14689,12 +14689,15 @@ public class Annotation {
 	// If no cell line selected so the args.length-1 will be 22-1 = 21. So it
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
-	public static void main( String[] args) {
+	public static void main(String[] args) {
 		
 		String glanetRunType = args[CommandLineArguments.GLANETRun.value()];
 		
-		//Annotate GLANET normal run, do not annotate GLANET Data Driven Experiment run
-		if(!glanetRunType.equalsIgnoreCase(Commons.ARG_GLANET_EXPERIMENT_RUN)){
+		String performEnrichmentType = args[CommandLineArguments.PerformEnrichment.value()];
+						
+		//Do not annotate GLANET Data Driven Experiment run
+		//Do not annotate when DO_ENRICH_WITHOUT_ANNOTATION is selected
+		if(!glanetRunType.equalsIgnoreCase(Commons.ARG_GLANET_EXPERIMENT_RUN) && !performEnrichmentType.equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION)){
 			Annotation annotateIntervals = new Annotation();
 			annotateIntervals.annotate(args);
 		}//End of IF

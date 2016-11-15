@@ -203,7 +203,7 @@ public class App {
 		/***************************************************************************************/
 		//Parsing Given Input Data Type
 		for( int i = 0; i < args.length; i++){
-			if( args[i].equalsIgnoreCase( Commons.ARG_GIVEN_INPUT_HAS_SNPTS)){
+			if( args[i].equalsIgnoreCase( Commons.ARG_GIVEN_INPUT_HAS_SNPS)){
 				if( argsInOrder[CommandLineArguments.GivenInputDataType.value()].equals( notSet))
 					argsInOrder[CommandLineArguments.GivenInputDataType.value()] = Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS;
 				else{
@@ -656,26 +656,45 @@ public class App {
 			return false;
 
 		// parsing perform enrichment check
-		if( argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equalsIgnoreCase( Commons.DO_DNASE_ANNOTATION) || argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equalsIgnoreCase( Commons.DO_HISTONE_ANNOTATION) || argsInOrder[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_ANNOTATION) || argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_KEGGPATHWAY_ANNOTATION) || argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_KEGGPATHWAY_ANNOTATION) || argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION) || argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase( Commons.DO_USER_DEFINED_GENESET_ANNOTATION) || argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase( Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION)){
-
-			for( int i = 0; i < args.length; i++)
-				if( args[i].equalsIgnoreCase( Commons.ARG_PERFORM_ENRICHMENT))
-					if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equals( notSet))
+		if( argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equalsIgnoreCase(Commons.DO_DNASE_ANNOTATION) || 
+			argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equalsIgnoreCase(Commons.DO_HISTONE_ANNOTATION) || 
+			argsInOrder[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ANNOTATION) || 
+			argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_KEGGPATHWAY_ANNOTATION) || 
+			argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ANNOTATION) || 
+			argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION) || 
+			argsInOrder[CommandLineArguments.UserDefinedGeneSetAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_GENESET_ANNOTATION) || 
+			argsInOrder[CommandLineArguments.UserDefinedLibraryAnnotation.value()].equalsIgnoreCase(Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION)){
+			
+		
+			for( int i = 0; i < args.length; i++){
+				if( args[i].equalsIgnoreCase(Commons.ARG_PERFORM_ENRICHMENT)){
+					if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equals(notSet))
 						argsInOrder[CommandLineArguments.PerformEnrichment.value()] = Commons.DO_ENRICH;
 					else{
 						System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 						return false;
 					}
+				}else if (args[i].equalsIgnoreCase(Commons.ARG_PERFORM_ENRICHMENT_WITHOUT_ANNOTATION)){
+					if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equals(notSet))
+						argsInOrder[CommandLineArguments.PerformEnrichment.value()] = Commons.DO_ENRICH_WITHOUT_ANNOTATION;
+					else{
+						System.out.println("Same argument has already been defined. Conflict occured, exiting...");
+						return false;
+					}
+				}
+			}//End of for
 		}
-
-		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.PerformEnrichment))
+		
+		if( !setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.PerformEnrichment))
 			return false;
+		
 
 		/***************************************************************************************/
 		/*******************************ENRICHMENT WITH ZSCORES*********************************/
 		/**********************************OR WITHOUT ZSCORES***********************************/
 		/***************************************************************************************/
-		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
+		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH) ||
+			argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION))
 			// parsing perform enrichment with zScores
 			for( int i = 0; i < args.length; i++){
 				
@@ -705,7 +724,8 @@ public class App {
 		/***************************************************************************************/
 
 
-		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
+		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH) ||
+			argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION)	)
 			// parsing generate random data mode enrichment
 			for( int i = 0; i < args.length; i++)
 				if( args[i].equalsIgnoreCase( Commons.ARG_GENERATE_RANDOM_DATA_WITH_GC_AND_MAP))
@@ -743,7 +763,8 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.GenerateRandomDataMode))
 			return false;
 
-		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
+		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH) ||
+			argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION))
 			// parsing multiple testing parameter
 			for( int i = 0; i < args.length; i++)
 				if( args[i].equalsIgnoreCase( Commons.ARG_MULTIPLE_TESTING_BENJAMINI))
@@ -765,7 +786,8 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.MultipleTesting))
 			return false;
 
-		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
+		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH) ||
+			argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION))
 			// parsing Bonferroni Correction Significance Criteria
 			for( int i = 0; i < args.length; i++)
 				if( args[i].equalsIgnoreCase( Commons.ARG_SIGNIFICANCE_CRITERIA))
@@ -779,7 +801,8 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.BonferroniCorrectionSignificanceCriteria))
 			return false;
 
-		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
+		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH)||
+			argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION))
 			// Benjamini Hochberg False Discovery Rate
 			for( int i = 0; i < args.length; i++)
 				if( args[i].equalsIgnoreCase( Commons.ARG_FALSE_DISCOVERY_RATE))
@@ -793,7 +816,8 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.FalseDiscoveryRate))
 			return false;
 
-		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH)){
+		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH) ||
+			argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION)){
 
 			// parsing Number of permutations
 			for( int i = 0; i < args.length; i++)
@@ -809,7 +833,8 @@ public class App {
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.NumberOfPermutation))
 			return false;
 
-		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase( Commons.DO_ENRICH))
+		if( argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH) ||
+			argsInOrder[CommandLineArguments.PerformEnrichment.value()].equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION))
 			// parsing Number of permutations in each run
 			for( int i = 0; i < args.length; i++)
 
