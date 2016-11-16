@@ -1936,7 +1936,8 @@ public class Annotation {
 					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder,chrName);
 					dateAfter = System.currentTimeMillis();
 					constructionTime = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeCormen: \t" +(constructionTime*1.0f)/1000 + "\t seconds");
+					
+					//System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeCormen: \t" +(constructionTime*1.0f)/1000 + "\t seconds");
 					
 					bufferedReader = FileOperations.createBufferedReader(
 							outputFolder,
@@ -1957,7 +1958,8 @@ public class Annotation {
 							associationMeasureType);
 					dateAfter = System.currentTimeMillis();
 					searchTime = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Search Time for IntervalTreeCormen: \t" + (searchTime*1.0f)/1000 + "\t seconds");
+					
+					//System.out.println(chrName.convertEnumtoString() + ": Search Time for IntervalTreeCormen: \t" + (searchTime*1.0f)/1000 + "\t seconds");
 
 
 
@@ -1971,7 +1973,8 @@ public class Annotation {
 					dnaseIntervalTreeMarkdeBerg = IntervalTreeMarkdeBerg.createDnaseIntervalTreeWithNumbers(dataFolder,outputFolder,chrName);
 					dateAfter = System.currentTimeMillis();
 					constructionTime = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeMarkdeBerg: \t" + (constructionTime*1.0f)/1000 + "\t seconds" +  " Cost1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost1() + "\tCost2_1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_1() + "\tCost2_2: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_2() + "\tCost2_3: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_3() + "\tCost3_1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_1() + "\tCost3_2: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_2() + "\tTotal: " + (dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_2() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_3() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_2()) );
+					
+					//System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeMarkdeBerg: \t" + (constructionTime*1.0f)/1000 + "\t seconds" +  " Cost1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost1() + "\tCost2_1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_1() + "\tCost2_2: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_2() + "\tCost2_3: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_3() + "\tCost3_1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_1() + "\tCost3_2: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_2() + "\tTotal: " + (dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_2() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_3() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_2()) );
 					
 					bufferedReader = FileOperations.createBufferedReader(
 							outputFolder,
@@ -1992,8 +1995,8 @@ public class Annotation {
 							associationMeasureType);
 					dateAfter = System.currentTimeMillis();
 					searchTime = dateAfter - dateBefore;
-					System.out.println(chrName.convertEnumtoString() + ": Search Time for IntervalTreeMarkdeBerg: \t" + (searchTime*1.0f)/1000 + "\t seconds");
-
+					
+					//System.out.println(chrName.convertEnumtoString() + ": Search Time for IntervalTreeMarkdeBerg: \t" + (searchTime*1.0f)/1000 + "\t seconds");
 
 					//Free space
 					dnaseIntervalTreeMarkdeBerg = null;
