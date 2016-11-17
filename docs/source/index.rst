@@ -6,6 +6,12 @@ Preface
 
 GLANET is Genomic Loci ANnotation and Enrichment Tool.
 
+GLANET Presentation on YouTube
+=======
+
+`<https://www.youtube.com/watch?v=bhMxbb3zJzE>`_
+
+
 Content:
 ^^^^^^^^
 
