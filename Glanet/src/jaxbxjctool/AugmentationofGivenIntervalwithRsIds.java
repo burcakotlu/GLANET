@@ -60,7 +60,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 			}
 		});
 
-		JAXBContext jaxbCtxt = JAXBContext.newInstance( "generated");
+		JAXBContext jaxbCtxt = JAXBContext.newInstance("generated");
 		this.unmarshaller = jaxbCtxt.createUnmarshaller();
 
 	}
