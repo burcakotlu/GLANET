@@ -15,12 +15,10 @@
  */
 package jaxbxjctool;
 
-import enumtypes.Orient;
-import gov.nih.nlm.ncbi.snp.docsum.Assembly;
-import gov.nih.nlm.ncbi.snp.docsum.Component;
-import gov.nih.nlm.ncbi.snp.docsum.MapLoc;
-import gov.nih.nlm.ncbi.snp.docsum.Rs;
-import ui.GlanetRunner;
+import https.www_ncbi_nlm_nih_gov.snp.docsum.Assembly;
+import https.www_ncbi_nlm_nih_gov.snp.docsum.Component;
+import https.www_ncbi_nlm_nih_gov.snp.docsum.MapLoc;
+import https.www_ncbi_nlm_nih_gov.snp.docsum.Rs;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,6 +27,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
@@ -37,6 +36,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
@@ -46,7 +46,12 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.log4j.Logger;
+
+import ui.GlanetRunner;
+
 import common.Commons;
+
+import enumtypes.Orient;
 
 /**
  * 
@@ -76,7 +81,9 @@ public class AugmentationofGivenRsIdwithInformation {
 			}
 		});
 
-		JAXBContext jaxbCtxt = JAXBContext.newInstance( "gov.nih.nlm.ncbi.snp.docsum");
+		//JAXBContext jaxbCtxt = JAXBContext.newInstance("gov.nih.nlm.ncbi.snp.docsum");
+		JAXBContext jaxbCtxt = JAXBContext.newInstance("https.www_ncbi_nlm_nih_gov.snp.docsum");
+		
 		this.unmarshaller = jaxbCtxt.createUnmarshaller();
 
 	}
@@ -174,16 +181,13 @@ public class AugmentationofGivenRsIdwithInformation {
 			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
 
 			URI uri = null;
-			uri = new URIBuilder().setScheme( "http").setHost( "www.ncbi.nlm.nih.gov").setPath(
-					"/entrez/eutils/efetch.fcgi").setParameter( "db", "snp").setParameter( "id", commaSeparatedRsIdList).setParameter(
-					"retmode", "xml").build();
+			uri = new URIBuilder().setScheme("https").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/efetch.fcgi").setParameter("db", "snp").setParameter("id", commaSeparatedRsIdList).setParameter("retmode", "xml").build();
 
-			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout( 60000).setConnectTimeout(
-					60000).setConnectionRequestTimeout( 60000).setStaleConnectionCheckEnabled( true).build();
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
 
 			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig( defaultRequestConfig).build();
-			HttpPost post = new HttpPost( uri);
-			post.addHeader( "Content-Type", "application/xml");
+			HttpPost post = new HttpPost(uri);
+			post.addHeader("Content-Type", "application/xml");
 
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
 			CloseableHttpResponse response = httpclient.execute( post);
@@ -216,8 +220,8 @@ public class AugmentationofGivenRsIdwithInformation {
 
 				try{
 
-					rs = unmarshaller.unmarshal( reader, Rs.class).getValue();
-
+					rs = unmarshaller.unmarshal(reader, Rs.class).getValue();
+					
 					for( Assembly as : rs.getAssembly()){
 						String groupLabel = as.getGroupLabel();
 
@@ -485,7 +489,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			// new HTTP POST starts
 			URI uri = null;
-			uri = new URIBuilder().setScheme( "http").setHost( "www.ncbi.nlm.nih.gov").setPath(
+			uri = new URIBuilder().setScheme( "https").setHost( "www.ncbi.nlm.nih.gov").setPath(
 					"/entrez/eutils/efetch.fcgi").setParameter( "db", "snp").setParameter( "id", rsId).setParameter(
 					"retmode", "xml").build();
 
@@ -537,56 +541,61 @@ public class AugmentationofGivenRsIdwithInformation {
 						return null;
 					}
 
-					for( Assembly as : rs.getAssembly()){
-						String groupLabel = as.getGroupLabel();
+					if (rs.getAssembly()!=null && !rs.getAssembly().isEmpty()) {
+						for( Assembly as : rs.getAssembly()){
+							String groupLabel = as.getGroupLabel();
 
-						if( groupLabel != null){
+							if( groupLabel != null){
 
-							for( Component comp : as.getComponent()){
+								for( Component comp : as.getComponent()){
 
-								for( MapLoc maploc : comp.getMapLoc()){
-									if( maploc.getPhysMapInt() != null){
+									for( MapLoc maploc : comp.getMapLoc()){
+										if( maploc.getPhysMapInt() != null){
 
-										rsInformation = new RsInformation();
+											rsInformation = new RsInformation();
 
-										// Set groupLabel
-										rsInformation.setGroupLabel( groupLabel);
+											// Set groupLabel
+											rsInformation.setGroupLabel( groupLabel);
 
-										// Set Forward or Reverse
-										rsInformation.setOrient( Orient.convertStringtoEnum( maploc.getOrient()));
+											// Set Forward or Reverse
+											rsInformation.setOrient( Orient.convertStringtoEnum( maploc.getOrient()));
 
-										// Set rsId
-										rsInformation.setRsId( rs.getRsId());
+											// Set rsId
+											rsInformation.setRsId( rs.getRsId());
 
-										// Set chromosome name
-										// This chrName is without "chr"
-										// e.g.: 2, X, Y, 17
-										rsInformation.setChrNameWithoutChr( comp.getChromosome());
+											// Set chromosome name
+											// This chrName is without "chr"
+											// e.g.: 2, X, Y, 17
+											rsInformation.setChrNameWithoutChr( comp.getChromosome());
 
-										// set rsId start position
-										// eutil efetch returns 0-based
-										// coordinates
-										rsInformation.setZeroBasedStart( maploc.getPhysMapInt());
+											// set rsId start position
+											// eutil efetch returns 0-based
+											// coordinates
+											rsInformation.setZeroBasedStart( maploc.getPhysMapInt());
 
-										// set rsId observed Alleles
-										rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());
+											// set rsId observed Alleles
+											rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());
 
-										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles( rs.getSequence().getObserved());
+											numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles( rs.getSequence().getObserved());
 
-										// Set rsId end position
-										// NCBI EUTIL efetch returns 0-based
-										// coordinates
-										rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
+											// Set rsId end position
+											// NCBI EUTIL efetch returns 0-based
+											// coordinates
+											rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
-									}// End of if maploc.getPhysMapInt() is not
+										}// End of if maploc.getPhysMapInt() is not
 
-								}// End of for each Maploc
+									}// End of for each Maploc
 
-							}// End of for each Component
+								}// End of for each Component
 
-						}// End of IF groupLabel startsWith "GRCh38"
+							}// End of IF groupLabel startsWith "GRCh38"
 
-					}// End of for Assembly
+						}// End of for Assembly
+
+					}//End of IF assembly is not null
+					
+					
 				}catch( NumberFormatException e){
 					// e.printStackTrace();
 					if( GlanetRunner.shouldLog())logger.error( e.toString());

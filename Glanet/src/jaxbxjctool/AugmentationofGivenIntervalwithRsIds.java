@@ -89,15 +89,16 @@ public class AugmentationofGivenIntervalwithRsIds {
 		try{
 
 			// HTTP POST starts
-			// String url =
-			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
+			// String url ="http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
 			String termParameter = givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr + "[CHR] AND txid9606";
 			URI uri = null;
-			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/esearch.fcgi").setParameter("db", "snp").setParameter("term", termParameter).setParameter("usehistory", "y").build();
+			uri = new URIBuilder().setScheme("https").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/esearch.fcgi").setParameter("db", "snp").setParameter("term", termParameter).setParameter("usehistory", "y").build();
+
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
 			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
 
-			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
+			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig( defaultRequestConfig).build();
+
 			HttpPost post = new HttpPost(uri);
 			post.addHeader("Content-Type", "application/xml");
 
@@ -108,11 +109,9 @@ public class AugmentationofGivenIntervalwithRsIds {
 
 				InputStream is = entity.getContent();
 				readerSearch = xmlInputFactory.createXMLEventReader( is);
-			}else{
-				System.out.println("null");
 			}
 			// HTTP POST ends
-			
+
 			while(readerSearch.hasNext()){
 				XMLEvent evtSearch = readerSearch.peek();
 				if(!evtSearch.isStartElement()){
@@ -129,7 +128,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 				}
 
 				ESearchResult eSearchResult = unmarshaller.unmarshal(readerSearch, ESearchResult.class).getValue();
-				IdList idList = ( IdList)eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(5);
+				IdList idList = (IdList)eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(5);
 
 				for( Id id : idList.getId()){
 					rsIdList.add(Integer.parseInt(id.getvalue()));
