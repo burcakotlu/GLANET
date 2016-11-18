@@ -202,6 +202,8 @@ public class UserDefinedGeneSetUtility {
 				//GO:0005737	CYP2D7	IDA	C
 
 				indexofFirstTab = strLine.indexOf('\t');
+				
+				//There can be indexofSecondTab or not 
 				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
 				
 				geneSetName = strLine.substring( 0, indexofFirstTab);
@@ -209,8 +211,13 @@ public class UserDefinedGeneSetUtility {
 				geneSetName = removeIllegalCharacters( geneSetName);
 
 				// geneInformation can be geneID, geneSymbol or RNANucleotideAccession
-				geneInformation = strLine.substring(indexofFirstTab+1,indexofSecondTab);
-
+				if (indexofSecondTab>=0){
+					geneInformation = strLine.substring(indexofFirstTab+1,indexofSecondTab);
+				}else{
+					geneInformation = strLine.substring(indexofFirstTab+1);
+				}
+	
+				
 				// For debugging purposes
 				// To get number of all unique geneInformation
 				if( !listofGeneInformation.contains( geneInformation)){

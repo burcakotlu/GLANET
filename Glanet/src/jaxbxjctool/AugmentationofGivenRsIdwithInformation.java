@@ -174,7 +174,7 @@ public class AugmentationofGivenRsIdwithInformation {
 			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi";
 
 			URI uri = null;
-			uri = new URIBuilder().setScheme( "http").setHost( "www.ncbi.nlm.nih.gov").setPath(
+			uri = new URIBuilder().setScheme( "https").setHost( "www.ncbi.nlm.nih.gov").setPath(
 					"/entrez/eutils/efetch.fcgi").setParameter( "db", "snp").setParameter( "id", commaSeparatedRsIdList).setParameter(
 					"retmode", "xml").build();
 
@@ -485,7 +485,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 			// new HTTP POST starts
 			URI uri = null;
-			uri = new URIBuilder().setScheme( "http").setHost( "www.ncbi.nlm.nih.gov").setPath(
+			uri = new URIBuilder().setScheme( "https").setHost( "www.ncbi.nlm.nih.gov").setPath(
 					"/entrez/eutils/efetch.fcgi").setParameter( "db", "snp").setParameter( "id", rsId).setParameter(
 					"retmode", "xml").build();
 
@@ -537,56 +537,61 @@ public class AugmentationofGivenRsIdwithInformation {
 						return null;
 					}
 
-					for( Assembly as : rs.getAssembly()){
-						String groupLabel = as.getGroupLabel();
+					if (rs.getAssembly()!=null && !rs.getAssembly().isEmpty()) {
+						for( Assembly as : rs.getAssembly()){
+							String groupLabel = as.getGroupLabel();
 
-						if( groupLabel != null){
+							if( groupLabel != null){
 
-							for( Component comp : as.getComponent()){
+								for( Component comp : as.getComponent()){
 
-								for( MapLoc maploc : comp.getMapLoc()){
-									if( maploc.getPhysMapInt() != null){
+									for( MapLoc maploc : comp.getMapLoc()){
+										if( maploc.getPhysMapInt() != null){
 
-										rsInformation = new RsInformation();
+											rsInformation = new RsInformation();
 
-										// Set groupLabel
-										rsInformation.setGroupLabel( groupLabel);
+											// Set groupLabel
+											rsInformation.setGroupLabel( groupLabel);
 
-										// Set Forward or Reverse
-										rsInformation.setOrient( Orient.convertStringtoEnum( maploc.getOrient()));
+											// Set Forward or Reverse
+											rsInformation.setOrient( Orient.convertStringtoEnum( maploc.getOrient()));
 
-										// Set rsId
-										rsInformation.setRsId( rs.getRsId());
+											// Set rsId
+											rsInformation.setRsId( rs.getRsId());
 
-										// Set chromosome name
-										// This chrName is without "chr"
-										// e.g.: 2, X, Y, 17
-										rsInformation.setChrNameWithoutChr( comp.getChromosome());
+											// Set chromosome name
+											// This chrName is without "chr"
+											// e.g.: 2, X, Y, 17
+											rsInformation.setChrNameWithoutChr( comp.getChromosome());
 
-										// set rsId start position
-										// eutil efetch returns 0-based
-										// coordinates
-										rsInformation.setZeroBasedStart( maploc.getPhysMapInt());
+											// set rsId start position
+											// eutil efetch returns 0-based
+											// coordinates
+											rsInformation.setZeroBasedStart( maploc.getPhysMapInt());
 
-										// set rsId observed Alleles
-										rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());
+											// set rsId observed Alleles
+											rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());
 
-										numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles( rs.getSequence().getObserved());
+											numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles( rs.getSequence().getObserved());
 
-										// Set rsId end position
-										// NCBI EUTIL efetch returns 0-based
-										// coordinates
-										rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
+											// Set rsId end position
+											// NCBI EUTIL efetch returns 0-based
+											// coordinates
+											rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
-									}// End of if maploc.getPhysMapInt() is not
+										}// End of if maploc.getPhysMapInt() is not
 
-								}// End of for each Maploc
+									}// End of for each Maploc
 
-							}// End of for each Component
+								}// End of for each Component
 
-						}// End of IF groupLabel startsWith "GRCh38"
+							}// End of IF groupLabel startsWith "GRCh38"
 
-					}// End of for Assembly
+						}// End of for Assembly
+
+					}//End of IF assembly is not null
+					
+					
 				}catch( NumberFormatException e){
 					// e.printStackTrace();
 					if( GlanetRunner.shouldLog())logger.error( e.toString());

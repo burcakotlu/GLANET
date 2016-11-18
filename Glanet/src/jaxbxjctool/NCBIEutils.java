@@ -63,11 +63,18 @@ public class NCBIEutils {
 					
 				}while (rsIdList.isEmpty());
 				
-				//If rsIdList is not empty
-				//Then get the LatestAssemblyName returned by NCBI Eutils for the first rsId in the rsIdList
-				rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsIdList.get(0).toString());
-				latestAssembyNameReturnedByNCBIEutils =  rsInformation.getGroupLabel();
+				if (!rsIdList.isEmpty()){
+					for(Integer rsID: rsIdList){
+						//Then get the LatestAssemblyName returned by NCBI Eutils for the first rsId in the rsIdList
+						rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsID.toString());
+						if (rsInformation!=null && rsInformation.getGroupLabel()!=null){
+							latestAssembyNameReturnedByNCBIEutils =  rsInformation.getGroupLabel();
+							break;
+						}
+					}
+				}//End of IF rsIdList is not empty
 				
+					
 				//System.out.println(count++);
 				
 			}while (latestAssembyNameReturnedByNCBIEutils == null);
