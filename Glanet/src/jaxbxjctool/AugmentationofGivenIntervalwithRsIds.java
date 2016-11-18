@@ -106,6 +106,7 @@ public class AugmentationofGivenIntervalwithRsIds {
 			HttpEntity entity = response.getEntity();
 
 			if(response.getEntity() != null){
+
 				InputStream is = entity.getContent();
 				readerSearch = xmlInputFactory.createXMLEventReader( is);
 			}
@@ -113,16 +114,15 @@ public class AugmentationofGivenIntervalwithRsIds {
 
 			while(readerSearch.hasNext()){
 				XMLEvent evtSearch = readerSearch.peek();
-
-				if( !evtSearch.isStartElement()){
+				if(!evtSearch.isStartElement()){
 					readerSearch.nextEvent();
 					continue;
 				}
 
 				StartElement startSearch = evtSearch.asStartElement();
 				String localNameSearch = startSearch.getName().getLocalPart();
-
-				if( !localNameSearch.equals( "eSearchResult")){
+				
+				if(!localNameSearch.equals("eSearchResult")){
 					readerSearch.nextEvent();
 					continue;
 				}
@@ -131,13 +131,14 @@ public class AugmentationofGivenIntervalwithRsIds {
 				IdList idList = (IdList)eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(5);
 
 				for( Id id : idList.getId()){
-					rsIdList.add( Integer.parseInt( id.getvalue()));
+					rsIdList.add(Integer.parseInt(id.getvalue()));
 				}
 
 			}// End of while
 
 			readerSearch.close();
-
+			httpclient.close();
+			
 		}catch( UnsupportedEncodingException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -157,7 +158,6 @@ public class AugmentationofGivenIntervalwithRsIds {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return rsIdList;
 	}
 
