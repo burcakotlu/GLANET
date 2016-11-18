@@ -53,7 +53,7 @@ public class App {
 
 				super.windowClosing( e);
 			}
-		});
+		});	
 		
 		frame.addComponentListener( new ComponentAdapter() {
 			

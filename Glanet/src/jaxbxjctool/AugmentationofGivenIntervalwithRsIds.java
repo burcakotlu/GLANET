@@ -93,58 +93,53 @@ public class AugmentationofGivenIntervalwithRsIds {
 			// "http://www.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi";
 			String termParameter = givenIntervalStartOneBased + ":" + givenIntervalEndOneBased + "[Base Position] AND " + chrNamewithoutPreceedingChr + "[CHR] AND txid9606";
 			URI uri = null;
-			uri = new URIBuilder().setScheme( "http").setHost( "www.ncbi.nlm.nih.gov").setPath(
-					"/entrez/eutils/esearch.fcgi").setParameter( "db", "snp").setParameter( "term", termParameter).setParameter(
-					"usehistory", "y").build();
-
+			uri = new URIBuilder().setScheme("http").setHost("www.ncbi.nlm.nih.gov").setPath("/entrez/eutils/esearch.fcgi").setParameter("db", "snp").setParameter("term", termParameter).setParameter("usehistory", "y").build();
 			// http://wink.apache.org/1.0/api/org/apache/wink/client/ClientConfig.html
-			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout( 60000).setConnectTimeout(
-					60000).setConnectionRequestTimeout( 60000).setStaleConnectionCheckEnabled( true).build();
+			RequestConfig defaultRequestConfig = RequestConfig.custom().setSocketTimeout(60000).setConnectTimeout(60000).setConnectionRequestTimeout(60000).setStaleConnectionCheckEnabled(true).build();
 
-			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig( defaultRequestConfig).build();
+			CloseableHttpClient httpclient = HttpClients.custom().setDefaultRequestConfig(defaultRequestConfig).build();
+			HttpPost post = new HttpPost(uri);
+			post.addHeader("Content-Type", "application/xml");
 
-			HttpPost post = new HttpPost( uri);
-			post.addHeader( "Content-Type", "application/xml");
-
-			CloseableHttpResponse response = httpclient.execute( post);
+			CloseableHttpResponse response = httpclient.execute(post);
 			HttpEntity entity = response.getEntity();
 
-			if( response.getEntity() != null){
+			if(response.getEntity() != null){
 
 				InputStream is = entity.getContent();
 				readerSearch = xmlInputFactory.createXMLEventReader( is);
-
+			}else{
+				System.out.println("null");
 			}
 			// HTTP POST ends
-
-			while( readerSearch.hasNext()){
+			
+			while(readerSearch.hasNext()){
 				XMLEvent evtSearch = readerSearch.peek();
-
-				if( !evtSearch.isStartElement()){
+				if(!evtSearch.isStartElement()){
 					readerSearch.nextEvent();
 					continue;
 				}
 
 				StartElement startSearch = evtSearch.asStartElement();
 				String localNameSearch = startSearch.getName().getLocalPart();
-
-				if( !localNameSearch.equals( "eSearchResult")){
+				
+				if(!localNameSearch.equals("eSearchResult")){
 					readerSearch.nextEvent();
 					continue;
 				}
 
-				ESearchResult eSearchResult = unmarshaller.unmarshal( readerSearch, ESearchResult.class).getValue();
-				IdList idList = ( IdList)eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(
-						5);
+				ESearchResult eSearchResult = unmarshaller.unmarshal(readerSearch, ESearchResult.class).getValue();
+				IdList idList = ( IdList)eSearchResult.getCountOrRetMaxOrRetStartOrQueryKeyOrWebEnvOrIdListOrTranslationSetOrTranslationStackOrQueryTranslationOrERROR().get(5);
 
 				for( Id id : idList.getId()){
-					rsIdList.add( Integer.parseInt( id.getvalue()));
+					rsIdList.add(Integer.parseInt(id.getvalue()));
 				}
 
 			}// End of while
 
 			readerSearch.close();
-
+			httpclient.close();
+			
 		}catch( UnsupportedEncodingException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -164,7 +159,6 @@ public class AugmentationofGivenIntervalwithRsIds {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return rsIdList;
 	}
 
