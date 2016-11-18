@@ -289,13 +289,13 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			/***************************************************************************************/
 			/***************************************************************************************/
 			/***************************************************************************************/
-			//String latestAssembyNameReturnedByNCBIEutils = NCBIEutils.getLatestAssemblyNameReturnedByNCBIEutils();
+			String latestAssembyNameReturnedByNCBIEutils = NCBIEutils.getLatestAssemblyNameReturnedByNCBIEutils();
 			/***************************************************************************************/
 			/***************************************************************************************/
 			/***************************************************************************************/
 
 			//debug delete later
-			String latestAssembyNameReturnedByNCBIEutils = "GRCh38.p2";
+			//String latestAssembyNameReturnedByNCBIEutils = "GRCh38.p2";
 			//debug delete later
 			
 			/***************************************************************************************/
