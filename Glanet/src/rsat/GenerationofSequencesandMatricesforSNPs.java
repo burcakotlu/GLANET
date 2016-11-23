@@ -1087,7 +1087,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// GlanetRunner.appendLog("EFETCH RESULT:");
 		// Read from the URL
 		try{
-			String eFetchString = "http://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id=" + refSeqId + "&strand=1" + "&seq_start=" + oneBasedStart + "&seq_stop=" + oneBasedEnd + "&rettype=fasta&retmode=text";
+			String eFetchString = "https://www.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id=" + refSeqId + "&strand=1" + "&seq_start=" + oneBasedStart + "&seq_stop=" + oneBasedEnd + "&rettype=fasta&retmode=text";
 			URL url = new URL( eFetchString);
 
 			BufferedReader in = new BufferedReader( new InputStreamReader( url.openStream()));

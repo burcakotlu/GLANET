@@ -529,7 +529,8 @@ public class Remap {
 			String outputFileInTargetAssembly,
 			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 			TIntObjectMap<String> lineNumber2SourceInformationMap,
-			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, String headerLine) {
+			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, 
+			String headerLine) {
 
 		// outputFileInTargetAssembly
 		BufferedWriter bufferedWriter = null;
@@ -545,8 +546,7 @@ public class Remap {
 
 		try{
 
-			bufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( outputFolder + outputFileInTargetAssembly));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( outputFolder + outputFileInTargetAssembly));
 
 			// Header line
 			bufferedWriter.write( headerLine + System.getProperty( "line.separator"));

@@ -322,10 +322,8 @@ public class InputDataProcess {
 
 			String inputFormat = Commons.BED;
 
-			// Could not find an alignment batch for your assembly pair: GRCh38
-			// x GRCh37.p13
-			// Please run "--mode batches" for a list of available assembly
-			// pairs.
+			// Could not find an alignment batch for your assembly pair: GRCh38x GRCh37.p13
+			// Please run "--mode batches" for a list of available assembly pairs.
 			// Remap.remap(dataFolder,"GRCh38", "GRCh37.p13", outputFolder +
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG38_BED_FILE,
 			// outputFolder +
@@ -340,26 +338,35 @@ public class InputDataProcess {
 					givenDataFolder + Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE,
 					givenDataFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
 					givenDataFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-					givenDataFolder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, merge, allowMultipleLocation,
+					givenDataFolder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 
+					merge, 
+					allowMultipleLocation,
 					minimumRatioOfBasesThatMustBeRemapped,
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength, inputFormat,
 					Commons.REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13);
 
-			Remap.fillConversionMap( givenDataFolder, Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-					lineNumber2SourceGenomicLociMap, lineNumber2TargetGenomicLociMap);
+			Remap.fillConversionMap(
+					givenDataFolder, 
+					Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
+					lineNumber2SourceGenomicLociMap, 
+					lineNumber2TargetGenomicLociMap);
 
 			Remap.convertOneGenomicLociPerLineUsingMap(
 					givenDataFolder,
 					Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
-					lineNumber2SourceGenomicLociMap, lineNumber2SourceInformationMap, lineNumber2TargetGenomicLociMap,
+					lineNumber2SourceGenomicLociMap, 
+					lineNumber2SourceInformationMap, 
+					lineNumber2TargetGenomicLociMap,
 					headerLine);
 
 			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 			// Write
 			// rsId_chrNameStartEndLatestAssembly_chrNameStartEndGRCh37p13Assembly_File
-			writeRSIDLatestAssemblyGRCh37p13AssemblyFile( lineNumber2SourceInformationMap,
-					lineNumber2SourceGenomicLociMap, lineNumber2TargetGenomicLociMap,
+			writeRSIDLatestAssemblyGRCh37p13AssemblyFile(
+					lineNumber2SourceInformationMap,
+					lineNumber2SourceGenomicLociMap, 
+					lineNumber2TargetGenomicLociMap,
 					rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter);
 
 			// Read from GRCh37.p13 (Hg19) bed file
