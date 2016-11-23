@@ -13,6 +13,7 @@ import generated.IdList;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.SocketException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -144,6 +145,9 @@ public class AugmentationofGivenIntervalwithRsIds {
 			e.printStackTrace();
 		}catch( ClientProtocolException e){
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}catch(SocketException e){
+			System.out.println("socket exception");
 			e.printStackTrace();
 		}catch( IOException e){
 			// TODO Auto-generated catch block
