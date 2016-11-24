@@ -153,7 +153,7 @@ public class GlanetRunner implements Runnable {
 				/************************* CALL NCBI REMAP API starts ***************************/
 				/************ Creation of NCBI REMAP Output files starts ************************/
 				/**************** Generation of ALL TF Annotations in GRCh38 starts ***************/
-				setCurrentProcessInfo( "Generation of All TF  Annotations in GRCh38 using NCBI Remap...");
+				setCurrentProcessInfo("Generation of All TF  Annotations in GRCh38 using NCBI Remap...");
 
 				GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.main(args);
 
@@ -161,12 +161,11 @@ public class GlanetRunner implements Runnable {
 				/************ Creation of NCBI REMAP Input files ends **************************/
 				/************************* CALL NCBI REMAP API ends ****************************/
 				/************ Creation of NCBI REMAP Output files ends *************************/
-
-				setCurrentProcessInfo( "Generation of SNP Reference and Alternate Sequences, TF Peak Sequence and TF PFM and LOGO Matrices for Given SNPs...");
+				setCurrentProcessInfo("Generation of SNP Reference and Alternate Sequences, TF Peak Sequence and TF PFM and LOGO Matrices for Given SNPs...");
 
 				GenerationofSequencesandMatricesforSNPs.main(args);
 
-				setCurrentProcessInfo( "Regulatory Sequence Analysis Using RSAT...");
+				setCurrentProcessInfo("Regulatory Sequence Analysis Using RSAT...");
 
 				RegulatorySequenceAnalysisUsingRSATMatrixScan.main(args);
 				

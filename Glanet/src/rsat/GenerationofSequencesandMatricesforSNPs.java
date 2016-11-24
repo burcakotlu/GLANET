@@ -854,14 +854,13 @@ public class GenerationofSequencesandMatricesforSNPs {
 		int lengthOfObservedAllele;
 		String SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = null;
 
-		for( String observedAllele : observedAllelesList){
+		for(String observedAllele : observedAllelesList){
 
 			lengthOfObservedAllele = observedAllele.length();
 
 			try{
 
-				SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = snpForwardReferenceSequence.substring(
-						Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
+				SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
 
 			}catch( StringIndexOutOfBoundsException e){
 				if( GlanetRunner.shouldLog())logger.error( "Exception Message:" + e.getMessage());
@@ -871,29 +870,37 @@ public class GenerationofSequencesandMatricesforSNPs {
 			}
 
 			// This observed allele is already in the SNP Reference Sequence
-			if( SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals( observedAllele)){
+			if( SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
 				contains = true;
 			}
 			// This observed allele is not in the SNP Reference Sequence
 			else{
 
-				if( !usedObservedAlleles.contains( observedAllele)){
+				if( !usedObservedAlleles.contains(observedAllele)){
 
-					formerSNPReferenceSequence = snpForwardReferenceSequence.substring( 0,
-							Commons.ZERO_BASED_SNP_POSITION);
-					latterSNPReferenceSequence = snpForwardReferenceSequence.substring( Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
+					try{
+						formerSNPReferenceSequence = snpForwardReferenceSequence.substring(0,Commons.ZERO_BASED_SNP_POSITION);
+						latterSNPReferenceSequence = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
 
+					}catch(StringIndexOutOfBoundsException e){
+						if( GlanetRunner.shouldLog())logger.error( "Exception Message:" + e.getMessage());
+						if( GlanetRunner.shouldLog())logger.error( "Exception toString:" + e.toString());
+						if( GlanetRunner.shouldLog())logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
+						if( GlanetRunner.shouldLog())logger.error( "observedAllele: " + observedAllele);
+						if( GlanetRunner.shouldLog())logger.error( "lengthOfObservedAllele: " + lengthOfObservedAllele);
+					}
+					
 					if( !observedAllele.equals( Commons.STRING_HYPHEN)){
 						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add( Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+						snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
 
 					}else{
 						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add( Commons.RS + rsId + Commons.UNDERSCORE);
+						snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE);
 					}
 
-					usedObservedAlleles.add( observedAllele);
-					snpAlteredSequences.add( alteredSNPSequence);
+					usedObservedAlleles.add(observedAllele);
+					snpAlteredSequences.add(alteredSNPSequence);
 
 				}// End of IF: this observed allele is not used yet
 
@@ -904,7 +911,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 		return contains;
 	}
 
-	public static void createSNPAlteredSequences( SNPInformation snpInformation, int rsId,
+	public static void createSNPAlteredSequences(
+			SNPInformation snpInformation, int rsId,
 			List<String> observedAllelesList) {
 
 		// For each observed allele
@@ -914,6 +922,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// alteredSequences
 		// If no; give alarm; snpReferenceSequence does not contain any of this
 		// observed allele starting at snp start position
+		
+		
 		Boolean snpContainsAnyOfObservedAlleles;
 
 		snpContainsAnyOfObservedAlleles = checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(
@@ -924,14 +934,19 @@ public class GenerationofSequencesandMatricesforSNPs {
 				rsId,
 				observedAllelesList);
 
-		if( !snpContainsAnyOfObservedAlleles){
-			// Give alarm
-			if( GlanetRunner.shouldLog())logger.error( "There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
-			if( GlanetRunner.shouldLog())logger.error( "rsID: " + rsId);
-			if( GlanetRunner.shouldLog())logger.error( "snp Reference Sequence: " + snpInformation.getFastaFile());
-		}
+		//No need to give alarm
+		//For sNPs with variation class: deletion/insertion variation SNP reference sequence may not contain any of the observed alleles
+		//ex:SNP reference sequence: TTTGGAGGAGGGTAAGAGTT G TTTTTTTTTTCTCTCTCTCT
+		//Observed alleles: RefSNP Alleles:	-/T (FWD)
+		//For rsID: 554416351  with variation class: deletion/insertion variation 
+//		if( !snpContainsAnyOfObservedAlleles){
+//			// Give alarm
+//			if( GlanetRunner.shouldLog())logger.error("There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
+//			if( GlanetRunner.shouldLog())logger.error("rsID: " + rsId);
+//			if( GlanetRunner.shouldLog())logger.error("snp Reference Sequence: " + snpInformation.getFastaFile());
+//		}
 
-		snpInformation.setSnpContainsAnyOfObservedAlleles( snpContainsAnyOfObservedAlleles);
+		snpInformation.setSnpContainsAnyOfObservedAlleles(snpContainsAnyOfObservedAlleles);
 
 	}
 
@@ -991,13 +1006,13 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		// rsID Orient is Forward
 		if( rsInformation.getOrient().isForward()){
-			createSNPAlteredSequences( snpInformation, rsInformation.getRsId(), observedAllelesList);
+			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(), observedAllelesList);
 		}
 		// rsID Orient is Reverse
 		else{
 			// Take Complement of slashSeparatedObservedAlleles
 			complementedObservedAllelesList = takeComplement( observedAllelesList);
-			createSNPAlteredSequences( snpInformation, rsInformation.getRsId(), complementedObservedAllelesList);
+			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(), complementedObservedAllelesList);
 		}
 
 	}
@@ -1248,7 +1263,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 			allTFAnnotationsBufferedReader = new BufferedReader( allTFAnnotationsFileReader);
 
 			/****************************************************************************************/
-			/********************* Reading All TF Annotations File Starts ****************************/
+			/********************* Reading All TF Annotations File Starts ***************************/
 			/****************************************************************************************/
 			while( ( strLine = allTFAnnotationsBufferedReader.readLine()) != null){
 
@@ -1267,8 +1282,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 					chrNameWithPreceedingChr = strLine.substring( 0, indexofFirstTab);
 					chrNameWithoutPreceedingChr = chrNameWithPreceedingChr.substring( 3);
 
-					// Used in finding list of rsIds in this given GRCH38
-					// coordinate
+					// Used in finding list of rsIds in this given latest assembly coordinate
 					snpOneBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 					snpOneBasedEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
 
@@ -1279,11 +1293,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 					cellLineName = strLine.substring( indexofSeventhTab + 1, indexofEigthTab);
 					fileName = strLine.substring( indexofEigthTab + 1);
 
-					// Initialize tfNameRemovedLastCharacter to tfName
+					//Initialize tfNameRemovedLastCharacter to tfName
 					tfNameRemovedLastCharacter = tfName;
 
 					/*************************************************************************/
-					/********** Create Files for pfm Matrices and logo Matrices starts *********/
+					/**********Create Files for pfm Matrices and logo Matrices starts*********/
 					/*************************************************************************/
 					if( tf2PFMLogoMatriceAlreadyExistsMap.get( tfName) == null){
 
@@ -1308,7 +1322,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 							}
 						}
 
-						if( !isThereAnExactTfNamePfmMatrix){
+						if(!isThereAnExactTfNamePfmMatrix){
 
 							thereExistsPFMMatrix = false;
 							thereExistsLOGOMatrix = false;
@@ -1348,7 +1362,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 						}// End of IF there is no exact TF NAME PFM Matrix Match
 
-						tf2PFMLogoMatriceAlreadyExistsMap.put( tfName, true);
+						tf2PFMLogoMatriceAlreadyExistsMap.put(tfName, true);
 					} // End of if
 					/*************************************************************************/
 					/********** Create Files for pfm Matrices and logo Matrices ends ***********/
@@ -1368,18 +1382,18 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*******************************************************************************************************************************/
 
 					/*************************************************************************/
-					/***************** Fill givenSNP2SNPInformationMap starts ******************/
+					/*****************Fill givenSNP2SNPInformationMap starts *****************/
 					/*************************************************************************/
-					snpInformation = givenSNP2SNPInformationMap.get( givenSNPKey);
+					snpInformation = givenSNP2SNPInformationMap.get(givenSNPKey);
 
 					// This SNP is looked for for the first time
 					if( snpInformation == null){
 
 						snpInformation = new SNPInformation();
 
-						snpInformation.setChrNameWithoutPreceedingChr( chrNameWithoutPreceedingChr);
-						snpInformation.setOneBasedStart( snpOneBasedStart);
-						snpInformation.setOneBasedEnd( snpOneBasedEnd);
+						snpInformation.setChrNameWithoutPreceedingChr(chrNameWithoutPreceedingChr);
+						snpInformation.setOneBasedStart(snpOneBasedStart);
+						snpInformation.setOneBasedEnd(snpOneBasedEnd);
 
 						// Get all the rsIDs in this given interval
 						// We have to provide 1-based coordinates as arguments
@@ -1392,15 +1406,15 @@ public class GenerationofSequencesandMatricesforSNPs {
 						/*************************************************************************/
 						/*************** Fill rsID2RsIDInformationMap starts ***********************/
 						/*************************************************************************/
-						for( Integer rsId : rsIdList){
+						for(Integer rsId : rsIdList){
+							
+							rsInformation = rsID2RsIDInformationMap.get(rsId);
 
-							rsInformation = rsID2RsIDInformationMap.get( rsId);
-
-							// For this rsID, We are getting rsInformation for the first time
+							// For this rsID, we are getting rsInformation for the first time
 							if( rsInformation == null){
 
 								// For each rsId get rsInformation
-								rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId( String.valueOf( rsId));
+								rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(String.valueOf( rsId));
 
 								// Option 1---Here we can either return a not
 								// null rsInformation with a different rsId
@@ -1426,11 +1440,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 									// rsId and and rsInformation.getRsId()
 									// might be different because of merge
 									// situation
-									if( !rsID2RsIDInformationMap.containsKey( rsInformation.getRsId())){
-										rsID2RsIDInformationMap.put( rsInformation.getRsId(), rsInformation);
+									if(!rsID2RsIDInformationMap.containsKey(rsInformation.getRsId())){
+										rsID2RsIDInformationMap.put(rsInformation.getRsId(), rsInformation);
 									}
 
-									if( !validRsIdList.contains( rsInformation.getRsId())){
+									if(!validRsIdList.contains( rsInformation.getRsId())){
 										validRsIdList.add( rsInformation.getRsId());
 									}
 								}// End of IF rsInformation is not NULL
@@ -1590,7 +1604,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				/**********************************************************************************/
 				for( Integer validRsId : snpInformation.getValidRsIDList()){
 
-					rsInformation = rsID2RsIDInformationMap.get( validRsId);
+					rsInformation = rsID2RsIDInformationMap.get(validRsId);
 					writeObservedAllelesFile(
 							snpDirectory,
 							Commons.OBSERVED_ALLELES + Commons.UNDERSCORE + Commons.RS + validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(),
@@ -1607,18 +1621,18 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*******************************************************************/
 					/************* Write SNP Altered Sequences starts ********************/
 					/*******************************************************************/
-					if( snpInformation.isSnpContainsAnyOfObservedAlleles()){
-						alteredSequenceCount = 0;
+					//if( snpInformation.isSnpContainsAnyOfObservedAlleles()){
+					//}
+					alteredSequenceCount = 0;
 
-						for( String alteredSequence : snpInformation.getSnpAlteredSequences()){
-							writeSequenceFile(
-									snpDirectory,
-									Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + snpInformation.getSnpAlteredSequenceNames().get(
-											alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(),
-									alteredSequence);
-							alteredSequenceCount++;
-						}
-					}
+					for(String alteredSequence : snpInformation.getSnpAlteredSequences()){
+						writeSequenceFile(
+								snpDirectory,
+								Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + snpInformation.getSnpAlteredSequenceNames().get(
+										alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(),
+								alteredSequence);
+						alteredSequenceCount++;
+					}					
 					/*******************************************************************/
 					/************* Write SNP Altered Sequences ends **********************/
 					/*******************************************************************/
@@ -1923,7 +1937,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		/***************************************************************************************/
 		/***********************************Part5 starts****************************************/
 		/***************************************************************************************/
-		NCBIEutils.fillChrName2RefSeqIDMap( dataFolder, assemblyReportFileName, chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
+		NCBIEutils.fillChrName2RefSeqIDMap(dataFolder, assemblyReportFileName, chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 		/***************************************************************************************/
 		/***********************************Part5 ends******************************************/
 		/***************************************************************************************/

@@ -92,17 +92,22 @@ public class AugmentationofGivenRsIdwithInformation {
 	// We are looking at the length of the each of the observed alleles
 	// Setting the numberOfBasesAtMost to the maximum length of observed alleles
 	public int getTheNumberofBasesIntheObservedAlleles( String observedAllelesSeparatedwithSlash) {
+		
+		
+		//I have eliminated such observed alleles by checking if index of slash is less than 0
+		//We can have the following short tandem repeat 
+		//(CTG(5_37))
 
 		int numberOfBasesAtMost = Integer.MIN_VALUE;
 		int num;
 
-		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf( '/');
-		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf( '/', indexofFormerSlash + 1);
+		int indexofFormerSlash = observedAllelesSeparatedwithSlash.indexOf('/');
+		int indexofLatterSlash = observedAllelesSeparatedwithSlash.indexOf('/', indexofFormerSlash + 1);
 
 		String allele;
 
 		// First allele starts
-		allele = observedAllelesSeparatedwithSlash.substring( 0, indexofFormerSlash);
+		allele = observedAllelesSeparatedwithSlash.substring(0, indexofFormerSlash);
 
 		num = allele.length();
 
@@ -445,7 +450,7 @@ public class AugmentationofGivenRsIdwithInformation {
 
 	// Even if you search for a merged rsID
 	// It returns you a rs with a valid rsID
-	public RsInformation getInformationforGivenRsId( String rsId) {
+	public RsInformation getInformationforGivenRsId(String rsId) {
 
 		RsInformation rsInformation = null;
 		int numberofBasesInTheSNPAtMost;
@@ -528,7 +533,7 @@ public class AugmentationofGivenRsIdwithInformation {
 				}
 
 				try{
-					Rs rs = unmarshaller.unmarshal( reader, Rs.class).getValue();
+					Rs rs = unmarshaller.unmarshal(reader, Rs.class).getValue();
 
 					// 8 DEC 2014
 					// NCBI EUtil has returned the latest valid rsID in the
@@ -537,7 +542,7 @@ public class AugmentationofGivenRsIdwithInformation {
 					// Means that given rsId is a merged rsID
 					// Valid rsID is returned rsId
 					if( Integer.parseInt( rsId) != rs.getRsId()){
-						if( GlanetRunner.shouldLog())logger.debug( "Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + " are not equal. So given rsId is merged");
+						if( GlanetRunner.shouldLog())logger.debug("Given rsId: " + rsId + " and NCBI returned rsId: " + rs.getRsId() + " are not equal. So given rsId is merged");
 						return null;
 					}
 
@@ -545,9 +550,9 @@ public class AugmentationofGivenRsIdwithInformation {
 						for( Assembly as : rs.getAssembly()){
 							String groupLabel = as.getGroupLabel();
 
-							if( groupLabel != null){
+							if(groupLabel != null){
 
-								for( Component comp : as.getComponent()){
+								for(Component comp : as.getComponent()){
 
 									for( MapLoc maploc : comp.getMapLoc()){
 										if( maploc.getPhysMapInt() != null){
@@ -574,22 +579,30 @@ public class AugmentationofGivenRsIdwithInformation {
 											rsInformation.setZeroBasedStart( maploc.getPhysMapInt());
 
 											// set rsId observed Alleles
-											rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());
+											rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());										
+											
+											if (rs.getSequence().getObserved().indexOf('/')<0){	
+												
+												rsInformation= null;	
+												if( GlanetRunner.shouldLog())logger.info("rs" + rs.getRsId() + "\t" +rs.getSnpClass());
+												//rs.getSnpClass().equalsIgnoreCase("microsatellite")
+												
+											}else{
+												numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles(rs.getSequence().getObserved());
 
-											numberofBasesInTheSNPAtMost = getTheNumberofBasesIntheObservedAlleles( rs.getSequence().getObserved());
+												// Set rsId end position
+												// NCBI EUTIL efetch returns 0-based coordinates
+												rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
 
-											// Set rsId end position
-											// NCBI EUTIL efetch returns 0-based
-											// coordinates
-											rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
-
+											}//End of if it is not a microsatellite
+			
 										}// End of if maploc.getPhysMapInt() is not
 
 									}// End of for each Maploc
 
 								}// End of for each Component
 
-							}// End of IF groupLabel startsWith "GRCh38"
+							}// End of IF groupLabel is not null
 
 						}// End of for Assembly
 

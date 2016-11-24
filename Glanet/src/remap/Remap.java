@@ -633,6 +633,8 @@ public class Remap {
 		int indexofSeventeenthTab;
 
 		int lineNumber;
+		
+		int numberofConversionsNotInPrimaryAssembly = 0;
 
 		// source
 		// int sourceInt;
@@ -717,24 +719,19 @@ public class Remap {
 							// Integer.parseInt(strLine.substring(indexofSecondTab+1,
 							// indexofThirdTab));
 
-							sourceChrName = ChromosomeName.convertStringtoEnum( strLine.substring( indexofThirdTab + 1,
-									indexofFourthTab));
-							mappedChrName = ChromosomeName.convertStringtoEnum( strLine.substring(
-									indexofFourthTab + 1, indexofFifthTab));
+							sourceChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofThirdTab + 1,indexofFourthTab));
+							mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab + 1, indexofFifthTab));
 
-							sourceStart = Integer.parseInt( strLine.substring( indexofSeventhTab + 1, indexofEigthTab));
-							sourceEnd = Integer.parseInt( strLine.substring( indexofEigthTab + 1, indexofNinethTab));
+							sourceStart = Integer.parseInt(strLine.substring( indexofSeventhTab + 1, indexofEigthTab));
+							sourceEnd = Integer.parseInt(strLine.substring( indexofEigthTab + 1, indexofNinethTab));
 
-							mappedStart = Integer.parseInt( strLine.substring( indexofTwelfthTab + 1,
-									indexofThirteenthTab));
-							mappedEnd = Integer.parseInt( strLine.substring( indexofThirteenthTab + 1,
-									indexofFourteenthTab));
+							mappedStart = Integer.parseInt(strLine.substring( indexofTwelfthTab + 1,indexofThirteenthTab));
+							mappedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab + 1,indexofFourteenthTab));
 
-							mappedAssembly = AssemblySource.convertStringtoEnum( strLine.substring( indexofSeventeenthTab + 1));
+							mappedAssembly = AssemblySource.convertStringtoEnum(strLine.substring(indexofSeventeenthTab + 1));
 
 							// Pay attention
-							// sourceInt and mappedInt does not have to be the
-							// same
+							// sourceInt and mappedInt does not have to be the same
 							// e.g: rs1233578
 							if( sourceChrName == mappedChrName && mappedAssembly.isPrimaryAssembly()){
 
@@ -748,6 +745,10 @@ public class Remap {
 								}
 
 							}// End of IF: Valid conversion
+							
+							else{
+								numberofConversionsNotInPrimaryAssembly++;
+							}
 						}// End of IF mappedInt is not NULL
 
 					}// End of IF: Not Header or Comment Line
@@ -755,8 +756,10 @@ public class Remap {
 				}// End of while
 
 				// for debug purposes starts
-				if( GlanetRunner.shouldLog())logger.info( "Number of Lines In lineNumber2SourceGenomicLociMap : " + lineNumber2SourceGenomicLociMap.size() + " for file: " + remapReportFile);
-				if( GlanetRunner.shouldLog())logger.info( "Number of Lines In lineNumber2TargetGenomicLociMap : " + lineNumber2TargetGenomicLociMap.size() + " for file: " + remapReportFile);
+				if( GlanetRunner.shouldLog())logger.info( "Number of Lines In lineNumber2SourceGenomicLociMap : " + lineNumber2SourceGenomicLociMap.size() + " using file: " + remapReportFile);
+				if( GlanetRunner.shouldLog())logger.info( "Number of Lines In lineNumber2TargetGenomicLociMap : " + lineNumber2TargetGenomicLociMap.size() + " using file: " + remapReportFile);
+				if( GlanetRunner.shouldLog())logger.info( "Number of Lines not in Primary Assembly : " + numberofConversionsNotInPrimaryAssembly + " using file: " + remapReportFile);
+				if( GlanetRunner.shouldLog())logger.info( "Number of Lines in lineNumber2SourceGenomicLociMap and " +  remapReportFile  + " may differ, since there can be more than one lines in " + remapReportFile + " because of multiple passes for mappings not in primary assembly.");
 				// for debug purposes ends
 
 				// close

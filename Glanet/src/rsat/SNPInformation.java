@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Dec 30, 2014
  * @project Glanet
  *
