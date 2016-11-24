@@ -397,7 +397,7 @@ public class Remap {
 					allowMultipleLocation, "--mincov ", new Double( minimumRatioOfBasesThatMustBeRemapped).toString(),
 					"--maxexp ", new Double( maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength).toString(),
 					"--in_format", inputFormat};
-			process = runtime.exec( command);
+			process = runtime.exec(command);
 
 			process.waitFor();
 
