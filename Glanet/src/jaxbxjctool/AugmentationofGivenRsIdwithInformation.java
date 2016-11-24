@@ -593,6 +593,8 @@ public class AugmentationofGivenRsIdwithInformation {
 												// Set rsId end position
 												// NCBI EUTIL efetch returns 0-based coordinates
 												rsInformation.setZeroBasedEnd( maploc.getPhysMapInt() + numberofBasesInTheSNPAtMost - 1);
+												rsInformation.setSnpClass(rs.getSnpClass());
+												
 
 											}//End of if it is not a microsatellite
 			

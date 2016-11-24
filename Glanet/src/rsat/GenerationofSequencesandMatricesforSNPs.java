@@ -844,6 +844,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 			List<String> usedObservedAlleles,
 			String snpForwardReferenceSequence, 
 			int rsId, 
+			String snpClass,
 			List<String> observedAllelesList) {
 
 		boolean contains = false;
@@ -890,14 +891,38 @@ public class GenerationofSequencesandMatricesforSNPs {
 						if( GlanetRunner.shouldLog())logger.error( "lengthOfObservedAllele: " + lengthOfObservedAllele);
 					}
 					
-					if( !observedAllele.equals( Commons.STRING_HYPHEN)){
-						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+					if(snpClass.equalsIgnoreCase("snp")){
+						if( !observedAllele.equals( Commons.STRING_HYPHEN)){
+							alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
+							snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
 
-					}else{
-						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-						snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE);
+						}else{
+							alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
+							snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE);
+						}
+					}else if(snpClass.equalsIgnoreCase("in-del")){
+						
+						
+						if( !observedAllele.equals(Commons.STRING_HYPHEN)){
+							alteredSNPSequence = formerSNPReferenceSequence + SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele + observedAllele + latterSNPReferenceSequence;
+							snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+
+						}else{
+							alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
+							snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE);
+						}
+					} else{
+						
+						//debug delete later
+						//can be multinucleotide-polymorphism
+						System.out.println("snpClass: " +  snpClass);
+						System.out.println("observedAllele: " + observedAllele);
+						//debug delete later
 					}
+					
+					
+					//TODO
+					//Behave w.r.t.snpClass
 
 					usedObservedAlleles.add(observedAllele);
 					snpAlteredSequences.add(alteredSNPSequence);
@@ -912,7 +937,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 	}
 
 	public static void createSNPAlteredSequences(
-			SNPInformation snpInformation, int rsId,
+			SNPInformation snpInformation, 
+			int rsId,
+			String snpClass,
 			List<String> observedAllelesList) {
 
 		// For each observed allele
@@ -932,6 +959,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				snpInformation.getUsedObservedAlleles(), 
 				snpInformation.getSnpReferenceSequence(), 
 				rsId,
+				snpClass,
 				observedAllelesList);
 
 		//No need to give alarm
@@ -1006,13 +1034,13 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		// rsID Orient is Forward
 		if( rsInformation.getOrient().isForward()){
-			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(), observedAllelesList);
+			createSNPAlteredSequences(snpInformation,rsInformation.getRsId(),rsInformation.getSnpClass(),observedAllelesList);
 		}
 		// rsID Orient is Reverse
 		else{
 			// Take Complement of slashSeparatedObservedAlleles
 			complementedObservedAllelesList = takeComplement( observedAllelesList);
-			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(), complementedObservedAllelesList);
+			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(),rsInformation.getSnpClass(),complementedObservedAllelesList);
 		}
 
 	}
@@ -1613,7 +1641,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*******************************************************************/
 					/************* Create SNP Altered Sequences starts *******************/
 					/*******************************************************************/
-					createSNPAlteredSequences( snpInformation, rsInformation);
+					createSNPAlteredSequences(snpInformation,rsInformation);
 					/*******************************************************************/
 					/************* Create SNP Altered Sequences starts *******************/
 					/*******************************************************************/

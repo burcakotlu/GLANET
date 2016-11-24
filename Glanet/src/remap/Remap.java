@@ -493,12 +493,12 @@ public class Remap {
 				}else{
 					if( lineNumber2SourceInformationMap != null){
 						toBeRemappedInformation = lineNumber2SourceInformationMap.get( i);
-						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-						if( GlanetRunner.shouldLog())logger.warn( "rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+						if( GlanetRunner.shouldLog())logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API. This may be due to positions are not in primary assembly.");
+						if( GlanetRunner.shouldLog())logger.warn("rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
 						numberofUnRemappedInputLine++;
 					}else{
-						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
-						if( GlanetRunner.shouldLog())logger.warn( "To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
+						if( GlanetRunner.shouldLog())logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API. This may be due to positions are not in primary assembly.");
+						if( GlanetRunner.shouldLog())logger.warn("To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
 						numberofUnRemappedInputLine++;
 					}
 
@@ -572,14 +572,14 @@ public class Remap {
 				else{
 
 					if( mapped1 == null){
-						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API. This may be due to positions are not in primary assembly.");
 						if( GlanetRunner.shouldLog())logger.warn( "To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " after: " + information);
 
 						numberofUnRemappedInputLine++;
 					}
 
 					if( mapped2 == null){
-						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API");
+						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API. This may be due to positions are not in primary assembly.");
 						if( GlanetRunner.shouldLog())logger.warn( " To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
 
 						numberofUnRemappedInputLine++;

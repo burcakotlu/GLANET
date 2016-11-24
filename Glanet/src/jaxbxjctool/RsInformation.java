@@ -22,6 +22,19 @@ public class RsInformation {
 
 	Orient orient;
 	String groupLabel;
+	
+	String snpClass;
+	
+	
+	
+
+	public String getSnpClass() {
+		return snpClass;
+	}
+
+	public void setSnpClass(String snpClass) {
+		this.snpClass = snpClass;
+	}
 
 	public String getGroupLabel() {
 
