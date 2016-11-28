@@ -44,6 +44,11 @@ public class Commons {
 	public static final String FTP = "FTP";
 	public static final String NCBI_REMAP = "REMAP";
 	
+	
+	public static final String RSAFileName = "RegulatorySequenceAnalysisResults.txt";
+	public static final String RSAPostAnalysisFileName = "PostAnalysisofRegulatorySequenceAnalysisResults.txt";
+	
+	
 	public static final String NCBI_REMAP_HOMO_SAPIENS = "Homo sapiens";
 	
 	// GLANET DATA Driven starts

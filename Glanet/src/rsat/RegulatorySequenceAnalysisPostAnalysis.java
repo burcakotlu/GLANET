@@ -271,8 +271,8 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		String regulatorySequenceAnalysisFolder = outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty( "file.separator");
 
-		String RSAFileName = "RegulatorySequenceAnalysisResults.txt";
-		String RSAPostAnalysisFileName = "PostAnalysisofRegulatorySequenceAnalysisResults.txt";
+		String RSAFileName = Commons.RSAFileName;
+		String RSAPostAnalysisFileName = Commons.RSAPostAnalysisFileName;
 		
 		readFileAndWriteImportantFindings(regulatorySequenceAnalysisFolder,RSAFileName,RSAPostAnalysisFileName);
 

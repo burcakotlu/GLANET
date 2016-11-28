@@ -170,8 +170,13 @@ public class Remap {
 
 				indexoFirstTab = strLine.indexOf( '\t');
 				indexofSecondTab = ( indexoFirstTab > 0)?strLine.indexOf( '\t', indexoFirstTab + 1):-1;
+				
+				if (indexofSecondTab>=0){
+					start1Based = Integer.parseInt(strLine.substring(indexoFirstTab+1,indexofSecondTab));					
+				}else{
+					start1Based = Integer.parseInt(strLine.substring(indexoFirstTab+1));					
+				}
 
-				start1Based = Integer.parseInt( strLine.substring( indexoFirstTab + 1, indexofSecondTab));
 				
 				start0Based = start1Based-1;
 				end0Based = start0Based;
@@ -248,24 +253,26 @@ public class Remap {
 			bufferedWriter.close();
 
 		}catch( IOException e){
-				e.printStackTrace();
+			e.printStackTrace();
 		}
 
 	}
 	//25 November 2016 ends
 	
 	//25 November 2016 starts
-	//Written for Hacettepe Collaboration LHMD
+	//Written for Hacettepe Collaboration LGMD
 	public static void convertGivenInputCoordinatesFromSourceAssemblytoTargetAssemblyUsingRemap(
-			String dataFolder, 		
+			String dataFolder, 	
+			String inputOutputDataFolder,
 			String inputFile, 
 			String outputFile, 
 			String sourceAssemblyName, 
 			String targetAssemblyName,
-			Boolean writeInformationInOutputFile) {
+			Boolean writeInformationInOutputFile,
+			Boolean fillMap,
+			Map<String,String> sourceAssemblyCoordinates2TargetAssemblyCoordinatesMap) {
 		
-		
-		String remapFolder = dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator");
+		String remapFolder = inputOutputDataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator");
 
 		/**********************************************************/
 		/********** NCBI REMAP PARAMETERS starts ******************/
@@ -313,7 +320,7 @@ public class Remap {
 		// read inputFileName
 		// write Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
 		readInputFileFillMapWriteRemapInputFile(
-				dataFolder, 
+				inputOutputDataFolder, 
 				inputFile, 
 				lineNumber2SourceGenomicLociMap,
 				lineNumber2SourceInformationMap,
@@ -323,7 +330,6 @@ public class Remap {
 		//sourceReferenceAssemblyID= "GCF_000001405.25"; for GRch37.p13
 		//targetReferenceAssemblyID= "GCF_000001405.33"; for GRch38.p7
 		
-
 		Remap.remap(
 				dataFolder,
 				sourceReferenceAssemblyID,
@@ -351,13 +357,15 @@ public class Remap {
 				lineNumber2SourceGenomicLociMap, 
 				lineNumber2SourceInformationMap, 
 				lineNumber2TargetGenomicLociMap,
-				headerLine);
+				headerLine,
+				fillMap,
+				sourceAssemblyCoordinates2TargetAssemblyCoordinatesMap);
 
 		
 		// read remap outputfile
 		// write processed file in 1Based start end in target assembly
 		readRemapOutputFileWriteProcessedInputFile(
-				dataFolder,
+				inputOutputDataFolder,
 				Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
 				outputFile,
 				writeInformationInOutputFile);
@@ -718,33 +726,62 @@ public class Remap {
 			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 			TIntObjectMap<String> lineNumber2SourceInformationMap,
 			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, 
-			String headerLine) {
+			String headerLine,
+			Boolean fillMap,
+			Map<String,String> sourceAssemblyCoordinates2TargetAssemblyCoordinatesMap) {
 
 		// outputFile In Target Assembly
 		BufferedWriter bufferedWriter = null;
 
-		//String toBeRemapped = null;
+		String toBeRemapped = null;
 		String mapped = null;
 		String toBeRemappedInformation = null;
 
 		int numberofUnRemappedInputLine = 0;
+		
+		int indexofFirstTab = -1;
+		int indexofSecondTab = -1;
+		String key_chrNameTab1BasedCoordinateSourceAssembly = null;
+		String value_chrNameTab1BasedCoordinateTargetAssembly = null;
 
 		try{
-			bufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( outputFolder + oneGenomicLociPerLineOutputFileInTargetAssembly));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( outputFolder + oneGenomicLociPerLineOutputFileInTargetAssembly));
 
 			// Header line
 			bufferedWriter.write( headerLine + System.getProperty( "line.separator"));
 
 			for( int i = 1; i <= lineNumber2SourceGenomicLociMap.size(); i++){
 
-				//toBeRemapped = lineNumber2SourceGenomicLociMap.get(i);
 				mapped = lineNumber2TargetGenomicLociMap.get(i);
 				toBeRemappedInformation = lineNumber2SourceInformationMap.get(i);
 				
-				
 				if( mapped != null){
 					bufferedWriter.write(mapped + "\t" + toBeRemappedInformation +  System.getProperty( "line.separator"));
+					
+					if(fillMap){
+						//source toBeRemapped example: chrName\t_0BasedStart\t_1BasedEnd
+						//89=chr5	124649904	124649905
+						toBeRemapped = lineNumber2SourceGenomicLociMap.get(i);
+						
+						indexofFirstTab = toBeRemapped.indexOf("\t");
+						indexofSecondTab = toBeRemapped.indexOf("\t",indexofFirstTab+1);
+						key_chrNameTab1BasedCoordinateSourceAssembly = toBeRemapped.substring(0, indexofFirstTab) + toBeRemapped.substring(indexofSecondTab);
+						
+						//target mapped example: chrName\t_1BasedStart_\t_1BasedEnd
+						//89=chr5	123985598	123985598
+						indexofFirstTab = mapped.indexOf("\t");
+						indexofSecondTab = mapped.indexOf("\t",indexofFirstTab+1);
+						value_chrNameTab1BasedCoordinateTargetAssembly = mapped.substring(0, indexofSecondTab);						 
+						
+						if (sourceAssemblyCoordinates2TargetAssemblyCoordinatesMap.containsKey(key_chrNameTab1BasedCoordinateSourceAssembly)){
+							sourceAssemblyCoordinates2TargetAssemblyCoordinatesMap.put(key_chrNameTab1BasedCoordinateSourceAssembly, value_chrNameTab1BasedCoordinateTargetAssembly);
+						}
+						//key in the map: chrName\t_1BasedCoordinate
+						//example
+						//chr1	617158889						
+						
+					}//End of fill map
+					
 				}else{
 					numberofUnRemappedInputLine++;
 				}
@@ -1032,10 +1069,14 @@ public class Remap {
 							sourceChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofThirdTab + 1,indexofFourthTab));
 							mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab + 1, indexofFifthTab));
 
+							//0based sourceStart
 							sourceStart = Integer.parseInt(strLine.substring( indexofSeventhTab + 1, indexofEigthTab));
+							//1based sourceEnd
 							sourceEnd = Integer.parseInt(strLine.substring( indexofEigthTab + 1, indexofNinethTab));
 
+							//1Based mappedStart
 							mappedStart = Integer.parseInt(strLine.substring( indexofTwelfthTab + 1,indexofThirteenthTab));
+							//1Based mappedEnd
 							mappedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab + 1,indexofFourteenthTab));
 
 							mappedAssembly = AssemblySource.convertStringtoEnum(strLine.substring(indexofSeventeenthTab + 1));
@@ -1045,12 +1086,10 @@ public class Remap {
 							// e.g: rs1233578
 							if( sourceChrName == mappedChrName && mappedAssembly.isPrimaryAssembly()){
 
-								lineNumber2TargetGenomicLociMap.put( lineNumber,
-										mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
+								lineNumber2TargetGenomicLociMap.put(lineNumber,mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
 
 								// check
-								if( !lineNumber2SourceGenomicLociMap.get( lineNumber).equals(
-										sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd)){
+								if(!lineNumber2SourceGenomicLociMap.get(lineNumber).equals(sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd)){
 									if( GlanetRunner.shouldLog())logger.error( Commons.THERE_IS_A_SITUATION);
 								}
 
