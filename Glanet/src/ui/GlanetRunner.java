@@ -7,6 +7,7 @@ import giveninputdata.InputDataNCBIRemap;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
+import rsat.GeneAnnotationForPostAnalysisRSAResults;
 import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly;
 import rsat.GenerationofSequencesandMatricesforSNPs;
 import rsat.RegulatorySequenceAnalysisPostAnalysis;
@@ -169,9 +170,15 @@ public class GlanetRunner implements Runnable {
 
 				RegulatorySequenceAnalysisUsingRSATMatrixScan.main(args);
 				
-				setCurrentProcessInfo( "Post Analysis of Regulatory Sequence Analysis Results...");
+				setCurrentProcessInfo("Post Analysis of Regulatory Sequence Analysis Results...");
 
 				RegulatorySequenceAnalysisPostAnalysis.main(args);
+				
+				setCurrentProcessInfo("Gene Annotation for Post Analysis of Regulatory Sequence Analysis Results...");
+				
+				GeneAnnotationForPostAnalysisRSAResults.main(args);
+				
+
 			}
 			/*********** Check whether given input data is snps or not ends ****************/
 

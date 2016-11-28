@@ -3,6 +3,12 @@
  */
 package remap;
 
+import enumtypes.AssemblySource;
+import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,14 +21,10 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import auxiliary.FileOperations;
-import common.Commons;
-import enumtypes.AssemblySource;
-import enumtypes.ChromosomeName;
-import enumtypes.CommandLineArguments;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 import ui.GlanetRunner;
+import auxiliary.FileOperations;
+
+import common.Commons;
 
 /**
  * @author Burcak Otlu
@@ -125,6 +127,245 @@ public class Remap {
 
 	}
 
+	
+	
+	
+	//25 November 2016 starts
+	//Customized for Hacettepe Collaboration LGMD data
+	// read inputFileName
+	// write Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
+	public static void readInputFileFillMapWriteRemapInputFile(
+			String givenInputDataFolder,
+			String inputFile0BasedStartEnd, 
+			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
+			TIntObjectMap<String> lineNumber2SourceInformationMap,
+			String remapInputFileOBasedStartEndExclusive) {
+
+		BufferedReader bufferedReader = null;
+		BufferedWriter bufferedWriter = null;
+
+		String strLine = null;
+		int indexoFirstTab;
+		int indexofSecondTab;
+		
+		int start1Based;
+
+		int start0Based;
+		int end0Based;
+		int end0BasedExclusive;
+		
+		int lineNumber = 1;
+		
+		
+		//example lines
+//		chr10	52596265	rs141343052
+//		chr10	38894488	-
+//		chr10	38894494	rs74223011
+
+		try{
+			bufferedReader = new BufferedReader(FileOperations.createFileReader(givenInputDataFolder + inputFile0BasedStartEnd));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenInputDataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + remapInputFileOBasedStartEndExclusive));
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+
+				indexoFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = ( indexoFirstTab > 0)?strLine.indexOf( '\t', indexoFirstTab + 1):-1;
+
+				start1Based = Integer.parseInt( strLine.substring( indexoFirstTab + 1, indexofSecondTab));
+				
+				start0Based = start1Based-1;
+				end0Based = start0Based;
+				end0BasedExclusive = end0Based + 1;
+
+				bufferedWriter.write(strLine.substring(0,indexoFirstTab) + "\t" + start0Based + "\t" + end0BasedExclusive + System.getProperty( "line.separator"));
+				
+				lineNumber2SourceGenomicLociMap.put(lineNumber,strLine.substring( 0, indexoFirstTab) + "\t" + start0Based + "\t" + end0BasedExclusive);
+				lineNumber2SourceInformationMap.put(lineNumber, strLine.substring(indexofSecondTab+1));
+				
+				lineNumber++;
+			}// End of WHILE
+
+			// Close
+			bufferedReader.close();
+			bufferedWriter.close();
+
+		}catch( IOException e){
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	//25 November 2016 ends
+	
+	//25 November 2016 starts
+	//Customized for Hacettepe Collaboration
+	public static void readRemapOutputFileWriteProcessedInputFile(
+			String givenInputDataFolder,
+			String remapOutputFile1BasedStartEndInGRCh37p13,
+			String processedFile1BasedStartEndInTargetAssembly,
+			Boolean writeInformationInOutputFile) {
+
+		BufferedReader bufferedReader = null;
+		BufferedWriter bufferedWriter = null;
+
+		String strLine = null;
+		int indexoFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+
+		int start1Based;
+		String rsID = null;
+		
+		try{
+			bufferedReader = new BufferedReader(FileOperations.createFileReader(givenInputDataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + remapOutputFile1BasedStartEndInGRCh37p13));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenInputDataFolder + processedFile1BasedStartEndInTargetAssembly));
+
+			//Skip header line
+			strLine = bufferedReader.readLine();
+			
+			while((strLine = bufferedReader.readLine()) != null){
+
+				if( strLine.charAt(0) != Commons.GLANET_COMMENT_CHARACTER){
+					indexoFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = (indexoFirstTab > 0)?strLine.indexOf( '\t', indexoFirstTab + 1):-1;
+					indexofThirdTab = (indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
+					
+					start1Based = Integer.parseInt(strLine.substring(indexoFirstTab + 1, indexofSecondTab));					
+					rsID = strLine.substring(indexofThirdTab+1);
+					
+					if (writeInformationInOutputFile){
+						bufferedWriter.write(strLine.substring(0,indexoFirstTab) + "\t" + start1Based +  "\t"  + rsID + System.getProperty( "line.separator"));	
+					}else{
+						bufferedWriter.write(strLine.substring(0,indexoFirstTab) + "\t" + start1Based + System.getProperty( "line.separator"));
+					}
+				
+				}
+
+			}// End of WHILE
+
+			// Close
+			bufferedReader.close();
+			bufferedWriter.close();
+
+		}catch( IOException e){
+				e.printStackTrace();
+		}
+
+	}
+	//25 November 2016 ends
+	
+	//25 November 2016 starts
+	//Written for Hacettepe Collaboration LHMD
+	public static void convertGivenInputCoordinatesFromSourceAssemblytoTargetAssemblyUsingRemap(
+			String dataFolder, 		
+			String inputFile, 
+			String outputFile, 
+			String sourceAssemblyName, 
+			String targetAssemblyName,
+			Boolean writeInformationInOutputFile) {
+		
+		
+		String remapFolder = dataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator");
+
+		/**********************************************************/
+		/********** NCBI REMAP PARAMETERS starts ******************/
+		/**********************************************************/
+		
+		String sourceReferenceAssemblyID = null;
+		String targetReferenceAssemblyID = null;
+
+		Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+
+		Map<String,String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
+		
+		Remap.fillAssemblyName2RefSeqAssemblyIDMap(
+				dataFolder, 
+				Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
+				assemblyName2RefSeqAssemblyIDMap);
+
+		// sourceReferenceAssemblyID = "GCF_000001405.26";
+		sourceReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(sourceAssemblyName);
+
+		// targetReferenceAssemblyID = "GCF_000001405.25";
+		targetReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(targetAssemblyName);
+
+		String merge = null;
+		String allowMultipleLocation = null;
+		double minimumRatioOfBasesThatMustBeRemapped;
+		double maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength;
+
+		String inputFormat = Commons.BED;
+
+		merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
+		allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
+		minimumRatioOfBasesThatMustBeRemapped = Commons.NCBI_REMAP_API_MINIMUM_RATIO_OF_BASES_THAT_MUST_BE_REMAPPED_DEFAULT_0_POINT_5_;
+		maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength = Commons.NCBI_REMAP_API_MAXIMUM_RATIO_FOR_DIFFERENCE_BETWEEN_SOURCE_LENGTH_AND_TARGET_LENGTH_DEFAULT_2;
+		/**********************************************************/
+		/********** NCBI REMAP PARAMETERS ends ********************/
+		/**********************************************************/
+
+		String headerLine = "#Given Input Data Coordinates in 1Based Start End in Latest Assembly:" + targetAssemblyName;
+
+		TIntObjectMap<String> lineNumber2SourceGenomicLociMap = new TIntObjectHashMap<String>();
+		TIntObjectMap<String> lineNumber2SourceInformationMap = new TIntObjectHashMap<String>();
+		TIntObjectMap<String> lineNumber2TargetGenomicLociMap = new TIntObjectHashMap<String>();
+
+		// read inputFileName
+		// write Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
+		readInputFileFillMapWriteRemapInputFile(
+				dataFolder, 
+				inputFile, 
+				lineNumber2SourceGenomicLociMap,
+				lineNumber2SourceInformationMap,
+				Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE);
+
+		
+		//sourceReferenceAssemblyID= "GCF_000001405.25"; for GRch37.p13
+		//targetReferenceAssemblyID= "GCF_000001405.33"; for GRch38.p7
+		
+
+		Remap.remap(
+				dataFolder,
+				sourceReferenceAssemblyID,
+				targetReferenceAssemblyID,
+				remapFolder + Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE,
+				remapFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
+				remapFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
+				remapFolder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 
+				merge, 
+				allowMultipleLocation,
+				minimumRatioOfBasesThatMustBeRemapped, 
+				maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+				inputFormat, 
+				Commons.REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13);
+
+		Remap.fillConversionMap(
+				remapFolder, 
+				Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
+				lineNumber2SourceGenomicLociMap, 
+				lineNumber2TargetGenomicLociMap);
+
+		Remap.convertOneGenomicLociPerLineUsingMapCustomizedForLHMD(
+				remapFolder,
+				Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
+				lineNumber2SourceGenomicLociMap, 
+				lineNumber2SourceInformationMap, 
+				lineNumber2TargetGenomicLociMap,
+				headerLine);
+
+		
+		// read remap outputfile
+		// write processed file in 1Based start end in target assembly
+		readRemapOutputFileWriteProcessedInputFile(
+				dataFolder,
+				Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
+				outputFile,
+				writeInformationInOutputFile);
+
+	}
+	//25 November 2016 ends
+	
+	
 	//Fill NCBI_REMAP_Supported_Assemblies
 	public static void remap_show_batches( 
 			String dataFolder, 
@@ -138,7 +379,7 @@ public class Remap {
 		String line;
 
 		try{
-			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + supportedAssembliesFileName));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + supportedAssembliesFileName));
 
 			process = runtime.exec( new String[]{"perl", remapFile, "--mode", "batches"});
 
@@ -179,7 +420,11 @@ public class Remap {
 			bufferedWriter.close();
 
 			if( GlanetRunner.shouldLog())
-				logger.info( "NCBI REMAP Show Batches Exit status = " + process.exitValue());
+				logger.info("NCBI REMAP Show Batches Exit status = " + process.exitValue());
+			
+			//debug delete later
+			System.out.println("NCBI REMAP Show Batches Exit status = " + process.exitValue());
+			//debug delete later
 
 		}catch( IOException e){
 
@@ -410,7 +655,11 @@ public class Remap {
 			// if( GlanetRunner.shouldLog())logger.info(line);
 			// }//End of while
 
-			if( GlanetRunner.shouldLog())logger.info( "NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
+			if( GlanetRunner.shouldLog())logger.info("NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
+			
+			//debug delete later
+			System.out.println("NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
+			//debug delete later
 
 			// Close
 			// bufferedReader.close();
@@ -456,16 +705,77 @@ public class Remap {
 
 
 	}
+	
+	//25 November 2016 starts
+	//Customized for Hacettepe Collaboration
+	/*
+	 * InputFileSourceAssembly contains one genomic loci per line.
+	 * OutputFileTargetAssembly contains one genomic loci per line.
+	 */
+	public static void convertOneGenomicLociPerLineUsingMapCustomizedForLHMD( 
+			String outputFolder,
+			String oneGenomicLociPerLineOutputFileInTargetAssembly,
+			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
+			TIntObjectMap<String> lineNumber2SourceInformationMap,
+			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, 
+			String headerLine) {
+
+		// outputFile In Target Assembly
+		BufferedWriter bufferedWriter = null;
+
+		//String toBeRemapped = null;
+		String mapped = null;
+		String toBeRemappedInformation = null;
+
+		int numberofUnRemappedInputLine = 0;
+
+		try{
+			bufferedWriter = new BufferedWriter(
+					FileOperations.createFileWriter( outputFolder + oneGenomicLociPerLineOutputFileInTargetAssembly));
+
+			// Header line
+			bufferedWriter.write( headerLine + System.getProperty( "line.separator"));
+
+			for( int i = 1; i <= lineNumber2SourceGenomicLociMap.size(); i++){
+
+				//toBeRemapped = lineNumber2SourceGenomicLociMap.get(i);
+				mapped = lineNumber2TargetGenomicLociMap.get(i);
+				toBeRemappedInformation = lineNumber2SourceInformationMap.get(i);
+				
+				
+				if( mapped != null){
+					bufferedWriter.write(mapped + "\t" + toBeRemappedInformation +  System.getProperty( "line.separator"));
+				}else{
+					numberofUnRemappedInputLine++;
+				}
+
+			}// End of FOR
+
+			System.out.println("Number of unremapped lines is: " + numberofUnRemappedInputLine);
+
+			// CLOSE
+			bufferedWriter.close();
+
+		}catch( FileNotFoundException e){
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch( IOException e){
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}
+
+	}
+	//25 November 2016 ends
 
 	/*
 	 * InputFileSourceAssembly contains one genomic loci per line.
 	 * OutputFileTargetAssembly contains one genomic loci per line.
 	 */
-	public static void convertOneGenomicLociPerLineUsingMap( String outputFolder,
+	public static void convertOneGenomicLociPerLineUsingMap( 
+			String outputFolder,
 			String oneGenomicLociPerLineOutputFileInTargetAssembly,
 			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 			TIntObjectMap<String> lineNumber2SourceInformationMap,
-			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, String headerLine) {
+			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, 
+			String headerLine) {
 
 		// outputFile In Target Assembly
 		BufferedWriter bufferedWriter = null;
@@ -485,11 +795,11 @@ public class Remap {
 
 			for( int i = 1; i <= lineNumber2SourceGenomicLociMap.size(); i++){
 
-				toBeRemapped = lineNumber2SourceGenomicLociMap.get( i);
-				mapped = lineNumber2TargetGenomicLociMap.get( i);
-
+				toBeRemapped = lineNumber2SourceGenomicLociMap.get(i);
+				mapped = lineNumber2TargetGenomicLociMap.get(i);
+				
 				if( mapped != null){
-					bufferedWriter.write( mapped + System.getProperty( "line.separator"));
+					bufferedWriter.write(mapped +  System.getProperty( "line.separator"));
 				}else{
 					if( lineNumber2SourceInformationMap != null){
 						toBeRemappedInformation = lineNumber2SourceInformationMap.get( i);

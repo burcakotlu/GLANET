@@ -572,6 +572,7 @@ public class AugmentationofGivenRsIdwithInformation {
 											// This chrName is without "chr"
 											// e.g.: 2, X, Y, 17
 											rsInformation.setChrNameWithoutChr( comp.getChromosome());
+																						
 
 											// set rsId start position
 											// eutil efetch returns 0-based
@@ -579,8 +580,8 @@ public class AugmentationofGivenRsIdwithInformation {
 											rsInformation.setZeroBasedStart( maploc.getPhysMapInt());
 
 											// set rsId observed Alleles
-											rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());										
-											
+											rsInformation.setSlashSeparatedObservedAlleles( rs.getSequence().getObserved());	
+																						
 											if (rs.getSequence().getObserved().indexOf('/')<0){	
 												
 												rsInformation= null;	

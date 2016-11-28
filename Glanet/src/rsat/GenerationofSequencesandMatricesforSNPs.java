@@ -838,29 +838,67 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	}
 
-	public static boolean checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(
-			List<String> snpAlteredSequenceNames, 
-			List<String> snpAlteredSequences, 
-			List<String> usedObservedAlleles,
-			String snpForwardReferenceSequence, 
+	public static void createAlteredSequences(
+			SNPInformation snpInformation,
 			int rsId, 
 			String snpClass,
-			List<String> observedAllelesList) {
+			List<String> observedAllelesList,
+			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap) {
+				
+		//List<String> snpAlteredSequenceNames = snpInformation.getSnpAlteredSequenceNames(); 
+		//List<String> snpAlteredSequences = snpInformation.getSnpAlteredSequences();		
+		//List<String> usedObservedAlleles = snpInformation.getUsedObservedAlleles();
+		String snpForwardReferenceSequence =snpInformation.getSnpReferenceSequence(); 
 
-		boolean contains = false;
 		String formerSNPReferenceSequence = null;
 		String latterSNPReferenceSequence = null;
 		String alteredSNPSequence = null;
 
 		int lengthOfObservedAllele;
 		String SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = null;
+		
+		boolean shallWeAdd = false;
+		String fastaFile = null;
 
 		for(String observedAllele : observedAllelesList){
+			
+			//Initialize
+			shallWeAdd = false;
 
+			//Length of observed allele can be longer than snpForwardReferenceSequence or it can be longer than latterSNPReferenceSequence
+			//In that case we need to get longer reference snp sequence using ncbi eutils
 			lengthOfObservedAllele = observedAllele.length();
+			
+			//This can be the cases for some rsIDs with snpClass in-del or multinucleotide-polymorphism
+			//Then we need to update snpReferencesequence using ncbi eutils
+			//Get more reference sequence 20bpBeforeSNPStartPosition + lengthofObservedAllele + 20bpAfterSNPStartPosition
+			if(lengthOfObservedAllele>Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION) {
+				
+				fastaFile = getDNASequence(
+						snpInformation.getChrNameWithoutPreceedingChr(),
+						snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,
+						snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION + lengthOfObservedAllele,
+						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
+				
+				//We don't need to update snpInformation.getSnpReferenceSequence()
+				snpForwardReferenceSequence = getDNASequenceFromFastaFile(fastaFile);
+			}
+			
+			try{
+				
+				formerSNPReferenceSequence = snpForwardReferenceSequence.substring(0,Commons.ZERO_BASED_SNP_POSITION);
+				latterSNPReferenceSequence = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
+
+			}catch(StringIndexOutOfBoundsException e){
+				if( GlanetRunner.shouldLog())logger.error( "Exception Message:" + e.getMessage());
+				if( GlanetRunner.shouldLog())logger.error( "Exception toString:" + e.toString());
+				if( GlanetRunner.shouldLog())logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
+				if( GlanetRunner.shouldLog())logger.error( "observedAllele: " + observedAllele);
+				if( GlanetRunner.shouldLog())logger.error( "lengthOfObservedAllele: " + lengthOfObservedAllele);
+			}
 
 			try{
-
+	
 				SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
 
 			}catch( StringIndexOutOfBoundsException e){
@@ -869,78 +907,89 @@ public class GenerationofSequencesandMatricesforSNPs {
 				if( GlanetRunner.shouldLog())logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
 				if( GlanetRunner.shouldLog())logger.error( "ObservedAllele: " + observedAllele);
 			}
+			
 
-			// This observed allele is already in the SNP Reference Sequence
-			if( SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
-				contains = true;
+			//snpClass snp case starts
+			if (snpClass.equalsIgnoreCase("snp")){
+				if (observedAllele.equals(Commons.STRING_HYPHEN)){
+					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
+					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);
+					shallWeAdd = true;
+				}
+				if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
+					alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
+					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+					shallWeAdd = true;
+				}
 			}
-			// This observed allele is not in the SNP Reference Sequence
+			//snpClass snp case ends
+			
+			//snpClass in-del case starts
+			else if(snpClass.equalsIgnoreCase("in-del")){
+				
+				//This may not be needed.
+				if(observedAllele.equals(Commons.STRING_HYPHEN)){
+					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
+					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);
+					shallWeAdd = true;
+				}
+				
+				if(SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){				
+					//This means that this is deletion
+					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
+					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+					shallWeAdd = true;
+				}else{
+					//This means that this is insertion
+					alteredSNPSequence = formerSNPReferenceSequence + SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele + observedAllele +latterSNPReferenceSequence;
+					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+					shallWeAdd = true;
+				}				
+			}
+			//snpClass in-del case ends
+			
+			//snpClass multinucleotide-polymorphism case starts
+			else if (snpClass.equalsIgnoreCase("multinucleotide-polymorphism")){
+				//This may not be needed.
+				if(observedAllele.equals(Commons.STRING_HYPHEN)){
+					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
+					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);
+					shallWeAdd = true;
+				}
+				
+				if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){				
+					//This means that this is deletion
+					alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
+					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+					shallWeAdd = true;
+				}
+			}
+			//snpClass multinucleotide-polymorphism case ends
+			
 			else{
-
-				if( !usedObservedAlleles.contains(observedAllele)){
-
-					try{
-						formerSNPReferenceSequence = snpForwardReferenceSequence.substring(0,Commons.ZERO_BASED_SNP_POSITION);
-						latterSNPReferenceSequence = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
-
-					}catch(StringIndexOutOfBoundsException e){
-						if( GlanetRunner.shouldLog())logger.error( "Exception Message:" + e.getMessage());
-						if( GlanetRunner.shouldLog())logger.error( "Exception toString:" + e.toString());
-						if( GlanetRunner.shouldLog())logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
-						if( GlanetRunner.shouldLog())logger.error( "observedAllele: " + observedAllele);
-						if( GlanetRunner.shouldLog())logger.error( "lengthOfObservedAllele: " + lengthOfObservedAllele);
-					}
-					
-					if(snpClass.equalsIgnoreCase("snp")){
-						if( !observedAllele.equals( Commons.STRING_HYPHEN)){
-							alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-							snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
-
-						}else{
-							alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-							snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE);
-						}
-					}else if(snpClass.equalsIgnoreCase("in-del")){
-						
-						
-						if( !observedAllele.equals(Commons.STRING_HYPHEN)){
-							alteredSNPSequence = formerSNPReferenceSequence + SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele + observedAllele + latterSNPReferenceSequence;
-							snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
-
-						}else{
-							alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-							snpAlteredSequenceNames.add(Commons.RS + rsId + Commons.UNDERSCORE);
-						}
-					} else{
-						
-						//debug delete later
-						//can be multinucleotide-polymorphism
-						System.out.println("snpClass: " +  snpClass);
-						System.out.println("observedAllele: " + observedAllele);
-						//debug delete later
-					}
-					
-					
-					//TODO
-					//Behave w.r.t.snpClass
-
-					usedObservedAlleles.add(observedAllele);
-					snpAlteredSequences.add(alteredSNPSequence);
-
-				}// End of IF: this observed allele is not used yet
-
+				//check whether there is any case we are not handling?
+				//debug delete later
+				System.out.println("rsID: " + rsId);
+				System.out.println("snpClass: " +  snpClass);
+				System.out.println("observedAllele: " +observedAllele);
+				//debug delete later
+			}
+			
+			if (shallWeAdd){
+				snpInformation.getUsedObservedAlleles().add(observedAllele);
+				snpInformation.getSnpAlteredSequences().add(alteredSNPSequence);
 			}
 
 		}// End of for each observed allele
 
-		return contains;
 	}
 
 	public static void createSNPAlteredSequences(
 			SNPInformation snpInformation, 
 			int rsId,
 			String snpClass,
-			List<String> observedAllelesList) {
+			List<String> observedAllelesList,
+			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap) {
 
 		// For each observed allele
 		// Check whether snpReferenceSequence contains any of these observed
@@ -950,17 +999,12 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// If no; give alarm; snpReferenceSequence does not contain any of this
 		// observed allele starting at snp start position
 		
-		
-		Boolean snpContainsAnyOfObservedAlleles;
-
-		snpContainsAnyOfObservedAlleles = checkWhetherSNPReferenceSequenceContainsAnyObservedAlleleAndCreateAlteredSequences(
-				snpInformation.getSnpAlteredSequenceNames(), 
-				snpInformation.getSnpAlteredSequences(),
-				snpInformation.getUsedObservedAlleles(), 
-				snpInformation.getSnpReferenceSequence(), 
+		createAlteredSequences(
+				snpInformation,
 				rsId,
 				snpClass,
-				observedAllelesList);
+				observedAllelesList,
+				chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 
 		//No need to give alarm
 		//For sNPs with variation class: deletion/insertion variation SNP reference sequence may not contain any of the observed alleles
@@ -974,7 +1018,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 //			if( GlanetRunner.shouldLog())logger.error("snp Reference Sequence: " + snpInformation.getFastaFile());
 //		}
 
-		snpInformation.setSnpContainsAnyOfObservedAlleles(snpContainsAnyOfObservedAlleles);
+		//snpInformation.setSnpContainsAnyOfObservedAlleles(snpContainsAnyOfObservedAlleles);
 
 	}
 
@@ -1026,7 +1070,10 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	}
 
-	public static void createSNPAlteredSequences( SNPInformation snpInformation, RsInformation rsInformation) {
+	public static void createSNPAlteredSequences(
+			SNPInformation snpInformation, 
+			RsInformation rsInformation,
+			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap) {
 
 		List<String> observedAllelesList = convertSlashSeparatedObservedAllelesIntoAStringList( rsInformation.getSlashSeparatedObservedAlleles());
 
@@ -1034,13 +1081,13 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 		// rsID Orient is Forward
 		if( rsInformation.getOrient().isForward()){
-			createSNPAlteredSequences(snpInformation,rsInformation.getRsId(),rsInformation.getSnpClass(),observedAllelesList);
+			createSNPAlteredSequences(snpInformation,rsInformation.getRsId(),rsInformation.getSnpClass(),observedAllelesList,chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 		}
 		// rsID Orient is Reverse
 		else{
 			// Take Complement of slashSeparatedObservedAlleles
 			complementedObservedAllelesList = takeComplement( observedAllelesList);
-			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(),rsInformation.getSnpClass(),complementedObservedAllelesList);
+			createSNPAlteredSequences(snpInformation, rsInformation.getRsId(),rsInformation.getSnpClass(),complementedObservedAllelesList,chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 		}
 
 	}
@@ -1166,13 +1213,22 @@ public class GenerationofSequencesandMatricesforSNPs {
 		return sourceHTML;
 	}
 
-	public static String getDNASequenceFromFastaFile( String fastaFile) {
+	public static String getDNASequenceFromFastaFile(String fastaFile) {
 
 		String referenceSequence;
 		int indexofFirstLineSeparator;
+		int indexofLineSeparator;
 
-		indexofFirstLineSeparator = fastaFile.indexOf( System.getProperty( "line.separator"));
-		referenceSequence = fastaFile.substring( indexofFirstLineSeparator + 1).trim();
+		indexofFirstLineSeparator = fastaFile.indexOf(System.getProperty("line.separator"));
+		referenceSequence = fastaFile.substring(indexofFirstLineSeparator + 1).trim();
+		
+		indexofLineSeparator = referenceSequence.indexOf(System.getProperty("line.separator"));
+		
+		//Get rid of line separators within referenceSequence
+		while(indexofLineSeparator>=0){
+			referenceSequence = referenceSequence.substring(0,indexofLineSeparator) +  referenceSequence.substring(indexofLineSeparator+1);
+			indexofLineSeparator = referenceSequence.indexOf(System.getProperty("line.separator"));			
+		}		
 
 		return referenceSequence;
 
@@ -1442,7 +1498,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 							if( rsInformation == null){
 
 								// For each rsId get rsInformation
-								rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(String.valueOf( rsId));
+								rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(String.valueOf(rsId));
 
 								// Option 1---Here we can either return a not
 								// null rsInformation with a different rsId
@@ -1641,7 +1697,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*******************************************************************/
 					/************* Create SNP Altered Sequences starts *******************/
 					/*******************************************************************/
-					createSNPAlteredSequences(snpInformation,rsInformation);
+					createSNPAlteredSequences(snpInformation,rsInformation,chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 					/*******************************************************************/
 					/************* Create SNP Altered Sequences starts *******************/
 					/*******************************************************************/
@@ -1656,8 +1712,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 					for(String alteredSequence : snpInformation.getSnpAlteredSequences()){
 						writeSequenceFile(
 								snpDirectory,
-								Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + snpInformation.getSnpAlteredSequenceNames().get(
-										alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(),
+								Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + snpInformation.getSnpAlteredSequenceNames().get(alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(),
 								alteredSequence);
 						alteredSequenceCount++;
 					}					

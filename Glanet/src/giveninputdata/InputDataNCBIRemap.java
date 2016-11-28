@@ -20,7 +20,7 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Jan 19, 2015
  * @project Glanet
  *
@@ -29,8 +29,10 @@ public class InputDataNCBIRemap {
 
 	final static Logger logger = Logger.getLogger(InputDataNCBIRemap.class);
 
-	public static void readRemapOutputFileWriteProcessedInputFile( String givenInputDataFolder,
-			String remapOutputFile1BasedStartEndInGRCh37p13, String processedFile0BasedStartEndInGRCh37p13) {
+	public static void readRemapOutputFileWriteProcessedInputFile(
+			String givenInputDataFolder,
+			String remapOutputFile1BasedStartEndInGRCh37p13,
+			String processedFile0BasedStartEndInGRCh37p13) {
 
 		BufferedReader bufferedReader = null;
 		BufferedWriter bufferedWriter = null;
@@ -82,8 +84,10 @@ public class InputDataNCBIRemap {
 	// read inputFileName
 	// write
 	// Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
-	public static void readInputFileFillMapWriteRemapInputFile( String givenInputDataFolder,
-			String inputFile0BasedStartEnd, TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
+	public static void readInputFileFillMapWriteRemapInputFile(
+			String givenInputDataFolder,
+			String inputFile0BasedStartEnd, 
+			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 			String remapInputFileOBasedStartEndExclusive) {
 
 		BufferedReader bufferedReader = null;
@@ -100,10 +104,8 @@ public class InputDataNCBIRemap {
 		int lineNumber = 1;
 
 		try{
-			bufferedReader = new BufferedReader(
-					FileOperations.createFileReader( givenInputDataFolder + inputFile0BasedStartEnd));
-			bufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( givenInputDataFolder + remapInputFileOBasedStartEndExclusive));
+			bufferedReader = new BufferedReader(FileOperations.createFileReader( givenInputDataFolder + inputFile0BasedStartEnd));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( givenInputDataFolder + remapInputFileOBasedStartEndExclusive));
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 
@@ -115,8 +117,7 @@ public class InputDataNCBIRemap {
 				end0BasedExclusive = end0Based + 1;
 
 				bufferedWriter.write( strLine.substring( 0, indexoFirstTab) + "\t" + start0Based + "\t" + end0BasedExclusive + System.getProperty( "line.separator"));
-				lineNumber2SourceGenomicLociMap.put( lineNumber++,
-						strLine.substring( 0, indexoFirstTab) + "\t" + start0Based + "\t" + end0BasedExclusive);
+				lineNumber2SourceGenomicLociMap.put( lineNumber++,strLine.substring( 0, indexoFirstTab) + "\t" + start0Based + "\t" + end0BasedExclusive);
 
 			}// End of WHILE
 
