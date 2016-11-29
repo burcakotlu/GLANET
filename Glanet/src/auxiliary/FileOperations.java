@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+
 import ui.GlanetRunner;
 import common.Commons;
 import enumtypes.ChromosomeName;
@@ -859,7 +861,8 @@ public class FileOperations {
 
 	}
 
-	public static void createChromBaseSearchInputFiles( String outputFolder,
+	public static void createChromBaseSearchInputFiles( 
+			String outputFolder,
 			TIntObjectMap<FileWriter> chrNumber2FileWriterMap, TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
 
 		try{
@@ -877,6 +880,96 @@ public class FileOperations {
 
 		}catch( IOException e){
 			e.printStackTrace();
+		}
+	}
+	
+	
+	public static void writeChromBaseSearchInputFile(
+			ChromosomeName chromName, 
+			String strLine,
+			TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
+
+		try{
+			chrNumber2BufferedWriterMap.get(chromName.getChromosomeName()).write(strLine + System.getProperty("line.separator"));
+		}catch(IOException e){
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
+		}
+	}
+	
+	public static void closeBufferedWriterList(
+			TIntObjectMap<FileWriter> chrNumber2FileWriterMap,
+			TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
+
+		BufferedWriter bufferedWriter = null;
+		FileWriter fileWriter = null;
+
+		try{
+
+			for( ChromosomeName chrName : ChromosomeName.values()){
+
+				bufferedWriter = chrNumber2BufferedWriterMap.get(chrName.getChromosomeName());
+				fileWriter = chrNumber2FileWriterMap.get(chrName.getChromosomeName());
+
+				// Close BufferedWriter and FileWriter
+				bufferedWriter.close();
+				fileWriter.close();
+
+			}// End of for
+
+		}catch( IOException e){
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}
+	}
+	
+	public static void partitionSearchInputFilePerChromName( 
+			String inputFileName,
+			TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
+
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+
+		String strLine;
+		int indexofFirstTab;
+		int indexofSecondTab;
+		ChromosomeName chromName;
+		int low;
+		int high;
+
+		try{
+			fileReader = FileOperations.createFileReader( inputFileName);
+			bufferedReader = new BufferedReader( fileReader);
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = (indexofFirstTab>-1)?strLine.indexOf('\t',indexofFirstTab+1):-1;
+				
+				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
+				low = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
+				high = Integer.parseInt(strLine.substring(indexofSecondTab+1));
+				
+				//12 NOV 2015
+				//For running BroadEnrich input file
+				//Before there was no condition
+				//if((high-low+1) <= Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
+				//Simply since GLANET Convention is 0BasedStart and 0BasedEndInclusive
+				if((high-low) < Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
+					writeChromBaseSearchInputFile(chromName, strLine, chrNumber2BufferedWriterMap);
+				}
+				
+			} // End of While
+
+		}catch( FileNotFoundException e){
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch( IOException e){
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}
+
+		try{
+			bufferedReader.close();
+			fileReader.close();
+		}catch( IOException e){
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 	}
 

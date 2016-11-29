@@ -335,72 +335,6 @@ public class Annotation {
 		}
 	}
 
-	public void writeChromBaseSearchInputFile(
-			ChromosomeName chromName, 
-			String strLine,
-			TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
-
-		try{
-
-			chrNumber2BufferedWriterMap.get( chromName.getChromosomeName()).write(strLine + System.getProperty( "line.separator"));
-
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}
-	}
-
-	public void partitionSearchInputFilePerChromName( 
-			String inputFileName,
-			TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
-
-		FileReader fileReader = null;
-		BufferedReader bufferedReader = null;
-
-		String strLine;
-		int indexofFirstTab;
-		int indexofSecondTab;
-		ChromosomeName chromName;
-		int low;
-		int high;
-
-		try{
-			fileReader = FileOperations.createFileReader( inputFileName);
-			bufferedReader = new BufferedReader( fileReader);
-
-			while( ( strLine = bufferedReader.readLine()) != null){
-
-				indexofFirstTab = strLine.indexOf( '\t');
-				indexofSecondTab = (indexofFirstTab>-1)?strLine.indexOf('\t',indexofFirstTab+1):-1;
-				
-				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0, indexofFirstTab));
-				low = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
-				high = Integer.parseInt(strLine.substring(indexofSecondTab+1));
-				
-				//12 NOV 2015
-				//For running BroadEnrich input file
-				//Before there was no condition
-				//if((high-low+1) <= Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
-				//Simply since GLANET Convention is 0BasedStart and 0BasedEndInclusive
-				if((high-low) < Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
-					writeChromBaseSearchInputFile( chromName, strLine, chrNumber2BufferedWriterMap);
-				}
-				
-				
-			} // End of While
-
-		}catch( FileNotFoundException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}
-
-		try{
-			bufferedReader.close();
-			fileReader.close();
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}
-	}
 
 	// Generate Interval Tree with numbers for the given cellLines only starts
 	public static IntervalTree generateEncodeDnaseIntervalTreeWithNumbers( BufferedReader bufferedReader,
@@ -2905,7 +2839,7 @@ public class Annotation {
 
 	// Hg19 RefSeq Genes
 	// Annotation Common for EOO and NOOB
-	public void searchGeneWithNumbers( 
+	public static void searchGeneWithNumbers( 
 			String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGeneBufferedWriter,
@@ -9397,7 +9331,7 @@ public class Annotation {
 	}
 	
 	
-	public List<Element> transformMapToCollection( TIntIntMap number2KMap) {
+	public static List<Element> transformMapToCollection( TIntIntMap number2KMap) {
 
 		int key;
 		int value;
@@ -9411,7 +9345,7 @@ public class Annotation {
 			key = it.key();
 			value = it.value();
 
-			element = new Element( key, value);
+			element = new Element(key, value);
 			elementList.add( element);
 
 		}// End of for
@@ -9447,7 +9381,7 @@ public class Annotation {
 	// UserDefined GeneSet Annotation
 	// Gene Annotation
 	// UserDefinedLibrary Annotation
-	public void writeResultsWithNumbers( 
+	public static void writeResultsWithNumbers( 
 			AssociationMeasureType associationMeasureType,
 			TIntIntMap number2KMap, 
 			TIntObjectMap<String> number2NameMap,
@@ -9779,31 +9713,7 @@ public class Annotation {
 		}
 	}
 
-	// @todo ends
 
-	public void closeBufferedWriterList( TIntObjectMap<FileWriter> chrNumber2FileWriterMap,
-			TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap) {
-
-		BufferedWriter bufferedWriter = null;
-		FileWriter fileWriter = null;
-
-		try{
-
-			for( ChromosomeName chrName : ChromosomeName.values()){
-
-				bufferedWriter = chrNumber2BufferedWriterMap.get( chrName.getChromosomeName());
-				fileWriter = chrNumber2FileWriterMap.get( chrName.getChromosomeName());
-
-				// Close BufferedWriter and FileWriter
-				bufferedWriter.close();
-				fileWriter.close();
-
-			}// End of for
-
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}
-	}
 
 	// Annotation In Paralel
 	// with Numbers
@@ -9834,7 +9744,7 @@ public class Annotation {
 	// For Chen Yao Circulation Paper
 	// Hg19 RefSeq Gene
 	// Annotation Common for EOO and NOOB
-	public void searchGeneWithNumbers( 
+	public static void searchGeneWithNumbers( 
 			String dataFolder, 
 			String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
@@ -9890,7 +9800,7 @@ public class Annotation {
 				ucscRefSeqGenesIntervalTree = createUcscRefSeqGenesIntervalTreeWithNumbers( dataFolder, chrName);
 				bufferedReader = FileOperations.createBufferedReader(
 						outputFolder,
-						Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString( chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+						Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 	
 				searchGeneWithNumbers( 
 						outputFolder, 
@@ -10445,9 +10355,12 @@ public class Annotation {
 
 	public static void writeOverlaps(
 			TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2OverlapListMap,
-			int givenIntervalNumber, TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
-			GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode, IntervalName intervalName,
-			NumberofGeneOverlaps geneOverlaps, BufferedWriter bufferedWriter,
+			int givenIntervalNumber, 
+			TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap,
+			GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode, 
+			IntervalName intervalName,
+			NumberofGeneOverlaps geneOverlaps, 
+			BufferedWriter bufferedWriter,
 			TIntObjectMap<String> geneHugoSymbolNumber2NameMap) throws IOException {
 
 		int overlapCount = 0;
@@ -10585,7 +10498,9 @@ public class Annotation {
 
 	}
 
-	public static void writeGeneOverlapAnalysisFile( String outputFolder, String outputFileName,
+	public static void writeGeneOverlapAnalysisFile( 
+			String outputFolder, 
+			String outputFileName,
 			GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode,
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
@@ -11197,10 +11112,10 @@ public class Annotation {
 		FileOperations.createChromBaseSearchInputFiles(outputFolder, chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
 
 		// Partition the input file into 24 chromosome based input files
-		partitionSearchInputFilePerChromName(inputFileName, chrNumber2BufferedWriterMap);
+		FileOperations.partitionSearchInputFilePerChromName(inputFileName, chrNumber2BufferedWriterMap);
 
 		// Close Buffered Writers
-		closeBufferedWriterList(chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
+		FileOperations.closeBufferedWriterList(chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA ends *****************************************/
 		/*****************************************************************************************/

@@ -360,7 +360,6 @@ public class Remap {
 				headerLine,
 				fillMap,
 				sourceAssemblyCoordinates2TargetAssemblyCoordinatesMap);
-
 		
 		// read remap outputfile
 		// write processed file in 1Based start end in target assembly

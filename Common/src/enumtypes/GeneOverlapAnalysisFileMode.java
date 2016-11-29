@@ -4,7 +4,7 @@
 package enumtypes;
 
 /**
- * @author Bur�ak Otlu
+ * @author Burcak Otlu
  * @date Feb 12, 2015
  * @project Common 
  *

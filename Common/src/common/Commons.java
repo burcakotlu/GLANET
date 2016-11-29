@@ -646,6 +646,7 @@ public class Commons {
 	// RSAT
 	public static final String FOR_RSA_SNP_TF_SEQUENCES_MATRICES_DIRECTORY = FOR_RSA + System.getProperty( "file.separator");
 	public static final String REGULATORY_SEQUENCE_ANALYSIS_DIRECTORY = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty( "file.separator");
+	//public static final String GENE_ANNOTATION_FOR_RSA_POST_ANALYSIS_DIRECTORY = "GeneAnnotation" + System.getProperty("file.separator");
 	public static final String RSA_RESULTS_FOR_ALL_ANNOTATED_TFS = "RegulatorySequenceAnalysisResults.txt";
 
 	public static final String RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37 = "Homo_sapiens_ensembl_74_GRCh37";

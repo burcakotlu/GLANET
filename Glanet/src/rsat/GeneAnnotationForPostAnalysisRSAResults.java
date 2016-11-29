@@ -3,8 +3,10 @@
  */
 package rsat;
 
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
+import intervaltree.Interval;
+import intervaltree.IntervalTree;
+import intervaltree.IntervalTreeNode;
+import intervaltree.UcscRefSeqGeneIntervalTreeNodeWithNumbers;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,15 +14,39 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import jaxbxjctool.NCBIEutils;
 import remap.Remap;
+import ui.GlanetRunner;
+import annotation.Annotation;
+import annotation.NumberofGeneOverlaps;
+import annotation.OverlapInformation;
+import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
 import common.Commons;
+import enumtypes.AssociationMeasureType;
+import enumtypes.ChromosomeName;
+import enumtypes.GeneOverlapAnalysisFileMode;
+import enumtypes.GeneSetType;
+import enumtypes.IntervalName;
+import enumtypes.WriteAnnotationFoundOverlapsMode;
+import gnu.trove.iterator.TIntByteIterator;
+import gnu.trove.iterator.TIntIntIterator;
+import gnu.trove.iterator.TIntObjectIterator;
+import gnu.trove.map.TIntByteMap;
+import gnu.trove.map.TIntIntMap;
+import gnu.trove.map.TIntObjectMap;
+import gnu.trove.map.TObjectIntMap;
+import gnu.trove.map.hash.TIntByteHashMap;
+import gnu.trove.map.hash.TIntIntHashMap;
+import gnu.trove.map.hash.TIntObjectHashMap;
+import gnu.trove.map.hash.TObjectIntHashMap;
 
 /**
- * @author Bur蓷k Otlu
+ * @author Bur癟ak Otlu
  * @date Nov 28, 2016
  * @project Glanet 
  *
@@ -52,48 +78,791 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 
 		
 	}
+	
+	public static void writeInputFile(
+			String RSAFolder,
+			String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_Coordinates覺nGRCh37p13_FileName,
+			Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap){
+		
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		int indexofFirstTab = -1;
+		int _0BasedCoordinate_InGRCH37p13 = -1;
+		
+		try {
+			fileWriter = FileOperations.createFileWriter(RSAFolder + PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_Coordinates覺nGRCh37p13_FileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
+			
+			for(String key : _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap.keySet()){
+				
+				indexofFirstTab = key.indexOf("\t");
+				_0BasedCoordinate_InGRCH37p13 = Integer.parseInt(key.substring(indexofFirstTab+1));
+				
+				bufferedWriter.write(key + "\t" + _0BasedCoordinate_InGRCH37p13 + System.getProperty("line.separator"));
+			
+			}//End of FOR
+			
+			
+			//Close
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void fillMaps(
+			Map<String,String> _1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map,
+			Map<String,String> _1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
+			Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap){
+		
+		String key_chrName_Tab_1BasedCoordinate_InLatestAssembly = null;
+		String value_chrName_Tab_1BasedCoordinate_InGRCh37p13 = null;
+		String chrName_Tab_0BasedCoordinate_InGRCh37p13 = null;
+		
+		
+		int indexofFirstTab = -1;
+		int _1BasedCoordinate_InGRCh37p13 = -1;
+		int _0BasedCoordinate_InGRCh37p13 = -1;
+		String chrName = null;
+		
+		
+		for(Map.Entry<String, String> entry: _1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map.entrySet()){
+			
+			key_chrName_Tab_1BasedCoordinate_InLatestAssembly = entry.getKey();
+			value_chrName_Tab_1BasedCoordinate_InGRCh37p13 = entry.getValue();
+			
+			indexofFirstTab = value_chrName_Tab_1BasedCoordinate_InGRCh37p13.indexOf("\t");
+			
+			chrName = value_chrName_Tab_1BasedCoordinate_InGRCh37p13.substring(0,indexofFirstTab);
+			_1BasedCoordinate_InGRCh37p13 = Integer.parseInt(value_chrName_Tab_1BasedCoordinate_InGRCh37p13.substring(indexofFirstTab+1));
+			
+			_0BasedCoordinate_InGRCh37p13 = _1BasedCoordinate_InGRCh37p13 - 1 ;
+			
+			chrName_Tab_0BasedCoordinate_InGRCh37p13 = chrName + "\t" + _0BasedCoordinate_InGRCh37p13;
+		
+			//Fill map
+			_1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map.put(key_chrName_Tab_1BasedCoordinate_InLatestAssembly,chrName_Tab_0BasedCoordinate_InGRCh37p13);
+			
+			//Fill map
+			_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap.put(chrName_Tab_0BasedCoordinate_InGRCh37p13, null);
+		}//End of FOR
+		
+		
+		
+	}
+	
+	//Copied from Annotation class
+	// Hg19 RefSeq Genes
+	// Annotation Common for EOO and NOOB
+	public static void searchGeneWithNumbers( 
+			String outputFolder,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			BufferedWriter hg19RefSeqGeneBufferedWriter,
+			TIntByteMap geneEntrezID2HeaderWrittenMap,
+			TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap,
+			TIntByteMap regulationBasedGeneSetNumber2HeaderWrittenMap,
+			TIntByteMap allBasedGeneSetNumber2HeaderWrittenMap, 
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, 
+			ChromosomeName chromName,
+			BufferedReader bufferedReader, 
+			IntervalTree ucscRefSeqGenesIntervalTree, 
+			TIntIntMap geneEntrezID2KMap,
+			int overlapDefinition, 
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
+			AssociationMeasureType associationMeasureType) {
 
-	public static void annotateWithRefSeqGenes(){
+		String strLine = null;
+		int indexofFirstTab = 0;
+		int indexofSecondTab = 0;
+
+		int low;
+		int high;
+
+		String givenIntervalName = null;
+		int givenIntervalNumber = 0;
+
+
+		try{
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+
+				/******************************************/
+				/*********CREATE INTERVAL starts***********/
+				/******************************************/
+				indexofFirstTab = strLine.indexOf( '\t');
+				indexofSecondTab = strLine.indexOf( '\t', indexofFirstTab + 1);
+
+				low = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
+
+				// indexofSecondTab must be greater than zero if it exists since
+				// indexofFirstTab must exists and can be at least zero
+				// therefore indexofSecondTab can be at least one.
+				if( indexofSecondTab > 0)
+					high = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
+				else
+					high = low;
+
+				Interval interval = new Interval( low, high);
+				/******************************************/
+				/*********CREATE INTERVAL ends*************/
+				/******************************************/
+
+				/***************************************************************************************/
+				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****starts ***************/
+				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****starts ******************/
+				/***************************************************************************************/
+				givenIntervalName = chromName.convertEnumtoString() + "_" + low + "_" + high;
+
+				if( !givenIntervalNumber2GivenIntervalNameMap.containsValue(givenIntervalName)){
+
+					// Set Given Interval Number
+					givenIntervalNumber = givenIntervalNumber2GivenIntervalNameMap.size() + 1;
+
+					givenIntervalNumber2GivenIntervalNameMap.put(givenIntervalNumber, givenIntervalName);
+					chromosomeName2CountMap.put( chromName, chromosomeName2CountMap.get( chromName) + 1);
+
+				}
+				/***************************************************************************************/
+				/************* GIVEN INTERVAL NUMBER 2 GIVEN INTERVAL NAME MAP****ends *****************/
+				/************* GIVEN INTERVAL NUMBER 2 NUMBEROFOVERLAPS MAP****ends ********************/
+				/***************************************************************************************/
+
+				
+				switch(associationMeasureType){
+				
+					case EXISTENCE_OF_OVERLAP:
+						
+						TIntByteMap geneEntrezID2OneorZeroMap = new TIntByteHashMap();
+						
+						// UCSCRefSeqGenes Search starts here
+						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+						
+							//Annotation of Hg19 RefSeqGenes EOO
+							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( 
+									outputFolder,
+									writeFoundOverlapsMode,
+									hg19RefSeqGeneBufferedWriter, 
+									givenIntervalNumber,
+									givenIntervalNumber2OverlapInformationMap,
+									geneEntrezID2HeaderWrittenMap,
+									exonBasedGeneSetNumber2HeaderWrittenMap,
+									regulationBasedGeneSetNumber2HeaderWrittenMap,
+									allBasedGeneSetNumber2HeaderWrittenMap, 
+									ucscRefSeqGenesIntervalTree.getRoot(), 
+									interval, 
+									chromName,
+									null, //geneId2ListofGeneSetNumberMap
+									geneEntrezID2OneorZeroMap,
+									null, //exonBasedGeneSet2OneorZeroMap
+									null, //regulationBasedGeneSet2OneorZeroMap
+									null, //allBasedGeneSet2OneorZeroMap
+									Commons.NCBI_GENE_ID,
+									GeneSetType.NO_GENESET_TYPE_IS_DEFINED,
+									null, //mainGeneSetName
+									null, //exonBasedGeneSetOverlapList
+									null, //regulationBasedGeneSetOverlapList
+									null, //allBasedGeneSetOverlapList
+									overlapDefinition,
+									null, //geneSetNumber2GeneSetNameMap
+									geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+									refSeqGeneNumber2RefSeqGeneNameMap);
+							
+						}
+						
+
+						// accumulate search results
+						for( TIntByteIterator it = geneEntrezID2OneorZeroMap.iterator(); it.hasNext();){
+							it.advance();
+
+							if( !geneEntrezID2KMap.containsKey( it.key())){
+								geneEntrezID2KMap.put( it.key(), it.value());
+							}else{
+								geneEntrezID2KMap.put( it.key(), geneEntrezID2KMap.get( it.key()) + it.value());
+							}
+
+						}// End of FOR
+
+						// After accumulation set to null
+						geneEntrezID2OneorZeroMap = null;
+						break;
+						
+					case NUMBER_OF_OVERLAPPING_BASES:
+						
+						TIntObjectMap<List<IntervalTreeNode>> geneEntrezID2OverlappingNodeListMap = new TIntObjectHashMap<List<IntervalTreeNode>>();
+						TIntObjectMap<IntervalTree> geneEntrezID2IntervalTreeWithNonOverlappingNodesMap = new TIntObjectHashMap<IntervalTree>();
+						TIntIntMap geneEntrezID2NumberofOverlappingBasesMap = new TIntIntHashMap();
+
+						if( ucscRefSeqGenesIntervalTree.getRoot().getNodeName().isNotSentinel()){
+							
+							//Step1: Get all the overlappingIntervals with the inputLine
+							ucscRefSeqGenesIntervalTree.findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+									outputFolder,
+									ucscRefSeqGenesIntervalTree.getRoot(), 
+									interval, 
+									chromName,
+									null,
+									geneEntrezID2OverlappingNodeListMap,
+									null,
+									null,
+									null,
+									Commons.NCBI_GENE_ID,
+									GeneSetType.NO_GENESET_TYPE_IS_DEFINED,
+									null,
+									givenIntervalNumber,
+									givenIntervalNumber2OverlapInformationMap,
+									hg19RefSeqGeneBufferedWriter,
+									writeFoundOverlapsMode,
+									geneEntrezID2HeaderWrittenMap,
+									exonBasedGeneSetNumber2HeaderWrittenMap,
+									regulationBasedGeneSetNumber2HeaderWrittenMap,
+									allBasedGeneSetNumber2HeaderWrittenMap, 
+									null,
+									geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+									refSeqGeneNumber2RefSeqGeneNameMap);
+							
+							
+							//Step2: Construct an intervalTree from the overlappingIntervals found in step1 such that there are no overlapping nodes in the tree 
+							IntervalTree.constructAnIntervalTreeWithNonOverlappingNodes(
+										geneEntrezID2OverlappingNodeListMap, 
+										geneEntrezID2IntervalTreeWithNonOverlappingNodesMap);
+								
+
+							
+							//Step3: Calculate the numberofOverlappingBases by overlapping the inputLine with the nodes in intervalTree
+							//And fill permutationNumberHistoneNumberCellLineNumber2NumberofOverlappingBasesMap
+							IntervalTree.findNumberofOverlappingBases(
+											interval,
+											geneEntrezID2IntervalTreeWithNonOverlappingNodesMap, 
+											geneEntrezID2NumberofOverlappingBasesMap);
+								
+							
+						}//End of IF intervalTree root node is NOT SENTINEL
+						
+						// Accumulate
+						for( TIntIntIterator it = geneEntrezID2NumberofOverlappingBasesMap.iterator(); it.hasNext();){
+							it.advance();
+
+							if( !geneEntrezID2KMap.containsKey( it.key())){
+								geneEntrezID2KMap.put( it.key(), it.value());
+							}else{
+								geneEntrezID2KMap.put( it.key(), geneEntrezID2KMap.get( it.key()) + it.value());
+							}
+
+						}// End of FOR
+
+						// After accumulation
+						// Free space
+						geneEntrezID2OverlappingNodeListMap = null;
+						geneEntrezID2IntervalTreeWithNonOverlappingNodesMap = null;
+						geneEntrezID2NumberofOverlappingBasesMap = null;
+						break;
+				
+				}//End of switch
+
+
+			}// End of WHILE
+
+
+		}catch( NumberFormatException e){
+			//TODO
+			//if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch( IOException e){
+			//TODO
+			//if( GlanetRunner.shouldLog())logger.error( e.toString());
+		} // End of while
+	}
+	
+	//Copied from Annotation Class
+	// For Chen Yao Circulation Paper
+	// Hg19 RefSeq Gene
+	// Annotation Common for EOO and NOOB
+	public static void searchGeneWithNumbers( 
+			String dataFolder, 
+			String outputFolder,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, 
+			TIntIntMap geneEntrezID2KMap, 
+			int overlapDefinition,
+			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
+			TIntObjectMap<String> refSeqGeneNumber2RefSeqGeneNameMap,
+			AssociationMeasureType associationMeasureType) {
+
+		BufferedReader bufferedReader = null;
+
+		IntervalTree ucscRefSeqGenesIntervalTree;
 		
-		//Left here
+		TIntByteMap geneEntrezID2HeaderWrittenMap = new TIntByteHashMap();
+		TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
+		TIntByteMap regulationBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
+		TIntByteMap allBasedGeneSetNumber2HeaderWrittenMap = new TIntByteHashMap();
 		
+		
+		
+		FileWriter hg19RefSeqGeneFileWriter = null;
+		BufferedWriter hg19RefSeqGeneBufferedWriter = null;
+
+		try{
+
+			//Do we need it really?
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+
+				if( hg19RefSeqGeneBufferedWriter == null){
+					
+					hg19RefSeqGeneFileWriter = FileOperations.createFileWriter(
+							outputFolder + Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.ANALYSIS_DIRECTORY +  Commons.HG19_REFSEQ_GENE + ".txt",
+							true);
+					hg19RefSeqGeneBufferedWriter = new BufferedWriter(hg19RefSeqGeneFileWriter);
+					
+					//Header Line
+					hg19RefSeqGeneBufferedWriter.write("#SearchedForChr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
+							"Hg19 RefSeqGene Chr" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
+							"Gene RNANucleotideAccession" + "\t" + "GeneIntervalName" + "\t" + "GeneIntervalNumber" + "\t" + 
+							"GeneHugoSymbol" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+
+				}//End of IF
+
+			}// End of IF
+			
+		
+			// For each ChromosomeName
+			for( ChromosomeName chrName : ChromosomeName.values()){
+	
+				ucscRefSeqGenesIntervalTree = Annotation.createUcscRefSeqGenesIntervalTreeWithNumbers(dataFolder, chrName);
+				bufferedReader = FileOperations.createBufferedReader(
+						outputFolder,
+						Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
+	
+				searchGeneWithNumbers( 
+						outputFolder, 
+						writeFoundOverlapsMode,
+						hg19RefSeqGeneBufferedWriter,
+						geneEntrezID2HeaderWrittenMap,
+						exonBasedGeneSetNumber2HeaderWrittenMap,
+						regulationBasedGeneSetNumber2HeaderWrittenMap,
+						allBasedGeneSetNumber2HeaderWrittenMap, 
+						givenIntervalNumber2GivenIntervalNameMap, 
+						givenIntervalNumber2OverlapInformationMap,
+						chromosomeName2CountMap, 
+						chrName, 
+						bufferedReader, 
+						ucscRefSeqGenesIntervalTree, 
+						geneEntrezID2KMap,
+						overlapDefinition, 
+						geneHugoSymbolNumber2GeneHugoSymbolNameMap, 
+						refSeqGeneNumber2RefSeqGeneNameMap,
+						associationMeasureType);
+	
+				ucscRefSeqGenesIntervalTree = null;
+	
+				System.gc();
+				System.runFinalization();
+				
+				bufferedReader.close();
+			
+			}//End of FOR each chromosomeName
+
+			//Close
+			if (hg19RefSeqGeneBufferedWriter!=null){
+			 	hg19RefSeqGeneBufferedWriter.close();
+			}
+			
+		}catch( IOException e){
+				//TODO
+				//if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}
+
+		
+		
+		//Free space
+		geneEntrezID2HeaderWrittenMap = null;
+		exonBasedGeneSetNumber2HeaderWrittenMap = null;
+		regulationBasedGeneSetNumber2HeaderWrittenMap = null;
+		allBasedGeneSetNumber2HeaderWrittenMap = null; 
+
+	}
+	
+	
+	
+	public static String writeOverlaps(
+			TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2OverlapListMap,
+			int givenIntervalNumber, 
+			IntervalName intervalName,
+			TIntObjectMap<String> geneHugoSymbolNumber2NameMap) throws IOException {
+
+		int overlapCount = 0;
+		String overlapStringInformation = "";
+
+		List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList = null;
+		UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode = null;
+
+		// Accumulate overlapCount and overlapStringInformation for each geneID
+		// For each geneId
+		// Iterate Over Map
+		for( TIntObjectIterator<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> it1 = geneId2OverlapListMap.iterator(); it1.hasNext();){
+			it1.advance();
+
+			overlapList = it1.value();
+
+			overlapCount = overlapCount + overlapList.size();
+
+			// For each overlap
+			// Iterate Over List
+			for( Iterator<UcscRefSeqGeneIntervalTreeNodeWithNumbers> it2 = overlapList.iterator(); it2.hasNext();){
+
+				overlapNode = it2.next();
+
+				switch( overlapNode.getIntervalName()){
+
+				// Write IntervalNumber
+				case EXON:
+				case INTRON:
+					overlapStringInformation = overlapStringInformation + "[" + overlapNode.getGeneEntrezId() + "_" + geneHugoSymbolNumber2NameMap.get( overlapNode.getGeneHugoSymbolNumber()) + "_" + overlapNode.getIntervalName().convertEnumtoString() + "_" + overlapNode.getIntervalNumber() + "] ";
+
+					break;
+
+				// Do Not Write IntervalNumber
+				case FIVE_P_ONE:
+				case FIVE_P_TWO:
+				case FIVE_D:
+				case THREE_P_ONE:
+				case THREE_P_TWO:
+				case THREE_D:
+					overlapStringInformation = overlapStringInformation + "[" + overlapNode.getGeneEntrezId() + "_" + geneHugoSymbolNumber2NameMap.get( overlapNode.getGeneHugoSymbolNumber()) + "_" + overlapNode.getIntervalName().convertEnumtoString() + "] ";
+
+					break;
+
+				}// End of Switch
+
+			}// End of For: each Overlap
+
+		}// End of For: each geneID
+
+		return overlapStringInformation;
+	}
+	
+	
+	public static void fill(
+			Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap,
+			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
+			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
+			TIntObjectMap<String> geneHugoSymbolNumber2NameMap){
+		
+		int givenIntervalNumber = -1;
+		String givenIntervalName = null;
+		
+		OverlapInformation overlapInformation = null;
+		TIntObjectMap<List<UcscRefSeqGeneIntervalTreeNodeWithNumbers>> geneId2OverlapListMap = null;
+		
+		
+		int  indexofFirstUnderscore = -1;
+		int  indexofSecondUnderscore = -1;
+		String chrName_0BasedStartInGRCh37p13 = null;
+		String chrNameTab0BasedStartInGRCh37p13 =null;
+		
+		String overlapStringInformation = "";
+		
+		
+		for( int i = 1; i <= givenIntervalNumber2GivenIntervalNameMap.size(); i++){
+
+			givenIntervalNumber = i;
+			
+			//initialize
+			overlapStringInformation = "";
+
+			//example chr1_55352821_55352821
+			givenIntervalName = givenIntervalNumber2GivenIntervalNameMap.get(givenIntervalNumber);
+			
+			indexofFirstUnderscore = givenIntervalName.indexOf("_");
+			indexofSecondUnderscore = givenIntervalName.indexOf("_",indexofFirstUnderscore+1);
+			chrName_0BasedStartInGRCh37p13 = givenIntervalName.substring(0, indexofSecondUnderscore);
+			chrNameTab0BasedStartInGRCh37p13 = chrName_0BasedStartInGRCh37p13.replace('_', '\t');
+			
+			
+
+			overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
+
+			
+			if( overlapInformation != null){
+
+				try {
+					/***************************************************************/
+					/*********** geneId 2 ExonOverlapsList Map starts ****************/
+					/***************************************************************/
+					// geneId2ExonOverlapsListMap
+					geneId2OverlapListMap = overlapInformation.getGeneId2ExonOverlapListMap();
+	
+					// Write Number of Exon Overlaps
+					
+					overlapStringInformation =	overlapStringInformation + writeOverlaps(
+								geneId2OverlapListMap, 
+								givenIntervalNumber,
+								IntervalName.EXON, 
+								geneHugoSymbolNumber2NameMap);
+					
+					/***************************************************************/
+					/*********** geneId 2 ExonOverlapsList Map ends ******************/
+					/***************************************************************/
+	
+					/***************************************************************/
+					/*********** geneId 2 IntronOverlapsList Map starts **************/
+					/***************************************************************/
+					// geneId2IntronOverlapsListMap
+					geneId2OverlapListMap = overlapInformation.getGeneId2IntronOverlapListMap();
+	
+					// Write Number of Intron Overlaps
+					overlapStringInformation = overlapStringInformation + writeOverlaps(
+							geneId2OverlapListMap, 
+							givenIntervalNumber,
+							IntervalName.INTRON, 
+							geneHugoSymbolNumber2NameMap);
+					/***************************************************************/
+					/*********** geneId 2 IntronOverlapsList Map ends ****************/
+					/***************************************************************/
+	
+					/***************************************************************/
+					/*********** geneId 2 Fivep1OverlapsList Map starts **************/
+					/***************************************************************/
+					geneId2OverlapListMap = overlapInformation.getGeneId2Fivep1OverlapListMap();
+	
+					overlapStringInformation = overlapStringInformation + writeOverlaps(
+							geneId2OverlapListMap, 
+							givenIntervalNumber,
+							IntervalName.FIVE_P_ONE, 
+							geneHugoSymbolNumber2NameMap);
+					/***************************************************************/
+					/*********** geneId 2 Fivep1OverlapsList Map ends ****************/
+					/***************************************************************/
+	
+					/***************************************************************/
+					/*********** geneId 2 Fivep2OverlapsList Map starts **************/
+					/***************************************************************/
+					geneId2OverlapListMap = overlapInformation.getGeneId2Fivep2OverlapListMap();
+	
+					overlapStringInformation = overlapStringInformation + writeOverlaps(
+							geneId2OverlapListMap, 
+							givenIntervalNumber,
+							IntervalName.FIVE_P_TWO, 
+							geneHugoSymbolNumber2NameMap);
+					/***************************************************************/
+					/*********** geneId 2 Fivep2OverlapsList Map ends ****************/
+					/***************************************************************/
+	
+					/***************************************************************/
+					/*********** geneId 2 FivedOverlapsList Map starts **************/
+					/***************************************************************/
+					geneId2OverlapListMap = overlapInformation.getGeneId2FivedOverlapListMap();
+	
+					overlapStringInformation = overlapStringInformation + writeOverlaps(
+							geneId2OverlapListMap, 
+							givenIntervalNumber,
+							IntervalName.FIVE_D, 
+							geneHugoSymbolNumber2NameMap);
+					/***************************************************************/
+					/*********** geneId 2 FivedOverlapsList Map ends ****************/
+					/***************************************************************/
+	
+					/***************************************************************/
+					/*********** geneId 2 Threep1OverlapsList Map starts *************/
+					/***************************************************************/
+					geneId2OverlapListMap = overlapInformation.getGeneId2Threep1OverlapListMap();
+	
+					overlapStringInformation = overlapStringInformation + writeOverlaps(
+							geneId2OverlapListMap, 
+							givenIntervalNumber,
+							IntervalName.THREE_P_ONE, 
+							geneHugoSymbolNumber2NameMap);
+					/***************************************************************/
+					/*********** geneId 2 Threep1OverlapsList Map ends ***************/
+					/***************************************************************/
+	
+					/***************************************************************/
+					/*********** geneId 2 Threep2OverlapsList Map starts *************/
+					/***************************************************************/
+					geneId2OverlapListMap = overlapInformation.getGeneId2Threep2OverlapListMap();
+	
+					overlapStringInformation = overlapStringInformation + writeOverlaps(
+							geneId2OverlapListMap, 
+							givenIntervalNumber,
+							IntervalName.THREE_P_TWO, 
+							geneHugoSymbolNumber2NameMap);
+					/***************************************************************/
+					/*********** geneId 2 Threep2OverlapsList Map ends ***************/
+					/***************************************************************/
+	
+					/***************************************************************/
+					/*********** geneId 2 ThreedOverlapsList Map starts **************/
+					/***************************************************************/
+					geneId2OverlapListMap = overlapInformation.getGeneId2ThreedOverlapListMap();
+	
+					overlapStringInformation = overlapStringInformation + writeOverlaps(
+							geneId2OverlapListMap, 
+							givenIntervalNumber,
+							IntervalName.THREE_D, 
+							geneHugoSymbolNumber2NameMap);
+					
+					/***************************************************************/
+					/*********** geneId 2 ThreedOverlapsList Map ends ****************/
+					/***************************************************************/
+		
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}// End of IF: overlapInformation is not null
+			
+			if (_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap.containsKey(chrNameTab0BasedStartInGRCh37p13)){
+				_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap.put(chrNameTab0BasedStartInGRCh37p13,overlapStringInformation);
+			}
+			
+		}// End of FOR: each given interval
+
+		
+	}
+	
+
+
+	public static void annotateInputFileWithRefSeqGenes(
+			String dataFolder,
+			String RSAFolder,
+			String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_Coordinates覺nGRCh37p13_FileName,
+			Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode){
+		
+		//Assume that it is written
+		//We have to write the _0BasedCoordinates in GRCh37.p13 into a file 
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA starts ***************************************/
 		/*****************************************************************************************/
-		inputFileName = givenInputDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13;
+		String inputFileName = RSAFolder +  PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_Coordinates覺nGRCh37p13_FileName;
 
 		TIntObjectMap<FileWriter> chrNumber2FileWriterMap = new TIntObjectHashMap<FileWriter>();
 		TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap = new TIntObjectHashMap<BufferedWriter>();
 
 		// Prepare chromosome based partitioned input interval files to be searched for
 		// Create Buffered Writers for writing chromosome based input files
-		FileOperations.createChromBaseSearchInputFiles(outputFolder, chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
+		FileOperations.createChromBaseSearchInputFiles(RSAFolder, chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
 
 		// Partition the input file into 24 chromosome based input files
-		partitionSearchInputFilePerChromName(inputFileName, chrNumber2BufferedWriterMap);
+		FileOperations.partitionSearchInputFilePerChromName(inputFileName, chrNumber2BufferedWriterMap);
 
 		// Close Buffered Writers
-		closeBufferedWriterList(chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
+		FileOperations.closeBufferedWriterList(chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA ends *****************************************/
 		/*****************************************************************************************/
+		
+		
+//		GlanetRunner.appendLog("**********************************************************");
+//		GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis starts: " + new Date());
+		
+		AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
+		int overlapDefinition = 1;
+		
+		
+		TIntObjectMap<String> geneHugoSymbolNumber2NameMap = new TIntObjectHashMap<String>();
+		TIntObjectMap<String> refSeqRNANucleotideAccessionNumber2NameMap = new TIntObjectHashMap<String>();
+		TIntObjectMap<String> geneEntrezId2GeneOfficialSymbolMap = new TIntObjectHashMap<String>();
+		
+		FileOperations.fillNumber2NameMap(
+				geneHugoSymbolNumber2NameMap,
+				dataFolder,
+				Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_GENESYMBOL_NUMBER_2_NAME_OUTPUT_FILENAME);
+		FileOperations.fillNumber2NameMap(
+				refSeqRNANucleotideAccessionNumber2NameMap,
+				dataFolder,
+				Commons.ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_UCSCGENOME_HG19_REFSEQ_GENES_RNANUCLEOTIDEACCESSION_NUMBER_2_NAME_OUTPUT_FILENAME);
+
+		HumanGenesAugmentation.fillGeneId2GeneHugoSymbolMap(
+				dataFolder, 
+				geneEntrezId2GeneOfficialSymbolMap);
+
+		
+		// Hg19 RefSeq Genes
+		// For Encode Collaboration Chen Yao Circulation Paper
+		TIntIntMap geneEntrezID2KMap = new TIntIntHashMap();
+		// 10 February 2015
+		TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap = new TIntObjectHashMap<String>();
+		TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap = new TIntObjectHashMap<OverlapInformation>();
+		TIntIntMap givenIntervalNumber2NumberofGeneOverlapsMap = new TIntIntHashMap();
+		// 13 February 2015
+		TObjectIntMap<ChromosomeName> chromosomeName2CountMap = new TObjectIntHashMap<ChromosomeName>();
+
+		Annotation.searchGeneWithNumbers(
+				dataFolder, 
+				RSAFolder, 
+				writeFoundOverlapsMode,
+				givenIntervalNumber2GivenIntervalNameMap, 
+				givenIntervalNumber2OverlapInformationMap,
+				chromosomeName2CountMap, 
+				geneEntrezID2KMap, 
+				overlapDefinition, 
+				geneHugoSymbolNumber2NameMap,
+				refSeqRNANucleotideAccessionNumber2NameMap,
+				associationMeasureType);
+
+		GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
+		
+		//TODO
+		//Fill this map _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
+		fill(_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap,
+			givenIntervalNumber2GivenIntervalNameMap,
+			givenIntervalNumber2OverlapInformationMap,
+			geneHugoSymbolNumber2NameMap);
+
+		Annotation.writeGeneOverlapAnalysisFile( 
+				RSAFolder,
+				Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.ANALYSIS_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
+				geneOverlapAnalysisFileMode, 
+				givenIntervalNumber2GivenIntervalNameMap,
+				givenIntervalNumber2OverlapInformationMap, 
+				givenIntervalNumber2NumberofGeneOverlapsMap,
+				chromosomeName2CountMap, 
+				geneHugoSymbolNumber2NameMap);
+
+		Annotation.writeResultsWithNumbers( 
+				associationMeasureType,
+				geneEntrezID2KMap, 
+				geneEntrezId2GeneOfficialSymbolMap, 
+				RSAFolder,
+				Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+		
+		
+//		GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis ends: " + new Date());
+//		GlanetRunner.appendLog("**********************************************************");
+
+		geneEntrezID2KMap = null;
 		
 	}
 
 	public static void readPostAnalysisRSAResults(
 			String dataFolder,
 			String outputFolder,
-			String inputOutputDataFolder,
-			String RSAPostAnalysisFileName){
+			String RSAFolder,
+			String RSAPostAnalysisFileName,
+			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
 		
+		//First outputFile in 1Based Coordinates in LatestAssembly using rsa post analysis file
 		FileWriter fileWriter = null;
 		String PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly_FileName = "PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly.txt";
 		BufferedWriter bufferedWriter = null;
 		
+		//Second outputFile in 1Based Coordinates in GRCh37.p13 using remap report or excel files
 		String PostAnalysis_RSA_chrName_1BasedCoordinateGRCh37p13_FileName = "PostAnalysis_RSA_chrName_1BasedCoordinateInGRCh37p13.txt";
+
+		//Third outputFile in 0Based Coordinates in GRCh37.p13 using my map no duplicates
+		String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_Coordinates覺nGRCh37p13_FileName = "PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinateInGRCh37p13.txt";		
 		
 		String strLine = null;
 		int indexofFirstTab = -1;
@@ -106,7 +875,10 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 		int _1BasedCoordinateInLatestAssemly = -1;
 		
 		Map<String,String> _1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map = new HashMap<String,String>();
-		String key_chrName_1BasedCoordinate_latestAssembly = null;
+		Map<String,String> _1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map = new HashMap<String,String>();
+		Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap = new HashMap<String,String>();
+		
+		String key_chrName_1BasedCoordinateInLatestAssembly = null;
 		
 		//example lines
 //		Interesting Finding Number	Chr_Position_rsID_TF	SNP Effect	p_Ref	p_SNP	p_TFExtended
@@ -114,10 +886,10 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 //		2	chr10_110567718_rs148267784_SP1	 SNP has a worse match (disrupting effect).	9.5E-7	5.6E-6	9.5E-7
 		
 		try {
-			fileReader = FileOperations.createFileReader(inputOutputDataFolder + RSAPostAnalysisFileName);		
+			fileReader = FileOperations.createFileReader(RSAFolder + RSAPostAnalysisFileName);		
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(inputOutputDataFolder +  PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly_FileName);
+			fileWriter = FileOperations.createFileWriter(RSAFolder +  PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly_FileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 						
 			//Skip header line
@@ -136,14 +908,14 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 				chrName = chrName_1BasedCoordinateInLatestAssemly_rsID_TF.substring(0, indexofFirstUnderScore);
 				_1BasedCoordinateInLatestAssemly = Integer.parseInt(chrName_1BasedCoordinateInLatestAssemly_rsID_TF.substring(indexofFirstUnderScore+1,indexofSecondUnderScore));
 				
-				key_chrName_1BasedCoordinate_latestAssembly = new String(chrName + "\t" + _1BasedCoordinateInLatestAssemly);
+				key_chrName_1BasedCoordinateInLatestAssembly = new String(chrName + "\t" + _1BasedCoordinateInLatestAssemly);
 				
-				if (!_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map.containsKey(key_chrName_1BasedCoordinate_latestAssembly)){
-					_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map.put(key_chrName_1BasedCoordinate_latestAssembly,null);
+				//Do not write duplicates.
+				if (!_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map.containsKey(key_chrName_1BasedCoordinateInLatestAssembly)){
+					_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map.put(key_chrName_1BasedCoordinateInLatestAssembly,null);
 					
-					//Which ones to write?
-					//Do not write duplicates.
 					bufferedWriter.write(chrName + "\t" + _1BasedCoordinateInLatestAssemly + System.getProperty("line.separator"));
+					
 				}//End of IF
 				
 				
@@ -155,9 +927,10 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 			
 			
 			//Downlift to GRCh37.p13
+			//_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map does not contain any duplicates
 			convert_FromLatestAssembly_ToGRCh37p13(
 					dataFolder,
-					inputOutputDataFolder,
+					RSAFolder,
 					PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly_FileName,
 					PostAnalysis_RSA_chrName_1BasedCoordinateGRCh37p13_FileName,
 					true,
@@ -165,9 +938,29 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 			
 		
 			
+			
+			//_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map is full
+			//Rest of the maps are initialized. But they will be filled.
+			//Fill _1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map
+			//Fill _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
+			fillMaps(_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map,
+				_1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
+				_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
+			
+			//Write input file using keys in _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
+			writeInputFile(
+					RSAFolder,
+					PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_Coordinates覺nGRCh37p13_FileName,
+					_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
+			
 			//gene annotation starts
-			//Annotate with genes			
-			annotateWithRefSeqGenes(_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map.values());
+			//Annotate with genes
+			annotateInputFileWithRefSeqGenes(
+					dataFolder,
+					RSAFolder,
+					PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_Coordinates覺nGRCh37p13_FileName,
+					_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap,
+					writeFoundOverlapsMode);
 			
 			
 
@@ -199,26 +992,30 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 //		//String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 //		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
+//		WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
+
+		
 		//For Debug delete later
-		String dataFolder = "C:\\Users\\Bur蓷k\\Google Drive\\Data\\";
-		String outputFolder = "C:\\Users\\Bur蓷k\\Google Drive\\Output\\rsa_lgmd\\";
-		String inputOutputDataFolder = "C:\\Users\\Bur蓷k\\Google Drive\\Output\\rsa_lgmd\\RegulatorySequenceAnalysis\\";
+		String dataFolder = "C:\\Users\\Bur癟ak\\Google Drive\\Data\\";
+		String outputFolder = "C:\\Users\\Bur癟ak\\Google Drive\\Output\\rsa_lgmd\\";
+		String RSAFolder = outputFolder + "RegulatorySequenceAnalysis" + System.getProperty("file.separator");		
+		WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.DO_NOT_WRITE_OVERLAPS_AT_ALL;
 		//For Debug delete later
 
 		
 		//Read Post Analysis Data
-		//Pay attention that post analysis data in latest assembly return by NCBI eutils
+		//Pay attention that post analysis data is in latest assembly return by NCBI eutils
 		//Down lift to GRCh37.p13
+		//Overlap with genes
+		//Annotate with Genes		
+		//Write the Gene Annotated Post Analysis of RSA Results
 		readPostAnalysisRSAResults(
 				dataFolder,
 				outputFolder,
-				inputOutputDataFolder, 
-				Commons.RSAPostAnalysisFileName);
+				RSAFolder, 
+				Commons.RSAPostAnalysisFileName,
+				writeFoundOverlapsMode);
 		
-		//Overlap with genes
-		//Annotate with Genes
-		
-		//Write the Gene Annotated Post Analysis of RS 
 
 	}
 
