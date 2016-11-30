@@ -47,6 +47,7 @@ public class Commons {
 	
 	public static final String RSAFileName = "RegulatorySequenceAnalysisResults.txt";
 	public static final String RSAPostAnalysisFileName = "PostAnalysisofRegulatorySequenceAnalysisResults.txt";
+	public static final String RSAPostAnalysisAugmentedWithGeneAnnotationsFileName = "PostAnalysisofRegulatorySequenceAnalysisResults_AugmentedWithGeneAnnotations.txt";
 	
 	
 	public static final String NCBI_REMAP_HOMO_SAPIENS = "Homo sapiens";
