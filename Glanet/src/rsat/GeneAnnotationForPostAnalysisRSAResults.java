@@ -5,6 +5,7 @@ package rsat;
 
 import enumtypes.AssociationMeasureType;
 import enumtypes.ChromosomeName;
+import enumtypes.CommandLineArguments;
 import enumtypes.GeneOverlapAnalysisFileMode;
 import enumtypes.IntervalName;
 import enumtypes.WriteAnnotationFoundOverlapsMode;
@@ -22,6 +23,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +34,7 @@ import jaxbxjctool.NCBIEutils;
 import org.apache.log4j.Logger;
 
 import remap.Remap;
+import ui.GlanetRunner;
 import annotation.Annotation;
 import annotation.OverlapInformation;
 import augmentation.humangenes.HumanGenesAugmentation;
@@ -505,8 +508,8 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 		/*****************************************************************************************/
 		
 		
-//		GlanetRunner.appendLog("**********************************************************");
-//		GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis starts: " + new Date());
+		GlanetRunner.appendLog("**********************************************************");
+		GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis starts: " + new Date());
 		
 		AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
 		int overlapDefinition = 1;
@@ -583,8 +586,8 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 				Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 		
 		
-//		GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis ends: " + new Date());
-//		GlanetRunner.appendLog("**********************************************************");
+		GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis ends: " + new Date());
+		GlanetRunner.appendLog("**********************************************************");
 
 		geneEntrezID2KMap = null;
 		
@@ -687,9 +690,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 					PostAnalysis_RSA_chrName_1BasedCoordinateGRCh37p13_FileName,
 					true,
 					_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map);
-			
-		
-			
+					
 			
 			//_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map is full
 			//Rest of the maps are initialized. But they will be filled now.
@@ -727,26 +728,26 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 	
 	public static void main(String[] args) {
 		
-//		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-//
-//		// jobName starts
-//		String jobName = args[CommandLineArguments.JobName.value()].trim();
-//		if( jobName.isEmpty()){
-//			jobName = Commons.NO_NAME;
-//		}
-//		// jobName ends
-//
-//		//String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-//		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
+		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
+
+		// jobName starts
+		String jobName = args[CommandLineArguments.JobName.value()].trim();
+		if( jobName.isEmpty()){
+			jobName = Commons.NO_NAME;
+		}
+		// jobName ends
+
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
-//		WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
+		WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
 
 		
 		//For Debug delete later
-		String dataFolder = "C:\\Users\\Burçak\\Google Drive\\Data\\";
-		String outputFolder = "C:\\Users\\Burçak\\Google Drive\\Output\\rsa_lgmd\\";
+		//String dataFolder = "C:\\Users\\Burçak\\Google Drive\\Data\\";
+		//String outputFolder = "C:\\Users\\Burçak\\Google Drive\\Output\\rsa_lgmd\\";
 		String RSAFolder = outputFolder + "RegulatorySequenceAnalysis" + System.getProperty("file.separator");		
-		WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.DO_NOT_WRITE_OVERLAPS_AT_ALL;
+		//WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.DO_NOT_WRITE_OVERLAPS_AT_ALL;
 		//For Debug delete later
 
 		
