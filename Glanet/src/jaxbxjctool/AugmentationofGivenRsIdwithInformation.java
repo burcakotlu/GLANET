@@ -146,12 +146,16 @@ public class AugmentationofGivenRsIdwithInformation {
 
 	}
 
-	// 24 Nov 2014
+	//Please prefer getInformationforGivenRsId it never returns invalid rsIDs.
+	// 24 Nov 2014 This method is called internally. 
+	//We call first getInformationforGivenRsIdList with List<String>. 
+	//getInformationforGivenRsIdList with List<String> calls this method: getInformationforGivenRsIdList with String
 	/**
 	 * @param commaSeparatedRsIdList
 	 * @return
 	 */
-	public List<RsInformation> getInformationforGivenRsIdList( String commaSeparatedRsIdList,
+	public List<RsInformation> getInformationforGivenRsIdList(
+			String commaSeparatedRsIdList,
 			NCBIEutilStatistics ncbiEutilStatistics) {
 
 		RsInformation rsInformation;
@@ -360,7 +364,9 @@ public class AugmentationofGivenRsIdwithInformation {
 	// 24 NOV 2014
 
 	// 24 NOV 2014 starts
-	public List<RsInformation> getInformationforGivenRsIdList( List<String> rsIdList,
+	//Please prefer getInformationforGivenRsId it never returns invalid rsIDs.
+	public List<RsInformation> getInformationforGivenRsIdList( 
+			List<String> rsIdList,
 			NCBIEutilStatistics ncbiEutilStatistics) {
 
 		String commaSeparatedRsIdList = null;

@@ -388,25 +388,38 @@ public class CreationofUnsortedChromosomeBasedWithNumbersUCSCGENOMERefSeqGenesFi
 				alternateGeneName = strLine.substring( indexofTwelfthTab + 1, indexofThirteenthTab);
 
 				// For each strLine
-				exonStartList = new TIntArrayList( exonCounts);
-				exonEndList = new TIntArrayList( exonCounts);
+				exonStartList = new TIntArrayList(exonCounts);
+				exonEndList = new TIntArrayList(exonCounts);
 
 				// Initialize before for loop
 				indexofFormerComma = -1;
 				indexofLatterComma = -1;
 
-				// Fill exonStartList and exonEndList
+				// Fill exonStartList
 				for( int i = 0; i < exonCounts; i++){
 					indexofFormerComma = indexofLatterComma;
 					indexofLatterComma = exonStarts.indexOf( ',', indexofFormerComma + 1);
 
-					exonStartList.add( Integer.parseInt( exonStarts.substring( indexofFormerComma + 1,indexofLatterComma)));
+					exonStartList.add(Integer.parseInt(exonStarts.substring( indexofFormerComma + 1,indexofLatterComma)));
+
+				}// End of for: filling exonStartList
+				
+				//Fill exonEndList starts
+				// Initialize before for loop
+				indexofFormerComma = -1;
+				indexofLatterComma = -1;
+
+				// Fill exonEndList
+				for( int i = 0; i < exonCounts; i++){
+					indexofFormerComma = indexofLatterComma;
+					indexofLatterComma = exonEnds.indexOf( ',', indexofFormerComma + 1);
 
 					// 28FEB2014
 					// Convert 1_based_end to 0_based_end
-					exonEndList.add( Integer.parseInt( exonEnds.substring( indexofFormerComma + 1, indexofLatterComma)) - 1);
+					exonEndList.add(Integer.parseInt(exonEnds.substring( indexofFormerComma + 1, indexofLatterComma)) - 1);
 
-				}// End of for: filling exonStartList and exonEndList
+				}// End of for exonEndList
+				//Fill exonEndList ends
 
 				// Get geneID
 				geneID = rnaNucleotideAccession2GeneIDMap.get( refSeqGeneName);

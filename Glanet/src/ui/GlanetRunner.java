@@ -145,20 +145,22 @@ public class GlanetRunner implements Runnable {
 			
 			//debug starts
 			setCurrentProcessInfo("GivenInputDataType: " + args[CommandLineArguments.GivenInputDataType.value()]);
-			//debug ennd
+			//debug end
 
-			if( args[CommandLineArguments.GivenInputDataType.value()].equalsIgnoreCase( Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS) && 
+			if( (args[CommandLineArguments.GivenInputDataType.value()].equalsIgnoreCase(Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS) ||  args[CommandLineArguments.InputFileDataFormat.value()].equalsIgnoreCase(Commons.INPUT_FILE_FORMAT_DBSNP_IDS))&& 
 					!args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equalsIgnoreCase(Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL)){
-
+				
+				
+			
 				/************ Creation of NCBI REMAP Input files starts *************************/
 				/************************* CALL NCBI REMAP API starts ***************************/
 				/************ Creation of NCBI REMAP Output files starts ************************/
-				/**************** Generation of ALL TF Annotations in GRCh38 starts ***************/
-				setCurrentProcessInfo("Generation of All TF  Annotations in GRCh38 using NCBI Remap...");
+				/**************** Generation of ALL TF Annotations in Latest Assembly starts ***************/
+				setCurrentProcessInfo("Generation of All TF Annotations in Latest Assembly (returned by NCBI eutils) using NCBI Remap...");
 
 				GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.main(args);
 
-				/**************** Generation of ALL TF Annotations in GRCh38 ends ****************/
+				/**************** Generation of ALL TF Annotations in Latest Assembly ends ****************/
 				/************ Creation of NCBI REMAP Input files ends **************************/
 				/************************* CALL NCBI REMAP API ends ****************************/
 				/************ Creation of NCBI REMAP Output files ends *************************/

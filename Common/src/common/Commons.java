@@ -1464,6 +1464,7 @@ public class Commons {
 	// + System.getProperty("file.separator") +
 	// "hg19_refseq_genes_1_OCT_2014.txt";
 	public static final String UCSCGENOME_HG19_REFSEQ_GENES_DOWNLOADED_18_NOV_2014 = Commons.FTP + System.getProperty( "file.separator") + Commons.UCSCGENOME + System.getProperty( "file.separator") + "HG19_RefSeqGenes_18_NOV_2014.txt";
+	public static final String UCSCGENOME_HG38_REFSEQ_GENES_DOWNLOADED_2_DEC_2016 = Commons.FTP + System.getProperty( "file.separator") + Commons.UCSCGENOME + System.getProperty( "file.separator") + "HG38_RefSeqGenes_2_DEC_2016.txt";
 
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_DIRECTORYNAME = Commons.BYGLANET + System.getProperty( "file.separator") + "fromCreate" + System.getProperty( "file.separator") + "ucscgenome" + System.getProperty( "file.separator");
 	public static final String ANNOTATE_UCSC_ANALYZE_HG19_REFSEQ_GENES_FILENAME = "analyze_hg19_refseq_genes.txt";

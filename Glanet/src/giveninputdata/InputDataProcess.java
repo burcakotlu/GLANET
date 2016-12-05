@@ -7,6 +7,7 @@ import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntObjectMap;
 import gnu.trove.map.hash.TIntObjectHashMap;
 import intervaltree.IntervalTreeNode;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -18,13 +19,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
 import jaxbxjctool.NCBIEutilStatistics;
 import jaxbxjctool.RsInformation;
+
 import org.apache.log4j.Logger;
+
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**
@@ -126,6 +131,14 @@ public class InputDataProcess {
 		/**********************************************************/
 		/********** NCBI REMAP PARAMETERS starts ******************/
 		/**********************************************************/
+		
+		//1 DEC 2016
+		//Each rsID may not have the same group label.
+		//That's why keep the number of rsIDs for each group label
+		//And then we must do a conversion based on the majority of the rsIDs
+		Map<String,Integer> sourceAssemblyName2NumberofrsIDsMap = new HashMap<String,Integer>();
+		Integer numberofRSIDsInThisSourceAssembly = -1;
+		
 		String sourceAssemblyName = "";
 		String targetAssemblyName = Commons.GRCH37_P13;
 
@@ -276,12 +289,25 @@ public class InputDataProcess {
 
 					numberofLocisInRemapInputFile++;
 
-					if( !sourceAssemblyName.contains( rsInformation.getGroupLabel())){
-						sourceAssemblyName = sourceAssemblyName + rsInformation.getGroupLabel();
+					//Fill the map 
+					if (!sourceAssemblyName2NumberofrsIDsMap.containsKey(rsInformation.getGroupLabel())){
+						sourceAssemblyName2NumberofrsIDsMap.put(rsInformation.getGroupLabel(), 1);
+					}else{
+						sourceAssemblyName2NumberofrsIDsMap.put(rsInformation.getGroupLabel(), sourceAssemblyName2NumberofrsIDsMap.get(rsInformation.getGroupLabel())+1);
 					}
+						
 				}// End of IF rsInformation is not null
 
 			}// End of for
+			
+			//Now set the sourceAssemblyName based on majority of rs IDs
+			for(Map.Entry<String, Integer> entry: sourceAssemblyName2NumberofrsIDsMap.entrySet()){
+				
+				if (entry.getValue()>numberofRSIDsInThisSourceAssembly){
+					numberofRSIDsInThisSourceAssembly = entry.getValue();
+					sourceAssemblyName = entry.getKey();
+				}
+			}
 
 			numberofLocisInRemapInputFile--;
 
@@ -304,8 +330,8 @@ public class InputDataProcess {
 					dataFolder, 
 					Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
 					assemblyName2RefSeqAssemblyIDMap);
-
-			if( !sourceAssemblyName.equals( Commons.EMPTY_STRING)){
+			
+			if( !sourceAssemblyName.isEmpty()){
 				// sourceReferenceAssemblyID = "GCF_000001405.26";
 				sourceReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get( sourceAssemblyName);
 			}else{
@@ -313,7 +339,7 @@ public class InputDataProcess {
 			}
 
 			// targetReferenceAssemblyID = "GCF_000001405.25";
-			targetReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get( targetAssemblyName);
+			targetReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(targetAssemblyName);
 
 			merge = Commons.NCBI_REMAP_API_MERGE_FRAGMENTS_DEFAULT_ON;
 			allowMultipleLocation = Commons.NCBI_REMAP_API_ALLOW_MULTIPLE_LOCATIONS_TO_BE_RETURNED_DEFAULT_ON;
@@ -382,7 +408,6 @@ public class InputDataProcess {
 		}catch( IOException e){
 			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}catch( Exception e){
-
 			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 

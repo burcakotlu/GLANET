@@ -428,10 +428,6 @@ public class Remap {
 
 			if( GlanetRunner.shouldLog())
 				logger.info("NCBI REMAP Show Batches Exit status = " + process.exitValue());
-			
-			//debug delete later
-			System.out.println("NCBI REMAP Show Batches Exit status = " + process.exitValue());
-			//debug delete later
 
 		}catch( IOException e){
 
@@ -664,9 +660,6 @@ public class Remap {
 
 			if( GlanetRunner.shouldLog())logger.info("NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
 			
-			//debug delete later
-			System.out.println("NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
-			//debug delete later
 
 			// Close
 			// bufferedReader.close();
@@ -1087,10 +1080,12 @@ public class Remap {
 
 								lineNumber2TargetGenomicLociMap.put(lineNumber,mappedChrName.convertEnumtoString() + "\t" + mappedStart + "\t" + mappedEnd);
 
-								// check
-								if(!lineNumber2SourceGenomicLociMap.get(lineNumber).equals(sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd)){
-									if( GlanetRunner.shouldLog())logger.error( Commons.THERE_IS_A_SITUATION);
-								}
+								//Check
+								//No check is needed. lineNumber2SourceGenomicLociMap filled with 0BasedStart and 0BasedEndExclusive or 1BasedEndInclusive
+								//However in remap report file 0BasedStart becomes 1BasedStart
+//								if(!lineNumber2SourceGenomicLociMap.get(lineNumber).equals(sourceChrName.convertEnumtoString() + "\t" + sourceStart + "\t" + sourceEnd)){
+//									if( GlanetRunner.shouldLog())logger.info(Commons.THERE_IS_A_SITUATION);
+//								}
 
 							}// End of IF: Valid conversion
 							

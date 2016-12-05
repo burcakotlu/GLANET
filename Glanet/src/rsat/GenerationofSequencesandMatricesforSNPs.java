@@ -845,9 +845,6 @@ public class GenerationofSequencesandMatricesforSNPs {
 			List<String> observedAllelesList,
 			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap) {
 				
-		//List<String> snpAlteredSequenceNames = snpInformation.getSnpAlteredSequenceNames(); 
-		//List<String> snpAlteredSequences = snpInformation.getSnpAlteredSequences();		
-		//List<String> usedObservedAlleles = snpInformation.getUsedObservedAlleles();
 		String snpForwardReferenceSequence =snpInformation.getSnpReferenceSequence(); 
 
 		String formerSNPReferenceSequence = null;
@@ -872,16 +869,19 @@ public class GenerationofSequencesandMatricesforSNPs {
 			//This can be the cases for some rsIDs with snpClass in-del or multinucleotide-polymorphism
 			//Then we need to update snpReferencesequence using ncbi eutils
 			//Get more reference sequence 20bpBeforeSNPStartPosition + lengthofObservedAllele + 20bpAfterSNPStartPosition
-			if(lengthOfObservedAllele>Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION) {
-				
+			//if(lengthOfObservedAllele>Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION) {
+			if(lengthOfObservedAllele>1) {
+						
 				fastaFile = getDNASequence(
 						snpInformation.getChrNameWithoutPreceedingChr(),
 						snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,
 						snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION + lengthOfObservedAllele,
 						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 				
-				//We don't need to update snpInformation.getSnpReferenceSequence()
 				snpForwardReferenceSequence = getDNASequenceFromFastaFile(fastaFile);
+				
+				//Update snpInformation.getSnpReferenceSequence()
+				snpInformation.setSnpReferenceSequence(snpForwardReferenceSequence);
 			}
 			
 			try{
@@ -916,7 +916,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);
 					shallWeAdd = true;
 				}
-				if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
+				else if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
 					alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
 					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
 					shallWeAdd = true;
@@ -927,20 +927,18 @@ public class GenerationofSequencesandMatricesforSNPs {
 			//snpClass in-del case starts
 			else if(snpClass.equalsIgnoreCase("in-del")){
 				
-				//This may not be needed.
-				if(observedAllele.equals(Commons.STRING_HYPHEN)){
-					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);
-					shallWeAdd = true;
-				}
-				
-				if(SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){				
+				//We still have duplicate altered sequences.
+				if(observedAllele.equals(Commons.STRING_HYPHEN) || SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
 					//This means that this is deletion
-					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
+					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;					
+					if (observedAllele.equals(Commons.STRING_HYPHEN)){
+						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);						
+					}else if (SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
+						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);						
+					}
 					shallWeAdd = true;
-				}else{
-					//This means that this is insertion
+				}else{ 
+					//This means that this is insertion Question how will be the order? Will observedAllele become before or after?
 					alteredSNPSequence = formerSNPReferenceSequence + SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele + observedAllele +latterSNPReferenceSequence;
 					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
 					shallWeAdd = true;
@@ -955,10 +953,8 @@ public class GenerationofSequencesandMatricesforSNPs {
 					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
 					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);
 					shallWeAdd = true;
-				}
-				
-				if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){				
-					//This means that this is deletion
+				}else if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){				
+					//This means copy paste
 					alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
 					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
 					shallWeAdd = true;
@@ -1962,9 +1958,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// Example Data
 		// 7 NC_000007.13 GRCh37
 		// Chromosome 7 CM000669.2 = NC_000007.14 0 GRCh37
-		Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap = new HashMap<String, String>();
-
-			
+		Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap = new HashMap<String, String>();			
 		
 		/***************************************************************************************/
 		/***********************************Part1 starts****************************************/
@@ -2039,6 +2033,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// Construct logo matrices from Encode Motifs
 		constructLogoMatricesfromEncodeMotifs( dataFolder, encodeMotifsInputFileName, tfName2LogoMatrices);
 
+		
 		// Construct position frequency matrices from Jaspar Core
 		// Construct logo matrices from Jaspar Core
 		constructPfmMatricesandLogoMatricesfromJasparCore(
@@ -2046,7 +2041,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				jasparCoreInputFileName, 
 				tfName2PfmMatrices,
 				tfName2LogoMatrices);
-
+		
 		AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs;
 		AugmentationofGivenRsIdwithInformation augmentationOfAGivenRsIdWithInformation;
 

@@ -18,9 +18,7 @@ import java.util.Map;
 import org.apache.commons.net.ftp.FTPClient;
 
 import remap.Remap;
-
 import common.Commons;
-
 import enumtypes.CommandLineArguments;
 
 /**
@@ -43,7 +41,10 @@ public class NCBIEutils {
 		
 		RsInformation rsInformation = null;
 		String latestAssembyNameReturnedByNCBIEutils = null;
-		//int count = 0;
+		
+		//Get the most voted latest assembly
+		Map<String,Integer> assemblyName2NumberofrsIDsMap = new HashMap<String,Integer>();
+		int numberofRSIDsInThisSourceAssembly = -1;
 		
 		try {
 			AugmentationofGivenIntervalwithRsIds augmentationOfAGivenIntervalWithRsIDs = new AugmentationofGivenIntervalwithRsIds();
@@ -53,9 +54,9 @@ public class NCBIEutils {
 				do{
 					
 					rsIdList = augmentationOfAGivenIntervalWithRsIDs.getRsIdsInAGivenInterval(
-					chrNamewithoutPreceedingChr, 
-					givenIntervalStartOneBased, 
-					givenIntervalEndOneBased);
+							chrNamewithoutPreceedingChr, 
+							givenIntervalStartOneBased, 
+							givenIntervalEndOneBased);
 					
 					//dummy increment value
 					givenIntervalStartOneBased = givenIntervalStartOneBased + dummyIncrement;
@@ -64,19 +65,35 @@ public class NCBIEutils {
 				}while (rsIdList.isEmpty());
 				
 				if (!rsIdList.isEmpty()){
+					
+					//Fill assemblyName2NumberofrsIDsMap
 					for(Integer rsID: rsIdList){
 						//Then get the LatestAssemblyName returned by NCBI Eutils for the first rsId in the rsIdList
 						rsInformation = augmentationOfAGivenRsIdWithInformation.getInformationforGivenRsId(rsID.toString());
 						if (rsInformation!=null && rsInformation.getGroupLabel()!=null){
-							latestAssembyNameReturnedByNCBIEutils =  rsInformation.getGroupLabel();
-							break;
+							
+							if (!assemblyName2NumberofrsIDsMap.containsKey(rsInformation.getGroupLabel())){
+								assemblyName2NumberofrsIDsMap.put(rsInformation.getGroupLabel(), 1);
+							}else{
+								assemblyName2NumberofrsIDsMap.put(rsInformation.getGroupLabel(), assemblyName2NumberofrsIDsMap.get(rsInformation.getGroupLabel())+1);
+							}
+							
 						}
-					}
+					}//End of for
+					
+					//Now get the latest assembly
+					for(Map.Entry<String, Integer> entry: assemblyName2NumberofrsIDsMap.entrySet()){
+						
+						if (entry.getValue()>numberofRSIDsInThisSourceAssembly){
+							numberofRSIDsInThisSourceAssembly = entry.getValue();
+							latestAssembyNameReturnedByNCBIEutils = entry.getKey();
+						}
+						
+					}//End of for
+					
 				}//End of IF rsIdList is not empty
 				
-					
-				//System.out.println(count++);
-				
+
 			}while (latestAssembyNameReturnedByNCBIEutils == null);
 		
 			
