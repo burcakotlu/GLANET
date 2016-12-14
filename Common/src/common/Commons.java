@@ -214,6 +214,7 @@ public class Commons {
 	public static final String SNP_REFERENCE_SEQUENCE = "SNPReferenceSequence";
 	public static final String SNP_ALTERED_SEQUENCE = "SNPAlteredSequence";
 	public static final String TF_EXTENDED_PEAK_SEQUENCE = "TFExtendedPeakSequence";
+	public static final String OVERLAPPING_TFS = "OverlappingTFs";
 	public static final String TF_OVERLAPS = "TFOverlaps";
 	public static final String OBSERVED_ALLELES = "ObservedAlleles";
 

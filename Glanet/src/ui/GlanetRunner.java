@@ -180,6 +180,10 @@ public class GlanetRunner implements Runnable {
 				
 				GeneAnnotationForPostAnalysisRSAResults.main(args);
 				
+				//Closes the GUI
+				//Closes the JVM
+				//Runtime.getRuntime().exit(0);
+				
 
 			}
 			/*********** Check whether given input data is snps or not ends ****************/

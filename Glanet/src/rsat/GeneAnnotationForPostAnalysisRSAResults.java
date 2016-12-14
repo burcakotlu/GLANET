@@ -647,6 +647,8 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 						
 			//Skip header line in RSAPostAnalysisFile
 			strLine = bufferedReader.readLine();
+			
+			int numberofLines = 0;
 		
 			while ((strLine = bufferedReader.readLine())!=null){
 				
@@ -669,6 +671,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 					_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map.put(key_chrName_1BasedCoordinateInLatestAssembly,null);
 					
 					bufferedWriter.write(chrName + "\t" + _1BasedCoordinateInLatestAssemly + System.getProperty("line.separator"));
+					numberofLines++;
 					
 				}//End of IF
 				
@@ -679,44 +682,50 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 			bufferedReader.close();
 			bufferedWriter.close();
 			
-			
-			//Downlift from latest assembly  to GRCh37.p13
-			//Fill _1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map (with values)
-			//_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map does not contain any duplicates
-			convert_FromLatestAssembly_ToGRCh37p13(
-					dataFolder,
-					RSAFolder,
-					PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly_FileName,
-					PostAnalysis_RSA_chrName_1BasedCoordinateGRCh37p13_FileName,
-					true,
-					_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map);
-					
-			
-			//_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map is full
-			//Rest of the maps are initialized. But they will be filled now.
-			//Fill keys and values of  _1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map
-			//Fill only keys of 0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
-			fillMaps(_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map,
-				_1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
-				_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
-			
-			//Write input file for GLANET annotation using keys in _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
-			writeInputFile(
-					RSAFolder,
-					PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
-					_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
-			
-			//Annotate with genes
-			//Augment RSAPostAnalysisFileName with gene annotations	and write RSAPostAnalysisAugmentedWithGeneAnnotationsFileName
-			annotateInputFileWithRefSeqGenes(
-					dataFolder,
-					RSAFolder,
-					PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
-					RSAPostAnalysisFileName,
-					RSAPostAnalysisAugmentedWithGeneAnnotationsFileName,
+			if (numberofLines>0){
+				
+				//Downlift from latest assembly  to GRCh37.p13
+				//Fill _1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map (with values)
+				//_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map does not contain any duplicates
+				convert_FromLatestAssembly_ToGRCh37p13(
+						dataFolder,
+						RSAFolder,
+						PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly_FileName,
+						PostAnalysis_RSA_chrName_1BasedCoordinateGRCh37p13_FileName,
+						true,
+						_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map);
+						
+				
+				//_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map is full
+				//Rest of the maps are initialized. But they will be filled now.
+				//Fill keys and values of  _1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map
+				//Fill only keys of 0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
+				fillMaps(_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map,
 					_1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
-					_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap,
-					writeFoundOverlapsMode);			
+					_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
+				
+				//Write input file for GLANET annotation using keys in _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
+				writeInputFile(
+						RSAFolder,
+						PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
+						_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
+				
+				//Annotate with genes
+				//Augment RSAPostAnalysisFileName with gene annotations	and write RSAPostAnalysisAugmentedWithGeneAnnotationsFileName
+				annotateInputFileWithRefSeqGenes(
+						dataFolder,
+						RSAFolder,
+						PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
+						RSAPostAnalysisFileName,
+						RSAPostAnalysisAugmentedWithGeneAnnotationsFileName,
+						_1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
+						_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap,
+						writeFoundOverlapsMode);			
+
+				
+			}//End of if there are genome coordinates to be downlift from latest assembly to GRCh37.p13
+			
+			
 		
 		} catch (IOException e) {
 			e.printStackTrace();

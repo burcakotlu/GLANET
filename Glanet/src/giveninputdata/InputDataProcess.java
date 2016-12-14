@@ -442,14 +442,14 @@ public class InputDataProcess {
 			bufferedReader = new BufferedReader( new FileReader( inputFileName));
 
 			switch( inputFileAssembly){
-			case GRCh38:
-				bufferedWriter = new BufferedWriter(
-						FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38));
-				break;
-			case GRCh37_p13:
-				bufferedWriter = new BufferedWriter(
-						FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13));
-				break;
+				case GRCh38:
+					bufferedWriter = new BufferedWriter(
+							FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38));
+					break;
+				case GRCh37_p13:
+					bufferedWriter = new BufferedWriter(
+							FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13));
+					break;
 			}// End of SWITCH
 
 			while( ( strLine = bufferedReader.readLine()) != null){
@@ -671,8 +671,7 @@ public class InputDataProcess {
 						}
 
 						oneBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-						oneBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1,
-								indexofThirdTab).trim());
+						oneBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1,indexofThirdTab).trim());
 
 					}
 
@@ -758,12 +757,12 @@ public class InputDataProcess {
 			bufferedReader = new BufferedReader( fileReader);
 
 			switch( inputFileAssembly){
-			case GRCh38:
-				fileWriter = FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38);
-				break;
-			case GRCh37_p13:
-				fileWriter = FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
-				break;
+				case GRCh38:
+					fileWriter = FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38);
+					break;
+				case GRCh37_p13:
+					fileWriter = FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
+					break;
 			}// End of SWITCH
 
 			bufferedWriter = new BufferedWriter( fileWriter);

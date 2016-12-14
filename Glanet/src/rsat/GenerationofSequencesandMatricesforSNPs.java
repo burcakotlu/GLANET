@@ -677,6 +677,53 @@ public class GenerationofSequencesandMatricesforSNPs {
 		}
 	}
 
+	//12 DEC 2016
+	public static void writeOverlappingTFsFile( 
+			String snpDirectory,
+			List<String> tfNamesList){
+		
+		FileWriter fileWriter = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String tfName = null;
+		
+		try {
+			fileWriter = FileOperations.createFileWriter( snpDirectory + System.getProperty( "file.separator") + Commons.OVERLAPPING_TFS + ".txt");
+			bufferedWriter = new BufferedWriter( fileWriter);
+			
+			for(Iterator<String>  itr=tfNamesList.iterator();itr.hasNext();){
+				tfName = itr.next();
+				bufferedWriter.write(tfName + System.getProperty("line.separator")); 
+			}
+
+			//close
+			bufferedWriter.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		
+	}
+			
+	
+	//12 DEC 2016
+	public static void writeTFExtendedPeakSequenceFile( 
+			String snpDirectory, 
+			int snpOneBasedStart,
+			String snpChrNameWithoutPreceedingChr, 
+			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap){
+		
+				
+			writeSequenceFile(snpDirectory, Commons.TF_EXTENDED_PEAK_SEQUENCE ,getDNASequence( 
+							snpChrNameWithoutPreceedingChr,
+							snpOneBasedStart-200, 
+							snpOneBasedStart+200,
+							chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap));
+								
+	}
+	
 	public static void writeTFBasedTFOverlapsFileAndTFPeakSequenceFile(
 			String snpDirectory,
 			Map<String, TFOverlaps> tfName2TFOverlapMap, 
@@ -838,7 +885,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	}
 
-	public static void createAlteredSequences(
+	public static void createSNPAlteredSequences(
 			SNPInformation snpInformation,
 			int rsId, 
 			String snpClass,
@@ -854,169 +901,121 @@ public class GenerationofSequencesandMatricesforSNPs {
 		int lengthOfObservedAllele;
 		String SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = null;
 		
-		boolean shallWeAdd = false;
 		String fastaFile = null;
 
 		for(String observedAllele : observedAllelesList){
 			
-			//Initialize
-			shallWeAdd = false;
-
-			//Length of observed allele can be longer than snpForwardReferenceSequence or it can be longer than latterSNPReferenceSequence
-			//In that case we need to get longer reference snp sequence using ncbi eutils
-			lengthOfObservedAllele = observedAllele.length();
-			
-			//This can be the cases for some rsIDs with snpClass in-del or multinucleotide-polymorphism
-			//Then we need to update snpReferencesequence using ncbi eutils
-			//Get more reference sequence 20bpBeforeSNPStartPosition + lengthofObservedAllele + 20bpAfterSNPStartPosition
-			//if(lengthOfObservedAllele>Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION) {
-			if(lengthOfObservedAllele>1) {
-						
-				fastaFile = getDNASequence(
-						snpInformation.getChrNameWithoutPreceedingChr(),
-						snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,
-						snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION + lengthOfObservedAllele,
-						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
-				
-				snpForwardReferenceSequence = getDNASequenceFromFastaFile(fastaFile);
-				
-				//Update snpInformation.getSnpReferenceSequence()
-				snpInformation.setSnpReferenceSequence(snpForwardReferenceSequence);
-			}
-			
-			try{
-				
-				formerSNPReferenceSequence = snpForwardReferenceSequence.substring(0,Commons.ZERO_BASED_SNP_POSITION);
-				latterSNPReferenceSequence = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
-
-			}catch(StringIndexOutOfBoundsException e){
-				if( GlanetRunner.shouldLog())logger.error( "Exception Message:" + e.getMessage());
-				if( GlanetRunner.shouldLog())logger.error( "Exception toString:" + e.toString());
-				if( GlanetRunner.shouldLog())logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
-				if( GlanetRunner.shouldLog())logger.error( "observedAllele: " + observedAllele);
-				if( GlanetRunner.shouldLog())logger.error( "lengthOfObservedAllele: " + lengthOfObservedAllele);
-			}
-
-			try{
+			//Let's skip this observed allele
+			//Just use it if SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele is equals to observedAllele(other than "-") at this position
+			//In order to delete that observedAllele(other than "-")
+			if (!observedAllele.equalsIgnoreCase("-")){
 	
-				SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
-
-			}catch( StringIndexOutOfBoundsException e){
-				if( GlanetRunner.shouldLog())logger.error( "Exception Message:" + e.getMessage());
-				if( GlanetRunner.shouldLog())logger.error( "Exception toString:" + e.toString());
-				if( GlanetRunner.shouldLog())logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
-				if( GlanetRunner.shouldLog())logger.error( "ObservedAllele: " + observedAllele);
-			}
-			
-
-			//snpClass snp case starts
-			if (snpClass.equalsIgnoreCase("snp")){
-				if (observedAllele.equals(Commons.STRING_HYPHEN)){
-					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);
-					shallWeAdd = true;
-				}
-				else if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
-					alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
-					shallWeAdd = true;
-				}
-			}
-			//snpClass snp case ends
-			
-			//snpClass in-del case starts
-			else if(snpClass.equalsIgnoreCase("in-del")){
+				//Length of observed allele can be longer than snpForwardReferenceSequence or it can be longer than latterSNPReferenceSequence
+				//In that case we need to get longer reference snp sequence using ncbi eutils
+				lengthOfObservedAllele = observedAllele.length();
 				
-				//We still have duplicate altered sequences.
-				if(observedAllele.equals(Commons.STRING_HYPHEN) || SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
-					//This means that this is deletion
-					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;					
-					if (observedAllele.equals(Commons.STRING_HYPHEN)){
-						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);						
-					}else if (SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){
-						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);						
-					}
-					shallWeAdd = true;
-				}else{ 
-					//This means that this is insertion Question how will be the order? Will observedAllele become before or after?
-					alteredSNPSequence = formerSNPReferenceSequence + SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele + observedAllele +latterSNPReferenceSequence;
-					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
-					shallWeAdd = true;
-				}				
-			}
-			//snpClass in-del case ends
-			
-			//snpClass multinucleotide-polymorphism case starts
-			else if (snpClass.equalsIgnoreCase("multinucleotide-polymorphism")){
-				//This may not be needed.
-				if(observedAllele.equals(Commons.STRING_HYPHEN)){
-					alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE);
-					shallWeAdd = true;
-				}else if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equals(observedAllele)){				
-					//This means copy paste
-					alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-					snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele);
-					shallWeAdd = true;
+				//This can be the cases for some rsIDs with snpClass in-del or multinucleotide-polymorphism
+				//Then we need to update snpReferencesequence using ncbi eutils
+				//Get more reference sequence 20bpBeforeSNPStartPosition + lengthofObservedAllele + 20bpAfterSNPStartPosition
+				//if(lengthOfObservedAllele>Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION) {
+				if(lengthOfObservedAllele>1) {
+							
+					fastaFile = getDNASequence(
+							snpInformation.getChrNameWithoutPreceedingChr(),
+							snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,
+							snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION + lengthOfObservedAllele - 1,
+							chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
+					
+					snpForwardReferenceSequence = getDNASequenceFromFastaFile(fastaFile);
+					
+					//Update snpInformation.getSnpReferenceSequence()
+					snpInformation.setSnpReferenceSequence(snpForwardReferenceSequence);
 				}
-			}
-			//snpClass multinucleotide-polymorphism case ends
-			
-			else{
-				//check whether there is any case we are not handling?
-				//debug delete later
-				System.out.println("rsID: " + rsId);
-				System.out.println("snpClass: " +  snpClass);
-				System.out.println("observedAllele: " +observedAllele);
-				//debug delete later
-			}
-			
-			if (shallWeAdd){
-				snpInformation.getUsedObservedAlleles().add(observedAllele);
-				snpInformation.getSnpAlteredSequences().add(alteredSNPSequence);
-			}
+				
+				try{
+					
+					formerSNPReferenceSequence = snpForwardReferenceSequence.substring(0,Commons.ZERO_BASED_SNP_POSITION);
+					latterSNPReferenceSequence = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
+					
+					SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele = snpForwardReferenceSequence.substring(Commons.ZERO_BASED_SNP_POSITION, Commons.ZERO_BASED_SNP_POSITION + lengthOfObservedAllele);
+	
+				}catch(StringIndexOutOfBoundsException e){
+					if( GlanetRunner.shouldLog())logger.error( "Exception Message:" + e.getMessage());
+					if( GlanetRunner.shouldLog())logger.error( "Exception toString:" + e.toString());
+					if( GlanetRunner.shouldLog())logger.error( "snpForwardReferenceSequence: " + snpForwardReferenceSequence);
+					if( GlanetRunner.shouldLog())logger.error( "observedAllele: " + observedAllele);
+					if( GlanetRunner.shouldLog())logger.error( "lengthOfObservedAllele: " + lengthOfObservedAllele);
+				}
+
+
+				
+				//snpClass snp case starts
+				if (snpClass.equalsIgnoreCase("snp")){
+					
+					if (SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele) && observedAllelesList.contains("-") ){
+						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
+						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_deleted");
+						}
+					else if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele)){
+						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
+						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_copied");
+					}					
+				}//End of IF snpClass case ends
+				
+				//snpClass multinucleotide-polymorphism case starts
+				else if (snpClass.equalsIgnoreCase("multinucleotide-polymorphism")){
+					//This means delete
+					if(SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele) && observedAllelesList.contains("-")){
+						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;	
+						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele +  "_deleted");
+					}else if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele)){				
+						//This means copy paste
+						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;	
+						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_copied");
+					}
+					
+				}
+				//End of IF snpClass multinucleotide-polymorphism case ends
+				
+				//snpClass in-del case starts
+				else if(snpClass.equalsIgnoreCase("in-del")){				
+					
+					if(SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele)){
+						//This means that this is deletion
+						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;	
+						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_deleted");
+					}else{ 
+						//This means that this is insertion Question how will be the order? Will observedAllele become before or after?
+						//Decision observedAllele will be inserted before
+						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele +latterSNPReferenceSequence;
+						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_inserted");	
+					}
+					
+				}//End of IF snpClass in-del case ends
+				
+				else{
+					//check whether there is any case we are not handling?
+					//debug delete later
+					System.out.println("rsID: " + rsId);
+					System.out.println("snpClass: " +  snpClass);
+					System.out.println("observedAllele: " +observedAllele);
+					//debug delete later
+				}
+				
+				
+				//Update UsedObservedAlleles and SNPAlteredSequences				
+				if (alteredSNPSequence!=null){
+					snpInformation.getSnpAlteredSequences().add(alteredSNPSequence);
+				}
+
+
+			}//End of IF observedAllele is not "-"
 
 		}// End of for each observed allele
 
 	}
 
-	public static void createSNPAlteredSequences(
-			SNPInformation snpInformation, 
-			int rsId,
-			String snpClass,
-			List<String> observedAllelesList,
-			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap) {
 
-		// For each observed allele
-		// Check whether snpReferenceSequence contains any of these observed
-		// alleles starting at snp start position
-		// If yes; use the rest of the observed alleles in generation of
-		// alteredSequences
-		// If no; give alarm; snpReferenceSequence does not contain any of this
-		// observed allele starting at snp start position
-		
-		createAlteredSequences(
-				snpInformation,
-				rsId,
-				snpClass,
-				observedAllelesList,
-				chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
-
-		//No need to give alarm
-		//For sNPs with variation class: deletion/insertion variation SNP reference sequence may not contain any of the observed alleles
-		//ex:SNP reference sequence: TTTGGAGGAGGGTAAGAGTT G TTTTTTTTTTCTCTCTCTCT
-		//Observed alleles: RefSNP Alleles:	-/T (FWD)
-		//For rsID: 554416351  with variation class: deletion/insertion variation 
-//		if( !snpContainsAnyOfObservedAlleles){
-//			// Give alarm
-//			if( GlanetRunner.shouldLog())logger.error("There is a situation: SNP Reference Sequence does not contain any of the observed alleles.");
-//			if( GlanetRunner.shouldLog())logger.error("rsID: " + rsId);
-//			if( GlanetRunner.shouldLog())logger.error("snp Reference Sequence: " + snpInformation.getFastaFile());
-//		}
-
-		//snpInformation.setSnpContainsAnyOfObservedAlleles(snpContainsAnyOfObservedAlleles);
-
-	}
 
 	public static List<String> convertSlashSeparatedObservedAllelesIntoAStringList( String slashSeparatedObservedAlleles) {
 
@@ -1253,20 +1252,15 @@ public class GenerationofSequencesandMatricesforSNPs {
 		int indexofFifthTab;
 		int indexofSixthTab;
 		int indexofSeventhTab;
-		int indexofEigthTab;
-
+		
 		String chrNameWithPreceedingChr = null;
 		String chrNameWithoutPreceedingChr = null;
 
 		int snpOneBasedStart;
 		int snpOneBasedEnd;
 
-		int tfOneBasedStart;
-		int tfOneBasedEnd;
 
 		String tfName;
-		String cellLineName;
-		String fileName;
 
 		String tfNameRemovedLastCharacter;
 		String previousTfNameRemovedLastCharacter;
@@ -1279,7 +1273,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		Boolean isThereAnExactTfNamePfmMatrix = false;
 
 		/*******************************************************************************/
-		/********************* TF 2 PFMLogoMatricesExists MAP starts *********************/
+		/********************* TF 2 PFMLogoMatricesExists MAP starts *******************/
 		/*******************************************************************************/
 		// This map is used whether this pfm matrix file is already created and
 		// written for a certain TF.
@@ -1288,11 +1282,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 		// then there is no need to search and write pfm matrix files again
 		Map<String, Boolean> tf2PFMLogoMatriceAlreadyExistsMap = new HashMap<String, Boolean>();
 		/*******************************************************************************/
-		/********************* TF 2 PFMLogoMatricesExists MAP ends ***********************/
+		/********************* TF 2 PFMLogoMatricesExists MAP ends *********************/
 		/*******************************************************************************/
 
 		/*******************************************************************************/
-		/************** givenSNP 2 SNPInformation Map starts *****************************/
+		/************** givenSNP 2 SNPInformation Map starts ***************************/
 		/*******************************************************************************/
 		// Key is chrNameWithPreceedingChr + "_" + snpOneBasedStart
 		String givenSNPKey;
@@ -1306,29 +1300,26 @@ public class GenerationofSequencesandMatricesforSNPs {
 		int alteredSequenceCount;
 		Map<String, SNPInformation> givenSNP2SNPInformationMap = new HashMap<String, SNPInformation>();
 		/*******************************************************************************/
-		/************** givenSNP 2 SNPInformation Map ends *******************************/
+		/************** givenSNP 2 SNPInformation Map ends *****************************/
 		/*******************************************************************************/
+		
+		//12 DEC 2016 starts
+		/*******************************************************************************/
+		/************** givenSNP 2 TFNames Map starts **********************************/
+		/*******************************************************************************/
+		Map<String, List<String>> givenSNP2TFNamesMap = new HashMap<String, List<String>>();	
+		List<String> tfNamesList = null;
+		/*******************************************************************************/
+		/************** givenSNP 2 TFNames Map ends ************************************/
+		/*******************************************************************************/
+		//12 DEC 2016 ends
 
 		/*******************************************************************************/
-		/************** givenSNP 2 TFOverlapMap Map starts *******************************/
-		/*******************************************************************************/
-		// 7 April 2014 starts
-		// Key is chrNameWithPreceedingChr + "_" + snpOneBasedStart
-		Map<String, Map<String, TFOverlaps>> givenSNP2TFName2TFOverlapsMapMap = new HashMap<String, Map<String, TFOverlaps>>();
-		Map<String, TFOverlaps> tfName2TFOverlapsMap;
-
-		TFCellLineOverlap tfCellLineOverlap;
-		TFOverlaps tfOverlaps;
-		/*******************************************************************************/
-		/************** givenSNP 2 TFOverlapMap Map ends *********************************/
-		/*******************************************************************************/
-
-		/*******************************************************************************/
-		/********************* rsID 2 rsInformation MAP starts ***************************/
+		/********************* rsID 2 rsInformation MAP starts *************************/
 		/*******************************************************************************/
 		Map<Integer, RsInformation> rsID2RsIDInformationMap = new HashMap<Integer, RsInformation>();
 		/*******************************************************************************/
-		/********************* rsID 2 rsInformation MAP ends *****************************/
+		/********************* rsID 2 rsInformation MAP ends ***************************/
 		/*******************************************************************************/
 
 		// 10 March 2014
@@ -1357,7 +1348,9 @@ public class GenerationofSequencesandMatricesforSNPs {
 					indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
 					indexofSixthTab = ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
 					indexofSeventhTab = ( indexofSixthTab > 0)?strLine.indexOf( '\t', indexofSixthTab + 1):-1;
-					indexofEigthTab = ( indexofSeventhTab > 0)?strLine.indexOf( '\t', indexofSeventhTab + 1):-1;
+					
+					//12 DEC 2016
+					//indexofEigthTab = ( indexofSeventhTab > 0)?strLine.indexOf( '\t', indexofSeventhTab + 1):-1;
 
 					chrNameWithPreceedingChr = strLine.substring( 0, indexofFirstTab);
 					chrNameWithoutPreceedingChr = chrNameWithPreceedingChr.substring( 3);
@@ -1366,20 +1359,15 @@ public class GenerationofSequencesandMatricesforSNPs {
 					snpOneBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
 					snpOneBasedEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
 
-					tfOneBasedStart = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
-					tfOneBasedEnd = Integer.parseInt( strLine.substring( indexofFifthTab + 1, indexofSixthTab));
-
-					tfName = strLine.substring( indexofSixthTab + 1, indexofSeventhTab);
-					cellLineName = strLine.substring( indexofSeventhTab + 1, indexofEigthTab);
-					fileName = strLine.substring( indexofEigthTab + 1);
-
+					tfName = strLine.substring(indexofSixthTab+1,indexofSeventhTab);
+					
 					//Initialize tfNameRemovedLastCharacter to tfName
 					tfNameRemovedLastCharacter = tfName;
 
 					/*************************************************************************/
 					/**********Create Files for pfm Matrices and logo Matrices starts*********/
 					/*************************************************************************/
-					if( tf2PFMLogoMatriceAlreadyExistsMap.get( tfName) == null){
+					if( tf2PFMLogoMatriceAlreadyExistsMap.get(tfName) == null){
 
 						isThereAnExactTfNamePfmMatrix = false;
 
@@ -1445,20 +1433,20 @@ public class GenerationofSequencesandMatricesforSNPs {
 						tf2PFMLogoMatriceAlreadyExistsMap.put(tfName, true);
 					} // End of if
 					/*************************************************************************/
-					/********** Create Files for pfm Matrices and logo Matrices ends ***********/
+					/********** Create Files for pfm Matrices and logo Matrices ends *********/
 					/*************************************************************************/
 
 					/*******************************************************************************************************************************/
-					/************************* SET KEYS starts ***************************************************************************************/
+					/************************* SET KEYS starts *************************************************************************************/
 					/*******************************************************************************************************************************/
 					// Set Given ChrName OneBasedStart
 					givenSNPKey = chrNameWithPreceedingChr + "_" + snpOneBasedStart;
 					/*******************************************************************************************************************************/
-					/************************* SET KEYS ends *****************************************************************************************/
+					/************************* SET KEYS ends ***************************************************************************************/
 					/*******************************************************************************************************************************/
 
 					/*******************************************************************************************************************************/
-					/********************** Filling Maps starts **************************************************************************************/
+					/********************** Filling Maps starts ************************************************************************************/
 					/*******************************************************************************************************************************/
 
 					/*************************************************************************/
@@ -1484,7 +1472,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 						validRsIdList = new ArrayList<Integer>();
 
 						/*************************************************************************/
-						/*************** Fill rsID2RsIDInformationMap starts ***********************/
+						/*************** Fill rsID2RsIDInformationMap starts *********************/
 						/*************************************************************************/
 						for(Integer rsId : rsIdList){
 							
@@ -1546,96 +1534,61 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 						}// End of for each rsId
 						/*************************************************************************/
-						/*************** Fill rsID2RsIDInformationMap ends *************************/
+						/*************** Fill rsID2RsIDInformationMap ends ***********************/
 						/*************************************************************************/
 
-						snpInformation.setValidRsIDList( validRsIdList);
-						givenSNP2SNPInformationMap.put( givenSNPKey, snpInformation);
+						snpInformation.setValidRsIDList(validRsIdList);
+						givenSNP2SNPInformationMap.put(givenSNPKey, snpInformation);
 
 					}// End of IF snpInformation is null
 					/*************************************************************************/
-					/***************** Fill givenSNP2SNPInformationMap ends ********************/
+					/***************** Fill givenSNP2SNPInformationMap ends ******************/
 					/*************************************************************************/
-
+					
+					
+					//Simplify
+					//12 DEC 2016 starts
 					/*************************************************************************/
-					/*********** Fill givenSNP2TFName2TFOverlapsMapMap starts ******************/
+					/*********** Fill givenSNP2TFNamesMap starts *****************************/
 					/*************************************************************************/
-					tfName2TFOverlapsMap = givenSNP2TFName2TFOverlapsMapMap.get( givenSNPKey);
-
+					tfNamesList = givenSNP2TFNamesMap.get(givenSNPKey);
+					
 					// This SNP is looked for for the first time
-					if( tfName2TFOverlapsMap == null){
-
-						tfName2TFOverlapsMap = new HashMap<String, TFOverlaps>();
-
-						tfOverlaps = tfName2TFOverlapsMap.get( tfName);
-
-						// For this SNP, This TF is looked for the first time
-						if( tfOverlaps == null){
-
-							tfOverlaps = new TFOverlaps( tfName,ChromosomeName.convertStringtoEnum( chrNameWithPreceedingChr));
-
-							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,tfOneBasedEnd);
-
-							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
-
-							tfName2TFOverlapsMap.put( tfName, tfOverlaps);
-						}
-
-						givenSNP2TFName2TFOverlapsMapMap.put( givenSNPKey, tfName2TFOverlapsMap);
-
-					}
-					// For this SNP, we have another kind of TF Overlap
-					else{
-						tfOverlaps = tfName2TFOverlapsMap.get( tfName);
-
-						// For this SNP, This TF Overlap is looked for the first time.
-						if( tfOverlaps == null){
-
-							tfOverlaps = new TFOverlaps( tfName,ChromosomeName.convertStringtoEnum( chrNameWithPreceedingChr));
-
-							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,tfOneBasedEnd);
-
-							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
-
-							tfName2TFOverlapsMap.put( tfName, tfOverlaps);
-
-						}
-						// For this SNP, we have another TF Overlap for an already existing TF Overlap
-						else{
-							tfCellLineOverlap = new TFCellLineOverlap( tfName, cellLineName, fileName, tfOneBasedStart,tfOneBasedEnd);
-
-							tfOverlaps.getTfCellLineOverlaps().add( tfCellLineOverlap);
-
-							tfName2TFOverlapsMap.put( tfName, tfOverlaps);
-
-						}
-
-						givenSNP2TFName2TFOverlapsMapMap.put( givenSNPKey, tfName2TFOverlapsMap);
+					if (tfNamesList == null){
+						
+						tfNamesList = new ArrayList<String>();
+						tfNamesList.add(tfName);
+						
+						givenSNP2TFNamesMap.put(givenSNPKey, tfNamesList);
+					}//End of IF 
+					else if (!tfNamesList.contains(tfName)){
+						tfNamesList.add(tfName);
 					}
 					/*************************************************************************/
-					/*********** Fill givenSNP2TFName2TFOverlapsMapMap ends ********************/
-					/*************************************************************************/
-
+					/*********** Fill givenSNP2TFNamesMap ends *******************************/
+					/*************************************************************************/					
+					//12 DEC 2016 ends
+					
 					/*******************************************************************************************************************************/
-					/********************** Filling Maps ends ****************************************************************************************/
+					/********************** Filling Maps ends **************************************************************************************/
 					/*******************************************************************************************************************************/
 
 				}// End of IF strLine is not comment character
 
 			}// End of While loop reading: allTFAnnotationsBufferedReader
 			/****************************************************************************************/
-			/********************* Reading All TF Annotations File Ends ******************************/
+			/********************* Reading All TF Annotations File Ends *****************************/
 			/****************************************************************************************/
 
 			/****************************************************************************************/
-			/****************** Close All TF Annotations Buffered Writer ******************************/
+			/****************** Close All TF Annotations Buffered Writer ****************************/
 			/****************************************************************************************/
 			allTFAnnotationsBufferedReader.close();
 			/****************************************************************************************/
-			/****************** Close All TF Annotations Buffered Writer ******************************/
+			/****************** Close All TF Annotations Buffered Writer ****************************/
 			/****************************************************************************************/
 
-			/*******************************************************************************************************************************/
+			/*********************************************************************************************************************************/
 			/**************** Get DNA sequences starts ***************************************************************************************/
 			/**************** SNP Reference Sequence *****************************************************************************************/
 			/**************** SNP Alternate Sequences ****************************************************************************************/
@@ -1649,7 +1602,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				fastaFile = getDNASequence(
 						snpInformation.getChrNameWithoutPreceedingChr(),
 						snpInformation.getOneBasedStart() - Commons.NUMBER_OF_BASES_BEFORE_SNP_POSITION,
-						snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION,
+						snpInformation.getOneBasedEnd() + Commons.NUMBER_OF_BASES_AFTER_SNP_POSITION - 1,
 						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 
 				snpInformation.setFastaFile( fastaFile);
@@ -1680,7 +1633,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				/*****************************************************************/
 
 				/**********************************************************************************/
-				/*********** Write valid rsID Based SNP Observed Alleles Files starts ***************/
+				/*********** Write valid rsID Based SNP Observed Alleles Files starts *************/
 				/**********************************************************************************/
 				for( Integer validRsId : snpInformation.getValidRsIDList()){
 
@@ -1689,20 +1642,24 @@ public class GenerationofSequencesandMatricesforSNPs {
 							snpDirectory,
 							Commons.OBSERVED_ALLELES + Commons.UNDERSCORE + Commons.RS + validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(),
 							rsInformation.getSlashSeparatedObservedAlleles());
+					
+					//delete 14 DEC 2016 debug starts
+					if (rsInformation.getRsId()==371562683 || rsInformation.getRsId()==549659598){
+						System.out.println("debug");
+					}
+					//delete 14 DEC 2016 debug ends
 
 					/*******************************************************************/
-					/************* Create SNP Altered Sequences starts *******************/
+					/************* Create SNP Altered Sequences starts *****************/
 					/*******************************************************************/
 					createSNPAlteredSequences(snpInformation,rsInformation,chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
 					/*******************************************************************/
-					/************* Create SNP Altered Sequences starts *******************/
+					/************* Create SNP Altered Sequences starts ****************/
 					/*******************************************************************/
 
 					/*******************************************************************/
-					/************* Write SNP Altered Sequences starts ********************/
-					/*******************************************************************/
-					//if( snpInformation.isSnpContainsAnyOfObservedAlleles()){
-					//}
+					/************* Write SNP Altered Sequences starts ******************/
+					/*******************************************************************/					
 					alteredSequenceCount = 0;
 
 					for(String alteredSequence : snpInformation.getSnpAlteredSequences()){
@@ -1713,39 +1670,43 @@ public class GenerationofSequencesandMatricesforSNPs {
 						alteredSequenceCount++;
 					}					
 					/*******************************************************************/
-					/************* Write SNP Altered Sequences ends **********************/
+					/************* Write SNP Altered Sequences ends ********************/
 					/*******************************************************************/
 
 				}// End of for each valid rsID in this SNP
 				/**********************************************************************************/
-				/*********** Write valid rsID Based SNP Observed Alleles Files ends ****************/
+				/*********** Write valid rsID Based SNP Observed Alleles Files ends ***************/
 				/**********************************************************************************/
-
-				/**********************************************************************************/
-				/************** Write TF Name Based TF Overlaps File starts *************************/
-				/************** Write TF PEAK Sequence starts ***************************************/
-				/**********************************************************************************/
-				tfName2TFOverlapsMap = givenSNP2TFName2TFOverlapsMapMap.get( givenSNPKey);
-				writeTFBasedTFOverlapsFileAndTFPeakSequenceFile( 
+				
+				
+				//Write only one TF extended sequence file +/- 200 bp around SNP position
+				//12 DEC 2016 starts
+				writeTFExtendedPeakSequenceFile( 
 						snpDirectory, 
-						tfName2TFOverlapsMap,
+						snpInformation.getOneBasedStart(),
 						snpInformation.getChrNameWithoutPreceedingChr(), 
 						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap);
-				/**********************************************************************************/
-				/************** Write TF Name Based TF Overlaps File ends ***************************/
-				/************** Write TF PEAK Sequence ends *****************************************/
-				/**********************************************************************************/
+				
+				//Write Overlapping TFs with this snp
+				tfNamesList = givenSNP2TFNamesMap.get(givenSNPKey);
+				writeOverlappingTFsFile(snpDirectory,tfNamesList);
+				//12 DEC 2016 ends
+				
+					
 
 			}// End of for each SNP
 			/*******************************************************************************************************************************/
-			/**************** SNP Reference Sequence *****************************************************************************************/
-			/**************** SNP Alternate Sequences ****************************************************************************************/
-			/**************** TF OVERLAP Peak Sequence ***************************************************************************************/
-			/**************** Get DNA sequences ends *****************************************************************************************/
+			/**************** SNP Reference Sequence ***************************************************************************************/
+			/**************** SNP Alternate Sequences **************************************************************************************/
+			/**************** TF OVERLAP Peak Sequence *************************************************************************************/
+			/**************** Get DNA sequences ends ***************************************************************************************/
 			/*******************************************************************************************************************************/
 
 		}catch( FileNotFoundException e1){
-			// TODO Auto-generated catch block
+			if( GlanetRunner.shouldLog()){
+				logger.info("ALL TF annotations in latest assembly file can not be found.");
+				logger.info("Since there might be no TF annotations in GRCh37.p13.");
+			}
 			e1.printStackTrace();
 		}catch( IOException e){
 			// TODO Auto-generated catch block
@@ -1970,7 +1931,6 @@ public class GenerationofSequencesandMatricesforSNPs {
 		/***************************************************************************************/
 		
 		
-		
 		/***************************************************************************************/
 		/***********************************Part2 starts****************************************/
 		/***************************************************************************************/
@@ -2054,7 +2014,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				tfKEGGAnnotationType.doTFKEGGPathwayAnnotation() || 
 				tfCellLineKEGGAnnotationType.doTFCellLineKEGGPathwayAnnotation()){
 
-				// Generate Sequences and Matrices for Annotated TF Elements
+				// Generate DNA Sequences and TF Matrices for Annotated TF Elements
 				readAllTFAnnotationsWriteSequencesandMatrices(
 						augmentationOfAGivenIntervalWithRsIDs,
 						augmentationOfAGivenRsIdWithInformation, 

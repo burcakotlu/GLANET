@@ -16,7 +16,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -373,6 +375,81 @@ public class Remap {
 	//25 November 2016 ends
 	
 	
+	//12 DEC 2016
+	public static List<String> getSupportedAssemblies(String dataFolder,String supportedAssembliesFileName){
+		
+		
+		BufferedReader bufferedReader = null;
+		String line;
+
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		
+		String querySpecie = null;
+		String targetSpecie = null;
+
+		String queryAssembly = null;
+		String targetAssembly = null;
+		
+		List<String> supportedAssemblies = new ArrayList<String>();
+
+		try{
+			
+
+			// Output of the perl execution is here
+			bufferedReader = new BufferedReader(FileOperations.createFileReader(dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + supportedAssembliesFileName));
+
+			
+			//Skip header line
+			line = bufferedReader.readLine();
+			
+
+			//Since GLANET data is "GRCh37.p13"
+			supportedAssemblies.add("GRCh37.p13");
+
+			
+			while( ( line = bufferedReader.readLine()) != null){
+				//#batch_id	query_species	query_name	query_ucsc	query_acc	target_species	target_name	target_ucsc	target_acc	alignment_date
+				//13311	Homo sapiens	NCBI34	hg16	GCF_000001405.10	Homo sapiens	GRCh38.p1		GCF_000001405.27	12/15/2014
+
+				indexofFirstTab = line.indexOf('\t');
+				indexofSecondTab = line.indexOf('\t', indexofFirstTab+1);
+				indexofThirdTab = line.indexOf('\t', indexofSecondTab+1);
+				indexofFourthTab = line.indexOf('\t', indexofThirdTab+1);
+				indexofFifthTab = line.indexOf('\t', indexofFourthTab+1);
+				indexofSixthTab = line.indexOf('\t', indexofFifthTab+1);
+				indexofSeventhTab = line.indexOf('\t', indexofSixthTab+1);
+				
+				querySpecie = line.substring(indexofFirstTab+1, indexofSecondTab);
+				targetSpecie= line.substring(indexofFifthTab+1, indexofSixthTab);
+				
+				queryAssembly =  line.substring(indexofSecondTab+1, indexofThirdTab);
+				targetAssembly = line.substring(indexofSixthTab+1, indexofSeventhTab);
+				
+				if (querySpecie.equalsIgnoreCase("Homo sapiens") && targetSpecie.equalsIgnoreCase("Homo sapiens") && queryAssembly.startsWith("GRCh") && targetAssembly.equalsIgnoreCase("GRCh37.p13")){
+					
+					supportedAssemblies.add(queryAssembly);
+				}
+				
+			}// End of while
+			
+			// Close
+			bufferedReader.close();
+			
+	
+		}catch( IOException e){
+
+		}
+		
+		return supportedAssemblies;
+	}
+	
+	
 	//Fill NCBI_REMAP_Supported_Assemblies
 	public static void remap_show_batches( 
 			String dataFolder, 
@@ -389,7 +466,6 @@ public class Remap {
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + supportedAssembliesFileName));
 
 			process = runtime.exec( new String[]{"perl", remapFile, "--mode", "batches"});
-
 			
 			// System.out.println("perl " + remapFile + "--mode batches");
 
@@ -425,10 +501,18 @@ public class Remap {
 			// Close
 			bufferedReader.close();
 			bufferedWriter.close();
+			
+			
 
 			if( GlanetRunner.shouldLog())
 				logger.info("NCBI REMAP Show Batches Exit status = " + process.exitValue());
-
+			
+			if(process != null) {
+		        process.destroy();
+		    }
+			
+			runtime.gc();
+			
 		}catch( IOException e){
 
 			if( GlanetRunner.shouldLog())
@@ -649,20 +733,13 @@ public class Remap {
 
 			process.waitFor();
 
-			// output of the perl execution is here
-			// BufferedReader bufferedReader = new BufferedReader( new
-			// InputStreamReader( process.getInputStream()));
-			// String line;
-
-			// while ( ( line = bufferedReader.readLine()) != null){
-			// if( GlanetRunner.shouldLog())logger.info(line);
-			// }//End of while
-
 			if( GlanetRunner.shouldLog())logger.info("NCBI REMAP Exit status = " + process.exitValue() + "\t" + information);
 			
-
-			// Close
-			// bufferedReader.close();
+			if(process != null) {
+		        process.destroy();
+		    }
+			
+			runtime.gc();
 
 		}catch( InterruptedException e){
 

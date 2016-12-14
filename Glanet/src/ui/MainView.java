@@ -37,7 +37,9 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.ToolTipManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
 import common.Commons;
+
 import enumtypes.CommandLineArguments;
 
 public class MainView extends JPanel {
@@ -72,10 +74,10 @@ public class MainView extends JPanel {
 	private JComboBox<String> numberOfPerCombo;
 	private JComboBox<String> numberOfPerInEachRunCombo;
 	private JComboBox<String> inputFormatCombo;
-	private JComboBox<String> inputAssemblyCombo;
 	private JComboBox<String> userDefinedGeneSetGeneInformationCombo;
 	private JComboBox<String> userDefinedLibraryDataFormatCombo;
 	private JComboBox<String> writeAnnotationFoundOverlapModeCombo;
+	
 	
 	//14 Nov 2016
 	//private JCheckBox performEnrichmentCheckBox;
@@ -95,7 +97,17 @@ public class MainView extends JPanel {
 	private JTextArea logArea;
 	private JList<String> cellLinesList;
 	private DefaultListModel<String> listModel;
+	
+	
+	//12 DEC 2016
+	private JComboBox<String> inputAssemblyCombo;	
+		
+	//12 DEC 2016 starts
+	//private DefaultComboBoxModel<String> assemblyComboBoxModel;
+	//private JComboBox<String> supportedAssembliesCombo; 
+	//12 DEC 2016 ends
 
+	
 	public interface MainViewDelegate {
 
 		public void startRunActionsWithOptions( 
@@ -187,6 +199,24 @@ public class MainView extends JPanel {
 
 					for( int i = 0; i < cellLinesArray.length; i++)
 						listModel.addElement( cellLinesArray[i]);
+					
+					//12 DEC 2016 starts
+					//supportedAssembliesCombo.removeAll();
+					
+					
+					//Right now there is only "GRCh37.p10" that can be mapped to "GRCh37.p13" using remap which is useless
+					//String[] assembliesArray = getSupportedAssemblies();
+					
+					//Since GLANET data is "GRCh37.p13"
+					//String[]  assembliesArray = new String[]{"GRCh37.p13"};
+
+					
+					//assemblyListModel.clear();
+					//assemblyComboBoxModel.removeAllElements();
+					//for( int i = 0; i < assembliesArray.length; i++)
+					//	assemblyComboBoxModel.addElement( assembliesArray[i]);
+					//12 DEC 2016 ends
+					
 				}
 				else if( e.getActionCommand() == "Output Folder")
 					outputFolderTextField.setText( file.getPath() + System.getProperty( "file.separator"));
@@ -246,6 +276,8 @@ public class MainView extends JPanel {
 				delegate.startRunActionsWithOptions(
 						inputTextField.getText(),
 						inputAssemblyCombo.getSelectedItem().toString(),
+						//supportedAssembliesCombo.getSelectedItem().toString(),
+						//supportedAssembliesList.getSelectedValue(),
 						glanetFolderTextField.getText(),
 						outputFolder,
 						inputFormatCombo.getSelectedItem().toString(),
@@ -478,11 +510,27 @@ public class MainView extends JPanel {
 
 		inputFormatCombo.addActionListener( enableInputAssemblyListener);
 
-		inputBrowseAndOptionPane.add( createBorderedPanel( "Input Format", createPanelWithHint( inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
+		inputBrowseAndOptionPane.add( createBorderedPanel("Input Format", createPanelWithHint( inputFormatCombo, Commons.GUI_HINT_INPUT_FORMAT)));
 
-		String[] assemblyFormat = {Commons.GRCH37_P13, Commons.GRCH38};
-		inputAssemblyCombo = new JComboBox<String>( assemblyFormat);
-		inputBrowseAndOptionPane.add( createBorderedPanel( "Assembly", createPanelWithHint( inputAssemblyCombo, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
+		
+		
+		
+		
+		//12 DEC 2016 starts
+		//String[] assemblyFormat = {Commons.GRCH37_P13, Commons.GRCH38};
+		String[] assemblyFormat = {Commons.GRCH37_P13};
+		inputAssemblyCombo = new JComboBox<String>(assemblyFormat);
+		inputBrowseAndOptionPane.add(createBorderedPanel("Input Assembly", createPanelWithHint( inputAssemblyCombo, Commons.GUI_HINT_ASSEMBLY_FORMAT)));
+
+//		assemblyComboBoxModel = new DefaultComboBoxModel<>();
+//		supportedAssembliesCombo = new JComboBox<String>(assemblyComboBoxModel);
+//		
+//		if (supportedAssembliesCombo.getItemCount()>0){
+//			supportedAssembliesCombo.setSelectedIndex(0);			
+//		}
+//		inputBrowseAndOptionPane.add( createBorderedPanel("Input Assembly", supportedAssembliesCombo));
+		//12 DEC 2016 ends
+
 
 		listPane.add( inputBrowseAndOptionPane);
 
@@ -974,9 +1022,11 @@ public class MainView extends JPanel {
 	}
 
 	public void enableInputAssembly() {
-
-		inputAssemblyCombo.setEnabled( ( inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase( Commons.INPUT_FILE_FORMAT_DBSNP_IDS))?false:true);
-
+		
+		//12 DEC 2016
+		inputAssemblyCombo.setEnabled((inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase( Commons.INPUT_FILE_FORMAT_DBSNP_IDS))?false:true);
+		//supportedAssembliesCombo.setEnabled(inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase(Commons.INPUT_FILE_FORMAT_DBSNP_IDS)?false:true);
+		//supportedAssembliesScrollPane.setEnabled(inputFormatCombo.getSelectedItem().toString().equalsIgnoreCase(Commons.INPUT_FILE_FORMAT_DBSNP_IDS)?false:true);
 		revalidate();
 	}
 
@@ -1042,6 +1092,7 @@ public class MainView extends JPanel {
 		numberOfPerInEachRunCombo.setEnabled( shouldEnable);
 		inputFormatCombo.setEnabled( shouldEnable);
 		inputAssemblyCombo.setEnabled( shouldEnable);
+		//supportedAssembliesCombo.setEnabled(shouldEnable);
 		userDefinedGeneSetGeneInformationCombo.setEnabled( shouldEnable);
 		userDefinedLibraryDataFormatCombo.setEnabled( shouldEnable);
 		//14 Nov 2016
@@ -1084,6 +1135,25 @@ public class MainView extends JPanel {
 
 		return cellLinesListFromFile.toArray( new String[0]);
 	}
+	
+	
+	//12 DEC 2016
+	//Since right now NCBI remap converts GRCh37.p10 --> GRCh37.p13
+	//Right now it is not used.
+//	private String[] getSupportedAssemblies(){
+//		
+//		if( glanetFolderTextField == null || glanetFolderTextField.getText().length() < 1)
+//			return new String[0];
+//		
+//		List<String> supportedAssemblies = new ArrayList<String>();
+//
+//		String dataFolder = glanetFolderTextField.getText() + Commons.DATA + System.getProperty( "file.separator");
+//		
+//		supportedAssemblies = Remap.getSupportedAssemblies(dataFolder,Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+//
+//		return supportedAssemblies.toArray(new String[0]) ;
+//		
+//	}
 
 	public void findGlanetFolder() {
 
