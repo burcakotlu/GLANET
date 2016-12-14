@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import jaxbxjctool.AugmentationofGivenIntervalwithRsIds;
 import jaxbxjctool.AugmentationofGivenRsIdwithInformation;
@@ -716,7 +717,10 @@ public class GenerationofSequencesandMatricesforSNPs {
 			Map<String, String> chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap){
 		
 				
-			writeSequenceFile(snpDirectory, Commons.TF_EXTENDED_PEAK_SEQUENCE ,getDNASequence( 
+			writeSequenceFile(snpDirectory, 
+					Commons.TF_EXTENDED_PEAK_SEQUENCE,
+					Commons.TF_EXTENDED_PEAK_SEQUENCE,
+					getDNASequence( 
 							snpChrNameWithoutPreceedingChr,
 							snpOneBasedStart-200, 
 							snpOneBasedStart+200,
@@ -780,7 +784,10 @@ public class GenerationofSequencesandMatricesforSNPs {
 						chrName2RefSeqIdforLatestAssemblyReturnedByNCBIEutilsMap));
 
 				// Write TF Name Based TFOverlap Peak Sequence
-				writeSequenceFile( snpDirectory, Commons.TF_EXTENDED_PEAK_SEQUENCE + Commons.UNDERSCORE + tfName,
+				writeSequenceFile( 
+						snpDirectory, 
+						Commons.TF_EXTENDED_PEAK_SEQUENCE + Commons.UNDERSCORE + tfName,
+						Commons.TF_EXTENDED_PEAK_SEQUENCE + Commons.UNDERSCORE + tfName,
 						tfOverlap.getPeakSequence());
 
 			}// End of FOR TF Name Based TF CellLine Overlaps
@@ -792,7 +799,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 	}
 
-	public static void writeSequenceFile( String snpDirectory, String fileName, String sequence) {
+	public static void writeSequenceFile(
+			String snpDirectory, 
+			String fileName, 
+			String informationToBeWrittenInTheFile, 
+			String sequence) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
@@ -809,14 +820,14 @@ public class GenerationofSequencesandMatricesforSNPs {
 			if( indexofLineSeparator != -1){
 				firstLineofFastaFile = sequence.substring( 0, indexofLineSeparator);
 
-				bufferedWriter.write( firstLineofFastaFile + "\t" + fileName + System.getProperty( "line.separator"));
+				bufferedWriter.write( firstLineofFastaFile + "\t" + informationToBeWrittenInTheFile + System.getProperty( "line.separator"));
 				bufferedWriter.write( sequence.substring( indexofLineSeparator + 1).trim());
 
 			}
 			// only sequence is sent
 			// so add '>' character to make it in fasta format
 			else{
-				bufferedWriter.write( ">" + fileName + System.getProperty( "line.separator"));
+				bufferedWriter.write( ">" + informationToBeWrittenInTheFile + System.getProperty( "line.separator"));
 				bufferedWriter.write( sequence);
 
 			}
@@ -954,11 +965,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 					
 					if (SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele) && observedAllelesList.contains("-") ){
 						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
-						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_deleted");
-						}
+						snpInformation.getAlteredSequenceName2SequenceMap().put(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_deleted", alteredSNPSequence);
+					}
 					else if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele)){
 						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;
-						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_copied");
+						snpInformation.getAlteredSequenceName2SequenceMap().put(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_copied",alteredSNPSequence);
 					}					
 				}//End of IF snpClass case ends
 				
@@ -967,11 +978,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 					//This means delete
 					if(SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele) && observedAllelesList.contains("-")){
 						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;	
-						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele +  "_deleted");
+						snpInformation.getAlteredSequenceName2SequenceMap().put(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele +  "_deleted",alteredSNPSequence);
 					}else if(!SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele)){				
 						//This means copy paste
 						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + latterSNPReferenceSequence;	
-						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_copied");
+						snpInformation.getAlteredSequenceName2SequenceMap().put(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_copied",alteredSNPSequence);						
 					}
 					
 				}
@@ -982,13 +993,13 @@ public class GenerationofSequencesandMatricesforSNPs {
 					
 					if(SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele.equalsIgnoreCase(observedAllele)){
 						//This means that this is deletion
-						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;	
-						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_deleted");
+						alteredSNPSequence = formerSNPReferenceSequence + latterSNPReferenceSequence;
+						snpInformation.getAlteredSequenceName2SequenceMap().put(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_deleted",alteredSNPSequence);
 					}else{ 
 						//This means that this is insertion Question how will be the order? Will observedAllele become before or after?
 						//Decision observedAllele will be inserted before
 						alteredSNPSequence = formerSNPReferenceSequence + observedAllele + SNPReferenceSequenceStartingAtSNPPositionOfLengthObservedAllele +latterSNPReferenceSequence;
-						snpInformation.getSnpAlteredSequenceNames().add(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_inserted");	
+						snpInformation.getAlteredSequenceName2SequenceMap().put(Commons.RS + rsId + Commons.UNDERSCORE + observedAllele + "_inserted",alteredSNPSequence);
 					}
 					
 				}//End of IF snpClass in-del case ends
@@ -1003,11 +1014,6 @@ public class GenerationofSequencesandMatricesforSNPs {
 				}
 				
 				
-				//Update UsedObservedAlleles and SNPAlteredSequences				
-				if (alteredSNPSequence!=null){
-					snpInformation.getSnpAlteredSequences().add(alteredSNPSequence);
-				}
-
 
 			}//End of IF observedAllele is not "-"
 
@@ -1627,7 +1633,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 				/*****************************************************************/
 				/******** Write SNP Reference DNA Sequence starts ******************/
 				/*****************************************************************/
-				writeSequenceFile( snpDirectory, Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(),entry.getValue().getFastaFile());
+				writeSequenceFile( 
+						snpDirectory, 
+						Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(),
+						Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(),
+						entry.getValue().getFastaFile());
 				/*****************************************************************/
 				/******** Write SNP Reference DNA Sequence ends ********************/
 				/*****************************************************************/
@@ -1643,11 +1653,6 @@ public class GenerationofSequencesandMatricesforSNPs {
 							Commons.OBSERVED_ALLELES + Commons.UNDERSCORE + Commons.RS + validRsId + Commons.UNDERSCORE + rsInformation.getOrient().convertEnumtoString(),
 							rsInformation.getSlashSeparatedObservedAlleles());
 					
-					//delete 14 DEC 2016 debug starts
-					if (rsInformation.getRsId()==371562683 || rsInformation.getRsId()==549659598){
-						System.out.println("debug");
-					}
-					//delete 14 DEC 2016 debug ends
 
 					/*******************************************************************/
 					/************* Create SNP Altered Sequences starts *****************/
@@ -1660,15 +1665,26 @@ public class GenerationofSequencesandMatricesforSNPs {
 					/*******************************************************************/
 					/************* Write SNP Altered Sequences starts ******************/
 					/*******************************************************************/					
-					alteredSequenceCount = 0;
-
-					for(String alteredSequence : snpInformation.getSnpAlteredSequences()){
+					alteredSequenceCount = 1;
+					
+					for(Entry<String, String> name2Sequence: snpInformation.getAlteredSequenceName2SequenceMap().entrySet()){
+						String alteredSequenceName = name2Sequence.getKey();
+						String alteredSequence = name2Sequence.getValue();
+						
 						writeSequenceFile(
 								snpDirectory,
-								Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + snpInformation.getSnpAlteredSequenceNames().get(alteredSequenceCount) + Commons.UNDERSCORE + entry.getKey(),
+								Commons.SNP_ALTERED_SEQUENCE + alteredSequenceCount,
+								Commons.SNP_ALTERED_SEQUENCE + Commons.UNDERSCORE + alteredSequenceName + Commons.UNDERSCORE + entry.getKey(),
 								alteredSequence);
+						
 						alteredSequenceCount++;
-					}					
+						
+						alteredSequenceName = null;
+						alteredSequence = null;
+						
+					}//End of for each entry
+
+				
 					/*******************************************************************/
 					/************* Write SNP Altered Sequences ends ********************/
 					/*******************************************************************/

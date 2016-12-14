@@ -4,7 +4,9 @@
 package rsat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Burcak Otlu
@@ -22,41 +24,62 @@ public class SNPInformation {
 	String fastaFile;
 
 	List<Integer> validRsIDList;
-	List<String> usedObservedAlleles;
-	List<String> snpAlteredSequences;
-	List<String> snpAlteredSequenceNames;
+	
+	Map<String,String> alteredSequenceName2SequenceMap = new HashMap<String,String>();
+//	List<String> snpAlteredSequences;
+//	List<String> snpAlteredSequenceNames;
 
 	boolean snpContainsAnyOfObservedAlleles;
 
-	public List<String> getSnpAlteredSequenceNames() {
+//	public List<String> getSnpAlteredSequenceNames() {
+//
+//		return snpAlteredSequenceNames;
+//	}
+//
+//	public void setSnpAlteredSequenceNames( List<String> snpAlteredSequenceNames) {
+//
+//		this.snpAlteredSequenceNames = snpAlteredSequenceNames;
+//	}
+	
+//	public List<String> getSnpAlteredSequences() {
+//
+//		return snpAlteredSequences;
+//	}
+//
+//	public void setSnpAlteredSequences( List<String> snpAlteredSequences) {
+//
+//		this.snpAlteredSequences = snpAlteredSequences;
+//	}
 
-		return snpAlteredSequenceNames;
-	}
-
-	public void setSnpAlteredSequenceNames( List<String> snpAlteredSequenceNames) {
-
-		this.snpAlteredSequenceNames = snpAlteredSequenceNames;
-	}
+	
+	
+	
 
 	public boolean isSnpContainsAnyOfObservedAlleles() {
 
 		return snpContainsAnyOfObservedAlleles;
 	}
 
+
+
+	public Map<String, String> getAlteredSequenceName2SequenceMap() {
+		return alteredSequenceName2SequenceMap;
+	}
+
+
+
+	public void setAlteredSequenceName2SequenceMap(Map<String, String> alteredSequenceName2SequenceMap) {
+		this.alteredSequenceName2SequenceMap = alteredSequenceName2SequenceMap;
+	}
+
+
+
 	public void setSnpContainsAnyOfObservedAlleles( boolean snpContainsAnyOfObservedAlleles) {
 
 		this.snpContainsAnyOfObservedAlleles = snpContainsAnyOfObservedAlleles;
 	}
 
-	public List<String> getUsedObservedAlleles() {
-
-		return usedObservedAlleles;
-	}
-
-	public void setUsedObservedAlleles( List<String> usedObservedAlleles) {
-
-		this.usedObservedAlleles = usedObservedAlleles;
-	}
+	
 
 	public String getChrNameWithoutPreceedingChr() {
 
@@ -98,15 +121,6 @@ public class SNPInformation {
 		this.snpReferenceSequence = snpReferenceSequence;
 	}
 
-	public List<String> getSnpAlteredSequences() {
-
-		return snpAlteredSequences;
-	}
-
-	public void setSnpAlteredSequences( List<String> snpAlteredSequences) {
-
-		this.snpAlteredSequences = snpAlteredSequences;
-	}
 
 	public String getFastaFile() {
 
@@ -132,10 +146,11 @@ public class SNPInformation {
 
 		super();
 		this.validRsIDList = new ArrayList<Integer>();
-		this.usedObservedAlleles = new ArrayList<String>();
-		this.snpAlteredSequences = new ArrayList<String>();
-		this.snpAlteredSequenceNames = new ArrayList<String>();
+		this.alteredSequenceName2SequenceMap = new HashMap<String,String>();
 		this.snpContainsAnyOfObservedAlleles = false;
+//		this.usedObservedAlleles = new ArrayList<String>();
+//		this.snpAlteredSequences = new ArrayList<String>();
+//		this.snpAlteredSequenceNames = new ArrayList<String>();
 	}
 
 }

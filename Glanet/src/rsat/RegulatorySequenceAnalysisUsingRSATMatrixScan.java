@@ -32,6 +32,7 @@
  *  last base  of (R	10	18	CCCGCAACC) is the 10.th base of the original (29. base long) sequence
  * since we took the reverse of it
  * 
+ * In fact,  snp is always at the Commons.ONE_BASED_SNP_POSITION
  * snp is always at the 15. th base position which is G in this case (R	10	18	CCCGCAACC)
  * snp is always at the Commons.ONE_BASED_SNP_POSITION
  */
@@ -1127,12 +1128,6 @@ public class RegulatorySequenceAnalysisUsingRSATMatrixScan {
 
 			// example eachSNPDirectory is chr1_11802721_rs17367504
 			for( File eachSNPDirectory : mainSNPsDirectory.listFiles()){
-				
-				//delete debug starts
-				if (eachSNPDirectory.getAbsolutePath().contains("chr12_29783582")){
-					System.out.println("debug markov");
-				}
-				//delete debug ends
 
 				// Initialize input files
 				snpReferenceSequenceFile = null;
