@@ -301,43 +301,27 @@ public class GenerationofSequencesandMatricesforSNPs {
 	// Fill CountList using CountLine
 	public static void fillCountList( String countLine, List<Integer> countList) {
 
-		// example Count line
+		// old example Count line
 		// 4 19 0 0 0 0
-		int indexofFormerTab = 0;
-		int indexofLatterTab = 0;
-
-		int count = 0;
-
-		indexofFormerTab = 0;
-		indexofLatterTab = countLine.indexOf( '\t');
-
-		// Insert the first count
-		if( indexofLatterTab >= 0){
-			count = Integer.parseInt( countLine.substring( indexofFormerTab, indexofLatterTab));
-			countList.add( count);
-		}
-
-		indexofFormerTab = indexofLatterTab;
-		indexofLatterTab = countLine.indexOf( '\t', indexofFormerTab + 1);
-
-		// Insert the rest of the counts
-		while( indexofLatterTab >= 0){
-
-			count = Integer.parseInt( countLine.substring( indexofFormerTab + 1, indexofLatterTab));
-
-			countList.add( count);
-
-			indexofFormerTab = indexofLatterTab;
-			indexofLatterTab = countLine.indexOf( '\t', indexofFormerTab + 1);
-
-		}
-
-		// Insert the last count
-		if( indexofFormerTab >= 0){
-			count = Integer.parseInt( countLine.substring( indexofFormerTab + 1));
-			countList.add( count);
-
-		}
+		
+		//new example Count line
+		//15 DEC 2016
+		//A  [ 3  0  0  0  0  0 ]
+		
+		int indexofOpenBracket = countLine.indexOf('[');
+		int indexofCloseBracket = countLine.indexOf(']');
+		
+		String countLineWithoutBrackets = null;		
+		countLineWithoutBrackets = countLine.substring(indexofOpenBracket+1, indexofCloseBracket);
+		
+		String[] countsStringArray =countLineWithoutBrackets.split(" ");
+		
+		for(String eachCount:countsStringArray){
+			eachCount  = eachCount.trim();
+			if (!eachCount.isEmpty())
+				countList.add(Integer.parseInt(eachCount));
+		}//End of FOR
+		
 
 	}
 
@@ -538,20 +522,25 @@ public class GenerationofSequencesandMatricesforSNPs {
 			fileReader = new FileReader( dataFolder + jasparCoreInputFileName);
 			bufferedReader = new BufferedReader( fileReader);
 
-			// Example matrix from jaspar core pfm_all.txt
+			// Example old matrix from jaspar core pfm_all.txt
 			// >MA0004.1 Arnt
 			// 4 19 0 0 0 0
 			// 16 0 20 0 0 0
 			// 0 1 0 20 0 20
 			// 0 0 0 0 20 0
+			
+			// Example new matrix
+			//>MA0006.1	Ahr::Arnt
+			//A  [ 3  0  0  0  0  0 ]
+			//C  [ 8  0 23  0  0  0 ]
+			//G  [ 2 23  0 23  0 24 ]
+			//T  [11  1  1  1 24  0 ]
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 				if( strLine.startsWith( ">")){
 					tfName = strLine.substring( 1);
 
-					// Initialize array lists
-					// for the new coming position count matrix and position
-					// frequency matrix
+					// Initialize array lists for the new coming position count matrix and position frequency matrix
 					ACountList = new ArrayList<Integer>();
 					AFrequencyList = new ArrayList<Float>();
 
@@ -569,47 +558,46 @@ public class GenerationofSequencesandMatricesforSNPs {
 				}
 
 				switch( whichLine){
-				case ALine:{
-					fillCountList( strLine, ACountList);
-					whichLine = CLine;
-					break;
-				}
-
-				case CLine:{
-					fillCountList( strLine, CCountList);
-					whichLine = GLine;
-					break;
-				}
-
-				case GLine:{
-					fillCountList( strLine, GCountList);
-					whichLine = TLine;
-					break;
-				}
-
-				case TLine:{
-					fillCountList( strLine, TCountList);
-					whichLine = headerLine;
-
-					// Since count lists are available
-					// Then compute frequency lists
-					totalCount = getTotalCount( ACountList, CCountList, GCountList, TCountList);
-					fillFrequencyListUsingCountList( AFrequencyList, ACountList, totalCount);
-					fillFrequencyListUsingCountList( CFrequencyList, CCountList, totalCount);
-					fillFrequencyListUsingCountList( GFrequencyList, GCountList, totalCount);
-					fillFrequencyListUsingCountList( TFrequencyList, TCountList, totalCount);
-
-					// Now put the new matrix to the hashmap in tab format
-					putPFM( tfName, AFrequencyList, CFrequencyList, GFrequencyList, TFrequencyList, tfName2PfmMatrices);
-
-					// Put the transpose of the matrix for logo generation
-					putLogoMatrix( tfName, AFrequencyList, CFrequencyList, GFrequencyList, TFrequencyList,
-							tfName2LogoMatrices);
-					// writeLogoMatrix(tfName,AFrequencyList,CFrequencyList,GFrequencyList,TFrequencyList,bufferedWriter);
-
-					break;
-
-				}
+					case ALine:{
+						fillCountList( strLine, ACountList);
+						whichLine = CLine;
+						break;
+					}
+	
+					case CLine:{
+						fillCountList( strLine, CCountList);
+						whichLine = GLine;
+						break;
+					}
+	
+					case GLine:{
+						fillCountList( strLine, GCountList);
+						whichLine = TLine;
+						break;
+					}
+	
+					case TLine:{
+						fillCountList( strLine, TCountList);
+						whichLine = headerLine;
+	
+						// Since count lists are available
+						// Then compute frequency lists
+						totalCount = getTotalCount( ACountList, CCountList, GCountList, TCountList);
+						fillFrequencyListUsingCountList( AFrequencyList, ACountList, totalCount);
+						fillFrequencyListUsingCountList( CFrequencyList, CCountList, totalCount);
+						fillFrequencyListUsingCountList( GFrequencyList, GCountList, totalCount);
+						fillFrequencyListUsingCountList( TFrequencyList, TCountList, totalCount);
+	
+						// Now put the new matrix to the hashmap in tab format
+						putPFM( tfName, AFrequencyList, CFrequencyList, GFrequencyList, TFrequencyList, tfName2PfmMatrices);
+	
+						// Put the transpose of the matrix for logo generation
+						putLogoMatrix( tfName, AFrequencyList, CFrequencyList, GFrequencyList, TFrequencyList,
+								tfName2LogoMatrices);
+						// writeLogoMatrix(tfName,AFrequencyList,CFrequencyList,GFrequencyList,TFrequencyList,bufferedWriter);
+	
+						break;	
+					}
 
 				}// End of switch
 
