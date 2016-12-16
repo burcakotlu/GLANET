@@ -948,7 +948,6 @@ public class Remap {
 			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, 
 			String headerLine) {
 
-		// outputFileInTargetAssembly
 		BufferedWriter bufferedWriter = null;
 
 		String toBeRemapped1;
@@ -978,8 +977,7 @@ public class Remap {
 				information = lineNumber2SourceInformationMap.get( i);
 
 				// Increase i by 2
-				// Since we have two genomic loci per line in original all TF
-				// Annotations File,.
+				// Since we have two genomic loci per line in original all TF Annotations File.
 				i = i + 2;
 
 				if( mapped1 != null && mapped2 != null){
@@ -1055,8 +1053,8 @@ public class Remap {
 		// source
 		// int sourceInt;
 		ChromosomeName sourceChrName;
-		int sourceStart;
-		int sourceEnd;
+//		int sourceStart;
+//		int sourceEnd;
 
 		// mapped
 		String mappedIntString;
@@ -1139,9 +1137,9 @@ public class Remap {
 							mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab + 1, indexofFifthTab));
 
 							//0based sourceStart
-							sourceStart = Integer.parseInt(strLine.substring( indexofSeventhTab + 1, indexofEigthTab));
+							//sourceStart = Integer.parseInt(strLine.substring( indexofSeventhTab + 1, indexofEigthTab));
 							//1based sourceEnd
-							sourceEnd = Integer.parseInt(strLine.substring( indexofEigthTab + 1, indexofNinethTab));
+							//sourceEnd = Integer.parseInt(strLine.substring( indexofEigthTab + 1, indexofNinethTab));
 
 							//1Based mappedStart
 							mappedStart = Integer.parseInt(strLine.substring( indexofTwelfthTab + 1,indexofThirteenthTab));

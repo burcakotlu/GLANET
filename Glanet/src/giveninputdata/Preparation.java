@@ -100,7 +100,7 @@ public class Preparation {
 	// If no cell line selected so the args.length-1 will be 22-1 = 21. So it
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
-	public static void main( String[] args) {
+	public static void main(String[] args) {
 
 //		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
 

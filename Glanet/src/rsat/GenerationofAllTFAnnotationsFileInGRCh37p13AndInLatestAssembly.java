@@ -104,11 +104,12 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 	 * Generate REMAP InputFile 
 	 * During these fill lineNumber2SourceGenomicLociMap and lineNumber2SourceInformationMap
 	 */
-	public static void generateAllTFAnnotationsFileAndREMAPInputFile( String outputFolder,
+	public static void generateAllTFAnnotationsFileAndREMAPInputFile( 
+			String outputFolder,
 			String all_TF_Annotations_1Based_Start_End_GRCh37_p13,
 			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 			TIntObjectMap<String> lineNumber2SourceInformationMap,
-			String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13) {
+			String remapInputFile_0Based_Start_EndExclusive_GRCh37_P13) {
 
 		String fileAbsolutePath = null;
 
@@ -156,13 +157,13 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter = new BufferedWriter(
 					FileOperations.createFileWriter( allTFAnnotationsDirectory + all_TF_Annotations_1Based_Start_End_GRCh37_p13));
 			remapInputOBasedStartEndExclusiveGrch37p13BufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( allTFAnnotationsDirectory + Commons.NCBI_REMAP + System.getProperty( "file.separator") + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13));
+					FileOperations.createFileWriter( allTFAnnotationsDirectory + Commons.NCBI_REMAP + System.getProperty( "file.separator") + remapInputFile_0Based_Start_EndExclusive_GRCh37_P13));
 
 			if( baseFolder.exists() && baseFolder.isDirectory()){
 
 				File[] files = baseFolder.listFiles();
 
-				allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter.write( "#All TF annotations in 1Based Start and End in GRCh37 p13 coordinates." + System.getProperty( "line.separator"));
+				allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter.write( "#ChrName	snpStart1Based	snpEnd1Based	ChrName	tfStart1Based	tfEnd1Based	(All TF annotations in 1Based Start and End in GRCh37.p13 coordinates.)" + System.getProperty( "line.separator"));
 
 				for( File tfAnnotationFile : files){
 
@@ -294,9 +295,8 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			/***************************************************************************************/
 			/***************************************************************************************/
 
-			//debug delete later
+			//example for debug
 			//String latestAssembyNameReturnedByNCBIEutils = "GRCh38.p2";
-			//debug delete later
 			
 			/***************************************************************************************/
 			/***************************************************************************************/

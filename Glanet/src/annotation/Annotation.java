@@ -11326,8 +11326,8 @@ public class Annotation {
 				// TF
 				TIntIntMap tfNumberCellLineNumber2KMap = new TIntIntHashMap();
 
-				GlanetRunner.appendLog( "**********************************************************");
-				GlanetRunner.appendLog( "CellLine Based TF annotation starts: " + new Date());
+				if( GlanetRunner.shouldLog()) GlanetRunner.appendLog( "**********************************************************");
+				if( GlanetRunner.shouldLog()) GlanetRunner.appendLog( "CellLine Based TF annotation starts: " + new Date());
 
 				dateBefore = System.currentTimeMillis();
 				
@@ -11353,10 +11353,10 @@ public class Annotation {
 				
 				dateAfter = System.currentTimeMillis();
 
-				GlanetRunner.appendLog( "CellLine Based TF annotation ends: " + new Date());
+				if( GlanetRunner.shouldLog()) GlanetRunner.appendLog( "CellLine Based TF annotation ends: " + new Date());
 
-				GlanetRunner.appendLog( "CellLine Based TF annotation took: " + ( float)( ( dateAfter - dateBefore) / 1000) + " seconds");
-				GlanetRunner.appendLog( "**********************************************************");
+				if( GlanetRunner.shouldLog()) GlanetRunner.appendLog( "CellLine Based TF annotation took: " + ( float)( ( dateAfter - dateBefore) / 1000) + " seconds");
+				if( GlanetRunner.shouldLog()) GlanetRunner.appendLog( "**********************************************************");
 
 				//Free space
 				tfNumberCellLineNumber2KMap = null;

@@ -33,7 +33,7 @@ public class GlanetRunner implements Runnable {
 		/************************ InputDataProcess starts ***************************************/
 		setCurrentProcessInfo( "InputDataProcess...");
 
-		InputDataProcess.main( args);
+		InputDataProcess.main(args);
 		/************************ InputDataProcess ends *****************************************/
 
 		/************************ RemoveOverlaps starts ******************************************/
@@ -131,7 +131,6 @@ public class GlanetRunner implements Runnable {
 		/******************************************************************************/
 		/************* Regulatory Sequence Analysis starts ****************************/
 		/******************************************************************************/
-
 		if( ( getArgs()[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ANNOTATION) || 
 				getArgs()[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ANNOTATION) || 
 				getArgs()[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase( Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION)) && 

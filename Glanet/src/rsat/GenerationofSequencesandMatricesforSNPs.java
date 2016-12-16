@@ -1604,7 +1604,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 				snpInformation.setSnpReferenceSequence( snpReferenceSequence);
 
 				/*****************************************************************/
-				/***************** Set SNP directory starts ************************/
+				/***************** Set SNP directory starts **********************/
 				/*****************************************************************/
 				snpDirectory = forRSAFolder + Commons.SNPs + System.getProperty( "file.separator") + entry.getKey();
 
@@ -1615,11 +1615,11 @@ public class GenerationofSequencesandMatricesforSNPs {
 
 				snpDirectory = snpDirectory + System.getProperty( "file.separator");
 				/*****************************************************************/
-				/***************** Set SNP directory ends **************************/
+				/***************** Set SNP directory ends ************************/
 				/*****************************************************************/
 
 				/*****************************************************************/
-				/******** Write SNP Reference DNA Sequence starts ******************/
+				/******** Write SNP Reference DNA Sequence starts ****************/
 				/*****************************************************************/
 				writeSequenceFile( 
 						snpDirectory, 
@@ -1627,7 +1627,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 						Commons.SNP_REFERENCE_SEQUENCE + "_" + entry.getKey(),
 						entry.getValue().getFastaFile());
 				/*****************************************************************/
-				/******** Write SNP Reference DNA Sequence ends ********************/
+				/******** Write SNP Reference DNA Sequence ends ******************/
 				/*****************************************************************/
 
 				/**********************************************************************************/
