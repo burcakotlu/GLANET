@@ -25,35 +25,25 @@ public class SNPInformation {
 
 	List<Integer> validRsIDList;
 	
+	String userDefinedObservedAlleles;
+	
 	Map<String,String> alteredSequenceName2SequenceMap = new HashMap<String,String>();
 //	List<String> snpAlteredSequences;
 //	List<String> snpAlteredSequenceNames;
 
-	boolean snpContainsAnyOfObservedAlleles;
+	boolean snpContainsAnyOfObservedAlleles;	
 
-//	public List<String> getSnpAlteredSequenceNames() {
-//
-//		return snpAlteredSequenceNames;
-//	}
-//
-//	public void setSnpAlteredSequenceNames( List<String> snpAlteredSequenceNames) {
-//
-//		this.snpAlteredSequenceNames = snpAlteredSequenceNames;
-//	}
-	
-//	public List<String> getSnpAlteredSequences() {
-//
-//		return snpAlteredSequences;
-//	}
-//
-//	public void setSnpAlteredSequences( List<String> snpAlteredSequences) {
-//
-//		this.snpAlteredSequences = snpAlteredSequences;
-//	}
+	public String getUserDefinedObservedAlleles() {
+		return userDefinedObservedAlleles;
+	}
 
-	
-	
-	
+
+
+	public void setUserDefinedObservedAlleles(String userDefinedObservedAlleles) {
+		this.userDefinedObservedAlleles = userDefinedObservedAlleles;
+	}
+
+
 
 	public boolean isSnpContainsAnyOfObservedAlleles() {
 

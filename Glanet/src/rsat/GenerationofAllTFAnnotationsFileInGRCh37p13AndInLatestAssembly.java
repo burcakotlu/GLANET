@@ -116,7 +116,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 		BufferedReader bufferedReader = null;
 
 		BufferedWriter allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter = null;
-		BufferedWriter remapInputOBasedStartEndExclusiveGrch37p13BufferedWriter = null;
+		BufferedWriter remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter = null;
 
 		String strLine;
 		String after;
@@ -156,7 +156,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 		try{
 			allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter = new BufferedWriter(
 					FileOperations.createFileWriter( allTFAnnotationsDirectory + all_TF_Annotations_1Based_Start_End_GRCh37_p13));
-			remapInputOBasedStartEndExclusiveGrch37p13BufferedWriter = new BufferedWriter(
+			remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter = new BufferedWriter(
 					FileOperations.createFileWriter( allTFAnnotationsDirectory + Commons.NCBI_REMAP + System.getProperty( "file.separator") + remapInputFile_0Based_Start_EndExclusive_GRCh37_P13));
 
 			if( baseFolder.exists() && baseFolder.isDirectory()){
@@ -210,7 +210,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 							/*** 1st******SNP Genomic Loci Line starts ****************/
 							remapInputFileLine1 = strLine.substring( 0, indexofFirstTab) + "\t" + snpStart0Based + "\t" + snpEnd1Based + System.getProperty( "line.separator");
 
-							remapInputOBasedStartEndExclusiveGrch37p13BufferedWriter.write( remapInputFileLine1);
+							remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter.write( remapInputFileLine1);
 
 							lineNumber2SourceGenomicLociMap.put(numberofLocisInRemapInputFile,strLine.substring( 0, indexofFirstTab) + "\t" + snpStart1Based + "\t" + snpEnd1Based);
 							lineNumber2SourceInformationMap.put(numberofLocisInRemapInputFile, after);
@@ -221,7 +221,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 							/*** 2nd******TF Genomic Loci Line starts *****************/
 							remapInputFileLine2 = strLine.substring( indexofThirdTab + 1, indexofFourthTab) + "\t" + tfStart0Based + "\t" + tfEnd1Based + System.getProperty( "line.separator");
 
-							remapInputOBasedStartEndExclusiveGrch37p13BufferedWriter.write( remapInputFileLine2);
+							remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter.write( remapInputFileLine2);
 
 							lineNumber2SourceGenomicLociMap.put(
 									numberofLocisInRemapInputFile,
@@ -244,7 +244,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 			// Close AllTFAnnotationsFile And RemapInputFile
 			allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter.close();
-			remapInputOBasedStartEndExclusiveGrch37p13BufferedWriter.close();
+			remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter.close();
 
 		}catch( IOException e){
 

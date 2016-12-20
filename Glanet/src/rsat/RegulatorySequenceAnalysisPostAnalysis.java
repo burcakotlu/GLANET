@@ -103,7 +103,8 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 			while((strLine = RSABufferedReader.readLine())!=null){
 				
 				//Get information line, initialize and skip
-				if (strLine.startsWith(Commons.GLANET_COMMENT_STRING) && !strLine.startsWith("#SequenceType")){
+				//Take the information of chrName_SNPPosition_TFName from the preceding line containing #SequenceType
+				if (strLine.startsWith(Commons.GLANET_COMMENT_STRING) &&  !strLine.startsWith("#SequenceType")){
 					
 					//Means that a new finding starts
 					informationLine = strLine;
@@ -116,7 +117,6 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
 					
 					tfExtendedSequencePValue = null;
-					
 					continue;
 						
 				}
@@ -125,6 +125,8 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 				if (strLine.startsWith(Commons.GLANET_COMMENT_STRING)){
 					continue;
 				}
+				
+
 				
 				//We are interested in the  line that contains "SNPReferenceSequence" and  "Containing SNP Position"
 				//There can be more than one such lines
@@ -162,82 +164,81 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 				}
 				
 				
-				//We have three not null pValues Case3
-				//p_SNP is less than p_reference and p_extended
-				//Case1
-				//SNP has a better match.
-				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
+				//If we have all the values at hand
+				if (	snpReferenceSequenceHavingSNPPositionPValue!= null && 
 						snpAlteredSequenceHavingSNPPositionPValue!=null &&
-								tfExtendedSequencePValue!=null &&
-						(	savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue &&
-							savedSnpAlteredSequenceHavingSNPPositionPValue < savedSnpReferenceSequenceHavingSNPPositionPValue )){
+						tfExtendedSequencePValue!=null){
 					
+					//Case1 
+					//SNP has a better match
+					//p_snp has to be less than p_extended and p_ref
+					if	(	savedSnpAlteredSequenceHavingSNPPositionPValue < savedSnpReferenceSequenceHavingSNPPositionPValue &&
+							savedSnpAlteredSequenceHavingSNPPositionPValue < tfExtendedSequencePValue ){
 					
-					RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
-					informationLine = informationLine.replace("*", "");
-					informationLine = informationLine.replace("#", "");
-					RSAPostAnalysisBufferedWriter.write(informationLine);
-					RSAPostAnalysisBufferedWriter.write( "\t"  + " SNP has a better match.\t" + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + df.format(tfExtendedSequencePValue) + System.getProperty("line.separator"));
+						RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
+						informationLine = informationLine.replace("*", "");
+						informationLine = informationLine.replace("#", "");
+						RSAPostAnalysisBufferedWriter.write(informationLine);
+						RSAPostAnalysisBufferedWriter.write( "\t"  + " SNP has a better match.\t" + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + df.format(tfExtendedSequencePValue) + System.getProperty("line.separator"));
+						
+						//Initialize
+						snpReferenceSequenceHavingSNPPositionPValue = null;
+						savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+						
+						snpAlteredSequenceHavingSNPPositionPValue = null;
+						savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+						
+						tfExtendedSequencePValue = null;
+					}
 					
-					//Initialize
-					snpReferenceSequenceHavingSNPPositionPValue = null;
-					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					//Case2 
+					//SNP has a worse match
+					//p_snp has to be greater than p_extended and p_ref
+					if (	savedSnpAlteredSequenceHavingSNPPositionPValue > savedSnpReferenceSequenceHavingSNPPositionPValue  &&
+							savedSnpAlteredSequenceHavingSNPPositionPValue > tfExtendedSequencePValue){
+							
+						//Former condition
+						//savedSnpReferenceSequenceHavingSNPPositionPValue.equals(tfExtendedSequencePValue)){
 					
-					snpAlteredSequenceHavingSNPPositionPValue = null;
-					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-					
-					tfExtendedSequencePValue = null;
-				}
+						RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
+						informationLine = informationLine.replace("*", "");
+						informationLine = informationLine.replace("#", "");
+						RSAPostAnalysisBufferedWriter.write(informationLine);
+						RSAPostAnalysisBufferedWriter.write("\t" + " SNP has a worse match (disrupting effect).\t" + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + df.format(tfExtendedSequencePValue) + System.getProperty("line.separator"));
+						
+						//Initialize
+						snpReferenceSequenceHavingSNPPositionPValue = null;
+						savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+						
+						snpAlteredSequenceHavingSNPPositionPValue = null;
+						savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+						
+						tfExtendedSequencePValue = null;
 				
-				//We have three not null pValues Case4
-				//Case2
-				//SNP has a worse match.
-				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
-						snpAlteredSequenceHavingSNPPositionPValue!=null &&
-								tfExtendedSequencePValue!=null &&
-						(	savedSnpReferenceSequenceHavingSNPPositionPValue < savedSnpAlteredSequenceHavingSNPPositionPValue &&
-							savedSnpReferenceSequenceHavingSNPPositionPValue.equals(tfExtendedSequencePValue))){
+					}
 					
-					RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
-					informationLine = informationLine.replace("*", "");
-					informationLine = informationLine.replace("#", "");
-					RSAPostAnalysisBufferedWriter.write(informationLine);
-					RSAPostAnalysisBufferedWriter.write("\t" + " SNP has a worse match (disrupting effect).\t" + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + df.format(tfExtendedSequencePValue) + System.getProperty("line.separator"));
+					//Case3
+					//Can p_ref less than p_extended? If yes then alert
+					if (savedSnpReferenceSequenceHavingSNPPositionPValue < tfExtendedSequencePValue){
+						
+						RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
+						informationLine = informationLine.replace("*", "");
+						informationLine = informationLine.replace("#", "");
+						RSAPostAnalysisBufferedWriter.write(informationLine);
+						RSAPostAnalysisBufferedWriter.write("\t" + "Can p_ref less than p_extended? I guess no. Just for debugging." + System.getProperty("line.separator"));
+
+						//Initialize
+						snpReferenceSequenceHavingSNPPositionPValue = null;
+						savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+						
+						snpAlteredSequenceHavingSNPPositionPValue = null;
+						savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+						
+						tfExtendedSequencePValue = null;
+
+					}
 					
-					//Initialize
-					snpReferenceSequenceHavingSNPPositionPValue = null;
-					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-					
-					snpAlteredSequenceHavingSNPPositionPValue = null;
-					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-					
-					tfExtendedSequencePValue = null;
-				
-				}
-				
-				//For debugging1
-				if (snpReferenceSequenceHavingSNPPositionPValue!= null && 
-						snpAlteredSequenceHavingSNPPositionPValue!=null &&
-								tfExtendedSequencePValue!=null &&
-						(savedSnpReferenceSequenceHavingSNPPositionPValue < tfExtendedSequencePValue)){
-					
-					RSAPostAnalysisBufferedWriter.write(++numberofInterestingFindings + "\t");
-					informationLine = informationLine.replace("*", "");
-					informationLine = informationLine.replace("#", "");
-					RSAPostAnalysisBufferedWriter.write(informationLine);
-					RSAPostAnalysisBufferedWriter.write("\t" + "Can p_reference less than p_extended ? I guess no. Just for debugging." + System.getProperty("line.separator"));
-					
-					//Initialize
-					snpReferenceSequenceHavingSNPPositionPValue = null;
-					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-					
-					snpAlteredSequenceHavingSNPPositionPValue = null;
-					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-					
-					tfExtendedSequencePValue = null;
-				
-				}
-								
+				}//End of IF we have read all the necessary pValues	
 				
 			}//End of WHILE
 			

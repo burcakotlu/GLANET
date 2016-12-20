@@ -39,7 +39,6 @@ import annotation.Annotation;
 import annotation.OverlapInformation;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -80,7 +79,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 	}
 	
 	public static void writeInputFile(
-			String RSAFolder,
+			String remapFolder,
 			String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
 			Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap){
 		
@@ -92,7 +91,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 		int _0BasedCoordinate_InGRCH37p13 = -1;
 		
 		try {
-			fileWriter = FileOperations.createFileWriter(RSAFolder + PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName);
+			fileWriter = FileOperations.createFileWriter(remapFolder + PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			for(String key : _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap.keySet()){
@@ -486,17 +485,19 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 			Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode){
 		
+		String remapFolder = RSAFolder + Commons.NCBI_REMAP + System.getProperty("file.separator");
+		
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA starts ***************************************/
 		/*****************************************************************************************/
-		String inputFileName = RSAFolder +  PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName;
+		String inputFileName = remapFolder +  PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName;
 
 		TIntObjectMap<FileWriter> chrNumber2FileWriterMap = new TIntObjectHashMap<FileWriter>();
 		TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap = new TIntObjectHashMap<BufferedWriter>();
 
 		// Prepare chromosome based partitioned input interval files to be searched for
 		// Create Buffered Writers for writing chromosome based input files
-		FileOperations.createChromBaseSearchInputFiles(RSAFolder, chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
+		FileOperations.createChromBaseSearchInputFiles(remapFolder, chrNumber2FileWriterMap, chrNumber2BufferedWriterMap);
 
 		// Partition the input file into 24 chromosome based input files
 		FileOperations.partitionSearchInputFilePerChromName(inputFileName, chrNumber2BufferedWriterMap);
@@ -508,8 +509,8 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 		/*****************************************************************************************/
 		
 		
-		GlanetRunner.appendLog("**********************************************************");
-		GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis starts: " + new Date());
+		if( GlanetRunner.shouldLog()) GlanetRunner.appendLog("**********************************************************");
+		if( GlanetRunner.shouldLog())GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis starts: " + new Date());
 		
 		AssociationMeasureType associationMeasureType = AssociationMeasureType.EXISTENCE_OF_OVERLAP;
 		int overlapDefinition = 1;
@@ -542,7 +543,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 
 		Annotation.searchGeneWithNumbers(
 				dataFolder, 
-				RSAFolder, 
+				remapFolder, 
 				writeFoundOverlapsMode,
 				givenIntervalNumber2GivenIntervalNameMap, 
 				givenIntervalNumber2OverlapInformationMap,
@@ -569,7 +570,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 				_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
 
 		Annotation.writeGeneOverlapAnalysisFile( 
-				RSAFolder,
+				remapFolder,
 				Commons.HG19_REFSEQ_GENE_ANNOTATION_DIRECTORY + Commons.ANALYSIS_DIRECTORY + Commons.OVERLAP_ANALYSIS_FILE,
 				geneOverlapAnalysisFileMode, 
 				givenIntervalNumber2GivenIntervalNameMap,
@@ -582,12 +583,12 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 				associationMeasureType,
 				geneEntrezID2KMap, 
 				geneEntrezId2GeneOfficialSymbolMap, 
-				RSAFolder,
+				remapFolder,
 				Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
 		
 		
-		GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis ends: " + new Date());
-		GlanetRunner.appendLog("**********************************************************");
+		if( GlanetRunner.shouldLog()) GlanetRunner.appendLog("Hg19 RefSeq Gene Annotation for RSA Post Analysis ends: " + new Date());
+		if( GlanetRunner.shouldLog()) GlanetRunner.appendLog("**********************************************************");
 
 		geneEntrezID2KMap = null;
 		
@@ -600,6 +601,8 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 			String RSAPostAnalysisFileName,
 			String RSAPostAnalysisAugmentedWithGeneAnnotationsFileName,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode){
+		
+		String remapFolder = RSAFolder + Commons.NCBI_REMAP + System.getProperty("file.separator");
 		
 		//First read outputFile resulting from RSA post analysis
 		FileReader fileReader = null;
@@ -642,7 +645,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 			fileReader = FileOperations.createFileReader(RSAFolder + RSAPostAnalysisFileName);		
 			bufferedReader = new BufferedReader(fileReader);
 			
-			fileWriter = FileOperations.createFileWriter(RSAFolder +  PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly_FileName);
+			fileWriter = FileOperations.createFileWriter(remapFolder +  PostAnalysis_RSA_chrName_1BasedCoordinateInLatestAssembly_FileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 						
 			//Skip header line in RSAPostAnalysisFile
@@ -701,12 +704,12 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 				//Fill keys and values of  _1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map
 				//Fill only keys of 0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
 				fillMaps(_1BasedCoordinatesInlatestAssembly_2_1BasedCoordinatesInGRCh37p13Map,
-					_1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
-					_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
+						_1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
+						_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
 				
 				//Write input file for GLANET annotation using keys in _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
 				writeInputFile(
-						RSAFolder,
+						remapFolder,
 						PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
 						_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
 				

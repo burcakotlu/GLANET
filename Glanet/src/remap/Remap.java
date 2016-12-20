@@ -141,7 +141,7 @@ public class Remap {
 			String inputFile0BasedStartEnd, 
 			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
 			TIntObjectMap<String> lineNumber2SourceInformationMap,
-			String remapInputFileOBasedStartEndExclusive) {
+			String remapInputFile0BasedStartEndExclusive) {
 
 		BufferedReader bufferedReader = null;
 		BufferedWriter bufferedWriter = null;
@@ -165,8 +165,8 @@ public class Remap {
 //		chr10	38894494	rs74223011
 
 		try{
-			bufferedReader = new BufferedReader(FileOperations.createFileReader(givenInputDataFolder + inputFile0BasedStartEnd));
-			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenInputDataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + remapInputFileOBasedStartEndExclusive));
+			bufferedReader = new BufferedReader(FileOperations.createFileReader(givenInputDataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + inputFile0BasedStartEnd));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenInputDataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + remapInputFile0BasedStartEndExclusive));
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 
@@ -225,7 +225,7 @@ public class Remap {
 		
 		try{
 			bufferedReader = new BufferedReader(FileOperations.createFileReader(givenInputDataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + remapOutputFile1BasedStartEndInGRCh37p13));
-			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenInputDataFolder + processedFile1BasedStartEndInTargetAssembly));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(givenInputDataFolder + Commons.NCBI_REMAP + System.getProperty("file.separator") + processedFile1BasedStartEndInTargetAssembly));
 
 			//Skip header line
 			strLine = bufferedReader.readLine();
@@ -1015,6 +1015,279 @@ public class Remap {
 			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
+	}
+	
+	
+	//16 DEC 2016
+	//Simplified Version
+	//Augment with user defined observed alleles
+	public static void convertTwoGenomicLociPerLineUsingMap(
+			String forRSA_Folder,
+			String all_GivenIntervalsTFOverlapsInGRCh37_p13_FileName,
+			String all_GivenIntervalsTFOverlapsInLatestAssembly_FileName,
+			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap,
+			Map<String, String> snpKey2ObservedAllelesMap,
+			String headerLine){
+		
+		BufferedReader bufferedReader = null;
+		BufferedWriter bufferedWriter = null;
+		
+		String strLine = null;
+
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		
+		String snpChrName;
+		int _1BasedStart_SNP;
+		int _1BasedEnd_SNP;
+		
+		String tfChrName;
+		int _1BasedStart_TF;
+		int _1BasedEnd_TF;
+		
+		String after = null;
+		
+		String snpKey = null;
+		String snpTarget = null;
+		
+		String tfKey = null;
+		String tfTarget = null;
+		
+		String observedAlleles = null;
+
+	
+		int numberofUnRemappedInputLine = 0;
+
+		try{
+
+			bufferedReader = new  BufferedReader(FileOperations.createFileReader(forRSA_Folder + all_GivenIntervalsTFOverlapsInGRCh37_p13_FileName));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(forRSA_Folder + all_GivenIntervalsTFOverlapsInLatestAssembly_FileName));
+
+			// Header line
+			bufferedWriter.write( headerLine + System.getProperty( "line.separator"));
+			
+			//Skip header line
+			strLine = bufferedReader.readLine();
+			
+			while((strLine = bufferedReader.readLine())!=null){
+				
+				indexofFirstTab = strLine.indexOf('\t');
+				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+				indexofThirdTab = strLine.indexOf('\t', indexofSecondTab+1);
+				indexofFourthTab = strLine.indexOf('\t',indexofThirdTab+1);
+				indexofFifthTab = strLine.indexOf('\t',indexofFourthTab+2);
+				indexofSixthTab = strLine.indexOf('\t',indexofFifthTab+1);
+				
+				snpChrName = strLine.substring(0, indexofFirstTab);
+				_1BasedStart_SNP = Integer.parseInt(strLine.substring(indexofFirstTab+1, indexofSecondTab));
+				_1BasedEnd_SNP = Integer.parseInt(strLine.substring(indexofSecondTab+1, indexofThirdTab));
+				
+				tfChrName = strLine.substring(indexofThirdTab+1, indexofFourthTab);
+				_1BasedStart_TF = Integer.parseInt(strLine.substring(indexofFourthTab+1, indexofFifthTab));
+				_1BasedEnd_TF = Integer.parseInt(strLine.substring(indexofFifthTab+1, indexofSixthTab));
+				
+				after = strLine.substring(indexofSixthTab+1);
+		
+				snpKey = snpChrName + "\t" + _1BasedStart_SNP + "\t" + _1BasedEnd_SNP;
+				tfKey = tfChrName + "\t" + _1BasedStart_TF + "\t" + _1BasedEnd_TF;
+				
+				snpTarget = source_1BasedStart_1BasedEnd2TargetMap.get(snpKey);
+				tfTarget = source_1BasedStart_1BasedEnd2TargetMap.get(tfKey);
+				
+				//Get the observed allele for this snpKey
+				observedAlleles = snpKey2ObservedAllelesMap.get(snpKey);
+						
+				if (snpTarget!=null &&  tfTarget!=null){
+					bufferedWriter.write(snpTarget +"\t" + tfTarget + "\t" + after + "\t" + observedAlleles +System.getProperty("line.separator"));
+				}else if(snpTarget!=null){
+					bufferedWriter.write(snpTarget +"\t" + tfChrName + "\t" + "-1" + "\t"  + "-1" + "\t" + after +  "\t" + observedAlleles + System.getProperty("line.separator"));
+				}else
+				{
+					numberofUnRemappedInputLine++;
+				}
+				
+			}//End of WHILE reading all_GivenIntervalsTFOverlapsInGRCh37_p13_FileName
+			
+
+			if( GlanetRunner.shouldLog())logger.warn( "Number of unremapped lines is: " + numberofUnRemappedInputLine);
+
+			// CLOSE
+			bufferedReader.close();
+			bufferedWriter.close();
+
+		}catch( FileNotFoundException e){
+
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch( IOException e){
+
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}
+		
+	}
+	
+	//16 DEC 2016 
+	//Simplified Version
+	public static void fillConversionMap(
+			String outputFolder, 
+			String remapReportFile,
+			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap){
+		
+		FileReader fileReader = null;
+		BufferedReader bufferedReader = null;
+
+		String strLine = null;
+
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+		int indexofSeventhTab;
+		int indexofEigthTab;
+		int indexofNinethTab;
+		int indexofTenthTab;
+		int indexofEleventhTab;
+		int indexofTwelfthTab;
+		int indexofThirteenthTab;
+		int indexofFourteenthTab;
+		int indexofFifteenthTab;
+		int indexofSixteenthTab;
+		int indexofSeventeenthTab;
+
+		//int lineNumber;
+		
+		int numberofConversionsNotInPrimaryAssembly = 0;
+
+		ChromosomeName sourceChrName;
+		
+		//source
+		//int source_0BasedStart = -1;
+		int source_1BasedStart = -1;
+		int source_1BasesEnd = -1;
+		String sourceKey = null;
+		
+		// mapped
+		int mapped_1BasedStart = -1;
+		int mapped_1BasedEnd = -1;
+		String targetValue = null;
+
+
+		String mappedIntString;
+		ChromosomeName mappedChrName;
+		AssemblySource mappedAssembly;
+
+		// Read remapReportFile
+		// Using remapReportFile first fill chrName_start_end_in_one_assembly 2
+		// chrName_start_end_in_another_assembly Map
+
+		File file = new File(outputFolder + remapReportFile);
+
+		if( file.exists()){
+
+			try{
+
+				fileReader = FileOperations.createFileReader(outputFolder + remapReportFile);
+				bufferedReader = new BufferedReader(fileReader);
+
+				while( ( strLine = bufferedReader.readLine()) != null){
+
+					// #feat_name source_int mapped_int source_id mapped_id
+					// source_length mapped_length source_start source_stop
+					// source_strand source_sub_start source_sub_stop
+					// mapped_start mapped_stop mapped_strand coverage recip
+					// asm_unit
+					// line_67 1 1 chr1 chr1 1 1 147664654 147664654 + 147664654
+					// 147664654 147136772 147136772 + 1 Second Pass Primary
+					// Assembly
+					// line_67 1 2 chr1 NW_003871055.3 1 1 147664654 147664654 +
+					// 147664654 147664654 4480067 4480067 + 1 First Pass
+					// PATCHES
+					// line_122 1 NULL chr14 NULL 1 NULL 93095256 93095256 +
+					// NOMAP NOALIGN
+
+					if( strLine.charAt( 0) != (Commons.GLANET_COMMENT_CHARACTER)){
+
+						indexofFirstTab = strLine.indexOf( '\t');
+						indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
+						indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
+						indexofFourthTab = ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
+						indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
+						indexofSixthTab = ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
+						indexofSeventhTab = ( indexofSixthTab > 0)?strLine.indexOf( '\t', indexofSixthTab + 1):-1;
+						indexofEigthTab = ( indexofSeventhTab > 0)?strLine.indexOf( '\t', indexofSeventhTab + 1):-1;
+						indexofNinethTab = ( indexofEigthTab > 0)?strLine.indexOf( '\t', indexofEigthTab + 1):-1;
+						indexofTenthTab = ( indexofNinethTab > 0)?strLine.indexOf( '\t', indexofNinethTab + 1):-1;
+						indexofEleventhTab = ( indexofTenthTab > 0)?strLine.indexOf( '\t', indexofTenthTab + 1):-1;
+						indexofTwelfthTab = ( indexofEleventhTab > 0)?strLine.indexOf( '\t', indexofEleventhTab + 1):-1;
+						indexofThirteenthTab = ( indexofTwelfthTab > 0)?strLine.indexOf( '\t', indexofTwelfthTab + 1):-1;
+						indexofFourteenthTab = ( indexofThirteenthTab > 0)?strLine.indexOf( '\t',
+								indexofThirteenthTab + 1):-1;
+						indexofFifteenthTab = ( indexofFourteenthTab > 0)?strLine.indexOf( '\t',
+								indexofFourteenthTab + 1):-1;
+						indexofSixteenthTab = ( indexofFifteenthTab > 0)?strLine.indexOf( '\t', indexofFifteenthTab + 1):-1;
+						indexofSeventeenthTab = ( indexofSixteenthTab > 0)?strLine.indexOf( '\t',
+								indexofSixteenthTab + 1):-1;
+
+
+						mappedIntString = strLine.substring( indexofSecondTab + 1, indexofThirdTab);
+
+						if( !mappedIntString.equals(Commons.NULL)){
+
+							sourceChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofThirdTab + 1,indexofFourthTab));
+							mappedChrName = ChromosomeName.convertStringtoEnum(strLine.substring(indexofFourthTab + 1, indexofFifthTab));
+
+							//1based sourceStart
+							source_1BasedStart = Integer.parseInt(strLine.substring(indexofSeventhTab + 1, indexofEigthTab));
+							//1based sourceEnd
+							source_1BasesEnd = Integer.parseInt(strLine.substring( indexofEigthTab + 1, indexofNinethTab));
+
+							//1Based mappedStart
+							mapped_1BasedStart = Integer.parseInt(strLine.substring( indexofTwelfthTab + 1,indexofThirteenthTab));
+							//1Based mappedEnd
+							mapped_1BasedEnd = Integer.parseInt(strLine.substring(indexofThirteenthTab + 1,indexofFourteenthTab));
+
+							mappedAssembly = AssemblySource.convertStringtoEnum(strLine.substring(indexofSeventeenthTab + 1));
+
+							// Pay attention
+							// sourceInt and mappedInt does not have to be the same
+							// e.g: rs1233578
+							if( sourceChrName == mappedChrName && mappedAssembly.isPrimaryAssembly()){
+
+								sourceKey = sourceChrName.convertEnumtoString() + "\t" + source_1BasedStart + "\t" + source_1BasesEnd;
+								targetValue = mappedChrName.convertEnumtoString() + "\t" + mapped_1BasedStart + "\t" + mapped_1BasedEnd;
+								source_1BasedStart_1BasedEnd2TargetMap.put(sourceKey,targetValue);
+	
+							}// End of IF: Valid conversion
+							
+							else{
+								numberofConversionsNotInPrimaryAssembly++;
+							}
+						}// End of IF mappedInt is not NULL
+
+					}// End of IF: Not Header or Comment Line
+
+				}// End of while
+
+				// for debug purposes starts
+				if( GlanetRunner.shouldLog())logger.info( "Number of Lines not in Primary Assembly : " + numberofConversionsNotInPrimaryAssembly + " using file: " + remapReportFile);
+				//if( GlanetRunner.shouldLog())logger.info( "Number of Lines in lineNumber2SourceGenomicLociMap and " +  remapReportFile  + " may differ, since there can be more than one lines in " + remapReportFile + " because of multiple passes for mappings not in primary assembly.");
+				// for debug purposes ends
+
+				// close
+				bufferedReader.close();
+
+			}catch( IOException e){
+
+				if( GlanetRunner.shouldLog())logger.error( e.toString());
+			}
+
+		}// End of if remapReportFile exists
+		
 	}
 
 	public static void fillConversionMap(
