@@ -102,13 +102,17 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 
 			while((strLine = RSABufferedReader.readLine())!=null){
 				
-				//Get information line, initialize and skip
-				//Take the information of chrName_SNPPosition_TFName from the preceding line containing #SequenceType
+				//Get information line
+				//Take the information of chrName_SNPPosition_TFName from the line does starts with GLANET_COMMENT_STRING and does not start with #SequenceType
 				if (strLine.startsWith(Commons.GLANET_COMMENT_STRING) &&  !strLine.startsWith("#SequenceType")){
 					
 					//Means that a new finding starts
 					informationLine = strLine;
-					
+					continue;						
+				}
+				
+				//Initialize
+				if (strLine.startsWith("#SequenceType")){
 					//Initialize
 					snpReferenceSequenceHavingSNPPositionPValue = null;
 					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
@@ -118,16 +122,9 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 					
 					tfExtendedSequencePValue = null;
 					continue;
-						
-				}
-				
-				//Skip comment line
-				if (strLine.startsWith(Commons.GLANET_COMMENT_STRING)){
-					continue;
 				}
 				
 
-				
 				//We are interested in the  line that contains "SNPReferenceSequence" and  "Containing SNP Position"
 				//There can be more than one such lines
 				if (strLine.contains(Commons.SNP_REFERENCE_SEQUENCE) && strLine.contains("Containing SNP Position")){
@@ -138,7 +135,6 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 						savedSnpReferenceSequenceHavingSNPPositionPValue = snpReferenceSequenceHavingSNPPositionPValue;
 					}
 					continue;
-					
 				}
 				
 				
@@ -159,8 +155,9 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 				//We are interested in the first line that contains "TFExtendedPeakSequence" and does not contains "Containing SNP Position"
 				if (strLine.contains(Commons.TF_EXTENDED_PEAK_SEQUENCE) && !strLine.contains("Containing SNP Position")){
 					//Get tfExtendedSequencePValue;
-					tfExtendedSequencePValue = getPValue(strLine);
-						
+					tfExtendedSequencePValue = getPValue(strLine);		
+					//Pay attention
+					//No continue
 				}
 				
 				
@@ -181,14 +178,6 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 						RSAPostAnalysisBufferedWriter.write(informationLine);
 						RSAPostAnalysisBufferedWriter.write( "\t"  + " SNP has a better match.\t" + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + df.format(tfExtendedSequencePValue) + System.getProperty("line.separator"));
 						
-						//Initialize
-						snpReferenceSequenceHavingSNPPositionPValue = null;
-						savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-						
-						snpAlteredSequenceHavingSNPPositionPValue = null;
-						savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-						
-						tfExtendedSequencePValue = null;
 					}
 					
 					//Case2 
@@ -205,16 +194,7 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 						informationLine = informationLine.replace("#", "");
 						RSAPostAnalysisBufferedWriter.write(informationLine);
 						RSAPostAnalysisBufferedWriter.write("\t" + " SNP has a worse match (disrupting effect).\t" + df.format(savedSnpReferenceSequenceHavingSNPPositionPValue) + "\t" +  df.format(savedSnpAlteredSequenceHavingSNPPositionPValue) + "\t" + df.format(tfExtendedSequencePValue) + System.getProperty("line.separator"));
-						
-						//Initialize
-						snpReferenceSequenceHavingSNPPositionPValue = null;
-						savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-						
-						snpAlteredSequenceHavingSNPPositionPValue = null;
-						savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-						
-						tfExtendedSequencePValue = null;
-				
+										
 					}
 					
 					//Case3
@@ -227,16 +207,23 @@ public class RegulatorySequenceAnalysisPostAnalysis {
 						RSAPostAnalysisBufferedWriter.write(informationLine);
 						RSAPostAnalysisBufferedWriter.write("\t" + "Can p_ref less than p_extended? I guess no. Just for debugging." + System.getProperty("line.separator"));
 
-						//Initialize
-						snpReferenceSequenceHavingSNPPositionPValue = null;
-						savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-						
-						snpAlteredSequenceHavingSNPPositionPValue = null;
-						savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
-						
-						tfExtendedSequencePValue = null;
 
 					}
+					
+					/*****************************************************************/
+					/*****************************************************************/
+					/*****************************************************************/
+					//Initialize after processing 3 cases 
+					snpReferenceSequenceHavingSNPPositionPValue = null;
+					savedSnpReferenceSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
+					snpAlteredSequenceHavingSNPPositionPValue = null;
+					savedSnpAlteredSequenceHavingSNPPositionPValue = Float.MAX_VALUE;
+					
+					tfExtendedSequencePValue = null;
+					/*****************************************************************/
+					/*****************************************************************/
+					/*****************************************************************/
 					
 				}//End of IF we have read all the necessary pValues	
 				
