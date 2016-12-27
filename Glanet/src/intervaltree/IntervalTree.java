@@ -717,190 +717,190 @@ public class IntervalTree {
 	}
 
 	
-	//Later on delete this method  starts
-	//4 NOV 2015
-	/*
-	 * If we delete, thus removing a node, what color was the node that was
-	 * removed?
-	 * 
-	 * RED? Ok, since we won't have changed any black-heights, nor will we have
-	 * created two red nodes in a row. Also, cannot cause a violation of
-	 * property 2, since if the removed node was red, it could not have been the
-	 * root.
-	 * 
-	 * BLACK? Could cause there to be two reds in a row(violating property 4),
-	 * and can also cause a violation of property 5. Could also cause a
-	 * violation of property 2, if the removed node was the root and its
-	 * child-which becomes the new root -was red.
-	 */
-	public IntervalTreeNode intervalTreeDelete(long permutationNumberMixedNumber, IntervalTree tree, IntervalTreeNode z) {
-
-		// since z might be changed, do the decrements before
-		// Decrement the number of nodes by one
-		tree.setNumberofNodes( tree.getNumberofNodes() - 1);
-
-		// Decrease the number of non overlapping bases by size of the deleted node z
-		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() - z.getNumberofBases());
-
-		// Start by doing regular binary search tree
-		IntervalTreeNode y;
-		IntervalTreeNode x;
-
-		// Determine a node y to splice out.
-		// The node y is either the input node z (if z has at most 1 child) or
-		// the successor of z if z has two children.
-		if( NodeName.SENTINEL.equals( z.getLeft().getNodeName()) || NodeName.SENTINEL.equals( z.getRight().getNodeName())){
-			y = z;
-			logger.info("For permutationNumberMixedNumber: " +  permutationNumberMixedNumber + " Node to be spliced out is: " + y.getChromName() + " " + y.getColor() + " " + y.getLow() + " " + y.getHigh());
-		}else{
-			y = intervalTreeSuccessor( z);
-			logger.info("For permutationNumberMixedNumber: " +  permutationNumberMixedNumber + " Node to be spliced out is: " + y.getChromName() + " " + y.getColor() + " " + y.getLow() + " " + y.getHigh());
-		}
-
-		// x is set to the not null child of the y or
-		// x is set to nil[T] if y has no children.
-		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
-			x = y.getLeft();
-		}else{
-			x = y.getRight();
-		}
-
-		// The node y is spliced out here by modifying pointers in p[y] and x.
-		// Splicing out y is somewhat complicated by the need for proper handling of the boundary conditions,
-		// which occur when x = null or when y is the root.
-
-		x.setParent( y.getParent());
-
-		if( ( x instanceof OtherIntervalTreeNode) && ( y instanceof OtherIntervalTreeNode)){
-			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)( y.getParent())).getHeight() + 1);
-		}
-
-		if( NodeName.SENTINEL.equals( y.getParent().getNodeName())){
-			tree.setRoot( x);
-		}else{
-			if( y == ( y.getParent()).getLeft()){
-				( y.getParent()).setLeft( x);
-			}else{
-				( y.getParent()).setRight( x);
-			}
-		}
-
-		// set max value of parent of x
-		updateMaxAttribute( x.getParent());
-
-		// set min value of parent of x
-		if( x instanceof OtherIntervalTreeNode){
-			updateMinAttribute( x.getParent());
-		}
-
-		// If the successor of z was the node spliced out,
-		// the contents of z are moved from y to z, overwriting the previous contents.
-		// data fields of node y is copied into node z.
-		// node y takes place of node z.
-		if( y != z){
-			// copy y's satellite data into z
-			z.setChromName( y.getChromName());
-			z.setLow( y.getLow());
-			z.setHigh( y.getHigh());
-			z.setNumberofBases( y.getNumberofBases());
-			
-			//2 NOV 2015 starts
-			if( ( z instanceof TforHistoneIntervalTreeNodeWithNumbers) && ( y instanceof TforHistoneIntervalTreeNodeWithNumbers)){
-				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setTforHistoneNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getTforHistoneNumber());
-				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getCellLineNumber());
-				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( TforHistoneIntervalTreeNodeWithNumbers)y).getFileNumber());
-			}
-			else if ((z instanceof DnaseIntervalTreeNodeWithNumbers) && (y instanceof DnaseIntervalTreeNodeWithNumbers)){
-				( ( DnaseIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getCellLineNumber());
-				( ( DnaseIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getFileNumber());
-			}
-			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) && ( y instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers)){
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setRefSeqGeneNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getRefSeqGeneNumber());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneEntrezId());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneHugoSymbolNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneHugoSymbolNumber());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalName());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalNumber());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getStrand());
-			}
-			//2 NOV 2015 ends
-			
-
-			else if( ( z instanceof DnaseIntervalTreeNode) && ( y instanceof DnaseIntervalTreeNode)){
-				( ( DnaseIntervalTreeNode)z).setCellLineName( ( ( DnaseIntervalTreeNode)y).getCellLineName());
-				( ( DnaseIntervalTreeNode)z).setFileName( ( ( DnaseIntervalTreeNode)y).getFileName());
-			}
-
-			else if( ( z instanceof TforHistoneIntervalTreeNode) && ( y instanceof TforHistoneIntervalTreeNode)){
-				( ( TforHistoneIntervalTreeNode)z).setTfbsorHistoneName( ( ( TforHistoneIntervalTreeNode)y).getTfbsorHistoneName());
-				( ( TforHistoneIntervalTreeNode)z).setCellLineName( ( ( TforHistoneIntervalTreeNode)y).getCellLineName());
-				( ( TforHistoneIntervalTreeNode)z).setFileName( ( ( TforHistoneIntervalTreeNode)y).getFileName());
-			}
-
-			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNode) && ( y instanceof UcscRefSeqGeneIntervalTreeNode)){
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setRefSeqGeneName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getRefSeqGeneName());
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneEntrezId());
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneHugoSymbol( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneHugoSymbol());
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNode)y).getStrand());
-			}
-			
-			//28 OCTOBER 2015 starts
-			else if ((z instanceof DataDrivenExperimentIntervalTreeNode) && (y instanceof DataDrivenExperimentIntervalTreeNode)){
-				((DataDrivenExperimentIntervalTreeNode)z).setGeneSymbol(((DataDrivenExperimentIntervalTreeNode) y).getGeneSymbol());
-				((DataDrivenExperimentIntervalTreeNode)z).setTpm(((DataDrivenExperimentIntervalTreeNode) y).getTpm());
-			}
-			//28 OCTOBER 2015 ends
-			
-
-			// Burcak commented only the data has been changed
-			// Left, Right and Parent does not change.
-			// height does not change
-			// z.setLeft(y.getLeft());
-			// z.setRight(y.getRight());
-			// z.setParent(y.getParent());
-			// z.setColor(y.getColor());
-
-			// set the max of node z
-			updateMaxAttribute( z);
-
-			if( z instanceof OtherIntervalTreeNode){
-				// set the min of node z
-				updateMinAttribute( z);
-			}
-
-		}
-
-		// If y is black, we could have violations of red-black properties:
-		// 1. Every node is either black or red. Ok.
-		// 2. The root is black. If y is the root and x is red, then the root
-		// has become red.
-		// 3. Every leaf is black. Ok.
-		// 4. If a node is red, then both of its children are black. (Hence no
-		// two reds in a row on a simple path from the root to a leaf.)
-		// Violation if p[y] and x are both red.
-		// 5. For each node, all paths from the node to descendant leaves
-		// contain the same number of black nodes. Any path containing y now has
-		// 1 fewer black node.
-		// 5. 5.1 correct by giving x an "extra black".
-		// 5. 5.2 Add 1 to count of black nodes on paths containing x.
-		// 5. 5.3 Now property 5 is Ok, but property 1 is not.
-		// 5. 5.4 x is either doubly black (if color[x] = BLACK) or red&black
-		// (if color[x] = RED) .
-		// 5. 5.4 The attribute color [x] is still either RED or BLACK. No new
-		// values for color attribute.
-		// 5. 5.4 In other words, the extra blackness on a node is by virtue of
-		// x pointing to the node.
-		if( y.getColor() == Commons.BLACK){
-			intervalTreeDeleteFixUp( tree, x);
-		}
-
-		// The node y is returned so that calling procedure can recyle it via  the free list.
-		return y;
-
-	}
-	//intervalTreeDelete Ends
-	//4 NOV 2015
-	//Later on delete this method ends
+//	//Later on delete this method  starts
+//	//4 NOV 2015
+//	/*
+//	 * If we delete, thus removing a node, what color was the node that was
+//	 * removed?
+//	 * 
+//	 * RED? Ok, since we won't have changed any black-heights, nor will we have
+//	 * created two red nodes in a row. Also, cannot cause a violation of
+//	 * property 2, since if the removed node was red, it could not have been the
+//	 * root.
+//	 * 
+//	 * BLACK? Could cause there to be two reds in a row(violating property 4),
+//	 * and can also cause a violation of property 5. Could also cause a
+//	 * violation of property 2, if the removed node was the root and its
+//	 * child-which becomes the new root -was red.
+//	 */
+//	public IntervalTreeNode intervalTreeDelete(long permutationNumberMixedNumber, IntervalTree tree, IntervalTreeNode z) {
+//
+//		// since z might be changed, do the decrements before
+//		// Decrement the number of nodes by one
+//		tree.setNumberofNodes( tree.getNumberofNodes() - 1);
+//
+//		// Decrease the number of non overlapping bases by size of the deleted node z
+//		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() - z.getNumberofBases());
+//
+//		// Start by doing regular binary search tree
+//		IntervalTreeNode y;
+//		IntervalTreeNode x;
+//
+//		// Determine a node y to splice out.
+//		// The node y is either the input node z (if z has at most 1 child) or
+//		// the successor of z if z has two children.
+//		if( NodeName.SENTINEL.equals( z.getLeft().getNodeName()) || NodeName.SENTINEL.equals( z.getRight().getNodeName())){
+//			y = z;
+//			logger.info("For permutationNumberMixedNumber: " +  permutationNumberMixedNumber + " Node to be spliced out is: " + y.getChromName() + " " + y.getColor() + " " + y.getLow() + " " + y.getHigh());
+//		}else{
+//			y = intervalTreeSuccessor( z);
+//			logger.info("For permutationNumberMixedNumber: " +  permutationNumberMixedNumber + " Node to be spliced out is: " + y.getChromName() + " " + y.getColor() + " " + y.getLow() + " " + y.getHigh());
+//		}
+//
+//		// x is set to the not null child of the y or
+//		// x is set to nil[T] if y has no children.
+//		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
+//			x = y.getLeft();
+//		}else{
+//			x = y.getRight();
+//		}
+//
+//		// The node y is spliced out here by modifying pointers in p[y] and x.
+//		// Splicing out y is somewhat complicated by the need for proper handling of the boundary conditions,
+//		// which occur when x = null or when y is the root.
+//
+//		x.setParent( y.getParent());
+//
+//		if( ( x instanceof OtherIntervalTreeNode) && ( y instanceof OtherIntervalTreeNode)){
+//			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)( y.getParent())).getHeight() + 1);
+//		}
+//
+//		if( NodeName.SENTINEL.equals( y.getParent().getNodeName())){
+//			tree.setRoot( x);
+//		}else{
+//			if( y == ( y.getParent()).getLeft()){
+//				( y.getParent()).setLeft( x);
+//			}else{
+//				( y.getParent()).setRight( x);
+//			}
+//		}
+//
+//		// set max value of parent of x
+//		updateMaxAttribute( x.getParent());
+//
+//		// set min value of parent of x
+//		if( x instanceof OtherIntervalTreeNode){
+//			updateMinAttribute( x.getParent());
+//		}
+//
+//		// If the successor of z was the node spliced out,
+//		// the contents of z are moved from y to z, overwriting the previous contents.
+//		// data fields of node y is copied into node z.
+//		// node y takes place of node z.
+//		if( y != z){
+//			// copy y's satellite data into z
+//			z.setChromName( y.getChromName());
+//			z.setLow( y.getLow());
+//			z.setHigh( y.getHigh());
+//			z.setNumberofBases( y.getNumberofBases());
+//			
+//			//2 NOV 2015 starts
+//			if( ( z instanceof TforHistoneIntervalTreeNodeWithNumbers) && ( y instanceof TforHistoneIntervalTreeNodeWithNumbers)){
+//				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setTforHistoneNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getTforHistoneNumber());
+//				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+//				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( TforHistoneIntervalTreeNodeWithNumbers)y).getFileNumber());
+//			}
+//			else if ((z instanceof DnaseIntervalTreeNodeWithNumbers) && (y instanceof DnaseIntervalTreeNodeWithNumbers)){
+//				( ( DnaseIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+//				( ( DnaseIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getFileNumber());
+//			}
+//			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) && ( y instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers)){
+//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setRefSeqGeneNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getRefSeqGeneNumber());
+//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneEntrezId());
+//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneHugoSymbolNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneHugoSymbolNumber());
+//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalName());
+//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalNumber());
+//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getStrand());
+//			}
+//			//2 NOV 2015 ends
+//			
+//
+//			else if( ( z instanceof DnaseIntervalTreeNode) && ( y instanceof DnaseIntervalTreeNode)){
+//				( ( DnaseIntervalTreeNode)z).setCellLineName( ( ( DnaseIntervalTreeNode)y).getCellLineName());
+//				( ( DnaseIntervalTreeNode)z).setFileName( ( ( DnaseIntervalTreeNode)y).getFileName());
+//			}
+//
+//			else if( ( z instanceof TforHistoneIntervalTreeNode) && ( y instanceof TforHistoneIntervalTreeNode)){
+//				( ( TforHistoneIntervalTreeNode)z).setTfbsorHistoneName( ( ( TforHistoneIntervalTreeNode)y).getTfbsorHistoneName());
+//				( ( TforHistoneIntervalTreeNode)z).setCellLineName( ( ( TforHistoneIntervalTreeNode)y).getCellLineName());
+//				( ( TforHistoneIntervalTreeNode)z).setFileName( ( ( TforHistoneIntervalTreeNode)y).getFileName());
+//			}
+//
+//			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNode) && ( y instanceof UcscRefSeqGeneIntervalTreeNode)){
+//				( ( UcscRefSeqGeneIntervalTreeNode)z).setRefSeqGeneName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getRefSeqGeneName());
+//				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneEntrezId());
+//				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneHugoSymbol( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneHugoSymbol());
+//				( ( UcscRefSeqGeneIntervalTreeNode)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
+//				( ( UcscRefSeqGeneIntervalTreeNode)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNode)y).getStrand());
+//			}
+//			
+//			//28 OCTOBER 2015 starts
+//			else if ((z instanceof DataDrivenExperimentIntervalTreeNode) && (y instanceof DataDrivenExperimentIntervalTreeNode)){
+//				((DataDrivenExperimentIntervalTreeNode)z).setGeneSymbol(((DataDrivenExperimentIntervalTreeNode) y).getGeneSymbol());
+//				((DataDrivenExperimentIntervalTreeNode)z).setTpm(((DataDrivenExperimentIntervalTreeNode) y).getTpm());
+//			}
+//			//28 OCTOBER 2015 ends
+//			
+//
+//			// Burcak commented only the data has been changed
+//			// Left, Right and Parent does not change.
+//			// height does not change
+//			// z.setLeft(y.getLeft());
+//			// z.setRight(y.getRight());
+//			// z.setParent(y.getParent());
+//			// z.setColor(y.getColor());
+//
+//			// set the max of node z
+//			updateMaxAttribute( z);
+//
+//			if( z instanceof OtherIntervalTreeNode){
+//				// set the min of node z
+//				updateMinAttribute( z);
+//			}
+//
+//		}
+//
+//		// If y is black, we could have violations of red-black properties:
+//		// 1. Every node is either black or red. Ok.
+//		// 2. The root is black. If y is the root and x is red, then the root
+//		// has become red.
+//		// 3. Every leaf is black. Ok.
+//		// 4. If a node is red, then both of its children are black. (Hence no
+//		// two reds in a row on a simple path from the root to a leaf.)
+//		// Violation if p[y] and x are both red.
+//		// 5. For each node, all paths from the node to descendant leaves
+//		// contain the same number of black nodes. Any path containing y now has
+//		// 1 fewer black node.
+//		// 5. 5.1 correct by giving x an "extra black".
+//		// 5. 5.2 Add 1 to count of black nodes on paths containing x.
+//		// 5. 5.3 Now property 5 is Ok, but property 1 is not.
+//		// 5. 5.4 x is either doubly black (if color[x] = BLACK) or red&black
+//		// (if color[x] = RED) .
+//		// 5. 5.4 The attribute color [x] is still either RED or BLACK. No new
+//		// values for color attribute.
+//		// 5. 5.4 In other words, the extra blackness on a node is by virtue of
+//		// x pointing to the node.
+//		if( y.getColor() == Commons.BLACK){
+//			intervalTreeDeleteFixUp( tree, x);
+//		}
+//
+//		// The node y is returned so that calling procedure can recyle it via  the free list.
+//		return y;
+//
+//	}
+//	//intervalTreeDelete Ends
+//	//4 NOV 2015
+//	//Later on delete this method ends
 	
 	
 	
@@ -1260,7 +1260,7 @@ public class IntervalTree {
 
 	}
 
-	public void intervalTreeInfixTraversal( IntervalTreeNode node, BufferedWriter bufferedWriter) {
+	public static void intervalTreeInfixTraversal( IntervalTreeNode node, BufferedWriter bufferedWriter) {
 
 		if( node.getLeft().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal( node.getLeft(), bufferedWriter);
@@ -1268,7 +1268,7 @@ public class IntervalTree {
 		try{
 
 			if( node.getNodeName().isNotSentinel()){
-				bufferedWriter.write( node.getLow() + "\t" + node.getHigh() + "\t" + node.getMax() + System.getProperty( "line.separator"));
+				bufferedWriter.write(ChromosomeName.convertEnumtoString(node.getChromName())+ "\t" + node.getLow() + "\t" + node.getHigh() + "\t" + node.getNumberofBases() + System.getProperty( "line.separator"));
 				bufferedWriter.flush();
 			}
 

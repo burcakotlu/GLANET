@@ -236,7 +236,8 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssemblySimpl
 		Remap.fillConversionMap(
 				forRSA_REMAP_Folder, 
 				Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-				source_1BasedStart_1BasedEnd2TargetMap);
+				source_1BasedStart_1BasedEnd2TargetMap,
+				Commons.TAB);
 
 		Remap.convertTwoGenomicLociPerLineUsingMap( 
 				forRSA_Folder,

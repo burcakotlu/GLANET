@@ -208,6 +208,7 @@ public class Commons {
 	public static final String SNP = "snp";
 	public static final String SNPs = "SNPs";
 	public static final String TF_PFM_AND_LOGO_Matrices = "TF_PFM_AND_LOGO_Matrices";
+	public static final String CONSIDERED_TFs = "CONSIDERED_TFs";
 
 	public static final String LOGO_MATRICES = "LogoMatrices";
 	public static final String PFM_MATRICES = "PfmMatrices";
@@ -599,6 +600,7 @@ public class Commons {
 	public static final String REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13 = "REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13";
 	public static final String REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13 = "REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13";
 	public static final String REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_LATEST_ASSEMBLY_RETURNED_BY_NCBIEUTILS_FOR_RSA = "REMAP_ALL_TF_ANNOTATIONS_FROM_GRCh37p13_TO_LatestAssemblyReturnedByNCBIEutils_FOR_RSA";
+	public static final String REMAP_FROM_GRCh37p13_TO_LATEST_ASSEMBLY_RETURNED_BY_NCBIEUTILS_FOR_RSA = "REMAP_FROM_GRCh37p13_TO_LATEST_ASSEMBLY_RETURNED_BY_NCBIEUTILS_FOR_RSA";
 
 	/*************************************************************************************/
 	/********************** REMAP OUTPUT FILE starts *************************************/
@@ -644,12 +646,22 @@ public class Commons {
 	/***************************************************************************************/
 	/***************************REMAP ALL TF Annotations case ends**************************/
 	/***************************************************************************************/
-
+	
+	
+	/***************************************************************************************/
+	/***************************REMAP InputFile in GRCh37.p13 starts************************/
+	/***************************************************************************************/
+	public static final String REMAP_INPUT_FILE_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE = "RemapInputFile_1Based_Start_End_LatestAssemblyReturnedByNCBIEutils.txt";
+	/***************************************************************************************/
+	/***************************REMAP InputFile in GRCh37.p13 ends**************************/
+	/***************************************************************************************/
+	
 	// RSAT
 	public static final String FOR_RSA_SNP_TF_SEQUENCES_MATRICES_DIRECTORY = FOR_RSA + System.getProperty( "file.separator");
 	public static final String REGULATORY_SEQUENCE_ANALYSIS_DIRECTORY = Commons.REGULATORY_SEQUENCE_ANALYSIS + System.getProperty( "file.separator");
 	//public static final String GENE_ANNOTATION_FOR_RSA_POST_ANALYSIS_DIRECTORY = "GeneAnnotation" + System.getProperty("file.separator");
 	public static final String RSA_RESULTS_FOR_ALL_ANNOTATED_TFS = "RegulatorySequenceAnalysisResults.txt";
+	public static final String RSA_RESULTS = "RegulatorySequenceAnalysisResults.txt";
 
 	public static final String RSAT_ORGANISM_Homo_sapiens_ensembl_74_GRCh37 = "Homo_sapiens_ensembl_74_GRCh37";
 	public static final String RSAT_ORGANISM_Homo_sapiens_GRCh37 = "Homo_sapiens_GRCh37";
@@ -1023,6 +1035,7 @@ public class Commons {
 	public static final String ENCODE_HISTONE_DIRECTORY = Commons.ENCODE + System.getProperty( "file.separator") + "histone_macs";
 
 	public static final String STRING_HYPHEN = "-";
+	public static final String TAB = "\t";
 	public static final String UNDERSCORE = "_";
 	public static final char UNDERSCORE_CHAR = '_';
 	public static final String DOT = ".";

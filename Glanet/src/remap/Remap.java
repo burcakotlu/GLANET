@@ -25,7 +25,6 @@ import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -37,6 +36,73 @@ import common.Commons;
 public class Remap {
 
 	final static Logger logger = Logger.getLogger(Remap.class);
+	
+	public static void generateREMAPInputFile(
+			String forRSAFolder,
+			Map<String,String> snpKey_chrName_1BasedStart_1BasedEnd_2_ObservedAllelesMap, 
+			Map<String,String> snpKey_chrName_1BasedStart_1BasedEnd_2_TargetMap,
+			String remapInputFile_0Based_Start_EndExclusive_GRCh37_P13){
+		
+		
+		BufferedWriter remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter = null;
+
+		String chrName = null;
+		
+		int indexofFirstUnderscore;
+		int indexofSecondUnderscore;
+		
+		// snpStart
+		int snp_1BasedStart;
+		int snp_0BasedStart;
+		
+		// snpEnd
+		int snp_1BasedEnd;
+		
+		String snpKey = null;
+		//snpKey = chrName + "_" + _1BasedStart + "_" + _1BasedEnd;
+		
+		try{
+				remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter = new BufferedWriter(
+					FileOperations.createFileWriter(forRSAFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + remapInputFile_0Based_Start_EndExclusive_GRCh37_P13));
+
+			
+				for(Map.Entry<String,String> entry: snpKey_chrName_1BasedStart_1BasedEnd_2_ObservedAllelesMap.entrySet()){
+					
+					snpKey = entry.getKey();
+					
+					indexofFirstUnderscore = snpKey.indexOf('_');
+					indexofSecondUnderscore = snpKey.indexOf('_',indexofFirstUnderscore+1);
+					
+					chrName = snpKey.substring(0, indexofFirstUnderscore);
+				
+					snp_1BasedStart = Integer.parseInt(snpKey.substring(indexofFirstUnderscore + 1, indexofSecondUnderscore));
+					snp_0BasedStart = snp_1BasedStart - 1;
+					
+					snp_1BasedEnd = Integer.parseInt(snpKey.substring(indexofSecondUnderscore + 1));
+														
+							
+					/*********SNP Genomic Loci Line starts ****************/
+					//No duplicates
+					if (!snpKey_chrName_1BasedStart_1BasedEnd_2_TargetMap.containsKey(snpKey)){
+						snpKey_chrName_1BasedStart_1BasedEnd_2_TargetMap.put(snpKey,null);
+						
+						//Write to Remap Input File
+						remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter.write(chrName + "\t" + snp_0BasedStart + "\t" + snp_1BasedEnd + System.getProperty( "line.separator"));
+					}
+					/*********SNP Genomic Loci Line ends ******************/
+
+				}//End of for each snp
+					
+							
+			// Close AllTFAnnotationsFile And RemapInputFile
+			remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter.close();
+
+		}catch( IOException e){
+
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}
+		
+	}
 	
 	public static void fillAssemblyName2RefSeqAssemblyIDMap(
 			String dataFolder, 
@@ -1134,7 +1200,8 @@ public class Remap {
 	public static void fillConversionMap(
 			String outputFolder, 
 			String remapReportFile,
-			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap){
+			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap,
+			String underscoreOrTab){
 		
 		FileReader fileReader = null;
 		BufferedReader bufferedReader = null;
@@ -1258,8 +1325,8 @@ public class Remap {
 							// e.g: rs1233578
 							if( sourceChrName == mappedChrName && mappedAssembly.isPrimaryAssembly()){
 
-								sourceKey = sourceChrName.convertEnumtoString() + "\t" + source_1BasedStart + "\t" + source_1BasesEnd;
-								targetValue = mappedChrName.convertEnumtoString() + "\t" + mapped_1BasedStart + "\t" + mapped_1BasedEnd;
+								sourceKey = sourceChrName.convertEnumtoString() + underscoreOrTab + source_1BasedStart + underscoreOrTab + source_1BasesEnd;
+								targetValue = mappedChrName.convertEnumtoString() + underscoreOrTab + mapped_1BasedStart + underscoreOrTab + mapped_1BasedEnd;
 								source_1BasedStart_1BasedEnd2TargetMap.put(sourceKey,targetValue);
 	
 							}// End of IF: Valid conversion
