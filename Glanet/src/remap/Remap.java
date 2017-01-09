@@ -529,8 +529,7 @@ public class Remap {
 		String line;
 
 		try{
-			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + supportedAssembliesFileName));
-
+			
 			process = runtime.exec( new String[]{"perl", remapFile, "--mode", "batches"});
 			
 			// System.out.println("perl " + remapFile + "--mode batches");
@@ -557,18 +556,29 @@ public class Remap {
 
 			// Output of the perl execution is here
 			bufferedReader = new BufferedReader( new InputStreamReader( process.getInputStream()));
+			
+			//Read the first line
+			line = bufferedReader.readLine();
+			
+			//If it is a valid file overwrite existing file
+			//Otherwise use the old valid existing file
+			//Don't overwrite it with invalid file content
+			if (line!=null && line.startsWith("#batch") ){
+				
+				bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(dataFolder + Commons.NCBI_REMAP + System.getProperty( "file.separator") + supportedAssembliesFileName));
+				bufferedWriter.write(line + System.getProperty( "line.separator"));
+				
+				while( ( line = bufferedReader.readLine()) != null){
+					bufferedWriter.write( line + System.getProperty( "line.separator"));
+				}// End of while
+				
+				bufferedWriter.close();
+			}
 
-			while( ( line = bufferedReader.readLine()) != null){
-				// if( GlanetRunner.shouldLog())logger.info(line);
-				// System.out.println(line);
-				bufferedWriter.write( line + System.getProperty( "line.separator"));
-			}// End of while
+			
 
 			// Close
 			bufferedReader.close();
-			bufferedWriter.close();
-			
-			
 
 			if( GlanetRunner.shouldLog())
 				logger.info("NCBI REMAP Show Batches Exit status = " + process.exitValue());
