@@ -48,9 +48,7 @@ import annotation.TFNumberCellLineNumberOverlap;
 import annotation.TfNameandCellLineNameOverlap;
 import annotation.UcscRefSeqGeneOverlapWithNumbers;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import datadrivenexperiment.DataDrivenExperimentIntervalTreeNode;
 import datadrivenexperiment.IntervalDataDrivenExperiment;
 import enumtypes.AnnotationType;
@@ -92,7 +90,7 @@ public class IntervalTree {
 		return numberofNonOverlappingBases;
 	}
 
-	public void setNumberofNonOverlappingBases( long numberofNonOverlappingBases) {
+	public void setNumberofNonOverlappingBases(long numberofNonOverlappingBases) {
 
 		this.numberofNonOverlappingBases = numberofNonOverlappingBases;
 	}
@@ -102,7 +100,7 @@ public class IntervalTree {
 		return numberofNodes;
 	}
 
-	public void setNumberofNodes( int numberofNodes) {
+	public void setNumberofNodes(int numberofNodes) {
 
 		this.numberofNodes = numberofNodes;
 	}
@@ -112,7 +110,7 @@ public class IntervalTree {
 		return root;
 	}
 
-	public void setRoot( IntervalTreeNode root) {
+	public void setRoot(IntervalTreeNode root) {
 
 		this.root = root;
 	}
@@ -125,82 +123,82 @@ public class IntervalTree {
 		this.numberofNonOverlappingBases = 0;
 	}
 
-	public static int maximum( int x, int y, int z) {
+	public static int maximum(int x, int y, int z) {
 
 		int max = x;
 
-		if( y > max)
+		if(y > max)
 			max = y;
-		if( z > max)
+		if(z > max)
 			max = z;
 
 		return max;
 	}
 
-	public static int minimum( int x, int y, int z) {
+	public static int minimum(int x, int y, int z) {
 
 		int min = x;
 
-		if( y < min)
+		if(y < min)
 			min = y;
-		if( z < min)
+		if(z < min)
 			min = z;
 
 		return min;
 	}
 
-	public static int max( IntervalTreeNode node) {
+	public static int max(IntervalTreeNode node) {
 
 		int a = Integer.MIN_VALUE;
 		int b = Integer.MIN_VALUE;
 
-		if( node.getLeft().getNodeName().isNotSentinel())
+		if(node.getLeft().getNodeName().isNotSentinel())
 			a = node.getLeft().getMax();
 
-		if( node.getRight().getNodeName().isNotSentinel())
+		if(node.getRight().getNodeName().isNotSentinel())
 			b = node.getRight().getMax();
 
-		return maximum( node.getHigh(), a, b);
+		return maximum(node.getHigh(), a, b);
 
 	}
 
-	public static int min( IntervalTreeNode node) {
+	public static int min(IntervalTreeNode node) {
 
 		int a = Integer.MAX_VALUE;
 		int b = Integer.MAX_VALUE;
 
-		if( node.getLeft().getNodeName().isNotSentinel())
-			a = ( ( OtherIntervalTreeNode)( node.getLeft())).getMin();
+		if(node.getLeft().getNodeName().isNotSentinel())
+			a = ((OtherIntervalTreeNode)(node.getLeft())).getMin();
 
-		if( node.getRight().getNodeName().isNotSentinel())
-			b = ( ( OtherIntervalTreeNode)( node.getRight())).getMin();
+		if(node.getRight().getNodeName().isNotSentinel())
+			b = ((OtherIntervalTreeNode)(node.getRight())).getMin();
 
-		return minimum( node.getLow(), a, b);
-
-	}
-
-	public void incrementHeightByOne( IntervalTreeNode node) {
-
-		( ( OtherIntervalTreeNode)node).setHeight( ( ( OtherIntervalTreeNode)node).getHeight() + 1);
-
-		if( node.getLeft().getNodeName().isNotSentinel()){
-			incrementHeightByOne( node.getLeft());
-		}
-		if( node.getRight().getNodeName().isNotSentinel()){
-			incrementHeightByOne( node.getRight());
-		}
+		return minimum(node.getLow(), a, b);
 
 	}
 
-	public void decrementHeightByOne( IntervalTreeNode node) {
+	public void incrementHeightByOne(IntervalTreeNode node) {
 
-		( ( OtherIntervalTreeNode)node).setHeight( ( ( OtherIntervalTreeNode)node).getHeight() - 1);
+		((OtherIntervalTreeNode)node).setHeight(((OtherIntervalTreeNode)node).getHeight() + 1);
 
-		if( node.getLeft().getNodeName().isNotSentinel()){
-			decrementHeightByOne( node.getLeft());
+		if(node.getLeft().getNodeName().isNotSentinel()){
+			incrementHeightByOne(node.getLeft());
 		}
-		if( node.getRight().getNodeName().isNotSentinel()){
-			decrementHeightByOne( node.getRight());
+		if(node.getRight().getNodeName().isNotSentinel()){
+			incrementHeightByOne(node.getRight());
+		}
+
+	}
+
+	public void decrementHeightByOne(IntervalTreeNode node) {
+
+		((OtherIntervalTreeNode)node).setHeight(((OtherIntervalTreeNode)node).getHeight() - 1);
+
+		if(node.getLeft().getNodeName().isNotSentinel()){
+			decrementHeightByOne(node.getLeft());
+		}
+		if(node.getRight().getNodeName().isNotSentinel()){
+			decrementHeightByOne(node.getRight());
 		}
 
 	}
@@ -217,9 +215,9 @@ public class IntervalTree {
 		logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" +
 				"node x" + "\t" + x.getChromName() + "\t" + x.getColor() + "\t" + x.getLow() + "\t" + x.getHigh());
 
-		logger.info( "permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "InfixTraversalofTheTree Before the LeftRotate");
+		logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "InfixTraversalofTheTree Before the LeftRotate");
 		
-		logger.info( "permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "Root of the tree is: " + tree.getRoot().getChromName() + " " +  tree.getRoot().getColor() + " " + tree.getRoot().getLow() + " "+ tree.getRoot().getHigh());
+		logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "Root of the tree is: " + tree.getRoot().getChromName() + " " +  tree.getRoot().getColor() + " " + tree.getRoot().getLow() + " "+ tree.getRoot().getHigh());
 		
 		tree.intervalTreeInfixTraversal(permutationNumberMixedNumber, tree.getRoot());
 		//debug ends
@@ -233,7 +231,7 @@ public class IntervalTree {
 		}
 		//debug ends
 
-		x.setRight( y.getLeft());
+		x.setRight(y.getLeft());
 		
 		//debug starts
 		if (y.getLeft() == null){
@@ -242,49 +240,49 @@ public class IntervalTree {
 		}
 		//debug ends
 		
-		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
-			y.getLeft().setParent( x);
+		if(!NodeName.SENTINEL.equals(y.getLeft().getNodeName())){
+			y.getLeft().setParent(x);
 		}
-		y.setParent( x.getParent());
+		y.setParent(x.getParent());
 
-		if( NodeName.SENTINEL.equals( x.getParent().getNodeName())){
-			tree.setRoot( y);
+		if(NodeName.SENTINEL.equals(x.getParent().getNodeName())){
+			tree.setRoot(y);
 		}else{
-			if( x == ( x.getParent().getLeft())){
-				x.getParent().setLeft( y);
+			if(x == (x.getParent().getLeft())){
+				x.getParent().setLeft(y);
 			}else{
-				x.getParent().setRight( y);
+				x.getParent().setRight(y);
 			}
 		}
 
-		y.setLeft( x);
-		x.setParent( y);
+		y.setLeft(x);
+		x.setParent(y);
 
 		// update max attributes
-		x.setMax( max( x));
-		y.setMax( max( y));
+		x.setMax(max(x));
+		y.setMax(max(y));
 
 		// update min attributes
-		if( x instanceof OtherIntervalTreeNode && y instanceof OtherIntervalTreeNode){
-			( ( OtherIntervalTreeNode)x).setMin( min( x));
-			( ( OtherIntervalTreeNode)y).setMin( min( y));
+		if(x instanceof OtherIntervalTreeNode && y instanceof OtherIntervalTreeNode){
+			((OtherIntervalTreeNode)x).setMin(min(x));
+			((OtherIntervalTreeNode)y).setMin(min(y));
 
 			// update height attributes
-			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)x).getHeight() + 1);
-			if( x.getLeft().getNodeName().isNotSentinel()){
-				incrementHeightByOne( x.getLeft());
+			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)x).getHeight() + 1);
+			if(x.getLeft().getNodeName().isNotSentinel()){
+				incrementHeightByOne(x.getLeft());
 			}
 
-			( ( OtherIntervalTreeNode)y).setHeight( ( ( OtherIntervalTreeNode)y).getHeight() - 1);
-			if( y.getRight().getNodeName().isNotSentinel()){
-				decrementHeightByOne( y.getRight());
+			((OtherIntervalTreeNode)y).setHeight(((OtherIntervalTreeNode)y).getHeight() - 1);
+			if(y.getRight().getNodeName().isNotSentinel()){
+				decrementHeightByOne(y.getRight());
 			}
 
 		}
 		
 		//debug starts
-		logger.info( "permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "InfixTraversalofTheTree After the LeftRotate");
-		logger.info( "permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "Root of the tree is: " + tree.getRoot().getChromName() + " " +  tree.getRoot().getColor() + " " + tree.getRoot().getLow() + " "+ tree.getRoot().getHigh());
+		logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "InfixTraversalofTheTree After the LeftRotate");
+		logger.info("permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + "Root of the tree is: " + tree.getRoot().getChromName() + " " +  tree.getRoot().getColor() + " " + tree.getRoot().getLow() + " "+ tree.getRoot().getHigh());
 		
 		tree.intervalTreeInfixTraversal(permutationNumberMixedNumber, tree.getRoot());
 		//debug ends
@@ -300,7 +298,7 @@ public class IntervalTree {
 	// It makes the y the new root of the subtree, with x as the new left child of y
 	// and y's left child becomes x's right child
 	// burcak: left rotated node x, becomes its formerly right child's (let's call it y)'s left  child.
-	public void intervalTreeLeftRotate( IntervalTree tree, IntervalTreeNode x) {
+	public void intervalTreeLeftRotate(IntervalTree tree, IntervalTreeNode x) {
 
 		IntervalTreeNode y = x.getRight();
 		
@@ -311,7 +309,7 @@ public class IntervalTree {
 		}
 		//debug ends
 
-		x.setRight( y.getLeft());
+		x.setRight(y.getLeft());
 		
 		//debug starts
 		if (y.getLeft() == null){
@@ -320,42 +318,42 @@ public class IntervalTree {
 		}
 		//debug ends
 		
-		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
-			y.getLeft().setParent( x);
+		if(!NodeName.SENTINEL.equals(y.getLeft().getNodeName())){
+			y.getLeft().setParent(x);
 		}
-		y.setParent( x.getParent());
+		y.setParent(x.getParent());
 
-		if( NodeName.SENTINEL.equals( x.getParent().getNodeName())){
-			tree.setRoot( y);
+		if(NodeName.SENTINEL.equals(x.getParent().getNodeName())){
+			tree.setRoot(y);
 		}else{
-			if( x == ( x.getParent().getLeft())){
-				x.getParent().setLeft( y);
+			if(x == (x.getParent().getLeft())){
+				x.getParent().setLeft(y);
 			}else{
-				x.getParent().setRight( y);
+				x.getParent().setRight(y);
 			}
 		}
 
-		y.setLeft( x);
-		x.setParent( y);
+		y.setLeft(x);
+		x.setParent(y);
 
 		// update max attributes
-		x.setMax( max( x));
-		y.setMax( max( y));
+		x.setMax(max(x));
+		y.setMax(max(y));
 
 		// update min attributes
-		if( x instanceof OtherIntervalTreeNode && y instanceof OtherIntervalTreeNode){
-			( ( OtherIntervalTreeNode)x).setMin( min( x));
-			( ( OtherIntervalTreeNode)y).setMin( min( y));
+		if(x instanceof OtherIntervalTreeNode && y instanceof OtherIntervalTreeNode){
+			((OtherIntervalTreeNode)x).setMin(min(x));
+			((OtherIntervalTreeNode)y).setMin(min(y));
 
 			// update height attributes
-			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)x).getHeight() + 1);
-			if( x.getLeft().getNodeName().isNotSentinel()){
-				incrementHeightByOne( x.getLeft());
+			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)x).getHeight() + 1);
+			if(x.getLeft().getNodeName().isNotSentinel()){
+				incrementHeightByOne(x.getLeft());
 			}
 
-			( ( OtherIntervalTreeNode)y).setHeight( ( ( OtherIntervalTreeNode)y).getHeight() - 1);
-			if( y.getRight().getNodeName().isNotSentinel()){
-				decrementHeightByOne( y.getRight());
+			((OtherIntervalTreeNode)y).setHeight(((OtherIntervalTreeNode)y).getHeight() - 1);
+			if(y.getRight().getNodeName().isNotSentinel()){
+				decrementHeightByOne(y.getRight());
 			}
 
 		}
@@ -363,87 +361,87 @@ public class IntervalTree {
 	}
 
 	// burcak: right rotate edilen node x left child'inin y diyelim, right child'i oluyor
-	public void intervalTreeRightRotate( IntervalTree tree, IntervalTreeNode x) {
+	public void intervalTreeRightRotate(IntervalTree tree, IntervalTreeNode x) {
 
 		IntervalTreeNode y = x.getLeft();
 
-		x.setLeft( y.getRight());
-		if( !NodeName.SENTINEL.equals( y.getRight().getNodeName())){
-			y.getRight().setParent( x);
+		x.setLeft(y.getRight());
+		if(!NodeName.SENTINEL.equals(y.getRight().getNodeName())){
+			y.getRight().setParent(x);
 		}
-		y.setParent( x.getParent());
+		y.setParent(x.getParent());
 
-		if( NodeName.SENTINEL.equals( x.getParent().getNodeName())){
-			tree.setRoot( y);
+		if(NodeName.SENTINEL.equals(x.getParent().getNodeName())){
+			tree.setRoot(y);
 		}else{
-			if( x == ( x.getParent().getRight())){
-				x.getParent().setRight( y);
+			if(x == (x.getParent().getRight())){
+				x.getParent().setRight(y);
 			}else{
-				x.getParent().setLeft( y);
+				x.getParent().setLeft(y);
 			}
 		}
 
-		y.setRight( x);
-		x.setParent( y);
+		y.setRight(x);
+		x.setParent(y);
 
 		// update max attributes
-		x.setMax( max( x));
-		y.setMax( max( y));
+		x.setMax(max(x));
+		y.setMax(max(y));
 
-		if( x instanceof OtherIntervalTreeNode && y instanceof OtherIntervalTreeNode){
+		if(x instanceof OtherIntervalTreeNode && y instanceof OtherIntervalTreeNode){
 			// update min attributes
-			( ( OtherIntervalTreeNode)x).setMin( min( x));
-			( ( OtherIntervalTreeNode)y).setMin( min( y));
+			((OtherIntervalTreeNode)x).setMin(min(x));
+			((OtherIntervalTreeNode)y).setMin(min(y));
 
 			// update height attributes
-			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)x).getHeight() + 1);
-			if( x.getRight().getNodeName().isNotSentinel()){
-				incrementHeightByOne( x.getRight());
+			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)x).getHeight() + 1);
+			if(x.getRight().getNodeName().isNotSentinel()){
+				incrementHeightByOne(x.getRight());
 			}
 
-			( ( OtherIntervalTreeNode)y).setHeight( ( ( OtherIntervalTreeNode)y).getHeight() - 1);
-			if( y.getLeft().getNodeName().isNotSentinel()){
-				decrementHeightByOne( y.getLeft());
+			((OtherIntervalTreeNode)y).setHeight(((OtherIntervalTreeNode)y).getHeight() - 1);
+			if(y.getLeft().getNodeName().isNotSentinel()){
+				decrementHeightByOne(y.getLeft());
 			}
 		}
 
 	}
 
-	public void intervalTreeDeleteFixUp( IntervalTree tree, IntervalTreeNode x) {
+	public void intervalTreeDeleteFixUp(IntervalTree tree, IntervalTreeNode x) {
 
 		IntervalTreeNode w;
 
-		while( x != tree.getRoot() && x.getColor() == Commons.BLACK){
-			if( x == ( x.getParent()).getLeft()){
+		while(x != tree.getRoot() && x.getColor() == Commons.BLACK){
+			if(x == (x.getParent()).getLeft()){
 				w = x.getParent().getRight();
 
 				// case1: w is red.
-				if( w.getColor() == Commons.RED){
-					w.setColor( Commons.BLACK); // Case1
-					x.getParent().setColor( Commons.RED); // Case1
-					intervalTreeLeftRotate( tree, x.getParent()); // Case1
+				if(w.getColor() == Commons.RED){
+					w.setColor(Commons.BLACK); // Case1
+					x.getParent().setColor(Commons.RED); // Case1
+					intervalTreeLeftRotate(tree, x.getParent()); // Case1
 					w = x.getParent().getRight(); // Case1
 				}
 
 				// case2: w is black and both of w's children are black
-				if( w.getLeft().getColor() == Commons.BLACK && w.getRight().getColor() == Commons.BLACK){
-					w.setColor( Commons.RED); // Case2
+				if(w.getLeft().getColor() == Commons.BLACK && w.getRight().getColor() == Commons.BLACK){
+					w.setColor(Commons.RED); // Case2
 					x = x.getParent(); // Case2
 				}else{
 					// case3: w is black, w's left child is red and w's right
 					// child is black
-					if( ( w.getRight()).getColor() == Commons.BLACK){
-						w.getLeft().setColor( Commons.BLACK); // Case3
-						w.setColor( Commons.RED); // Case3
-						intervalTreeRightRotate( tree, w); // Case3
+					if((w.getRight()).getColor() == Commons.BLACK){
+						w.getLeft().setColor(Commons.BLACK); // Case3
+						w.setColor(Commons.RED); // Case3
+						intervalTreeRightRotate(tree, w); // Case3
 						w = x.getParent().getRight(); // Case3
 					}
 					// case4: w is black, w's left child is black and w's right
 					// child is red.
-					w.setColor( x.getParent().getColor()); // Case4
-					x.getParent().setColor( Commons.BLACK); // Case4
-					w.getRight().setColor( Commons.BLACK); // Case4
-					intervalTreeLeftRotate( tree, x.getParent()); // Case4
+					w.setColor(x.getParent().getColor()); // Case4
+					x.getParent().setColor(Commons.BLACK); // Case4
+					w.getRight().setColor(Commons.BLACK); // Case4
+					intervalTreeLeftRotate(tree, x.getParent()); // Case4
 					x = tree.getRoot(); // Case4
 
 				}
@@ -453,32 +451,32 @@ public class IntervalTree {
 				w = x.getParent().getLeft();
 
 				// case1: w is red.
-				if( w.getColor() == Commons.RED){
-					w.setColor( Commons.BLACK); // Case1
-					x.getParent().setColor( Commons.RED); // Case1
-					intervalTreeRightRotate( tree, x.getParent()); // Case1
+				if(w.getColor() == Commons.RED){
+					w.setColor(Commons.BLACK); // Case1
+					x.getParent().setColor(Commons.RED); // Case1
+					intervalTreeRightRotate(tree, x.getParent()); // Case1
 					w = x.getParent().getLeft(); // Case1
 				}
 
 				// case2: w is black and both of w's children are black
-				if( w.getRight().getColor() == Commons.BLACK && w.getLeft().getColor() == Commons.BLACK){
-					w.setColor( Commons.RED); // Case2
+				if(w.getRight().getColor() == Commons.BLACK && w.getLeft().getColor() == Commons.BLACK){
+					w.setColor(Commons.RED); // Case2
 					x = x.getParent(); // Case2
 				}else{
 					// case3: w is black, w's right child is red and w's left
 					// child is black
-					if( ( w.getLeft()).getColor() == Commons.BLACK){
-						w.getRight().setColor( Commons.BLACK); // Case3
-						w.setColor( Commons.RED); // Case3
-						intervalTreeLeftRotate( tree, w); // Case3
+					if((w.getLeft()).getColor() == Commons.BLACK){
+						w.getRight().setColor(Commons.BLACK); // Case3
+						w.setColor(Commons.RED); // Case3
+						intervalTreeLeftRotate(tree, w); // Case3
 						w = x.getParent().getLeft(); // Case3
 					}
 					// case4: w is black, w's right child is black and w's left
 					// child is red.
-					w.setColor( x.getParent().getColor()); // Case4
-					x.getParent().setColor( Commons.BLACK); // Case4
-					w.getLeft().setColor( Commons.BLACK); // Case4
-					intervalTreeRightRotate( tree, x.getParent()); // Case4
+					w.setColor(x.getParent().getColor()); // Case4
+					x.getParent().setColor(Commons.BLACK); // Case4
+					w.getLeft().setColor(Commons.BLACK); // Case4
+					intervalTreeRightRotate(tree, x.getParent()); // Case4
 					x = tree.getRoot(); // Case4
 
 				}
@@ -487,7 +485,7 @@ public class IntervalTree {
 
 		}// end of while
 
-		x.setColor( Commons.BLACK);
+		x.setColor(Commons.BLACK);
 	}
 	
 	
@@ -500,17 +498,17 @@ public class IntervalTree {
 
 		IntervalTreeNode y;
 
-		while( z.getParent().getColor() == Commons.RED){
-			if( ( z.getParent().getParent().getLeft()) == z.getParent()){
+		while(z.getParent().getColor() == Commons.RED){
+			if((z.getParent().getParent().getLeft()) == z.getParent()){
 				y = z.getParent().getParent().getRight();
-				if( y.getColor() == Commons.RED){
+				if(y.getColor() == Commons.RED){
 					// Case1 y is red
-					z.getParent().setColor( Commons.BLACK); // Case1
-					y.setColor( Commons.BLACK); // Case1
-					z.getParent().getParent().setColor( Commons.RED); // Case1
+					z.getParent().setColor(Commons.BLACK); // Case1
+					y.setColor(Commons.BLACK); // Case1
+					z.getParent().getParent().setColor(Commons.RED); // Case1
 					z = z.getParent().getParent(); // Case1
 				}else{
-					if( z == z.getParent().getRight()){
+					if(z == z.getParent().getRight()){
 						// Case2 y is black, z is a right child
 						z = z.getParent(); // Case2
 						
@@ -521,9 +519,9 @@ public class IntervalTree {
 						intervalTreeLeftRotate(permutationNumberMixedNumber, tree, z); // Case2
 					}
 					// Case3 y is black, z is a left child
-					z.getParent().setColor( Commons.BLACK); // Case3
-					z.getParent().getParent().setColor( Commons.RED); // Case3
-					intervalTreeRightRotate( tree, z.getParent().getParent()); // Case3
+					z.getParent().setColor(Commons.BLACK); // Case3
+					z.getParent().getParent().setColor(Commons.RED); // Case3
+					intervalTreeRightRotate(tree, z.getParent().getParent()); // Case3
 
 				}
 			}else{
@@ -542,18 +540,18 @@ public class IntervalTree {
 				}
 				//debug ends
 				
-				if( y.getColor() == Commons.RED){
-					z.getParent().setColor( Commons.BLACK); // Case1
-					y.setColor( Commons.BLACK); // Case1
-					z.getParent().getParent().setColor( Commons.RED); // Case1
+				if(y.getColor() == Commons.RED){
+					z.getParent().setColor(Commons.BLACK); // Case1
+					y.setColor(Commons.BLACK); // Case1
+					z.getParent().getParent().setColor(Commons.RED); // Case1
 					z = z.getParent().getParent(); // Case1
 				}else{
-					if( z == z.getParent().getLeft()){
+					if(z == z.getParent().getLeft()){
 						z = z.getParent(); // Case2
-						intervalTreeRightRotate( tree, z); // Case2
+						intervalTreeRightRotate(tree, z); // Case2
 					}
-					z.getParent().setColor( Commons.BLACK); // Case3
-					z.getParent().getParent().setColor( Commons.RED); // Case3
+					z.getParent().setColor(Commons.BLACK); // Case3
+					z.getParent().getParent().setColor(Commons.RED); // Case3
 					
 					//debug starts
 					logger.info("For permutationNumberMixedNumber " + permutationNumberMixedNumber + "\t" + " z is " +  z.getChromName() + " " +  z.getColor() + " "+ z.getLow() + " "+  z.getHigh());
@@ -565,7 +563,7 @@ public class IntervalTree {
 			}
 
 		}
-		tree.getRoot().setColor( Commons.BLACK);
+		tree.getRoot().setColor(Commons.BLACK);
 	}
 	//debug ends
 
@@ -577,25 +575,25 @@ public class IntervalTree {
 
 		IntervalTreeNode y;
 
-		while( z.getParent().getColor() == Commons.RED){
-			if( ( z.getParent().getParent().getLeft()) == z.getParent()){
+		while(z.getParent().getColor() == Commons.RED){
+			if((z.getParent().getParent().getLeft()) == z.getParent()){
 				y = z.getParent().getParent().getRight();
-				if( y.getColor() == Commons.RED){
+				if(y.getColor() == Commons.RED){
 					// Case1 y is red
-					z.getParent().setColor( Commons.BLACK); // Case1
-					y.setColor( Commons.BLACK); // Case1
-					z.getParent().getParent().setColor( Commons.RED); // Case1
+					z.getParent().setColor(Commons.BLACK); // Case1
+					y.setColor(Commons.BLACK); // Case1
+					z.getParent().getParent().setColor(Commons.RED); // Case1
 					z = z.getParent().getParent(); // Case1
 				}else{
-					if( z == z.getParent().getRight()){
+					if(z == z.getParent().getRight()){
 						// Case2 y is black, z is a right child
 						z = z.getParent(); // Case2
-						intervalTreeLeftRotate( tree, z); // Case2
+						intervalTreeLeftRotate(tree, z); // Case2
 					}
 					// Case3 y is black, z is a left child
-					z.getParent().setColor( Commons.BLACK); // Case3
-					z.getParent().getParent().setColor( Commons.RED); // Case3
-					intervalTreeRightRotate( tree, z.getParent().getParent()); // Case3
+					z.getParent().setColor(Commons.BLACK); // Case3
+					z.getParent().getParent().setColor(Commons.RED); // Case3
+					intervalTreeRightRotate(tree, z.getParent().getParent()); // Case3
 
 				}
 			}else{
@@ -614,53 +612,53 @@ public class IntervalTree {
 				}
 				//debug ends
 				
-				if( y.getColor() == Commons.RED){
-					z.getParent().setColor( Commons.BLACK); // Case1
-					y.setColor( Commons.BLACK); // Case1
-					z.getParent().getParent().setColor( Commons.RED); // Case1
+				if(y.getColor() == Commons.RED){
+					z.getParent().setColor(Commons.BLACK); // Case1
+					y.setColor(Commons.BLACK); // Case1
+					z.getParent().getParent().setColor(Commons.RED); // Case1
 					z = z.getParent().getParent(); // Case1
 				}else{
-					if( z == z.getParent().getLeft()){
+					if(z == z.getParent().getLeft()){
 						z = z.getParent(); // Case2
-						intervalTreeRightRotate( tree, z); // Case2
+						intervalTreeRightRotate(tree, z); // Case2
 					}
-					z.getParent().setColor( Commons.BLACK); // Case3
-					z.getParent().getParent().setColor( Commons.RED); // Case3
-					intervalTreeLeftRotate( tree, z.getParent().getParent()); // Case3
+					z.getParent().setColor(Commons.BLACK); // Case3
+					z.getParent().getParent().setColor(Commons.RED); // Case3
+					intervalTreeLeftRotate(tree, z.getParent().getParent()); // Case3
 
 				}
 			}
 
 		}
-		tree.getRoot().setColor( Commons.BLACK);
+		tree.getRoot().setColor(Commons.BLACK);
 	}
 
-	public void updateMinAttribute( IntervalTreeNode x) {
+	public void updateMinAttribute(IntervalTreeNode x) {
 
 		int savedMin;
 
-		if( x.getNodeName().isNotSentinel()){
+		if(x.getNodeName().isNotSentinel()){
 
-			savedMin = ( ( OtherIntervalTreeNode)x).getMin();
-			( ( OtherIntervalTreeNode)x).setMin( min( x));
+			savedMin = ((OtherIntervalTreeNode)x).getMin();
+			((OtherIntervalTreeNode)x).setMin(min(x));
 
-			if( savedMin != ( ( OtherIntervalTreeNode)x).getMin()){
-				updateMinAttribute( x.getParent());
+			if(savedMin != ((OtherIntervalTreeNode)x).getMin()){
+				updateMinAttribute(x.getParent());
 			}
 		}
 
 	}
 
-	public void updateMaxAttribute( IntervalTreeNode x) {
+	public void updateMaxAttribute(IntervalTreeNode x) {
 
 		boolean hasChanged = false;
 		int savedMax;
 
-		if( x.getNodeName().isNotSentinel()){
+		if(x.getNodeName().isNotSentinel()){
 			savedMax = x.getMax();
-			x.setMax( max( x));
+			x.setMax(max(x));
 
-			if( savedMax != x.getMax()){
+			if(savedMax != x.getMax()){
 				hasChanged = true;
 			}
 
@@ -668,8 +666,8 @@ public class IntervalTree {
 			return;
 		}
 
-		if( hasChanged)
-			updateMaxAttribute( x.getParent());
+		if(hasChanged)
+			updateMaxAttribute(x.getParent());
 
 	}
 
@@ -677,9 +675,9 @@ public class IntervalTree {
 	 * intervalTreeMinimum returns the minimum elementin the subtree rooted at a
 	 * given node x
 	 */
-	public IntervalTreeNode intervalTreeMinimum( IntervalTreeNode x) {
+	public IntervalTreeNode intervalTreeMinimum(IntervalTreeNode x) {
 
-		while( !NodeName.SENTINEL.equals( x.getLeft().getNodeName())){
+		while(!NodeName.SENTINEL.equals(x.getLeft().getNodeName())){
 			x = x.getLeft();
 		}
 
@@ -696,19 +694,19 @@ public class IntervalTree {
 	 * ancestor of x. To find y, we go up the tree from x until we encounter a
 	 * node that is the left child of its parent.
 	 */
-	public IntervalTreeNode intervalTreeSuccessor( IntervalTreeNode x) {
+	public IntervalTreeNode intervalTreeSuccessor(IntervalTreeNode x) {
 
 		IntervalTreeNode y;
 
-		if( !NodeName.SENTINEL.equals( x.getRight().getNodeName())){ 
+		if(!NodeName.SENTINEL.equals(x.getRight().getNodeName())){ 
 			
-			return intervalTreeMinimum( x.getRight()); 
+			return intervalTreeMinimum(x.getRight()); 
 			
 		}
 
 		y = x.getParent();
 
-		while( !NodeName.SENTINEL.equals( y.getNodeName()) && ( x == y.getRight())){
+		while(!NodeName.SENTINEL.equals(y.getNodeName()) && (x == y.getRight())){
 			x = y;
 			y = y.getParent();
 		}
@@ -737,10 +735,10 @@ public class IntervalTree {
 //
 //		// since z might be changed, do the decrements before
 //		// Decrement the number of nodes by one
-//		tree.setNumberofNodes( tree.getNumberofNodes() - 1);
+//		tree.setNumberofNodes(tree.getNumberofNodes() - 1);
 //
 //		// Decrease the number of non overlapping bases by size of the deleted node z
-//		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() - z.getNumberofBases());
+//		tree.setNumberofNonOverlappingBases(tree.getNumberofNonOverlappingBases() - z.getNumberofBases());
 //
 //		// Start by doing regular binary search tree
 //		IntervalTreeNode y;
@@ -749,17 +747,17 @@ public class IntervalTree {
 //		// Determine a node y to splice out.
 //		// The node y is either the input node z (if z has at most 1 child) or
 //		// the successor of z if z has two children.
-//		if( NodeName.SENTINEL.equals( z.getLeft().getNodeName()) || NodeName.SENTINEL.equals( z.getRight().getNodeName())){
+//		if(NodeName.SENTINEL.equals(z.getLeft().getNodeName()) || NodeName.SENTINEL.equals(z.getRight().getNodeName())){
 //			y = z;
 //			logger.info("For permutationNumberMixedNumber: " +  permutationNumberMixedNumber + " Node to be spliced out is: " + y.getChromName() + " " + y.getColor() + " " + y.getLow() + " " + y.getHigh());
 //		}else{
-//			y = intervalTreeSuccessor( z);
+//			y = intervalTreeSuccessor(z);
 //			logger.info("For permutationNumberMixedNumber: " +  permutationNumberMixedNumber + " Node to be spliced out is: " + y.getChromName() + " " + y.getColor() + " " + y.getLow() + " " + y.getHigh());
 //		}
 //
 //		// x is set to the not null child of the y or
 //		// x is set to nil[T] if y has no children.
-//		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
+//		if(!NodeName.SENTINEL.equals(y.getLeft().getNodeName())){
 //			x = y.getLeft();
 //		}else{
 //			x = y.getRight();
@@ -769,79 +767,79 @@ public class IntervalTree {
 //		// Splicing out y is somewhat complicated by the need for proper handling of the boundary conditions,
 //		// which occur when x = null or when y is the root.
 //
-//		x.setParent( y.getParent());
+//		x.setParent(y.getParent());
 //
-//		if( ( x instanceof OtherIntervalTreeNode) && ( y instanceof OtherIntervalTreeNode)){
-//			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)( y.getParent())).getHeight() + 1);
+//		if((x instanceof OtherIntervalTreeNode) && (y instanceof OtherIntervalTreeNode)){
+//			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)(y.getParent())).getHeight() + 1);
 //		}
 //
-//		if( NodeName.SENTINEL.equals( y.getParent().getNodeName())){
-//			tree.setRoot( x);
+//		if(NodeName.SENTINEL.equals(y.getParent().getNodeName())){
+//			tree.setRoot(x);
 //		}else{
-//			if( y == ( y.getParent()).getLeft()){
-//				( y.getParent()).setLeft( x);
+//			if(y == (y.getParent()).getLeft()){
+//				(y.getParent()).setLeft(x);
 //			}else{
-//				( y.getParent()).setRight( x);
+//				(y.getParent()).setRight(x);
 //			}
 //		}
 //
 //		// set max value of parent of x
-//		updateMaxAttribute( x.getParent());
+//		updateMaxAttribute(x.getParent());
 //
 //		// set min value of parent of x
-//		if( x instanceof OtherIntervalTreeNode){
-//			updateMinAttribute( x.getParent());
+//		if(x instanceof OtherIntervalTreeNode){
+//			updateMinAttribute(x.getParent());
 //		}
 //
 //		// If the successor of z was the node spliced out,
 //		// the contents of z are moved from y to z, overwriting the previous contents.
 //		// data fields of node y is copied into node z.
 //		// node y takes place of node z.
-//		if( y != z){
+//		if(y != z){
 //			// copy y's satellite data into z
-//			z.setChromName( y.getChromName());
-//			z.setLow( y.getLow());
-//			z.setHigh( y.getHigh());
-//			z.setNumberofBases( y.getNumberofBases());
+//			z.setChromName(y.getChromName());
+//			z.setLow(y.getLow());
+//			z.setHigh(y.getHigh());
+//			z.setNumberofBases(y.getNumberofBases());
 //			
 //			//2 NOV 2015 starts
-//			if( ( z instanceof TforHistoneIntervalTreeNodeWithNumbers) && ( y instanceof TforHistoneIntervalTreeNodeWithNumbers)){
-//				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setTforHistoneNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getTforHistoneNumber());
-//				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getCellLineNumber());
-//				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( TforHistoneIntervalTreeNodeWithNumbers)y).getFileNumber());
+//			if((z instanceof TforHistoneIntervalTreeNodeWithNumbers) && (y instanceof TforHistoneIntervalTreeNodeWithNumbers)){
+//				((TforHistoneIntervalTreeNodeWithNumbers)z).setTforHistoneNumber(((TforHistoneIntervalTreeNodeWithNumbers)y).getTforHistoneNumber());
+//				((TforHistoneIntervalTreeNodeWithNumbers)z).setCellLineNumber(((TforHistoneIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+//				((TforHistoneIntervalTreeNodeWithNumbers)z).setFileNumber(((TforHistoneIntervalTreeNodeWithNumbers)y).getFileNumber());
 //			}
 //			else if ((z instanceof DnaseIntervalTreeNodeWithNumbers) && (y instanceof DnaseIntervalTreeNodeWithNumbers)){
-//				( ( DnaseIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getCellLineNumber());
-//				( ( DnaseIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getFileNumber());
+//				((DnaseIntervalTreeNodeWithNumbers)z).setCellLineNumber(((DnaseIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+//				((DnaseIntervalTreeNodeWithNumbers)z).setFileNumber(((DnaseIntervalTreeNodeWithNumbers)y).getFileNumber());
 //			}
-//			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) && ( y instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers)){
-//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setRefSeqGeneNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getRefSeqGeneNumber());
-//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneEntrezId());
-//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneHugoSymbolNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneHugoSymbolNumber());
-//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalName());
-//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalNumber());
-//				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getStrand());
+//			else if((z instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) && (y instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers)){
+//				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setRefSeqGeneNumber(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getRefSeqGeneNumber());
+//				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneEntrezId(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneEntrezId());
+//				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneHugoSymbolNumber(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneHugoSymbolNumber());
+//				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalName(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalName());
+//				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalNumber(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalNumber());
+//				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setStrand(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getStrand());
 //			}
 //			//2 NOV 2015 ends
 //			
 //
-//			else if( ( z instanceof DnaseIntervalTreeNode) && ( y instanceof DnaseIntervalTreeNode)){
-//				( ( DnaseIntervalTreeNode)z).setCellLineName( ( ( DnaseIntervalTreeNode)y).getCellLineName());
-//				( ( DnaseIntervalTreeNode)z).setFileName( ( ( DnaseIntervalTreeNode)y).getFileName());
+//			else if((z instanceof DnaseIntervalTreeNode) && (y instanceof DnaseIntervalTreeNode)){
+//				((DnaseIntervalTreeNode)z).setCellLineName(((DnaseIntervalTreeNode)y).getCellLineName());
+//				((DnaseIntervalTreeNode)z).setFileName(((DnaseIntervalTreeNode)y).getFileName());
 //			}
 //
-//			else if( ( z instanceof TforHistoneIntervalTreeNode) && ( y instanceof TforHistoneIntervalTreeNode)){
-//				( ( TforHistoneIntervalTreeNode)z).setTfbsorHistoneName( ( ( TforHistoneIntervalTreeNode)y).getTfbsorHistoneName());
-//				( ( TforHistoneIntervalTreeNode)z).setCellLineName( ( ( TforHistoneIntervalTreeNode)y).getCellLineName());
-//				( ( TforHistoneIntervalTreeNode)z).setFileName( ( ( TforHistoneIntervalTreeNode)y).getFileName());
+//			else if((z instanceof TforHistoneIntervalTreeNode) && (y instanceof TforHistoneIntervalTreeNode)){
+//				((TforHistoneIntervalTreeNode)z).setTfbsorHistoneName(((TforHistoneIntervalTreeNode)y).getTfbsorHistoneName());
+//				((TforHistoneIntervalTreeNode)z).setCellLineName(((TforHistoneIntervalTreeNode)y).getCellLineName());
+//				((TforHistoneIntervalTreeNode)z).setFileName(((TforHistoneIntervalTreeNode)y).getFileName());
 //			}
 //
-//			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNode) && ( y instanceof UcscRefSeqGeneIntervalTreeNode)){
-//				( ( UcscRefSeqGeneIntervalTreeNode)z).setRefSeqGeneName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getRefSeqGeneName());
-//				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneEntrezId());
-//				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneHugoSymbol( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneHugoSymbol());
-//				( ( UcscRefSeqGeneIntervalTreeNode)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
-//				( ( UcscRefSeqGeneIntervalTreeNode)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNode)y).getStrand());
+//			else if((z instanceof UcscRefSeqGeneIntervalTreeNode) && (y instanceof UcscRefSeqGeneIntervalTreeNode)){
+//				((UcscRefSeqGeneIntervalTreeNode)z).setRefSeqGeneName(((UcscRefSeqGeneIntervalTreeNode)y).getRefSeqGeneName());
+//				((UcscRefSeqGeneIntervalTreeNode)z).setGeneEntrezId(((UcscRefSeqGeneIntervalTreeNode)y).getGeneEntrezId());
+//				((UcscRefSeqGeneIntervalTreeNode)z).setGeneHugoSymbol(((UcscRefSeqGeneIntervalTreeNode)y).getGeneHugoSymbol());
+//				((UcscRefSeqGeneIntervalTreeNode)z).setIntervalName(((UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
+//				((UcscRefSeqGeneIntervalTreeNode)z).setStrand(((UcscRefSeqGeneIntervalTreeNode)y).getStrand());
 //			}
 //			
 //			//28 OCTOBER 2015 starts
@@ -861,11 +859,11 @@ public class IntervalTree {
 //			// z.setColor(y.getColor());
 //
 //			// set the max of node z
-//			updateMaxAttribute( z);
+//			updateMaxAttribute(z);
 //
-//			if( z instanceof OtherIntervalTreeNode){
+//			if(z instanceof OtherIntervalTreeNode){
 //				// set the min of node z
-//				updateMinAttribute( z);
+//				updateMinAttribute(z);
 //			}
 //
 //		}
@@ -890,8 +888,8 @@ public class IntervalTree {
 //		// values for color attribute.
 //		// 5. 5.4 In other words, the extra blackness on a node is by virtue of
 //		// x pointing to the node.
-//		if( y.getColor() == Commons.BLACK){
-//			intervalTreeDeleteFixUp( tree, x);
+//		if(y.getColor() == Commons.BLACK){
+//			intervalTreeDeleteFixUp(tree, x);
 //		}
 //
 //		// The node y is returned so that calling procedure can recyle it via  the free list.
@@ -918,14 +916,14 @@ public class IntervalTree {
 	 * violation of property 2, if the removed node was the root and its
 	 * child-which becomes the new root -was red.
 	 */
-	public IntervalTreeNode intervalTreeDelete( IntervalTree tree, IntervalTreeNode z) {
+	public IntervalTreeNode intervalTreeDelete(IntervalTree tree, IntervalTreeNode z) {
 
 		// since z might be changed, do the decrements before
 		// Decrement the number of nodes by one
-		tree.setNumberofNodes( tree.getNumberofNodes() - 1);
+		tree.setNumberofNodes(tree.getNumberofNodes() - 1);
 
 		// Decrease the number of non overlapping bases by size of the deleted node z
-		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() - z.getNumberofBases());
+		tree.setNumberofNonOverlappingBases(tree.getNumberofNonOverlappingBases() - z.getNumberofBases());
 
 		// Start by doing regular binary search tree
 		IntervalTreeNode y;
@@ -934,15 +932,15 @@ public class IntervalTree {
 		// Determine a node y to splice out.
 		// The node y is either the input node z (if z has at most 1 child) or
 		// the successor of z if z has two children.
-		if( NodeName.SENTINEL.equals( z.getLeft().getNodeName()) || NodeName.SENTINEL.equals( z.getRight().getNodeName())){
+		if(NodeName.SENTINEL.equals(z.getLeft().getNodeName()) || NodeName.SENTINEL.equals(z.getRight().getNodeName())){
 			y = z;
 		}else{
-			y = intervalTreeSuccessor( z);
+			y = intervalTreeSuccessor(z);
 		}
 
 		// x is set to the not null child of the y or
 		// x is set to nil[T] if y has no children.
-		if( !NodeName.SENTINEL.equals( y.getLeft().getNodeName())){
+		if(!NodeName.SENTINEL.equals(y.getLeft().getNodeName())){
 			x = y.getLeft();
 		}else{
 			x = y.getRight();
@@ -952,79 +950,79 @@ public class IntervalTree {
 		// Splicing out y is somewhat complicated by the need for proper handling of the boundary conditions,
 		// which occur when x = null or when y is the root.
 
-		x.setParent( y.getParent());
+		x.setParent(y.getParent());
 
-		if( ( x instanceof OtherIntervalTreeNode) && ( y instanceof OtherIntervalTreeNode)){
-			( ( OtherIntervalTreeNode)x).setHeight( ( ( OtherIntervalTreeNode)( y.getParent())).getHeight() + 1);
+		if((x instanceof OtherIntervalTreeNode) && (y instanceof OtherIntervalTreeNode)){
+			((OtherIntervalTreeNode)x).setHeight(((OtherIntervalTreeNode)(y.getParent())).getHeight() + 1);
 		}
 
-		if( NodeName.SENTINEL.equals( y.getParent().getNodeName())){
-			tree.setRoot( x);
+		if(NodeName.SENTINEL.equals(y.getParent().getNodeName())){
+			tree.setRoot(x);
 		}else{
-			if( y == ( y.getParent()).getLeft()){
-				( y.getParent()).setLeft( x);
+			if(y == (y.getParent()).getLeft()){
+				(y.getParent()).setLeft(x);
 			}else{
-				( y.getParent()).setRight( x);
+				(y.getParent()).setRight(x);
 			}
 		}
 
 		// set max value of parent of x
-		updateMaxAttribute( x.getParent());
+		updateMaxAttribute(x.getParent());
 
 		// set min value of parent of x
-		if( x instanceof OtherIntervalTreeNode){
-			updateMinAttribute( x.getParent());
+		if(x instanceof OtherIntervalTreeNode){
+			updateMinAttribute(x.getParent());
 		}
 
 		// If the successor of z was the node spliced out,
 		// the contents of z are moved from y to z, overwriting the previous contents.
 		// data fields of node y is copied into node z.
 		// node y takes place of node z.
-		if( y != z){
+		if(y != z){
 			// copy y's satellite data into z
-			z.setChromName( y.getChromName());
-			z.setLow( y.getLow());
-			z.setHigh( y.getHigh());
-			z.setNumberofBases( y.getNumberofBases());
+			z.setChromName(y.getChromName());
+			z.setLow(y.getLow());
+			z.setHigh(y.getHigh());
+			z.setNumberofBases(y.getNumberofBases());
 			
 			//2 NOV 2015 starts
-			if( ( z instanceof TforHistoneIntervalTreeNodeWithNumbers) && ( y instanceof TforHistoneIntervalTreeNodeWithNumbers)){
-				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setTforHistoneNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getTforHistoneNumber());
-				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( (TforHistoneIntervalTreeNodeWithNumbers)y).getCellLineNumber());
-				( ( TforHistoneIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( TforHistoneIntervalTreeNodeWithNumbers)y).getFileNumber());
+			if((z instanceof TforHistoneIntervalTreeNodeWithNumbers) && (y instanceof TforHistoneIntervalTreeNodeWithNumbers)){
+				((TforHistoneIntervalTreeNodeWithNumbers)z).setTforHistoneNumber(((TforHistoneIntervalTreeNodeWithNumbers)y).getTforHistoneNumber());
+				((TforHistoneIntervalTreeNodeWithNumbers)z).setCellLineNumber(((TforHistoneIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+				((TforHistoneIntervalTreeNodeWithNumbers)z).setFileNumber(((TforHistoneIntervalTreeNodeWithNumbers)y).getFileNumber());
 			}
 			else if ((z instanceof DnaseIntervalTreeNodeWithNumbers) && (y instanceof DnaseIntervalTreeNodeWithNumbers)){
-				( ( DnaseIntervalTreeNodeWithNumbers)z).setCellLineNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getCellLineNumber());
-				( ( DnaseIntervalTreeNodeWithNumbers)z).setFileNumber( ( ( DnaseIntervalTreeNodeWithNumbers)y).getFileNumber());
+				((DnaseIntervalTreeNodeWithNumbers)z).setCellLineNumber(((DnaseIntervalTreeNodeWithNumbers)y).getCellLineNumber());
+				((DnaseIntervalTreeNodeWithNumbers)z).setFileNumber(((DnaseIntervalTreeNodeWithNumbers)y).getFileNumber());
 			}
-			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) && ( y instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers)){
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setRefSeqGeneNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getRefSeqGeneNumber());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneEntrezId());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneHugoSymbolNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneHugoSymbolNumber());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalName());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalNumber( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalNumber());
-				( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getStrand());
+			else if((z instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers) && (y instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers)){
+				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setRefSeqGeneNumber(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getRefSeqGeneNumber());
+				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneEntrezId(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneEntrezId());
+				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setGeneHugoSymbolNumber(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getGeneHugoSymbolNumber());
+				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalName(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalName());
+				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setIntervalNumber(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getIntervalNumber());
+				((UcscRefSeqGeneIntervalTreeNodeWithNumbers)z).setStrand(((UcscRefSeqGeneIntervalTreeNodeWithNumbers)y).getStrand());
 			}
 			//2 NOV 2015 ends
 			
 
-			else if( ( z instanceof DnaseIntervalTreeNode) && ( y instanceof DnaseIntervalTreeNode)){
-				( ( DnaseIntervalTreeNode)z).setCellLineName( ( ( DnaseIntervalTreeNode)y).getCellLineName());
-				( ( DnaseIntervalTreeNode)z).setFileName( ( ( DnaseIntervalTreeNode)y).getFileName());
+			else if((z instanceof DnaseIntervalTreeNode) && (y instanceof DnaseIntervalTreeNode)){
+				((DnaseIntervalTreeNode)z).setCellLineName(((DnaseIntervalTreeNode)y).getCellLineName());
+				((DnaseIntervalTreeNode)z).setFileName(((DnaseIntervalTreeNode)y).getFileName());
 			}
 
-			else if( ( z instanceof TforHistoneIntervalTreeNode) && ( y instanceof TforHistoneIntervalTreeNode)){
-				( ( TforHistoneIntervalTreeNode)z).setTfbsorHistoneName( ( ( TforHistoneIntervalTreeNode)y).getTfbsorHistoneName());
-				( ( TforHistoneIntervalTreeNode)z).setCellLineName( ( ( TforHistoneIntervalTreeNode)y).getCellLineName());
-				( ( TforHistoneIntervalTreeNode)z).setFileName( ( ( TforHistoneIntervalTreeNode)y).getFileName());
+			else if((z instanceof TforHistoneIntervalTreeNode) && (y instanceof TforHistoneIntervalTreeNode)){
+				((TforHistoneIntervalTreeNode)z).setTfbsorHistoneName(((TforHistoneIntervalTreeNode)y).getTfbsorHistoneName());
+				((TforHistoneIntervalTreeNode)z).setCellLineName(((TforHistoneIntervalTreeNode)y).getCellLineName());
+				((TforHistoneIntervalTreeNode)z).setFileName(((TforHistoneIntervalTreeNode)y).getFileName());
 			}
 
-			else if( ( z instanceof UcscRefSeqGeneIntervalTreeNode) && ( y instanceof UcscRefSeqGeneIntervalTreeNode)){
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setRefSeqGeneName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getRefSeqGeneName());
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneEntrezId( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneEntrezId());
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setGeneHugoSymbol( ( ( UcscRefSeqGeneIntervalTreeNode)y).getGeneHugoSymbol());
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setIntervalName( ( ( UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
-				( ( UcscRefSeqGeneIntervalTreeNode)z).setStrand( ( ( UcscRefSeqGeneIntervalTreeNode)y).getStrand());
+			else if((z instanceof UcscRefSeqGeneIntervalTreeNode) && (y instanceof UcscRefSeqGeneIntervalTreeNode)){
+				((UcscRefSeqGeneIntervalTreeNode)z).setRefSeqGeneName(((UcscRefSeqGeneIntervalTreeNode)y).getRefSeqGeneName());
+				((UcscRefSeqGeneIntervalTreeNode)z).setGeneEntrezId(((UcscRefSeqGeneIntervalTreeNode)y).getGeneEntrezId());
+				((UcscRefSeqGeneIntervalTreeNode)z).setGeneHugoSymbol(((UcscRefSeqGeneIntervalTreeNode)y).getGeneHugoSymbol());
+				((UcscRefSeqGeneIntervalTreeNode)z).setIntervalName(((UcscRefSeqGeneIntervalTreeNode)y).getIntervalName());
+				((UcscRefSeqGeneIntervalTreeNode)z).setStrand(((UcscRefSeqGeneIntervalTreeNode)y).getStrand());
 			}
 			
 			//28 OCTOBER 2015 starts
@@ -1044,11 +1042,11 @@ public class IntervalTree {
 			// z.setColor(y.getColor());
 
 			// set the max of node z
-			updateMaxAttribute( z);
+			updateMaxAttribute(z);
 
-			if( z instanceof OtherIntervalTreeNode){
+			if(z instanceof OtherIntervalTreeNode){
 				// set the min of node z
-				updateMinAttribute( z);
+				updateMinAttribute(z);
 			}
 
 		}
@@ -1073,8 +1071,8 @@ public class IntervalTree {
 		// values for color attribute.
 		// 5. 5.4 In other words, the extra blackness on a node is by virtue of
 		// x pointing to the node.
-		if( y.getColor() == Commons.BLACK){
-			intervalTreeDeleteFixUp( tree, x);
+		if(y.getColor() == Commons.BLACK){
+			intervalTreeDeleteFixUp(tree, x);
 		}
 
 		// The node y is returned so that calling procedure can recyle it via  the free list.
@@ -1088,10 +1086,10 @@ public class IntervalTree {
 	public void intervalTreeInsert(long permutationNumberMixedNumber, IntervalTree tree, IntervalTreeNode z) {
 
 		// Increment the number of nodes by one
-		tree.setNumberofNodes( tree.getNumberofNodes() + 1);
+		tree.setNumberofNodes(tree.getNumberofNodes() + 1);
 
 		// Increase the number of non overlapping bases by size of the inserted node z
-		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() + z.getNumberofBases());
+		tree.setNumberofNonOverlappingBases(tree.getNumberofNonOverlappingBases() + z.getNumberofBases());
 
 		// Set y to SENTINEL node
 		IntervalTreeNode y = new IntervalTreeNode();
@@ -1099,44 +1097,44 @@ public class IntervalTree {
 		IntervalTreeNode x = tree.getRoot();
 
 		// This while sets the parent for the new inserted node z
-		while( !( NodeName.SENTINEL.equals( x.getNodeName()))){
+		while(!(NodeName.SENTINEL.equals(x.getNodeName()))){
 			y = x;
-			if( z.getLow() < x.getLow())
+			if(z.getLow() < x.getLow())
 				x = x.getLeft();
 			else
 				x = x.getRight();
 		}
 
-		z.setParent( y);
+		z.setParent(y);
 
 		// This part sets whether the new inserted node is the left or right child of parent
-		if( NodeName.SENTINEL.equals( y.getNodeName())){// enters for the first
+		if(NodeName.SENTINEL.equals(y.getNodeName())){// enters for the first
 			// insert
-			tree.setRoot( z);
+			tree.setRoot(z);
 		}else{
-			if( z.getLow() < y.getLow()){
-				y.setLeft( z);
+			if(z.getLow() < y.getLow()){
+				y.setLeft(z);
 			}else{
-				y.setRight( z);
+				y.setRight(z);
 			}
 		}
 
 		// sets the left right color attributes of the new inserted node
-		z.setLeft( new IntervalTreeNode());
-		z.setRight( new IntervalTreeNode());
-		z.setColor( Commons.RED);
-		z.setMax( z.getHigh());
+		z.setLeft(new IntervalTreeNode());
+		z.setRight(new IntervalTreeNode());
+		z.setColor(Commons.RED);
+		z.setMax(z.getHigh());
 
-		if( z instanceof OtherIntervalTreeNode){
-			( ( OtherIntervalTreeNode)z).setMin( z.getLow());
-			( ( OtherIntervalTreeNode)z).setHeight( ( ( OtherIntervalTreeNode)( z.getParent())).getHeight() + 1);
+		if(z instanceof OtherIntervalTreeNode){
+			((OtherIntervalTreeNode)z).setMin(z.getLow());
+			((OtherIntervalTreeNode)z).setHeight(((OtherIntervalTreeNode)(z.getParent())).getHeight() + 1);
 
 		}
 
-		updateMaxAttribute( z.getParent());
+		updateMaxAttribute(z.getParent());
 
-		if( z instanceof OtherIntervalTreeNode){
-			updateMinAttribute( z.getParent());
+		if(z instanceof OtherIntervalTreeNode){
+			updateMinAttribute(z.getParent());
 		}
 
 		//debug starts
@@ -1147,13 +1145,13 @@ public class IntervalTree {
 	}	
 	//debug version ends
 
-	public void intervalTreeInsert( IntervalTree tree, IntervalTreeNode z) {
+	public void intervalTreeInsert(IntervalTree tree, IntervalTreeNode z) {
 
 		// Increment the number of nodes by one
-		tree.setNumberofNodes( tree.getNumberofNodes() + 1);
+		tree.setNumberofNodes(tree.getNumberofNodes() + 1);
 
 		// Increase the number of non overlapping bases by size of the inserted node z
-		tree.setNumberofNonOverlappingBases( tree.getNumberofNonOverlappingBases() + z.getNumberofBases());
+		tree.setNumberofNonOverlappingBases(tree.getNumberofNonOverlappingBases() + z.getNumberofBases());
 
 		// Set y to SENTINEL node
 		IntervalTreeNode y = new IntervalTreeNode();
@@ -1161,44 +1159,44 @@ public class IntervalTree {
 		IntervalTreeNode x = tree.getRoot();
 
 		// This while sets the parent for the new inserted node z
-		while( !( NodeName.SENTINEL.equals( x.getNodeName()))){
+		while(!(NodeName.SENTINEL.equals(x.getNodeName()))){
 			y = x;
-			if( z.getLow() < x.getLow())
+			if(z.getLow() < x.getLow())
 				x = x.getLeft();
 			else
 				x = x.getRight();
 		}
 
-		z.setParent( y);
+		z.setParent(y);
 
 		// This part sets whether the new inserted node is the left or right child of parent
-		if( NodeName.SENTINEL.equals( y.getNodeName())){// enters for the first
+		if(NodeName.SENTINEL.equals(y.getNodeName())){// enters for the first
 			// insert
-			tree.setRoot( z);
+			tree.setRoot(z);
 		}else{
-			if( z.getLow() < y.getLow()){
-				y.setLeft( z);
+			if(z.getLow() < y.getLow()){
+				y.setLeft(z);
 			}else{
-				y.setRight( z);
+				y.setRight(z);
 			}
 		}
 
 		// sets the left right color attributes of the new inserted node
-		z.setLeft( new IntervalTreeNode());
-		z.setRight( new IntervalTreeNode());
-		z.setColor( Commons.RED);
-		z.setMax( z.getHigh());
+		z.setLeft(new IntervalTreeNode());
+		z.setRight(new IntervalTreeNode());
+		z.setColor(Commons.RED);
+		z.setMax(z.getHigh());
 
-		if( z instanceof OtherIntervalTreeNode){
-			( ( OtherIntervalTreeNode)z).setMin( z.getLow());
-			( ( OtherIntervalTreeNode)z).setHeight( ( ( OtherIntervalTreeNode)( z.getParent())).getHeight() + 1);
+		if(z instanceof OtherIntervalTreeNode){
+			((OtherIntervalTreeNode)z).setMin(z.getLow());
+			((OtherIntervalTreeNode)z).setHeight(((OtherIntervalTreeNode)(z.getParent())).getHeight() + 1);
 
 		}
 
-		updateMaxAttribute( z.getParent());
+		updateMaxAttribute(z.getParent());
 
-		if( z instanceof OtherIntervalTreeNode){
-			updateMinAttribute( z.getParent());
+		if(z instanceof OtherIntervalTreeNode){
+			updateMinAttribute(z.getParent());
 		}
 
 		
@@ -1209,11 +1207,11 @@ public class IntervalTree {
 	//for debug purposes starts
 	public void intervalTreeInfixTraversal(long permutationNumberMixedNumber,IntervalTreeNode node) {
 
-		if( node.getLeft()!= null && node.getLeft().getNodeName().isNotSentinel())
+		if(node.getLeft()!= null && node.getLeft().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(permutationNumberMixedNumber,node.getLeft());
 
-		if( node.getNodeName().isNotSentinel()){
-			//GlanetRunner.appendLog( node.getLow() + "\t" + node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
+		if(node.getNodeName().isNotSentinel()){
+			//GlanetRunner.appendLog(node.getLow() + "\t" + node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
 			logger.info("For permutationNumberMixedNumber: " + permutationNumberMixedNumber + "\t" + 
 					node.getChromName() + "\t" + 
 					node.getColor() + "\t" + 
@@ -1221,7 +1219,7 @@ public class IntervalTree {
 					node.getHigh());
 		}
 
-		if( node.getRight()!= null && node.getRight().getNodeName().isNotSentinel())
+		if(node.getRight()!= null && node.getRight().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(permutationNumberMixedNumber,node.getRight());
 
 	}
@@ -1231,15 +1229,15 @@ public class IntervalTree {
 	//19 NOV 2015 starts
 	public static void intervalTreeInfixTraversal(IntervalTreeNode node, List<IntervalTreeNode> intervalTreeNodeList) {
 
-		if( node.getLeft()!= null && node.getLeft().getNodeName().isNotSentinel())
+		if(node.getLeft()!= null && node.getLeft().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getLeft(),intervalTreeNodeList);
 
 		//Add the node to the intervalTree
-		if( node.getNodeName().isNotSentinel()){
+		if(node.getNodeName().isNotSentinel()){
 			intervalTreeNodeList.add(node);
 		}
 
-		if( node.getRight()!= null && node.getRight().getNodeName().isNotSentinel())
+		if(node.getRight()!= null && node.getRight().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getRight(),intervalTreeNodeList);
 
 	}
@@ -1247,42 +1245,42 @@ public class IntervalTree {
 
 	public void intervalTreeInfixTraversal(IntervalTreeNode node) {
 
-		if( node.getLeft()!= null && node.getLeft().getNodeName().isNotSentinel())
+		if(node.getLeft()!= null && node.getLeft().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getLeft());
 
-		if( node.getNodeName().isNotSentinel()){
-			//GlanetRunner.appendLog( node.getLow() + "\t" + node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
+		if(node.getNodeName().isNotSentinel()){
+			//GlanetRunner.appendLog(node.getLow() + "\t" + node.getHigh() + "\t" + node.getMax() + "\t" + node.getColor());
 			logger.info(node.getChromName() + "\t" + node.getColor() + "\t" + node.getLow() + "\t" + node.getHigh());
 		}
 
-		if( node.getRight()!= null && node.getRight().getNodeName().isNotSentinel())
+		if(node.getRight()!= null && node.getRight().getNodeName().isNotSentinel())
 			intervalTreeInfixTraversal(node.getRight());
 
 	}
 
-	public static void intervalTreeInfixTraversal( IntervalTreeNode node, BufferedWriter bufferedWriter) {
+	public static void intervalTreeInfixTraversal(IntervalTreeNode node, BufferedWriter bufferedWriter) {
 
-		if( node.getLeft().getNodeName().isNotSentinel())
-			intervalTreeInfixTraversal( node.getLeft(), bufferedWriter);
+		if(node.getLeft().getNodeName().isNotSentinel())
+			intervalTreeInfixTraversal(node.getLeft(), bufferedWriter);
 
 		try{
 
-			if( node.getNodeName().isNotSentinel()){
-				bufferedWriter.write(ChromosomeName.convertEnumtoString(node.getChromName())+ "\t" + node.getLow() + "\t" + node.getHigh() + "\t" + node.getNumberofBases() + System.getProperty( "line.separator"));
+			if(node.getNodeName().isNotSentinel()){
+				bufferedWriter.write(ChromosomeName.convertEnumtoString(node.getChromName())+ "\t" + node.getLow() + "\t" + node.getHigh() + "\t" + node.getNumberofBases() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 			}
 
-		}catch( IOException e){
+		}catch(IOException e){
 
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
 		}
 
-		if( node.getRight().getNodeName().isNotSentinel())
-			intervalTreeInfixTraversal( node.getRight(), bufferedWriter);
+		if(node.getRight().getNodeName().isNotSentinel())
+			intervalTreeInfixTraversal(node.getRight(), bufferedWriter);
 
 	}
 
-	public void intervalTreeInfixTraversal( 
+	public void intervalTreeInfixTraversal(
 			IntervalTreeNode node, 
 			BufferedWriter bufferedWriter, 
 			String type,
@@ -1295,29 +1293,29 @@ public class IntervalTree {
 		/*************************************************/
 		int length = node.getNumberofBases();
 
-		if( length > 1 && givenInputDataSNPSorIntervals.getGivenInputDataSNPs()){
-			givenInputDataSNPSorIntervals.setGivenInputDataSNPs( false);
+		if(length > 1 && givenInputDataSNPSorIntervals.getGivenInputDataSNPs()){
+			givenInputDataSNPSorIntervals.setGivenInputDataSNPs(false);
 		}
 		/*************************************************/
 
-		if( node.getLeft().getNodeName().isNotSentinel())
-			intervalTreeInfixTraversal( node.getLeft(), bufferedWriter, type, givenInputDataSNPSorIntervals);
+		if(node.getLeft().getNodeName().isNotSentinel())
+			intervalTreeInfixTraversal(node.getLeft(), bufferedWriter, type, givenInputDataSNPSorIntervals);
 
 		try{
-			if( node.getNodeName().isNotSentinel()){
+			if(node.getNodeName().isNotSentinel()){
 
-				if( Commons.DNASE.equals( type)){
-					castedNodeDnase = ( DnaseIntervalTreeNode)node;
-					bufferedWriter.write( castedNodeDnase.getChromName().convertEnumtoString() + "\t" + castedNodeDnase.getLow() + "\t" + castedNodeDnase.getHigh() + "\t" + castedNodeDnase.getCellLineName() + "\t" + castedNodeDnase.getFileName() + System.getProperty( "line.separator"));
-				}else if( Commons.TF.equals( type)){
-					castedNodeTforHistone = ( TforHistoneIntervalTreeNode)node;
-					bufferedWriter.write( castedNodeTforHistone.getChromName().convertEnumtoString() + "\t" + castedNodeTforHistone.getLow() + "\t" + castedNodeTforHistone.getHigh() + "\t" + castedNodeTforHistone.getTfbsorHistoneName() + "\t" + castedNodeTforHistone.getCellLineName() + "\t" + castedNodeTforHistone.getFileName() + System.getProperty( "line.separator"));
-				}else if( Commons.HISTONE.equals( type)){
-					castedNodeTforHistone = ( TforHistoneIntervalTreeNode)node;
-					bufferedWriter.write( castedNodeTforHistone.getChromName().convertEnumtoString() + "\t" + castedNodeTforHistone.getLow() + "\t" + castedNodeTforHistone.getHigh() + "\t" + castedNodeTforHistone.getTfbsorHistoneName() + "\t" + castedNodeTforHistone.getCellLineName() + "\t" + castedNodeTforHistone.getFileName() + System.getProperty( "line.separator"));
-				}else if( Commons.HG19_REFSEQ_GENE.equals( type)){
-					castedNodeUcscRefSeqGene = ( UcscRefSeqGeneIntervalTreeNode)node;
-					bufferedWriter.write( castedNodeUcscRefSeqGene.getChromName().convertEnumtoString() + "\t" + castedNodeUcscRefSeqGene.getLow() + "\t" + castedNodeUcscRefSeqGene.getHigh() + "\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName() + "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId() + "\t" + castedNodeUcscRefSeqGene.getIntervalName().convertEnumtoString() + "\t" + castedNodeUcscRefSeqGene.getIntervalNumber() + "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol() + System.getProperty( "line.separator"));
+				if(Commons.DNASE.equals(type)){
+					castedNodeDnase = (DnaseIntervalTreeNode)node;
+					bufferedWriter.write(castedNodeDnase.getChromName().convertEnumtoString() + "\t" + castedNodeDnase.getLow() + "\t" + castedNodeDnase.getHigh() + "\t" + castedNodeDnase.getCellLineName() + "\t" + castedNodeDnase.getFileName() + System.getProperty("line.separator"));
+				}else if(Commons.TF.equals(type)){
+					castedNodeTforHistone = (TforHistoneIntervalTreeNode)node;
+					bufferedWriter.write(castedNodeTforHistone.getChromName().convertEnumtoString() + "\t" + castedNodeTforHistone.getLow() + "\t" + castedNodeTforHistone.getHigh() + "\t" + castedNodeTforHistone.getTfbsorHistoneName() + "\t" + castedNodeTforHistone.getCellLineName() + "\t" + castedNodeTforHistone.getFileName() + System.getProperty("line.separator"));
+				}else if(Commons.HISTONE.equals(type)){
+					castedNodeTforHistone = (TforHistoneIntervalTreeNode)node;
+					bufferedWriter.write(castedNodeTforHistone.getChromName().convertEnumtoString() + "\t" + castedNodeTforHistone.getLow() + "\t" + castedNodeTforHistone.getHigh() + "\t" + castedNodeTforHistone.getTfbsorHistoneName() + "\t" + castedNodeTforHistone.getCellLineName() + "\t" + castedNodeTforHistone.getFileName() + System.getProperty("line.separator"));
+				}else if(Commons.HG19_REFSEQ_GENE.equals(type)){
+					castedNodeUcscRefSeqGene = (UcscRefSeqGeneIntervalTreeNode)node;
+					bufferedWriter.write(castedNodeUcscRefSeqGene.getChromName().convertEnumtoString() + "\t" + castedNodeUcscRefSeqGene.getLow() + "\t" + castedNodeUcscRefSeqGene.getHigh() + "\t" + castedNodeUcscRefSeqGene.getRefSeqGeneName() + "\t" + castedNodeUcscRefSeqGene.getGeneEntrezId() + "\t" + castedNodeUcscRefSeqGene.getIntervalName().convertEnumtoString() + "\t" + castedNodeUcscRefSeqGene.getIntervalNumber() + "\t" + castedNodeUcscRefSeqGene.getStrand() + "\t" + castedNodeUcscRefSeqGene.getGeneHugoSymbol() + System.getProperty("line.separator"));
 					// bufferedWriter.write(refSeqGeneIntervalList.get(j).getChromName()+
 					// "\t"
 					// +refSeqGeneIntervalList.get(j).getIntervalStart()+"\t"+
@@ -1328,28 +1326,28 @@ public class IntervalTree {
 					// refSeqGeneIntervalList.get(j).getStrand() + "\t" +
 					// refSeqGeneIntervalList.get(j).getAlternateGeneName()+
 					// System.getProperty("line.separator"));
-				}else if( Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS.equals( type)){
-					bufferedWriter.write( node.getChromName().convertEnumtoString() + "\t" + node.getLow() + "\t" + node.getHigh() + System.getProperty( "line.separator"));
+				}else if(Commons.PROCESS_INPUT_DATA_REMOVE_OVERLAPS.equals(type)){
+					bufferedWriter.write(node.getChromName().convertEnumtoString() + "\t" + node.getLow() + "\t" + node.getHigh() + System.getProperty("line.separator"));
 				}
 				bufferedWriter.flush();
 			}
 
-		}catch( IOException e){
+		}catch(IOException e){
 
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
 		}
 
-		if( node.getRight().getNodeName().isNotSentinel())
-			intervalTreeInfixTraversal( node.getRight(), bufferedWriter, type, givenInputDataSNPSorIntervals);
+		if(node.getRight().getNodeName().isNotSentinel())
+			intervalTreeInfixTraversal(node.getRight(), bufferedWriter, type, givenInputDataSNPSorIntervals);
 
 	}
 	
 	//20 NOV 2015 starts
 	//There are three intervals
 	//return the numberofBases where these three intervals overlap if they do
-	public static int findNumberofOverlapingBases( int low_x, int high_x, int low_y, int high_y, int givenInputLine_low, int givenInputLine_high) {
+	public static int findNumberofOverlapingBases(int low_x, int high_x, int low_y, int high_y, int givenInputLine_low, int givenInputLine_high) {
 
-		if( ( low_x <= high_y) && ( low_y <= high_x)){	
+		if((low_x <= high_y) && (low_y <= high_x)){	
 			return findNumberofOverlapingBases(Math.max(low_x, low_y),Math.min(high_x, high_y),givenInputLine_low,givenInputLine_high);
 		}else
 			return 0;
@@ -1359,36 +1357,36 @@ public class IntervalTree {
 	// Return number of overlapping base pairs
 	//There are two intervals
 	//return the numberofBases where these two intervals overlap if they do
-	public static int findNumberofOverlapingBases( int low_x, int high_x, int low_y, int high_y) {
+	public static int findNumberofOverlapingBases(int low_x, int high_x, int low_y, int high_y) {
 
-		if( ( low_x <= high_y) && ( low_y <= high_x)){
-			return Math.min( high_x, high_y) - Math.max( low_x, low_y) + 1;
+		if((low_x <= high_y) && (low_y <= high_x)){
+			return Math.min(high_x, high_y) - Math.max(low_x, low_y) + 1;
 		}else
 			return 0;
 	}
 
-	public static boolean overlaps( Interval x, Interval y) {
+	public static boolean overlaps(Interval x, Interval y) {
 
-		if( ( x.getLow() <= y.getHigh()) && ( y.getLow() <= x.getHigh()))
+		if((x.getLow() <= y.getHigh()) && (y.getLow() <= x.getHigh()))
 			return true;
 		else
 			return false;
 	}
 
-	public static boolean overlaps( int low_x, int high_x, int low_y, int high_y) {
+	public static boolean overlaps(int low_x, int high_x, int low_y, int high_y) {
 
-		if( ( low_x <= high_y) && ( low_y <= high_x))
+		if((low_x <= high_y) && (low_y <= high_x))
 			return true;
 		else
 			return false;
 	}
 
 	// overlap definition: number of overlapping bases necessary for overlap
-	public static boolean overlaps( int low_x, int high_x, int low_y, int high_y, int numberofOverlappingBases) {
+	public static boolean overlaps(int low_x, int high_x, int low_y, int high_y, int numberofOverlappingBases) {
 
-		if( ( low_x <= high_y) && ( low_y <= high_x)){
+		if((low_x <= high_y) && (low_y <= high_x)){
 
-			if( ( Math.min( high_x, high_y) - Math.max( low_x, low_y) + 1) >= numberofOverlappingBases){
+			if((Math.min(high_x, high_y) - Math.max(low_x, low_y) + 1) >= numberofOverlappingBases){
 				return true;
 			}else
 				return false;
@@ -1401,9 +1399,9 @@ public class IntervalTree {
 	//There are three intervals
 	//return true if these three intervals overlap at least overlapDefinition bases
 	//else return false
-	public static boolean overlaps( int low_x, int high_x, int low_y, int high_y, int givenInputLine_low, int givenInputLine_high, int overlapDefinition) {
+	public static boolean overlaps(int low_x, int high_x, int low_y, int high_y, int givenInputLine_low, int givenInputLine_high, int overlapDefinition) {
 
-		if( ( low_x <= high_y) && ( low_y <= high_x)){	
+		if((low_x <= high_y) && (low_y <= high_x)){	
 			return overlaps(Math.max(low_x, low_y),Math.min(high_x, high_y),givenInputLine_low,givenInputLine_high,overlapDefinition);
 		}else
 			return false;
@@ -1411,22 +1409,22 @@ public class IntervalTree {
 	//19 April 2016 ends
 	
 	// For debug purposes
-	public static void findGivenNode( IntervalTreeNode node, int low, int high, List<IntervalTreeNode> foundNodes) {
+	public static void findGivenNode(IntervalTreeNode node, int low, int high, List<IntervalTreeNode> foundNodes) {
 
 		// exact node
-		if( node.getLow() == low && node.getHigh() == high){
+		if(node.getLow() == low && node.getHigh() == high){
 			// Found
-			foundNodes.add( node);
+			foundNodes.add(node);
 		}
 
 		// partial overlap possibility
-		if( node.getLeft().getNodeName().isNotSentinel() && ( ( OtherIntervalTreeNode)( node.getLeft())).getMin() <= high && low <= node.getLeft().getMax()){
-			findGivenNode( node.getLeft(), low, high, foundNodes);
+		if(node.getLeft().getNodeName().isNotSentinel() && ((OtherIntervalTreeNode)(node.getLeft())).getMin() <= high && low <= node.getLeft().getMax()){
+			findGivenNode(node.getLeft(), low, high, foundNodes);
 		}
 
 		// partial overlap possibility
-		if( node.getRight().getNodeName().isNotSentinel() && ( ( OtherIntervalTreeNode)( node.getRight())).getMin() <= high && low <= node.getRight().getMax()){
-			findGivenNode( node.getRight(), low, high, foundNodes);
+		if(node.getRight().getNodeName().isNotSentinel() && ((OtherIntervalTreeNode)(node.getRight())).getMin() <= high && low <= node.getRight().getMax()){
+			findGivenNode(node.getRight(), low, high, foundNodes);
 		}
 
 	}
@@ -1435,11 +1433,11 @@ public class IntervalTree {
 	public static IntervalTreeNode findLeftMostNodefromPreviousQuery(
 			List<IntervalTreeNode> previousNonEmptyOverlappingNodeList) {
 
-		IntervalTreeNode leftMostNode = previousNonEmptyOverlappingNodeList.get( 0);
+		IntervalTreeNode leftMostNode = previousNonEmptyOverlappingNodeList.get(0);
 
-		for( IntervalTreeNode node : previousNonEmptyOverlappingNodeList){
+		for(IntervalTreeNode node : previousNonEmptyOverlappingNodeList){
 
-			if( node.getLow() < leftMostNode.getLow()){
+			if(node.getLow() < leftMostNode.getLow()){
 				leftMostNode = node;
 			}
 		}
@@ -1449,7 +1447,7 @@ public class IntervalTree {
 	}
 
 	// Go up in the interval tree for the new query
-	public static IntervalTreeNode findMostGeneralSearchStaringNodeforNewQuery( Interval interval,
+	public static IntervalTreeNode findMostGeneralSearchStaringNodeforNewQuery(Interval interval,
 			IntervalTreeNode leftMostNode) {
 
 		// For OCD GWAS taking right most node did not work
@@ -1462,7 +1460,7 @@ public class IntervalTree {
 		parent = parent.getParent();
 
 		// Exit the loop when parent.getLow()>interval.getHigh()
-		while( ( parent.getNodeName().isNotSentinel()) && ( parent.getLow() <= interval.getHigh())){
+		while((parent.getNodeName().isNotSentinel()) && (parent.getLow() <= interval.getHigh())){
 			previousParent = parent;
 			parent = parent.getParent();
 
@@ -1472,7 +1470,7 @@ public class IntervalTree {
 	}
 
 	// Go up in the interval tree for the new query
-	public static IntervalTreeNode findMostGeneralSearchStaringNodeforNewQuery( Interval interval,
+	public static IntervalTreeNode findMostGeneralSearchStaringNodeforNewQuery(Interval interval,
 			IntervalTreeNode leftMostNode, IntervalTreeNode rightMostNode) {
 
 		// For OCD GWAS taking right most node did not work
@@ -1485,7 +1483,7 @@ public class IntervalTree {
 		parent = parent.getParent();
 
 		// Exit the loop when parent.getLow()>interval.getHigh()
-		while( ( parent.getNodeName().isNotSentinel()) && ( parent.getLow() <= interval.getHigh())){
+		while((parent.getNodeName().isNotSentinel()) && (parent.getLow() <= interval.getHigh())){
 			previousParent = parent;
 			parent = parent.getParent();
 
@@ -1495,18 +1493,18 @@ public class IntervalTree {
 	}
 
 	// Go down in the interval tree for the new query
-	public static IntervalTreeNode findMostSpecificSearchStaringNodeforNewQuery( Interval interval,
+	public static IntervalTreeNode findMostSpecificSearchStaringNodeforNewQuery(Interval interval,
 			IntervalTreeNode node) {
 
 		// if there is possibility of overlap between interval and node's
 		// children
 		// or overlaps with the node
-		if( ( ( node.getLeft().getNodeName().isNotSentinel()) && ( node.getRight().getNodeName().isNotSentinel()) && ( ( ( ( OtherIntervalTreeNode)( node.getLeft())).getMin() <= interval.getHigh()) && ( interval.getLow() <= node.getLeft().getMax())) && ( ( ( ( OtherIntervalTreeNode)( node.getRight())).getMin() <= interval.getHigh()) && ( interval.getLow() <= node.getRight().getMax()))) || ( node.getLow() <= interval.getHigh() && interval.getLow() <= node.getHigh())){
+		if(((node.getLeft().getNodeName().isNotSentinel()) && (node.getRight().getNodeName().isNotSentinel()) && ((((OtherIntervalTreeNode)(node.getLeft())).getMin() <= interval.getHigh()) && (interval.getLow() <= node.getLeft().getMax())) && ((((OtherIntervalTreeNode)(node.getRight())).getMin() <= interval.getHigh()) && (interval.getLow() <= node.getRight().getMax()))) || (node.getLow() <= interval.getHigh() && interval.getLow() <= node.getHigh())){
 			return node;
-		}else if( node.getLeft().getNodeName().isNotSentinel() && ( ( ( ( OtherIntervalTreeNode)( node.getLeft())).getMin() <= interval.getHigh()) && ( interval.getLow() <= node.getLeft().getMax()))){
-			return findMostSpecificSearchStaringNodeforNewQuery( interval, node.getLeft());
-		}else if( node.getRight().getNodeName().isNotSentinel() && ( ( ( ( OtherIntervalTreeNode)( node.getRight())).getMin() <= interval.getHigh()) && ( interval.getLow() <= node.getRight().getMax()))){
-			return findMostSpecificSearchStaringNodeforNewQuery( interval, node.getRight());
+		}else if(node.getLeft().getNodeName().isNotSentinel() && ((((OtherIntervalTreeNode)(node.getLeft())).getMin() <= interval.getHigh()) && (interval.getLow() <= node.getLeft().getMax()))){
+			return findMostSpecificSearchStaringNodeforNewQuery(interval, node.getLeft());
+		}else if(node.getRight().getNodeName().isNotSentinel() && ((((OtherIntervalTreeNode)(node.getRight())).getMin() <= interval.getHigh()) && (interval.getLow() <= node.getRight().getMax()))){
+			return findMostSpecificSearchStaringNodeforNewQuery(interval, node.getRight());
 		}
 		// no way out
 		// does not overlap with the node and its children
@@ -1515,64 +1513,64 @@ public class IntervalTree {
 
 	}
 
-	public static void writeRouteFromRoottoThisNode( IntervalTreeNode node) {
+	public static void writeRouteFromRoottoThisNode(IntervalTreeNode node) {
 
 		IntervalTreeNode parent;
 
-		if( node.getNodeName().isNotSentinel()){
+		if(node.getNodeName().isNotSentinel()){
 			parent = node.getParent();
 
-			if( parent.getNodeName().isNotSentinel()){
-				if( parent.getLeft() == node){
-					writeRouteFromRoottoThisNode( node.getParent());
-					GlanetRunner.appendLog( "Left");
-				}else if( parent.getRight() == node){
-					writeRouteFromRoottoThisNode( node.getParent());
-					GlanetRunner.appendLog( "Right");
+			if(parent.getNodeName().isNotSentinel()){
+				if(parent.getLeft() == node){
+					writeRouteFromRoottoThisNode(node.getParent());
+					GlanetRunner.appendLog("Left");
+				}else if(parent.getRight() == node){
+					writeRouteFromRoottoThisNode(node.getParent());
+					GlanetRunner.appendLog("Right");
 				}
 			}
 		}
 
 	}
 
-	public static void printRouteFromRoottoThisNode( IntervalTreeNode root, int low, int high,
+	public static void printRouteFromRoottoThisNode(IntervalTreeNode root, int low, int high,
 			List<IntervalTreeNode> foundNodes) {
 
 		OtherIntervalTreeNode castedNode = null;
 
-		if( root.getNodeName().isNotSentinel()){
-			findGivenNode( root, low, high, foundNodes);
+		if(root.getNodeName().isNotSentinel()){
+			findGivenNode(root, low, high, foundNodes);
 		}
 
-		for( IntervalTreeNode foundNode : foundNodes){
+		for(IntervalTreeNode foundNode : foundNodes){
 
-			if( foundNode instanceof OtherIntervalTreeNode){
-				castedNode = ( OtherIntervalTreeNode)foundNode;
+			if(foundNode instanceof OtherIntervalTreeNode){
+				castedNode = (OtherIntervalTreeNode)foundNode;
 			}
 
-			GlanetRunner.appendLog( "Height: " + castedNode.height);
-			writeRouteFromRoottoThisNode( foundNode);
+			GlanetRunner.appendLog("Height: " + castedNode.height);
+			writeRouteFromRoottoThisNode(foundNode);
 		}
 
 	}
 
-	public List<IntervalDataDrivenExperiment> findAllOverlappingIntervalsForExclusion( IntervalTreeNode node,
+	public List<IntervalDataDrivenExperiment> findAllOverlappingIntervalsForExclusion(IntervalTreeNode node,
 			IntervalDataDrivenExperiment interval, int overlapDefinition) {
 
 		List<IntervalDataDrivenExperiment> overlappingIntervalList = new ArrayList<IntervalDataDrivenExperiment>();
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
-			overlappingIntervalList.add( new IntervalDataDrivenExperiment( Math.max( node.getLow(), interval.getLow()),
-					Math.min( node.getHigh(), interval.getHigh())));
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+			overlappingIntervalList.add(new IntervalDataDrivenExperiment(Math.max(node.getLow(), interval.getLow()),
+					Math.min(node.getHigh(), interval.getHigh())));
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			overlappingIntervalList.addAll( findAllOverlappingIntervalsForExclusion( node.getLeft(), interval,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			overlappingIntervalList.addAll(findAllOverlappingIntervalsForExclusion(node.getLeft(), interval,
 					overlapDefinition));
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			overlappingIntervalList.addAll( findAllOverlappingIntervalsForExclusion( node.getRight(), interval,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			overlappingIntervalList.addAll(findAllOverlappingIntervalsForExclusion(node.getRight(), interval,
 					overlapDefinition));
 		}
 
@@ -1581,7 +1579,7 @@ public class IntervalTree {
 	}
 
 	// There can be gaps in the mapabilityIntervalTree
-	public int findAllOverlappingMapabilityIntervals( IntervalTreeNode node, Interval interval) {
+	public int findAllOverlappingMapabilityIntervals(IntervalTreeNode node, Interval interval) {
 
 		int numberofOverlappingBases = 0;
 
@@ -1591,25 +1589,25 @@ public class IntervalTree {
 
 		MapabilityIntervalTreeNode castedNode = null;
 
-		if( node instanceof MapabilityIntervalTreeNode){
-			castedNode = ( MapabilityIntervalTreeNode)node;
+		if(node instanceof MapabilityIntervalTreeNode){
+			castedNode = (MapabilityIntervalTreeNode)node;
 		}
 
-		numberofOverlappingBases = findNumberofOverlapingBases( node.getLow(), node.getHigh(), interval.getLow(),
+		numberofOverlappingBases = findNumberofOverlapingBases(node.getLow(), node.getHigh(), interval.getLow(),
 				interval.getHigh());
 
-		if( numberofOverlappingBases > 0){
+		if(numberofOverlappingBases > 0){
 
-			mapability = ( numberofOverlappingBases * castedNode.getMapability());
+			mapability = (numberofOverlappingBases * castedNode.getMapability());
 
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			mapabilityLeft = findAllOverlappingMapabilityIntervals( node.getLeft(), interval);
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			mapabilityLeft = findAllOverlappingMapabilityIntervals(node.getLeft(), interval);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			mapabilityRight = findAllOverlappingMapabilityIntervals( node.getRight(), interval);
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			mapabilityRight = findAllOverlappingMapabilityIntervals(node.getRight(), interval);
 
 		}
 
@@ -1617,7 +1615,7 @@ public class IntervalTree {
 	}
 
 	// Find the number of hits while finding overlaps in GCIsochoreIntervalTree
-	public List<GCIsochoreIntervalTreeHitNode> findAllOverlappingGCIsochoreIntervals( IntervalTreeNode node,
+	public List<GCIsochoreIntervalTreeHitNode> findAllOverlappingGCIsochoreIntervals(IntervalTreeNode node,
 			Interval interval) {
 
 		List<GCIsochoreIntervalTreeHitNode> hits = new ArrayList<GCIsochoreIntervalTreeHitNode>();
@@ -1627,27 +1625,27 @@ public class IntervalTree {
 		GCIsochoreIntervalTreeHitNode hit = null;
 		int numberofOverlappingBases = 0;
 
-		if( node instanceof GCIsochoreIntervalTreeNode){
-			castedNode = ( GCIsochoreIntervalTreeNode)node;
+		if(node instanceof GCIsochoreIntervalTreeNode){
+			castedNode = (GCIsochoreIntervalTreeNode)node;
 		}
 
-		numberofOverlappingBases = findNumberofOverlapingBases( castedNode.getLow(), castedNode.getHigh(),
+		numberofOverlappingBases = findNumberofOverlapingBases(castedNode.getLow(), castedNode.getHigh(),
 				interval.getLow(), interval.getHigh());
 
-		if( numberofOverlappingBases > 0){
+		if(numberofOverlappingBases > 0){
 
-			hit = new GCIsochoreIntervalTreeHitNode( castedNode.getLow(), castedNode.getHigh(),
+			hit = new GCIsochoreIntervalTreeHitNode(castedNode.getLow(), castedNode.getHigh(),
 					castedNode.getNumberofGCs(), castedNode.getIsochoreFamily(), numberofOverlappingBases);
 
-			hits.add( hit);
+			hits.add(hit);
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			hits.addAll( findAllOverlappingGCIsochoreIntervals( node.getLeft(), interval));
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			hits.addAll(findAllOverlappingGCIsochoreIntervals(node.getLeft(), interval));
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			hits.addAll( findAllOverlappingGCIsochoreIntervals( node.getRight(), interval));
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			hits.addAll(findAllOverlappingGCIsochoreIntervals(node.getRight(), interval));
 
 		}
 
@@ -1656,7 +1654,7 @@ public class IntervalTree {
 	}
 
 	// Return gc and all overlapping IsochoreIntervalTree hits starts
-	public void findAllOverlappingGCIsochoreIntervals( 
+	public void findAllOverlappingGCIsochoreIntervals(
 			IntervalTreeNode node, 
 			Interval interval,
 			GCIsochoreIntervalTreeFindAllOverlapsResult result) {
@@ -1666,20 +1664,20 @@ public class IntervalTree {
 		int numberofOverlappingBases = 0;
 		float numberofGCs = 0f;
 
-		if( node instanceof GCIsochoreIntervalTreeNode){
-			castedNode = ( GCIsochoreIntervalTreeNode)node;
+		if(node instanceof GCIsochoreIntervalTreeNode){
+			castedNode = (GCIsochoreIntervalTreeNode)node;
 		}
 
-		numberofOverlappingBases = findNumberofOverlapingBases( 
+		numberofOverlappingBases = findNumberofOverlapingBases(
 				castedNode.getLow(), 
 				castedNode.getHigh(),
 				interval.getLow(), 
 				interval.getHigh());
 
-		if( numberofOverlappingBases > 0){
+		if(numberofOverlappingBases > 0){
 
 			// Find hit
-			GCIsochoreIntervalTreeHitNode hit = new GCIsochoreIntervalTreeHitNode( 
+			GCIsochoreIntervalTreeHitNode hit = new GCIsochoreIntervalTreeHitNode(
 					castedNode.getLow(),
 					castedNode.getHigh(), 
 					castedNode.getNumberofGCs(), 
@@ -1687,22 +1685,22 @@ public class IntervalTree {
 					numberofOverlappingBases);
 
 			// Add hit
-			result.getHits().add( hit);
+			result.getHits().add(hit);
 
 			// Find numberofGCs
-			numberofGCs = ( numberofOverlappingBases * (castedNode.getNumberofGCs() * 1.0f)) / ( castedNode.getHigh() - castedNode.getLow() + 1);
+			numberofGCs = (numberofOverlappingBases * (castedNode.getNumberofGCs() * 1.0f)) / (castedNode.getHigh() - castedNode.getLow() + 1);
 
 			// Accumulate gcContent
-			result.setNumberofGCs( result.getNumberofGCs() + numberofGCs);
+			result.setNumberofGCs(result.getNumberofGCs() + numberofGCs);
 
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingGCIsochoreIntervals( node.getLeft(), interval, result);
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingGCIsochoreIntervals(node.getLeft(), interval, result);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingGCIsochoreIntervals( node.getRight(), interval, result);
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingGCIsochoreIntervals(node.getRight(), interval, result);
 
 		}
 
@@ -1711,7 +1709,7 @@ public class IntervalTree {
 	// Return gc and all overlapping IsochoreIntervalTree hits ends
 
 	// There can be gaps in the gcIntervalTree
-	public float findAllOverlappingGCIntervals( 
+	public float findAllOverlappingGCIntervals(
 			IntervalTreeNode node, 
 			Interval interval,
 			CalculateGC calculateGC) {
@@ -1725,25 +1723,25 @@ public class IntervalTree {
 		GCIntervalTreeNode gcIntervalTreeNode = null;
 		GCIsochoreIntervalTreeNode gcIsochoreIntervalTreeNode = null;
 
-		if( node instanceof GCIntervalTreeNode){
-			gcIntervalTreeNode = ( GCIntervalTreeNode)node;
-		}else if( node instanceof GCIsochoreIntervalTreeNode){
-			gcIsochoreIntervalTreeNode = ( GCIsochoreIntervalTreeNode)node;
+		if(node instanceof GCIntervalTreeNode){
+			gcIntervalTreeNode = (GCIntervalTreeNode)node;
+		}else if(node instanceof GCIsochoreIntervalTreeNode){
+			gcIsochoreIntervalTreeNode = (GCIsochoreIntervalTreeNode)node;
 		}
 
-		numberofOverlappingBases = findNumberofOverlapingBases( node.getLow(), node.getHigh(), interval.getLow(),interval.getHigh());
+		numberofOverlappingBases = findNumberofOverlapingBases(node.getLow(), node.getHigh(), interval.getLow(),interval.getHigh());
 
-		if( numberofOverlappingBases > 0){
+		if(numberofOverlappingBases > 0){
 
-			switch( calculateGC){
+			switch(calculateGC){
 			
 				case CALCULATE_GC_USING_GC_INTERVAL_TREE:
-					gcContent = ( numberofOverlappingBases * (gcIntervalTreeNode.getNumberofGCs() * 1.0f)) / ( gcIntervalTreeNode.getHigh() - gcIntervalTreeNode.getLow() + 1);
+					gcContent = (numberofOverlappingBases * (gcIntervalTreeNode.getNumberofGCs() * 1.0f)) / (gcIntervalTreeNode.getHigh() - gcIntervalTreeNode.getLow() + 1);
 					break;
 	
 	
 				case CALCULATE_GC_USING_GC_ISOCHORE_INTERVAL_TREE:
-					gcContent = ( numberofOverlappingBases * (gcIsochoreIntervalTreeNode.getNumberofGCs() * 1.0f)) / ( gcIsochoreIntervalTreeNode.getHigh() - gcIsochoreIntervalTreeNode.getLow() + 1);
+					gcContent = (numberofOverlappingBases * (gcIsochoreIntervalTreeNode.getNumberofGCs() * 1.0f)) / (gcIsochoreIntervalTreeNode.getHigh() - gcIsochoreIntervalTreeNode.getLow() + 1);
 					break;
 	
 				default:
@@ -1752,12 +1750,12 @@ public class IntervalTree {
 
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			gcContentLeft = findAllOverlappingGCIntervals( node.getLeft(), interval, calculateGC);
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			gcContentLeft = findAllOverlappingGCIntervals(node.getLeft(), interval, calculateGC);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			gcContentRight = findAllOverlappingGCIntervals( node.getRight(), interval, calculateGC);
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			gcContentRight = findAllOverlappingGCIntervals(node.getRight(), interval, calculateGC);
 
 		}
 
@@ -1766,19 +1764,19 @@ public class IntervalTree {
 	}
 
 	// Normal
-	public void findAllOverlappingIntervals( IntervalTreeNode node, Interval interval) {
+	public void findAllOverlappingIntervals(IntervalTreeNode node, Interval interval) {
 
-		if( node.getNodeName().isNotSentinel()){
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
-				GlanetRunner.appendLog( "overlap" + node.getLow() + "\t" + node.getHigh());
+		if(node.getNodeName().isNotSentinel()){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+				GlanetRunner.appendLog("overlap" + node.getLow() + "\t" + node.getHigh());
 			}
 
-			if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-				findAllOverlappingIntervals( node.getLeft(), interval);
+			if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+				findAllOverlappingIntervals(node.getLeft(), interval);
 			}
 
-			if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-				findAllOverlappingIntervals( node.getRight(), interval);
+			if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+				findAllOverlappingIntervals(node.getRight(), interval);
 
 			}
 		}
@@ -1790,17 +1788,17 @@ public class IntervalTree {
 			IntervalTreeNode root,
 			IntervalTreeNode newNode) {
 
-		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
-			if( overlaps( root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
-				overlappedNodeList.add( root);
+		if(root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
+			if(overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
+				overlappedNodeList.add(root);
 			}
 
-			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
-				findAllOverlappingIntervals( overlappedNodeList, root.getLeft(), newNode);
+			if((root.getLeft().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getLeft().getMax())){
+				findAllOverlappingIntervals(overlappedNodeList, root.getLeft(), newNode);
 			}
 
-			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
-				findAllOverlappingIntervals( overlappedNodeList, root.getRight(), newNode);
+			if((root.getRight().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getRight().getMax()) && (root.getLow() <= newNode.getHigh())){
+				findAllOverlappingIntervals(overlappedNodeList, root.getRight(), newNode);
 
 			}
 		}
@@ -1813,14 +1811,14 @@ public class IntervalTree {
 		
 		List<IntervalTreeNode> intervalTreeNodeList = new ArrayList<IntervalTreeNode>();
 		
-		if( node.getLeft().getNodeName().isNotSentinel())
-			intervalTreeNodeList.addAll(getIntervalNodeList( node.getLeft()));
+		if(node.getLeft().getNodeName().isNotSentinel())
+			intervalTreeNodeList.addAll(getIntervalNodeList(node.getLeft()));
 
-		if( node.getNodeName().isNotSentinel()){
+		if(node.getNodeName().isNotSentinel()){
 			intervalTreeNodeList.add(node);
 		}
 
-		if( node.getRight().getNodeName().isNotSentinel())
+		if(node.getRight().getNodeName().isNotSentinel())
 			intervalTreeNodeList.addAll(getIntervalNodeList(node.getRight()));
 
 		return intervalTreeNodeList;
@@ -1837,9 +1835,9 @@ public class IntervalTree {
 			IntervalTreeNode root,
 			IntervalTreeNode newNode) {
 
-		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
+		if(root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
 			
-			if( root.getChromName().equals(newNode.getChromName()) && overlaps( root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
+			if(root.getChromName().equals(newNode.getChromName()) && overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
 				
 				//6 May 2016 starts
 				if (root instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers && newNode instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
@@ -1874,18 +1872,18 @@ public class IntervalTree {
 					}
 				}
 				else if (root instanceof IntervalTreeNode && newNode instanceof IntervalTreeNode){
-					overlappedNodeList.add( root);
+					overlappedNodeList.add(root);
 				}
 				//6 May 2016 ends
 				
 			
 			}//End of IF there is overlap
 
-			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
+			if((root.getLeft().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getLeft().getMax())){
 				findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, root.getLeft(), newNode);
 			}
 
-			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
+			if((root.getRight().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getRight().getMax()) && (root.getLow() <= newNode.getHigh())){
 				findAllOverlappingIntervalsCheckingChrName(overlappedNodeList, root.getRight(), newNode);
 
 			}
@@ -1903,7 +1901,7 @@ public class IntervalTree {
 		
 		int numberofOverlappingBases = 0;
 
-		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
+		if(root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
 			
 			numberofOverlappingBases = findNumberofOverlapingBases(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh());
 			
@@ -1912,12 +1910,12 @@ public class IntervalTree {
 				overlappedNodeList.add(root);
 			}
 
-			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
-				numberofOverlappingBases += findNumberofOverlappingBases( overlappedNodeList,root.getLeft(), newNode);
+			if((root.getLeft().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getLeft().getMax())){
+				numberofOverlappingBases += findNumberofOverlappingBases(overlappedNodeList,root.getLeft(), newNode);
 			}
 
-			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
-				numberofOverlappingBases += findNumberofOverlappingBases( overlappedNodeList, root.getRight(), newNode);
+			if((root.getRight().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getRight().getMax()) && (root.getLow() <= newNode.getHigh())){
+				numberofOverlappingBases += findNumberofOverlappingBases(overlappedNodeList, root.getRight(), newNode);
 
 			}
 		}
@@ -1935,15 +1933,15 @@ public class IntervalTree {
 		
 		int numberofOverlappingBases = 0;
 
-		if( root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
+		if(root.getNodeName().isNotSentinel() && newNode.getNodeName().isNotSentinel()){
 			
 			numberofOverlappingBases = findNumberofOverlapingBases(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh());
 			
-			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
+			if((root.getLeft().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getLeft().getMax())){
 				numberofOverlappingBases += findNumberofOverlappingBases(root.getLeft(), newNode);
 			}
 
-			if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
+			if((root.getRight().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getRight().getMax()) && (root.getLow() <= newNode.getHigh())){
 				numberofOverlappingBases += findNumberofOverlappingBases(root.getRight(), newNode);
 
 			}
@@ -1958,31 +1956,31 @@ public class IntervalTree {
 	//27 OCTOBER 2015 starts
 	public static void updateMergedNode(IntervalTreeNode mergedNode, IntervalTreeNode overlappedNode) {
 
-		if( overlappedNode.getLow() < mergedNode.getLow()){
-			mergedNode.setLow( overlappedNode.getLow());
+		if(overlappedNode.getLow() < mergedNode.getLow()){
+			mergedNode.setLow(overlappedNode.getLow());
 		}
 
-		if( overlappedNode.getHigh() > mergedNode.getHigh()){
-			mergedNode.setHigh( overlappedNode.getHigh());
+		if(overlappedNode.getHigh() > mergedNode.getHigh()){
+			mergedNode.setHigh(overlappedNode.getHigh());
 		}
 
-		mergedNode.setNumberofBases( mergedNode.getHigh() - mergedNode.getLow() + 1);
+		mergedNode.setNumberofBases(mergedNode.getHigh() - mergedNode.getLow() + 1);
 	}
 	//27 OCTOBER 2015 ends
 	
 	
 	//27 OCTOBER 2015 starts
-	public static void updateMergedNode( DataDrivenExperimentIntervalTreeNode mergedNode, DataDrivenExperimentIntervalTreeNode overlappedNode, DataDrivenExperimentGeneType geneType) {
+	public static void updateMergedNode(DataDrivenExperimentIntervalTreeNode mergedNode, DataDrivenExperimentIntervalTreeNode overlappedNode, DataDrivenExperimentGeneType geneType) {
 
-		if( overlappedNode.getLow() < mergedNode.getLow()){
-			mergedNode.setLow( overlappedNode.getLow());
+		if(overlappedNode.getLow() < mergedNode.getLow()){
+			mergedNode.setLow(overlappedNode.getLow());
 		}
 
-		if( overlappedNode.getHigh() > mergedNode.getHigh()){
-			mergedNode.setHigh( overlappedNode.getHigh());
+		if(overlappedNode.getHigh() > mergedNode.getHigh()){
+			mergedNode.setHigh(overlappedNode.getHigh());
 		}
 
-		mergedNode.setNumberofBases( mergedNode.getHigh() - mergedNode.getLow() + 1);
+		mergedNode.setNumberofBases(mergedNode.getHigh() - mergedNode.getLow() + 1);
 		mergedNode.setGeneSymbol(mergedNode.getGeneSymbol() + "_" + overlappedNode.getGeneSymbol());
 		
 		//Set TPM
@@ -2000,16 +1998,16 @@ public class IntervalTree {
 	//27 OCTOBER 2015 ends
 
 	//27 OCTOBER 2015 starts
-	public static IntervalTreeNode compute( 
+	public static IntervalTreeNode compute(
 			Map<IntervalTreeNode, IntervalTreeNode> splicedNode2CopiedNodeMap,
 			IntervalTreeNode overlappedNode) {
 
-		IntervalTreeNode node = splicedNode2CopiedNodeMap.get( overlappedNode);
+		IntervalTreeNode node = splicedNode2CopiedNodeMap.get(overlappedNode);
 		IntervalTreeNode savedPreviousNode = null;
 
-		while( node != null){
+		while(node != null){
 			savedPreviousNode = node;
-			node = splicedNode2CopiedNodeMap.get( node);
+			node = splicedNode2CopiedNodeMap.get(node);
 		}
 
 		return savedPreviousNode;
@@ -2024,15 +2022,15 @@ public class IntervalTree {
 		
 		int numberofOverlappingBases = 0;
 
-		if( root.getNodeName().isNotSentinel()){
+		if(root.getNodeName().isNotSentinel()){
 			
 			numberofOverlappingBases = findNumberofOverlapingBases(root.getLow(), root.getHigh(), interval.getLow(), interval.getHigh());
 			
-			if( ( root.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= root.getLeft().getMax())){
+			if((root.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= root.getLeft().getMax())){
 				numberofOverlappingBases += findNumberofOverlappingBases(root.getLeft(), interval);
 			}
 
-			if( ( root.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= root.getRight().getMax()) && ( root.getLow() <= interval.getHigh())){
+			if((root.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= root.getRight().getMax()) && (root.getLow() <= interval.getHigh())){
 				numberofOverlappingBases += findNumberofOverlappingBases(root.getRight(), interval);
 
 			}
@@ -2281,7 +2279,7 @@ public class IntervalTree {
 				
 				
 				// there is an overlap between the node to be inserted to the intervalTree right now and already existing nodes in the interval tree
-				if( overlappedNodeList != null && overlappedNodeList.size() > 0){
+				if(overlappedNodeList != null && overlappedNodeList.size() > 0){
 					
 					IntervalTreeNode mergedNode  = null;
 					
@@ -2348,7 +2346,7 @@ public class IntervalTree {
 					
 					
 					//Delete each overlappedNode in the overlappedNodeList
-					for( int j = 0; j < overlappedNodeList.size(); j++){
+					for(int j = 0; j < overlappedNodeList.size(); j++){
 						
 						IntervalTreeNode overlappedNode = overlappedNodeList.get(j);
 						
@@ -2375,7 +2373,7 @@ public class IntervalTree {
 						// and delete that node
 						nodetoBeDeleted = IntervalTree.compute(splicedoutNode2CopiedNodeMap, overlappedNode);
 
-						if( nodetoBeDeleted != null){
+						if(nodetoBeDeleted != null){
 							
 							// they are the same
 							// current overlapped node to_be_deleted has been copied to the previously deleted overlapped node
@@ -2387,7 +2385,7 @@ public class IntervalTree {
 							//splicedoutNode = intervalTree.intervalTreeDelete(permutationNumberMixedNumber,intervalTree, nodetoBeDeleted);
 							
 
-							if( splicedoutNode != nodetoBeDeleted)
+							if(splicedoutNode != nodetoBeDeleted)
 								splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
 							
 						}else{
@@ -2396,7 +2394,7 @@ public class IntervalTree {
 							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
 							//splicedoutNode = intervalTree.intervalTreeDelete(permutationNumberMixedNumber,intervalTree, overlappedNode);
 							
-							if( splicedoutNode != overlappedNode)
+							if(splicedoutNode != overlappedNode)
 								splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
 
 						}//End of ELSE
@@ -2479,7 +2477,7 @@ public class IntervalTree {
 //				
 //				
 //				// there is overlap
-//				if( overlappedNodeList != null && overlappedNodeList.size() > 0){
+//				if(overlappedNodeList != null && overlappedNodeList.size() > 0){
 //					
 //					IntervalTreeNode mergedNode  = null;
 //
@@ -2511,7 +2509,7 @@ public class IntervalTree {
 //					// therefore you must keep track of the real node to be deleted in case of trial of deletion of an already spliced out node.
 //					Map<IntervalTreeNode, IntervalTreeNode> splicedoutNode2CopiedNodeMap = new HashMap<IntervalTreeNode, IntervalTreeNode>();
 //
-//					for( int j = 0; j < overlappedNodeList.size(); j++){
+//					for(int j = 0; j < overlappedNodeList.size(); j++){
 //
 //						IntervalTreeNode overlappedNode = overlappedNodeList.get(j);
 //
@@ -2538,7 +2536,7 @@ public class IntervalTree {
 //						// and delete that node
 //						nodetoBeDeleted = IntervalTree.compute(splicedoutNode2CopiedNodeMap, overlappedNode);
 //
-//						if( nodetoBeDeleted != null){
+//						if(nodetoBeDeleted != null){
 //							// they are the same
 //							// current overlapped node to_be_deleted has been copied to the previously deleted overlapped node
 //							// in other words, current overlapped node to_be_deleted is spliced out by the previous delete operation
@@ -2547,7 +2545,7 @@ public class IntervalTree {
 //							// Now we can delete this overlappedNode
 //							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, nodetoBeDeleted);
 //
-//							if( splicedoutNode != nodetoBeDeleted)
+//							if(splicedoutNode != nodetoBeDeleted)
 //								splicedoutNode2CopiedNodeMap.put(splicedoutNode, nodetoBeDeleted);
 //							
 //						}else{
@@ -2555,14 +2553,14 @@ public class IntervalTree {
 //							// Now we can delete this overlappedNode
 //							splicedoutNode = intervalTree.intervalTreeDelete(intervalTree, overlappedNode);
 //
-//							if( splicedoutNode != overlappedNode)
+//							if(splicedoutNode != overlappedNode)
 //								splicedoutNode2CopiedNodeMap.put(splicedoutNode, overlappedNode);
 //
 //						}//End of ELSE
 //
 //					}// end of FOR: each overlapped node in the list
 //					
-//					intervalTree.intervalTreeInsert( intervalTree, mergedNode);
+//					intervalTree.intervalTreeInsert(intervalTree, mergedNode);
 //
 //				}// overlappedNodeList is not null
 //				
@@ -2587,24 +2585,24 @@ public class IntervalTree {
 	// First argument is the root of the interval tree
 	// Second argument is the node that is looked for whether it overlaps with
 	// any node in the interval tree
-	public IntervalTreeNode findFirstOverlappingIntervals( IntervalTreeNode root, IntervalTreeNode newNode) {
+	public IntervalTreeNode findFirstOverlappingIntervals(IntervalTreeNode root, IntervalTreeNode newNode) {
 
 		IntervalTreeNode overlappedNode = null;
 
-		if( root.getNodeName().isNotSentinel()){
-			if( overlaps( root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
+		if(root.getNodeName().isNotSentinel()){
+			if(overlaps(root.getLow(), root.getHigh(), newNode.getLow(), newNode.getHigh())){
 				return root;
 
 			}else{
-				if( ( root.getLeft().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getLeft().getMax())){
-					overlappedNode = findFirstOverlappingIntervals( root.getLeft(), newNode);
-					if( overlappedNode != null)
+				if((root.getLeft().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getLeft().getMax())){
+					overlappedNode = findFirstOverlappingIntervals(root.getLeft(), newNode);
+					if(overlappedNode != null)
 						return overlappedNode;
 				}
 
-				if( ( root.getRight().getNodeName().isNotSentinel()) && ( newNode.getLow() <= root.getRight().getMax()) && ( root.getLow() <= newNode.getHigh())){
-					overlappedNode = findFirstOverlappingIntervals( root.getRight(), newNode);
-					if( overlappedNode != null)
+				if((root.getRight().getNodeName().isNotSentinel()) && (newNode.getLow() <= root.getRight().getMax()) && (root.getLow() <= newNode.getHigh())){
+					overlappedNode = findFirstOverlappingIntervals(root.getRight(), newNode);
+					if(overlappedNode != null)
 						return overlappedNode;
 				}
 			}
@@ -2616,35 +2614,35 @@ public class IntervalTree {
 	}
 
 	// Search1
-	public void findAllOverlappingHistoneIntervals( IntervalTreeNode node, Interval interval,
+	public void findAllOverlappingHistoneIntervals(IntervalTreeNode node, Interval interval,
 			BufferedWriter bufferedWriter, List<IntervalTreeNode> overlappingNodeList) {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			if( node instanceof TforHistoneIntervalTreeNode){
-				castedNode = ( TforHistoneIntervalTreeNode)node;
+			if(node instanceof TforHistoneIntervalTreeNode){
+				castedNode = (TforHistoneIntervalTreeNode)node;
 			}
 
-			overlappingNodeList.add( node);
+			overlappingNodeList.add(node);
 
 			try{
-				bufferedWriter.write( "histone" + "\t" + castedNode.getChromName().toString() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName().toString() + "\t" + castedNode.getCellLineName().toString() + "\t" + castedNode.getFileName().toString() + System.getProperty( "line.separator"));
+				bufferedWriter.write("histone" + "\t" + castedNode.getChromName().toString() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName().toString() + "\t" + castedNode.getCellLineName().toString() + "\t" + castedNode.getFileName().toString() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingHistoneIntervals( node.getLeft(), interval, bufferedWriter, overlappingNodeList);
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingHistoneIntervals(node.getLeft(), interval, bufferedWriter, overlappingNodeList);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingHistoneIntervals( node.getRight(), interval, bufferedWriter, overlappingNodeList);
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingHistoneIntervals(node.getRight(), interval, bufferedWriter, overlappingNodeList);
 
 		}
 
@@ -2654,7 +2652,7 @@ public class IntervalTree {
 	// with Numbers
 	// Empirical P Value Calculation
 	// with IO
-	public void findAllOverlappingHistoneIntervalsWithIOWithNumbers( String outputFolder, int permutationNumber,
+	public void findAllOverlappingHistoneIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TLongIntMap permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
@@ -2666,10 +2664,10 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-				castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 			}
 
 			try{
@@ -2677,44 +2675,44 @@ public class IntervalTree {
 						permutationNumber,
 						castedNode.getTforHistoneNumber(),
 						castedNode.getCellLineNumber(),
-						( short)0,
+						(short)0,
 						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-				bufferedWriter = bufferedWriterHashMap.get( permutationNumberHistoneNumberCellLineNumber);
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberHistoneNumberCellLineNumber);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberHistoneNumberCellLineNumber + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberHistoneNumberCellLineNumber + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "histone" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "HistoneNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "histone" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "HistoneNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 
-					bufferedWriterHashMap.put( permutationNumberHistoneNumberCellLineNumber, bufferedWriter);
+					bufferedWriterHashMap.put(permutationNumberHistoneNumberCellLineNumber, bufferedWriter);
 				}
 
-				if( !( permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.containsKey( permutationNumberHistoneNumberCellLineNumber))){
+				if(!(permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.containsKey(permutationNumberHistoneNumberCellLineNumber))){
 					permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.put(
 							permutationNumberHistoneNumberCellLineNumber, 1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "histone" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "histone" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+			}catch(IOException e){
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingHistoneIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getLeft(),
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingHistoneIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getLeft(),
 					interval, chromName, bufferedWriterHashMap,
 					permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingHistoneIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getRight(),
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingHistoneIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getRight(),
 					interval, chromName, bufferedWriterHashMap,
 					permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap, overlapDefinition);
 
@@ -2727,7 +2725,7 @@ public class IntervalTree {
 
 	// Empirical P Value Calculation
 	// with IO
-	public void findAllOverlappingHistoneIntervals( String outputFolder, int permutationNumber, IntervalTreeNode node,
+	public void findAllOverlappingHistoneIntervals(String outputFolder, int permutationNumber, IntervalTreeNode node,
 			Interval interval, ChromosomeName chromName, Map<String, BufferedWriter> bufferedWriterHashMap,
 			Map<String, Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap, int overlapDefinition) {
 
@@ -2738,46 +2736,46 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNode){
-				castedNode = ( TforHistoneIntervalTreeNode)node;
+			if(node instanceof TforHistoneIntervalTreeNode){
+				castedNode = (TforHistoneIntervalTreeNode)node;
 			}
 
 			try{
 				permutationNumberHistoneNameaCellLineName = Commons.PERMUTATION + permutationNumber + "_" + castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-				bufferedWriter = bufferedWriterHashMap.get( permutationNumberHistoneNameaCellLineName);
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberHistoneNameaCellLineName);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberHistoneNameaCellLineName + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberHistoneNameaCellLineName + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriterHashMap.put( permutationNumberHistoneNameaCellLineName, bufferedWriter);
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriterHashMap.put(permutationNumberHistoneNameaCellLineName, bufferedWriter);
 				}
 
-				if( permutationNumberHistoneNameCellLineName2ZeroorOneMap.get( permutationNumberHistoneNameaCellLineName) == null){
+				if(permutationNumberHistoneNameCellLineName2ZeroorOneMap.get(permutationNumberHistoneNameaCellLineName) == null){
 					permutationNumberHistoneNameCellLineName2ZeroorOneMap.put(
 							permutationNumberHistoneNameaCellLineName, 1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "histone" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + String.valueOf( castedNode.getCellLineName()) + "\t" + castedNode.getFileName() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "histone" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + String.valueOf(castedNode.getCellLineName()) + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+			}catch(IOException e){
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingHistoneIntervals( outputFolder, permutationNumber, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingHistoneIntervals(outputFolder, permutationNumber, node.getLeft(), interval, chromName,
 					bufferedWriterHashMap, permutationNumberHistoneNameCellLineName2ZeroorOneMap, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingHistoneIntervals( outputFolder, permutationNumber, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingHistoneIntervals(outputFolder, permutationNumber, node.getRight(), interval, chromName,
 					bufferedWriterHashMap, permutationNumberHistoneNameCellLineName2ZeroorOneMap, overlapDefinition);
 
 		}
@@ -2810,7 +2808,7 @@ public class IntervalTree {
 			/**************************************************************************************/
 			/**************************WRITE ELEMENT BASED starts**********************************/
 			/**************************************************************************************/
-			if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 	
 				cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
 				fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
@@ -2831,7 +2829,7 @@ public class IntervalTree {
 				//Write each overlap
 				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" +
 						ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-						cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+						cellLineName + "\t" + fileName + System.getProperty("line.separator"));
 	
 				bufferedWriter.close();
 	
@@ -2844,13 +2842,13 @@ public class IntervalTree {
 			/**************************************************************************************/
 			/**************************WRITE ELEMENT TYPE BASED starts*****************************/
 			/**************************************************************************************/
-			else if( writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
+			else if(writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
 				
 				cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
 				fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
 	
 				fileWriter = FileOperations.createFileWriter(outputFolder + annotationFolder + elementTypeName  + ".txt", true);
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 			
 				//Write header only once for each DNase cellLine
 				if (!dnaseCellLineNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
@@ -2865,7 +2863,7 @@ public class IntervalTree {
 				//Write each overlap
 				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" +
 						ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-						cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+						cellLineName + "\t" + fileName + System.getProperty("line.separator"));
 	
 				bufferedWriter.close();
 				
@@ -2937,7 +2935,7 @@ public class IntervalTree {
 			/**************************************************************************************/
 			/**************************WRITE ELEMENT BASED starts**********************************/
 			/**************************************************************************************/
-			if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 				
 				fileWriter = FileOperations.createFileWriter(
 							outputFolder + annotationFolder + uniqiueFileName + ".txt",
@@ -2948,7 +2946,7 @@ public class IntervalTree {
 				//Write Header only once
 				switch(annotationType){
 					case DO_TF_KEGGPATHWAY_ANNOTATION:
-						if( !tfNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(tfNumberKeggPathwayNumber)){
+						if(!tfNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(tfNumberKeggPathwayNumber)){
 							tfNumberKEGGPathwayNumber2HeaderWrittenMap.put(tfNumberKeggPathwayNumber,Commons.BYTE_1);
 							
 							bufferedWriter.write(
@@ -2956,12 +2954,12 @@ public class IntervalTree {
 									"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 									"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
 									"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
-									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty("line.separator"));
 						}
 						break;
 						
 					case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
-						if( !tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(tfNumberCellLineNumberKeggPathwayNumber)){
+						if(!tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(tfNumberCellLineNumberKeggPathwayNumber)){
 							tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.put(tfNumberCellLineNumberKeggPathwayNumber,Commons.BYTE_1);
 							
 							bufferedWriter.write(
@@ -2969,7 +2967,7 @@ public class IntervalTree {
 									"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 									"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
 									"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
-									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty("line.separator"));
 						}
 						break;
 						
@@ -2985,7 +2983,7 @@ public class IntervalTree {
 						tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 						refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
 						ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
-						geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+						geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty("line.separator"));
 				
 				bufferedWriter.close();
 			}
@@ -3002,13 +3000,13 @@ public class IntervalTree {
 						outputFolder + annotationFolder + allInOneFileName + ".txt",
 						true);
 			
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 	
 				//Write Header only once
 				//Decide w.r.t. annotationType
 				switch(annotationType){
 					case DO_TF_KEGGPATHWAY_ANNOTATION:
-						if( !tfNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
+						if(!tfNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
 							tfNumberKEGGPathwayNumber2HeaderWrittenMap.put(Commons.ONE,Commons.BYTE_1);
 							
 							bufferedWriter.write(
@@ -3016,12 +3014,12 @@ public class IntervalTree {
 									"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 									"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
 									"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
-									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty("line.separator"));
 						}
 						break;
 						
 					case DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:
-						if( !tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
+						if(!tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
 							tfNumberCellLineNumberKEGGPathwayNumber2HeaderWrittenMap.put(Commons.ONE,Commons.BYTE_1);
 							
 							bufferedWriter.write(
@@ -3029,7 +3027,7 @@ public class IntervalTree {
 									"TF_CellLine" + "\t" + "TF Interval Low" + "\t" + "TF Interval High" + "\t" + 
 									"Hg19 Refseq Gene rNA" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
 									"Gene Interval Name" + "\t" + "Gene Interval Number" + "\t" +
-									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty( "line.separator"));
+									"Gene Hugo Symbol" + "\t" + "Gene Entrez ID" + "\t" + "KEGGPathway" + System.getProperty("line.separator"));
 						}
 						break;
 						
@@ -3044,7 +3042,7 @@ public class IntervalTree {
 					tfNumber2TfNameMap.get(tfNumber) + "_" + cellLineNumber2CellLineNameMap.get(cellLineNumber) + "\t" + tfOverlap.getLow() + "\t" + tfOverlap.getHigh() + "\t" + 
 					refSeqGeneNumber2RefSeqGeneNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getRefSeqGeneNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getLow() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getHigh() + "\t" + 
 					ucscRefSeqGeneOverlapWithNumbers.getIntervalName() + "\t" + ucscRefSeqGeneOverlapWithNumbers.getIntervalNumber() + "\t" + 
-					geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty( "line.separator"));
+					geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(ucscRefSeqGeneOverlapWithNumbers.getGeneHugoSymbolNumber()) + "\t" + ucscRefSeqGeneOverlapWithNumbers.getGeneEntrezId() + "\t" + keggPathwayNumber2KeggPathwayNameMap.get(keggPathwayNumber) + System.getProperty("line.separator"));
 			
 			bufferedWriter.close();
 				
@@ -3086,25 +3084,25 @@ public class IntervalTree {
 			/**************************************************************************************/
 			/**************************WRITE ELEMENT BASED starts**********************************/
 			/**************************************************************************************/
-			if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 				
 				fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.USERDEFINEDLIBRARY_ANNOTATION_DIRECTORY + elementTypeName + System.getProperty( "file.separator") + elementNumber2ElementNameMap.get( elementNumber) + ".txt",
+							outputFolder + Commons.USERDEFINEDLIBRARY_ANNOTATION_DIRECTORY + elementTypeName + System.getProperty("file.separator") + elementNumber2ElementNameMap.get(elementNumber) + ".txt",
 							true);
 				
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 
 				//Write header only once for each elementNumber
-				if( !elementNumber2HeaderWrittenMap.containsKey(elementNumber)){
+				if(!elementNumber2HeaderWrittenMap.containsKey(elementNumber)){
 					elementNumber2HeaderWrittenMap.put(elementNumber, Commons.BYTE_1);
 					bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 							"UserDefinedLibraryElement Chr" + "\t" + "UserDefinedLibraryElement Low" + "\t" + "UserDefinedLibraryElement High" + "\t" + 
-							"ElementName" + "\t" + "FileName" + System.getProperty( "line.separator"));
+							"ElementName" + "\t" + "FileName" + System.getProperty("line.separator"));
 				}
 
 				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 						ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-						elementNumber2ElementNameMap.get(elementNumber) + "\t" + fileNumber2FileNameMap.get(castedNode.getFileNumber()) + System.getProperty( "line.separator"));
+						elementNumber2ElementNameMap.get(elementNumber) + "\t" + fileNumber2FileNameMap.get(castedNode.getFileNumber()) + System.getProperty("line.separator"));
 				bufferedWriter.close();
 			}
 			/**************************************************************************************/
@@ -3120,20 +3118,20 @@ public class IntervalTree {
 						outputFolder + Commons.USERDEFINEDLIBRARY_ANNOTATION_DIRECTORY + elementTypeName + ".txt",
 						true);
 			
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 	
 				//Write header only once for each elementTypeNumber
 				//I guess here we need element Type Number
-				if( !elementNumber2HeaderWrittenMap.containsKey(elementTypeNumber)){
+				if(!elementNumber2HeaderWrittenMap.containsKey(elementTypeNumber)){
 					elementNumber2HeaderWrittenMap.put(elementTypeNumber, Commons.BYTE_1);
 					bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 							"UserDefinedLibraryElement Chr" + "\t" + "UserDefinedLibraryElement Low" + "\t" + "UserDefinedLibraryElement High" + "\t" + 
-							"ElementName" + "\t" + "FileName" + System.getProperty( "line.separator"));
+							"ElementName" + "\t" + "FileName" + System.getProperty("line.separator"));
 				}
 	
 				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 						ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-						elementNumber2ElementNameMap.get(elementNumber) + "\t" + fileNumber2FileNameMap.get(castedNode.getFileNumber()) + System.getProperty( "line.separator"));
+						elementNumber2ElementNameMap.get(elementNumber) + "\t" + fileNumber2FileNameMap.get(castedNode.getFileNumber()) + System.getProperty("line.separator"));
 				bufferedWriter.close();
 
 				
@@ -3182,21 +3180,30 @@ public class IntervalTree {
 				
 				    switch(geneSetType) {
 				    	case KEGGPATHWAY:
-						
-							fileWriter = FileOperations.createFileWriter(
-									outputFolder + annotationFolder + System.getProperty( "file.separator") + 
-									geneSetType.convertEnumtoString() + System.getProperty( "file.separator") + 
-									geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty( "file.separator") +
+				    		fileWriter = FileOperations.createFileWriter(
+									outputFolder + annotationFolder + System.getProperty("file.separator") + 
+									geneSetType.convertEnumtoString() + System.getProperty("file.separator") + 
+									geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty("file.separator") +
 									geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",
+									true);
+						
+				    		break;
+				    		
+				    	case GENE_ONTOLOGY_TERMS:						
+							fileWriter = FileOperations.createFileWriter(
+									outputFolder + annotationFolder + System.getProperty("file.separator") + 
+									geneSetType.convertEnumtoString() + System.getProperty("file.separator") + 
+									geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty("file.separator") +
+									geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber).replace(':', '_') + ".txt",
 									true);
 						
 				    		break;
 				    	case USERDEFINEDGENESET:
 				    		fileWriter = FileOperations.createFileWriter(
-									outputFolder + annotationFolder + System.getProperty( "file.separator") + 
-									geneSetType.convertEnumtoString() + System.getProperty( "file.separator") + 
-									mainGeneSetName + System.getProperty( "file.separator") + 
-									geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty( "file.separator") + 
+									outputFolder + annotationFolder + System.getProperty("file.separator") + 
+									geneSetType.convertEnumtoString() + System.getProperty("file.separator") + 
+									mainGeneSetName + System.getProperty("file.separator") + 
+									geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty("file.separator") + 
 									geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + "_" + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + ".txt",
 									true);
 				    		break;
@@ -3209,18 +3216,18 @@ public class IntervalTree {
 					
 					bufferedWriter = new BufferedWriter(fileWriter);
 	
-					if( !geneSetNumber2HeaderWrittenMap.containsKey( geneSetNumber)){
-						geneSetNumber2HeaderWrittenMap.put( geneSetNumber, Commons.BYTE_1);
+					if(!geneSetNumber2HeaderWrittenMap.containsKey(geneSetNumber)){
+						geneSetNumber2HeaderWrittenMap.put(geneSetNumber, Commons.BYTE_1);
 						bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 								"Hg19 RefSeqGene Chr" + "\t" + "RefSeqGene Low" + "\t" + "RefSeqGene High" + "\t" + 
 								"RNA" + "\t" + "IntervalName" + "\t" + 
-								"HugoSymbol" + "\t" + "EntrezID" + System.getProperty( "line.separator"));
+								"HugoSymbol" + "\t" + "EntrezID" + System.getProperty("line.separator"));
 					}
 					
 					bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 							ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
 							refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName() + "\t" + 
-							geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+							geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 					bufferedWriter.close();
 				
 			}
@@ -3235,24 +3242,27 @@ public class IntervalTree {
 			 
 				switch(geneSetType) {
 			    	
-				case KEGGPATHWAY:
+					case KEGGPATHWAY:
+					case GENE_ONTOLOGY_TERMS:
 						fileWriter = FileOperations.createFileWriter(
-								outputFolder + annotationFolder + System.getProperty( "file.separator") +
-								geneSetType.convertEnumtoString() + System.getProperty( "file.separator") + 
-								geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty( "file.separator") +
+								outputFolder + annotationFolder + System.getProperty("file.separator") +
+								geneSetType.convertEnumtoString() + System.getProperty("file.separator") + 
+								geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty("file.separator") +
 								geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType)  + ".txt",
 								true);
 					
 			    		break;
+			    		
 			    	case USERDEFINEDGENESET:
 			    		fileWriter = FileOperations.createFileWriter(
-								outputFolder + annotationFolder + System.getProperty( "file.separator") + 
-								geneSetType.convertEnumtoString() + System.getProperty( "file.separator") + 
-								mainGeneSetName + System.getProperty( "file.separator") +  
-								geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty( "file.separator") + 
+								outputFolder + annotationFolder + System.getProperty("file.separator") + 
+								geneSetType.convertEnumtoString() + System.getProperty("file.separator") + 
+								mainGeneSetName + System.getProperty("file.separator") +  
+								geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + System.getProperty("file.separator") + 
 								geneSetAnalysisType.convertEnumtoString(geneSetAnalysisType) + ".txt",
 								true);
 			    		break;
+			    		
 			    	default:
 			    		break;
 		    
@@ -3262,18 +3272,18 @@ public class IntervalTree {
 			
 			bufferedWriter = new BufferedWriter(fileWriter);
 
-			if( !geneSetNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
+			if(!geneSetNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
 				geneSetNumber2HeaderWrittenMap.put(Commons.ONE, Commons.BYTE_1);
 				bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 						"Hg19 RefSeqGene Chr" + "\t" + "RefSeqGene Low" + "\t" + "RefSeqGene High" + "\t" + 
 						"RNA" + "\t" + "IntervalName" + "\t" + 
-						"HugoSymbol" + "\t" + "EntrezID" + "\t" + "GeneSet" + System.getProperty( "line.separator"));
+						"HugoSymbol" + "\t" + "EntrezID" + "\t" + "GeneSet" + System.getProperty("line.separator"));
 			}
 			
 			bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 					ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
 					refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName() + "\t" + 
-					geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + "\t"  + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + System.getProperty( "line.separator"));
+					geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + "\t"  + geneSetNumber2GeneSetNameMap.get(geneSetNumber) + System.getProperty("line.separator"));
 			bufferedWriter.close();
 
 			}
@@ -3318,16 +3328,16 @@ public class IntervalTree {
 			/**************************************************************************************/
 			/**************************WRITE ELEMENT BASED starts**********************************/
 			/**************************************************************************************/
-			if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 				
 				fileWriter = FileOperations.createFileWriter(
 							outputFolder + annotationFolder + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + ".txt",
 						true);
 				
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 	
 				//Write header only once for each geneEntrezID
-				if( !geneEntrezID2HeaderWrittenMap.containsKey(geneEntrezID)){
+				if(!geneEntrezID2HeaderWrittenMap.containsKey(geneEntrezID)){
 					geneEntrezID2HeaderWrittenMap.put(geneEntrezID, Commons.BYTE_1);
 					bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 							"Gene Chr" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
@@ -3340,7 +3350,7 @@ public class IntervalTree {
 						chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 						ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
 						refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + 
-						geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+						geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 				bufferedWriter.close();
 				
 			}
@@ -3351,13 +3361,13 @@ public class IntervalTree {
 			/**************************************************************************************/
 			/**************************WRITE ELEMENT TYPE BASED starts*****************************/
 			/**************************************************************************************/
-			else if( writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
+			else if(writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
 				
 				fileWriter = FileOperations.createFileWriter(outputFolder + annotationFolder + elementTypeName + ".txt",true);
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 	
 				//Write header only once for each geneEntrezID
-				if( !geneEntrezID2HeaderWrittenMap.containsKey(Commons.ONE)){
+				if(!geneEntrezID2HeaderWrittenMap.containsKey(Commons.ONE)){
 					geneEntrezID2HeaderWrittenMap.put(Commons.ONE, Commons.BYTE_1);
 					bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" + 
 							"Gene Chr" + "\t" + "Gene Interval Low" + "\t" + "Gene Interval High" + "\t" + 
@@ -3370,7 +3380,7 @@ public class IntervalTree {
 						chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 						ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
 						refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + 
-						geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+						geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 				bufferedWriter.close();
 
 			}
@@ -3417,26 +3427,26 @@ public class IntervalTree {
 			/**************************************************************************************/
 			/**************************WRITE ELEMENT BASED starts**********************************/
 			/**************************************************************************************/
-			if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+			if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 	
-				elementName = elementNumber2ElementNameMap.get( castedNode.getTforHistoneNumber());
-				cellLineName = cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber());
-				fileName = fileNumber2FileNameMap.get( castedNode.getFileNumber());
+				elementName = elementNumber2ElementNameMap.get(castedNode.getTforHistoneNumber());
+				cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
+				fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
 	
 				fileWriter = FileOperations.createFileWriter(outputFolder + annotationFolder + elementName + "_" + cellLineName + ".txt",true);
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 	
 				//Write header line only once for each elementNumberCellLineNumber .
-				if( !elementNumberCellLineNumber2HeaderWrittenMap.containsKey( elementNumberCellLineNumber)){
-					elementNumberCellLineNumber2HeaderWrittenMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
-					bufferedWriter.write( "#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" +
+				if(!elementNumberCellLineNumber2HeaderWrittenMap.containsKey(elementNumberCellLineNumber)){
+					elementNumberCellLineNumber2HeaderWrittenMap.put(elementNumberCellLineNumber, Commons.BYTE_1);
+					bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" +
 							elementTypeName + " Chr" + "\t" + elementTypeName + " Interval Low" + "\t" + elementTypeName + " Interval High" + "\t" + 
-							elementTypeName + "Name" + "\t" + "CellLineName" + "\t" + "FileName" + System.getProperty( "line.separator"));
+							elementTypeName + "Name" + "\t" + "CellLineName" + "\t" + "FileName" + System.getProperty("line.separator"));
 				}
 	
 				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 							ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-							elementName + "\t" + cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+							elementName + "\t" + cellLineName + "\t" + fileName + System.getProperty("line.separator"));
 				bufferedWriter.close();
 			}
 			/**************************************************************************************/
@@ -3448,25 +3458,25 @@ public class IntervalTree {
 			/**************************************************************************************/
 			/**************************WRITE ELEMENT TYPE BASED starts*****************************/
 			/**************************************************************************************/
-			else if( writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
-				elementName = elementNumber2ElementNameMap.get( castedNode.getTforHistoneNumber());
-				cellLineName = cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber());
-				fileName = fileNumber2FileNameMap.get( castedNode.getFileNumber());
+			else if(writeFoundOverlapsMode.isWriteFoundOverlapsElementTypeBased()){
+				elementName = elementNumber2ElementNameMap.get(castedNode.getTforHistoneNumber());
+				cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
+				fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
 	
 				fileWriter = FileOperations.createFileWriter(outputFolder + annotationFolder + elementTypeName  + ".txt",true);
-				bufferedWriter = new BufferedWriter( fileWriter);
+				bufferedWriter = new BufferedWriter(fileWriter);
 	
 				//Write header line only once for each elementNumberCellLineNumber .
-				if( !elementNumberCellLineNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
+				if(!elementNumberCellLineNumber2HeaderWrittenMap.containsKey(Commons.ONE)){
 					elementNumberCellLineNumber2HeaderWrittenMap.put(Commons.ONE, Commons.BYTE_1);
-					bufferedWriter.write( "#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" +
+					bufferedWriter.write("#Searched for Chr" + "\t" + "Given Interval Low" + "\t" + "Given Interval High" + "\t" +
 							elementTypeName + " Chr" + "\t" + elementTypeName + " Interval Low" + "\t" + elementTypeName + " Interval High" + "\t" + 
-							elementTypeName+ "Name" + "\t" + "CellLineName" + "\t" + "FileName" + System.getProperty( "line.separator"));
+							elementTypeName+ "Name" + "\t" + "CellLineName" + "\t" + "FileName" + System.getProperty("line.separator"));
 				}
 	
 				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + 
 							ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + 
-							elementName + "\t" + cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+							elementName + "\t" + cellLineName + "\t" + fileName + System.getProperty("line.separator"));
 				bufferedWriter.close();
 	
 			}
@@ -3505,9 +3515,9 @@ public class IntervalTree {
 		
 		
 
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
 				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and there must be no color assigned at first.
 				castedNode = new TforHistoneIntervalTreeNodeWithNumbers(
@@ -3561,7 +3571,7 @@ public class IntervalTree {
 
 		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
-			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
 					histoneCellLineNumber2HeaderWrittenMap,
@@ -3574,9 +3584,9 @@ public class IntervalTree {
 					histoneNumberCellLineNumber2OverlappingNodeListMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
-			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
 					histoneCellLineNumber2HeaderWrittenMap,
@@ -3612,10 +3622,10 @@ public class IntervalTree {
 		List<IntervalTreeNode> overlappingNodeList = null;
 		
 
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
 			
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
 				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and there must be no color assigned at first.
 				castedNode = new TforHistoneIntervalTreeNodeWithNumbers(
@@ -3654,7 +3664,7 @@ public class IntervalTree {
 
 		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
-			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(), 
 					interval,
@@ -3662,9 +3672,9 @@ public class IntervalTree {
 					permutationNumberHistoneNumberCellLineNumber2OverlappingNodeListMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
-			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(), 
 					interval,
@@ -3694,26 +3704,26 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-				castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 			}
 
 			permutationNumberHistoneNumberCellLineNumber = generateMixedNumber(
 					permutationNumber,
 					castedNode.getTforHistoneNumber(),
 					castedNode.getCellLineNumber(),
-					( short)0,
+					(short)0,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-			if( !( permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.containsKey( permutationNumberHistoneNumberCellLineNumber))){
+			if(!(permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.containsKey(permutationNumberHistoneNumberCellLineNumber))){
 				permutationNumberHistoneNumberCellLineNumber2ZeroorOneMap.put(permutationNumberHistoneNumberCellLineNumber, 1);
 				
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(), 
@@ -3723,7 +3733,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(), 
@@ -3739,7 +3749,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// without overlappedNodeList
-	public void findAllOverlappingHistoneIntervals( int permutationNumber, IntervalTreeNode node, Interval interval,
+	public void findAllOverlappingHistoneIntervals(int permutationNumber, IntervalTreeNode node, Interval interval,
 			ChromosomeName chromName, Map<String, Integer> permutationNumberHistoneNameCellLineName2ZeroorOneMap,
 			int overlapDefinition) {
 
@@ -3747,26 +3757,26 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNode){
-				castedNode = ( TforHistoneIntervalTreeNode)node;
+			if(node instanceof TforHistoneIntervalTreeNode){
+				castedNode = (TforHistoneIntervalTreeNode)node;
 			}
 
 			permutationNumberHistoneNameaCellLineName = Commons.PERMUTATION + permutationNumber + "_" + castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-			if( permutationNumberHistoneNameCellLineName2ZeroorOneMap.get( permutationNumberHistoneNameaCellLineName) == null){
-				permutationNumberHistoneNameCellLineName2ZeroorOneMap.put( permutationNumberHistoneNameaCellLineName, 1);
+			if(permutationNumberHistoneNameCellLineName2ZeroorOneMap.get(permutationNumberHistoneNameaCellLineName) == null){
+				permutationNumberHistoneNameCellLineName2ZeroorOneMap.put(permutationNumberHistoneNameaCellLineName, 1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingHistoneIntervals( permutationNumber, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingHistoneIntervals(permutationNumber, node.getLeft(), interval, chromName,
 					permutationNumberHistoneNameCellLineName2ZeroorOneMap, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingHistoneIntervals( permutationNumber, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingHistoneIntervals(permutationNumber, node.getRight(), interval, chromName,
 					permutationNumberHistoneNameCellLineName2ZeroorOneMap, overlapDefinition);
 
 		}
@@ -3776,7 +3786,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// with overlappedNodeList
-	public void findAllOverlappingHistoneIntervals( 
+	public void findAllOverlappingHistoneIntervals(
 			int repeatNumber, 
 			int permutationNumber,
 			int NUMBER_OF_PERMUTATIONS, 
@@ -3790,29 +3800,29 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			if( node instanceof TforHistoneIntervalTreeNode){
-				castedNode = ( TforHistoneIntervalTreeNode)node;
+			if(node instanceof TforHistoneIntervalTreeNode){
+				castedNode = (TforHistoneIntervalTreeNode)node;
 			}
 
-			overlappingNodeList.add( node);
+			overlappingNodeList.add(node);
 
-			permutationNumberHistoneNameaCellLineName = Commons.PERMUTATION + ( ( ( repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
+			permutationNumberHistoneNameaCellLineName = Commons.PERMUTATION + (((repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-			if( permutationNumberHistoneNameCellLineName2ZeroorOneMap.get( permutationNumberHistoneNameaCellLineName) == null){
-				permutationNumberHistoneNameCellLineName2ZeroorOneMap.put( permutationNumberHistoneNameaCellLineName, 1);
+			if(permutationNumberHistoneNameCellLineName2ZeroorOneMap.get(permutationNumberHistoneNameaCellLineName) == null){
+				permutationNumberHistoneNameCellLineName2ZeroorOneMap.put(permutationNumberHistoneNameaCellLineName, 1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingHistoneIntervals( repeatNumber, permutationNumber, NUMBER_OF_PERMUTATIONS,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingHistoneIntervals(repeatNumber, permutationNumber, NUMBER_OF_PERMUTATIONS,
 					node.getLeft(), interval, chromName, permutationNumberHistoneNameCellLineName2ZeroorOneMap,
 					overlappingNodeList);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingHistoneIntervals( repeatNumber, permutationNumber, NUMBER_OF_PERMUTATIONS,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingHistoneIntervals(repeatNumber, permutationNumber, NUMBER_OF_PERMUTATIONS,
 					node.getRight(), interval, chromName, permutationNumberHistoneNameCellLineName2ZeroorOneMap,
 					overlappingNodeList);
 
@@ -3840,8 +3850,8 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-			castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+		if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 		}
 
 		
@@ -3852,7 +3862,7 @@ public class IntervalTree {
 
 		
 		
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 		
 
 				writeOverlapsFoundInAnnotation(
@@ -3870,14 +3880,14 @@ public class IntervalTree {
 						histoneCellLineNumber2HeaderWrittenMap);
 	
 					
-				if( !histoneNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
-					histoneNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
+				if(!histoneNumberCellLineNumber2ZeroorOneMap.containsKey(elementNumberCellLineNumber)){
+					histoneNumberCellLineNumber2ZeroorOneMap.put(elementNumberCellLineNumber, Commons.BYTE_1);
 				}
 				
 
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingHistoneIntervalsWithNumbers(
 					outputFolder, 
 					writeFoundOverlapsMode,
@@ -3892,7 +3902,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingHistoneIntervalsWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
@@ -3917,7 +3927,7 @@ public class IntervalTree {
 	// For each search input line, each histoneNameandCellLineName will have
 	// value 1 or 0
 	// These 1 or 0's will be accumulated in histoneNameandCellLineName2KMap
-	public void findAllOverlappingHistoneIntervals( String outputFolder, IntervalTreeNode node, Interval interval,
+	public void findAllOverlappingHistoneIntervals(String outputFolder, IntervalTreeNode node, Interval interval,
 			ChromosomeName chromName, Map<String, BufferedWriter> bufferedWriterHashMap, List<String> histoneNameList,
 			Map<String, Integer> histoneNameandCellLineName2ZeroorOneMap, int overlapDefinition) {
 
@@ -3926,45 +3936,45 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( node instanceof TforHistoneIntervalTreeNode){
-			castedNode = ( TforHistoneIntervalTreeNode)node;
+		if(node instanceof TforHistoneIntervalTreeNode){
+			castedNode = (TforHistoneIntervalTreeNode)node;
 		}
 
 		String histoneNameandCellLine = castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
-				overlapDefinition) && histoneNameList.contains( castedNode.getTfbsorHistoneName())){
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
+				overlapDefinition) && histoneNameList.contains(castedNode.getTfbsorHistoneName())){
 			try{
 
-				bufferedWriter = bufferedWriterHashMap.get( histoneNameandCellLine);
+				bufferedWriter = bufferedWriterHashMap.get(histoneNameandCellLine);
 
-				if( bufferedWriter == null){
-					fileWriter = FileOperations.createFileWriter( outputFolder + Commons.HISTONE_ANNOTATION_DIRECTORY + "_" + histoneNameandCellLine + ".txt");
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriterHashMap.put( histoneNameandCellLine, bufferedWriter);
-					bufferedWriter.write( "Searched for chr" + "\t" + "interval low" + "\t" + "interval high" + "\t" + "histone node chrom name" + "\t" + "node Low" + "\t" + "node high" + "\t" + "node Histone Name" + "\t" + "node CellLineName" + "\t" + "node FileName" + System.getProperty( "line.separator"));
+				if(bufferedWriter == null){
+					fileWriter = FileOperations.createFileWriter(outputFolder + Commons.HISTONE_ANNOTATION_DIRECTORY + "_" + histoneNameandCellLine + ".txt");
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriterHashMap.put(histoneNameandCellLine, bufferedWriter);
+					bufferedWriter.write("Searched for chr" + "\t" + "interval low" + "\t" + "interval high" + "\t" + "histone node chrom name" + "\t" + "node Low" + "\t" + "node high" + "\t" + "node Histone Name" + "\t" + "node CellLineName" + "\t" + "node FileName" + System.getProperty("line.separator"));
 
 				}
 
-				if( histoneNameandCellLineName2ZeroorOneMap.get( histoneNameandCellLine) == null){
-					histoneNameandCellLineName2ZeroorOneMap.put( histoneNameandCellLine, 1);
+				if(histoneNameandCellLineName2ZeroorOneMap.get(histoneNameandCellLine) == null){
+					histoneNameandCellLineName2ZeroorOneMap.put(histoneNameandCellLine, 1);
 				}
 
-				bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + String.valueOf( castedNode.getCellLineName()) + "\t" + castedNode.getFileName() + System.getProperty( "line.separator"));
+				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + String.valueOf(castedNode.getCellLineName()) + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
 				bufferedWriter.close();
 
-			}catch( IOException e){
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+			}catch(IOException e){
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingHistoneIntervals( outputFolder, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingHistoneIntervals(outputFolder, node.getLeft(), interval, chromName,
 					bufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2ZeroorOneMap, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingHistoneIntervals( outputFolder, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingHistoneIntervals(outputFolder, node.getRight(), interval, chromName,
 					bufferedWriterHashMap, histoneNameList, histoneNameandCellLineName2ZeroorOneMap, overlapDefinition);
 
 		}
@@ -3976,7 +3986,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// with IO
 	// with OverlapNodeList
-	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers( String outputFolder, int permutationNumber,
+	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
@@ -3990,59 +4000,59 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 			try{
 
-				if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-					castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+					castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 				}
 
 				permutationNumberTfNumberCellLineNumber = generateMixedNumber(
 						permutationNumber,
 						castedNode.getTforHistoneNumber(),
 						castedNode.getCellLineNumber(),
-						( short)0,
+						(short)0,
 						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-				permutationNumberTfNumberCellLineNumberOverlapList.add( new PermutationNumberTfNumberCellLineNumberOverlap(
+				permutationNumberTfNumberCellLineNumberOverlapList.add(new PermutationNumberTfNumberCellLineNumberOverlap(
 						permutationNumberTfNumberCellLineNumber, castedNode.getLow(), castedNode.getHigh()));
 
-				bufferedWriter = bufferedWriterHashMap.get( permutationNumberTfNumberCellLineNumber);
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberTfNumberCellLineNumber);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTfNumberCellLineNumber + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberTfNumberCellLineNumber + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "tfbs" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "tfbs" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 
-					bufferedWriterHashMap.put( permutationNumberTfNumberCellLineNumber, bufferedWriter);
+					bufferedWriterHashMap.put(permutationNumberTfNumberCellLineNumber, bufferedWriter);
 				}
 
-				if( !( permutationNumberTfNumberCellLineNumber2ZeroorOneMap.containsKey( permutationNumberTfNumberCellLineNumber))){
-					permutationNumberTfNumberCellLineNumber2ZeroorOneMap.put( permutationNumberTfNumberCellLineNumber,
+				if(!(permutationNumberTfNumberCellLineNumber2ZeroorOneMap.containsKey(permutationNumberTfNumberCellLineNumber))){
+					permutationNumberTfNumberCellLineNumber2ZeroorOneMap.put(permutationNumberTfNumberCellLineNumber,
 							1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getLeft(),
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getLeft(),
 					interval, chromName, bufferedWriterHashMap, permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
 					permutationNumberTfNumberCellLineNumberOverlapList, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getRight(),
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getRight(),
 					interval, chromName, bufferedWriterHashMap, permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
 					permutationNumberTfNumberCellLineNumberOverlapList, overlapDefinition);
 
@@ -4055,7 +4065,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// with IO
 	// with OverlapNodeList
-	public void findAllOverlappingTfbsIntervals( String outputFolder, int permutationNumber, IntervalTreeNode node,
+	public void findAllOverlappingTfbsIntervals(String outputFolder, int permutationNumber, IntervalTreeNode node,
 			Interval interval, ChromosomeName chromName, Map<String, BufferedWriter> bufferedWriterHashMap,
 			Map<String, Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,
 			List<PermutationNumberTfNameCellLineNameOverlap> permutationNumberTfNameCellLineNameOverlapList,
@@ -4068,50 +4078,50 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 			try{
 
-				if( node instanceof TforHistoneIntervalTreeNode){
-					castedNode = ( TforHistoneIntervalTreeNode)node;
+				if(node instanceof TforHistoneIntervalTreeNode){
+					castedNode = (TforHistoneIntervalTreeNode)node;
 				}
 
 				permutationNumberTfNameCellLineName = Commons.PERMUTATION + permutationNumber + "_" + castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-				permutationNumberTfNameCellLineNameOverlapList.add( new PermutationNumberTfNameCellLineNameOverlap(
+				permutationNumberTfNameCellLineNameOverlapList.add(new PermutationNumberTfNameCellLineNameOverlap(
 						permutationNumberTfNameCellLineName, castedNode.getLow(), castedNode.getHigh()));
 
-				bufferedWriter = bufferedWriterHashMap.get( permutationNumberTfNameCellLineName);
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberTfNameCellLineName);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTfNameCellLineName + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberTfNameCellLineName + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriterHashMap.put( permutationNumberTfNameCellLineName, bufferedWriter);
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriterHashMap.put(permutationNumberTfNameCellLineName, bufferedWriter);
 				}
 
-				if( permutationNumberTfbsNameCellLineName2ZeroorOneMap.get( permutationNumberTfNameCellLineName) == null){
-					permutationNumberTfbsNameCellLineName2ZeroorOneMap.put( permutationNumberTfNameCellLineName, 1);
+				if(permutationNumberTfbsNameCellLineName2ZeroorOneMap.get(permutationNumberTfNameCellLineName) == null){
+					permutationNumberTfbsNameCellLineName2ZeroorOneMap.put(permutationNumberTfNameCellLineName, 1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervals( outputFolder, permutationNumber, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervals(outputFolder, permutationNumber, node.getLeft(), interval, chromName,
 					bufferedWriterHashMap, permutationNumberTfbsNameCellLineName2ZeroorOneMap,
 					permutationNumberTfNameCellLineNameOverlapList, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervals( outputFolder, permutationNumber, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervals(outputFolder, permutationNumber, node.getRight(), interval, chromName,
 					bufferedWriterHashMap, permutationNumberTfbsNameCellLineName2ZeroorOneMap,
 					permutationNumberTfNameCellLineNameOverlapList, overlapDefinition);
 
@@ -4125,7 +4135,7 @@ public class IntervalTree {
 	//With Numbers
 	//Without PermutationNumber
 	//TF and Histone
-	public void findAllOverlappingTForHistoneIntervalsWithIOWithNumbers( 
+	public void findAllOverlappingTForHistoneIntervalsWithIOWithNumbers(
 			String outputFolder, 
 			int permutationNumber,
 			IntervalTreeNode node, 
@@ -4144,11 +4154,11 @@ public class IntervalTree {
 		
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 			try{
 
-				if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-					castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+					castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 				}
 
 				
@@ -4166,22 +4176,22 @@ public class IntervalTree {
 
 				bufferedWriter = permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap.get(permutationNumberTforHistoneNumberCellLineNumber);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					if(annotationType.doTFAnnotation()){
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTforHistoneNumberCellLineNumber + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberTforHistoneNumberCellLineNumber + ".txt",true);
 							
 					}else if (annotationType.doHistoneAnnotation()){
-						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTforHistoneNumberCellLineNumber + ".txt",true);
+						fileWriter = FileOperations.createFileWriter(outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_HISTONE + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberTforHistoneNumberCellLineNumber + ".txt",true);
 					}
 					
 					
-					bufferedWriter = new BufferedWriter( fileWriter);
+					bufferedWriter = new BufferedWriter(fileWriter);
 					
 					if(annotationType.doTFAnnotation()){
-						bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "tfbs" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));
+						bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "tfbs" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty("line.separator"));
 					}else if (annotationType.doHistoneAnnotation()){
-						bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "histone" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "HistoneNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));						
+						bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "histone" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "HistoneNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty("line.separator"));						
 					}
 					
 					bufferedWriter.flush();
@@ -4189,25 +4199,25 @@ public class IntervalTree {
 					permutationNumberTForHistoneNumberCellLineNumberKEGGPathwayNumber2BufferedWriterMap.put(permutationNumberTforHistoneNumberCellLineNumber, bufferedWriter);
 				}
 
-				if( !( tforHistoneNumberCellLineNumber2ZeroorOneMap.containsKey(tforHistoneNumberCellLineNumber))){
+				if(!(tforHistoneNumberCellLineNumber2ZeroorOneMap.containsKey(tforHistoneNumberCellLineNumber))){
 					tforHistoneNumberCellLineNumber2ZeroorOneMap.put(tforHistoneNumberCellLineNumber,Commons.BYTE_1);
 				}
 
 				if(annotationType.doTFAnnotation()){
-					bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+					bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
 				}else if (annotationType.doHistoneAnnotation()){
-					bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "histone" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+					bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "histone" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
 				}
 				
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
 			findAllOverlappingTForHistoneIntervalsWithIOWithNumbers(
 					outputFolder, 
@@ -4221,7 +4231,7 @@ public class IntervalTree {
 					annotationType);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
 			findAllOverlappingTForHistoneIntervalsWithIOWithNumbers(
 					outputFolder, 
@@ -4243,7 +4253,7 @@ public class IntervalTree {
 	// with IO
 	// with Numbers
 	// Empirical P Value Calculation
-	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers( String outputFolder, int permutationNumber,
+	public void findAllOverlappingTfbsIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TLongIntMap permutationNumberTfNumberCellLineNumber2ZeroorOneMap, int overlapDefinition) {
@@ -4255,56 +4265,56 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 			try{
 
-				if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-					castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+					castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 				}
 
 				permutationNumberTfNumberCellLineNumber = generateMixedNumber(
 						permutationNumber,
 						castedNode.getTforHistoneNumber(),
 						castedNode.getCellLineNumber(),
-						( short)0,
+						(short)0,
 						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-				bufferedWriter = bufferedWriterHashMap.get( permutationNumberTfNumberCellLineNumber);
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberTfNumberCellLineNumber);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTfNumberCellLineNumber + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberTfNumberCellLineNumber + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "tfbs" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "tfbs" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "TfNumber" + "\t" + "CellLineNumber" + "\t" + "FileNumber" + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 
-					bufferedWriterHashMap.put( permutationNumberTfNumberCellLineNumber, bufferedWriter);
+					bufferedWriterHashMap.put(permutationNumberTfNumberCellLineNumber, bufferedWriter);
 				}
 
-				if( !( permutationNumberTfNumberCellLineNumber2ZeroorOneMap.containsKey( permutationNumberTfNumberCellLineNumber))){
-					permutationNumberTfNumberCellLineNumber2ZeroorOneMap.put( permutationNumberTfNumberCellLineNumber,
+				if(!(permutationNumberTfNumberCellLineNumber2ZeroorOneMap.containsKey(permutationNumberTfNumberCellLineNumber))){
+					permutationNumberTfNumberCellLineNumber2ZeroorOneMap.put(permutationNumberTfNumberCellLineNumber,
 							1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTforHistoneNumber() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getLeft(),
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getLeft(),
 					interval, chromName, bufferedWriterHashMap, permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getRight(),
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getRight(),
 					interval, chromName, bufferedWriterHashMap, permutationNumberTfNumberCellLineNumber2ZeroorOneMap,
 					overlapDefinition);
 
@@ -4317,7 +4327,7 @@ public class IntervalTree {
 
 	// Empirical P Value Calculation
 	// with IO
-	public void findAllOverlappingTfbsIntervals( String outputFolder, int permutationNumber, IntervalTreeNode node,
+	public void findAllOverlappingTfbsIntervals(String outputFolder, int permutationNumber, IntervalTreeNode node,
 			Interval interval, ChromosomeName chromName, Map<String, BufferedWriter> bufferedWriterHashMap,
 			Map<String, Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap, int overlapDefinition) {
 
@@ -4328,46 +4338,46 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 			try{
 
-				if( node instanceof TforHistoneIntervalTreeNode){
-					castedNode = ( TforHistoneIntervalTreeNode)node;
+				if(node instanceof TforHistoneIntervalTreeNode){
+					castedNode = (TforHistoneIntervalTreeNode)node;
 				}
 
 				permutationNumberTfbsNameCellLineName = Commons.PERMUTATION + permutationNumber + "_" + castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-				bufferedWriter = bufferedWriterHashMap.get( permutationNumberTfbsNameCellLineName);
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberTfbsNameCellLineName);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberTfbsNameCellLineName + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_TFBS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberTfbsNameCellLineName + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriterHashMap.put( permutationNumberTfbsNameCellLineName, bufferedWriter);
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriterHashMap.put(permutationNumberTfbsNameCellLineName, bufferedWriter);
 				}
 
-				if( permutationNumberTfbsNameCellLineName2ZeroorOneMap.get( permutationNumberTfbsNameCellLineName) == null){
-					permutationNumberTfbsNameCellLineName2ZeroorOneMap.put( permutationNumberTfbsNameCellLineName, 1);
+				if(permutationNumberTfbsNameCellLineName2ZeroorOneMap.get(permutationNumberTfbsNameCellLineName) == null){
+					permutationNumberTfbsNameCellLineName2ZeroorOneMap.put(permutationNumberTfbsNameCellLineName, 1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervals( outputFolder, permutationNumber, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervals(outputFolder, permutationNumber, node.getLeft(), interval, chromName,
 					bufferedWriterHashMap, permutationNumberTfbsNameCellLineName2ZeroorOneMap, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervals( outputFolder, permutationNumber, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervals(outputFolder, permutationNumber, node.getRight(), interval, chromName,
 					bufferedWriterHashMap, permutationNumberTfbsNameCellLineName2ZeroorOneMap, overlapDefinition);
 
 		}
@@ -4398,9 +4408,9 @@ public class IntervalTree {
 		
 		List<IntervalTreeNode> overlappingNodeList = null;
 				
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 			
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
 				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and there must be no color assigned at first.
 				castedNode = new TforHistoneIntervalTreeNodeWithNumbers(
@@ -4451,7 +4461,7 @@ public class IntervalTree {
 
 		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
-			findAllOverlappingTFIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
 					regulatorySequenceAnalysisUsingRSAT,
@@ -4465,9 +4475,9 @@ public class IntervalTree {
 					tfNumberCellLineNumber2OverlappingNodeListMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
-			findAllOverlappingTFIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
 					regulatorySequenceAnalysisUsingRSAT,
@@ -4503,9 +4513,9 @@ public class IntervalTree {
 		
 		List<IntervalTreeNode> overlappingNodeList = null;
 
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
 				//castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and there must be no color assigned at first.
 				castedNode = new TforHistoneIntervalTreeNodeWithNumbers(
@@ -4542,7 +4552,7 @@ public class IntervalTree {
 
 		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
-			findAllOverlappingTFIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(), 
 					interval,
@@ -4550,9 +4560,9 @@ public class IntervalTree {
 					permutationNumberTFNumberCellLineNumber2OverlappingNodeListMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
-			findAllOverlappingTFIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingTFIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(), 
 					interval,
@@ -4582,26 +4592,26 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-				castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 			}
 
 			permutationNumberTfNumberCellLineNumber = generateMixedNumber(
 					permutationNumber,
 					castedNode.getTforHistoneNumber(),
 					castedNode.getCellLineNumber(),
-					( short)0,
+					(short)0,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-			if( !( permutationNumberTfbsNameCellLineName2ZeroorOneMap.containsKey( permutationNumberTfNumberCellLineNumber))){
-				permutationNumberTfbsNameCellLineName2ZeroorOneMap.put( permutationNumberTfNumberCellLineNumber, 1);
+			if(!(permutationNumberTfbsNameCellLineName2ZeroorOneMap.containsKey(permutationNumberTfNumberCellLineNumber))){
+				permutationNumberTfbsNameCellLineName2ZeroorOneMap.put(permutationNumberTfNumberCellLineNumber, 1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(), 
 					interval,
@@ -4610,8 +4620,8 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(), 
 					interval,
@@ -4627,7 +4637,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// without overlappedNodeList
-	public void findAllOverlappingTfbsIntervals( int permutationNumber, IntervalTreeNode node, Interval interval,
+	public void findAllOverlappingTfbsIntervals(int permutationNumber, IntervalTreeNode node, Interval interval,
 			ChromosomeName chromName, Map<String, Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,
 			int overlapDefinition) {
 
@@ -4635,26 +4645,26 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNode){
-				castedNode = ( TforHistoneIntervalTreeNode)node;
+			if(node instanceof TforHistoneIntervalTreeNode){
+				castedNode = (TforHistoneIntervalTreeNode)node;
 			}
 
 			permutationNumberTfbsNameCellLineName = Commons.PERMUTATION + permutationNumber + "_" + castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-			if( permutationNumberTfbsNameCellLineName2ZeroorOneMap.get( permutationNumberTfbsNameCellLineName) == null){
-				permutationNumberTfbsNameCellLineName2ZeroorOneMap.put( permutationNumberTfbsNameCellLineName, 1);
+			if(permutationNumberTfbsNameCellLineName2ZeroorOneMap.get(permutationNumberTfbsNameCellLineName) == null){
+				permutationNumberTfbsNameCellLineName2ZeroorOneMap.put(permutationNumberTfbsNameCellLineName, 1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervals( permutationNumber, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervals(permutationNumber, node.getLeft(), interval, chromName,
 					permutationNumberTfbsNameCellLineName2ZeroorOneMap, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervals( permutationNumber, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervals(permutationNumber, node.getRight(), interval, chromName,
 					permutationNumberTfbsNameCellLineName2ZeroorOneMap, overlapDefinition);
 
 		}
@@ -4678,10 +4688,10 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-				castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 			}
 
 			tfNumberCellLineNumber = generateElementNumberCellLineNumber(
@@ -4691,12 +4701,12 @@ public class IntervalTree {
 
 			tfNumberCellLineNumberOverlapList.add(new TFNumberCellLineNumberOverlap(tfNumberCellLineNumber, castedNode.getLow(), castedNode.getHigh()));
 
-			if( !( tfNumberCellLineNumber2PermutationZeroorOneMap.containsKey(tfNumberCellLineNumber))){
-				tfNumberCellLineNumber2PermutationZeroorOneMap.put( tfNumberCellLineNumber, Commons.BYTE_1);
+			if(!(tfNumberCellLineNumber2PermutationZeroorOneMap.containsKey(tfNumberCellLineNumber))){
+				tfNumberCellLineNumber2PermutationZeroorOneMap.put(tfNumberCellLineNumber, Commons.BYTE_1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 					node.getLeft(), 
 					interval,
@@ -4706,7 +4716,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 					node.getRight(), 
 					interval,
@@ -4734,7 +4744,7 @@ public class IntervalTree {
 	// without IO
 	// with permutationNumberTfNameCellLineNameOverlapList
 	// AssociationMeasureType EXISTENCE_OF_OVERLAP
-	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+	public void findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
 			Interval interval, 
@@ -4747,10 +4757,10 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-				castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 			}
 
 			permutationNumberTfNumberCellLineNumber = generateMixedNumber(
@@ -4760,16 +4770,16 @@ public class IntervalTree {
 					(short)0,
 					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-			permutationNumberTfNumberCellLineNumberOverlapList.add( new PermutationNumberTfNumberCellLineNumberOverlap(
+			permutationNumberTfNumberCellLineNumberOverlapList.add(new PermutationNumberTfNumberCellLineNumberOverlap(
 					permutationNumberTfNumberCellLineNumber, castedNode.getLow(), castedNode.getHigh()));
 
-			if( !( permutationNumberTfNumberCellLineNumber2ZeroorOneMap.containsKey( permutationNumberTfNumberCellLineNumber))){
-				permutationNumberTfNumberCellLineNumber2ZeroorOneMap.put( permutationNumberTfNumberCellLineNumber, 1);
+			if(!(permutationNumberTfNumberCellLineNumber2ZeroorOneMap.containsKey(permutationNumberTfNumberCellLineNumber))){
+				permutationNumberTfNumberCellLineNumber2ZeroorOneMap.put(permutationNumberTfNumberCellLineNumber, 1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(), 
 					interval,
@@ -4779,8 +4789,8 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers( 
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(), 
 					interval,
@@ -4798,7 +4808,7 @@ public class IntervalTree {
 	// Empirical P Value Calculation
 	// without IO
 	// with permutationNumberTfNameCellLineNameOverlapList
-	public void findAllOverlappingTfbsIntervals( int permutationNumber, IntervalTreeNode node, Interval interval,
+	public void findAllOverlappingTfbsIntervals(int permutationNumber, IntervalTreeNode node, Interval interval,
 			ChromosomeName chromName, Map<String, Integer> permutationNumberTfbsNameCellLineName2ZeroorOneMap,
 			List<PermutationNumberTfNameCellLineNameOverlap> permutationNumberTfNameCellLineNameOverlapList,
 			int overlapDefinition) {
@@ -4807,30 +4817,30 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNode){
-				castedNode = ( TforHistoneIntervalTreeNode)node;
+			if(node instanceof TforHistoneIntervalTreeNode){
+				castedNode = (TforHistoneIntervalTreeNode)node;
 			}
 
 			permutationNumberTfNameCellLineName = Commons.PERMUTATION + permutationNumber + "_" + castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-			permutationNumberTfNameCellLineNameOverlapList.add( new PermutationNumberTfNameCellLineNameOverlap(
+			permutationNumberTfNameCellLineNameOverlapList.add(new PermutationNumberTfNameCellLineNameOverlap(
 					permutationNumberTfNameCellLineName, castedNode.getLow(), castedNode.getHigh()));
 
-			if( permutationNumberTfbsNameCellLineName2ZeroorOneMap.get( permutationNumberTfNameCellLineName) == null){
-				permutationNumberTfbsNameCellLineName2ZeroorOneMap.put( permutationNumberTfNameCellLineName, 1);
+			if(permutationNumberTfbsNameCellLineName2ZeroorOneMap.get(permutationNumberTfNameCellLineName) == null){
+				permutationNumberTfbsNameCellLineName2ZeroorOneMap.put(permutationNumberTfNameCellLineName, 1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervals( permutationNumber, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervals(permutationNumber, node.getLeft(), interval, chromName,
 					permutationNumberTfbsNameCellLineName2ZeroorOneMap, permutationNumberTfNameCellLineNameOverlapList,
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervals( permutationNumber, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervals(permutationNumber, node.getRight(), interval, chromName,
 					permutationNumberTfbsNameCellLineName2ZeroorOneMap, permutationNumberTfNameCellLineNameOverlapList,
 					overlapDefinition);
 
@@ -4842,7 +4852,7 @@ public class IntervalTree {
 	// size: n
 	// For each search input line, each tfbs will have value 1 or 0
 	// These 1 or 0's will be accumulated in tfbs2KMap
-	public void findAllOverlappingTfbsIntervals( IntervalTreeNode node, Interval interval, ChromosomeName chromName,
+	public void findAllOverlappingTfbsIntervals(IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			Map<String, BufferedWriter> bufferedWriterHashMap, List<String> tfbsNameList,
 			Map<String, Integer> tfbsNameandCellLineName2ZeroorOneMap) {
 
@@ -4851,43 +4861,43 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( node instanceof TforHistoneIntervalTreeNode){
-			castedNode = ( TforHistoneIntervalTreeNode)node;
+		if(node instanceof TforHistoneIntervalTreeNode){
+			castedNode = (TforHistoneIntervalTreeNode)node;
 		}
 
 		String tfbsNameandCellLineName = castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh()) && tfbsNameList.contains( castedNode.getTfbsorHistoneName())){
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh()) && tfbsNameList.contains(castedNode.getTfbsorHistoneName())){
 			try{
 
-				bufferedWriter = bufferedWriterHashMap.get( tfbsNameandCellLineName);
+				bufferedWriter = bufferedWriterHashMap.get(tfbsNameandCellLineName);
 
-				if( bufferedWriter == null){
-					fileWriter = FileOperations.createFileWriter( Commons.TF_ANNOTATION_DIRECTORY + tfbsNameandCellLineName + ".txt");
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriterHashMap.put( tfbsNameandCellLineName, bufferedWriter);
+				if(bufferedWriter == null){
+					fileWriter = FileOperations.createFileWriter(Commons.TF_ANNOTATION_DIRECTORY + tfbsNameandCellLineName + ".txt");
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriterHashMap.put(tfbsNameandCellLineName, bufferedWriter);
 				}
 
-				if( tfbsNameandCellLineName2ZeroorOneMap.get( tfbsNameandCellLineName) == null){
-					tfbsNameandCellLineName2ZeroorOneMap.put( tfbsNameandCellLineName, 1);
+				if(tfbsNameandCellLineName2ZeroorOneMap.get(tfbsNameandCellLineName) == null){
+					tfbsNameandCellLineName2ZeroorOneMap.put(tfbsNameandCellLineName, 1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "tfbs" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
 				bufferedWriter.close();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervals( node.getLeft(), interval, chromName, bufferedWriterHashMap, tfbsNameList,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervals(node.getLeft(), interval, chromName, bufferedWriterHashMap, tfbsNameList,
 					tfbsNameandCellLineName2ZeroorOneMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervals( node.getRight(), interval, chromName, bufferedWriterHashMap, tfbsNameList,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervals(node.getRight(), interval, chromName, bufferedWriterHashMap, tfbsNameList,
 					tfbsNameandCellLineName2ZeroorOneMap);
 
 		}
@@ -4895,7 +4905,7 @@ public class IntervalTree {
 	
 	
 	//27 July 2015 starts
-	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 			IntervalTreeNode node, 
 			Interval interval, 
 			ChromosomeName chromName,
@@ -4905,10 +4915,10 @@ public class IntervalTree {
 		int elementTypeNumberElementNumber;
 		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
-				castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+			if(node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+				castedNode = (UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
 			}
 
 			elementTypeNumberElementNumber = generateElementTypeNumberElementNumber(
@@ -4916,13 +4926,13 @@ public class IntervalTree {
 					castedNode.getElementNumber(),
 					GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
 
-			if( !( elementTypeNumberElementNumber2ZeroorOneMap.containsKey(elementTypeNumberElementNumber))){
+			if(!(elementTypeNumberElementNumber2ZeroorOneMap.containsKey(elementTypeNumberElementNumber))){
 				elementTypeNumberElementNumber2ZeroorOneMap.put(elementTypeNumberElementNumber, Commons.BYTE_1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 					node.getLeft(),
 					interval, 
 					chromName, 
@@ -4930,7 +4940,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 					node.getRight(),
 					interval, 
@@ -4968,10 +4978,10 @@ public class IntervalTree {
 		List<IntervalTreeNode> overlappingNodeList = null;
 		
 
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
-				//castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+			if(node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+				//castedNode = (UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and there must be no color assigned at first.
 				castedNode = new UserDefinedLibraryIntervalTreeNodeWithNumbers(
 						node.getChromName(),
@@ -5015,7 +5025,7 @@ public class IntervalTree {
 			
 		}//End of IF overlaps
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
 			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 					outputFolder,
@@ -5031,9 +5041,9 @@ public class IntervalTree {
 					elementNumber2OverlappingNodeListMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
-			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
 					elementNumber2HeaderWrittenMap,
@@ -5071,10 +5081,10 @@ public class IntervalTree {
 		
 		List<IntervalTreeNode> overlappingNodeList = null;
 
-		if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
-				//castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+			if(node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+				//castedNode = (UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and there must be no color assigned at first.
 				castedNode = new UserDefinedLibraryIntervalTreeNodeWithNumbers(
 						node.getChromName(),
@@ -5108,7 +5118,7 @@ public class IntervalTree {
 			
 		}//End of IF overlaps
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
 			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
@@ -5118,9 +5128,9 @@ public class IntervalTree {
 					permutationNumberElementTypeNumberElementNumber2OverlappingNodeListMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
-			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers( 
+			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(),
 					interval, 
@@ -5149,10 +5159,10 @@ public class IntervalTree {
 		long permutationNumberElementTypeNumberElementNumber;
 		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
-				castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+			if(node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+				castedNode = (UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
 			}
 
 			permutationNumberElementTypeNumberElementNumber = generateMixedNumber(
@@ -5161,13 +5171,13 @@ public class IntervalTree {
 					castedNode.getElementNumber(),
 					GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
 
-			if( !( permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.containsKey( permutationNumberElementTypeNumberElementNumber))){
+			if(!(permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.containsKey(permutationNumberElementTypeNumberElementNumber))){
 				permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.put(
 						permutationNumberElementTypeNumberElementNumber, 1);
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(),
@@ -5177,7 +5187,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(),
@@ -5194,7 +5204,7 @@ public class IntervalTree {
 	// Enrichment
 	// With IO
 	// With Numbers
-	public void findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers( String outputFolder,
+	public void findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers(String outputFolder,
 			int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TLongObjectMap<BufferedWriter> permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap,
 			TLongIntMap permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, int overlapDefinition) {
@@ -5206,11 +5216,11 @@ public class IntervalTree {
 
 		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 			try{
 
-				if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
-					castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+				if(node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+					castedNode = (UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
 				}
 
 				permutationNumberElementTypeNumberElementNumber = generateMixedNumber(
@@ -5219,44 +5229,44 @@ public class IntervalTree {
 						castedNode.getElementNumber(),
 						GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER);
 
-				bufferedWriter = permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap.get( permutationNumberElementTypeNumberElementNumber);
+				bufferedWriter = permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap.get(permutationNumberElementTypeNumberElementNumber);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_USERDEFINEDLIBRARY + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + castedNode.getElementTypeNumber() + System.getProperty( "file.separator") + permutationNumberElementTypeNumberElementNumber + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_USERDEFINEDLIBRARY + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + castedNode.getElementTypeNumber() + System.getProperty("file.separator") + permutationNumberElementTypeNumberElementNumber + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "UserDefinedLibrary" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "ElementTypeNumber" + "\t" + "ElementNumber" + "\t" + "FileNumber" + System.getProperty( "line.separator"));
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "UserDefinedLibrary" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "ElementTypeNumber" + "\t" + "ElementNumber" + "\t" + "FileNumber" + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 
 					permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap.put(
 							permutationNumberElementTypeNumberElementNumber, bufferedWriter);
 				}
 
-				if( !( permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.containsKey( permutationNumberElementTypeNumberElementNumber))){
+				if(!(permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.containsKey(permutationNumberElementTypeNumberElementNumber))){
 					permutationNumberElementTypeNumberElementNumber2ZeroorOneMap.put(
 							permutationNumberElementTypeNumberElementNumber, 1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "UserDefinedLibrary" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getElementTypeNumber() + "\t" + castedNode.getElementNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "UserDefinedLibrary" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getElementTypeNumber() + "\t" + castedNode.getElementNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers( outputFolder, permutationNumber,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers(outputFolder, permutationNumber,
 					node.getLeft(), interval, chromName,
 					permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap,
 					permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers( outputFolder, permutationNumber,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUserDefinedLibraryIntervalsWithIOWithNumbers(outputFolder, permutationNumber,
 					node.getRight(), interval, chromName,
 					permutationNumberElementTypeNumberElementNumber2BufferedWriterHashMap,
 					permutationNumberElementTypeNumberElementNumber2ZeroorOneMap, overlapDefinition);
@@ -5285,13 +5295,13 @@ public class IntervalTree {
 
 		UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
-			castedNode = ( UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
+		if(node instanceof UserDefinedLibraryIntervalTreeNodeWithNumbers){
+			castedNode = (UserDefinedLibraryIntervalTreeNodeWithNumbers)node;
 		}
 
 		elementNumber = castedNode.getElementNumber();
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 				
 			writeOverlapsFoundInAnnotation(
 					outputFolder,
@@ -5307,15 +5317,15 @@ public class IntervalTree {
 
 
 			/*******************************************************************/
-			if( !elementNumber2ZeroorOneMap.containsKey( elementNumber)){
-					elementNumber2ZeroorOneMap.put( elementNumber, Commons.BYTE_1);
+			if(!elementNumber2ZeroorOneMap.containsKey(elementNumber)){
+					elementNumber2ZeroorOneMap.put(elementNumber, Commons.BYTE_1);
 			}
 			/*******************************************************************/
 
 		
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode, 
@@ -5331,7 +5341,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
@@ -5354,7 +5364,7 @@ public class IntervalTree {
 	// Annotation EOO
 	// TF
 	//Called from TF TFKEGG TFCellLineKEGG BOTH
-	public void findAllOverlappingTfbsIntervalsWithNumbers( 
+	public void findAllOverlappingTfbsIntervalsWithNumbers(
 			String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
@@ -5373,8 +5383,8 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-			castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+		if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+			castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 		}
 
 		int elementNumberCellLineNumber = IntervalTree.generateElementNumberCellLineNumber(
@@ -5382,11 +5392,11 @@ public class IntervalTree {
 				castedNode.getCellLineNumber(),
 				GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 			
 			//Not null when called from TFKEGG  TFCellKEGG BOTH analysis
 			if (tfandCellLineOverlapList!=null){
-				tfandCellLineOverlapList.add(new TforHistoneIntervalTreeNodeWithNumbers( 
+				tfandCellLineOverlapList.add(new TforHistoneIntervalTreeNodeWithNumbers(
 						castedNode.getChromName(),
 						castedNode.getLow(), 
 						castedNode.getHigh(),
@@ -5416,15 +5426,15 @@ public class IntervalTree {
 
 
 			
-				if( !tfNumberCellLineNumber2ZeroorOneMap.containsKey( elementNumberCellLineNumber)){
-					tfNumberCellLineNumber2ZeroorOneMap.put( elementNumberCellLineNumber, Commons.BYTE_1);
+				if(!tfNumberCellLineNumber2ZeroorOneMap.containsKey(elementNumberCellLineNumber)){
+					tfNumberCellLineNumber2ZeroorOneMap.put(elementNumberCellLineNumber, Commons.BYTE_1);
 				}
 				
 
 			
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingTfbsIntervalsWithNumbers(
 					outputFolder, 
 					writeFoundOverlapsMode,
@@ -5441,7 +5451,7 @@ public class IntervalTree {
 					tfandCellLineOverlapList);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingTfbsIntervalsWithNumbers(
 					outputFolder, 
 					writeFoundOverlapsMode,
@@ -5468,7 +5478,7 @@ public class IntervalTree {
 	// size: n
 	// For each search input line, each tfbs will have value 1 or 0
 	// These 1 or 0's will be accumulated in tfbs2KMap
-	public void findAllOverlappingTfbsIntervals( String outputFolder, IntervalTreeNode node, Interval interval,
+	public void findAllOverlappingTfbsIntervals(String outputFolder, IntervalTreeNode node, Interval interval,
 			ChromosomeName chromName, Map<String, BufferedWriter> bufferedWriterHashMap, List<String> tfbsNameList,
 			Map<String, Integer> tfbsNameandCellLineName2ZeroorOneMap,
 			List<TfNameandCellLineNameOverlap> tfandCellLineOverlapList, int overlapDefinition) {
@@ -5478,50 +5488,50 @@ public class IntervalTree {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( node instanceof TforHistoneIntervalTreeNode){
-			castedNode = ( TforHistoneIntervalTreeNode)node;
+		if(node instanceof TforHistoneIntervalTreeNode){
+			castedNode = (TforHistoneIntervalTreeNode)node;
 		}
 
 		String tfbsNameandCellLineName = castedNode.getTfbsorHistoneName() + "_" + castedNode.getCellLineName();
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
-				overlapDefinition) && tfbsNameList.contains( castedNode.getTfbsorHistoneName())){
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
+				overlapDefinition) && tfbsNameList.contains(castedNode.getTfbsorHistoneName())){
 			try{
 
-				bufferedWriter = bufferedWriterHashMap.get( tfbsNameandCellLineName);
+				bufferedWriter = bufferedWriterHashMap.get(tfbsNameandCellLineName);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 					fileWriter = FileOperations.createFileWriter(
 							outputFolder + Commons.TF_ANNOTATION_DIRECTORY + tfbsNameandCellLineName + ".txt", true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriterHashMap.put( tfbsNameandCellLineName, bufferedWriter);
-					bufferedWriter.write( "Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "tfbs node Chrom Name" + "\t" + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" + System.getProperty( "line.separator"));
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriterHashMap.put(tfbsNameandCellLineName, bufferedWriter);
+					bufferedWriter.write("Searched for chr" + "\t" + "interval Low" + "\t" + "interval High" + "\t" + "tfbs node Chrom Name" + "\t" + "node Low" + "\t" + "node High" + "\t" + "node Tfbs Name" + "\t" + "node CellLineName" + "\t" + "node FileName" + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 				}
 
-				if( tfbsNameandCellLineName2ZeroorOneMap.get( tfbsNameandCellLineName) == null){
-					tfbsNameandCellLineName2ZeroorOneMap.put( tfbsNameandCellLineName, 1);
+				if(tfbsNameandCellLineName2ZeroorOneMap.get(tfbsNameandCellLineName) == null){
+					tfbsNameandCellLineName2ZeroorOneMap.put(tfbsNameandCellLineName, 1);
 				}
 
-				bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty( "line.separator"));
+				bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName() + "\t" + castedNode.getCellLineName() + "\t" + castedNode.getFileName() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-				tfandCellLineOverlapList.add( new TfNameandCellLineNameOverlap( tfbsNameandCellLineName,
+				tfandCellLineOverlapList.add(new TfNameandCellLineNameOverlap(tfbsNameandCellLineName,
 						castedNode.getLow(), castedNode.getHigh()));
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervals( outputFolder, node.getLeft(), interval, chromName, bufferedWriterHashMap,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervals(outputFolder, node.getLeft(), interval, chromName, bufferedWriterHashMap,
 					tfbsNameList, tfbsNameandCellLineName2ZeroorOneMap, tfandCellLineOverlapList, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervals( outputFolder, node.getRight(), interval, chromName, bufferedWriterHashMap,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervals(outputFolder, node.getRight(), interval, chromName, bufferedWriterHashMap,
 					tfbsNameList, tfbsNameandCellLineName2ZeroorOneMap, tfandCellLineOverlapList, overlapDefinition);
 		}
 	}
@@ -5529,68 +5539,68 @@ public class IntervalTree {
 	// New Functionality added
 
 	// Search1
-	public void findAllOverlappingTfbsIntervals( IntervalTreeNode node, Interval interval,
+	public void findAllOverlappingTfbsIntervals(IntervalTreeNode node, Interval interval,
 			BufferedWriter bufferedWriter, List<IntervalTreeNode> overlappedNodeList) {
 
 		TforHistoneIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			if( node instanceof TforHistoneIntervalTreeNode){
-				castedNode = ( TforHistoneIntervalTreeNode)node;
+			if(node instanceof TforHistoneIntervalTreeNode){
+				castedNode = (TforHistoneIntervalTreeNode)node;
 			}
 
-			overlappedNodeList.add( node);
+			overlappedNodeList.add(node);
 
 			try{
-				bufferedWriter.write( "tfbs" + "\t" + castedNode.getChromName().toString() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName().toString() + "\t" + castedNode.getCellLineName().toString() + "\t" + castedNode.getFileName().toString() + System.getProperty( "line.separator"));
+				bufferedWriter.write("tfbs" + "\t" + castedNode.getChromName().toString() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getTfbsorHistoneName().toString() + "\t" + castedNode.getCellLineName().toString() + "\t" + castedNode.getFileName().toString() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingTfbsIntervals( node.getLeft(), interval, bufferedWriter, overlappedNodeList);
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingTfbsIntervals(node.getLeft(), interval, bufferedWriter, overlappedNodeList);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingTfbsIntervals( node.getRight(), interval, bufferedWriter, overlappedNodeList);
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingTfbsIntervals(node.getRight(), interval, bufferedWriter, overlappedNodeList);
 
 		}
 
 	}
 
 	// Search1
-	public void findAllOverlappingDnaseIntervals( IntervalTreeNode node, Interval interval,
+	public void findAllOverlappingDnaseIntervals(IntervalTreeNode node, Interval interval,
 			BufferedWriter bufferedWriter, List<IntervalTreeNode> overlappedNodeList) {
 
 		DnaseIntervalTreeNode castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			castedNode = ( DnaseIntervalTreeNode)node;
+			castedNode = (DnaseIntervalTreeNode)node;
 
-			overlappedNodeList.add( node);
+			overlappedNodeList.add(node);
 
 			try{
-				bufferedWriter.write( "dnase" + "\t" + castedNode.getChromName().toString() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineName().toString() + "\t" + castedNode.getFileName().toString() + System.getProperty( "line.separator"));
+				bufferedWriter.write("dnase" + "\t" + castedNode.getChromName().toString() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineName().toString() + "\t" + castedNode.getFileName().toString() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervals( node.getLeft(), interval, bufferedWriter, overlappedNodeList);
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervals(node.getLeft(), interval, bufferedWriter, overlappedNodeList);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervals( node.getRight(), interval, bufferedWriter, overlappedNodeList);
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervals(node.getRight(), interval, bufferedWriter, overlappedNodeList);
 		}
 
 	}
@@ -5616,9 +5626,9 @@ public class IntervalTree {
 
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
+			if(node instanceof DnaseIntervalTreeNodeWithNumbers){
 				castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 			}
 
@@ -5629,41 +5639,41 @@ public class IntervalTree {
 						castedNode.getCellLineNumber(),
 						GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
 
-				bufferedWriter = bufferedWriterHashMap.get( permutationNumberDnaseCellLineNumber);
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberDnaseCellLineNumber);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberDnaseCellLineNumber + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberDnaseCellLineNumber + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "dnase" + "\t" + "dnaseChromName" + "\t" + "dnaseLow" + "\t" + "dnaseHigh" + "\t" + "dnaseCellLineNumber" + "\t" + "dnaseFileNumber" + System.getProperty( "line.separator"));
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "dnase" + "\t" + "dnaseChromName" + "\t" + "dnaseLow" + "\t" + "dnaseHigh" + "\t" + "dnaseCellLineNumber" + "\t" + "dnaseFileNumber" + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 
-					bufferedWriterHashMap.put( permutationNumberDnaseCellLineNumber, bufferedWriter);
+					bufferedWriterHashMap.put(permutationNumberDnaseCellLineNumber, bufferedWriter);
 				}
 
-				if( !( dnaseCellLineNumber2PermutationZeroorOneMap.containsKey( permutationNumberDnaseCellLineNumber))){
-					dnaseCellLineNumber2PermutationZeroorOneMap.put( permutationNumberDnaseCellLineNumber,Commons.BYTE_1);
+				if(!(dnaseCellLineNumber2PermutationZeroorOneMap.containsKey(permutationNumberDnaseCellLineNumber))){
+					dnaseCellLineNumber2PermutationZeroorOneMap.put(permutationNumberDnaseCellLineNumber,Commons.BYTE_1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "dnase" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "dnase" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getLeft(),
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getLeft(),
 					interval, chromName, bufferedWriterHashMap, dnaseCellLineNumber2PermutationZeroorOneMap,
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getRight(),
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getRight(),
 					interval, chromName, bufferedWriterHashMap, dnaseCellLineNumber2PermutationZeroorOneMap,
 					overlapDefinition);
 
@@ -5678,7 +5688,7 @@ public class IntervalTree {
 	// with Numbers
 	// Empirical P Value Calculation
 	// with IO
-	public void findAllOverlappingDnaseIntervalsWithIOWithNumbers( String outputFolder, int permutationNumber,
+	public void findAllOverlappingDnaseIntervalsWithIOWithNumbers(String outputFolder, int permutationNumber,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TIntObjectMap<BufferedWriter> bufferedWriterHashMap,
 			TIntIntMap permutationNumberDnaseCellLineNumber2ZeroorOneMap, int overlapDefinition) {
@@ -5690,10 +5700,10 @@ public class IntervalTree {
 
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
-				castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			if(node instanceof DnaseIntervalTreeNodeWithNumbers){
+				castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 			}
 
 			try{
@@ -5702,41 +5712,41 @@ public class IntervalTree {
 						permutationNumber, castedNode.getCellLineNumber(),
 						GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
 
-				bufferedWriter = bufferedWriterHashMap.get( permutationNumberDnaseCellLineNumber);
+				bufferedWriter = bufferedWriterHashMap.get(permutationNumberDnaseCellLineNumber);
 
-				if( bufferedWriter == null){
+				if(bufferedWriter == null){
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + permutationNumberDnaseCellLineNumber + ".txt",
+							outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_DNASE + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + permutationNumberDnaseCellLineNumber + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
-					bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "dnase" + "\t" + "dnaseChromName" + "\t" + "dnaseLow" + "\t" + "dnaseHigh" + "\t" + "dnaseCellLineNumber" + "\t" + "dnaseFileNumber" + System.getProperty( "line.separator"));
+					bufferedWriter = new BufferedWriter(fileWriter);
+					bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "dnase" + "\t" + "dnaseChromName" + "\t" + "dnaseLow" + "\t" + "dnaseHigh" + "\t" + "dnaseCellLineNumber" + "\t" + "dnaseFileNumber" + System.getProperty("line.separator"));
 					bufferedWriter.flush();
 
-					bufferedWriterHashMap.put( permutationNumberDnaseCellLineNumber, bufferedWriter);
+					bufferedWriterHashMap.put(permutationNumberDnaseCellLineNumber, bufferedWriter);
 				}
 
-				if( !( permutationNumberDnaseCellLineNumber2ZeroorOneMap.containsKey( permutationNumberDnaseCellLineNumber))){
-					permutationNumberDnaseCellLineNumber2ZeroorOneMap.put( permutationNumberDnaseCellLineNumber, 1);
+				if(!(permutationNumberDnaseCellLineNumber2ZeroorOneMap.containsKey(permutationNumberDnaseCellLineNumber))){
+					permutationNumberDnaseCellLineNumber2ZeroorOneMap.put(permutationNumberDnaseCellLineNumber, 1);
 				}
 
-				bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "dnase" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty( "line.separator"));
+				bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "dnase" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getCellLineNumber() + "\t" + castedNode.getFileNumber() + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 
-			}catch( IOException e){
+			}catch(IOException e){
 
-				if( GlanetRunner.shouldLog())logger.error( e.toString());
+				if(GlanetRunner.shouldLog())logger.error(e.toString());
 			}
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getLeft(),
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getLeft(),
 					interval, chromName, bufferedWriterHashMap, permutationNumberDnaseCellLineNumber2ZeroorOneMap,
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithIOWithNumbers( outputFolder, permutationNumber, node.getRight(),
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithIOWithNumbers(outputFolder, permutationNumber, node.getRight(),
 					interval, chromName, bufferedWriterHashMap, permutationNumberDnaseCellLineNumber2ZeroorOneMap,
 					overlapDefinition);
 
@@ -5755,32 +5765,34 @@ public class IntervalTree {
 	// Called from convertGeneratedMixedNumberToName in
 	// CollectionofPermutationsResults
 	// Get GeneSetNumber from mixed number
-	public static int getGeneSetNumber( 
+	public static int getGeneSetNumber(
 			long permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int geneSetNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case INT_4DIGIT_KEGGPATHWAYNUMBER:
 			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:
 			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:
-				geneSetNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
+				geneSetNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 10000L);
 				break;
 			
 			case INT_10DIGIT_USERDEFINEDGENESETNUMBER:
+			case INT_10DIGIT_GOTERMNUMBER:
 			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:
-				geneSetNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_GOTERMNUMBER:
+				geneSetNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
 				break;
 			
 			case INT_10DIGIT_KEGGPATHWAYNUMBER:
-				geneSetNumber = (int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
+				geneSetNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
 				break;
 			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER:
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
-				geneSetNumber = (int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000L);
+				geneSetNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 100000L);
 				break;
 								
 			default:
@@ -5796,13 +5808,13 @@ public class IntervalTree {
 	// Called from convert methods
 	// Called from writeAnnotationstoFiles methods
 	// Get CellLineNumberOrGeneSetNumber from mixed number
-	public static int getCellLineNumberOrGeneSetNumber( 
+	public static int getCellLineNumberOrGeneSetNumber(
 			int mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int cellLineNumberOrGeneSetNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER:{
 				cellLineNumberOrGeneSetNumber = mixedNumber % Commons.INT_4DIGITS;
@@ -5830,7 +5842,7 @@ public class IntervalTree {
 	}
 
 	// @todo For Annotation with Numbers starts
-	public static int removeCellLineNumber( int elementNumberCellLineNumberKeggPathwayNumber) {
+	public static int removeCellLineNumber(int elementNumberCellLineNumberKeggPathwayNumber) {
 
 		// 1., 2. and 3. digits show keggPathwayNumber
 		// 4., 5. and 6. digits show cellLineNumber
@@ -5855,7 +5867,7 @@ public class IntervalTree {
 	// @todo For Annotation with Numbers ends
 
 	// @todo For Annotation with Numbers starts
-	public static int removeElementNumberCellLineNumber( int elementNumberCellLineNumberKeggPathwayNumber) {
+	public static int removeElementNumberCellLineNumber(int elementNumberCellLineNumberKeggPathwayNumber) {
 
 		// 1., 2. and 3. digits show keggPathwayNumber
 		// 4., 5. and 6. digits show cellLineNumber
@@ -5871,7 +5883,7 @@ public class IntervalTree {
 	// @todo For Annotation with Numbers ends
 
 	// @todo For Annotation with Numbers starts
-	public static int removeCellLineNumberKeggPathwayNumber( int elementNumberCellLineNumberKeggPathwayNumber) {
+	public static int removeCellLineNumberKeggPathwayNumber(int elementNumberCellLineNumberKeggPathwayNumber) {
 
 		// 1., 2. and 3. digits show keggPathwayNumber
 		// 4., 5. and 6. digits show cellLineNumber
@@ -5891,13 +5903,13 @@ public class IntervalTree {
 	
 	
 	//13 July 2015
-	public static int getKeggPathwayNumber( 
+	public static int getKeggPathwayNumber(
 			long elementNumberCellLineNumberKeggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int keggPathwayNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
 				keggPathwayNumber = (int) (elementNumberCellLineNumberKeggPathwayNumber % Commons.LONG_5DIGITS);
@@ -5914,7 +5926,7 @@ public class IntervalTree {
 
 //	// Annotation
 //	// AnnotateGivenIntervals with Numbers
-//	public static short getCellLineNumber( 
+//	public static short getCellLineNumber(
 //			int mixedNumber,
 //			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 //
@@ -5925,11 +5937,11 @@ public class IntervalTree {
 //
 //			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
 //				// example 100_300_020
-//				cellLineNumber = ( short)( ( mixedNumber / 1000) % 1000);
+//				cellLineNumber = (short)((mixedNumber / 1000) % 1000);
 //				break;
 //	
 //			case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
-//				cellLineNumber = ( short)(mixedNumber % 100000) ;
+//				cellLineNumber = (short)(mixedNumber % 100000) ;
 //				break;
 //				
 //			default:
@@ -5948,26 +5960,26 @@ public class IntervalTree {
 	// called from convertGeneratedMixedNumberToName method in
 	// CollectionofPermutationsResults
 	// Get CellLineNumber from mixed number
-	public static int getCellLineNumber( 
+	public static int getCellLineNumber(
 			long mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int cellLineNumber = Integer.MIN_VALUE;
 		long cellLineNumberKeggPathwayNumber;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case INT_4DIGIT_DNASECELLLINENUMBER:
 			case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
 			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:{
-				cellLineNumber = ( int)( mixedNumber % 10000L);
+				cellLineNumber = (int)(mixedNumber % 10000L);
 				break;
 			}
 	
 			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
 				cellLineNumberKeggPathwayNumber = mixedNumber % 100000000L;
-				cellLineNumber = ( int)( cellLineNumberKeggPathwayNumber / 10000L);
+				cellLineNumber = (int)(cellLineNumberKeggPathwayNumber / 10000L);
 				break;
 			}
 			
@@ -5993,26 +6005,26 @@ public class IntervalTree {
 	// 4 Mart 2015
 	// Annotation
 	// AnnotateGivenIntervals with Numbers
-	public static short getShortElementNumber( 
+	public static short getShortElementNumber(
 			int mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		// INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER
 		short elementNumber = Short.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:
 			// example 100_300_020
 			// cellLineNumberKeggPathwayNumber = elementNumberCellLineNumberKeggPathwayNumber % 1000000;
 			// elementNumber = (short) ((elementNumberCellLineNumberKeggPathwayNumber - cellLineNumberKeggPathwayNumber)
 			// / 1000000);
-			elementNumber = ( short)( ( mixedNumber) / 1000000);
+			elementNumber = (short)((mixedNumber) / 1000000);
 
 			break;
 			
 		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:
-			elementNumber = (short) (( mixedNumber) / 100000);
+			elementNumber = (short) ((mixedNumber) / 100000);
 
 			break;
 			
@@ -6025,18 +6037,18 @@ public class IntervalTree {
 	}
 
 	// 6 NOV 2014
-	public static int getElementTypeNumber( 
+	public static int getElementTypeNumber(
 			long mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		long permutationNumberElementTypeNumber = Long.MIN_VALUE;
 		int elementTypeNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
 			permutationNumberElementTypeNumber = mixedNumber / 1000000L;
-			elementTypeNumber = ( int)( permutationNumberElementTypeNumber % 10000L);
+			elementTypeNumber = (int)(permutationNumberElementTypeNumber % 10000L);
 			break;
 			
 		default:
@@ -6048,15 +6060,15 @@ public class IntervalTree {
 	}
 
 	// 8 NOV 2014
-	public static int getElementTypeNumber( int elementTypeNumberElementNumber,
+	public static int getElementTypeNumber(int elementTypeNumberElementNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int elementTypeNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
-			elementTypeNumber = ( int)( elementTypeNumberElementNumber / 1000000);
+			elementTypeNumber = (int)(elementTypeNumberElementNumber / 1000000);
 			break;
 
 		default:
@@ -6068,13 +6080,13 @@ public class IntervalTree {
 	}
 
 	// 8 NOV 2014
-	public static int getElementNumber( 
+	public static int getElementNumber(
 			int mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int elementNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
 				elementNumber = mixedNumber % Commons.INT_6DIGITS;
@@ -6103,39 +6115,39 @@ public class IntervalTree {
 	// called from convertGeneratedMixedNumberToName in
 	// CollectionofPermutationsResults
 	// Get ElementNumber from mixed number
-	public static int getElementNumber( long mixedNumber,
+	public static int getElementNumber(long mixedNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int elementNumber = Integer.MIN_VALUE;
 		long permutationNumberElementNumber = Long.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER:
 			case INT_4DIGIT_HISTONENUMBER_4DIGIT_CELLLINENUMBER:
 			case INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER:{
-				elementNumber = ( int)( mixedNumber / 10000L);
+				elementNumber = (int)(mixedNumber / 10000L);
 				break;
 			}
 			case LONG_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER_4DIGIT_KEGGPATHWAYNUMBER:
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
 				permutationNumberElementNumber = mixedNumber / 100000000L;
-				elementNumber = ( int)( permutationNumberElementNumber % 10000L);
+				elementNumber = (int)(permutationNumberElementNumber % 10000L);
 				break;
 			}
 	
 			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
-				elementNumber = ( int)( mixedNumber % 1000000L);
+				elementNumber = (int)(mixedNumber % 1000000L);
 				break;
 			}
 	
 			case INT_6DIGIT_ELEMENTNUMBER:{
-				elementNumber = ( int)( mixedNumber % 1000000L);
+				elementNumber = (int)(mixedNumber % 1000000L);
 				break;
 			}
 	
 			case INT_10DIGIT_GENENUMBER:{
-				elementNumber = ( int)( mixedNumber % Commons.LONG_10DIGITS);
+				elementNumber = (int)(mixedNumber % Commons.LONG_10DIGITS);
 				break;
 			}
 	
@@ -6145,7 +6157,7 @@ public class IntervalTree {
 			}
 			
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:{
-				elementNumber = ( int)( mixedNumber / Commons.LONG_10DIGITS);
+				elementNumber = (int)(mixedNumber / Commons.LONG_10DIGITS);
 				break;
 			}
 	
@@ -6169,38 +6181,45 @@ public class IntervalTree {
 		int elementNumberCellLineNumberOrKeggPathwayNumber = Integer.MIN_VALUE;
 		int elementTypeNumberElementNumber = Integer.MIN_VALUE;
 		int userDefinedGeneSetNumber = Integer.MIN_VALUE;
+		int goTermNumber = Integer.MIN_VALUE;
 		int geneNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:{
-				userDefinedGeneSetNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
+				userDefinedGeneSetNumber = (int)(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
 				return userDefinedGeneSetNumber;
 			}
+			
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_GOTERMNUMBER:{
+				goTermNumber = (int)(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % Commons.LONG_10DIGITS);
+				return goTermNumber;
+			}
+			
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-				int elementNumber = getElementNumber( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
+				int elementNumber = getElementNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
 						generatedMixedNumberDescriptionOrderLength);
-				int cellLineNumber = getCellLineNumber( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
+				int cellLineNumber = getCellLineNumber(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
 						generatedMixedNumberDescriptionOrderLength);
 				int keggPathwayNumber = getGeneSetNumber(
 						permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber,
 						generatedMixedNumberDescriptionOrderLength);
 	
-				if( cellLineNumber > 0){
+				if(cellLineNumber > 0){
 					//GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_CELLLINENUMBER
 					elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * Commons.INT_4DIGITS + cellLineNumber;
-				}else if( keggPathwayNumber > 0){
+				}else if(keggPathwayNumber > 0){
 					//GeneratedMixedNumberDescriptionOrderLength.INT_4DIGIT_TFNUMBER_4DIGIT_KEGGPATHWAYNUMBER
 					elementNumberCellLineNumberOrKeggPathwayNumber = elementNumber * Commons.INT_4DIGITS + keggPathwayNumber;
 				}
 				return elementNumberCellLineNumberOrKeggPathwayNumber;
 			}
 			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
-				elementTypeNumberElementNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
+				elementTypeNumberElementNumber = (int)(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
 				return elementTypeNumberElementNumber;
 			}
 			case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:{
-				geneNumber = ( int)( permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
+				geneNumber = (int)(permutationNumberTforHistoneNumberCellLineNumberKeggPathwayNumber % 10000000000L);
 				return geneNumber;
 			}
 			default:
@@ -6219,7 +6238,7 @@ public class IntervalTree {
 		
 		long elementNumberCellLineNumber = Long.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
 				elementNumberCellLineNumber = permutationNumberElementNumberCellLineNumberKEGGPathwayNumber / 10000L;
 				break;
@@ -6245,7 +6264,7 @@ public class IntervalTree {
 
 		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
 				elementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumberKeggPathwayNumber % 1000000000000L;
 				break;
@@ -6265,17 +6284,17 @@ public class IntervalTree {
 	// Called from convert methods
 	// Called from writeAnnotationstoFiles methods
 	// Get PermutationNumber from mixed number
-	public static int getPermutationNumber( 
+	public static int getPermutationNumber(
 			int permutationNumberCellLineNumberOrGeneSetNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		int permutationNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER:
 		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-			permutationNumber = ( int)( permutationNumberCellLineNumberOrGeneSetNumber / 10000);
+			permutationNumber = (int)(permutationNumberCellLineNumberOrGeneSetNumber / 10000);
 			break;
 		}
 		default:{
@@ -6294,7 +6313,7 @@ public class IntervalTree {
 	// Called from writeAnnotationstoFiles_ElementNumberKeggPathwayNumber method
 	// in AnnotatePermutations
 	// Get PermutationNumber from mixed number
-	public static int getPermutationNumber( 
+	public static int getPermutationNumber(
 			long permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
@@ -6303,22 +6322,23 @@ public class IntervalTree {
 
 		int permutationNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 		
-			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:{
-				permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / Commons.LONG_10DIGITS);
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_GOTERMNUMBER:{
+				permutationNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber / Commons.LONG_10DIGITS);
 				break;
 			}
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
-				permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
+				permutationNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 1000000000000L);
 				break;
 			}
 			case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
-				permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
+				permutationNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
 				break;
 			}
 			case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:{
-				permutationNumber = ( int)( permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
+				permutationNumber = (int)(permutationNumberElementNumberCellLineNumberKeggPathwayNumber / 10000000000L);
 				break;
 			}
 			default:{
@@ -6330,7 +6350,7 @@ public class IntervalTree {
 		return permutationNumber;
 	}
 
-	public static long generatePermutationNumberGeneNumber( int permutationNumber, int geneNumber,
+	public static long generatePermutationNumberGeneNumber(int permutationNumber, int geneNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		// max integer 2147483647
@@ -6343,7 +6363,7 @@ public class IntervalTree {
 		long _permutationNumber;
 		long _geneNumber;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		case LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER:
 			_permutationNumber = permutationNumber * Commons.LONG_10DIGITS;
@@ -6364,7 +6384,7 @@ public class IntervalTree {
 	// AnnotatePermutations withIO withNumbers
 	// PERMUTATIONNUMBER DNASECELLLINENUMBER
 	// PERMUTATIONNUMBER KEGGPATHWAYNUMBER
-	public static int generatePermutationNumberCellLineNumberorGeneSetNumber( 
+	public static int generatePermutationNumberCellLineNumberorGeneSetNumber(
 			int permutationNumber,
 			int cellLineNumberorGeneSetNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
@@ -6374,7 +6394,7 @@ public class IntervalTree {
 
 		int permutationNumberCellLineNumberorGeneSetNumber = Integer.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		// PERMUTATIONNUMBER DNASECELLLINENUMBER
 		case INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER:{
@@ -6399,7 +6419,7 @@ public class IntervalTree {
 	// Enrichment
 	// WithoutIO WithNumbers
 	// PermutationNumber ElementTypeNumber ElementNumber
-	public static long generateMixedNumber( 
+	public static long generateMixedNumber(
 			int permutationNumber, 
 			int elementTypeNumber, 
 			int elementNumber,
@@ -6411,7 +6431,7 @@ public class IntervalTree {
 		long _elementTypeNumber;
 		long _elementNumber;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		// PermutationNumber ElementTypeNumber ElementNumber
 		case LONG_7DIGIT_PERMUTATIONNUMBER_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:
@@ -6442,6 +6462,7 @@ public class IntervalTree {
 		switch(generatedMixedNumberDescriptionOrderLength){
 		
 			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER:
+			case LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_GOTERMNUMBER:
 				mixedNumber = permutationNumber * Commons.LONG_10DIGITS + geneSetNumber * 1L;
 				break;
 			default:
@@ -6459,7 +6480,7 @@ public class IntervalTree {
 	// AnnotatePermutations withIO withNumbers
 	// PERMUTATIONNUMBER TFNUMBER CELLLINENUMBER
 	// PERMUTATIONNUMBER HISTONENUMBER CELLLINENUMBER
-	public static long generateMixedNumber( 
+	public static long generateMixedNumber(
 			int permutationNumber, 
 			short elementNumber, 
 			short cellLineNumber,
@@ -6476,7 +6497,7 @@ public class IntervalTree {
 		long _cellLineNumber;
 		long _keggPathwayNumber;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		// PERMUTATIONNUMBER TFNUMBER CELLLINENUMBER
 		// PERMUTATIONNUMBER HISTONENUMBER CELLLINENUMBER
@@ -6518,7 +6539,7 @@ public class IntervalTree {
 
 		// Integer.MAX 2147_483_647
 		// Integer.MIN -2147_483_648
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case INT_4DIGIT_ELEMENTTYPENUMBER_6DIGIT_ELEMENTNUMBER:{
 				elementTypeNumberElementNumber = elementTypeNumber * Commons.INT_6DIGITS + elementNumber;
@@ -6548,7 +6569,7 @@ public class IntervalTree {
 		// Integer.MAX 2147_483_647
 		// Integer.MIN -2147_483_648
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 		case INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER:{
 			elementNumberCellLineNumber = elementNumber * Commons.INT_5DIGITS + cellLineNumber;
@@ -6580,7 +6601,7 @@ public class IntervalTree {
 		// Integer.MAX 2147_483_647
 		// Integer.MIN -2147_483_648
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 		
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:{
 				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * Commons.LONG_10DIGITS + cellLineNumber * Commons.INT_5DIGITS + keggPathwayNumber;
@@ -6614,7 +6635,7 @@ public class IntervalTree {
 //		// Integer.MAX 2147_483_647
 //		// Integer.MIN -2147_483_648
 //
-//		switch( generatedMixedNumberDescriptionOrderLength){
+//		switch(generatedMixedNumberDescriptionOrderLength){
 //
 //			case INT_4DIGITS_ELEMENTNUMBER_3DIGITS_CELLLINENUMBER_3DIGITS_KEGGPATHWAYNUMBER:{
 //				elementNumberCellLineNumberKeggPathwayNumber = elementNumber * 1000000 + cellLineNumber * 1000 + keggPathwayNumber;
@@ -6633,7 +6654,7 @@ public class IntervalTree {
 	// AnnotatePermutations withoutIO withNumbers
 	// AnnotatePermutations withIO withNumbers
 	// TF_KEGGPATHWAY
-	public static long removeCellLineNumber( 
+	public static long removeCellLineNumber(
 			long permutationNumberElementNumberCellLineNumberKeggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
@@ -6642,7 +6663,7 @@ public class IntervalTree {
 		long cellLineNumber = Long.MIN_VALUE;
 		long cellLineNumberRemoved = Long.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
 	
@@ -6674,7 +6695,7 @@ public class IntervalTree {
 
 		long elementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 		
 			case LONG_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER_5DIGITS_KEGGPATHWAYNUMBER:
 				elementNumberCellLineNumberKeggPathwayNumber = elementNumberCellLineNumber * 100000L + keggPathwayNumber;
@@ -6692,13 +6713,13 @@ public class IntervalTree {
 	// AnnotatePermutations withIO withNumbers
 	// TF_KEGGPATHWAY
 	// TF_CELLLINE_KEGGPATHWAY
-	public static long addKeggPathwayNumber( long permutationNumberElementNumberCellLineNumber,
+	public static long addKeggPathwayNumber(long permutationNumberElementNumberCellLineNumber,
 			int keggPathwayNumber,
 			GeneratedMixedNumberDescriptionOrderLength generatedMixedNumberDescriptionOrderLength) {
 
 		long permutationNumberElementNumberCellLineNumberKeggPathwayNumber = Long.MIN_VALUE;
 
-		switch( generatedMixedNumberDescriptionOrderLength){
+		switch(generatedMixedNumberDescriptionOrderLength){
 		
 			case LONG_7DIGITS_PERMUTATIONNUMBER_4DIGITS_ELEMENTNUMBER_4DIGITS_CELLLINENUMBER_4DIGITS_KEGGPATHWAYNUMBER:{
 				permutationNumberElementNumberCellLineNumberKeggPathwayNumber = permutationNumberElementNumberCellLineNumber + keggPathwayNumber;
@@ -6774,33 +6795,33 @@ public class IntervalTree {
 	// With Numbers
 	// Without overlappedNodeList
 	// For All Chromosomes
-	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes( int permutationNumber,
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes(int permutationNumber,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TIntIntMap dnaseCellLineName2ZeroorOneMap, int overlapDefinition) {
 
 		int dnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
-				castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			if(node instanceof DnaseIntervalTreeNodeWithNumbers){
+				castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 			}
 
 			dnaseCellLineNumber = castedNode.getCellLineNumber();
 
-			if( !( dnaseCellLineName2ZeroorOneMap.containsKey( dnaseCellLineNumber))){
-				dnaseCellLineName2ZeroorOneMap.put( dnaseCellLineNumber, 1);
+			if(!(dnaseCellLineName2ZeroorOneMap.containsKey(dnaseCellLineNumber))){
+				dnaseCellLineName2ZeroorOneMap.put(dnaseCellLineNumber, 1);
 			}
 		}// End of IF OVERLAPS
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes( permutationNumber, node.getLeft(),
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes(permutationNumber, node.getLeft(),
 					interval, chromName, dnaseCellLineName2ZeroorOneMap, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes( permutationNumber, node.getRight(),
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbersForAllChromosomes(permutationNumber, node.getRight(),
 					interval, chromName, dnaseCellLineName2ZeroorOneMap, overlapDefinition);
 
 		}
@@ -6813,7 +6834,7 @@ public class IntervalTree {
 
 	// 3 July 2015
 	// For each interval return 1 or 0 if if permutationData has overlap with the interval and set to 1 for the corresponding tfNumberCellLineNumber
-	public void findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers( 
+	public void findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers(
 			IntervalTreeNode node,
 			Interval interval, 
 			ChromosomeName chromName,
@@ -6823,10 +6844,10 @@ public class IntervalTree {
 		int tforHistoneNumberCellLineNumber;
 		TforHistoneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof TforHistoneIntervalTreeNodeWithNumbers){
-				castedNode = ( TforHistoneIntervalTreeNodeWithNumbers)node;
+			if(node instanceof TforHistoneIntervalTreeNodeWithNumbers){
+				castedNode = (TforHistoneIntervalTreeNodeWithNumbers)node;
 			}
 
 			// @todo
@@ -6838,12 +6859,12 @@ public class IntervalTree {
 					castedNode.getCellLineNumber(),
 					GeneratedMixedNumberDescriptionOrderLength.INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER);
 
-			if( !( tforHistoneNumberCellLineNumber2PermutationZeroorOneMap.containsKey(tforHistoneNumberCellLineNumber))){
+			if(!(tforHistoneNumberCellLineNumber2PermutationZeroorOneMap.containsKey(tforHistoneNumberCellLineNumber))){
 				tforHistoneNumberCellLineNumber2PermutationZeroorOneMap.put(tforHistoneNumberCellLineNumber, Commons.BYTE_1);
 			}
 		}// End of IF OVERLAPS
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
 			findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers(
 					node.getLeft(), 
@@ -6853,7 +6874,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
 			findAllOverlappingTForHistoneIntervalsWithoutIOWithNumbers(
 					node.getRight(), 
@@ -6883,20 +6904,20 @@ public class IntervalTree {
 		int dnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
-				castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			if(node instanceof DnaseIntervalTreeNodeWithNumbers){
+				castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 			}
 
 			dnaseCellLineNumber = castedNode.getCellLineNumber();
 
-			if( !( dnaseCellLineNumber2PermutationZeroorOneMap.containsKey( dnaseCellLineNumber))){
-				dnaseCellLineNumber2PermutationZeroorOneMap.put( dnaseCellLineNumber, Commons.BYTE_1);
+			if(!(dnaseCellLineNumber2PermutationZeroorOneMap.containsKey(dnaseCellLineNumber))){
+				dnaseCellLineNumber2PermutationZeroorOneMap.put(dnaseCellLineNumber, Commons.BYTE_1);
 			}
 		}// End of IF OVERLAPS
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			
 			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
@@ -6907,7 +6928,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			
 			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
@@ -6926,7 +6947,7 @@ public class IntervalTree {
 	//Annotation NOOB
 	//DNase
 	//12 April 2016
-	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 			String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
@@ -6942,11 +6963,11 @@ public class IntervalTree {
 		List<IntervalTreeNode> overlappingNodeList = null;
 		
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 			
 			
-			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
-				//castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			if(node instanceof DnaseIntervalTreeNodeWithNumbers){
+				//castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and We must not use the color of the node that comes from the chromosomeBased DnaseIntervalTree
 				castedNode = new DnaseIntervalTreeNodeWithNumbers(
 						node.getChromName(), 
@@ -6985,7 +7006,7 @@ public class IntervalTree {
 
 		}// End of IF OVERLAPS
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
@@ -6998,8 +7019,8 @@ public class IntervalTree {
 					dnaseCellLineNumber2OverlappingNodeListMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
 					dnaseCellLineNumber2HeaderWrittenMap,
@@ -7021,7 +7042,7 @@ public class IntervalTree {
 	//With OverlappingNodelist
 	//AssociationMeasureType NUMBER_OF_OVERLAPPING_BASES
 	//Enrichment
-	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
 			Interval interval, 
@@ -7032,10 +7053,10 @@ public class IntervalTree {
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 		List<IntervalTreeNode> overlappingNodeList = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
-				//castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			if(node instanceof DnaseIntervalTreeNodeWithNumbers){
+				//castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 				//castedNode must be newly created and We must not use the color of the node that comes from the chromosomeBased DnaseIntervalTree
 				castedNode = new DnaseIntervalTreeNodeWithNumbers(
 						node.getChromName(), 
@@ -7065,7 +7086,7 @@ public class IntervalTree {
 
 		}// End of IF OVERLAPS
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(), 
@@ -7074,8 +7095,8 @@ public class IntervalTree {
 					permutationNumberDnaseCellLineNumber2OverlappingNodeListMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(), 
 					interval,
@@ -7093,7 +7114,7 @@ public class IntervalTree {
 	// without IO
 	// without overlappedNodeList
 	// AssociationMeasureType EXISTENCE_OF_OVERLAP
-	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 			int permutationNumber, 
 			IntervalTreeNode node,
 			Interval interval, 
@@ -7104,10 +7125,10 @@ public class IntervalTree {
 		int permutationNumberDnaseCellLineNumber;
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-			if( node instanceof DnaseIntervalTreeNodeWithNumbers){
-				castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			if(node instanceof DnaseIntervalTreeNodeWithNumbers){
+				castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 			}
 
 			permutationNumberDnaseCellLineNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
@@ -7115,12 +7136,12 @@ public class IntervalTree {
 					castedNode.getCellLineNumber(),
 					GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_CELLLINENUMBER);
 
-			if( !( permutationNumberDnaseCellLineName2ZeroorOneMap.containsKey( permutationNumberDnaseCellLineNumber))){
-				permutationNumberDnaseCellLineName2ZeroorOneMap.put( permutationNumberDnaseCellLineNumber, 1);
+			if(!(permutationNumberDnaseCellLineName2ZeroorOneMap.containsKey(permutationNumberDnaseCellLineNumber))){
+				permutationNumberDnaseCellLineName2ZeroorOneMap.put(permutationNumberDnaseCellLineNumber, 1);
 			}
 		}// End of IF OVERLAPS
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(), 
@@ -7130,8 +7151,8 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers( 
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(), 
 					interval,
@@ -7147,7 +7168,7 @@ public class IntervalTree {
 
 	//No more used
 	// TShortObjectMap<StringBuilder>
-	public void findAllOverlappingDnaseIntervalsWithNumbersStringBuilder( String outputFolder,
+	public void findAllOverlappingDnaseIntervalsWithNumbersStringBuilder(String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName, byte[] oneOrZeroByteArray,
 			int overlapDefinition, TShortObjectMap<StringBuilder> cellLineNumber2CellLineNameMap,
@@ -7161,29 +7182,29 @@ public class IntervalTree {
 
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( node instanceof DnaseIntervalTreeNodeWithNumbers){
+		if(node instanceof DnaseIntervalTreeNodeWithNumbers){
 
-			castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 		}
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
 				overlapDefinition)){
 
 			try{
 
 				// Write Annotation Overlaps to element Named File
-				if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+				if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
-					cellLineName = cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber());
-					fileName = fileNumber2FileNameMap.get( castedNode.getFileNumber());
+					cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
+					fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
 
 					fileWriter = FileOperations.createFileWriter(
 							outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt", true);
-					bufferedWriter = new BufferedWriter( fileWriter);
+					bufferedWriter = new BufferedWriter(fileWriter);
 
 					oneOrZeroByteArray[castedNode.getCellLineNumber()] = 1;
 
-					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+					bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + cellLineName + "\t" + fileName + System.getProperty("line.separator"));
 					bufferedWriter.close();
 
 				}// End of IF
@@ -7192,21 +7213,21 @@ public class IntervalTree {
 					oneOrZeroByteArray[castedNode.getCellLineNumber()] = 1;
 				}// End of ELSE
 
-			}catch( IOException e){
+			}catch(IOException e){
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithNumbersStringBuilder( outputFolder,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithNumbersStringBuilder(outputFolder,
 					writeFoundOverlapsMode, node.getLeft(), interval, chromName,
 					oneOrZeroByteArray, overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithNumbersStringBuilder( outputFolder,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithNumbersStringBuilder(outputFolder,
 					writeFoundOverlapsMode, node.getRight(), interval, chromName,
 					oneOrZeroByteArray, overlapDefinition, cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 		}
@@ -7214,7 +7235,7 @@ public class IntervalTree {
 
 	// No more used
 	// Annotation Sequentially Starts
-	public void findAllOverlappingDnaseIntervalsWithNumbers( String outputFolder,
+	public void findAllOverlappingDnaseIntervalsWithNumbers(String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName, byte[] oneOrZeroByteArray,
 			int overlapDefinition, TShortObjectMap<CharSequence> cellLineNumber2CellLineNameMap,
@@ -7228,29 +7249,29 @@ public class IntervalTree {
 
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( node instanceof DnaseIntervalTreeNodeWithNumbers){
+		if(node instanceof DnaseIntervalTreeNodeWithNumbers){
 
-			castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 		}
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
 				overlapDefinition)){
 
 			try{
 
 				// Write Annotation Overlaps to element Named File
-				if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+				if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
-					cellLineName = cellLineNumber2CellLineNameMap.get( castedNode.getCellLineNumber());
-					fileName = fileNumber2FileNameMap.get( castedNode.getFileNumber());
+					cellLineName = cellLineNumber2CellLineNameMap.get(castedNode.getCellLineNumber());
+					fileName = fileNumber2FileNameMap.get(castedNode.getFileNumber());
 
 					fileWriter = FileOperations.createFileWriter(
 							outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + cellLineName + ".txt", true);
-					bufferedWriter = new BufferedWriter( fileWriter);
+					bufferedWriter = new BufferedWriter(fileWriter);
 
 					oneOrZeroByteArray[castedNode.getCellLineNumber()] = 1;
 
-					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + cellLineName + "\t" + fileName + System.getProperty( "line.separator"));
+					bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + cellLineName + "\t" + fileName + System.getProperty("line.separator"));
 					bufferedWriter.close();
 
 				}// End of IF
@@ -7259,21 +7280,21 @@ public class IntervalTree {
 					oneOrZeroByteArray[castedNode.getCellLineNumber()] = 1;
 				}// End of ELSE
 
-			}catch( IOException e){
+			}catch(IOException e){
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithNumbers( outputFolder, writeFoundOverlapsMode,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithNumbers(outputFolder, writeFoundOverlapsMode,
 					node.getLeft(), interval, chromName, oneOrZeroByteArray, overlapDefinition,
 					cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithNumbers( outputFolder, writeFoundOverlapsMode,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithNumbers(outputFolder, writeFoundOverlapsMode,
 					node.getRight(), interval, chromName, oneOrZeroByteArray, overlapDefinition,
 					cellLineNumber2CellLineNameMap, fileNumber2FileNameMap);
 		}
@@ -7284,7 +7305,7 @@ public class IntervalTree {
 
 	//No more used
 	// Annotation Sequentially Starts
-	public void findAllOverlappingDnaseIntervalsWithNumbers( String outputFolder,
+	public void findAllOverlappingDnaseIntervalsWithNumbers(String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName, byte[] oneOrZeroByteArray,
 			int overlapDefinition, char[][] dnaseCellLineNames, char[][] fileNames) {
@@ -7297,30 +7318,30 @@ public class IntervalTree {
 
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( node instanceof DnaseIntervalTreeNodeWithNumbers){
+		if(node instanceof DnaseIntervalTreeNodeWithNumbers){
 
-			castedNode = ( DnaseIntervalTreeNodeWithNumbers)node;
+			castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 		}
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),
 				overlapDefinition)){
 
 			try{
 
 				// Write Annotation Overlaps to element Named File
-				if( writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
+				if(writeFoundOverlapsMode.isWriteFoundOverlapsElementBased()){
 
 					cellLineName = dnaseCellLineNames[castedNode.getCellLineNumber()];
 					fileName = fileNames[castedNode.getFileNumber()];
 
 					fileWriter = FileOperations.createFileWriter(
-							outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + String.valueOf( cellLineName) + ".txt",
+							outputFolder + Commons.DNASE_ANNOTATION_DIRECTORY + String.valueOf(cellLineName) + ".txt",
 							true);
-					bufferedWriter = new BufferedWriter( fileWriter);
+					bufferedWriter = new BufferedWriter(fileWriter);
 
 					oneOrZeroByteArray[castedNode.getCellLineNumber()] = 1;
 
-					bufferedWriter.write( chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + String.valueOf( cellLineName) + "\t" + String.valueOf( fileName) + System.getProperty( "line.separator"));
+					bufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + String.valueOf(cellLineName) + "\t" + String.valueOf(fileName) + System.getProperty("line.separator"));
 					bufferedWriter.close();
 
 				}// End of IF
@@ -7329,21 +7350,21 @@ public class IntervalTree {
 					oneOrZeroByteArray[castedNode.getCellLineNumber()] = 1;
 				}// End of ELSE
 
-			}catch( IOException e){
+			}catch(IOException e){
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithNumbers( outputFolder, writeFoundOverlapsMode,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithNumbers(outputFolder, writeFoundOverlapsMode,
 					node.getLeft(), interval, chromName, oneOrZeroByteArray, overlapDefinition, dnaseCellLineNames,
 					fileNames);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithNumbers( outputFolder, writeFoundOverlapsMode,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithNumbers(outputFolder, writeFoundOverlapsMode,
 					node.getRight(), interval, chromName, oneOrZeroByteArray, overlapDefinition, dnaseCellLineNames,
 					fileNames);
 		}
@@ -7367,11 +7388,11 @@ public class IntervalTree {
 
 		DnaseIntervalTreeNodeWithNumbers castedNode = null;
 		
-		if( node instanceof DnaseIntervalTreeNodeWithNumbers){
+		if(node instanceof DnaseIntervalTreeNodeWithNumbers){
 			castedNode = (DnaseIntervalTreeNodeWithNumbers)node;
 		}
 
-		if( overlaps( castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
+		if(overlaps(castedNode.getLow(), castedNode.getHigh(), interval.getLow(), interval.getHigh(),overlapDefinition)){
 			
 			writeOverlapsFoundInAnnotation(
 					outputFolder,
@@ -7387,15 +7408,15 @@ public class IntervalTree {
 				
 
 				
-				if( !dnaseCellLineNumber2OneorZeroMap.containsKey(castedNode.getCellLineNumber())){
+				if(!dnaseCellLineNumber2OneorZeroMap.containsKey(castedNode.getCellLineNumber())){
 					dnaseCellLineNumber2OneorZeroMap.put(castedNode.getCellLineNumber(), Commons.BYTE_1);
 				}
 
 
 		}
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingDnaseIntervalsWithNumbers( 
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingDnaseIntervalsWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
 					dnaseCellLineNumber2HeaderWrittenMap,
@@ -7409,8 +7430,8 @@ public class IntervalTree {
 					);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingDnaseIntervalsWithNumbers( 
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingDnaseIntervalsWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
 					dnaseCellLineNumber2HeaderWrittenMap,
@@ -7437,7 +7458,7 @@ public class IntervalTree {
 	// For each search input line, each kegg pathway will have a value of 1 or 0
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers( String outputFolder,
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(String outputFolder,
 			int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TIntObjectMap<BufferedWriter> permutationNumberKeggPathwayNumber2BufferedWriterMap,
 			TLongObjectMap<BufferedWriter> permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap,
@@ -7457,46 +7478,46 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
-					castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 				}
 
 				try{
 
 					// write EXON based results starts
-					if( geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
+					if(geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
 
 						// exon based kegg pathway analysis
-						if( castedNode.getIntervalName().isExon()){
+						if(castedNode.getIntervalName().isExon()){
 
-							listofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+							listofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-							if( listofGeneSetNumberContainingThisGeneId != null){
-								for( int i = 0; i < listofGeneSetNumberContainingThisGeneId.size(); i++){
+							if(listofGeneSetNumberContainingThisGeneId != null){
+								for(int i = 0; i < listofGeneSetNumberContainingThisGeneId.size(); i++){
 
-									geneSetNumber = listofGeneSetNumberContainingThisGeneId.get( i);
+									geneSetNumber = listofGeneSetNumberContainingThisGeneId.get(i);
 
 									// KEGG Pathway starts
-									if( geneSetType.isKeggPathway()){
+									if(geneSetType.isKeggPathway()){
 
 										permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 												permutationNumber,
 												geneSetNumber,
 												GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										bufferedWriter = permutationNumberKeggPathwayNumber2BufferedWriterMap.get( permutationNumberKeggPathwayNumber);
+										bufferedWriter = permutationNumberKeggPathwayNumber2BufferedWriterMap.get(permutationNumberKeggPathwayNumber);
 
-										if( bufferedWriter == null){
+										if(bufferedWriter == null){
 
 											fileWriter = FileOperations.createFileWriter(
-													outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + geneSetNumber + ".txt",
+													outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + geneSetNumber + ".txt",
 													true);
 
-											bufferedWriter = new BufferedWriter( fileWriter);
-											bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+											bufferedWriter = new BufferedWriter(fileWriter);
+											bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 											bufferedWriter.flush();
 
 											permutationNumberKeggPathwayNumber2BufferedWriterMap.put(
@@ -7504,19 +7525,19 @@ public class IntervalTree {
 
 										}// End of IF: bufferedWriter is null
 
-										if( !( permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+										if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 											permutationNumberKeggPathwayNumber2OneorZeroMap.put(
 													permutationNumberKeggPathwayNumber, 1);
 										}
 
-										bufferedWriter.write( "Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+										bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 										bufferedWriter.flush();
 
 									}
 									// KEGG Pathway ends
 
 									// UserDefinedGeneSet starts
-									else if( geneSetType.isUserDefinedGeneSet()){
+									else if(geneSetType.isUserDefinedGeneSet()){
 
 										permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
 												permutationNumber,
@@ -7525,16 +7546,16 @@ public class IntervalTree {
 												geneSetNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
-										bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get( permutationNumberUserDefinedGeneSetNumber);
+										bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get(permutationNumberUserDefinedGeneSetNumber);
 
-										if( bufferedWriter == null){
+										if(bufferedWriter == null){
 
 											fileWriter = FileOperations.createFileWriter(
-													outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_USERDEFINED_GENESET_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + geneSetNumber + ".txt",
+													outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_USERDEFINED_GENESET_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + geneSetNumber + ".txt",
 													true);
 
-											bufferedWriter = new BufferedWriter( fileWriter);
-											bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+											bufferedWriter = new BufferedWriter(fileWriter);
+											bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 											bufferedWriter.flush();
 
 											permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.put(
@@ -7542,12 +7563,12 @@ public class IntervalTree {
 
 										}// End of IF: bufferedWriter is null
 
-										if( !( permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey( permutationNumberUserDefinedGeneSetNumber))){
+										if(!(permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey(permutationNumberUserDefinedGeneSetNumber))){
 											permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.put(
 													permutationNumberUserDefinedGeneSetNumber, 1);
 										}
 
-										bufferedWriter.write( "Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+										bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 										bufferedWriter.flush();
 
 									}
@@ -7568,33 +7589,33 @@ public class IntervalTree {
 					// write EXON based results ends
 
 					// write REGULATION based results starts
-					else if( geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
+					else if(geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
 						// Regulation Based kegg pathway analysis
-						if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+						if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-							listofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+							listofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-							if( listofGeneSetNumberContainingThisGeneId != null){
-								for( int i = 0; i < listofGeneSetNumberContainingThisGeneId.size(); i++){
-									geneSetNumber = listofGeneSetNumberContainingThisGeneId.get( i);
+							if(listofGeneSetNumberContainingThisGeneId != null){
+								for(int i = 0; i < listofGeneSetNumberContainingThisGeneId.size(); i++){
+									geneSetNumber = listofGeneSetNumberContainingThisGeneId.get(i);
 
 									// KEGG Pathway starts
-									if( geneSetType.isKeggPathway()){
+									if(geneSetType.isKeggPathway()){
 										permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 												permutationNumber,
 												geneSetNumber,
 												GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-										bufferedWriter = permutationNumberKeggPathwayNumber2BufferedWriterMap.get( permutationNumberKeggPathwayNumber);
+										bufferedWriter = permutationNumberKeggPathwayNumber2BufferedWriterMap.get(permutationNumberKeggPathwayNumber);
 
-										if( bufferedWriter == null){
+										if(bufferedWriter == null){
 
 											fileWriter = FileOperations.createFileWriter(
-													outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + geneSetNumber + ".txt",
+													outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + geneSetNumber + ".txt",
 													true);
 
-											bufferedWriter = new BufferedWriter( fileWriter);
-											bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+											bufferedWriter = new BufferedWriter(fileWriter);
+											bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 											bufferedWriter.flush();
 
 											permutationNumberKeggPathwayNumber2BufferedWriterMap.put(
@@ -7602,19 +7623,19 @@ public class IntervalTree {
 
 										}// End of IF: bufferedWriter is null
 
-										if( !( permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+										if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 											permutationNumberKeggPathwayNumber2OneorZeroMap.put(
 													permutationNumberKeggPathwayNumber, 1);
 										}
 
-										bufferedWriter.write( "Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+										bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 										bufferedWriter.flush();
 
 									}
 									// KEGG Pathway ends
 
 									// UserDefinedGeneSet starts
-									else if( geneSetType.isUserDefinedGeneSet()){
+									else if(geneSetType.isUserDefinedGeneSet()){
 										permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
 												permutationNumber,
 												Short.MIN_VALUE,
@@ -7622,16 +7643,16 @@ public class IntervalTree {
 												geneSetNumber,
 												GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
-										bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get( permutationNumberUserDefinedGeneSetNumber);
+										bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get(permutationNumberUserDefinedGeneSetNumber);
 
-										if( bufferedWriter == null){
+										if(bufferedWriter == null){
 
 											fileWriter = FileOperations.createFileWriter(
-													outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_USERDEFINED_GENESET_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + geneSetNumber + ".txt",
+													outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_USERDEFINED_GENESET_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + geneSetNumber + ".txt",
 													true);
 
-											bufferedWriter = new BufferedWriter( fileWriter);
-											bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+											bufferedWriter = new BufferedWriter(fileWriter);
+											bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 											bufferedWriter.flush();
 
 											permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.put(
@@ -7639,12 +7660,12 @@ public class IntervalTree {
 
 										}// End of IF: bufferedWriter is null
 
-										if( !( permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey( permutationNumberUserDefinedGeneSetNumber))){
+										if(!(permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey(permutationNumberUserDefinedGeneSetNumber))){
 											permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.put(
 													permutationNumberUserDefinedGeneSetNumber, 1);
 										}
 
-										bufferedWriter.write( "Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+										bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 										bufferedWriter.flush();
 
 									}
@@ -7666,29 +7687,29 @@ public class IntervalTree {
 
 					// write ALL BASED results starts
 					else{
-						listofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+						listofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-						if( listofGeneSetNumberContainingThisGeneId != null){
-							for( int i = 0; i < listofGeneSetNumberContainingThisGeneId.size(); i++){
-								geneSetNumber = listofGeneSetNumberContainingThisGeneId.get( i);
+						if(listofGeneSetNumberContainingThisGeneId != null){
+							for(int i = 0; i < listofGeneSetNumberContainingThisGeneId.size(); i++){
+								geneSetNumber = listofGeneSetNumberContainingThisGeneId.get(i);
 
 								// KEGG Pathway starts
-								if( geneSetType.isKeggPathway()){
+								if(geneSetType.isKeggPathway()){
 									permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 											permutationNumber,
 											geneSetNumber,
 											GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-									bufferedWriter = permutationNumberKeggPathwayNumber2BufferedWriterMap.get( permutationNumberKeggPathwayNumber);
+									bufferedWriter = permutationNumberKeggPathwayNumber2BufferedWriterMap.get(permutationNumberKeggPathwayNumber);
 
-									if( bufferedWriter == null){
+									if(bufferedWriter == null){
 
 										fileWriter = FileOperations.createFileWriter(
-												outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_all_" + geneSetNumber + ".txt",
+												outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_all_" + geneSetNumber + ".txt",
 												true);
 
-										bufferedWriter = new BufferedWriter( fileWriter);
-										bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+										bufferedWriter = new BufferedWriter(fileWriter);
+										bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 										bufferedWriter.flush();
 
 										permutationNumberKeggPathwayNumber2BufferedWriterMap.put(
@@ -7696,19 +7717,19 @@ public class IntervalTree {
 
 									}// End of IF: bufferedWriter is null
 
-									if( !( permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+									if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 										permutationNumberKeggPathwayNumber2OneorZeroMap.put(
 												permutationNumberKeggPathwayNumber, 1);
 									}
 
-									bufferedWriter.write( "Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+									bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 									bufferedWriter.flush();
 
 								}
 								// KEGG Pathway ends
 
 								// UserDefinedGeneSet starts
-								else if( geneSetType.isUserDefinedGeneSet()){
+								else if(geneSetType.isUserDefinedGeneSet()){
 									permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
 											permutationNumber,
 											Short.MIN_VALUE,
@@ -7716,16 +7737,16 @@ public class IntervalTree {
 											geneSetNumber,
 											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
-									bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get( permutationNumberUserDefinedGeneSetNumber);
+									bufferedWriter = permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.get(permutationNumberUserDefinedGeneSetNumber);
 
-									if( bufferedWriter == null){
+									if(bufferedWriter == null){
 
 										fileWriter = FileOperations.createFileWriter(
-												outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_USERDEFINED_GENESET_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_all_" + geneSetNumber + ".txt",
+												outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_USERDEFINED_GENESET_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_all_" + geneSetNumber + ".txt",
 												true);
 
-										bufferedWriter = new BufferedWriter( fileWriter);
-										bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+										bufferedWriter = new BufferedWriter(fileWriter);
+										bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 										bufferedWriter.flush();
 
 										permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap.put(
@@ -7733,12 +7754,12 @@ public class IntervalTree {
 
 									}// End of IF: bufferedWriter is null
 
-									if( !( permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey( permutationNumberUserDefinedGeneSetNumber))){
+									if(!(permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey(permutationNumberUserDefinedGeneSetNumber))){
 										permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.put(
 												permutationNumberUserDefinedGeneSetNumber, 1);
 									}
 
-									bufferedWriter.write( "Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+									bufferedWriter.write("Searched for" + "\t" + chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 									bufferedWriter.flush();
 
 								}
@@ -7754,14 +7775,14 @@ public class IntervalTree {
 					}
 					// write ALL BASED results ends
 
-				}catch( IOException e){
-					if( GlanetRunner.shouldLog())logger.error( e.toString());
+				}catch(IOException e){
+					if(GlanetRunner.shouldLog())logger.error(e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers( outputFolder, permutationNumber,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(outputFolder, permutationNumber,
 					node.getLeft(), interval, chromName, permutationNumberKeggPathwayNumber2BufferedWriterMap,
 					permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap, geneId2ListofGeneSetNumberMap,
 					permutationNumberKeggPathwayNumber2OneorZeroMap,
@@ -7769,8 +7790,8 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers( outputFolder, permutationNumber,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(outputFolder, permutationNumber,
 					node.getRight(), interval, chromName, permutationNumberKeggPathwayNumber2BufferedWriterMap,
 					permutationNumberUserDefinedGeneSetNumber2BufferedWriterMap, geneId2ListofGeneSetNumberMap,
 					permutationNumberKeggPathwayNumber2OneorZeroMap,
@@ -7791,7 +7812,7 @@ public class IntervalTree {
 	// For each search input line, each kegg pathway will have a value of 1 or 0
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals( String outputFolder, int permutationNumber,
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder, int permutationNumber,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			Map<String, BufferedWriter> bufferedWriterHashMap, Map<String, List<String>> geneId2KeggPathwayMap,
 			Map<String, Integer> permutationNumberKeggPathway2OneorZeroMap, String type,
@@ -7806,46 +7827,46 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNode castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNode){
-					castedNode = ( UcscRefSeqGeneIntervalTreeNode)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNode){
+					castedNode = (UcscRefSeqGeneIntervalTreeNode)node;
 				}
 
 				try{
 
 					// write exon based results
-					if( keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
+					if(keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 
 						// exon based kegg pathway analysis
-						if( castedNode.getIntervalName().isExon()){
+						if(castedNode.getIntervalName().isExon()){
 
-							keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+							keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
-							if( keggPathWayListContainingThisGeneId != null){
-								for( int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
-									keggPathwayName = keggPathWayListContainingThisGeneId.get( i);
+							if(keggPathWayListContainingThisGeneId != null){
+								for(int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
+									keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 									permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-									bufferedWriter = bufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+									bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-									if( bufferedWriter == null){
+									if(bufferedWriter == null){
 
 										fileWriter = FileOperations.createFileWriter(
-												outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + keggPathwayName + ".txt",
+												outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + keggPathwayName + ".txt",
 												true);
-										bufferedWriter = new BufferedWriter( fileWriter);
-										bufferedWriterHashMap.put( permutationNumberKeggPathwayName, bufferedWriter);
+										bufferedWriter = new BufferedWriter(fileWriter);
+										bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 
 									}
 
-									if( permutationNumberKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+									if(permutationNumberKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 										permutationNumberKeggPathway2OneorZeroMap.put(
 												permutationNumberKeggPathwayName, 1);
 									}
 
-									bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+									bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 									bufferedWriter.flush();
 
 								}// End of For: for all keggpathways having this
@@ -7857,35 +7878,35 @@ public class IntervalTree {
 
 					}
 					// write regulation based results
-					else if( keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
+					else if(keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 						// Regulation Based kegg pathway analysis
-						if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+						if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-							keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+							keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
-							if( keggPathWayListContainingThisGeneId != null){
-								for( int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
-									keggPathwayName = keggPathWayListContainingThisGeneId.get( i);
+							if(keggPathWayListContainingThisGeneId != null){
+								for(int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
+									keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 									permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-									bufferedWriter = bufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+									bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-									if( bufferedWriter == null){
+									if(bufferedWriter == null){
 
 										fileWriter = FileOperations.createFileWriter(
-												outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + keggPathwayName + ".txt",
+												outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + keggPathwayName + ".txt",
 												true);
-										bufferedWriter = new BufferedWriter( fileWriter);
-										bufferedWriterHashMap.put( permutationNumberKeggPathwayName, bufferedWriter);
+										bufferedWriter = new BufferedWriter(fileWriter);
+										bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 
 									}
 
-									if( permutationNumberKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+									if(permutationNumberKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 										permutationNumberKeggPathway2OneorZeroMap.put(
 												permutationNumberKeggPathwayName, 1);
 									}
 
-									bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+									bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 									bufferedWriter.flush();
 
 								}// End of For: for all kegg pathways having
@@ -7898,30 +7919,30 @@ public class IntervalTree {
 					}
 					// write all results
 					else{
-						keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+						keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
-						if( keggPathWayListContainingThisGeneId != null){
-							for( int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
-								keggPathwayName = keggPathWayListContainingThisGeneId.get( i);
+						if(keggPathWayListContainingThisGeneId != null){
+							for(int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
+								keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 								permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-								bufferedWriter = bufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+								bufferedWriter = bufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-								if( bufferedWriter == null){
+								if(bufferedWriter == null){
 
 									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_all_" + keggPathwayName + ".txt",
+											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_all_" + keggPathwayName + ".txt",
 											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
-									bufferedWriterHashMap.put( permutationNumberKeggPathwayName, bufferedWriter);
+									bufferedWriter = new BufferedWriter(fileWriter);
+									bufferedWriterHashMap.put(permutationNumberKeggPathwayName, bufferedWriter);
 
 								}
 
-								if( permutationNumberKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
-									permutationNumberKeggPathway2OneorZeroMap.put( permutationNumberKeggPathwayName, 1);
+								if(permutationNumberKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
+									permutationNumberKeggPathway2OneorZeroMap.put(permutationNumberKeggPathwayName, 1);
 								}
 
-								bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+								bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 								bufferedWriter.flush();
 
 							}// End of For: for all kegg pathways having this
@@ -7931,20 +7952,20 @@ public class IntervalTree {
 
 					}
 
-				}catch( IOException e){
-					if( GlanetRunner.shouldLog())logger.error( e.toString());
+				}catch(IOException e){
+					if(GlanetRunner.shouldLog())logger.error(e.toString());
 				}
 			}
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervals( outputFolder, permutationNumber, node.getLeft(), interval,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder, permutationNumber, node.getLeft(), interval,
 					chromName, bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,
 					type, keggPathwayAnalysisType, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervals( outputFolder, permutationNumber, node.getRight(), interval,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder, permutationNumber, node.getRight(), interval,
 					chromName, bufferedWriterHashMap, geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap,
 					type, keggPathwayAnalysisType, overlapDefinition);
 
@@ -7980,52 +8001,52 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
-					castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 				}
 
 				// Gene Enrichment
-				if( geneSetAnalysisType.isNoGeneSetAnalysIsTypeDefined()){
+				if(geneSetAnalysisType.isNoGeneSetAnalysIsTypeDefined()){
 						geneNumber = castedNode.getGeneEntrezId();
 
-					if( !(geneNumber2PermutationOneorZeroMap.containsKey(geneNumber))){
+					if(!(geneNumber2PermutationOneorZeroMap.containsKey(geneNumber))){
 						geneNumber2PermutationOneorZeroMap.put(geneNumber, Commons.BYTE_1);
 					}
 
 				}
 
 				// write EXON based results starts
-				else if( geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
+				else if(geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
 
 					// EXON based KEGG Pathway analysis
-					if( castedNode.getIntervalName().isExon()){
+					if(castedNode.getIntervalName().isExon()){
 
 						//@todo Must be TIntList instead of TShortList
 						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-						if( ListofGeneSetNumberContainingThisGeneId != null){
-							for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+						if(ListofGeneSetNumberContainingThisGeneId != null){
+							for(int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
 
-								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get(i);
 
 								// KEGGPathway starts
-								if( geneSetType.isKeggPathway()){
+								if(geneSetType.isKeggPathway()){
 									keggPathwayNumber = geneSetNumber;
 											
-									if( !(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+									if(!(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
 										keggPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
 									}
 								}
 								// KEGGPathway ends
 
 								// UserDefinedGeneSet starts
-								else if( geneSetType.isUserDefinedGeneSet()){
+								else if(geneSetType.isUserDefinedGeneSet()){
 									userDefinedGeneSetNumber = geneSetNumber;
 											
-									if( !(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
+									if(!(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
 										userDefinedGeneSetNumber2PermutationOneorZeroMap.put(
 												userDefinedGeneSetNumber, Commons.BYTE_1);
 									}
@@ -8042,23 +8063,23 @@ public class IntervalTree {
 				// write EXON based results ends
 
 				// write REGULATION based results
-				else if( geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
+				else if(geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
 					// Regulation Based kegg pathway analysis
-					if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+					if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-						if( ListofGeneSetNumberContainingThisGeneId != null){
-							for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+						if(ListofGeneSetNumberContainingThisGeneId != null){
+							for(int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
 
-								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get(i);
 
 								// Kegg Pathway starts
-								if( geneSetType.isKeggPathway()){
+								if(geneSetType.isKeggPathway()){
 
 									keggPathwayNumber = geneSetNumber;
 								
-									if( !(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+									if(!(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
 										keggPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
 									}
 
@@ -8066,11 +8087,11 @@ public class IntervalTree {
 								// Kegg Pathway ends
 
 								// UserDefinedGeneSet starts
-								else if( geneSetType.isUserDefinedGeneSet()){
+								else if(geneSetType.isUserDefinedGeneSet()){
 									
 									userDefinedGeneSetNumber = geneSetNumber;
 									
-									if( !(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
+									if(!(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
 										userDefinedGeneSetNumber2PermutationOneorZeroMap.put(userDefinedGeneSetNumber, Commons.BYTE_1);
 									}
 
@@ -8086,20 +8107,20 @@ public class IntervalTree {
 				// write REGULATION based results ends
 
 				// write ALL based results starts
-				else if( geneSetAnalysisType.isAllBasedGeneSetAnalysis()){
+				else if(geneSetAnalysisType.isAllBasedGeneSetAnalysis()){
 
-					ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+					ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-					if( ListofGeneSetNumberContainingThisGeneId != null){
-						for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+					if(ListofGeneSetNumberContainingThisGeneId != null){
+						for(int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
 
-							geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+							geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get(i);
 
 							// Kegg Pathway starts
-							if( geneSetType.isKeggPathway()){
+							if(geneSetType.isKeggPathway()){
 								keggPathwayNumber = geneSetNumber;
 								
-								if( !(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+								if(!(keggPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
 									keggPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
 								}
 
@@ -8107,11 +8128,11 @@ public class IntervalTree {
 							// Kegg Pathway ends
 
 							// UserDefinedGeneSet starts
-							else if( geneSetType.isUserDefinedGeneSet()){
+							else if(geneSetType.isUserDefinedGeneSet()){
 
 								userDefinedGeneSetNumber = geneSetNumber;
 								
-								if( !(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
+								if(!(userDefinedGeneSetNumber2PermutationOneorZeroMap.containsKey(userDefinedGeneSetNumber))){
 									userDefinedGeneSetNumber2PermutationOneorZeroMap.put(userDefinedGeneSetNumber, Commons.BYTE_1);
 								}
 
@@ -8127,7 +8148,7 @@ public class IntervalTree {
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					node.getLeft(),
 					interval, 
@@ -8142,7 +8163,7 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					node.getRight(),
 					interval, 
@@ -8256,9 +8277,12 @@ public class IntervalTree {
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
 			UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode,
 			GeneSetType geneSetType,
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberGOTermNumber2OverlappingNodeListMap,
 			TIntObjectMap<List<IntervalTreeNode>> permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
 			TLongObjectMap<List<IntervalTreeNode>> permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap){
 		
+		
+		long permutationNumberGOTermNumber = Long.MIN_VALUE;
 		int permutationNumberKeggPathwayNumber = Integer.MIN_VALUE;
 		long permutationNumberUserDefinedGeneSetNumber = Long.MIN_VALUE;
 		
@@ -8269,13 +8293,40 @@ public class IntervalTree {
 
 		ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-		if( ListofGeneSetNumberContainingThisGeneId != null){
+		if(ListofGeneSetNumberContainingThisGeneId != null){
 			
-			for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+			for(int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
 
 				geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get(i);
 				
 				switch(geneSetType) {
+				
+					case GENE_ONTOLOGY_TERMS:
+						permutationNumberGOTermNumber = generateMixedNumber(
+								permutationNumber,
+								Short.MIN_VALUE,
+								Short.MIN_VALUE,
+								geneSetNumber,
+								GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_GOTERMNUMBER);
+						
+						// Debug starts
+						if(permutationNumberGOTermNumber < 0){
+							System.out.println("there is a situation 6");
+						}
+						// Debug end
+
+						overlappingNodeList = permutationNumberGOTermNumber2OverlappingNodeListMap.get(permutationNumberGOTermNumber);
+						
+						//Pay attention: you have to add castedNode to the list
+						//Further on you will need tforHistoneNumber in constructAnIntervalTreeWithNonOverlappingNodes method
+						if (overlappingNodeList == null){
+							overlappingNodeList = new ArrayList<IntervalTreeNode>();
+							overlappingNodeList.add(castedNode);
+							permutationNumberGOTermNumber2OverlappingNodeListMap.put(permutationNumberGOTermNumber, overlappingNodeList);
+						}else{
+							overlappingNodeList.add(castedNode);
+						}
+						break;
 				
 					case KEGGPATHWAY:
 						
@@ -8286,8 +8337,8 @@ public class IntervalTree {
 								GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
 						// Debug starts
-						if( permutationNumberKeggPathwayNumber < 0){
-							System.out.println( "there is a situation 4");
+						if(permutationNumberKeggPathwayNumber < 0){
+							System.out.println("there is a situation 4");
 						}
 						// Debug end
 
@@ -8315,8 +8366,8 @@ public class IntervalTree {
 								GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 						// Debug starts
-						if( permutationNumberUserDefinedGeneSetNumber < 0){
-							System.out.println( "there is a situation 5");
+						if(permutationNumberUserDefinedGeneSetNumber < 0){
+							System.out.println("there is a situation 5");
 						}
 						// Debug end
 
@@ -8368,16 +8419,16 @@ public class IntervalTree {
 		
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 		
-		if( Commons.NCBI_GENE_ID.equals(type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			
-			if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
 								
 					//EXON Based GeneSet Analysis
 					if(((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isExon()){
 						
-						//castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+						//castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 						//castedNode must be newly created and there must be no color assigned at first.
 						castedNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
 								node.getChromName(),
@@ -8394,6 +8445,7 @@ public class IntervalTree {
 								geneId2KeggPathwayNumberMap,
 								castedNode,
 								geneSetType,
+								null,
 								permutationNumberExonBasedKEGGPathwayNumber2OverlappingNodeListMap,
 								null);
 						//11 NOV 2015 ends
@@ -8402,7 +8454,7 @@ public class IntervalTree {
 	
 				
 					// REGULATION Based  GeneSet Analysis
-					if( ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isIntron() || 
+					if(((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isIntron() || 
 						((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isFivePOne() || ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isFivePTwo() || 
 						((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isThreePOne() || ((UcscRefSeqGeneIntervalTreeNodeWithNumbers) node).getIntervalName().isThreePTwo()){
 						
@@ -8421,6 +8473,7 @@ public class IntervalTree {
 								geneId2KeggPathwayNumberMap,
 								castedNode,
 								geneSetType,
+								null,
 								permutationNumberRegulationBasedKEGGPathwayNumber2OverlappingNodeListMap,
 								null);
 						//11 NOV 2015 ends
@@ -8444,6 +8497,7 @@ public class IntervalTree {
 						geneId2KeggPathwayNumberMap,
 						castedNode,
 						geneSetType,
+						null,
 						permutationNumberAllBasedKEGGPathwayNumber2OverlappingNodeListMap,
 						null);
 					//End of IF ALL BASED KEGG Pathway Analysis
@@ -8454,7 +8508,7 @@ public class IntervalTree {
 			
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(),
@@ -8468,7 +8522,7 @@ public class IntervalTree {
 					geneSetType);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(),
@@ -8519,12 +8573,12 @@ public class IntervalTree {
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 		
 		
-		if( Commons.NCBI_GENE_ID.equals(type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			
-			if( overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
-					//castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					//castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 					//castedNode must be newly created and there must be no color assigned at first.
 					
 					castedNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
@@ -8551,7 +8605,7 @@ public class IntervalTree {
 					fillGivenIntervalNumber2OverlapInformationMap(castedNode,givenIntervalNumber,givenIntervalNumber2OverlapInformationMap);							
 					
 					if (hg19RefSeqGenesBufferedWriter!=null){
-						hg19RefSeqGenesBufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+						hg19RefSeqGenesBufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 					}
 							
 					writeOverlapsFoundInAnnotation(
@@ -8577,10 +8631,11 @@ public class IntervalTree {
 				switch(geneSetType){
 				
 					case KEGGPATHWAY:	
+					case GENE_ONTOLOGY_TERMS:
 					case USERDEFINEDGENESET:						
 						
 						//EXON Based GeneSet Analysis
-						if( castedNode.getIntervalName().isExon()){
+						if(castedNode.getIntervalName().isExon()){
 							
 							fillMapofOverlappingNodeList(
 									outputFolder,
@@ -8603,7 +8658,7 @@ public class IntervalTree {
 							
 								
 						//Regulation Based  GeneSet Analysis
-						if( castedNode.getIntervalName().isIntron() || 
+						if(castedNode.getIntervalName().isIntron() || 
 							castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
 							castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
@@ -8658,7 +8713,7 @@ public class IntervalTree {
 			
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					node.getLeft(),
@@ -8685,7 +8740,7 @@ public class IntervalTree {
 					refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					outputFolder,
 					node.getRight(),
@@ -8729,6 +8784,7 @@ public class IntervalTree {
 			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
+			TLongObjectMap<List<IntervalTreeNode>> permutationNumberGOTermNumber2OverlappingNodeListMap,
 			TIntObjectMap<List<IntervalTreeNode>> permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
 			TLongObjectMap<List<IntervalTreeNode>> permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap,
 			TLongObjectMap<List<IntervalTreeNode>> permutationNumberGeneNumber2OverlappingNodeListMap, 
@@ -8740,12 +8796,12 @@ public class IntervalTree {
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 		List<IntervalTreeNode> overlappingNodeList = null;
 		
-		if( Commons.NCBI_GENE_ID.equals( type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
-					//castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					//castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 					//castedNode must be newly created and there must be no color assigned at first.
 					castedNode = new UcscRefSeqGeneIntervalTreeNodeWithNumbers(
 							node.getChromName(),
@@ -8764,7 +8820,7 @@ public class IntervalTree {
 						
 						//Maybe we should also check geneSetType
 						// Gene Enrichment
-						permutationNumberGeneNumber = generatePermutationNumberGeneNumber( 
+						permutationNumberGeneNumber = generatePermutationNumberGeneNumber(
 								permutationNumber,
 								castedNode.getGeneEntrezId(),
 								GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER);
@@ -8784,7 +8840,7 @@ public class IntervalTree {
 						
 					case EXONBASEDGENESETANALYSIS:
 						//EXON Based GeneSet Analysis
-						if( castedNode.getIntervalName().isExon()){
+						if(castedNode.getIntervalName().isExon()){
 							
 							//11 NOV 2015 starts
 							fillMapofOverlappingNodeList(
@@ -8792,6 +8848,7 @@ public class IntervalTree {
 									geneId2ListofGeneSetNumberMap,
 									castedNode,
 									geneSetType,
+									permutationNumberGOTermNumber2OverlappingNodeListMap,
 									permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
 									permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap);
 							//11 NOV 2015 ends
@@ -8801,7 +8858,7 @@ public class IntervalTree {
 						
 					case REGULATIONBASEDGENESETANALYSIS:
 						// Regulation Based  GeneSet Analysis
-						if( castedNode.getIntervalName().isIntron() || 
+						if(castedNode.getIntervalName().isIntron() || 
 								castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
 								castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
@@ -8811,6 +8868,7 @@ public class IntervalTree {
 									geneId2ListofGeneSetNumberMap,
 									castedNode,
 									geneSetType,
+									permutationNumberGOTermNumber2OverlappingNodeListMap,
 									permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
 									permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap);
 							//11 NOV 2015 ends
@@ -8826,6 +8884,7 @@ public class IntervalTree {
 								geneId2ListofGeneSetNumberMap,
 								castedNode,
 								geneSetType,
+								permutationNumberGOTermNumber2OverlappingNodeListMap,
 								permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
 								permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap);
 						//11 NOV 2015 ends
@@ -8837,13 +8896,14 @@ public class IntervalTree {
 			
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getLeft(),
 					interval, 
 					chromName, 
 					geneId2ListofGeneSetNumberMap,
+					permutationNumberGOTermNumber2OverlappingNodeListMap,
 					permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
 					permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap, 
 					permutationNumberGeneNumber2OverlappingNodeListMap,
@@ -8852,13 +8912,14 @@ public class IntervalTree {
 					geneSetType);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					permutationNumber, 
 					node.getRight(),
 					interval, 
 					chromName, 
 					geneId2ListofGeneSetNumberMap,
+					permutationNumberGOTermNumber2OverlappingNodeListMap,
 					permutationNumberKeggPathwayNumber2OverlappingNodeListMap,
 					permutationNumberUserDefinedGeneSetNumber2OverlappingNodeListMap, 
 					permutationNumberGeneNumber2OverlappingNodeListMap,
@@ -8871,6 +8932,7 @@ public class IntervalTree {
 	//10 NOV 2015 ends
 	
 
+	//13 FEB 2017 GOTerms added
 	// 23 OCT 2014
 	// Empirical P Value Calculation
 	// Search2 KeggPathway
@@ -8886,6 +8948,7 @@ public class IntervalTree {
 			Interval interval, 
 			ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2ListofGeneSetNumberMap,
+			TLongIntMap permutationNumberGOTermNumber2OneorZeroMap,
 			TIntIntMap permutationNumberKeggPathwayNumber2OneorZeroMap,
 			TLongIntMap permutationNumberUserDefinedGeneSetNumber2OneorZeroMap,
 			TLongIntMap permutationNumberGeneNumber2OneorZeroMap, 
@@ -8894,6 +8957,7 @@ public class IntervalTree {
 			GeneSetType geneSetType, 
 			int overlapDefinition) {
 
+		long permutationNumberGOTermNumber = Long.MIN_VALUE;
 		int permutationNumberKeggPathwayNumber = Integer.MIN_VALUE;
 		long permutationNumberUserDefinedGeneSetNumber = Long.MIN_VALUE;
 		long permutationNumberGeneNumber = Long.MIN_VALUE;
@@ -8903,52 +8967,74 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
-					castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 				}
 
 				// Gene Enrichment
-				if( geneSetAnalysisType.isNoGeneSetAnalysIsTypeDefined()){
-					permutationNumberGeneNumber = generatePermutationNumberGeneNumber( permutationNumber,
+				if(geneSetAnalysisType.isNoGeneSetAnalysIsTypeDefined()){
+					permutationNumberGeneNumber = generatePermutationNumberGeneNumber(permutationNumber,
 							castedNode.getGeneEntrezId(),
 							GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGIT_PERMUTATIONNUMBER_10DIGIT_GENENUMBER);
 
-					if( !( permutationNumberGeneNumber2OneorZeroMap.containsKey( permutationNumberGeneNumber))){
-						permutationNumberGeneNumber2OneorZeroMap.put( permutationNumberGeneNumber, 1);
+					if(!(permutationNumberGeneNumber2OneorZeroMap.containsKey(permutationNumberGeneNumber))){
+						permutationNumberGeneNumber2OneorZeroMap.put(permutationNumberGeneNumber, 1);
 					}
 
 				}
 
 				// write EXON based results starts
-				else if( geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
+				else if(geneSetAnalysisType.isExonBasedGeneSetAnalysis()){
 
 					// exon based kegg pathway analysis
-					if( castedNode.getIntervalName().isExon()){
+					if(castedNode.getIntervalName().isExon()){
 
 						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-						if( ListofGeneSetNumberContainingThisGeneId != null){
-							for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+						if(ListofGeneSetNumberContainingThisGeneId != null){
+							for(int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
 
-								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get(i);
+								
+								//GO Term starts
+								if(geneSetType.isGeneOntologyTerms()){
+									permutationNumberGOTermNumber = generateMixedNumber(
+											permutationNumber,
+											Short.MIN_VALUE,
+											Short.MIN_VALUE,
+											geneSetNumber,
+											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_GOTERMNUMBER);
+
+									// Debug starts
+									if(permutationNumberGOTermNumber < 0){
+										System.out.println("there is a situation 6");
+									}
+									// Debug end
+
+									if(!(permutationNumberGOTermNumber2OneorZeroMap.containsKey(permutationNumberGOTermNumber))){
+										permutationNumberGOTermNumber2OneorZeroMap.put(permutationNumberGOTermNumber,1);
+									}
+								}
+								//GO Term ends
+								
 
 								// Kegg Pathway starts
-								if( geneSetType.isKeggPathway()){
+								else if(geneSetType.isKeggPathway()){
 									permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 											permutationNumber,
 											geneSetNumber,
 											GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
 									// Debug starts
-									if( permutationNumberKeggPathwayNumber < 0){
-										System.out.println( "there is a situation 4");
+									if(permutationNumberKeggPathwayNumber < 0){
+										System.out.println("there is a situation 4");
 									}
 									// Debug end
 
-									if( !( permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+									if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 										permutationNumberKeggPathwayNumber2OneorZeroMap.put(
 												permutationNumberKeggPathwayNumber, 1);
 									}
@@ -8956,7 +9042,7 @@ public class IntervalTree {
 								// Kegg Pathway ends
 
 								// UserDefinedGeneSet starts
-								else if( geneSetType.isUserDefinedGeneSet()){
+								else if(geneSetType.isUserDefinedGeneSet()){
 									permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
 											permutationNumber,
 											Short.MIN_VALUE,
@@ -8965,12 +9051,12 @@ public class IntervalTree {
 											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 									// Debug starts
-									if( permutationNumberUserDefinedGeneSetNumber < 0){
-										System.out.println( "there is a situation 5");
+									if(permutationNumberUserDefinedGeneSetNumber < 0){
+										System.out.println("there is a situation 5");
 									}
 									// Debug end
 
-									if( !( permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey( permutationNumberUserDefinedGeneSetNumber))){
+									if(!(permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey(permutationNumberUserDefinedGeneSetNumber))){
 										permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.put(
 												permutationNumberUserDefinedGeneSetNumber, 1);
 									}
@@ -8988,19 +9074,40 @@ public class IntervalTree {
 				// write EXON based results ends
 
 				// write REGULATION based results
-				else if( geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
+				else if(geneSetAnalysisType.isRegulationBasedGeneSetAnalysis()){
 					// Regulation Based kegg pathway analysis
-					if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+					if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+						ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-						if( ListofGeneSetNumberContainingThisGeneId != null){
-							for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+						if(ListofGeneSetNumberContainingThisGeneId != null){
+							for(int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
 
-								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+								geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get(i);
+								
+								//GO Term starts
+								if(geneSetType.isGeneOntologyTerms()){
+									permutationNumberGOTermNumber = generateMixedNumber(
+											permutationNumber,
+											Short.MIN_VALUE,
+											Short.MIN_VALUE,
+											geneSetNumber,
+											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_GOTERMNUMBER);
+
+									// Debug starts
+									if(permutationNumberGOTermNumber < 0){
+										System.out.println("there is a situation 6");
+									}
+									// Debug end
+
+									if(!(permutationNumberGOTermNumber2OneorZeroMap.containsKey(permutationNumberGOTermNumber))){
+										permutationNumberGOTermNumber2OneorZeroMap.put(permutationNumberGOTermNumber,1);
+									}
+								}
+								//GO Term ends
 
 								// Kegg Pathway starts
-								if( geneSetType.isKeggPathway()){
+								else if(geneSetType.isKeggPathway()){
 
 									permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 											permutationNumber,
@@ -9008,12 +9115,12 @@ public class IntervalTree {
 											GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
 									// Debug starts
-									if( permutationNumberKeggPathwayNumber < 0){
-										System.out.println( "there is a situation 6");
+									if(permutationNumberKeggPathwayNumber < 0){
+										System.out.println("there is a situation 6");
 									}
 									// Debug end
 
-									if( !( permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+									if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 										permutationNumberKeggPathwayNumber2OneorZeroMap.put(
 												permutationNumberKeggPathwayNumber, 1);
 									}
@@ -9022,7 +9129,7 @@ public class IntervalTree {
 								// Kegg Pathway ends
 
 								// UserDefinedGeneSet starts
-								else if( geneSetType.isUserDefinedGeneSet()){
+								else if(geneSetType.isUserDefinedGeneSet()){
 									permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
 											permutationNumber,
 											Short.MIN_VALUE,
@@ -9031,12 +9138,12 @@ public class IntervalTree {
 											GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 									// Debug starts
-									if( permutationNumberUserDefinedGeneSetNumber < 0){
-										System.out.println( "there is a situation 7");
+									if(permutationNumberUserDefinedGeneSetNumber < 0){
+										System.out.println("there is a situation 7");
 									}
 									// Debug end
 
-									if( !( permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey( permutationNumberUserDefinedGeneSetNumber))){
+									if(!(permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey(permutationNumberUserDefinedGeneSetNumber))){
 										permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.put(
 												permutationNumberUserDefinedGeneSetNumber, 1);
 									}
@@ -9055,29 +9162,51 @@ public class IntervalTree {
 				// write REGULATION based results ends
 
 				// write ALL based results starts
-				else if( geneSetAnalysisType.isAllBasedGeneSetAnalysis()){
+				else if(geneSetAnalysisType.isAllBasedGeneSetAnalysis()){
 
-					ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get( castedNode.getGeneEntrezId());
+					ListofGeneSetNumberContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
 
-					if( ListofGeneSetNumberContainingThisGeneId != null){
-						for( int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
+					if(ListofGeneSetNumberContainingThisGeneId != null){
+						for(int i = 0; i < ListofGeneSetNumberContainingThisGeneId.size(); i++){
 
-							geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get( i);
+							geneSetNumber = ListofGeneSetNumberContainingThisGeneId.get(i);
+							
+							
+							//GO Term starts
+							if(geneSetType.isGeneOntologyTerms()){
+								permutationNumberGOTermNumber = generateMixedNumber(
+										permutationNumber,
+										Short.MIN_VALUE,
+										Short.MIN_VALUE,
+										geneSetNumber,
+										GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_GOTERMNUMBER);
+
+								// Debug starts
+								if(permutationNumberGOTermNumber < 0){
+									System.out.println("there is a situation 6");
+								}
+								// Debug end
+
+								if(!(permutationNumberGOTermNumber2OneorZeroMap.containsKey(permutationNumberGOTermNumber))){
+									permutationNumberGOTermNumber2OneorZeroMap.put(permutationNumberGOTermNumber,1);
+								}
+							}
+							//GO Term ends
 
 							// Kegg Pathway starts
-							if( geneSetType.isKeggPathway()){
+							else if(geneSetType.isKeggPathway()){
 								permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 										permutationNumber,
 										geneSetNumber,
 										GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
 								// Debug starts
-								if( permutationNumberKeggPathwayNumber < 0){
-									System.out.println( "there is a situation 8");
+								if(permutationNumberKeggPathwayNumber < 0){
+									System.out.println("there is a situation 8");
 								}
 								// Debug end
 
-								if( !( permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+								if(!(permutationNumberKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 									permutationNumberKeggPathwayNumber2OneorZeroMap.put(
 											permutationNumberKeggPathwayNumber, 1);
 								}
@@ -9086,7 +9215,7 @@ public class IntervalTree {
 							// Kegg Pathway ends
 
 							// UserDefinedGeneSet starts
-							else if( geneSetType.isUserDefinedGeneSet()){
+							else if(geneSetType.isUserDefinedGeneSet()){
 
 								permutationNumberUserDefinedGeneSetNumber = generateMixedNumber(
 										permutationNumber,
@@ -9096,12 +9225,12 @@ public class IntervalTree {
 										GeneratedMixedNumberDescriptionOrderLength.LONG_7DIGITS_PERMUTATIONNUMBER_10DIGITS_USERDEFINEDGENESETNUMBER);
 
 								// Debug starts
-								if( permutationNumberUserDefinedGeneSetNumber < 0){
-									System.out.println( "there is a situation 9");
+								if(permutationNumberUserDefinedGeneSetNumber < 0){
+									System.out.println("there is a situation 9");
 								}
 								// Debug end
 
-								if( !( permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey( permutationNumberUserDefinedGeneSetNumber))){
+								if(!(permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.containsKey(permutationNumberUserDefinedGeneSetNumber))){
 									permutationNumberUserDefinedGeneSetNumber2OneorZeroMap.put(
 											permutationNumberUserDefinedGeneSetNumber, 1);
 								}
@@ -9119,20 +9248,38 @@ public class IntervalTree {
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers( permutationNumber, node.getLeft(),
-					interval, chromName, geneId2ListofGeneSetNumberMap,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getLeft(),
+					interval, 
+					chromName, 
+					geneId2ListofGeneSetNumberMap,
+					permutationNumberGOTermNumber2OneorZeroMap,
 					permutationNumberKeggPathwayNumber2OneorZeroMap,
-					permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, permutationNumberGeneNumber2OneorZeroMap,
-					type, geneSetAnalysisType, geneSetType, overlapDefinition);
+					permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, 
+					permutationNumberGeneNumber2OneorZeroMap,
+					type, 
+					geneSetAnalysisType, 
+					geneSetType, 
+					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers( permutationNumber, node.getRight(),
-					interval, chromName, geneId2ListofGeneSetNumberMap,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
+					permutationNumber, 
+					node.getRight(),
+					interval, 
+					chromName, 
+					geneId2ListofGeneSetNumberMap,
+					permutationNumberGOTermNumber2OneorZeroMap,
 					permutationNumberKeggPathwayNumber2OneorZeroMap,
-					permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, permutationNumberGeneNumber2OneorZeroMap,
-					type, geneSetAnalysisType, geneSetType, overlapDefinition);
+					permutationNumberUserDefinedGeneSetNumber2OneorZeroMap, 
+					permutationNumberGeneNumber2OneorZeroMap,
+					type, 
+					geneSetAnalysisType, 
+					geneSetType, 
+					overlapDefinition);
 		}
 
 	}
@@ -9146,7 +9293,7 @@ public class IntervalTree {
 	// For each search input line, each kegg pathway will have a value of 1 or 0
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// without IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals( int permutationNumber, IntervalTreeNode node,
+	public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber, IntervalTreeNode node,
 			Interval interval, ChromosomeName chromName, Map<String, List<String>> geneId2KeggPathwayMap,
 			Map<String, Integer> permutationNumberKeggPathway2OneorZeroMap, String type,
 			KeggPathwayAnalysisType keggPathwayAnalysisType, int overlapDefinition) {
@@ -9157,29 +9304,29 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNode castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNode){
-					castedNode = ( UcscRefSeqGeneIntervalTreeNode)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNode){
+					castedNode = (UcscRefSeqGeneIntervalTreeNode)node;
 				}
 
 				// write exon based results
-				if( keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
+				if(keggPathwayAnalysisType.isExonBasedKeggPathwayAnalysis()){
 
 					// exon based kegg pathway analysis
-					if( castedNode.getIntervalName().isExon()){
+					if(castedNode.getIntervalName().isExon()){
 
-						keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+						keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
-						if( keggPathWayListContainingThisGeneId != null){
-							for( int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
+						if(keggPathWayListContainingThisGeneId != null){
+							for(int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
 
-								keggPathwayName = keggPathWayListContainingThisGeneId.get( i);
+								keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 								permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-								if( permutationNumberKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
-									permutationNumberKeggPathway2OneorZeroMap.put( permutationNumberKeggPathwayName, 1);
+								if(permutationNumberKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
+									permutationNumberKeggPathway2OneorZeroMap.put(permutationNumberKeggPathwayName, 1);
 								}
 
 							}// End of For: for all keggpathways having this
@@ -9191,19 +9338,19 @@ public class IntervalTree {
 
 				}
 				// write regulation based results
-				else if( keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
+				else if(keggPathwayAnalysisType.isRegulationBasedKeggPathwayAnalysis()){
 					// Regulation Based kegg pathway analysis
-					if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+					if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-						keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+						keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
-						if( keggPathWayListContainingThisGeneId != null){
-							for( int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
-								keggPathwayName = keggPathWayListContainingThisGeneId.get( i);
+						if(keggPathWayListContainingThisGeneId != null){
+							for(int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
+								keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 								permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-								if( permutationNumberKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
-									permutationNumberKeggPathway2OneorZeroMap.put( permutationNumberKeggPathwayName, 1);
+								if(permutationNumberKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
+									permutationNumberKeggPathway2OneorZeroMap.put(permutationNumberKeggPathwayName, 1);
 								}
 
 							}// End of For: for all kegg pathways having this
@@ -9216,15 +9363,15 @@ public class IntervalTree {
 				}// regulation based kegg pathway analysis
 					// write all results
 				else{
-					keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+					keggPathWayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
-					if( keggPathWayListContainingThisGeneId != null){
-						for( int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
-							keggPathwayName = keggPathWayListContainingThisGeneId.get( i);
+					if(keggPathWayListContainingThisGeneId != null){
+						for(int i = 0; i < keggPathWayListContainingThisGeneId.size(); i++){
+							keggPathwayName = keggPathWayListContainingThisGeneId.get(i);
 							permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-							if( permutationNumberKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
-								permutationNumberKeggPathway2OneorZeroMap.put( permutationNumberKeggPathwayName, 1);
+							if(permutationNumberKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
+								permutationNumberKeggPathway2OneorZeroMap.put(permutationNumberKeggPathwayName, 1);
 							}
 
 						}// End of For: for all kegg pathways having this gene
@@ -9237,14 +9384,14 @@ public class IntervalTree {
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervals( permutationNumber, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber, node.getLeft(), interval, chromName,
 					geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap, type, keggPathwayAnalysisType,
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervals( permutationNumber, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber, node.getRight(), interval, chromName,
 					geneId2KeggPathwayMap, permutationNumberKeggPathway2OneorZeroMap, type, keggPathwayAnalysisType,
 					overlapDefinition);
 		}
@@ -9256,7 +9403,7 @@ public class IntervalTree {
 	// NEW FUNCIONALITY
 	// with IO
 	// with Overlap Node List
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers( String outputFolder,
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(String outputFolder,
 			int permutationNumber, IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			TIntObjectMap<TIntList> geneId2KeggPathwayNumberMap,
 			TIntObjectMap<BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap,
@@ -9279,28 +9426,28 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			// There is overlap
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 				try{
 
-					if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
-						castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+					if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+						castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 					}
 
-					keggPathwayNumberListContainingThisGeneId = geneId2KeggPathwayNumberMap.get( castedNode.getGeneEntrezId());
+					keggPathwayNumberListContainingThisGeneId = geneId2KeggPathwayNumberMap.get(castedNode.getGeneEntrezId());
 
 					// write EXON based results
-					if( castedNode.getIntervalName().isExon()){
-						if( keggPathwayNumberListContainingThisGeneId != null){
+					if(castedNode.getIntervalName().isExon()){
+						if(keggPathwayNumberListContainingThisGeneId != null){
 
-							permutationNumberExonBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneNumberOverlap(
+							permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneNumberOverlap(
 									permutationNumber, castedNode.getRefSeqGeneNumber(), castedNode.getIntervalName(),
 									castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbolNumber(),
 									castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),
 									keggPathwayNumberListContainingThisGeneId));
 
-							for( int i = 0; i < keggPathwayNumberListContainingThisGeneId.size(); i++){
+							for(int i = 0; i < keggPathwayNumberListContainingThisGeneId.size(); i++){
 
 								keggPathwayNumber = keggPathwayNumberListContainingThisGeneId.get(i);
 
@@ -9309,27 +9456,27 @@ public class IntervalTree {
 										keggPathwayNumber,
 										GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-								bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayNumber);
+								bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayNumber);
 
-								if( bufferedWriter == null){
+								if(bufferedWriter == null){
 
 									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + keggPathwayNumber + ".txt",
+											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + keggPathwayNumber + ".txt",
 											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
-									bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+									bufferedWriter = new BufferedWriter(fileWriter);
+									bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 									bufferedWriter.flush();
 
-									exonBasedKeggPathwayBufferedWriterHashMap.put( permutationNumberKeggPathwayNumber,
+									exonBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayNumber,
 											bufferedWriter);
 								}
 
-								if( !( permutationNumberExonBasedKeggPathway2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+								if(!(permutationNumberExonBasedKeggPathway2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 									permutationNumberExonBasedKeggPathway2OneorZeroMap.put(
 											permutationNumberKeggPathwayNumber, 1);
 								}
 
-								bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+								bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 								bufferedWriter.flush();
 
 							}// End of For: for all keggpathways having this
@@ -9341,46 +9488,46 @@ public class IntervalTree {
 
 					// write regulation based results
 					// Regulation Based kegg pathway analysis
-					if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+					if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-						if( keggPathwayNumberListContainingThisGeneId != null){
+						if(keggPathwayNumberListContainingThisGeneId != null){
 
-							permutationNumberRegulationBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneNumberOverlap(
+							permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneNumberOverlap(
 									permutationNumber, castedNode.getRefSeqGeneNumber(), castedNode.getIntervalName(),
 									castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbolNumber(),
 									castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),
 									keggPathwayNumberListContainingThisGeneId));
 
-							for( int i = 0; i < keggPathwayNumberListContainingThisGeneId.size(); i++){
+							for(int i = 0; i < keggPathwayNumberListContainingThisGeneId.size(); i++){
 
-								keggPathwayNumber = keggPathwayNumberListContainingThisGeneId.get( i);
+								keggPathwayNumber = keggPathwayNumberListContainingThisGeneId.get(i);
 								permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 										permutationNumber,
 										keggPathwayNumber,
 										GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-								bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayNumber);
+								bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayNumber);
 
-								if( bufferedWriter == null){
+								if(bufferedWriter == null){
 
 									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + keggPathwayNumber + ".txt",
+											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + keggPathwayNumber + ".txt",
 											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
+									bufferedWriter = new BufferedWriter(fileWriter);
 
-									bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+									bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 									bufferedWriter.flush();
 
 									regulationBasedKeggPathwayBufferedWriterHashMap.put(
 											permutationNumberKeggPathwayNumber, bufferedWriter);
 								}
 
-								if( !( permutationNumberRegulationBasedKeggPathway2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+								if(!(permutationNumberRegulationBasedKeggPathway2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 									permutationNumberRegulationBasedKeggPathway2OneorZeroMap.put(
 											permutationNumberKeggPathwayNumber, 1);
 								}
 
-								bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+								bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 								bufferedWriter.flush();
 
 							}// End of For: for all kegg pathways having this
@@ -9391,44 +9538,44 @@ public class IntervalTree {
 						// Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
 
 					// write all results
-					if( keggPathwayNumberListContainingThisGeneId != null){
+					if(keggPathwayNumberListContainingThisGeneId != null){
 
-						permutationNumberAllBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneNumberOverlap(
+						permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneNumberOverlap(
 								permutationNumber, castedNode.getRefSeqGeneNumber(), castedNode.getIntervalName(),
 								castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbolNumber(),
 								castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),
 								keggPathwayNumberListContainingThisGeneId));
 
-						for( int i = 0; i < keggPathwayNumberListContainingThisGeneId.size(); i++){
+						for(int i = 0; i < keggPathwayNumberListContainingThisGeneId.size(); i++){
 
-							keggPathwayNumber = keggPathwayNumberListContainingThisGeneId.get( i);
+							keggPathwayNumber = keggPathwayNumberListContainingThisGeneId.get(i);
 							permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 									permutationNumber,
 									keggPathwayNumber,
 									GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-							bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayNumber);
+							bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayNumber);
 
-							if( bufferedWriter == null){
+							if(bufferedWriter == null){
 
 								fileWriter = FileOperations.createFileWriter(
-										outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_allBased_" + keggPathwayNumber + ".txt",
+										outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_allBased_" + keggPathwayNumber + ".txt",
 										true);
-								bufferedWriter = new BufferedWriter( fileWriter);
+								bufferedWriter = new BufferedWriter(fileWriter);
 
-								bufferedWriter.write( "Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty( "line.separator"));
+								bufferedWriter.write("Searched for" + "\t" + "chromName" + "\t" + "intervalLow" + "\t" + "intervalHigh" + "\t" + "ucscRefSeqGene" + "\t" + "ChromName" + "\t" + "Low" + "\t" + "High" + "\t" + "RefSeqGeneNumber" + "\t" + "IntervalName" + "\t" + "IntervalNumber" + "\t" + "GeneHugoSymbolNumber" + "\t" + "GeneEntrezId" + System.getProperty("line.separator"));
 								bufferedWriter.flush();
 
-								allBasedKeggPathwayBufferedWriterHashMap.put( permutationNumberKeggPathwayNumber,
+								allBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayNumber,
 										bufferedWriter);
 							}
 
-							if( !( permutationNumberAllBasedKeggPathway2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+							if(!(permutationNumberAllBasedKeggPathway2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 								permutationNumberAllBasedKeggPathway2OneorZeroMap.put(
 										permutationNumberKeggPathwayNumber, 1);
 							}
 
-							bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+							bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneNumber() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getIntervalNumber() + "\t" + castedNode.getGeneHugoSymbolNumber() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 							bufferedWriter.flush();
 
 						}// End of For: for all kegg pathways having this gene
@@ -9436,15 +9583,15 @@ public class IntervalTree {
 					} // End of If: keggPathWayListContainingThisGeneId is not
 						// null
 
-				}catch( IOException e){
-					if( GlanetRunner.shouldLog())logger.error( e.toString());
+				}catch(IOException e){
+					if(GlanetRunner.shouldLog())logger.error(e.toString());
 				}
 
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers( outputFolder, permutationNumber,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(outputFolder, permutationNumber,
 					node.getLeft(), interval, chromName, geneId2KeggPathwayNumberMap,
 					exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap,
 					allBasedKeggPathwayBufferedWriterHashMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,
@@ -9455,8 +9602,8 @@ public class IntervalTree {
 					permutationNumberAllBasedKeggPathwayOverlapList, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers( outputFolder, permutationNumber,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithIOWithNumbers(outputFolder, permutationNumber,
 					node.getRight(), interval, chromName, geneId2KeggPathwayNumberMap,
 					exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap,
 					allBasedKeggPathwayBufferedWriterHashMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,
@@ -9474,7 +9621,7 @@ public class IntervalTree {
 	// NEW FUNCIONALITY
 	// with IO
 	// with Overlap Node List
-	public void findAllOverlappingUcscRefSeqGenesIntervals( String outputFolder, int permutationNumber,
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder, int permutationNumber,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName,
 			Map<String, List<String>> geneId2KeggPathwayMap,
 			Map<String, BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap,
@@ -9497,50 +9644,50 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNode castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			// There is overlap
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 				try{
 
-					if( node instanceof UcscRefSeqGeneIntervalTreeNode){
-						castedNode = ( UcscRefSeqGeneIntervalTreeNode)node;
+					if(node instanceof UcscRefSeqGeneIntervalTreeNode){
+						castedNode = (UcscRefSeqGeneIntervalTreeNode)node;
 					}
 
-					keggPathwayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+					keggPathwayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
 					// write exon based results
-					if( castedNode.getIntervalName().isExon()){
-						if( keggPathwayListContainingThisGeneId != null){
+					if(castedNode.getIntervalName().isExon()){
+						if(keggPathwayListContainingThisGeneId != null){
 
-							permutationNumberExonBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneOverlap(
+							permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(
 									Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(),
 									castedNode.getIntervalName(), castedNode.getIntervalNumber(),
 									castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(),
 									castedNode.getHigh(), keggPathwayListContainingThisGeneId));
 
-							for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+							for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-								keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
+								keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
 								permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-								bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+								bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-								if( bufferedWriter == null){
+								if(bufferedWriter == null){
 
 									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + keggPathwayName + ".txt",
+											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_exonBased_" + keggPathwayName + ".txt",
 											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
-									exonBasedKeggPathwayBufferedWriterHashMap.put( permutationNumberKeggPathwayName,
+									bufferedWriter = new BufferedWriter(fileWriter);
+									exonBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName,
 											bufferedWriter);
 								}
 
-								if( permutationNumberExonBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+								if(permutationNumberExonBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 									permutationNumberExonBasedKeggPathway2OneorZeroMap.put(
 											permutationNumberKeggPathwayName, 1);
 								}
 
-								bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+								bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 								bufferedWriter.flush();
 
 							}// End of For: for all keggpathways having this
@@ -9552,39 +9699,39 @@ public class IntervalTree {
 
 					// write regulation based results
 					// Regulation Based kegg pathway analysis
-					if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+					if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-						if( keggPathwayListContainingThisGeneId != null){
+						if(keggPathwayListContainingThisGeneId != null){
 
-							permutationNumberRegulationBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneOverlap(
+							permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(
 									Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(),
 									castedNode.getIntervalName(), castedNode.getIntervalNumber(),
 									castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(),
 									castedNode.getHigh(), keggPathwayListContainingThisGeneId));
 
-							for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+							for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-								keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
+								keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
 								permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-								bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+								bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-								if( bufferedWriter == null){
+								if(bufferedWriter == null){
 
 									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + keggPathwayName + ".txt",
+											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_regulationBased_" + keggPathwayName + ".txt",
 											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
+									bufferedWriter = new BufferedWriter(fileWriter);
 									regulationBasedKeggPathwayBufferedWriterHashMap.put(
 											permutationNumberKeggPathwayName, bufferedWriter);
 								}
 
-								if( permutationNumberRegulationBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+								if(permutationNumberRegulationBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 									permutationNumberRegulationBasedKeggPathway2OneorZeroMap.put(
 											permutationNumberKeggPathwayName, 1);
 								}
 
-								bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+								bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 								bufferedWriter.flush();
 
 							}// End of For: for all kegg pathways having this
@@ -9595,37 +9742,37 @@ public class IntervalTree {
 						// Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
 
 					// write all results
-					if( keggPathwayListContainingThisGeneId != null){
+					if(keggPathwayListContainingThisGeneId != null){
 
-						permutationNumberAllBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneOverlap(
+						permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(
 								Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(),
 								castedNode.getIntervalName(), castedNode.getIntervalNumber(),
 								castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(),
 								castedNode.getHigh(), keggPathwayListContainingThisGeneId));
 
-						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+						for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-							keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
+							keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
 							permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-							bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+							bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-							if( bufferedWriter == null){
+							if(bufferedWriter == null){
 
 								fileWriter = FileOperations.createFileWriter(
-										outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + permutationNumber + "_allBased_" + keggPathwayName + ".txt",
+										outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + permutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + permutationNumber + "_allBased_" + keggPathwayName + ".txt",
 										true);
-								bufferedWriter = new BufferedWriter( fileWriter);
-								allBasedKeggPathwayBufferedWriterHashMap.put( permutationNumberKeggPathwayName,
+								bufferedWriter = new BufferedWriter(fileWriter);
+								allBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName,
 										bufferedWriter);
 							}
 
-							if( permutationNumberAllBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+							if(permutationNumberAllBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 								permutationNumberAllBasedKeggPathway2OneorZeroMap.put(
 										permutationNumberKeggPathwayName, 1);
 							}
 
-							bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+							bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 							bufferedWriter.flush();
 
 						}// End of For: for all kegg pathways having this gene
@@ -9633,15 +9780,15 @@ public class IntervalTree {
 					} // End of If: keggPathWayListContainingThisGeneId is not
 						// null
 
-				}catch( IOException e){
-					if( GlanetRunner.shouldLog())logger.error( e.toString());
+				}catch(IOException e){
+					if(GlanetRunner.shouldLog())logger.error(e.toString());
 				}
 
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervals( outputFolder, permutationNumber, node.getLeft(), interval,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder, permutationNumber, node.getLeft(), interval,
 					chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap,
 					regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,
 					permutationNumberExonBasedKeggPathway2OneorZeroMap,
@@ -9652,8 +9799,8 @@ public class IntervalTree {
 					permutationNumberAllBasedKeggPathwayOverlapList, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervals( outputFolder, permutationNumber, node.getRight(), interval,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder, permutationNumber, node.getRight(), interval,
 					chromName, geneId2KeggPathwayMap, exonBasedKeggPathwayBufferedWriterHashMap,
 					regulationBasedKeggPathwayBufferedWriterHashMap, allBasedKeggPathwayBufferedWriterHashMap,
 					permutationNumberExonBasedKeggPathway2OneorZeroMap,
@@ -9667,7 +9814,7 @@ public class IntervalTree {
 
 	// NEW FUNCIONALITY
 	// with IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals( String outputFolder, int repeatNumber,
+	public void findAllOverlappingUcscRefSeqGenesIntervals(String outputFolder, int repeatNumber,
 			int permutationNumber, int NUMBER_OF_PERMUTATIONS, IntervalTreeNode node, Interval interval,
 			String chromName, Map<String, List<String>> geneId2KeggPathwayMap,
 			Map<String, BufferedWriter> exonBasedKeggPathwayBufferedWriterHashMap,
@@ -9686,45 +9833,45 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNode castedNode = null;
 
-		int repeatNumberReflectedPermutationNumber = ( ( repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber;
+		int repeatNumberReflectedPermutationNumber = ((repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			// There is overlap
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
 				try{
 
-					if( node instanceof UcscRefSeqGeneIntervalTreeNode){
-						castedNode = ( UcscRefSeqGeneIntervalTreeNode)node;
+					if(node instanceof UcscRefSeqGeneIntervalTreeNode){
+						castedNode = (UcscRefSeqGeneIntervalTreeNode)node;
 					}
 
-					keggPathwayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+					keggPathwayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
 					// write exon based results
-					if( castedNode.getIntervalName().isExon()){
-						if( keggPathwayListContainingThisGeneId != null){
-							for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+					if(castedNode.getIntervalName().isExon()){
+						if(keggPathwayListContainingThisGeneId != null){
+							for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-								keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
-								permutationNumberKeggPathwayName = Commons.PERMUTATION + ( ( ( repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + keggPathwayName;
+								keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
+								permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + keggPathwayName;
 
-								bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+								bufferedWriter = exonBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-								if( bufferedWriter == null){
+								if(bufferedWriter == null){
 
 									fileWriter = FileOperations.createFileWriter(
-											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_exonBased_" + keggPathwayName + ".txt",
+											outputFolder + Commons.ANNOTATE_PERMUTATIONS_FOR_EXON_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_exonBased_" + keggPathwayName + ".txt",
 											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
-									exonBasedKeggPathwayBufferedWriterHashMap.put( permutationNumberKeggPathwayName,
+									bufferedWriter = new BufferedWriter(fileWriter);
+									exonBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName,
 											bufferedWriter);
 								}
 
-								if( permutationNumberExonBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+								if(permutationNumberExonBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 									permutationNumberExonBasedKeggPathway2OneorZeroMap.put(
 											permutationNumberKeggPathwayName, 1);
 								}
 
-								bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+								bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 								bufferedWriter.flush();
 
 							}// End of For: for all keggpathways having this
@@ -9736,32 +9883,32 @@ public class IntervalTree {
 
 					// write regulation based results
 					// Regulation Based kegg pathway analysis
-					if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+					if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-						if( keggPathwayListContainingThisGeneId != null){
-							for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+						if(keggPathwayListContainingThisGeneId != null){
+							for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-								keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
-								permutationNumberKeggPathwayName = Commons.PERMUTATION + ( ( ( repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + keggPathwayName;
+								keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
+								permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + keggPathwayName;
 
-								bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+								bufferedWriter = regulationBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-								if( bufferedWriter == null){
+								if(bufferedWriter == null){
 
 									fileWriter = FileOperations.createFileWriter(
-											Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_regulationBased_" + keggPathwayName + ".txt",
+											Commons.ANNOTATE_PERMUTATIONS_FOR_REGULATION_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_regulationBased_" + keggPathwayName + ".txt",
 											true);
-									bufferedWriter = new BufferedWriter( fileWriter);
+									bufferedWriter = new BufferedWriter(fileWriter);
 									regulationBasedKeggPathwayBufferedWriterHashMap.put(
 											permutationNumberKeggPathwayName, bufferedWriter);
 								}
 
-								if( permutationNumberRegulationBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+								if(permutationNumberRegulationBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 									permutationNumberRegulationBasedKeggPathway2OneorZeroMap.put(
 											permutationNumberKeggPathwayName, 1);
 								}
 
-								bufferedWriter.write( "Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));
+								bufferedWriter.write("Searched for" + "\t" + chromName + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + "ucscRefSeqGene" + "\t" + castedNode.getChromName() + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + castedNode.getRefSeqGeneName() + "\t" + castedNode.getIntervalName() + "\t" + castedNode.getGeneHugoSymbol() + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));
 								bufferedWriter.flush();
 
 							}// End of For: for all kegg pathways having this
@@ -9772,25 +9919,25 @@ public class IntervalTree {
 						// Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
 
 					// write all results
-					if( keggPathwayListContainingThisGeneId != null){
-						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+					if(keggPathwayListContainingThisGeneId != null){
+						for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-							keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
-							permutationNumberKeggPathwayName = Commons.PERMUTATION + ( ( ( repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + keggPathwayName;
+							keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
+							permutationNumberKeggPathwayName = Commons.PERMUTATION + (((repeatNumber - 1) * NUMBER_OF_PERMUTATIONS) + permutationNumber) + "_" + keggPathwayName;
 
-							bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get( permutationNumberKeggPathwayName);
+							bufferedWriter = allBasedKeggPathwayBufferedWriterHashMap.get(permutationNumberKeggPathwayName);
 
-							if( bufferedWriter == null){
+							if(bufferedWriter == null){
 
 								fileWriter = FileOperations.createFileWriter(
-										Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + System.getProperty( "file.separator") + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_allBased_" + keggPathwayName + ".txt",
+										Commons.ANNOTATE_PERMUTATIONS_FOR_ALL_BASED_KEGG_PATHWAY_ANALYSIS + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + System.getProperty("file.separator") + Commons.PERMUTATION + repeatNumberReflectedPermutationNumber + "_allBased_" + keggPathwayName + ".txt",
 										true);
-								bufferedWriter = new BufferedWriter( fileWriter);
-								allBasedKeggPathwayBufferedWriterHashMap.put( permutationNumberKeggPathwayName,
+								bufferedWriter = new BufferedWriter(fileWriter);
+								allBasedKeggPathwayBufferedWriterHashMap.put(permutationNumberKeggPathwayName,
 										bufferedWriter);
 							}
 
-							if( permutationNumberAllBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+							if(permutationNumberAllBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 								permutationNumberAllBasedKeggPathway2OneorZeroMap.put(
 										permutationNumberKeggPathwayName, 1);
 							}
@@ -9800,15 +9947,15 @@ public class IntervalTree {
 					} // End of If: keggPathWayListContainingThisGeneId is not
 						// null
 
-				}catch( IOException e){
-					if( GlanetRunner.shouldLog())logger.error( e.toString());
+				}catch(IOException e){
+					if(GlanetRunner.shouldLog())logger.error(e.toString());
 				}
 
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervals( outputFolder, repeatNumber, permutationNumber,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder, repeatNumber, permutationNumber,
 					NUMBER_OF_PERMUTATIONS, node.getLeft(), interval, chromName, geneId2KeggPathwayMap,
 					exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap,
 					allBasedKeggPathwayBufferedWriterHashMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,
@@ -9816,8 +9963,8 @@ public class IntervalTree {
 					permutationNumberAllBasedKeggPathway2OneorZeroMap, type);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervals( outputFolder, repeatNumber, permutationNumber,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervals(outputFolder, repeatNumber, permutationNumber,
 					NUMBER_OF_PERMUTATIONS, node.getRight(), interval, chromName, geneId2KeggPathwayMap,
 					exonBasedKeggPathwayBufferedWriterHashMap, regulationBasedKeggPathwayBufferedWriterHashMap,
 					allBasedKeggPathwayBufferedWriterHashMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,
@@ -9850,23 +9997,23 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			
 			// There is overlap
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
-					castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 				}
 
-				keggPathwayListContainingThisGeneId = geneId2KeggPathwayNumbersMap.get( castedNode.getGeneEntrezId());
+				keggPathwayListContainingThisGeneId = geneId2KeggPathwayNumbersMap.get(castedNode.getGeneEntrezId());
 
 				// write EXON based results
-				if( castedNode.getIntervalName().isExon()){
+				if(castedNode.getIntervalName().isExon()){
 					
-					if( keggPathwayListContainingThisGeneId != null){
+					if(keggPathwayListContainingThisGeneId != null){
 						
-						exonBasedKEGGPathwayOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
+						exonBasedKEGGPathwayOverlapList.add(new UcscRefSeqGeneOverlapWithNumbers(
 								castedNode.getRefSeqGeneNumber(), 
 								castedNode.getGeneHugoSymbolNumber(),
 								castedNode.getGeneEntrezId(), 
@@ -9877,11 +10024,11 @@ public class IntervalTree {
 								castedNode.getHigh()
 								));
 
-						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+						for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
 							keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
 							
-							if( !(exonBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+							if(!(exonBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
 								exonBasedKEGGPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
 							}
 
@@ -9893,13 +10040,13 @@ public class IntervalTree {
 
 				// write REGULATION based results
 				// Regulation Based kegg pathway analysis
-				if( castedNode.getIntervalName().isIntron() || 
+				if(castedNode.getIntervalName().isIntron() || 
 						castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
 						castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-					if( keggPathwayListContainingThisGeneId != null){
+					if(keggPathwayListContainingThisGeneId != null){
 
-						regulationBasedKEGGPathwayOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
+						regulationBasedKEGGPathwayOverlapList.add(new UcscRefSeqGeneOverlapWithNumbers(
 								castedNode.getRefSeqGeneNumber(), 
 								castedNode.getGeneHugoSymbolNumber(),
 								castedNode.getGeneEntrezId(), 
@@ -9909,11 +10056,11 @@ public class IntervalTree {
 								castedNode.getLow(), 
 								castedNode.getHigh()));
 
-						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+						for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-							keggPathwayNumber = keggPathwayListContainingThisGeneId.get( i);
+							keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
 							
-							if( !(regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+							if(!(regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
 								regulationBasedKEGGPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
 							}
 
@@ -9924,9 +10071,9 @@ public class IntervalTree {
 				}// End of IF: Regulation Based kegg pathway Analysis, Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
 
 				// write ALL results
-				if( keggPathwayListContainingThisGeneId != null){
+				if(keggPathwayListContainingThisGeneId != null){
 
-					allBasedKEGGPathwayOverlapList.add( new UcscRefSeqGeneOverlapWithNumbers(
+					allBasedKEGGPathwayOverlapList.add(new UcscRefSeqGeneOverlapWithNumbers(
 							castedNode.getRefSeqGeneNumber(), 
 							castedNode.getGeneHugoSymbolNumber(),
 							castedNode.getGeneEntrezId(), 
@@ -9936,11 +10083,11 @@ public class IntervalTree {
 							castedNode.getLow(), 
 							castedNode.getHigh()));
 
-					for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+					for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-						keggPathwayNumber = keggPathwayListContainingThisGeneId.get( i);
+						keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
 						
-						if( !(allBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
+						if(!(allBasedKEGGPathwayNumber2PermutationOneorZeroMap.containsKey(keggPathwayNumber))){
 							allBasedKEGGPathwayNumber2PermutationOneorZeroMap.put(keggPathwayNumber, Commons.BYTE_1);
 						}
 
@@ -9951,7 +10098,7 @@ public class IntervalTree {
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					node.getLeft(),
 					interval, 
@@ -9967,8 +10114,8 @@ public class IntervalTree {
 					overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers( 
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					node.getRight(),
 					interval, 
 					chromName, 
@@ -10021,21 +10168,21 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			// There is overlap
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
-					castedNode = ( UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+					castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 				}
 
-				keggPathwayListContainingThisGeneId = geneId2KeggPathwayNumbersMap.get( castedNode.getGeneEntrezId());
+				keggPathwayListContainingThisGeneId = geneId2KeggPathwayNumbersMap.get(castedNode.getGeneEntrezId());
 
 				// write EXON based results
-				if( castedNode.getIntervalName().isExon()){
-					if( keggPathwayListContainingThisGeneId != null){
+				if(castedNode.getIntervalName().isExon()){
+					if(keggPathwayListContainingThisGeneId != null){
 
-						permutationNumberExonBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneNumberOverlap(
+						permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneNumberOverlap(
 								permutationNumber, 
 								castedNode.getRefSeqGeneNumber(), 
 								castedNode.getIntervalName(),
@@ -10046,7 +10193,7 @@ public class IntervalTree {
 								castedNode.getHigh(),
 								keggPathwayListContainingThisGeneId));
 
-						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+						for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
 							keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
 							permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
@@ -10054,7 +10201,7 @@ public class IntervalTree {
 									keggPathwayNumber,
 									GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-							if( !( permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+							if(!(permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 								permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap.put(permutationNumberKeggPathwayNumber, 1);
 							}
 
@@ -10064,25 +10211,25 @@ public class IntervalTree {
 
 				// write REGULATION based results
 				// Regulation Based kegg pathway analysis
-				if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+				if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-					if( keggPathwayListContainingThisGeneId != null){
+					if(keggPathwayListContainingThisGeneId != null){
 
-						permutationNumberRegulationBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneNumberOverlap(
+						permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneNumberOverlap(
 								permutationNumber, castedNode.getRefSeqGeneNumber(), castedNode.getIntervalName(),
 								castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbolNumber(),
 								castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),
 								keggPathwayListContainingThisGeneId));
 
-						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+						for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-							keggPathwayNumber = keggPathwayListContainingThisGeneId.get( i);
+							keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
 							permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 									permutationNumber,
 									keggPathwayNumber,
 									GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-							if( !( permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+							if(!(permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 								permutationNumberRegulationBasedKeggPathwayNumber2OneorZeroMap.put(
 										permutationNumberKeggPathwayNumber, 1);
 							}
@@ -10095,23 +10242,23 @@ public class IntervalTree {
 					// Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
 
 				// write ALL results
-				if( keggPathwayListContainingThisGeneId != null){
+				if(keggPathwayListContainingThisGeneId != null){
 
-					permutationNumberAllBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneNumberOverlap(
+					permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneNumberOverlap(
 							permutationNumber, castedNode.getRefSeqGeneNumber(), castedNode.getIntervalName(),
 							castedNode.getIntervalNumber(), castedNode.getGeneHugoSymbolNumber(),
 							castedNode.getGeneEntrezId(), castedNode.getLow(), castedNode.getHigh(),
 							keggPathwayListContainingThisGeneId));
 
-					for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+					for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-						keggPathwayNumber = keggPathwayListContainingThisGeneId.get( i);
+						keggPathwayNumber = keggPathwayListContainingThisGeneId.get(i);
 						permutationNumberKeggPathwayNumber = generatePermutationNumberCellLineNumberorGeneSetNumber(
 								permutationNumber,
 								keggPathwayNumber,
 								GeneratedMixedNumberDescriptionOrderLength.INT_6DIGITS_PERMUTATIONNUMBER_4DIGITS_KEGGPATHWAYNUMBER);
 
-						if( !( permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap.containsKey( permutationNumberKeggPathwayNumber))){
+						if(!(permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap.containsKey(permutationNumberKeggPathwayNumber))){
 							permutationNumberAllBasedKeggPathwayNumber2OneorZeroMap.put(
 									permutationNumberKeggPathwayNumber, 1);
 						}
@@ -10123,8 +10270,8 @@ public class IntervalTree {
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers( 
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					permutationNumber, node.getLeft(),
 					interval, chromName, geneId2KeggPathwayNumbersMap,
 					permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap,
@@ -10135,8 +10282,8 @@ public class IntervalTree {
 					permutationNumberAllBasedKeggPathwayOverlapList, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers( 
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervalsWithoutIOWithNumbers(
 					permutationNumber, node.getRight(),
 					interval, chromName, geneId2KeggPathwayNumbersMap,
 					permutationNumberExonBasedKeggPathwayNumber2OneorZeroMap,
@@ -10165,7 +10312,7 @@ public class IntervalTree {
 	// For each search input line, each kegg pathway will have a value of 1 or 0
 	// These 1 or 0's will be accumulated in keggPathway2KMap
 	// without IO
-	public void findAllOverlappingUcscRefSeqGenesIntervals( int permutationNumber, IntervalTreeNode node,
+	public void findAllOverlappingUcscRefSeqGenesIntervals(int permutationNumber, IntervalTreeNode node,
 			Interval interval, ChromosomeName chromName, Map<String, List<String>> geneId2KeggPathwayMap,
 			Map<String, Integer> permutationNumberExonBasedKeggPathway2OneorZeroMap,
 			Map<String, Integer> permutationNumberRegulationBasedKeggPathway2OneorZeroMap,
@@ -10181,32 +10328,32 @@ public class IntervalTree {
 
 		UcscRefSeqGeneIntervalTreeNode castedNode = null;
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			// There is overlap
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNode){
-					castedNode = ( UcscRefSeqGeneIntervalTreeNode)node;
+				if(node instanceof UcscRefSeqGeneIntervalTreeNode){
+					castedNode = (UcscRefSeqGeneIntervalTreeNode)node;
 				}
 
-				keggPathwayListContainingThisGeneId = geneId2KeggPathwayMap.get( castedNode.getGeneEntrezId().toString());
+				keggPathwayListContainingThisGeneId = geneId2KeggPathwayMap.get(castedNode.getGeneEntrezId().toString());
 
 				// write exon based results
-				if( castedNode.getIntervalName().isExon()){
-					if( keggPathwayListContainingThisGeneId != null){
+				if(castedNode.getIntervalName().isExon()){
+					if(keggPathwayListContainingThisGeneId != null){
 
-						permutationNumberExonBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneOverlap(
+						permutationNumberExonBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(
 								Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(),
 								castedNode.getIntervalName(), castedNode.getIntervalNumber(),
 								castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(),
 								castedNode.getHigh(), keggPathwayListContainingThisGeneId));
 
-						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+						for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-							keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
+							keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
 							permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-							if( permutationNumberExonBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+							if(permutationNumberExonBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 								permutationNumberExonBasedKeggPathway2OneorZeroMap.put(
 										permutationNumberKeggPathwayName, 1);
 							}
@@ -10220,22 +10367,22 @@ public class IntervalTree {
 
 				// write regulation based results
 				// Regulation Based kegg pathway analysis
-				if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
+				if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-					if( keggPathwayListContainingThisGeneId != null){
+					if(keggPathwayListContainingThisGeneId != null){
 
-						permutationNumberRegulationBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneOverlap(
+						permutationNumberRegulationBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(
 								Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(),
 								castedNode.getIntervalName(), castedNode.getIntervalNumber(),
 								castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(),
 								castedNode.getHigh(), keggPathwayListContainingThisGeneId));
 
-						for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+						for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-							keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
+							keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
 							permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-							if( permutationNumberRegulationBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
+							if(permutationNumberRegulationBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
 								permutationNumberRegulationBasedKeggPathway2OneorZeroMap.put(
 										permutationNumberKeggPathwayName, 1);
 							}
@@ -10248,21 +10395,21 @@ public class IntervalTree {
 					// Overlapped node is an intron, 5P1, 5P2, 3P1, 3P2
 
 				// write all results
-				if( keggPathwayListContainingThisGeneId != null){
+				if(keggPathwayListContainingThisGeneId != null){
 
-					permutationNumberAllBasedKeggPathwayOverlapList.add( new PermutationNumberUcscRefSeqGeneOverlap(
+					permutationNumberAllBasedKeggPathwayOverlapList.add(new PermutationNumberUcscRefSeqGeneOverlap(
 							Commons.PERMUTATION + permutationNumber, castedNode.getRefSeqGeneName(),
 							castedNode.getIntervalName(), castedNode.getIntervalNumber(),
 							castedNode.getGeneHugoSymbol(), castedNode.getGeneEntrezId(), castedNode.getLow(),
 							castedNode.getHigh(), keggPathwayListContainingThisGeneId));
 
-					for( int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
+					for(int i = 0; i < keggPathwayListContainingThisGeneId.size(); i++){
 
-						keggPathwayName = keggPathwayListContainingThisGeneId.get( i);
+						keggPathwayName = keggPathwayListContainingThisGeneId.get(i);
 						permutationNumberKeggPathwayName = Commons.PERMUTATION + permutationNumber + "_" + keggPathwayName;
 
-						if( permutationNumberAllBasedKeggPathway2OneorZeroMap.get( permutationNumberKeggPathwayName) == null){
-							permutationNumberAllBasedKeggPathway2OneorZeroMap.put( permutationNumberKeggPathwayName, 1);
+						if(permutationNumberAllBasedKeggPathway2OneorZeroMap.get(permutationNumberKeggPathwayName) == null){
+							permutationNumberAllBasedKeggPathway2OneorZeroMap.put(permutationNumberKeggPathwayName, 1);
 						}
 
 					}// End of For: for all kegg pathways having this gene in
@@ -10272,8 +10419,8 @@ public class IntervalTree {
 			}// End of if: there is overlap
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
-			findAllOverlappingUcscRefSeqGenesIntervals( permutationNumber, node.getLeft(), interval, chromName,
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
+			findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber, node.getLeft(), interval, chromName,
 					geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,
 					permutationNumberRegulationBasedKeggPathway2OneorZeroMap,
 					permutationNumberAllBasedKeggPathway2OneorZeroMap, type,
@@ -10282,8 +10429,8 @@ public class IntervalTree {
 					permutationNumberAllBasedKeggPathwayOverlapList, overlapDefinition);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
-			findAllOverlappingUcscRefSeqGenesIntervals( permutationNumber, node.getRight(), interval, chromName,
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
+			findAllOverlappingUcscRefSeqGenesIntervals(permutationNumber, node.getRight(), interval, chromName,
 					geneId2KeggPathwayMap, permutationNumberExonBasedKeggPathway2OneorZeroMap,
 					permutationNumberRegulationBasedKeggPathway2OneorZeroMap,
 					permutationNumberAllBasedKeggPathway2OneorZeroMap, type,
@@ -10296,7 +10443,7 @@ public class IntervalTree {
 
 	// NEW FUNCIONALITY
 
-	public boolean contains( List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList,
+	public boolean contains(List<UcscRefSeqGeneIntervalTreeNodeWithNumbers> overlapList,
 			UcscRefSeqGeneIntervalTreeNodeWithNumbers overlapNode) {
 
 		// NM_022089 3P2 0 ATP13A2 23400
@@ -10308,19 +10455,19 @@ public class IntervalTree {
 		// ArrayList<Overlap> overlapList = new
 		// ArrayList<Overlap>(geneId2OverlapMap.valueCollection());
 
-		for( int i = 0; i < overlapList.size(); i++){
+		for(int i = 0; i < overlapList.size(); i++){
 
-			switch( overlapNode.getIntervalName()){
+			switch(overlapNode.getIntervalName()){
 
 			case EXON:
 			case INTRON:
-				if( overlapList.get( i).getIntervalName().equals( overlapNode.getIntervalName()) && overlapList.get( i).getGeneHugoSymbolNumber() == overlapNode.getGeneHugoSymbolNumber() && overlapList.get(
+				if(overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) && overlapList.get(i).getGeneHugoSymbolNumber() == overlapNode.getGeneHugoSymbolNumber() && overlapList.get(
 						i).getGeneEntrezId() == overlapNode.getGeneEntrezId()){
 
-					if( overlapList.get( i).getIntervalNumber() == overlapNode.getIntervalNumber()){
+					if(overlapList.get(i).getIntervalNumber() == overlapNode.getIntervalNumber()){
 						exists = true;
-					}else if( overlapList.get( i).getIntervalNumber() != overlapNode.getIntervalNumber() && overlapList.get(
-							i).getLow() == overlapNode.getLow() && overlapList.get( i).getHigh() == overlapNode.getHigh()){
+					}else if(overlapList.get(i).getIntervalNumber() != overlapNode.getIntervalNumber() && overlapList.get(
+							i).getLow() == overlapNode.getLow() && overlapList.get(i).getHigh() == overlapNode.getHigh()){
 						exists = true;
 					}
 
@@ -10334,7 +10481,7 @@ public class IntervalTree {
 			case THREE_P_ONE:
 			case THREE_P_TWO:
 			case THREE_D:
-				if( overlapList.get( i).getIntervalName().equals( overlapNode.getIntervalName()) && overlapList.get( i).getGeneHugoSymbolNumber() == overlapNode.getGeneHugoSymbolNumber() && overlapList.get(
+				if(overlapList.get(i).getIntervalName().equals(overlapNode.getIntervalName()) && overlapList.get(i).getGeneHugoSymbolNumber() == overlapNode.getGeneHugoSymbolNumber() && overlapList.get(
 						i).getGeneEntrezId() == overlapNode.getGeneEntrezId()){
 
 					exists = true;
@@ -10345,7 +10492,7 @@ public class IntervalTree {
 
 			}// End of SWITCH
 
-			if( exists){
+			if(exists){
 
 				break;
 
@@ -10374,65 +10521,65 @@ public class IntervalTree {
 		overlapInformation = givenIntervalNumber2OverlapInformationMap.get(givenIntervalNumber);
 		
 		// For this given interval, an overlap is put for the first time.
-		if( overlapInformation == null){
+		if(overlapInformation == null){
 
 			overlapInformation = new OverlapInformation();
 
-			switch( castedNode.getIntervalName()){
+			switch(castedNode.getIntervalName()){
 
 				case EXON:
 					overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-					overlapList.add( castedNode);
-					overlapInformation.getGeneId2ExonOverlapListMap().put( castedNode.geneEntrezId, overlapList);
+					overlapList.add(castedNode);
+					overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId, overlapList);
 	
 					break;
 	
 				case INTRON:
 					overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-					overlapList.add( castedNode);
-					overlapInformation.getGeneId2IntronOverlapListMap().put( castedNode.geneEntrezId,overlapList);
+					overlapList.add(castedNode);
+					overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					break;
 	
 				case FIVE_P_ONE:
 					overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-					overlapList.add( castedNode);
-					overlapInformation.getGeneId2Fivep1OverlapListMap().put( castedNode.geneEntrezId,overlapList);
+					overlapList.add(castedNode);
+					overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					break;
 	
 				case FIVE_P_TWO:
 					overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-					overlapList.add( castedNode);
-					overlapInformation.getGeneId2Fivep2OverlapListMap().put( castedNode.geneEntrezId,overlapList);
+					overlapList.add(castedNode);
+					overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					break;
 	
 				case FIVE_D:
 					overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-					overlapList.add( castedNode);
-					overlapInformation.getGeneId2FivedOverlapListMap().put( castedNode.geneEntrezId,overlapList);
+					overlapList.add(castedNode);
+					overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					break;
 	
 				case THREE_P_ONE:
 					overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-					overlapList.add( castedNode);
-					overlapInformation.getGeneId2Threep1OverlapListMap().put( castedNode.geneEntrezId,overlapList);
+					overlapList.add(castedNode);
+					overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					break;
 	
 				case THREE_P_TWO:
 					overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-					overlapList.add( castedNode);
-					overlapInformation.getGeneId2Threep2OverlapListMap().put( castedNode.geneEntrezId,overlapList);
+					overlapList.add(castedNode);
+					overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					break;
 	
 				case THREE_D:
 					overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-					overlapList.add( castedNode);
-					overlapInformation.getGeneId2ThreedOverlapListMap().put( castedNode.geneEntrezId,overlapList);
+					overlapList.add(castedNode);
+					overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					break;
 
@@ -10446,19 +10593,19 @@ public class IntervalTree {
 		// Check whether we have to put it or not.
 		else{
 
-			switch( castedNode.getIntervalName()){
+			switch(castedNode.getIntervalName()){
 
 				case EXON:
 					overlapList = overlapInformation.getGeneId2ExonOverlapListMap().get(castedNode.getGeneEntrezId());
 	
-					if( overlapList == null){
+					if(overlapList == null){
 						overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-						overlapList.add( castedNode);
-						overlapInformation.getGeneId2ExonOverlapListMap().put( castedNode.geneEntrezId,overlapList);
+						overlapList.add(castedNode);
+						overlapInformation.getGeneId2ExonOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					}else{
-						if( !contains( overlapList, castedNode)){
-							overlapList.add( castedNode);
+						if(!contains(overlapList, castedNode)){
+							overlapList.add(castedNode);
 	
 						}
 					}
@@ -10468,15 +10615,15 @@ public class IntervalTree {
 					overlapList = overlapInformation.getGeneId2IntronOverlapListMap().get(
 							castedNode.getGeneEntrezId());
 	
-					if( overlapList == null){
+					if(overlapList == null){
 						overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-						overlapList.add( castedNode);
-						overlapInformation.getGeneId2IntronOverlapListMap().put( castedNode.geneEntrezId,
+						overlapList.add(castedNode);
+						overlapInformation.getGeneId2IntronOverlapListMap().put(castedNode.geneEntrezId,
 								overlapList);
 	
 					}else{
-						if( !contains( overlapList, castedNode)){
-							overlapList.add( castedNode);
+						if(!contains(overlapList, castedNode)){
+							overlapList.add(castedNode);
 	
 						}
 					}
@@ -10486,15 +10633,15 @@ public class IntervalTree {
 					overlapList = overlapInformation.getGeneId2Fivep1OverlapListMap().get(
 							castedNode.getGeneEntrezId());
 	
-					if( overlapList == null){
+					if(overlapList == null){
 						overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-						overlapList.add( castedNode);
-						overlapInformation.getGeneId2Fivep1OverlapListMap().put( castedNode.geneEntrezId,
+						overlapList.add(castedNode);
+						overlapInformation.getGeneId2Fivep1OverlapListMap().put(castedNode.geneEntrezId,
 								overlapList);
 	
 					}else{
-						if( !contains( overlapList, castedNode)){
-							overlapList.add( castedNode);
+						if(!contains(overlapList, castedNode)){
+							overlapList.add(castedNode);
 	
 						}
 					}
@@ -10504,15 +10651,15 @@ public class IntervalTree {
 					overlapList = overlapInformation.getGeneId2Fivep2OverlapListMap().get(
 							castedNode.getGeneEntrezId());
 	
-					if( overlapList == null){
+					if(overlapList == null){
 						overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-						overlapList.add( castedNode);
-						overlapInformation.getGeneId2Fivep2OverlapListMap().put( castedNode.geneEntrezId,
+						overlapList.add(castedNode);
+						overlapInformation.getGeneId2Fivep2OverlapListMap().put(castedNode.geneEntrezId,
 								overlapList);
 	
 					}else{
-						if( !contains( overlapList, castedNode)){
-							overlapList.add( castedNode);
+						if(!contains(overlapList, castedNode)){
+							overlapList.add(castedNode);
 	
 						}
 					}	
@@ -10522,15 +10669,15 @@ public class IntervalTree {
 					overlapList = overlapInformation.getGeneId2FivedOverlapListMap().get(
 							castedNode.getGeneEntrezId());
 	
-					if( overlapList == null){
+					if(overlapList == null){
 						overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-						overlapList.add( castedNode);
-						overlapInformation.getGeneId2FivedOverlapListMap().put( castedNode.geneEntrezId,
+						overlapList.add(castedNode);
+						overlapInformation.getGeneId2FivedOverlapListMap().put(castedNode.geneEntrezId,
 								overlapList);
 	
 					}else{
-						if( !contains( overlapList, castedNode)){
-							overlapList.add( castedNode);
+						if(!contains(overlapList, castedNode)){
+							overlapList.add(castedNode);
 	
 						}
 					}	
@@ -10540,14 +10687,14 @@ public class IntervalTree {
 					overlapList = overlapInformation.getGeneId2Threep1OverlapListMap().get(
 							castedNode.getGeneEntrezId());
 	
-					if( overlapList == null){
+					if(overlapList == null){
 						overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-						overlapList.add( castedNode);
-						overlapInformation.getGeneId2Threep1OverlapListMap().put( castedNode.geneEntrezId,overlapList);
+						overlapList.add(castedNode);
+						overlapInformation.getGeneId2Threep1OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					}else{
-						if( !contains( overlapList, castedNode)){
-							overlapList.add( castedNode);
+						if(!contains(overlapList, castedNode)){
+							overlapList.add(castedNode);
 	
 						}
 					}	
@@ -10556,14 +10703,14 @@ public class IntervalTree {
 				case THREE_P_TWO:
 					overlapList = overlapInformation.getGeneId2Threep2OverlapListMap().get(castedNode.getGeneEntrezId());
 	
-					if( overlapList == null){
+					if(overlapList == null){
 						overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-						overlapList.add( castedNode);
-						overlapInformation.getGeneId2Threep2OverlapListMap().put( castedNode.geneEntrezId,overlapList);
+						overlapList.add(castedNode);
+						overlapInformation.getGeneId2Threep2OverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					}else{
-						if( !contains( overlapList, castedNode)){
-							overlapList.add( castedNode);
+						if(!contains(overlapList, castedNode)){
+							overlapList.add(castedNode);
 	
 						}
 					}	
@@ -10572,14 +10719,14 @@ public class IntervalTree {
 				case THREE_D:
 					overlapList = overlapInformation.getGeneId2ThreedOverlapListMap().get(castedNode.getGeneEntrezId());
 	
-					if( overlapList == null){
+					if(overlapList == null){
 						overlapList = new ArrayList<UcscRefSeqGeneIntervalTreeNodeWithNumbers>();
-						overlapList.add( castedNode);
-						overlapInformation.getGeneId2ThreedOverlapListMap().put( castedNode.geneEntrezId,overlapList);
+						overlapList.add(castedNode);
+						overlapInformation.getGeneId2ThreedOverlapListMap().put(castedNode.geneEntrezId,overlapList);
 	
 					}else{
-						if( !contains( overlapList, castedNode)){
-							overlapList.add( castedNode);
+						if(!contains(overlapList, castedNode)){
+							overlapList.add(castedNode);
 	
 						}
 					}
@@ -10600,7 +10747,7 @@ public class IntervalTree {
 	// Modified 25 April 2016
 	// Annotation EOO
 	// It is called from Genes, KEGGPathway, UDGS, TFKEGG, TFCellLineKEGG and BOTH (TFKEGG or TFCellLineKEGG)
-	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers( 
+	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 			String outputFolder,
 			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGeneBufferedWriter, 
@@ -10638,18 +10785,18 @@ public class IntervalTree {
 		int geneEntrezId = Integer.MIN_VALUE;
 		
 
-		if( Commons.NCBI_GENE_ID.equals( type)){
+		if(Commons.NCBI_GENE_ID.equals(type)){
 			
-			if( overlaps( node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
+			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh(), overlapDefinition)){
 
-				if( node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
+				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
 					castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 				}
 				
 				//24 April 2016 starts
 				geneEntrezId = castedNode.getGeneEntrezId();
 				
-				if( !geneEntrezID2OneorZeroMap.containsKey(geneEntrezId)){
+				if(!geneEntrezID2OneorZeroMap.containsKey(geneEntrezId)){
 					geneEntrezID2OneorZeroMap.put(geneEntrezId, Commons.BYTE_1);
 				}
 
@@ -10660,7 +10807,7 @@ public class IntervalTree {
 					
 					//Write to Hg19 RefSeqGene File
 					if (hg19RefSeqGeneBufferedWriter!=null){
-						hg19RefSeqGeneBufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString( castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get( castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get( castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty( "line.separator"));						
+						hg19RefSeqGeneBufferedWriter.write(chromName.convertEnumtoString() + "\t" + interval.getLow() + "\t" + interval.getHigh() + "\t" + ChromosomeName.convertEnumtoString(castedNode.getChromName()) + "\t" + castedNode.getLow() + "\t" + castedNode.getHigh() + "\t" + refSeqGeneNumber2RefSeqGeneNameMap.get(castedNode.getRefSeqGeneNumber()) + "\t" + castedNode.getIntervalName().convertEnumtoString() + "\t" + castedNode.getIntervalNumber() + "\t" + geneHugoSymbolNumber2GeneHugoSymbolNameMap.get(castedNode.getGeneHugoSymbolNumber()) + "\t" + castedNode.getGeneEntrezId() + System.getProperty("line.separator"));						
 					}
 
 					writeOverlapsFoundInAnnotation(
@@ -10682,6 +10829,7 @@ public class IntervalTree {
 					switch(geneSetType){
 					
 						case KEGGPATHWAY:
+						case GENE_ONTOLOGY_TERMS:	
 						case USERDEFINEDGENESET:
 							
 							geneSetNumberListContainingThisGeneId = geneId2ListofGeneSetNumberMap.get(castedNode.getGeneEntrezId());
@@ -10697,7 +10845,7 @@ public class IntervalTree {
 									//But not null when called for Annotation EOO is done for TFKEGG and TFCellLineKEGG
 									if (exonBasedGeneSetOverlapList!=null){
 										
-										exonBasedGeneSetOverlapList.add( 
+										exonBasedGeneSetOverlapList.add(
 											new UcscRefSeqGeneOverlapWithNumbers(
 												castedNode.getRefSeqGeneNumber(), 
 												castedNode.getGeneHugoSymbolNumber(),
@@ -10710,7 +10858,7 @@ public class IntervalTree {
 										
 									}//End of IF
 									
-									for( TIntIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();){
+									for(TIntIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();){
 										
 										geneSetNumber = it.next();
 																			
@@ -10731,7 +10879,7 @@ public class IntervalTree {
 												exonBasedGeneSetNumber2HeaderWrittenMap);
 
 										/*******************************************************************/
-										if( !exonBasedGeneSet2OneorZeroMap.containsKey(geneSetNumber)){
+										if(!exonBasedGeneSet2OneorZeroMap.containsKey(geneSetNumber)){
 												exonBasedGeneSet2OneorZeroMap.put(geneSetNumber, Commons.BYTE_1);
 										}
 										/*******************************************************************/
@@ -10748,16 +10896,16 @@ public class IntervalTree {
 							/*******************************************************************/
 							/*********Write Regulation Based Gene Set results starts************/
 							/*******************************************************************/
-							if( castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
+							if(castedNode.getIntervalName().isIntron() || castedNode.getIntervalName().isFivePOne() || castedNode.getIntervalName().isFivePTwo() || 
 									castedNode.getIntervalName().isThreePOne() || castedNode.getIntervalName().isThreePTwo()){
 
-								if( geneSetNumberListContainingThisGeneId != null){
+								if(geneSetNumberListContainingThisGeneId != null){
 
 									
 									//It will be null when called for Annotation EOO Gene or GeneSet
 									if (regulationBasedGeneSetOverlapList!=null){
 										
-										regulationBasedGeneSetOverlapList.add( 
+										regulationBasedGeneSetOverlapList.add(
 												new UcscRefSeqGeneOverlapWithNumbers(
 														castedNode.getRefSeqGeneNumber(), 
 														castedNode.getGeneHugoSymbolNumber(),
@@ -10769,7 +10917,7 @@ public class IntervalTree {
 														castedNode.getHigh()));
 									}//End of IF
 									
-									for( TIntIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();){
+									for(TIntIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();){
 										
 										geneSetNumber = it.next();
 										
@@ -10791,7 +10939,7 @@ public class IntervalTree {
 
 
 										/*******************************************************************/
-										if( !regulationBasedGeneSet2OneorZeroMap.containsKey(geneSetNumber)){
+										if(!regulationBasedGeneSet2OneorZeroMap.containsKey(geneSetNumber)){
 											regulationBasedGeneSet2OneorZeroMap.put(geneSetNumber, Commons.BYTE_1);
 										}
 										/*******************************************************************/
@@ -10806,12 +10954,12 @@ public class IntervalTree {
 							/*******************************************************************/
 							/*********Write ALL Based Gene Set results starts*******************/
 							/*******************************************************************/
-							if( geneSetNumberListContainingThisGeneId != null){
+							if(geneSetNumberListContainingThisGeneId != null){
 
 								//It will be null when called for Annotation EOO Gene or GeneSet
 								if (allBasedGeneSetOverlapList!=null){
 									
-									allBasedGeneSetOverlapList.add( 
+									allBasedGeneSetOverlapList.add(
 											new UcscRefSeqGeneOverlapWithNumbers(
 													castedNode.getRefSeqGeneNumber(), 
 													castedNode.getGeneHugoSymbolNumber(),
@@ -10824,7 +10972,7 @@ public class IntervalTree {
 
 								}//End of IF
 
-								for( TIntIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();){
+								for(TIntIterator it = geneSetNumberListContainingThisGeneId.iterator(); it.hasNext();){
 									
 									geneSetNumber = it.next();
 									
@@ -10847,7 +10995,7 @@ public class IntervalTree {
 
 	
 									/*******************************************************************/
-									if( !allBasedGeneSet2OneorZeroMap.containsKey(geneSetNumber)){
+									if(!allBasedGeneSet2OneorZeroMap.containsKey(geneSetNumber)){
 										allBasedGeneSet2OneorZeroMap.put(geneSetNumber, Commons.BYTE_1);
 									}
 									/*******************************************************************/
@@ -10866,15 +11014,15 @@ public class IntervalTree {
 							
 					}//End of switch
 				
-				}catch( IOException e){
-					if( GlanetRunner.shouldLog())logger.error( e.toString());
+				}catch(IOException e){
+					if(GlanetRunner.shouldLog())logger.error(e.toString());
 				}
 				//24 April 2016 ends
 
 			}//End of IF overlaps
 		} // End of If: type is NCBI_GENE_ID
 
-		if( ( node.getLeft().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getLeft().getMax())){
+		if((node.getLeft().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getLeft().getMax())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
@@ -10905,7 +11053,7 @@ public class IntervalTree {
 					refSeqGeneNumber2RefSeqGeneNameMap);
 		}
 
-		if( ( node.getRight().getNodeName().isNotSentinel()) && ( interval.getLow() <= node.getRight().getMax()) && ( node.getLow() <= interval.getHigh())){
+		if((node.getRight().getNodeName().isNotSentinel()) && (interval.getLow() <= node.getRight().getMax()) && (node.getLow() <= interval.getHigh())){
 			findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 					outputFolder,
 					writeFoundOverlapsMode,
@@ -10941,123 +11089,123 @@ public class IntervalTree {
 
 
 
-	public void printOverlappingIntervalsList( List<IntervalTreeNode> list) {
+	public void printOverlappingIntervalsList(List<IntervalTreeNode> list) {
 
 		Iterator<IntervalTreeNode> itr = list.iterator();
 
-		while( itr.hasNext()){
-			IntervalTreeNode node = ( IntervalTreeNode)itr.next();
-			GlanetRunner.appendLog( node.getLow() + "\t" + node.getHigh());
+		while(itr.hasNext()){
+			IntervalTreeNode node = (IntervalTreeNode)itr.next();
+			GlanetRunner.appendLog(node.getLow() + "\t" + node.getHigh());
 
 		}
 	}
 
-	public static void printPath( Path path) {
+	public static void printPath(Path path) {
 
 		IntervalTreeNode node;
 		int numberofBlackNodes = 0;
 
-		GlanetRunner.appendLog( "One Path Starts");
+		GlanetRunner.appendLog("One Path Starts");
 
-		for( int i = 0; i < path.getNodeList().size(); i++){
-			node = path.getNodeList().get( i);
+		for(int i = 0; i < path.getNodeList().size(); i++){
+			node = path.getNodeList().get(i);
 
-			if( node.getColor() == Commons.BLACK)
+			if(node.getColor() == Commons.BLACK)
 				numberofBlackNodes++;
 
-			GlanetRunner.appendLog( "Node(" + node.getLow() + "," + node.getHigh() + ",Max: " + node.getMax() + ") Color: " + node.getColor() + " Name: " + node.getNodeName().convertEnumtoString());
+			GlanetRunner.appendLog("Node(" + node.getLow() + "," + node.getHigh() + ",Max: " + node.getMax() + ") Color: " + node.getColor() + " Name: " + node.getNodeName().convertEnumtoString());
 
 		}
 
-		GlanetRunner.appendLog( "--- Number of black nodes: " + numberofBlackNodes);
+		GlanetRunner.appendLog("--- Number of black nodes: " + numberofBlackNodes);
 
 	}
 
-	public static void findAllPathsFromRootToLeavesUsingDepthFirstSearch( IntervalTreeNode node,
+	public static void findAllPathsFromRootToLeavesUsingDepthFirstSearch(IntervalTreeNode node,
 			IntervalTreeProperties properties, Path path, List<Path> allPathsFromRootToLeaves) {
 
 		// Null node
-		if( node == null){
+		if(node == null){
 			return;
 		}
 		// SENTINEL or NOT_SENTINEL_NODE
 		else{
 			// SENTINEL NODE
-			if( node.getNodeName().isSentinel()){
+			if(node.getNodeName().isSentinel()){
 
-				if( node.getColor() != Commons.BLACK){
-					properties.setEverySentinelLeafIsBlack( false);
+				if(node.getColor() != Commons.BLACK){
+					properties.setEverySentinelLeafIsBlack(false);
 					return;
 				}
 
-				path.getNodeList().add( node);
+				path.getNodeList().add(node);
 
-				if( node.getColor() == Commons.BLACK){
-					path.setNumberofBlackNodes( path.getNumberofBlackNodes() + 1);
+				if(node.getColor() == Commons.BLACK){
+					path.setNumberofBlackNodes(path.getNumberofBlackNodes() + 1);
 				}
 
 				// A leaf has been reached
 				// Create a new Path object
 				// Since path instance changes rapidly during recursion
 
-				Path onePathFromRootToLeaf = new Path( path.getNumberofBlackNodes(), path.getNodeList());
+				Path onePathFromRootToLeaf = new Path(path.getNumberofBlackNodes(), path.getNodeList());
 				// printPath(onePathFromRootToLeaf);
-				allPathsFromRootToLeaves.add( onePathFromRootToLeaf);
+				allPathsFromRootToLeaves.add(onePathFromRootToLeaf);
 			}
 
 			// NOT SENTINEL NODE
-			else if( node.getNodeName().isNotSentinel()){
-				if( node.getColor() != Commons.RED && node.getColor() != Commons.BLACK){
-					properties.setEveryNodeIsEitherRedorBlack( false);
+			else if(node.getNodeName().isNotSentinel()){
+				if(node.getColor() != Commons.RED && node.getColor() != Commons.BLACK){
+					properties.setEveryNodeIsEitherRedorBlack(false);
 					return;
 				}
 
-				if( node.getColor() == Commons.RED){
-					if( node.getLeft().getColor() != Commons.BLACK && node.getRight().getColor() != Commons.BLACK){
-						properties.setEveryRedNodeHasBlackChildren( false);
+				if(node.getColor() == Commons.RED){
+					if(node.getLeft().getColor() != Commons.BLACK && node.getRight().getColor() != Commons.BLACK){
+						properties.setEveryRedNodeHasBlackChildren(false);
 						return;
 					}
 				}
 
-				if( node.getMax() != max( node)){
-					properties.setEveryNotSentinelNodeHasRightMaxValue( false);
+				if(node.getMax() != max(node)){
+					properties.setEveryNotSentinelNodeHasRightMaxValue(false);
 					return;
 
 				}
 
-				path.getNodeList().add( node);
+				path.getNodeList().add(node);
 
-				if( node.getColor() == Commons.BLACK){
-					path.setNumberofBlackNodes( path.getNumberofBlackNodes() + 1);
+				if(node.getColor() == Commons.BLACK){
+					path.setNumberofBlackNodes(path.getNumberofBlackNodes() + 1);
 				}
 
-				findAllPathsFromRootToLeavesUsingDepthFirstSearch( node.getLeft(), properties, path,
+				findAllPathsFromRootToLeavesUsingDepthFirstSearch(node.getLeft(), properties, path,
 						allPathsFromRootToLeaves);
-				findAllPathsFromRootToLeavesUsingDepthFirstSearch( node.getRight(), properties, path,
+				findAllPathsFromRootToLeavesUsingDepthFirstSearch(node.getRight(), properties, path,
 						allPathsFromRootToLeaves);
 
 			}
 		} // SENTINEL or NOT_SENTINEL node
 
-		path.getNodeList().remove( node);
+		path.getNodeList().remove(node);
 
-		if( node.getColor() == Commons.BLACK){
-			path.setNumberofBlackNodes( path.getNumberofBlackNodes() - 1);
+		if(node.getColor() == Commons.BLACK){
+			path.setNumberofBlackNodes(path.getNumberofBlackNodes() - 1);
 		}
 	}
 
-	public static void checkNumberofBlackNodesinAllPathsFromRootToLeaves( IntervalTreeProperties properties,
+	public static void checkNumberofBlackNodesinAllPathsFromRootToLeaves(IntervalTreeProperties properties,
 			List<Path> allPaths) {
 
 		int numberofBlackNodes = 0;
 
-		if( allPaths.size() > 0){
-			numberofBlackNodes = allPaths.get( 0).getNumberofBlackNodes();
+		if(allPaths.size() > 0){
+			numberofBlackNodes = allPaths.get(0).getNumberofBlackNodes();
 		}
 
-		for( int i = 1; i < allPaths.size(); i++){
-			if( numberofBlackNodes != allPaths.get( i).getNumberofBlackNodes()){
-				properties.setAllPathsfromRoottoLeavesHasSameNumberofBlackNodes( false);
+		for(int i = 1; i < allPaths.size(); i++){
+			if(numberofBlackNodes != allPaths.get(i).getNumberofBlackNodes()){
+				properties.setAllPathsfromRoottoLeavesHasSameNumberofBlackNodes(false);
 				break;
 			}
 		}
@@ -11068,14 +11216,14 @@ public class IntervalTree {
 	 * properties hold or not
 	 */
 
-	public static void checkProperties( IntervalTree tree, IntervalTreeProperties properties) {
+	public static void checkProperties(IntervalTree tree, IntervalTreeProperties properties) {
 
 		Path path = new Path();
 		List<Path> allPathsFromRoottoLeaves = new ArrayList<Path>();
 
-		findAllPathsFromRootToLeavesUsingDepthFirstSearch( tree.getRoot(), properties, path, allPathsFromRoottoLeaves);
+		findAllPathsFromRootToLeavesUsingDepthFirstSearch(tree.getRoot(), properties, path, allPathsFromRoottoLeaves);
 
-		checkNumberofBlackNodesinAllPathsFromRootToLeaves( properties, allPathsFromRoottoLeaves);
+		checkNumberofBlackNodesinAllPathsFromRootToLeaves(properties, allPathsFromRoottoLeaves);
 
 		return;
 	}
@@ -11089,16 +11237,16 @@ public class IntervalTree {
 	 * from the root to a leaf.) 5. For each node, all paths from the node to
 	 * descendant leaves contain the same number of black nodes.
 	 */
-	public static boolean checkIntervalTreePropertiesHolds( IntervalTree tree) {
+	public static boolean checkIntervalTreePropertiesHolds(IntervalTree tree) {
 
 		boolean intevalTreePropertiesHold = true;
 
 		IntervalTreeProperties properties = new IntervalTreeProperties();
 
-		if( tree.getRoot().getColor() != Commons.BLACK)
-			properties.setRootIsBlack( false);
+		if(tree.getRoot().getColor() != Commons.BLACK)
+			properties.setRootIsBlack(false);
 
-		checkProperties( tree, properties);
+		checkProperties(tree, properties);
 
 		intevalTreePropertiesHold = properties.isEveryNodeIsEitherRedorBlack() && properties.isRootIsBlack() && properties.isEverySentinelLeafIsBlack() && properties.isEveryRedNodeHasBlackChildren() && properties.isAllPathsfromRoottoLeavesHasSameNumberofBlackNodes() && properties.isEveryNotSentinelNodeHasRightMaxValue();
 
@@ -11106,32 +11254,32 @@ public class IntervalTree {
 
 	}
 
-	public static void intervalTreeInsertDelete( IntervalTree tree, IntervalTreeNode node, String operation) {
+	public static void intervalTreeInsertDelete(IntervalTree tree, IntervalTreeNode node, String operation) {
 
 		boolean isIntervalTreePropertiesHold;
 		IntervalTreeNode splicedOutNode;
 
-		if( Commons.INSERT.equals( operation)){
-			GlanetRunner.appendLog( "After insert node (" + node.getLow() + "," + node.getHigh() + ")");
-			tree.intervalTreeInsert( tree, node);
-			GlanetRunner.appendLog( "Tree Root color: " + tree.getRoot().getColor() + " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " + tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName().convertEnumtoString());
-			tree.intervalTreeInfixTraversal( tree.getRoot());
-			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds( tree);
-			GlanetRunner.appendLog( "Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
+		if(Commons.INSERT.equals(operation)){
+			GlanetRunner.appendLog("After insert node (" + node.getLow() + "," + node.getHigh() + ")");
+			tree.intervalTreeInsert(tree, node);
+			GlanetRunner.appendLog("Tree Root color: " + tree.getRoot().getColor() + " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " + tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName().convertEnumtoString());
+			tree.intervalTreeInfixTraversal(tree.getRoot());
+			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
+			GlanetRunner.appendLog("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
 
-		}else if( Commons.DELETE.equals( operation)){
-			GlanetRunner.appendLog( "After delete node (" + node.getLow() + "," + node.getHigh() + ")");
-			splicedOutNode = tree.intervalTreeDelete( tree, node);
-			GlanetRunner.appendLog( "splicedOutNode color: " + splicedOutNode.getColor() + " splicedOutNode Low: " + splicedOutNode.getLow() + " splicedOutNode High: " + splicedOutNode.getHigh() + " splicedOutNode Max: " + splicedOutNode.getMax());
+		}else if(Commons.DELETE.equals(operation)){
+			GlanetRunner.appendLog("After delete node (" + node.getLow() + "," + node.getHigh() + ")");
+			splicedOutNode = tree.intervalTreeDelete(tree, node);
+			GlanetRunner.appendLog("splicedOutNode color: " + splicedOutNode.getColor() + " splicedOutNode Low: " + splicedOutNode.getLow() + " splicedOutNode High: " + splicedOutNode.getHigh() + " splicedOutNode Max: " + splicedOutNode.getMax());
 			splicedOutNode = null;
-			GlanetRunner.appendLog( "Tree Root color: " + tree.getRoot().getColor() + " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " + tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName().convertEnumtoString());
-			tree.intervalTreeInfixTraversal( tree.getRoot());
-			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds( tree);
-			GlanetRunner.appendLog( "Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
+			GlanetRunner.appendLog("Tree Root color: " + tree.getRoot().getColor() + " Tree Root Low: " + tree.getRoot().getLow() + " Tree Root High: " + tree.getRoot().getHigh() + " Tree Root Max: " + tree.getRoot().getMax() + " Tree Root's Parent's Name: " + tree.getRoot().getParent().getNodeName().convertEnumtoString());
+			tree.intervalTreeInfixTraversal(tree.getRoot());
+			isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
+			GlanetRunner.appendLog("Does the interval tree properties hold? " + isIntervalTreePropertiesHold);
 
 		}
 
-		GlanetRunner.appendLog( "-------------------------------------------------------------------------------");
+		GlanetRunner.appendLog("-------------------------------------------------------------------------------");
 
 	}
 
@@ -11142,88 +11290,88 @@ public class IntervalTree {
 	 * Not sentinel nodes are the not leaf nodes. Not sentinel nodes have not
 	 * null left and right nodes.
 	 */
-	public static void deleteNodesofIntervalTree( IntervalTreeNode node) {
+	public static void deleteNodesofIntervalTree(IntervalTreeNode node) {
 
-		if( node.getNodeName().isNotSentinel()){
-			deleteNodesofIntervalTree( node.getLeft());
-			deleteNodesofIntervalTree( node.getRight());
-			node.setChromName( null);
-			node.setLeft( null);
-			node.setRight( null);
-			node.setParent( null);
-			node.setNodeName( null);
-			node.setNodeType( null);
+		if(node.getNodeName().isNotSentinel()){
+			deleteNodesofIntervalTree(node.getLeft());
+			deleteNodesofIntervalTree(node.getRight());
+			node.setChromName(null);
+			node.setLeft(null);
+			node.setRight(null);
+			node.setParent(null);
+			node.setNodeName(null);
+			node.setNodeType(null);
 			node = null;
-		}else if( node.getNodeName().isSentinel()){
-			node.setParent( null);
+		}else if(node.getNodeName().isSentinel()){
+			node.setParent(null);
 			node = null;
 		}
 
 	}
 
-	public static void main( String[] args) {
+	public static void main(String[] args) {
 
 		IntervalTree tree = new IntervalTree();
 		boolean isIntervalTreePropertiesHold;
 
 		// Check whether interval tree properties hold when the tree is null?
-		isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds( tree);
+		isIntervalTreePropertiesHold = checkIntervalTreePropertiesHolds(tree);
 
-		System.out.println( "isIntervalTreePropertiesHold: " + isIntervalTreePropertiesHold);
+		System.out.println("isIntervalTreePropertiesHold: " + isIntervalTreePropertiesHold);
 
 		// List<IntervalTreeNode> resultList ;
 
-		IntervalTreeNode node1 = new IntervalTreeNode( 10, 15);
-		IntervalTreeNode node_1 = new IntervalTreeNode( 10, 15);
-		IntervalTreeNode node_2 = new IntervalTreeNode( 10, 15);
-		IntervalTreeNode node2 = new IntervalTreeNode( 5, 40);
-		IntervalTreeNode node3 = new IntervalTreeNode( 15, 60);
-		IntervalTreeNode node4 = new IntervalTreeNode( 2, 80);
-		IntervalTreeNode node5 = new IntervalTreeNode( 1, 100);
-		IntervalTreeNode node6 = new IntervalTreeNode( 3, 150);
-		IntervalTreeNode node7 = new IntervalTreeNode( 6, 36);
-		IntervalTreeNode node8 = new IntervalTreeNode( 7, 77);
-		IntervalTreeNode node9 = new IntervalTreeNode( 8, 200);
-		IntervalTreeNode node10 = new IntervalTreeNode( 4, 20);
-		IntervalTreeNode node11 = new IntervalTreeNode( 40, 140);
-		IntervalTreeNode node12 = new IntervalTreeNode( 60, 120);
-		IntervalTreeNode node13 = new IntervalTreeNode( 50, 150);
-		IntervalTreeNode node14 = new IntervalTreeNode( 55, 90);
+		IntervalTreeNode node1 = new IntervalTreeNode(10, 15);
+		IntervalTreeNode node_1 = new IntervalTreeNode(10, 15);
+		IntervalTreeNode node_2 = new IntervalTreeNode(10, 15);
+		IntervalTreeNode node2 = new IntervalTreeNode(5, 40);
+		IntervalTreeNode node3 = new IntervalTreeNode(15, 60);
+		IntervalTreeNode node4 = new IntervalTreeNode(2, 80);
+		IntervalTreeNode node5 = new IntervalTreeNode(1, 100);
+		IntervalTreeNode node6 = new IntervalTreeNode(3, 150);
+		IntervalTreeNode node7 = new IntervalTreeNode(6, 36);
+		IntervalTreeNode node8 = new IntervalTreeNode(7, 77);
+		IntervalTreeNode node9 = new IntervalTreeNode(8, 200);
+		IntervalTreeNode node10 = new IntervalTreeNode(4, 20);
+		IntervalTreeNode node11 = new IntervalTreeNode(40, 140);
+		IntervalTreeNode node12 = new IntervalTreeNode(60, 120);
+		IntervalTreeNode node13 = new IntervalTreeNode(50, 150);
+		IntervalTreeNode node14 = new IntervalTreeNode(55, 90);
 		// IntervalTreeNode node15 = new IntervalTreeNode(30,40);
 
-		intervalTreeInsertDelete( tree, node1, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node_1, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node_2, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node2, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node3, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node4, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node5, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node6, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node7, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node8, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node9, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node10, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node11, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node12, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node13, Commons.INSERT);
-		intervalTreeInsertDelete( tree, node14, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node1, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node_1, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node_2, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node2, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node3, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node4, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node5, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node6, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node7, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node8, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node9, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node10, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node11, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node12, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node13, Commons.INSERT);
+		intervalTreeInsertDelete(tree, node14, Commons.INSERT);
 
-		intervalTreeInsertDelete( tree, node2, Commons.DELETE);
-		intervalTreeInsertDelete( tree, node8, Commons.DELETE);
-		intervalTreeInsertDelete( tree, node12, Commons.DELETE);
-		intervalTreeInsertDelete( tree, node4, Commons.DELETE);
-		intervalTreeInsertDelete( tree, node14, Commons.DELETE);
-		intervalTreeInsertDelete( tree, node_1, Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
-		intervalTreeInsertDelete( tree, node2, Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
-		intervalTreeInsertDelete( tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, node2, Commons.DELETE);
+		intervalTreeInsertDelete(tree, node8, Commons.DELETE);
+		intervalTreeInsertDelete(tree, node12, Commons.DELETE);
+		intervalTreeInsertDelete(tree, node4, Commons.DELETE);
+		intervalTreeInsertDelete(tree, node14, Commons.DELETE);
+		intervalTreeInsertDelete(tree, node_1, Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, node2, Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
+		intervalTreeInsertDelete(tree, tree.getRoot(), Commons.DELETE);
 
 		// Deletion of erroneous data: no NOT_SENTINEL node has been left
 		// intervalTreeInsertDelete(tree,tree.getRoot(), Commons.DELETE);

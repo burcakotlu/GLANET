@@ -382,6 +382,9 @@ public class Commons {
 
 	public static final String DO_KEGGPATHWAY_ANNOTATION = "DO_KEGGPATHWAY_ANNOTATION";
 	public static final String DO_NOT_KEGGPATHWAY_ANNOTATION = "DO_NOT_KEGGPATHWAY_ANNOTATION";
+	
+	public static final String DO_GOTERMS_ANNOTATION = "DO_GOTERMS_ANNOTATION";
+	public static final String DO_NOT_GOTERMS_ANNOTATION = "DO_NOT_GOTERMS_ANNOTATION";
 
 	public static final String DO_TF_KEGGPATHWAY_ANNOTATION = "DO_TF_KEGGPATHWAY_ANNOTATION";
 	public static final String DO_NOT_TF_KEGGPATHWAY_ANNOTATION = "DO_NOT_TF_KEGGPATHWAY_ANNOTATION";
@@ -1062,6 +1065,23 @@ public class Commons {
 	public static final String ANNOTATION_RESULTS_FOR_TF = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.RESULTS + System.getProperty( "file.separator") + Commons.TF + System.getProperty( "file.separator") + "TF_Annotation_Results.txt";
 	public static final String ANNOTATION_RESULTS_FOR_HISTONE = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.RESULTS + System.getProperty( "file.separator") + Commons.HISTONE + System.getProperty( "file.separator") + "Histone_Annotation_Results.txt";
 
+	public static final String ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.RESULTS + System.getProperty( "file.separator") + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator");	
+	
+	public static final String ANNOTATION_RESULTS_FOR_EXON_BASED_MF_GENE_ONTOLOGY_TERMS_FILE = "ExonBased_MF_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_EXON_BASED_CC_GENE_ONTOLOGY_TERMS_FILE = "ExonBased_CC_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_EXON_BASED_BP_GENE_ONTOLOGY_TERMS_FILE = "ExonBased_BP_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_EXON_BASED_GENE_ONTOLOGY_TERMS_FILE = "ExonBased_GOTerms_Annotation_Results.txt";
+	
+	public static final String ANNOTATION_RESULTS_FOR_REGULATION_BASED_MF_GENE_ONTOLOGY_TERMS_FILE = "RegulationBased_MF_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_REGULATION_BASED_CC_GENE_ONTOLOGY_TERMS_FILE = "RegulationBased_CC_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_REGULATION_BASED_BP_GENE_ONTOLOGY_TERMS_FILE = "RegulationBased_BP_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_REGULATION_BASED_GENE_ONTOLOGY_TERMS_FILE = "RegulationBased_GOTerms_Annotation_Results.txt";
+	
+	public static final String ANNOTATION_RESULTS_FOR_ALL_BASED_MF_GENE_ONTOLOGY_TERMS_FILE = "AllBased_MF_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_ALL_BASED_CC_GENE_ONTOLOGY_TERMS_FILE = "AllBased_CC_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_ALL_BASED_BP_GENE_ONTOLOGY_TERMS_FILE = "AllBased_BP_GOTerms_Annotation_Results.txt";
+	public static final String ANNOTATION_RESULTS_FOR_ALL_BASED_GENE_ONTOLOGY_TERMS_FILE = "AllBased_GOTerms_Annotation_Results.txt";
+	
 	public static final String ANNOTATION_RESULTS_FOR_KEGGPATHWAY = Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.RESULTS + System.getProperty( "file.separator") + Commons.KEGG_PATHWAY + System.getProperty( "file.separator");
 	public static final String ANNOTATION_RESULTS_FOR_EXON_BASED_KEGGPATHWAY_FILE = "ExonBased_KEGGPathway_Annotation_Results.txt";
 	public static final String ANNOTATION_RESULTS_FOR_REGULATION_BASED_KEGGPATHWAY_FILE = "RegulationBased_KEGGPathway_Annotation_Results.txt";
@@ -1165,6 +1185,13 @@ public class Commons {
 	public static final String TO_BE_COLLECTED_ALL_BASED_USERDEFINED_GENESET_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED;
 	public static final String ALL_PERMUTAIONS_NUMBER_OF_OVERLAPS_FOR_ALLBASED_USERDEFINED_GENESET = Commons.ALL_BASED + System.getProperty( "file.separator") + Commons.ALL_BASED;
 	// ends
+	
+	//GO Term starts
+	public static final String TO_BE_COLLECTED_EXON_BASED_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_GO_TERM;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_GO_TERM;
+	public static final String TO_BE_COLLECTED_ALL_BASED_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_GO_TERM;
+	
+	//GO Term ends
 
 	public static final String TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_LIBRARY + System.getProperty( "file.separator");
 
@@ -1262,6 +1289,9 @@ public class Commons {
 	public static final String ALL_BASED = "AllBased";
 	public static final String NO_GENESET_ANALYSIS_TYPE_IS_DEFINED = "NoGeneSetAnalysisTypeIsDefined";
 
+	public static final String EXON_BASED_GO_TERM = "ExonBased_GO";
+	public static final String REGULATION_BASED_GO_TERM = "RegulationBased_GO";
+	public static final String ALL_BASED_GO_TERM = "AllBased_GO";
 	
 	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBased_KEGGPathway";
 	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBased_KEGGPathway";
@@ -1279,6 +1309,8 @@ public class Commons {
 	public static final String USER_DEFINED_LIBRARY = "UserDefinedLibrary";
 	public static final String NO_GENESET_TYPE_IS_DEFINED = "NoGeneSetTypeIsDefined";
 	
+	public static final String GENE_ONTOLOGY_TERMS = "GO";
+
 	public static final String KEGG_PATHWAY = "KEGGPathway";
 	public static final String TF_KEGGPATHWAY = "TFKEGGPathway";
 	public static final String TF_CELLLINE_KEGGPATHWAY = "TFCellLineKEGGPathway";
@@ -1310,6 +1342,7 @@ public class Commons {
 	public static final String ALL_POSSIBLE_NAMES_UCSCGENOME_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty( "file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty( "file.separator") + Commons.UCSCGENOME + System.getProperty( "file.separator");
 	public static final String NCBI_HUMAN_GENE_TO_REF_SEQ_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty( "file.separator") + Commons.NCBI + System.getProperty( "file.separator");
 	public static final String ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty( "file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty( "file.separator") + Commons.KEGG_PATHWAY + System.getProperty( "file.separator");
+	public static final String ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty( "file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty( "file.separator") + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator");
 	public static final String ALL_POSSIBLE_NAMES_USERDEFINEDLIBRARY_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty( "file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty( "file.separator") + Commons.USER_DEFINED_LIBRARY + System.getProperty( "file.separator");
 	public static final String ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME = Commons.BYGLANET + System.getProperty( "file.separator") + Commons.ALL_POSSIBLE_NAMES + System.getProperty( "file.separator") + Commons.USER_DEFINED_GENESET + System.getProperty( "file.separator");
 	/**************************************************************************************************/
@@ -1375,6 +1408,33 @@ public class Commons {
 	/**************************************************************************************************/
 	/********************************** KEGG PATHWAY ALL POSSIBLE NAMES ends ****************************/
 	/**************************************************************************************************/
+	
+
+	/**************************************************************************************************/
+	/********************************** GO TERMS ALL POSSIBLE NAMES starts ****************************/
+	/**************************************************************************************************/
+	public static final String ALL_POSSIBLE_BP_GO_TERMS_NAMES_OUTPUT_FILENAME = "all_possible_bp_go_terms_names.txt";
+	public static final String ALL_POSSIBLE_MF_GO_TERMS_NAMES_OUTPUT_FILENAME = "all_possible_mf_go_terms_names.txt";
+	public static final String ALL_POSSIBLE_CC_GO_TERMS_NAMES_OUTPUT_FILENAME = "all_possible_cc_go_terms_names.txt";
+	public static final String ALL_POSSIBLE_GO_TERMS_NAMES_OUTPUT_FILENAME = "all_possible_go_terms_names.txt";
+
+	public static final String ALL_POSSIBLE_BP_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_bp_goTerms_Name_2_Number.txt";
+	public static final String ALL_POSSIBLE_MF_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_mf_goTerms_Name_2_Number.txt";
+	public static final String ALL_POSSIBLE_CC_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_cc_goTerms_Name_2_Number.txt";
+	public static final String ALL_POSSIBLE_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME = "all_possible_goTerms_Name_2_Number.txt";
+
+	public static final String ALL_POSSIBLE_BP_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_bp_goTerms_Number_2_Name.txt";
+	public static final String ALL_POSSIBLE_MF_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_mf_goTerms_Number_2_Name.txt";
+	public static final String ALL_POSSIBLE_CC_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_cc_goTerms_Number_2_Name.txt";
+	public static final String ALL_POSSIBLE_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_goTerms_Number_2_Name.txt";
+	
+	
+	public static final String GOTERM_GENESYMBOL_EVIDENCECODE_ONTOLOGY_INPUT_FILE = Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + "GOTerm_GeneSymbol_EvidenceCode_Ontology.txt";
+	/**************************************************************************************************/
+	/********************************** GO TERMS ALL POSSIBLE NAMES ends ******************************/
+	/**************************************************************************************************/
+
+	
 
 	/**************************************************************************************************/
 	/********************************** USER DEFINED GENESET ALL POSSIBLE NAMES starts ******************/
@@ -1551,6 +1611,7 @@ public class Commons {
 	public static final String GUI_HINT_CELLLINE_BASED_HISTONE_ANNOTATION = "Histone Annotation (Cell Line Based)";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "Transcription Factor Annotation (Cell Line Based)";
 	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";
+	public static final String GUI_HINT_GO_TERMS_ANNOTATION = "Gene Ontology Terms Annotation";
 	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor and KEGG Pathway Annotation";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_ANNOTATION = "User Defined Gene Set Annotation";
@@ -1635,6 +1696,7 @@ public class Commons {
 	public static final String ARG_GENE_ANNOTATION = "-gene";
 	public static final String ARG_HISTONE_ANNOTATIONS = "-histone";
 	public static final String ARG_TF_ANNOTATION = "-tf";
+	public static final String ARG_GO_TERMS_ANNOTATION = "-go";
 	public static final String ARG_KEGG_ANNOTATION = "-kegg";
 	public static final String ARG_TF_AND_KEGG_ANNOTATION = "-tfkegg";
 	public static final String ARG_CELL_TF_AND_KEGG_ANNOTATION = "-tfcellkegg";

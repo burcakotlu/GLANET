@@ -69,13 +69,14 @@ public class MainViewController extends ViewController implements MainViewDelega
 			String bonferoniCorrectionSignificanceLevel, 
 			String falseDiscoveryRate,
 			String numberOfPermutations, 
-			String dnaseEnrichment, 
-			String histoneEnrichment, 
-			String tfEnrichment,
-			String geneEnrichment, 
-			String keggPathwayEnrichment, 
-			String tfAndKeggPathwayEnrichment,
-			String cellLineBasedTfAndKeggPathwayEnrichment, 
+			String dnaseAnnotation, 
+			String histoneAnnotation, 
+			String tfAnnotation,
+			String geneAnnotation, 
+			String goTermsAnnotation,
+			String keggPathwayAnnotation, 
+			String tfAndKeggPathwayAnnotation,
+			String cellLineBasedTfAndKeggPathwayAnnotation, 
 			String regulatorySequenceAnalysisUsingRSAT, 
 			String jobName,
 			String writeAnnotationFoundOverlapsMode, 
@@ -114,13 +115,14 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.BonferroniCorrectionSignificanceCriteria.value()] = bonferoniCorrectionSignificanceLevel;
 		args[CommandLineArguments.FalseDiscoveryRate.value()] = falseDiscoveryRate;
 		args[CommandLineArguments.NumberOfPermutation.value()] = numberOfPermutations;
-		args[CommandLineArguments.DnaseAnnotation.value()] = dnaseEnrichment;
-		args[CommandLineArguments.HistoneAnnotation.value()] = histoneEnrichment;
-		args[CommandLineArguments.TfAnnotation.value()] = tfEnrichment;
-		args[CommandLineArguments.GeneAnnotation.value()] = geneEnrichment;
-		args[CommandLineArguments.KeggPathwayAnnotation.value()] = keggPathwayEnrichment;
-		args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()] = tfAndKeggPathwayEnrichment;
-		args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()] = cellLineBasedTfAndKeggPathwayEnrichment;
+		args[CommandLineArguments.DnaseAnnotation.value()] = dnaseAnnotation;
+		args[CommandLineArguments.HistoneAnnotation.value()] = histoneAnnotation;
+		args[CommandLineArguments.TfAnnotation.value()] = tfAnnotation;
+		args[CommandLineArguments.GeneAnnotation.value()] = geneAnnotation;
+		args[CommandLineArguments.GOTermsAnnotation.value()] = goTermsAnnotation;		
+		args[CommandLineArguments.KeggPathwayAnnotation.value()] = keggPathwayAnnotation;
+		args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()] = tfAndKeggPathwayAnnotation;
+		args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()] = cellLineBasedTfAndKeggPathwayAnnotation;
 		args[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()] = regulatorySequenceAnalysisUsingRSAT;
 		args[CommandLineArguments.JobName.value()] = jobName;
 		args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = writeAnnotationFoundOverlapsMode;

@@ -127,10 +127,14 @@ public class GOAnnotationsInputFileGeneration {
 				// Skip comment lines
 				if( !( strLine.startsWith( "!"))){
 
-					//example strLine
+					//old example strLine
 					//Please notice that there are two tabs between third column and fourth column
 					//UniProtKB	A0A024R161	DNAJC25-GNG10		GO:0004871	GO_REF:0000038	IEA	UniProtKB-KW:KW-0807	F	Guanine nucleotide-binding protein subunit gamma	A0A024R161_HUMAN|DNAJC25-GNG10|hCG_1994888	protein	taxon:9606	20160507	UniProt		
 					
+					//new example line
+					//Please notice that there are two tabs between third column and fourth column
+					//UniProtKB	A0A024R161	DNAJC25-GNG10		GO:0004871	GO_REF:0000038	IEA	UniProtKB-KW:KW-0807	F	Guanine nucleotide-binding protein subunit gamma	A0A024R161_HUMAN|DNAJC25-GNG10|hCG_1994888	protein	taxon:9606	20170114	UniProt		
+
 					indexofFirstTab = strLine.indexOf('\t');
 					indexofSecondTab = strLine.indexOf('\t', indexofFirstTab + 1);
 					indexofThirdTab = strLine.indexOf('\t', indexofSecondTab + 1);
@@ -188,6 +192,8 @@ public class GOAnnotationsInputFileGeneration {
 //		Inferred from Mutant Phenotype (IMP)
 //		Inferred from Genetic Interaction (IGI)
 //		Inferred from Expression Pattern (IEP)
+		
+		//The EXP code is the parent code for the IDA, IPI, IMP, IGI and IEP experimental codes.
 
 		experimentalEvidenceCodeList.add("EXP");
 		experimentalEvidenceCodeList.add("IDA");
@@ -211,20 +217,22 @@ public class GOAnnotationsInputFileGeneration {
 		
 		
 		//11 August 2016
-		String geneAssociationGOARefHumanFile = "G:\\GLANET_DATA\\GO\\gene_association.goa_ref_human_May_2016";
+		//String geneAssociationGOARefHumanFile = "G:\\GLANET_DATA\\GO\\gene_association.goa_ref_human_May_2016";
+		
+		//10 FEB 2017
+		String GOAHumanFile = "G:\\GLANET_DATA\\GO\\goa_human.gaf";
 		String GOTermGeneSymbolEvidenceCodeOntologyFile = "G:\\GLANET_DATA\\GO\\GOTerm_GeneSymbol_EvidenceCode_Ontology.txt";
 		
 		List<String> experimentalEvidenceCodeList = new ArrayList<String>();
 		fillExperimentalEvidenceCodeList(experimentalEvidenceCodeList);
 		
 		
-		//gene_association.goa_ref_human.gz
 		readGeneAssociationGOPRefHumanFileWriteGOTermGeneEvidenceCodeOntology(
-				geneAssociationGOARefHumanFile,
+				GOAHumanFile,
 				GOTermGeneSymbolEvidenceCodeOntologyFile,
 				experimentalEvidenceCodeList);
 		
-		//After preparation copy the output files under 
+		//After creating GOTermGeneSymbolEvidenceCodeOntologyFile copy it under 
 		//C:\Users\Burçak\Google Drive\Data\demo_input_data\UserDefinedGeneSet\GO
 
 	}

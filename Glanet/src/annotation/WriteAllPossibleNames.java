@@ -1,6 +1,9 @@
 /**
  * @author Burcak Otlu
- *	It lasts 8 minutes.
+ *	It lasts less than a few seconds.
+ *	
+ *	This class is used for KEGG Pathways
+ *	From now on it will be also used for GO Terms (10 FEB 2017)
  * 
  */
 
@@ -30,9 +33,113 @@ import auxiliary.FileOperations;
 import common.Commons;
 
 public class WriteAllPossibleNames {
+	
+	
+	public static void readGOTermNames(
+			String dataFolder, 			
+			List<String> bp_goTermNameList, 
+			List<String> mf_goTermNameList,
+			List<String> cc_goTermNameList,	
+			List<String> goTermNameList,	
+			
+			TObjectIntMap<String> bp_goTermName2NumberMap, 
+			TObjectIntMap<String> mf_goTermName2NumberMap, 
+			TObjectIntMap<String> cc_goTermName2NumberMap,	
+			TObjectIntMap<String> goTermName2NumberMap,	
+			
+			TIntObjectMap<String> bp_goTermNumber2NameMap,
+			TIntObjectMap<String> mf_goTermNumber2NameMap,
+			TIntObjectMap<String> cc_goTermNumber2NameMap,
+			TIntObjectMap<String> goTermNumber2NameMap,
+			String inputFileName){
+		
+			String strLine;
+	
+			FileReader fileReader = null;
+			BufferedReader bufferedReader = null;
+	
+			int indexofFirstTab = 0;
+			int indexofSecondTab = 0;
+			int indexofThirdTab = 0;
+			
+			String goTermName;
+			String goTermOntology;
+	
+			// Initialize
+			int bp_goTermNumber = 1;
+			int mf_goTermNumber = 1;
+			int cc_goTermNumber = 1;
+			int goTermNumber = 1;
+			
+			try{
+				fileReader = new FileReader(dataFolder + inputFileName);
+				bufferedReader = new BufferedReader(fileReader);
+	
+				while((strLine = bufferedReader.readLine()) != null){
+					// example line
+					// GO:0005829	COMMD3-BMI1	IDA	C
 
-	public static void readKeggPathwayNames( String dataFolder, List<String> keggPathwayNameList,
-			TObjectIntMap<String> keggPathwayName2NumberMap, TIntObjectMap<String> keggPathwayNumber2NameMap,
+	
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab =  strLine.indexOf('\t',indexofFirstTab+1);
+					indexofThirdTab =  strLine.indexOf('\t',indexofSecondTab+1);
+					
+					goTermName = strLine.substring(0, indexofFirstTab);
+					goTermOntology = strLine.substring(indexofThirdTab+1);
+					
+					if (goTermOntology.equalsIgnoreCase("P")){
+						if (!bp_goTermNameList.contains(goTermName)){
+							bp_goTermNameList.add(goTermName);
+							bp_goTermName2NumberMap.put(goTermName, bp_goTermNumber);
+							bp_goTermNumber2NameMap.put(bp_goTermNumber, goTermName);
+							bp_goTermNumber++;
+						}
+					}else if (goTermOntology.equalsIgnoreCase("F")){
+						if (!mf_goTermNameList.contains(goTermName)){
+							mf_goTermNameList.add(goTermName);
+							mf_goTermName2NumberMap.put(goTermName, mf_goTermNumber);
+							mf_goTermNumber2NameMap.put(mf_goTermNumber, goTermName);
+							mf_goTermNumber++;
+						}
+					}else{
+						
+						if (!cc_goTermNameList.contains(goTermName)){
+							cc_goTermNameList.add(goTermName);
+							cc_goTermName2NumberMap.put(goTermName, cc_goTermNumber);
+							cc_goTermNumber2NameMap.put(cc_goTermNumber, goTermName);
+							cc_goTermNumber++;
+						}
+					}
+					
+					
+					if (!goTermNameList.contains(goTermName)){
+						goTermNameList.add(goTermName);
+						goTermName2NumberMap.put(goTermName, goTermNumber);
+						goTermNumber2NameMap.put(goTermNumber, goTermName);
+						goTermNumber++;
+					}
+					
+					
+				} // End of While
+	
+				bufferedReader.close();
+				fileReader.close();
+	
+			}catch(FileNotFoundException e){
+				e.printStackTrace();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+			
+		
+	}
+
+
+	public static void readKeggPathwayNames(
+			String dataFolder, 
+			List<String> keggPathwayNameList,
+			TObjectIntMap<String> keggPathwayName2NumberMap, 
+			TIntObjectMap<String> keggPathwayNumber2NameMap,
 			String inputFileName) {
 
 		String strLine;
@@ -49,24 +156,24 @@ public class WriteAllPossibleNames {
 		int keggPathwayNumber = 1;
 
 		try{
-			fileReader = new FileReader( dataFolder + inputFileName);
-			bufferedReader = new BufferedReader( fileReader);
+			fileReader = new FileReader(dataFolder + inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
 
-			while( ( strLine = bufferedReader.readLine()) != null){
+			while((strLine = bufferedReader.readLine()) != null){
 				// example line
 				// path:hsa00010 hsa:10327 reverse
 
-				indexofTab = strLine.indexOf( '\t');
-				keggPathwayName = strLine.substring( 0, indexofTab);
+				indexofTab = strLine.indexOf('\t');
+				keggPathwayName = strLine.substring(0, indexofTab);
 
-				indexofColon = keggPathwayName.indexOf( ':');
-				keggPathwayName = keggPathwayName.substring( indexofColon + 1);
+				indexofColon = keggPathwayName.indexOf(':');
+				keggPathwayName = keggPathwayName.substring(indexofColon + 1);
 
-				if( !( keggPathwayNameList.contains( keggPathwayName))){
-					keggPathwayNameList.add( keggPathwayName);
+				if(!(keggPathwayNameList.contains(keggPathwayName))){
+					keggPathwayNameList.add(keggPathwayName);
 
-					keggPathwayName2NumberMap.put( keggPathwayName, keggPathwayNumber);
-					keggPathwayNumber2NameMap.put( keggPathwayNumber, keggPathwayName);
+					keggPathwayName2NumberMap.put(keggPathwayName, keggPathwayNumber);
+					keggPathwayNumber2NameMap.put(keggPathwayNumber, keggPathwayName);
 					keggPathwayNumber++;
 
 				}
@@ -75,15 +182,15 @@ public class WriteAllPossibleNames {
 			bufferedReader.close();
 			fileReader.close();
 
-		}catch( FileNotFoundException e){
+		}catch(FileNotFoundException e){
 			e.printStackTrace();
-		}catch( IOException e){
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
-	public static void writeNames( String dataFolder, TObjectShortMap<String> name2NumberMap,
+	public static void writeNames(String dataFolder, TObjectShortMap<String> name2NumberMap,
 			String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
@@ -91,24 +198,24 @@ public class WriteAllPossibleNames {
 
 		try{
 
-			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter( fileWriter);
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for( TObjectShortIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
+			for(TObjectShortIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
 				it.advance();
-				bufferedWriter.write( it.key() + System.getProperty( "line.separator"));
+				bufferedWriter.write(it.key() + System.getProperty("line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		}catch( IOException e){
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
 	// 8 Jul 2015
-	public static void writeNames( 
+	public static void writeNames(
 			String dataFolder, 
 			TObjectIntMap<String> name2NumberMap,
 			String outputDirectoryName, 
@@ -119,22 +226,22 @@ public class WriteAllPossibleNames {
 
 		try{
 
-			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter( fileWriter);
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
+			for(TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
 				it.advance();
-				bufferedWriter.write( it.key() + System.getProperty( "line.separator"));
+				bufferedWriter.write(it.key() + System.getProperty("line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		}catch( IOException e){
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 
 	}
-	public static void writeNames( String dataFolder, List<String> nameList, String outputDirectoryName,
+	public static void writeNames(String dataFolder, List<String> nameList, String outputDirectoryName,
 			String outputFileName) {
 
 		FileWriter fileWriter = null;
@@ -142,42 +249,42 @@ public class WriteAllPossibleNames {
 
 		try{
 
-			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter( fileWriter);
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for( int i = 0; i < nameList.size(); i++){
+			for(int i = 0; i < nameList.size(); i++){
 
-				bufferedWriter.write( nameList.get( i) + System.getProperty( "line.separator"));
+				bufferedWriter.write(nameList.get(i) + System.getProperty("line.separator"));
 				bufferedWriter.flush();
 			}
 
 			bufferedWriter.close();
 
-		}catch( IOException e){
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 
 	}
 
 	// Write String2ShortMap starts
-	public static void writeMapsString2Short( String dataFolder, TObjectShortMap<String> name2NumberMap,
+	public static void writeMapsString2Short(String dataFolder, TObjectShortMap<String> name2NumberMap,
 			String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		try{
-			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter( fileWriter);
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for( TObjectShortIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
+			for(TObjectShortIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
 				it.advance();
-				bufferedWriter.write( it.key() + "\t" + it.value() + System.getProperty( "line.separator"));
+				bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		}catch( IOException e){
+		}catch(IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -196,17 +303,17 @@ public class WriteAllPossibleNames {
 		BufferedWriter bufferedWriter = null;
 
 		try{
-			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter( fileWriter);
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for( TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
+			for(TObjectIntIterator<String> it = name2NumberMap.iterator(); it.hasNext();){
 				it.advance();
-				bufferedWriter.write( it.key() + "\t" + it.value() + System.getProperty( "line.separator"));
+				bufferedWriter.write(it.key() + "\t" + it.value() + System.getProperty("line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		}catch( IOException e){
+		}catch(IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -215,23 +322,23 @@ public class WriteAllPossibleNames {
 
 	// Write Short2StringMap starts
 	// Pay attention first element has elementNumber 1
-	public static void writeMapsShort2String( String dataFolder, TShortObjectMap<String> number2NameMap,
+	public static void writeMapsShort2String(String dataFolder, TShortObjectMap<String> number2NameMap,
 			String outputDirectoryName, String outputFileName) {
 
 		FileWriter fileWriter = null;
 		BufferedWriter bufferedWriter = null;
 
 		try{
-			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter( fileWriter);
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for( short i = 1; i <= number2NameMap.size(); i++){
-				bufferedWriter.write( i + "\t" + number2NameMap.get( i) + System.getProperty( "line.separator"));
+			for(short i = 1; i <= number2NameMap.size(); i++){
+				bufferedWriter.write(i + "\t" + number2NameMap.get(i) + System.getProperty("line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		}catch( IOException e){
+		}catch(IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -250,37 +357,168 @@ public class WriteAllPossibleNames {
 		BufferedWriter bufferedWriter = null;
 
 		try{
-			fileWriter = FileOperations.createFileWriter( dataFolder + outputDirectoryName, outputFileName);
-			bufferedWriter = new BufferedWriter( fileWriter);
+			fileWriter = FileOperations.createFileWriter(dataFolder + outputDirectoryName, outputFileName);
+			bufferedWriter = new BufferedWriter(fileWriter);
 
-			for( int i = 1; i <= number2NameMap.size(); i++){
-				bufferedWriter.write( i + "\t" + number2NameMap.get( i) + System.getProperty( "line.separator"));
+			for(int i = 1; i <= number2NameMap.size(); i++){
+				bufferedWriter.write(i + "\t" + number2NameMap.get(i) + System.getProperty("line.separator"));
 			}
 
 			bufferedWriter.close();
 
-		}catch( IOException e){
+		}catch(IOException e){
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
+	
+	
+	//10 FEB 2017
+	public static void writeAllPossibleGOTermNames(String dataFolder){
+		
+		List<String> bp_goTermNameList = new ArrayList<String>();
+		List<String> mf_goTermNameList = new ArrayList<String>();
+		List<String> cc_goTermNameList = new ArrayList<String>();
+		List<String> goTermNameList = new ArrayList<String>();
+		
+		TObjectIntMap<String> goTermName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> goTermNumber2NameMap = new TIntObjectHashMap<String>();
+		
+		
+		TObjectIntMap<String> bp_goTermName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> bp_goTermNumber2NameMap = new TIntObjectHashMap<String>();
+		
+		TObjectIntMap<String> mf_goTermName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> mf_goTermNumber2NameMap = new TIntObjectHashMap<String>();
+		
+		TObjectIntMap<String> cc_goTermName2NumberMap = new TObjectIntHashMap<String>();
+		TIntObjectMap<String> cc_goTermNumber2NameMap = new TIntObjectHashMap<String>();
+		
 
-	public static void writeAllPossibleKeggPathwayNames( String dataFolder) {
+		readGOTermNames(
+				dataFolder, 				
+				bp_goTermNameList, 
+				mf_goTermNameList,
+				cc_goTermNameList,
+				goTermNameList,				
+				bp_goTermName2NumberMap, 
+				mf_goTermName2NumberMap, 
+				cc_goTermName2NumberMap,
+				goTermName2NumberMap,				
+				bp_goTermNumber2NameMap,
+				mf_goTermNumber2NameMap,
+				cc_goTermNumber2NameMap,
+				goTermNumber2NameMap,
+				Commons.GOTERM_GENESYMBOL_EVIDENCECODE_ONTOLOGY_INPUT_FILE);
+		
+		
+		writeNames(
+				dataFolder, 
+				bp_goTermNameList, 
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_BP_GO_TERMS_NAMES_OUTPUT_FILENAME);
+		
+		writeNames(
+				dataFolder, 
+				mf_goTermNameList, 
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_MF_GO_TERMS_NAMES_OUTPUT_FILENAME);
+		
+		writeNames(
+				dataFolder, 
+				cc_goTermNameList, 
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_CC_GO_TERMS_NAMES_OUTPUT_FILENAME);
+
+		writeNames(
+				dataFolder, 
+				goTermNameList, 
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_GO_TERMS_NAMES_OUTPUT_FILENAME);
+
+
+		FileOperations.writeSortedNumber2NameMap(
+				dataFolder, 
+				bp_goTermNumber2NameMap,
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_BP_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME);
+		
+		FileOperations.writeSortedNumber2NameMap(
+				dataFolder, 
+				mf_goTermNumber2NameMap,
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_MF_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME);
+		
+		FileOperations.writeSortedNumber2NameMap(
+				dataFolder, 
+				cc_goTermNumber2NameMap,
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_CC_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME);
+
+		FileOperations.writeSortedNumber2NameMap(
+				dataFolder, 
+				goTermNumber2NameMap,
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME);
+
+		
+		FileOperations.writeName2NumberMap(
+				dataFolder, 
+				bp_goTermName2NumberMap,
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_BP_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);
+		
+		FileOperations.writeName2NumberMap(
+				dataFolder, 
+				mf_goTermName2NumberMap,
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_MF_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);
+
+		FileOperations.writeName2NumberMap(
+				dataFolder, 
+				cc_goTermName2NumberMap,
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_CC_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);
+
+		FileOperations.writeName2NumberMap(
+				dataFolder, 
+				goTermName2NumberMap,
+				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+				Commons.ALL_POSSIBLE_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);
+
+
+		
+	}
+
+	public static void writeAllPossibleKeggPathwayNames(String dataFolder) {
 
 		List<String> keggPathwayNameList = new ArrayList<String>();
 		TObjectIntMap<String> keggPathwayName2NumberMap = new TObjectIntHashMap<String>();
 		TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
 
-		readKeggPathwayNames( dataFolder, keggPathwayNameList, keggPathwayName2NumberMap, keggPathwayNumber2NameMap,
+		readKeggPathwayNames(
+				dataFolder, 
+				keggPathwayNameList, 
+				keggPathwayName2NumberMap, 
+				keggPathwayNumber2NameMap,
 				Commons.KEGG_PATHWAY_2_NCBI_GENE_IDS_INPUT_FILE);
-		writeNames( dataFolder, keggPathwayNameList, Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
+		
+		writeNames(
+				dataFolder, 
+				keggPathwayNameList, 
+				Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_KEGG_PATHWAY_NAMES_OUTPUT_FILENAME);
 
-		FileOperations.writeSortedNumber2NameMap( dataFolder, keggPathwayNumber2NameMap,
+		FileOperations.writeSortedNumber2NameMap(
+				dataFolder, 
+				keggPathwayNumber2NameMap,
 				Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_KEGGPATHWAY_NUMBER_2_NAME_OUTPUT_FILENAME);
-		FileOperations.writeName2NumberMap( dataFolder, keggPathwayName2NumberMap,
+		
+		FileOperations.writeName2NumberMap(
+				dataFolder, 
+				keggPathwayName2NumberMap,
 				Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME);
 
@@ -289,21 +527,21 @@ public class WriteAllPossibleNames {
 	// userDefinedGeneSetName2UserDefinedGeneSetNumberMap is already full
 	// userDefinedGeneSetNumber2UserDefinedGeneSetNameMap is already full
 	// Write them to name2NumberMap and number2NameMap
-	public static void writeAllPossibleUserDefinedGeneSetNames( 
+	public static void writeAllPossibleUserDefinedGeneSetNames(
 			String dataFolder,
 			TObjectIntMap<String> userDefinedGeneSetName2NumberMap,
 			TIntObjectMap<String> userDefinedGeneSetNumber2NameMap) {
 
-		writeNames( dataFolder, 
+		writeNames(dataFolder, 
 				userDefinedGeneSetName2NumberMap,
 				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAMES_OUTPUT_FILENAME);
 		
-		writeMapsString2Int( dataFolder, userDefinedGeneSetName2NumberMap,
+		writeMapsString2Int(dataFolder, userDefinedGeneSetName2NumberMap,
 				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NAME_2_NUMBER_OUTPUT_FILENAME);
 		
-		writeMapsInt2String( dataFolder, userDefinedGeneSetNumber2NameMap,
+		writeMapsInt2String(dataFolder, userDefinedGeneSetNumber2NameMap,
 				Commons.ALL_POSSIBLE_NAMES_USERDEFINEDGENESET_OUTPUT_DIRECTORYNAME,
 				Commons.ALL_POSSIBLE_USERDEFINEDGENESET_NUMBER_2_NAME_OUTPUT_FILENAME);
 
@@ -373,15 +611,17 @@ public class WriteAllPossibleNames {
 	// args[20] ---> writePermutationBasedAnnotationResultMode checkBox
 	// ---> default Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
 	// ---> Commons.WRITE_PERMUTATION_BASED_ANNOTATION_RESULT
-	public static void main( String[] args) {
+	public static void main(String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
 
 		// Write all possible kegg pathway names
 		// Using pathway_hsa.list under
-		// C:\eclipse_ganymede\workspace\Doktora1\src\keggpathway\ncbigenes\input_output
-		WriteAllPossibleNames.writeAllPossibleKeggPathwayNames( dataFolder);
+		// C:\Users\Burçak\Google Drive\Data\KEGGPathway
+		writeAllPossibleKeggPathwayNames(dataFolder);
+		
+		writeAllPossibleGOTermNames(dataFolder);
 
 	}
 

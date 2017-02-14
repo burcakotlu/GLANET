@@ -30,6 +30,13 @@ public class AllMapsWithNumbers {
 
 	// UserDefinedLibrary
 	TLongIntMap permutationNumberElementTypeNumberElementNumber2KMap;
+	
+	
+	// GO Term
+	TLongIntMap permutationNumberExonBasedGOTermNumber2KMap;
+	TLongIntMap permutationNumberRegulationBasedGOTermNumber2KMap;
+	TLongIntMap permutationNumberAllBasedGOTermNumber2KMap;
+
 
 	// KEGG Pathway
 	TIntIntMap permutationNumberExonBasedKeggPathwayNumber2KMap;
@@ -45,6 +52,34 @@ public class AllMapsWithNumbers {
 	TLongIntMap permutationNumberTfNumberCellLineNumberExonBasedKeggPathwayNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumberRegulationBasedKeggPathwayNumber2KMap;
 	TLongIntMap permutationNumberTfNumberCellLineNumberAllBasedKeggPathwayNumber2KMap;
+	
+	
+
+
+
+	public TLongIntMap getPermutationNumberExonBasedGOTermNumber2KMap() {
+		return permutationNumberExonBasedGOTermNumber2KMap;
+	}
+
+	public void setPermutationNumberExonBasedGOTermNumber2KMap(TLongIntMap permutationNumberExonBasedGOTermNumber2KMap) {
+		this.permutationNumberExonBasedGOTermNumber2KMap = permutationNumberExonBasedGOTermNumber2KMap;
+	}
+
+	public TLongIntMap getPermutationNumberRegulationBasedGOTermNumber2KMap() {
+		return permutationNumberRegulationBasedGOTermNumber2KMap;
+	}
+
+	public void setPermutationNumberRegulationBasedGOTermNumber2KMap(TLongIntMap permutationNumberRegulationBasedGOTermNumber2KMap) {
+		this.permutationNumberRegulationBasedGOTermNumber2KMap = permutationNumberRegulationBasedGOTermNumber2KMap;
+	}
+
+	public TLongIntMap getPermutationNumberAllBasedGOTermNumber2KMap() {
+		return permutationNumberAllBasedGOTermNumber2KMap;
+	}
+
+	public void setPermutationNumberAllBasedGOTermNumber2KMap(TLongIntMap permutationNumberAllBasedGOTermNumber2KMap) {
+		this.permutationNumberAllBasedGOTermNumber2KMap = permutationNumberAllBasedGOTermNumber2KMap;
+	}
 
 	public TLongIntMap getPermutationNumberGeneNumber2KMap() {
 
@@ -254,6 +289,11 @@ public class AllMapsWithNumbers {
 
 		// UserDefinedLibrary
 		this.permutationNumberElementTypeNumberElementNumber2KMap = new TLongIntHashMap();
+		
+		// GO Term
+		this.permutationNumberExonBasedGOTermNumber2KMap = new TLongIntHashMap();
+		this.permutationNumberRegulationBasedGOTermNumber2KMap = new TLongIntHashMap();
+		this.permutationNumberAllBasedGOTermNumber2KMap = new TLongIntHashMap();
 
 		// KEGG Pathway
 		this.permutationNumberExonBasedKeggPathwayNumber2KMap = new TIntIntHashMap();

@@ -450,6 +450,23 @@ public class App {
 
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.TfAnnotation))
 			return false;
+		
+		
+		// parsing GO Terms Annotation
+		for( int i = 0; i < args.length; i++)
+			if( args[i].equalsIgnoreCase(Commons.ARG_GO_TERMS_ANNOTATION)){
+				if( argsInOrder[CommandLineArguments.GOTermsAnnotation.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.GOTermsAnnotation.value()] = Commons.DO_GOTERMS_ANNOTATION;
+
+				else{
+					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
+					return false;
+				}
+			}
+
+		if( !setWithDefaultValueIfNotSet(argsInOrder, CommandLineArguments.GOTermsAnnotation))
+			return false;
+
 
 		// parsing KEGG Pathway Annotation
 		for( int i = 0; i < args.length; i++)
@@ -659,6 +676,8 @@ public class App {
 		if( argsInOrder[CommandLineArguments.DnaseAnnotation.value()].equalsIgnoreCase(Commons.DO_DNASE_ANNOTATION) || 
 			argsInOrder[CommandLineArguments.HistoneAnnotation.value()].equalsIgnoreCase(Commons.DO_HISTONE_ANNOTATION) || 
 			argsInOrder[CommandLineArguments.TfAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_ANNOTATION) || 
+			argsInOrder[CommandLineArguments.GeneAnnotation.value()].equalsIgnoreCase(Commons.DO_GENE_ANNOTATION) || 			
+			argsInOrder[CommandLineArguments.GOTermsAnnotation.value()].equalsIgnoreCase(Commons.DO_GOTERMS_ANNOTATION) || 
 			argsInOrder[CommandLineArguments.KeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_KEGGPATHWAY_ANNOTATION) || 
 			argsInOrder[CommandLineArguments.TfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_KEGGPATHWAY_ANNOTATION) || 
 			argsInOrder[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()].equalsIgnoreCase(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION) || 

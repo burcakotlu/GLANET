@@ -96,16 +96,15 @@ public class HumanGenesAugmentation {
 						geneIDList.add( geneID);
 						geneSymbol2ListofGeneIdMap.put( geneSymbol, geneIDList);
 					}else{
-						if( !geneIDList.contains( geneID)){
+						if(!geneIDList.contains(geneID)){
 							geneIDList.add( geneID);
 						}
 
-						// //For debugging purposes starts
-						// if(geneIDList.size()>1){
-						// System.out.println("geneSymbol: " + geneSymbol +
-						// " geneIDList size: " + geneIDList.size());
-						// }
-						// //For debugging purposes ends
+						 //For debugging purposes starts
+						 if(geneIDList.size()>1){
+							 System.out.println("geneSymbol: " + geneSymbol + "geneIDList size: " + geneIDList.size());
+						 }
+						 //For debugging purposes ends
 
 						geneSymbol2ListofGeneIdMap.put( geneSymbol, geneIDList);
 

@@ -12,35 +12,38 @@ import common.Commons;
  */
 public enum AnnotationType {
 
-	DO_DNASE_ANNOTATION( 1),
-	DO_NOT_DNASE_ANNOTATION( 2),
+	DO_DNASE_ANNOTATION(1),
+	DO_NOT_DNASE_ANNOTATION(2),
 
-	DO_TF_ANNOTATION( 3),
-	DO_NOT_TF_ANNOTATION( 4),
+	DO_TF_ANNOTATION(3),
+	DO_NOT_TF_ANNOTATION(4),
 
-	DO_HISTONE_ANNOTATION( 5),
-	DO_NOT_HISTONE_ANNOTATION( 6),
+	DO_HISTONE_ANNOTATION(5),
+	DO_NOT_HISTONE_ANNOTATION(6),
 
-	DO_GENE_ANNOTATION( 7),
-	DO_NOT_GENE_ANNOTATION( 8),
-
-	DO_KEGGPATHWAY_ANNOTATION( 9),
-	DO_NOT_KEGGPATHWAY_ANNOTATION( 10),
-
-	DO_TF_KEGGPATHWAY_ANNOTATION( 11),
-	DO_NOT_TF_KEGGPATHWAY_ANNOTATION( 12),
-
-	DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION( 13),
-	DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION( 14),
-
-	DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION( 15),
-	DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION( 16),
-
-	DO_USER_DEFINED_GENESET_ANNOTATION( 17),
-	DO_NOT_USER_DEFINED_GENESET_ANNOTATION( 18),
+	DO_GENE_ANNOTATION(7),
+	DO_NOT_GENE_ANNOTATION(8),
 	
-	DO_USER_DEFINED_LIBRARY_ANNOTATION( 19),
-	DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION( 20);
+	DO_GOTERMS_ANNOTATION(9),
+	DO_NOT_GOTERMS_ANNOTATION(10),
+
+	DO_KEGGPATHWAY_ANNOTATION(11),
+	DO_NOT_KEGGPATHWAY_ANNOTATION(12),
+
+	DO_TF_KEGGPATHWAY_ANNOTATION(13),
+	DO_NOT_TF_KEGGPATHWAY_ANNOTATION(14),
+
+	DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(15),
+	DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(16),
+
+	DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(17),
+	DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(18),
+
+	DO_USER_DEFINED_GENESET_ANNOTATION(19),
+	DO_NOT_USER_DEFINED_GENESET_ANNOTATION(20),
+	
+	DO_USER_DEFINED_LIBRARY_ANNOTATION(21),
+	DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION(22);
 
 	private final int annotationType;
 
@@ -51,7 +54,7 @@ public enum AnnotationType {
 	 * Can never use "new" with any enum, even inside the enum
 	 * class itself.
 	 */
-	private AnnotationType( int annotationType) {
+	private AnnotationType(int annotationType) {
 
 		this.annotationType = annotationType;
 	}
@@ -61,47 +64,51 @@ public enum AnnotationType {
 		return annotationType;
 	}
 
-	public static AnnotationType convertStringtoEnum( String annotationType) {
+	public static AnnotationType convertStringtoEnum(String annotationType) {
 
-		if( Commons.DO_DNASE_ANNOTATION.equals( annotationType)){
+		if(Commons.DO_DNASE_ANNOTATION.equals(annotationType)){
 			return DO_DNASE_ANNOTATION;
-		}else if( Commons.DO_NOT_DNASE_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_DNASE_ANNOTATION.equals(annotationType)){
 			return DO_NOT_DNASE_ANNOTATION;
-		}else if( Commons.DO_TF_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_TF_ANNOTATION.equals(annotationType)){
 			return DO_TF_ANNOTATION;
-		}else if( Commons.DO_NOT_TF_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_TF_ANNOTATION.equals(annotationType)){
 			return DO_NOT_TF_ANNOTATION;
-		}else if( Commons.DO_HISTONE_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_HISTONE_ANNOTATION.equals(annotationType)){
 			return DO_HISTONE_ANNOTATION;
-		}else if( Commons.DO_NOT_HISTONE_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_HISTONE_ANNOTATION.equals(annotationType)){
 			return DO_NOT_HISTONE_ANNOTATION;
-		}else if( Commons.DO_GENE_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_GENE_ANNOTATION.equals(annotationType)){
 			return DO_GENE_ANNOTATION;
-		}else if( Commons.DO_NOT_GENE_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_GENE_ANNOTATION.equals(annotationType)){
 			return DO_NOT_GENE_ANNOTATION;
-		}else if( Commons.DO_KEGGPATHWAY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_GOTERMS_ANNOTATION.equals(annotationType)){
+			return DO_GOTERMS_ANNOTATION;
+		}else if(Commons.DO_NOT_GOTERMS_ANNOTATION.equals(annotationType)){
+			return DO_NOT_GOTERMS_ANNOTATION;
+		}else if(Commons.DO_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_KEGGPATHWAY_ANNOTATION;
-		}else if( Commons.DO_NOT_KEGGPATHWAY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_NOT_KEGGPATHWAY_ANNOTATION;
-		}else if( Commons.DO_TF_KEGGPATHWAY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_TF_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_TF_KEGGPATHWAY_ANNOTATION;
-		}else if( Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_NOT_TF_KEGGPATHWAY_ANNOTATION;
-		}else if( Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
-		}else if( Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
-		}else if( Commons.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
-		}else if( Commons.DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
-		}else if( Commons.DO_USER_DEFINED_GENESET_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_USER_DEFINED_GENESET_ANNOTATION.equals(annotationType)){
 			return DO_USER_DEFINED_GENESET_ANNOTATION;
-		}else if( Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION.equals(annotationType)){
 			return DO_NOT_USER_DEFINED_GENESET_ANNOTATION;
-		}else if( Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION.equals(annotationType)){
 			return DO_USER_DEFINED_LIBRARY_ANNOTATION;
-		}else if( Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION.equals( annotationType)){
+		}else if(Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION.equals(annotationType)){
 			return DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION;
 		}else
 			return null;
@@ -110,55 +117,60 @@ public enum AnnotationType {
 
 	public String convertEnumtoString() {
 
-		if( this.equals( AnnotationType.DO_DNASE_ANNOTATION))
+		if(this.equals(AnnotationType.DO_DNASE_ANNOTATION))
 			return Commons.DO_DNASE_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_DNASE_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_DNASE_ANNOTATION))
 			return Commons.DO_NOT_DNASE_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_HISTONE_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_HISTONE_ANNOTATION))
 			return Commons.DO_HISTONE_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_HISTONE_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_HISTONE_ANNOTATION))
 			return Commons.DO_NOT_HISTONE_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_TF_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_TF_ANNOTATION))
 			return Commons.DO_TF_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_TF_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_TF_ANNOTATION))
 			return Commons.DO_NOT_TF_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_GENE_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_GENE_ANNOTATION))
 			return Commons.DO_GENE_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_GENE_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_GENE_ANNOTATION))
 			return Commons.DO_NOT_GENE_ANNOTATION;
+		
+		else if(this.equals(AnnotationType.DO_GOTERMS_ANNOTATION))
+			return Commons.DO_GOTERMS_ANNOTATION;
+		else if(this.equals(AnnotationType.DO_NOT_GOTERMS_ANNOTATION))
+			return Commons.DO_NOT_GOTERMS_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_KEGGPATHWAY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_KEGGPATHWAY_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_KEGGPATHWAY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_NOT_KEGGPATHWAY_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_TF_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_TF_KEGGPATHWAY_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_TF_KEGGPATHWAY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_TF_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_USER_DEFINED_GENESET_ANNOTATION))
 			return Commons.DO_USER_DEFINED_GENESET_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_USER_DEFINED_GENESET_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_USER_DEFINED_GENESET_ANNOTATION))
 			return Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION;
 
-		else if( this.equals( AnnotationType.DO_USER_DEFINED_LIBRARY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_USER_DEFINED_LIBRARY_ANNOTATION))
 			return Commons.DO_USER_DEFINED_LIBRARY_ANNOTATION;
-		else if( this.equals( AnnotationType.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION))
+		else if(this.equals(AnnotationType.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION))
 			return Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION;
 		else
 			return null;
@@ -184,6 +196,11 @@ public enum AnnotationType {
 	public boolean doGeneAnnotation() {
 
 		return this == DO_GENE_ANNOTATION;
+	}
+	
+	public boolean doGOTermsAnnotation() {
+
+		return this == DO_GOTERMS_ANNOTATION;
 	}
 
 	public boolean doKEGGPathwayAnnotation() {
