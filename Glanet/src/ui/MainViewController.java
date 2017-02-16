@@ -73,7 +73,9 @@ public class MainViewController extends ViewController implements MainViewDelega
 			String histoneAnnotation, 
 			String tfAnnotation,
 			String geneAnnotation, 
-			String goTermsAnnotation,
+			String bpGOTermsAnnotation,
+			String mfGOTermsAnnotation,
+			String ccGOTermsAnnotation,
 			String keggPathwayAnnotation, 
 			String tfAndKeggPathwayAnnotation,
 			String cellLineBasedTfAndKeggPathwayAnnotation, 
@@ -119,7 +121,9 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.HistoneAnnotation.value()] = histoneAnnotation;
 		args[CommandLineArguments.TfAnnotation.value()] = tfAnnotation;
 		args[CommandLineArguments.GeneAnnotation.value()] = geneAnnotation;
-		args[CommandLineArguments.GOTermsAnnotation.value()] = goTermsAnnotation;		
+		args[CommandLineArguments.BPGOTermsAnnotation.value()] = bpGOTermsAnnotation;	
+		args[CommandLineArguments.MFGOTermsAnnotation.value()] = mfGOTermsAnnotation;	
+		args[CommandLineArguments.CCGOTermsAnnotation.value()] = ccGOTermsAnnotation;	
 		args[CommandLineArguments.KeggPathwayAnnotation.value()] = keggPathwayAnnotation;
 		args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()] = tfAndKeggPathwayAnnotation;
 		args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()] = cellLineBasedTfAndKeggPathwayAnnotation;

@@ -107,32 +107,36 @@ public enum CommandLineArguments {
 	HistoneAnnotation(15, Commons.DO_NOT_HISTONE_ANNOTATION),
 	TfAnnotation(16, Commons.DO_NOT_TF_ANNOTATION),
 	GeneAnnotation(17, Commons.DO_NOT_GENE_ANNOTATION), // and this
-	GOTermsAnnotation(18,Commons.DO_NOT_GOTERMS_ANNOTATION),
-	KeggPathwayAnnotation(19, Commons.DO_NOT_KEGGPATHWAY_ANNOTATION), 
-	TfAndKeggPathwayAnnotation(20,Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION), 
-	CellLineBasedTfAndKeggPathwayAnnotation(21,Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION), 
-	RegulatorySequenceAnalysisUsingRSAT(22,Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT), 
-	JobName(23, Commons.NO_NAME),
-	WriteAnnotationFoundOverlapsMode(24, Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED),
-	WriteAnnotationBinaryMatrixMode(25, Commons.DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX), 
-	WriteGeneratedRandomDataMode(26, Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA),
-	WritePermutationBasedandParametricBasedAnnotationResultMode(27,Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT),
-	WritePermutationBasedAnnotationResultMode(28, Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT),
-	NumberOfPermutationsInEachRun(29, Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT),
-	UserDefinedGeneSetAnnotation(30, Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION), 
-	UserDefinedGeneSetInput(31,Commons.NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED), 
-	UserDefinedGeneSetGeneInformation(32,Commons.GENE_SYMBOL), 
-	UserDefinedGeneSetName(33, Commons.NO_NAME), 
-	UserDefinedGeneSetDescriptionFile(34,Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED), 
-	UserDefinedLibraryAnnotation(35,Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION), 
-	UserDefinedLibraryInput(36,Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED), 
-	UserDefinedLibraryDataFormat(37,Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES), 
-	GivenInputDataType(38,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS), //This argument is internal.
-	LogFile(39, Commons.ARG_NO_LOG_FILE),
-	GLANETRun(40, Commons.ARG_GLANET_NORMAL_RUN), //This argument is optional, default is normal run
-	IsochoreFamilyMode(41,Commons.DO_USE_ISOCHORE_FAMILY), //This argument is optional.
-	NumberOfThreads(42, Integer.toString(4*Runtime.getRuntime().availableProcessors()/5)), //This argument is internal.
-	NumberOfArguments(43);
+	
+	BPGOTermsAnnotation(18,Commons.DO_NOT_BP_GOTERMS_ANNOTATION),
+	MFGOTermsAnnotation(19,Commons.DO_NOT_MF_GOTERMS_ANNOTATION),
+	CCGOTermsAnnotation(20,Commons.DO_NOT_CC_GOTERMS_ANNOTATION),
+	
+	KeggPathwayAnnotation(21, Commons.DO_NOT_KEGGPATHWAY_ANNOTATION), 
+	TfAndKeggPathwayAnnotation(22,Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION), 
+	CellLineBasedTfAndKeggPathwayAnnotation(23,Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION), 
+	RegulatorySequenceAnalysisUsingRSAT(24,Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT), 
+	JobName(25, Commons.NO_NAME),
+	WriteAnnotationFoundOverlapsMode(26, Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED),
+	WriteAnnotationBinaryMatrixMode(27, Commons.DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX), 
+	WriteGeneratedRandomDataMode(28, Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA),
+	WritePermutationBasedandParametricBasedAnnotationResultMode(29,Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT),
+	WritePermutationBasedAnnotationResultMode(30, Commons.DO_NOT_WRITE_PERMUTATION_BASED_ANNOTATION_RESULT),
+	NumberOfPermutationsInEachRun(31, Commons.NUMBER_OF_PERMUTATIONS_IN_EACH_RUN_DEFAULT),
+	UserDefinedGeneSetAnnotation(32, Commons.DO_NOT_USER_DEFINED_GENESET_ANNOTATION), 
+	UserDefinedGeneSetInput(33,Commons.NO_OPTIONAL_USERDEFINEDGENESET_FILE_PROVIDED), 
+	UserDefinedGeneSetGeneInformation(34,Commons.GENE_SYMBOL), 
+	UserDefinedGeneSetName(35, Commons.NO_NAME), 
+	UserDefinedGeneSetDescriptionFile(36,Commons.NO_OPTIONAL_USERDEFINEDGENESET_DESCRIPTION_FILE_PROVIDED), 
+	UserDefinedLibraryAnnotation(37,Commons.DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION), 
+	UserDefinedLibraryInput(38,Commons.NO_OPTIONAL_USERDEFINEDLIBRARY_FILE_PROVIDED), 
+	UserDefinedLibraryDataFormat(39,Commons.USERDEFINEDLIBRARY_DATAFORMAT_0_BASED_START_ENDEXCLUSIVE_COORDINATES), 
+	GivenInputDataType(40,Commons.GIVEN_INPUT_DATA_CONSISTS_OF_SNPS), //This argument is internal.
+	LogFile(41, Commons.ARG_NO_LOG_FILE),
+	GLANETRun(42, Commons.ARG_GLANET_NORMAL_RUN), //This argument is optional, default is normal run
+	IsochoreFamilyMode(43,Commons.DO_USE_ISOCHORE_FAMILY), //This argument is optional.
+	NumberOfThreads(44, Integer.toString(4*Runtime.getRuntime().availableProcessors()/5)), //This argument is internal.
+	NumberOfArguments(45);
 
 	private final int value;
 	private final String defaultValue;

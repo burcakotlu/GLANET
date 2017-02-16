@@ -72,9 +72,7 @@ import userdefined.library.UserDefinedLibraryUtility;
 import augmentation.humangenes.HumanGenesAugmentation;
 import auxiliary.Accumulation;
 import auxiliary.FileOperations;
-
 import common.Commons;
-
 import enrichment.AllMaps;
 import enrichment.AllMapsDnaseTFHistoneWithNumbers;
 import enrichment.AllMapsKeysWithNumbersAndValuesOneorZero;
@@ -85,6 +83,7 @@ import enumtypes.AssociationMeasureType;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.GeneInformationType;
+import enumtypes.GeneOntologyFunction;
 import enumtypes.GeneOverlapAnalysisFileMode;
 import enumtypes.GeneSetAnalysisType;
 import enumtypes.GeneSetType;
@@ -1854,11 +1853,11 @@ public class Annotation {
 		TIntByteMap dnaseCellLineNumber2HeaderWrittenMap = new TIntByteHashMap();
 		
 		//For testing purposes
-		long dateBefore = Long.MIN_VALUE;
-		long dateAfter = Long.MIN_VALUE;
+//		long dateBefore = Long.MIN_VALUE;
+//		long dateAfter = Long.MIN_VALUE;
 		
-		long constructionTime = 0;
-		long searchTime = 0;
+//		long constructionTime = 0;
+//		long searchTime = 0;
 
 		// For each ChromosomeName
 		for(ChromosomeName chrName : ChromosomeName.values()){
@@ -1867,10 +1866,10 @@ public class Annotation {
 			
 				case INTERVAL_TREE_CORMEN:
 					
-					dateBefore = System.currentTimeMillis();
+					//dateBefore = System.currentTimeMillis();
 					dnaseIntervalTree = createDnaseIntervalTreeWithNumbers(dataFolder,chrName);
-					dateAfter = System.currentTimeMillis();
-					constructionTime = dateAfter - dateBefore;
+					//dateAfter = System.currentTimeMillis();
+					//constructionTime = dateAfter - dateBefore;
 					
 					//System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeCormen: \t" +(constructionTime*1.0f)/1000 + "\t seconds");
 					
@@ -1878,7 +1877,7 @@ public class Annotation {
 							outputFolder,
 							Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 					
-					dateBefore = System.currentTimeMillis();
+					//dateBefore = System.currentTimeMillis();
 					searchDnaseWithNumbers(
 							outputFolder,
 							dnaseCellLineNumber2HeaderWrittenMap,
@@ -1891,8 +1890,8 @@ public class Annotation {
 							cellLineNumber2CellLineNameMap, 
 							fileNumber2FileNameMap,
 							associationMeasureType);
-					dateAfter = System.currentTimeMillis();
-					searchTime = dateAfter - dateBefore;
+					//dateAfter = System.currentTimeMillis();
+					//searchTime = dateAfter - dateBefore;
 					
 					//System.out.println(chrName.convertEnumtoString() + ": Search Time for IntervalTreeCormen: \t" + (searchTime*1.0f)/1000 + "\t seconds");
 
@@ -1904,10 +1903,10 @@ public class Annotation {
 					
 				case INTERVAL_TREE_MARKDEBERG:
 					
-					dateBefore = System.currentTimeMillis();
+					//dateBefore = System.currentTimeMillis();
 					dnaseIntervalTreeMarkdeBerg = IntervalTreeMarkdeBerg.createDnaseIntervalTreeWithNumbers(dataFolder,outputFolder,chrName);
-					dateAfter = System.currentTimeMillis();
-					constructionTime = dateAfter - dateBefore;
+					//dateAfter = System.currentTimeMillis();
+					//constructionTime = dateAfter - dateBefore;
 					
 					//System.out.println(chrName.convertEnumtoString() + ": Construction Time for IntervalTreeMarkdeBerg: \t" + (constructionTime*1.0f)/1000 + "\t seconds" +  " Cost1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost1() + "\tCost2_1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_1() + "\tCost2_2: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_2() + "\tCost2_3: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_3() + "\tCost3_1: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_1() + "\tCost3_2: " + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_2() + "\tTotal: " + (dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_2() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost2_3() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_1() + dnaseIntervalTreeMarkdeBerg.getConstructionTimeCost3_2()) );
 					
@@ -1915,7 +1914,7 @@ public class Annotation {
 							outputFolder,
 							Commons.ANNOTATE_CHROMOSOME_BASED_INPUT_FILE_DIRECTORY + ChromosomeName.convertEnumtoString(chrName) + Commons.CHROMOSOME_BASED_GIVEN_INPUT);
 					
-					dateBefore = System.currentTimeMillis();
+					//dateBefore = System.currentTimeMillis();
 					searchDnaseWithNumbers(
 							outputFolder,
 							dnaseCellLineNumber2HeaderWrittenMap,
@@ -1928,8 +1927,8 @@ public class Annotation {
 							cellLineNumber2CellLineNameMap, 
 							fileNumber2FileNameMap,
 							associationMeasureType);
-					dateAfter = System.currentTimeMillis();
-					searchTime = dateAfter - dateBefore;
+					//dateAfter = System.currentTimeMillis();
+					//searchTime = dateAfter - dateBefore;
 					
 					//System.out.println(chrName.convertEnumtoString() + ": Search Time for IntervalTreeMarkdeBerg: \t" + (searchTime*1.0f)/1000 + "\t seconds");
 
@@ -11130,7 +11129,9 @@ public class Annotation {
 		AnnotationType geneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GeneAnnotation.value()]);
 
 		/**************************GO Terms ANNOTATION**********************************/
-		AnnotationType goTermsAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GOTermsAnnotation.value()]);
+		AnnotationType bpGOTermsAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.BPGOTermsAnnotation.value()]);
+		AnnotationType mfGOTermsAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.MFGOTermsAnnotation.value()]);
+		AnnotationType ccGOTermsAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CCGOTermsAnnotation.value()]);
 		
 		/**************************KEGG Pathway ANNOTATION**********************************/
 		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
@@ -11284,10 +11285,6 @@ public class Annotation {
 				Commons.ALL_POSSIBLE_NAMES_KEGGPATHWAY_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_KEGGPATHWAY_NAME_2_NUMBER_OUTPUT_FILENAME);
 		
 		
-		//TODO check it
-		TObjectIntMap<String> bp_goTermName2NumberMap = new TObjectIntHashMap<String>();
-		TObjectIntMap<String> mf_goTermName2NumberMap = new TObjectIntHashMap<String>();
-		TObjectIntMap<String> cc_goTermName2NumberMap = new TObjectIntHashMap<String>();
 
 		TObjectIntMap<String> goTermName2NumberMap = new TObjectIntHashMap<String>();
 		
@@ -11297,20 +11294,6 @@ public class Annotation {
 				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);		
 		
 
-		FileOperations.fillName2NumberMap(
-				bp_goTermName2NumberMap,
-				dataFolder,
-				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_BP_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);		
-		
-		FileOperations.fillName2NumberMap(
-				mf_goTermName2NumberMap,
-				dataFolder,
-				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_MF_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);		
-		
-		FileOperations.fillName2NumberMap(
-				cc_goTermName2NumberMap,
-				dataFolder,
-				Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_CC_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);		
 		/********************************************************************************************************/
 		/*************** FILL NAME 2 NUMBER MAPS ends************************************************************/
 		/********************************************************************************************************/
@@ -11504,7 +11487,7 @@ public class Annotation {
 			/*******************************************************************************/
 			if(geneAnnotationType.doGeneAnnotation() &&
 					!(userDefinedGeneSetAnnotationType.doUserDefinedLibraryAnnotation()) &&
-					!(goTermsAnnotationType.doGOTermsAnnotation()) &&
+					!(bpGOTermsAnnotationType.doBPGOTermsAnnotation()) && !(mfGOTermsAnnotationType.doMFGOTermsAnnotation())  && !(ccGOTermsAnnotationType.doCCGOTermsAnnotation()) &&
 					!(keggPathwayAnnotationType.doKEGGPathwayAnnotation()) &&
 					!(tfKeggPathwayAnnotationType.doTFKEGGPathwayAnnotation()) && 
 					!(tfCellLineKeggPathwayAnnotationType.doTFCellLineKEGGPathwayAnnotation())){
@@ -11577,7 +11560,7 @@ public class Annotation {
 			/*******************************************************************************/
 			/************GO Terms*****ANNOTATION***starts **********************************/
 			/*******************************************************************************/
-			if(goTermsAnnotationType.doGOTermsAnnotation()){
+			if(bpGOTermsAnnotationType.doBPGOTermsAnnotation() || mfGOTermsAnnotationType.doMFGOTermsAnnotation() || ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
 				
 				//TODO Do not do this twice or more if KEGG and GO is selected.
 				//19 April 2016
@@ -11595,18 +11578,35 @@ public class Annotation {
 				//Biological Process
 				TIntObjectMap<TIntList> geneId2GOTermNumberListMap = new TIntObjectHashMap<TIntList>();
 				
+				TIntObjectMap<GeneOntologyFunction> goTermNumber2GeneOntologyFunctionMap = new TIntObjectHashMap<GeneOntologyFunction>();
 				
 				//TODO why not to use this data structure?
 				//TObjectIntMap<String> geneSymbol2geneIDMap =  new TObjectIntHashMap<String>();				
 				Map<String,List<Integer>> geneSymbol2ListofGeneIDMap = new HashMap<String, List<Integer>>();
 				HumanGenesAugmentation.fillGeneSymbol2ListofGeneIDMap(dataFolder, geneSymbol2ListofGeneIDMap);
-
+				
+				
+				List<GeneOntologyFunction> consideredGOClassesList = new ArrayList<GeneOntologyFunction>();
+				GOTermsUtility.fillConsideredGOClasses(consideredGOClassesList,bpGOTermsAnnotationType,mfGOTermsAnnotationType,ccGOTermsAnnotationType);
+				
+				
+				
 				//This code uses go terms input file inside
+				//We fill geneId2GOTermNumberListMap for the GoTerms of user requires GO Terms class only 
+				//For each line in go terms input file
+				//Check its goTerm Class whether it is required or not
+				//If asked then get the geneSymbol and its geneIDList
+				//For each geneID in the geneIDList
+				//add goTermNumber to corresponding goTermNumberList
+				//Then let the annotation being done for the goTermNumbers in the geneId2GOTermNumberListMap
+				//Question will you use goTermNumber2GeneOntologyFunctionMap again? Answer: Yes
 				GOTermsUtility.createNCBIGeneID2ListofGOTermsNumberMap(
 						dataFolder,
 						geneSymbol2ListofGeneIDMap,
 						goTermName2NumberMap,
-						geneId2GOTermNumberListMap);
+						geneId2GOTermNumberListMap,
+						goTermNumber2GeneOntologyFunctionMap,
+						consideredGOClassesList);
 				
 
 				TIntIntMap exonBasedGOTerm2KMap 		= new TIntIntHashMap();				
@@ -11642,7 +11642,7 @@ public class Annotation {
 				
 				
 	
-				//Hg19 RefSeq Genes
+				//Hg19 RefSeq Genes starts
 				GeneOverlapAnalysisFileMode geneOverlapAnalysisFileMode = GeneOverlapAnalysisFileMode.WITH_OVERLAP_INFORMATION;
 
 				writeGeneOverlapAnalysisFile(
@@ -11661,38 +11661,146 @@ public class Annotation {
 						geneEntrezId2GeneOfficialSymbolMap, 
 						outputFolder,
 						Commons.ANNOTATION_RESULTS_FOR_HG19_REFSEQ_GENE_ALTERNATE_NAME);
+				//Hg19 RefSeq Genes ends
 
+				//Gene Ontology Terms starts
 				//ExonBased Gene Ontology Terms
-				//TODO write BP MF CC Based
-				writeResultsWithNumbers(
-						associationMeasureType,
-						exonBasedGOTerm2KMap,
-						goTermNumber2NameMap,
-						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_GENE_ONTOLOGY_TERMS_FILE);
-	
+				TIntIntMap exonBasedBPGOTerm2KMap 	= null;				
+				TIntIntMap exonBasedMFGOTerm2KMap 	= null;								
+				TIntIntMap exonBasedCCGOTerm2KMap 	= null;
 				
 				//RegulationBased Gene Ontology Terms
-				//TODO write BP MF CC Based
-				writeResultsWithNumbers(
-						associationMeasureType,
-						regulationBasedGOTerm2KMap,
-						goTermNumber2NameMap,
-						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_GENE_ONTOLOGY_TERMS_FILE);
-	
-			
-	
-				//AllBased Gene Ontology Terms
-				//TODO write BP MF CC Based
-				writeResultsWithNumbers(
-						associationMeasureType,
-						allBasedGOTerm2KMap,
-						goTermNumber2NameMap,
-						outputFolder,
-						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_GENE_ONTOLOGY_TERMS_FILE);
-	
+				TIntIntMap regulationBasedBPGOTerm2KMap 	= null;				
+				TIntIntMap regulationBasedMFGOTerm2KMap 	= null;								
+				TIntIntMap regulationBasedCCGOTerm2KMap 	= null;
 				
+				//AllBased Gene Ontology Terms
+				TIntIntMap allBasedBPGOTerm2KMap 	= null;				
+				TIntIntMap allBasedMFGOTerm2KMap 	= null;								
+				TIntIntMap allBasedCCGOTerm2KMap 	= null;
+
+				
+				if (bpGOTermsAnnotationType.doBPGOTermsAnnotation()){
+					exonBasedBPGOTerm2KMap 	= new TIntIntHashMap();
+					regulationBasedBPGOTerm2KMap = new TIntIntHashMap();
+					allBasedBPGOTerm2KMap = new TIntIntHashMap();					
+				}
+				if (mfGOTermsAnnotationType.doMFGOTermsAnnotation()){
+					exonBasedMFGOTerm2KMap = new TIntIntHashMap();	
+					regulationBasedMFGOTerm2KMap = new TIntIntHashMap();
+					allBasedMFGOTerm2KMap = new TIntIntHashMap();						
+				}
+				if (ccGOTermsAnnotationType.doCCGOTermsAnnotation()){					
+					exonBasedCCGOTerm2KMap = new TIntIntHashMap();
+					regulationBasedCCGOTerm2KMap = new TIntIntHashMap();
+					allBasedCCGOTerm2KMap = new TIntIntHashMap();					
+				}
+
+								
+				GOTermsUtility.fillMaps(
+						exonBasedGOTerm2KMap,
+						exonBasedBPGOTerm2KMap,
+						exonBasedMFGOTerm2KMap,
+						exonBasedCCGOTerm2KMap,
+						goTermNumber2GeneOntologyFunctionMap,
+						consideredGOClassesList);
+				
+				GOTermsUtility.fillMaps(
+						regulationBasedGOTerm2KMap,
+						regulationBasedBPGOTerm2KMap,
+						regulationBasedMFGOTerm2KMap,
+						regulationBasedCCGOTerm2KMap,
+						goTermNumber2GeneOntologyFunctionMap,
+						consideredGOClassesList);
+
+				GOTermsUtility.fillMaps(
+						allBasedGOTerm2KMap,
+						allBasedBPGOTerm2KMap,
+						allBasedMFGOTerm2KMap,
+						allBasedCCGOTerm2KMap,
+						goTermNumber2GeneOntologyFunctionMap,
+						consideredGOClassesList);
+
+
+					
+				if (bpGOTermsAnnotationType.doBPGOTermsAnnotation()){
+
+					writeResultsWithNumbers(
+						associationMeasureType,
+						exonBasedBPGOTerm2KMap,
+						goTermNumber2NameMap,
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_BP_GENE_ONTOLOGY_TERMS_FILE);
+					
+					writeResultsWithNumbers(
+						associationMeasureType,
+						regulationBasedBPGOTerm2KMap,
+						goTermNumber2NameMap,
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_BP_GENE_ONTOLOGY_TERMS_FILE);
+					
+					writeResultsWithNumbers(
+						associationMeasureType,
+						allBasedBPGOTerm2KMap,
+						goTermNumber2NameMap,
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_BP_GENE_ONTOLOGY_TERMS_FILE);
+
+				}
+				
+					
+				if (mfGOTermsAnnotationType.doMFGOTermsAnnotation()){
+						
+					writeResultsWithNumbers(
+						associationMeasureType,
+						exonBasedMFGOTerm2KMap,
+						goTermNumber2NameMap,
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_MF_GENE_ONTOLOGY_TERMS_FILE);
+						
+					writeResultsWithNumbers(
+						associationMeasureType,
+						regulationBasedMFGOTerm2KMap,
+						goTermNumber2NameMap,
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_MF_GENE_ONTOLOGY_TERMS_FILE);
+					
+					writeResultsWithNumbers(
+						associationMeasureType,
+						allBasedMFGOTerm2KMap,
+						goTermNumber2NameMap,
+						outputFolder,
+						Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_MF_GENE_ONTOLOGY_TERMS_FILE);
+
+				}
+				
+					
+				if (ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
+						
+						writeResultsWithNumbers(
+								associationMeasureType,
+								exonBasedCCGOTerm2KMap,
+								goTermNumber2NameMap,
+								outputFolder,
+								Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_EXON_BASED_CC_GENE_ONTOLOGY_TERMS_FILE);
+						
+						writeResultsWithNumbers(
+								associationMeasureType,
+								regulationBasedCCGOTerm2KMap,
+								goTermNumber2NameMap,
+								outputFolder,
+								Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_REGULATION_BASED_CC_GENE_ONTOLOGY_TERMS_FILE);
+						
+						writeResultsWithNumbers(
+								associationMeasureType,
+								allBasedCCGOTerm2KMap,
+								goTermNumber2NameMap,
+								outputFolder,
+								Commons.ANNOTATION_RESULTS_FOR_GENE_ONTOLOGY_TERMS + Commons.ANNOTATION_RESULTS_FOR_ALL_BASED_CC_GENE_ONTOLOGY_TERMS_FILE);
+									
+				}
+				//Gene Ontology Terms ends
+
 				
 				dateAfter = System.currentTimeMillis();
 
@@ -11708,10 +11816,24 @@ public class Annotation {
 				regulationBasedGOTerm2KMap = null;
 				allBasedGOTerm2KMap = null;
 				
+				exonBasedBPGOTerm2KMap 	= null;				
+				exonBasedMFGOTerm2KMap 	= null;								
+				exonBasedCCGOTerm2KMap 	= null;
+				
+				regulationBasedBPGOTerm2KMap 	= null;				
+				regulationBasedMFGOTerm2KMap 	= null;								
+				regulationBasedCCGOTerm2KMap 	= null;
+				
+				allBasedBPGOTerm2KMap 	= null;				
+				allBasedMFGOTerm2KMap 	= null;								
+				allBasedCCGOTerm2KMap 	= null;
+				
+				goTermNumber2NameMap = null;
+				goTermName2NumberMap = null;
+				
 				System.gc();
 				System.runFinalization();
-
-				
+			
 			}					
 			/*******************************************************************************/
 			/************GO Terms*****ANNOTATION***ends ************************************/
@@ -14551,7 +14673,7 @@ public class Annotation {
 		}
 		
 		//13 FEB 2017
-		else if (annotationType.doGOTermsAnnotation()){
+		else if (annotationType.doBPGOTermsAnnotation() ||annotationType.doMFGOTermsAnnotation() || annotationType.doCCGOTermsAnnotation() ){
 			
 			
 			// Exon Based GO Term Analysis

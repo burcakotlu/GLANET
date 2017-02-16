@@ -905,7 +905,9 @@ public class CollectionofPermutationsResults {
 				break;
 			}
 		
-			case DO_GOTERMS_ANNOTATION:{
+			case DO_BP_GOTERMS_ANNOTATION:
+			case DO_MF_GOTERMS_ANNOTATION:
+			case DO_CC_GOTERMS_ANNOTATION:{
 				goTermNumber2NameMap = getGOTermNumber2NameMapInstance(dataFolder);
 				break;		
 			}
@@ -1947,7 +1949,11 @@ public class CollectionofPermutationsResults {
 		AnnotationType histoneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.HistoneAnnotation.value()]);
 		AnnotationType tfAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAnnotation.value()]);
 		AnnotationType geneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GeneAnnotation.value()]);		
-		AnnotationType goTermAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GOTermsAnnotation.value()]);		
+		
+		AnnotationType bpGOTermAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.BPGOTermsAnnotation.value()]);		
+		AnnotationType mfGOTermAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.MFGOTermsAnnotation.value()]);		
+		AnnotationType ccGOTermAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CCGOTermsAnnotation.value()]);		
+		
 		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
 		AnnotationType tfKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.TfAndKeggPathwayAnnotation.value()]);
 		AnnotationType tfCellLineKeggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()]);
@@ -1985,7 +1991,9 @@ public class CollectionofPermutationsResults {
 				histoneAnnotationType,
 				tfAnnotationType,
 				geneAnnotationType,
-				goTermAnnotationType,
+				bpGOTermAnnotationType,
+				mfGOTermAnnotationType,
+				ccGOTermAnnotationType,
 				keggPathwayAnnotationType,
 				tfKeggPathwayAnnotationType,
 				tfCellLineKeggPathwayAnnotationType,
@@ -2244,9 +2252,10 @@ public class CollectionofPermutationsResults {
 		/****************************************************************************/
 		/************ Collection of GO Term RESULTS starts **************************/
 		/****************************************************************************/
-		//todo
-		if (goTermAnnotationType.doGOTermsAnnotation()){
+		//BP
+		if(bpGOTermAnnotationType.doBPGOTermsAnnotation()){
 			
+			//BP ExonBased
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel,
@@ -2254,11 +2263,31 @@ public class CollectionofPermutationsResults {
 					multipleTestingParameter,
 					dataFolder,
 					outputFolder,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED + "_" + Commons.GENE_ONTOLOGY_TERMS,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED  + "_" + Commons.GENE_ONTOLOGY_TERMS,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED_BP_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED_BP_GO_TERM,
 					jobName, numberofRuns, numberofRemainders,
-					numberofComparisons.getExonBasedGOTermNumberofComparison(),
-					goTermAnnotationType, 
+					numberofComparisons.getBP_GOTermNumberofComparison(),
+					bpGOTermAnnotationType, 
+					null, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					enrichmentZScoreMode,
+					glanetRunType);
+			
+			//BP RegulationBased 
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED_BP_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_BP_GO_TERM,
+					jobName, numberofRuns, numberofRemainders,
+					numberofComparisons.getBP_GOTermNumberofComparison(),
+					bpGOTermAnnotationType, 
 					null, 
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
@@ -2266,6 +2295,7 @@ public class CollectionofPermutationsResults {
 					enrichmentZScoreMode,
 					glanetRunType);
 
+			//BP AllBased
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel,
@@ -2273,18 +2303,45 @@ public class CollectionofPermutationsResults {
 					multipleTestingParameter,
 					dataFolder,
 					outputFolder,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.GENE_ONTOLOGY_TERMS  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED + "_" + Commons.GENE_ONTOLOGY_TERMS,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.GENE_ONTOLOGY_TERMS  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED + "_" + Commons.GENE_ONTOLOGY_TERMS,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED_BP_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED_BP_GO_TERM,
 					jobName, numberofRuns, numberofRemainders,
-					numberofComparisons.getRegulationBasedGOTermNumberofComparison(),
-					goTermAnnotationType, 
+					numberofComparisons.getBP_GOTermNumberofComparison(),
+					bpGOTermAnnotationType, 
+					null, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					enrichmentZScoreMode,
+					glanetRunType);	
+
+
+		}
+		
+		//MF
+		if(mfGOTermAnnotationType.doMFGOTermsAnnotation()){
+			
+			//MF ExonBased
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED_MF_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED_MF_GO_TERM,
+					jobName, numberofRuns, numberofRemainders,
+					numberofComparisons.getMF_GOTermNumberofComparison(),
+					mfGOTermAnnotationType, 
 					null, 
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
 					enrichmentZScoreMode,
 					glanetRunType);
-
+			
+			//MF RegulationBased
 			CollectionofPermutationsResults.collectPermutationResults(
 					numberofPermutationsInEachRun,
 					bonferroniCorrectionSignificanceLevel,
@@ -2292,18 +2349,107 @@ public class CollectionofPermutationsResults {
 					multipleTestingParameter,
 					dataFolder,
 					outputFolder,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED + "_" + Commons.GENE_ONTOLOGY_TERMS,
-					Commons.ENRICHMENT_DIRECTORY + System.getProperty("file.separator") + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED + "_" + Commons.GENE_ONTOLOGY_TERMS,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED_MF_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_MF_GO_TERM,
 					jobName, numberofRuns, numberofRemainders,
-					numberofComparisons.getAllBasedGOTermNumberofComparison(),
-					goTermAnnotationType, 
+					numberofComparisons.getMF_GOTermNumberofComparison(),
+					mfGOTermAnnotationType, 
 					null, 
 					null,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
 					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
 					enrichmentZScoreMode,
-					glanetRunType);			
+					glanetRunType);
 			
+			//MF AllBased
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED_MF_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED_MF_GO_TERM,
+					jobName, numberofRuns, numberofRemainders,
+					numberofComparisons.getMF_GOTermNumberofComparison(),
+					mfGOTermAnnotationType, 
+					null, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					enrichmentZScoreMode,
+					glanetRunType);	
+
+
+
+		}
+		
+		//CC
+		if(ccGOTermAnnotationType.doCCGOTermsAnnotation()){
+			
+			//CC ExonBased
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.EXON_BASED_CC_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.EXON_BASED + System.getProperty("file.separator") + Commons.EXON_BASED_CC_GO_TERM,
+					jobName, numberofRuns, numberofRemainders,
+					numberofComparisons.getCC_GOTermNumberofComparison(),
+					ccGOTermAnnotationType, 
+					null, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					enrichmentZScoreMode,
+					glanetRunType);
+			
+			//CC RegulationBased
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.REGULATION_BASED_CC_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS  + System.getProperty("file.separator") + Commons.REGULATION_BASED + System.getProperty("file.separator") + Commons.REGULATION_BASED_CC_GO_TERM,
+					jobName, numberofRuns, numberofRemainders,
+					numberofComparisons.getCC_GOTermNumberofComparison(),
+					ccGOTermAnnotationType, 
+					null, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					enrichmentZScoreMode,
+					glanetRunType);
+			
+			//CC AllBased
+			CollectionofPermutationsResults.collectPermutationResults(
+					numberofPermutationsInEachRun,
+					bonferroniCorrectionSignificanceLevel,
+					FDR,
+					multipleTestingParameter,
+					dataFolder,
+					outputFolder,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.RUNS_DIRECTORY + Commons.ALL_BASED_CC_GO_TERM,
+					Commons.ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty("file.separator") + Commons.ALL_BASED + System.getProperty("file.separator") + Commons.ALL_BASED_CC_GO_TERM,
+					jobName, numberofRuns, numberofRemainders,
+					numberofComparisons.getCC_GOTermNumberofComparison(),
+					ccGOTermAnnotationType, 
+					null, 
+					null,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					GeneratedMixedNumberDescriptionOrderLength.INT_10DIGIT_GOTERMNUMBER,
+					enrichmentZScoreMode,
+					glanetRunType);	
+
+
+
 		}
 		/****************************************************************************/
 		/************ Collection of GO Term RESULTS ends ****************************/

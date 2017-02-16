@@ -13,6 +13,7 @@ import enumtypes.CommandLineArguments;
 import enumtypes.EnrichmentPermutationDivisionType;
 import enumtypes.EnrichmentZScoreMode;
 import enumtypes.GeneInformationType;
+import enumtypes.GeneOntologyFunction;
 import enumtypes.GenerateRandomDataMode;
 import enumtypes.GeneratedMixedNumberDescriptionOrderLength;
 import enumtypes.GivenInputDataType;
@@ -8624,7 +8625,7 @@ public class Enrichment {
 			TIntIntMap originalPermutationNumberRemovedMixedNumber2KMap,
 			TIntObjectMap<TIntList> permutationNumberRemovedMixedNumber2AllKMap, 
 			String toBePolledDirectoryName,
-			String runNumber) {
+			String runName) {
 
 		int permutationNumberRemovedMixedNumber;
 		int originalNumberofOverlaps;
@@ -8634,7 +8635,7 @@ public class Enrichment {
 		BufferedWriter bufferedWriter = null;
 
 		try{
-			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + toBePolledDirectoryName + "_" + runNumber + ".txt"));
+			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter(outputFolder + toBePolledDirectoryName + "_" + runName + ".txt"));
 
 			for(TIntIntIterator it = originalPermutationNumberRemovedMixedNumber2KMap.iterator(); it.hasNext();){
 
@@ -8681,7 +8682,7 @@ public class Enrichment {
 	public static void writeToBeCollectedNumberofOverlaps(String outputFolder,
 			TLongIntMap originalPermutationNumberRemovedMixedNumber2KMap,
 			TLongObjectMap<TIntList> permutationNumberRemovedMixedNumber2AllKMap, String toBePolledDirectoryName,
-			String runNumber) {
+			String runName) {
 
 		long permutationNumberRemovedMixedNumber;
 		int originalNumberofOverlaps;
@@ -8692,7 +8693,7 @@ public class Enrichment {
 
 		try{
 			bufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter(outputFolder + toBePolledDirectoryName + "_" + runNumber + ".txt"));
+					FileOperations.createFileWriter(outputFolder + toBePolledDirectoryName + "_" + runName + ".txt"));
 
 			for(TLongIntIterator it = originalPermutationNumberRemovedMixedNumber2KMap.iterator(); it.hasNext();){
 
@@ -8902,8 +8903,18 @@ public class Enrichment {
 		// DO_GENE_ANNOTATION
 		AnnotationType geneAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GeneAnnotation.value()]);
 
-		//Gene Ontology Terms 
-		AnnotationType goTermsAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.GOTermsAnnotation.value()]);
+		//Gene Ontology Terms starts
+		AnnotationType bpGOTermsAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.BPGOTermsAnnotation.value()]);
+		AnnotationType mfGOTermsAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.MFGOTermsAnnotation.value()]);
+		AnnotationType ccGOTermsAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.CCGOTermsAnnotation.value()]);
+		
+		//Artificially Set HERE
+		AnnotationType artificial_goTermsAnnotationType = null;
+		if (bpGOTermsAnnotationType.doBPGOTermsAnnotation() || mfGOTermsAnnotationType.doMFGOTermsAnnotation() || ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
+			artificial_goTermsAnnotationType = AnnotationType.DO_GOTERMS_ANNOTATION;
+		}
+		//Gene Ontology Terms ends
+		
 		
 		// KEGG Pathway Annotation, DO or DO_NOT
 		AnnotationType keggPathwayAnnotationType = AnnotationType.convertStringtoEnum(args[CommandLineArguments.KeggPathwayAnnotation.value()]);
@@ -9002,21 +9013,30 @@ public class Enrichment {
 		
 		
 		//12 FEB 2017
-		//TODO
 		//Check it 
 		/**********************************************************************************************/
 		/********************* FILL GENEID 2 GO TERM NUMBER MAP STARTS ********************************/
 		/**********************************************************************************************/
 		TIntObjectMap<TIntList> geneId2GOTermNumberListMap = null;
 		TObjectIntMap<String> goTermName2GOTermNumberMap = null;
+		TIntObjectMap<GeneOntologyFunction> goTermNumber2GeneOntologyFunctionMap  = null;
 		
 		Map<String,List<Integer>> geneSymbol2ListofGeneIDMap = null;
 		
+		List<GeneOntologyFunction> consideredGOClassesList = null;
 		
-		if(goTermsAnnotationType.doGOTermsAnnotation()){
+		if(bpGOTermsAnnotationType.doBPGOTermsAnnotation() || mfGOTermsAnnotationType.doMFGOTermsAnnotation() || ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
 			
 			geneId2GOTermNumberListMap = new TIntObjectHashMap<TIntList>();
 			goTermName2GOTermNumberMap = new TObjectIntHashMap<String>();
+			goTermNumber2GeneOntologyFunctionMap = new TIntObjectHashMap<GeneOntologyFunction>();
+			
+			consideredGOClassesList = new ArrayList<GeneOntologyFunction>();
+			GOTermsUtility.fillConsideredGOClasses(
+					consideredGOClassesList, 
+					bpGOTermsAnnotationType, 
+					mfGOTermsAnnotationType, 
+					ccGOTermsAnnotationType);
 			
 			geneSymbol2ListofGeneIDMap = new HashMap<String, List<Integer>>();
 			HumanGenesAugmentation.fillGeneSymbol2ListofGeneIDMap(dataFolder, geneSymbol2ListofGeneIDMap);
@@ -9026,11 +9046,14 @@ public class Enrichment {
 					dataFolder,
 					Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME + Commons.ALL_POSSIBLE_GO_TERMS_NAME_2_NUMBER_OUTPUT_FILENAME);		
 			
+			//If user requires only certain class of GO terms such as BP, MF and CC we can fill geneId2GOTermNumberListMap for the GoTerms of that class only 
 			GOTermsUtility.createNCBIGeneID2ListofGOTermsNumberMap(
 					dataFolder, 
 					geneSymbol2ListofGeneIDMap, 
 					goTermName2GOTermNumberMap, 
-					geneId2GOTermNumberListMap);
+					geneId2GOTermNumberListMap,
+					goTermNumber2GeneOntologyFunctionMap,
+					consideredGOClassesList);
 			
 			//Free space
 			geneSymbol2ListofGeneIDMap= null;
@@ -9167,10 +9190,28 @@ public class Enrichment {
 		// UserDefinedLibrary
 		TIntIntMap elementTypeNumberElementNumber2OriginalKMap = null;
 				
-		// GO Term
+		// GO Term starts
 		TIntIntMap exonBasedGOTerm2OriginalKMap = null;
 		TIntIntMap regulationBasedGOTerm2OriginalKMap = null;
 		TIntIntMap allBasedGOTerm2OriginalKMap = null;
+		
+		//BP
+		TIntIntMap exonBased_BP_GOTerm2OriginalKMap = null;
+		TIntIntMap regulationBased_BP_GOTerm2OriginalKMap = null;
+		TIntIntMap allBased_BP_GOTerm2OriginalKMap = null;
+		
+		//MF
+		TIntIntMap exonBased_MF_GOTerm2OriginalKMap = null;
+		TIntIntMap regulationBased_MF_GOTerm2OriginalKMap = null;
+		TIntIntMap allBased_MF_GOTerm2OriginalKMap = null;
+		
+		//CC
+		TIntIntMap exonBased_CC_GOTerm2OriginalKMap = null;
+		TIntIntMap regulationBased_CC_GOTerm2OriginalKMap = null;
+		TIntIntMap allBased_CC_GOTerm2OriginalKMap = null;
+		// GO Term ends
+		
+
 
 		// KEGGPathway
 		TIntIntMap exonBasedKeggPathway2OriginalKMap = null;
@@ -9367,8 +9408,8 @@ public class Enrichment {
 			
 		}
 		
-		//GO Term
-		if (goTermsAnnotationType.doGOTermsAnnotation()){
+		//GO Term starts
+		if (bpGOTermsAnnotationType.doBPGOTermsAnnotation() || mfGOTermsAnnotationType.doMFGOTermsAnnotation() || ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
 			
 			goTermNumber2NameMap = new TIntObjectHashMap<String>();
 			
@@ -9382,8 +9423,30 @@ public class Enrichment {
 			regulationBasedGOTerm2OriginalKMap = new TIntIntHashMap();
 			allBasedGOTerm2OriginalKMap = new TIntIntHashMap();
 			
+			//BP
+			if (bpGOTermsAnnotationType.doBPGOTermsAnnotation()){				
+				exonBased_BP_GOTerm2OriginalKMap = new TIntIntHashMap();
+				regulationBased_BP_GOTerm2OriginalKMap = new TIntIntHashMap();
+				allBased_BP_GOTerm2OriginalKMap = new TIntIntHashMap();		
+			}
+			
+			//MF
+			if (mfGOTermsAnnotationType.doMFGOTermsAnnotation()){				
+				exonBased_MF_GOTerm2OriginalKMap = new TIntIntHashMap();
+				regulationBased_MF_GOTerm2OriginalKMap = new TIntIntHashMap();
+				allBased_MF_GOTerm2OriginalKMap = new TIntIntHashMap();				
+			}
+			
+			//CC
+			if (ccGOTermsAnnotationType.doCCGOTermsAnnotation()){		
+				exonBased_CC_GOTerm2OriginalKMap = new TIntIntHashMap();
+				regulationBased_CC_GOTerm2OriginalKMap = new TIntIntHashMap();
+				allBased_CC_GOTerm2OriginalKMap = new TIntIntHashMap();				
+			}
+			
 		}
-		
+		//GO Term ends
+
 		
 		// KEGGPathway
 		if(keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
@@ -9748,10 +9811,26 @@ public class Enrichment {
 				// UserDefinedLibrary
 				TIntObjectMap<TIntList> elementTypeNumberElementNumber2AllKMap = null;
 				
-				//GO Terms
+				//GO Terms starts
 				TIntObjectMap<TIntList> exonBasedGOTerm2AllKMap = null;
 				TIntObjectMap<TIntList> regulationBasedGOTerm2AllKMap = null;
 				TIntObjectMap<TIntList> allBasedGOTerm2AllKMap = null;
+				
+				//BP
+				TIntObjectMap<TIntList> exonBased_BP_GOTerm2AllKMap = null;
+				TIntObjectMap<TIntList> regulationBased_BP_GOTerm2AllKMap = null;
+				TIntObjectMap<TIntList> allBased_BP_GOTerm2AllKMap = null;
+				 
+				//MF
+				TIntObjectMap<TIntList> exonBased_MF_GOTerm2AllKMap = null;
+				TIntObjectMap<TIntList> regulationBased_MF_GOTerm2AllKMap = null;
+				TIntObjectMap<TIntList> allBased_MF_GOTerm2AllKMap = null;
+
+				//CC
+				TIntObjectMap<TIntList> exonBased_CC_GOTerm2AllKMap = null;
+				TIntObjectMap<TIntList> regulationBased_CC_GOTerm2AllKMap = null;
+				TIntObjectMap<TIntList> allBased_CC_GOTerm2AllKMap = null;
+				//GO Terms ends
 
 				// KEGGPathway
 				TIntObjectMap<TIntList> exonBasedKeggPathway2AllKMap = null;
@@ -9802,14 +9881,36 @@ public class Enrichment {
 					elementTypeNumberElementNumber2AllKMap = new TIntObjectHashMap<TIntList>();
 				}
 								
-				// GO Term
-				if(goTermsAnnotationType.doGOTermsAnnotation()){
+				// GO Term starts
+				if(bpGOTermsAnnotationType.doBPGOTermsAnnotation() || mfGOTermsAnnotationType.doMFGOTermsAnnotation() || ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
 
 					exonBasedGOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
 					regulationBasedGOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
 					allBasedGOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+					
+					//BP
+					if(bpGOTermsAnnotationType.doBPGOTermsAnnotation()){
+						exonBased_BP_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+						regulationBased_BP_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+						allBased_BP_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+					}
+
+					//MF
+					if(mfGOTermsAnnotationType.doMFGOTermsAnnotation()){
+						exonBased_MF_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+						regulationBased_MF_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+						allBased_MF_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+					}
+					
+					//CC
+					if(ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
+						exonBased_CC_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+						regulationBased_CC_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();
+						allBased_CC_GOTerm2AllKMap = new TIntObjectHashMap<TIntList>();					
+					}
 
 				}
+				// GO Term ends
 
 				// KEGGPathway
 				if(keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
@@ -9958,7 +10059,7 @@ public class Enrichment {
 							geneAnnotationType, 
 							userDefinedGeneSetAnnotationType,
 							userDefinedLibraryAnnotationType,
-							goTermsAnnotationType,
+							artificial_goTermsAnnotationType,
 							keggPathwayAnnotationType, 
 							tfKeggPathwayAnnotationType,
 							tfCellLineKeggPathwayAnnotationType, 
@@ -10031,7 +10132,7 @@ public class Enrichment {
 							geneAnnotationType, 
 							userDefinedGeneSetAnnotationType,
 							userDefinedLibraryAnnotationType, 
-							goTermsAnnotationType,
+							artificial_goTermsAnnotationType,
 							keggPathwayAnnotationType, 
 							tfKeggPathwayAnnotationType,
 							tfCellLineKeggPathwayAnnotationType,
@@ -10122,31 +10223,144 @@ public class Enrichment {
 
 				}
 
-				//GO Term
-				if(goTermsAnnotationType.doGOTermsAnnotation()){
+				//Left here
+				//GO Term starts
+				//At this point we can divide the exonBasedGOTerm2KMap into 3  such as exonBasedBPGOTerm2KMap,exonBasedMFGOTerm2KMap, exonBasedCCGOTerm2KMap,
+				if(bpGOTermsAnnotationType.doBPGOTermsAnnotation() || mfGOTermsAnnotationType.doMFGOTermsAnnotation() || ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
 					
-					writeToBeCollectedNumberofOverlaps(
-							outputFolder, 
-							exonBasedGOTerm2OriginalKMap,
-							exonBasedGOTerm2AllKMap,
-							Commons.TO_BE_COLLECTED_EXON_BASED_GO_TERM_NUMBER_OF_OVERLAPS, 
-							runName);
 					
-					writeToBeCollectedNumberofOverlaps(
-							outputFolder, 
-							regulationBasedGOTerm2OriginalKMap,
-							regulationBasedGOTerm2AllKMap,
-							Commons.TO_BE_COLLECTED_REGULATION_BASED_GO_TERM_NUMBER_OF_OVERLAPS, 
-							runName);
+					//ExonBased
+					GOTermsUtility.fillMaps(
+							exonBasedGOTerm2OriginalKMap, 
+							exonBased_BP_GOTerm2OriginalKMap, 
+							exonBased_MF_GOTerm2OriginalKMap, 
+							exonBased_CC_GOTerm2OriginalKMap, 
+							goTermNumber2GeneOntologyFunctionMap,
+							consideredGOClassesList);
 					
-					writeToBeCollectedNumberofOverlaps(
-							outputFolder, 
-							allBasedGOTerm2OriginalKMap,
-							allBasedGOTerm2AllKMap,
-							Commons.TO_BE_COLLECTED_ALL_BASED_GO_TERM_NUMBER_OF_OVERLAPS, 
-							runName);
+					
+					GOTermsUtility.fillMaps(
+							exonBasedGOTerm2AllKMap, 
+							exonBased_BP_GOTerm2AllKMap, 
+							exonBased_MF_GOTerm2AllKMap, 
+							exonBased_CC_GOTerm2AllKMap, 
+							goTermNumber2GeneOntologyFunctionMap,
+							consideredGOClassesList);
+					
+					
+					//RegulationBased
+					GOTermsUtility.fillMaps(
+							regulationBasedGOTerm2OriginalKMap, 
+							regulationBased_BP_GOTerm2OriginalKMap, 
+							regulationBased_MF_GOTerm2OriginalKMap, 
+							regulationBased_CC_GOTerm2OriginalKMap, 
+							goTermNumber2GeneOntologyFunctionMap,
+							consideredGOClassesList);
+					
+					GOTermsUtility.fillMaps(
+							regulationBasedGOTerm2AllKMap, 
+							regulationBased_BP_GOTerm2AllKMap, 
+							regulationBased_MF_GOTerm2AllKMap, 
+							regulationBased_CC_GOTerm2AllKMap, 
+							goTermNumber2GeneOntologyFunctionMap,
+							consideredGOClassesList);
+					
+					//AllBased
+					GOTermsUtility.fillMaps(
+							allBasedGOTerm2OriginalKMap, 
+							allBased_BP_GOTerm2OriginalKMap, 
+							allBased_MF_GOTerm2OriginalKMap, 
+							allBased_CC_GOTerm2OriginalKMap, 
+							goTermNumber2GeneOntologyFunctionMap,
+							consideredGOClassesList);
+					
+					GOTermsUtility.fillMaps(
+							allBasedGOTerm2AllKMap, 
+							allBased_BP_GOTerm2AllKMap, 
+							allBased_MF_GOTerm2AllKMap, 
+							allBased_CC_GOTerm2AllKMap, 
+							goTermNumber2GeneOntologyFunctionMap,
+							consideredGOClassesList);
+
+					//BP
+					if (bpGOTermsAnnotationType.doBPGOTermsAnnotation()){
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								exonBased_BP_GOTerm2OriginalKMap,
+								exonBased_BP_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_EXON_BASED_BP_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								regulationBased_BP_GOTerm2OriginalKMap,
+								regulationBased_BP_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_REGULATION_BASED_BP_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								allBased_BP_GOTerm2OriginalKMap,
+								allBased_BP_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_ALL_BASED_BP_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+
+					}
+					
+					//MF
+					if(mfGOTermsAnnotationType.doMFGOTermsAnnotation()){
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								exonBased_MF_GOTerm2OriginalKMap,
+								exonBased_MF_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_EXON_BASED_MF_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								regulationBased_MF_GOTerm2OriginalKMap,
+								regulationBased_MF_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_REGULATION_BASED_MF_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								allBased_MF_GOTerm2OriginalKMap,
+								allBased_MF_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_ALL_BASED_MF_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+					}
+					
+					//CC
+					if (ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								exonBased_CC_GOTerm2OriginalKMap,
+								exonBased_CC_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_EXON_BASED_CC_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								regulationBased_CC_GOTerm2OriginalKMap,
+								regulationBased_CC_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_REGULATION_BASED_CC_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+						
+						writeToBeCollectedNumberofOverlaps(
+								outputFolder, 
+								allBased_CC_GOTerm2OriginalKMap,
+								allBased_CC_GOTerm2AllKMap,
+								Commons.TO_BE_COLLECTED_ALL_BASED_CC_GO_TERM_NUMBER_OF_OVERLAPS, 
+								runName);
+
+					}					
 					
 				}
+				//GO Term ends
 				
 				// KEGGPathway
 				if(keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
@@ -10306,10 +10520,26 @@ public class Enrichment {
 				// USERDEFINED LIBRARY
 				elementTypeNumberElementNumber2AllKMap = null;
 				
-				// GO Term
+				// GO Term starts
 				exonBasedGOTerm2AllKMap = null;
 				regulationBasedGOTerm2AllKMap = null;
 				allBasedGOTerm2AllKMap = null;
+				
+				//BP
+				exonBased_BP_GOTerm2AllKMap = null;
+				regulationBased_BP_GOTerm2AllKMap = null;
+				allBased_BP_GOTerm2AllKMap = null;
+				
+				//MF
+				exonBased_MF_GOTerm2AllKMap = null;
+				regulationBased_MF_GOTerm2AllKMap = null;
+				allBased_MF_GOTerm2AllKMap = null;
+
+				//CC
+				exonBased_CC_GOTerm2AllKMap = null;
+				regulationBased_CC_GOTerm2AllKMap = null;
+				allBased_CC_GOTerm2AllKMap = null;
+				// GO Term ends
 
 				// KEGG PATHWAY
 				exonBasedKeggPathway2AllKMap = null;
@@ -10364,10 +10594,27 @@ public class Enrichment {
 		// USERDEFINEDLIBRARY
 		elementTypeNumberElementNumber2OriginalKMap = null;
 		
-		// GO TERM
+		// GO TERM starts
 		exonBasedGOTerm2OriginalKMap = null;
 		regulationBasedGOTerm2OriginalKMap = null;
 		allBasedGOTerm2OriginalKMap = null;
+		
+		//BP
+		exonBased_BP_GOTerm2OriginalKMap = null;
+		regulationBased_BP_GOTerm2OriginalKMap = null;
+		allBased_BP_GOTerm2OriginalKMap = null;
+		
+		//MF
+		exonBased_MF_GOTerm2OriginalKMap = null;
+		regulationBased_MF_GOTerm2OriginalKMap = null;
+		allBased_MF_GOTerm2OriginalKMap = null;
+
+		//CC
+		exonBased_CC_GOTerm2OriginalKMap = null;
+		regulationBased_CC_GOTerm2OriginalKMap = null;
+		allBased_CC_GOTerm2OriginalKMap = null;
+		// GO TERM ends
+
 
 		// KEGG PATHWAY
 		exonBasedKeggPathway2OriginalKMap = null;

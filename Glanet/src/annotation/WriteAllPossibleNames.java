@@ -10,6 +10,7 @@
 package annotation;
 
 import enumtypes.CommandLineArguments;
+import enumtypes.GeneOntologyFunction;
 import gnu.trove.iterator.TObjectIntIterator;
 import gnu.trove.iterator.TObjectShortIterator;
 import gnu.trove.map.TIntObjectMap;
@@ -29,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 public class WriteAllPossibleNames {
@@ -63,7 +63,7 @@ public class WriteAllPossibleNames {
 			int indexofThirdTab = 0;
 			
 			String goTermName;
-			String goTermOntology;
+			GeneOntologyFunction goTermOntology;
 	
 			// Initialize
 			int bp_goTermNumber = 1;
@@ -85,23 +85,23 @@ public class WriteAllPossibleNames {
 					indexofThirdTab =  strLine.indexOf('\t',indexofSecondTab+1);
 					
 					goTermName = strLine.substring(0, indexofFirstTab);
-					goTermOntology = strLine.substring(indexofThirdTab+1);
+					goTermOntology = GeneOntologyFunction.convertStringtoEnum(strLine.substring(indexofThirdTab+1));
 					
-					if (goTermOntology.equalsIgnoreCase("P")){
+					if (goTermOntology.isBiologicalProcess()){
 						if (!bp_goTermNameList.contains(goTermName)){
 							bp_goTermNameList.add(goTermName);
 							bp_goTermName2NumberMap.put(goTermName, bp_goTermNumber);
 							bp_goTermNumber2NameMap.put(bp_goTermNumber, goTermName);
 							bp_goTermNumber++;
 						}
-					}else if (goTermOntology.equalsIgnoreCase("F")){
+					}else if (goTermOntology.isMolecularFunction()){
 						if (!mf_goTermNameList.contains(goTermName)){
 							mf_goTermNameList.add(goTermName);
 							mf_goTermName2NumberMap.put(goTermName, mf_goTermNumber);
 							mf_goTermNumber2NameMap.put(mf_goTermNumber, goTermName);
 							mf_goTermNumber++;
 						}
-					}else{
+					}else if (goTermOntology.isCellularComponent()){
 						
 						if (!cc_goTermNameList.contains(goTermName)){
 							cc_goTermNameList.add(goTermName);

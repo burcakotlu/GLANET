@@ -289,7 +289,13 @@ public class Commons {
 	public static final String GENE_ID = "GENE ID";
 	public static final String RNA_NUCLEOTIDE_ACCESSION = "RNA NUCLEOTIDE ACCESSION";
 	public static final String GENE_SYMBOL = "GENE SYMBOL";
-
+	
+	//EnumType GeneOntologyFunction
+	public static final String BIOLOGICAL_PROCESS = "P";
+	public static final String MOLECULAR_FUNCTION = "F";
+	public static final String CELLULAR_COMPONENT = "C";
+	
+	
 	// EnumType AnnotationType
 	public static final String DNASE_ANNOTATION = "DNASE_ANNOTATION";
 	public static final String TF_ANNOTATION = "TF_ANNOTATION";
@@ -383,8 +389,14 @@ public class Commons {
 	public static final String DO_KEGGPATHWAY_ANNOTATION = "DO_KEGGPATHWAY_ANNOTATION";
 	public static final String DO_NOT_KEGGPATHWAY_ANNOTATION = "DO_NOT_KEGGPATHWAY_ANNOTATION";
 	
-	public static final String DO_GOTERMS_ANNOTATION = "DO_GOTERMS_ANNOTATION";
-	public static final String DO_NOT_GOTERMS_ANNOTATION = "DO_NOT_GOTERMS_ANNOTATION";
+	public static final String DO_BP_GOTERMS_ANNOTATION = "DO_BP_GOTERMS_ANNOTATION";
+	public static final String DO_NOT_BP_GOTERMS_ANNOTATION = "DO_NOT_BP_GOTERMS_ANNOTATION";
+	
+	public static final String DO_MF_GOTERMS_ANNOTATION = "DO_MF_GOTERMS_ANNOTATION";
+	public static final String DO_NOT_MF_GOTERMS_ANNOTATION = "DO_NOT_MF_GOTERMS_ANNOTATION";
+	
+	public static final String DO_CC_GOTERMS_ANNOTATION = "DO_CC_GOTERMS_ANNOTATION";
+	public static final String DO_NOT_CC_GOTERMS_ANNOTATION = "DO_NOT_CC_GOTERMS_ANNOTATION";
 
 	public static final String DO_TF_KEGGPATHWAY_ANNOTATION = "DO_TF_KEGGPATHWAY_ANNOTATION";
 	public static final String DO_NOT_TF_KEGGPATHWAY_ANNOTATION = "DO_NOT_TF_KEGGPATHWAY_ANNOTATION";
@@ -1188,9 +1200,19 @@ public class Commons {
 	
 	//GO Term starts
 	public static final String TO_BE_COLLECTED_EXON_BASED_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_GO_TERM;
-	public static final String TO_BE_COLLECTED_REGULATION_BASED_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_GO_TERM;
-	public static final String TO_BE_COLLECTED_ALL_BASED_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_GO_TERM;
+	public static final String TO_BE_COLLECTED_EXON_BASED_BP_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_BP_GO_TERM;
+	public static final String TO_BE_COLLECTED_EXON_BASED_MF_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_MF_GO_TERM;
+	public static final String TO_BE_COLLECTED_EXON_BASED_CC_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.EXON_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.EXON_BASED_CC_GO_TERM;
 	
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_GO_TERM;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_BP_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_BP_GO_TERM;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_MF_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_MF_GO_TERM;
+	public static final String TO_BE_COLLECTED_REGULATION_BASED_CC_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.REGULATION_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.REGULATION_BASED_CC_GO_TERM;
+		
+	public static final String TO_BE_COLLECTED_ALL_BASED_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_GO_TERM;
+	public static final String TO_BE_COLLECTED_ALL_BASED_BP_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_BP_GO_TERM;
+	public static final String TO_BE_COLLECTED_ALL_BASED_MF_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_MF_GO_TERM;
+	public static final String TO_BE_COLLECTED_ALL_BASED_CC_GO_TERM_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + Commons.ALL_BASED + System.getProperty( "file.separator") + RUNS_DIRECTORY + Commons.ALL_BASED_CC_GO_TERM;	
 	//GO Term ends
 
 	public static final String TO_BE_COLLECTED_USER_DEFINED_LIBRARY_NUMBER_OF_OVERLAPS = ENRICHMENT_DIRECTORY + Commons.USER_DEFINED_LIBRARY + System.getProperty( "file.separator");
@@ -1290,8 +1312,19 @@ public class Commons {
 	public static final String NO_GENESET_ANALYSIS_TYPE_IS_DEFINED = "NoGeneSetAnalysisTypeIsDefined";
 
 	public static final String EXON_BASED_GO_TERM = "ExonBased_GO";
+	public static final String EXON_BASED_BP_GO_TERM = "ExonBased_BP_GO";
+	public static final String EXON_BASED_MF_GO_TERM = "ExonBased_MF_GO";
+	public static final String EXON_BASED_CC_GO_TERM = "ExonBased_CC_GO";
+
 	public static final String REGULATION_BASED_GO_TERM = "RegulationBased_GO";
+	public static final String REGULATION_BASED_BP_GO_TERM = "RegulationBased_BP_GO";
+	public static final String REGULATION_BASED_MF_GO_TERM = "RegulationBased_MF_GO";
+	public static final String REGULATION_BASED_CC_GO_TERM = "RegulationBased_CC_GO";
+	
 	public static final String ALL_BASED_GO_TERM = "AllBased_GO";
+	public static final String ALL_BASED_BP_GO_TERM = "AllBased_BP_GO";
+	public static final String ALL_BASED_MF_GO_TERM = "AllBased_MF_GO";
+	public static final String ALL_BASED_CC_GO_TERM = "AllBased_CC_GO";
 	
 	public static final String EXON_BASED_KEGG_PATHWAY = "ExonBased_KEGGPathway";
 	public static final String REGULATION_BASED_KEGG_PATHWAY = "RegulationBased_KEGGPathway";
@@ -1612,6 +1645,15 @@ public class Commons {
 	public static final String GUI_HINT_CELLLINE_BASED_TF_ANNOTATION = "Transcription Factor Annotation (Cell Line Based)";
 	public static final String GUI_HINT_KEGG_PATHWAY_ANNOTATION = "KEGG Pathway Annotation";
 	public static final String GUI_HINT_GO_TERMS_ANNOTATION = "Gene Ontology Terms Annotation";
+
+	public static final String GUI_BP_GO_TERMS_ANNOTATION = "Biological Process GO";
+	public static final String GUI_MF_GO_TERMS_ANNOTATION = "Molecular Function GO";
+	public static final String GUI_CC_GO_TERMS_ANNOTATION = "Cellular Component GO";
+
+	public static final String GUI_HINT_BP_GO_TERMS_ANNOTATION = "Biological Process Gene Ontology Annotation";
+	public static final String GUI_HINT_MF_GO_TERMS_ANNOTATION = "Molecular Function Gene Ontology Annotation";
+	public static final String GUI_HINT_CC_GO_TERMS_ANNOTATION = "Cellular Component Gene Ontology Annotation";
+	
 	public static final String GUI_HINT_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor and KEGG Pathway Annotation";
 	public static final String GUI_HINT_CELLLINE_BASED_TF_AND_KEGG_PATHWAY_ANNOTATION = "Transcription Factor (Cell Line Based) and KEGG Pathway Annotation";
 	public static final String GUI_HINT_USER_DEFINED_GENESET_ANNOTATION = "User Defined Gene Set Annotation";
@@ -1696,7 +1738,9 @@ public class Commons {
 	public static final String ARG_GENE_ANNOTATION = "-gene";
 	public static final String ARG_HISTONE_ANNOTATIONS = "-histone";
 	public static final String ARG_TF_ANNOTATION = "-tf";
-	public static final String ARG_GO_TERMS_ANNOTATION = "-go";
+	public static final String ARG_GO_TERMS_BP_ANNOTATION = "-gobp";
+	public static final String ARG_GO_TERMS_MF_ANNOTATION = "-gomf";
+	public static final String ARG_GO_TERMS_CC_ANNOTATION = "-gocc";
 	public static final String ARG_KEGG_ANNOTATION = "-kegg";
 	public static final String ARG_TF_AND_KEGG_ANNOTATION = "-tfkegg";
 	public static final String ARG_CELL_TF_AND_KEGG_ANNOTATION = "-tfcellkegg";

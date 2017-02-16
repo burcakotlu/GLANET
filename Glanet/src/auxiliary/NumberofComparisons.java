@@ -35,12 +35,14 @@ public class NumberofComparisons {
 	// 28 FEB 2015
 	int geneNumberofComparison;
 	
-	//GO Term
+	//GO Term starts
 	//13 FEB 2017
-	int exonBasedGOTermNumberofComparison;
-	int regulationBasedGOTermNumberofComparison;
-	int allBasedGOTermNumberofComparison;
-
+	int BP_GOTermNumberofComparison;
+	int MF_GOTermNumberofComparison;
+	int CC_GOTermNumberofComparison;
+	//GO Term ends
+	
+	
 	int exonBasedKEGGPathwayNumberofComparison;
 	int regulationBasedKEGGPathwayNumberofComparison;
 	int allBasedKEGGPathwayNumberofComparison;
@@ -74,28 +76,30 @@ public class NumberofComparisons {
 	
 	
 
-	public int getExonBasedGOTermNumberofComparison() {
-		return exonBasedGOTermNumberofComparison;
+	
+
+	public int getBP_GOTermNumberofComparison() {
+		return BP_GOTermNumberofComparison;
 	}
 
-	public void setExonBasedGOTermNumberofComparison(int exonBasedGOTermNumberofComparison) {
-		this.exonBasedGOTermNumberofComparison = exonBasedGOTermNumberofComparison;
+	public void setBP_GOTermNumberofComparison(int bP_GOTermNumberofComparison) {
+		BP_GOTermNumberofComparison = bP_GOTermNumberofComparison;
 	}
 
-	public int getRegulationBasedGOTermNumberofComparison() {
-		return regulationBasedGOTermNumberofComparison;
+	public int getMF_GOTermNumberofComparison() {
+		return MF_GOTermNumberofComparison;
 	}
 
-	public void setRegulationBasedGOTermNumberofComparison(int regulationBasedGOTermNumberofComparison) {
-		this.regulationBasedGOTermNumberofComparison = regulationBasedGOTermNumberofComparison;
+	public void setMF_GOTermNumberofComparison(int mF_GOTermNumberofComparison) {
+		MF_GOTermNumberofComparison = mF_GOTermNumberofComparison;
 	}
 
-	public int getAllBasedGOTermNumberofComparison() {
-		return allBasedGOTermNumberofComparison;
+	public int getCC_GOTermNumberofComparison() {
+		return CC_GOTermNumberofComparison;
 	}
 
-	public void setAllBasedGOTermNumberofComparison(int allBasedGOTermNumberofComparison) {
-		this.allBasedGOTermNumberofComparison = allBasedGOTermNumberofComparison;
+	public void setCC_GOTermNumberofComparison(int cC_GOTermNumberofComparison) {
+		CC_GOTermNumberofComparison = cC_GOTermNumberofComparison;
 	}
 
 	public int getTfCellLineKEGGPathwayNumberofComparison() {
@@ -533,8 +537,10 @@ public class NumberofComparisons {
 			AnnotationType dnaseAnnotationType,
 			AnnotationType histoneAnnotationType,
 			AnnotationType tfAnnotationType,
-			AnnotationType geneAnnotationType,
-			AnnotationType goTermAnnotationType,
+			AnnotationType geneAnnotationType,			
+			AnnotationType bpGOTermAnnotationType,
+			AnnotationType mfGOTermAnnotationType,
+			AnnotationType ccGOTermAnnotationType,			
 			AnnotationType keggPathwayAnnotationType,
 			AnnotationType tfKeggPathwayAnnotationType,
 			AnnotationType tfCellLineKeggPathwayAnnotationType,
@@ -549,7 +555,11 @@ public class NumberofComparisons {
 		TIntObjectMap<String> tfNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> tfCellLineNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> histoneCellLineNumber2NameMap = new TIntObjectHashMap<String>();		
-		TIntObjectMap<String> goTermNumber2NameMap = new TIntObjectHashMap<String>();
+		
+		TIntObjectMap<String> bp_goTermNumber2NameMap = new TIntObjectHashMap<String>();
+		TIntObjectMap<String> mf_goTermNumber2NameMap = new TIntObjectHashMap<String>();
+		TIntObjectMap<String> cc_goTermNumber2NameMap = new TIntObjectHashMap<String>();
+		
 		TIntObjectMap<String> keggPathwayNumber2NameMap = new TIntObjectHashMap<String>();
 		TIntIntMap geneIDNumber2GeneIDMap = new TIntIntHashMap();
 		
@@ -591,20 +601,44 @@ public class NumberofComparisons {
 			numberofComparisons.setGeneNumberofComparison(geneIDNumber2GeneIDMap.size());
 		}
 		
-		//TODO we may need do divide go terms into 3 clasess: BP MF CC
-		if (goTermAnnotationType.doGOTermsAnnotation()){
-			// GO TERM 
-			FileOperations.fillNumber2NameMap(goTermNumber2NameMap,
-					dataFolder + Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
-					Commons.ALL_POSSIBLE_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME);
+		if (bpGOTermAnnotationType.doBPGOTermsAnnotation()){
 			
-			// EXON BASED GO TERM
-			numberofComparisons.setExonBasedGOTermNumberofComparison(goTermNumber2NameMap.size());
-			// REGULATION BASED GO TERM
-			numberofComparisons.setRegulationBasedGOTermNumberofComparison(goTermNumber2NameMap.size());
-			// ALL BASED GO TERM
-			numberofComparisons.setAllBasedGOTermNumberofComparison(goTermNumber2NameMap.size());
+			// BP GO TERM 
+			FileOperations.fillNumber2NameMap(
+					bp_goTermNumber2NameMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_BP_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME);
+			
+			
+			//BP
+			numberofComparisons.setBP_GOTermNumberofComparison(bp_goTermNumber2NameMap.size());
+
 		}
+		
+		if (mfGOTermAnnotationType.doMFGOTermsAnnotation()){
+			
+			FileOperations.fillNumber2NameMap(
+					mf_goTermNumber2NameMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_MF_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME);
+						
+			//MF
+			numberofComparisons.setMF_GOTermNumberofComparison(mf_goTermNumber2NameMap.size());
+
+		}
+			
+		if (ccGOTermAnnotationType.doCCGOTermsAnnotation()){
+			
+			FileOperations.fillNumber2NameMap(
+					cc_goTermNumber2NameMap,
+					dataFolder + Commons.ALL_POSSIBLE_NAMES_GOTERMS_OUTPUT_DIRECTORYNAME,
+					Commons.ALL_POSSIBLE_CC_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME);
+						
+			//CC
+			numberofComparisons.setCC_GOTermNumberofComparison(cc_goTermNumber2NameMap.size());
+
+		}
+
 
 		if (keggPathwayAnnotationType.doKEGGPathwayAnnotation()){
 			// KEGG PATHWAY

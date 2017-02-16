@@ -89,7 +89,13 @@ public class MainView extends JPanel {
 	private JCheckBox histoneAnnotation;
 	private JCheckBox tfAnnotation;
 	private JCheckBox geneAnnotation;
-	private JCheckBox goTermsAnnotation;
+	
+	//15 FEB 2017
+	//private JCheckBox goTermsAnnotation;
+	private JCheckBox bp_goTermsAnnotation;
+	private JCheckBox mf_goTermsAnnotation;
+	private JCheckBox cc_goTermsAnnotation;
+	
 	private JCheckBox keggPathwayAnnotation;
 	private JCheckBox tfAndKeggPathwayAnnotation;	
 	private JCheckBox cellLineBasedTfAndKeggPathwayAnnotation;
@@ -129,8 +135,10 @@ public class MainView extends JPanel {
 				String dnaseAnnotationType, 
 				String histoneAnnotationType,
 				String tfAnnotationType, 
-				String geneAnnotationType, 
-				String goTermsAnnotationType,
+				String geneAnnotationType, 				
+				String bpGOTermsAnnotationType,
+				String mfGOTermsAnnotationType,
+				String ccGOTermsAnnotationType,				
 				String keggPathwayAnnotationType,
 				String tfAndKeggPathwayAnnotationType, 
 				String cellLineBasedTfAndKeggPathwayAnnotationType,
@@ -300,7 +308,9 @@ public class MainView extends JPanel {
 						histoneAnnotation.isSelected()?Commons.DO_HISTONE_ANNOTATION:Commons.DO_NOT_HISTONE_ANNOTATION,
 						tfAnnotation.isSelected()?Commons.DO_TF_ANNOTATION:Commons.DO_NOT_TF_ANNOTATION,
 						geneAnnotation.isSelected()?Commons.DO_GENE_ANNOTATION:Commons.DO_NOT_GENE_ANNOTATION,
-						goTermsAnnotation.isSelected()?Commons.DO_GOTERMS_ANNOTATION:Commons.DO_NOT_GOTERMS_ANNOTATION,											
+						bp_goTermsAnnotation.isSelected()?Commons.DO_BP_GOTERMS_ANNOTATION:Commons.DO_NOT_BP_GOTERMS_ANNOTATION,		
+						mf_goTermsAnnotation.isSelected()?Commons.DO_MF_GOTERMS_ANNOTATION:Commons.DO_NOT_MF_GOTERMS_ANNOTATION,		
+						cc_goTermsAnnotation.isSelected()?Commons.DO_CC_GOTERMS_ANNOTATION:Commons.DO_NOT_CC_GOTERMS_ANNOTATION,																		
 						keggPathwayAnnotation.isSelected()?Commons.DO_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_KEGGPATHWAY_ANNOTATION,
 						tfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_KEGGPATHWAY_ANNOTATION,
 						cellLineBasedTfAndKeggPathwayAnnotation.isSelected()?Commons.DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION:Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION,
@@ -599,10 +609,33 @@ public class MainView extends JPanel {
 		geneAnnotation.addItemListener( enableEnrichmentListener);
 		annotationOptions.add( createPanelWithHint( geneAnnotation, Commons.GUI_HINT_GENE_ANNOTATION));
 
+		//GO Terms starts
+		JPanel goTermPanel = new JPanel(new GridLayout(1, 3));
+
 		// goTermsAnnotation added to annotationOptions
-		goTermsAnnotation = new JCheckBox(Commons.GUI_HINT_GO_TERMS_ANNOTATION);
-		goTermsAnnotation.addItemListener(enableEnrichmentListener);
-		annotationOptions.add(createPanelWithHint(goTermsAnnotation,Commons.GUI_HINT_GO_TERMS_ANNOTATION));
+		//goTermsAnnotation = new JCheckBox(Commons.GUI_HINT_GO_TERMS_ANNOTATION);
+		//goTermsAnnotation.addItemListener(enableEnrichmentListener);
+		//annotationOptions.add(createPanelWithHint(goTermsAnnotation,Commons.GUI_HINT_GO_TERMS_ANNOTATION));
+		
+		//15 FEB 2017
+		bp_goTermsAnnotation = new JCheckBox(Commons.GUI_BP_GO_TERMS_ANNOTATION);
+		bp_goTermsAnnotation.addItemListener(enableEnrichmentListener);
+		
+		mf_goTermsAnnotation = new JCheckBox(Commons.GUI_MF_GO_TERMS_ANNOTATION);
+		mf_goTermsAnnotation.addItemListener(enableEnrichmentListener);
+		
+		cc_goTermsAnnotation = new JCheckBox(Commons.GUI_CC_GO_TERMS_ANNOTATION);
+		cc_goTermsAnnotation.addItemListener(enableEnrichmentListener);
+		
+		goTermPanel.add(createPanelWithHint(bp_goTermsAnnotation, Commons.GUI_HINT_BP_GO_TERMS_ANNOTATION));
+		goTermPanel.add(createPanelWithHint(mf_goTermsAnnotation, Commons.GUI_HINT_MF_GO_TERMS_ANNOTATION));
+		goTermPanel.add(createPanelWithHint(cc_goTermsAnnotation, Commons.GUI_HINT_CC_GO_TERMS_ANNOTATION));
+
+		annotationOptions.add(createBorderedPanel("Gene Ontology Annotation", goTermPanel));
+		//GO Terms ends
+
+
+		
 
 		// keggPathwayAnnotation added to annotationOptions
 		keggPathwayAnnotation = new JCheckBox(Commons.GUI_HINT_KEGG_PATHWAY_ANNOTATION);
@@ -976,7 +1009,10 @@ public class MainView extends JPanel {
 
 	public void checkUsabilityOfEnrichmentOptions() {
 
-		if( dnaseAnnotation.isSelected() || geneAnnotation.isSelected() || histoneAnnotation.isSelected() || tfAnnotation.isSelected() || goTermsAnnotation.isSelected() || keggPathwayAnnotation.isSelected() ||  tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected() || userDefinedGeneSetAnnotation.isSelected() || userDefinedLibraryAnnotation.isSelected()){
+		if( dnaseAnnotation.isSelected() || geneAnnotation.isSelected() || histoneAnnotation.isSelected() || tfAnnotation.isSelected() 
+				|| bp_goTermsAnnotation.isSelected() || mf_goTermsAnnotation.isSelected() || cc_goTermsAnnotation.isSelected() 
+				|| keggPathwayAnnotation.isSelected() ||  tfAndKeggPathwayAnnotation.isSelected() || cellLineBasedTfAndKeggPathwayAnnotation.isSelected() 
+				|| userDefinedGeneSetAnnotation.isSelected() || userDefinedLibraryAnnotation.isSelected()){
 
 			//14 Nov 2016
 			//performEnrichmentCheckBox.setEnabled( true);
@@ -1112,7 +1148,9 @@ public class MainView extends JPanel {
 		geneAnnotation.setEnabled( shouldEnable);
 		histoneAnnotation.setEnabled( shouldEnable);
 		tfAnnotation.setEnabled( shouldEnable);
-		goTermsAnnotation.setEnabled(shouldEnable);
+		bp_goTermsAnnotation.setEnabled(shouldEnable);
+		mf_goTermsAnnotation.setEnabled(shouldEnable);
+		cc_goTermsAnnotation.setEnabled(shouldEnable);
 		keggPathwayAnnotation.setEnabled( shouldEnable);
 		tfAndKeggPathwayAnnotation.setEnabled( shouldEnable);
 		cellLineBasedTfAndKeggPathwayAnnotation.setEnabled( shouldEnable);

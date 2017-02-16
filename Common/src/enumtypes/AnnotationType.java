@@ -24,26 +24,35 @@ public enum AnnotationType {
 	DO_GENE_ANNOTATION(7),
 	DO_NOT_GENE_ANNOTATION(8),
 	
-	DO_GOTERMS_ANNOTATION(9),
-	DO_NOT_GOTERMS_ANNOTATION(10),
-
-	DO_KEGGPATHWAY_ANNOTATION(11),
-	DO_NOT_KEGGPATHWAY_ANNOTATION(12),
-
-	DO_TF_KEGGPATHWAY_ANNOTATION(13),
-	DO_NOT_TF_KEGGPATHWAY_ANNOTATION(14),
-
-	DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(15),
-	DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(16),
-
-	DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(17),
-	DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(18),
-
-	DO_USER_DEFINED_GENESET_ANNOTATION(19),
-	DO_NOT_USER_DEFINED_GENESET_ANNOTATION(20),
+	DO_BP_GOTERMS_ANNOTATION(9),
+	DO_NOT_BP_GOTERMS_ANNOTATION(10),
 	
-	DO_USER_DEFINED_LIBRARY_ANNOTATION(21),
-	DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION(22);
+	DO_MF_GOTERMS_ANNOTATION(11),
+	DO_NOT_MF_GOTERMS_ANNOTATION(12),
+	
+	DO_CC_GOTERMS_ANNOTATION(13),
+	DO_NOT_CC_GOTERMS_ANNOTATION(14),
+
+	DO_GOTERMS_ANNOTATION(15),
+	DO_NOT_GOTERMS_ANNOTATION(16),
+	
+	DO_KEGGPATHWAY_ANNOTATION(17),
+	DO_NOT_KEGGPATHWAY_ANNOTATION(18),
+
+	DO_TF_KEGGPATHWAY_ANNOTATION(19),
+	DO_NOT_TF_KEGGPATHWAY_ANNOTATION(20),
+
+	DO_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(21),
+	DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(22),
+
+	DO_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(23),
+	DO_NOT_BOTH_TF_KEGGPATHWAY_AND_TF_CELLLINE_KEGGPATHWAY_ANNOTATION(24),
+
+	DO_USER_DEFINED_GENESET_ANNOTATION(25),
+	DO_NOT_USER_DEFINED_GENESET_ANNOTATION(26),
+	
+	DO_USER_DEFINED_LIBRARY_ANNOTATION(27),
+	DO_NOT_USER_DEFINED_LIBRARY_ANNOTATION(28);
 
 	private final int annotationType;
 
@@ -82,11 +91,25 @@ public enum AnnotationType {
 			return DO_GENE_ANNOTATION;
 		}else if(Commons.DO_NOT_GENE_ANNOTATION.equals(annotationType)){
 			return DO_NOT_GENE_ANNOTATION;
-		}else if(Commons.DO_GOTERMS_ANNOTATION.equals(annotationType)){
-			return DO_GOTERMS_ANNOTATION;
-		}else if(Commons.DO_NOT_GOTERMS_ANNOTATION.equals(annotationType)){
-			return DO_NOT_GOTERMS_ANNOTATION;
-		}else if(Commons.DO_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
+		}
+		
+		else if(Commons.DO_BP_GOTERMS_ANNOTATION.equals(annotationType)){
+			return DO_BP_GOTERMS_ANNOTATION;
+		}else if(Commons.DO_MF_GOTERMS_ANNOTATION.equals(annotationType)){
+			return DO_MF_GOTERMS_ANNOTATION;
+		}else if(Commons.DO_CC_GOTERMS_ANNOTATION.equals(annotationType)){
+			return DO_CC_GOTERMS_ANNOTATION;
+		}
+		
+		else if(Commons.DO_NOT_BP_GOTERMS_ANNOTATION.equals(annotationType)){
+			return DO_NOT_BP_GOTERMS_ANNOTATION;
+		}else if(Commons.DO_NOT_MF_GOTERMS_ANNOTATION.equals(annotationType)){
+			return DO_NOT_MF_GOTERMS_ANNOTATION;
+		}else if(Commons.DO_NOT_CC_GOTERMS_ANNOTATION.equals(annotationType)){
+			return DO_NOT_CC_GOTERMS_ANNOTATION;
+		}
+		
+		else if(Commons.DO_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_KEGGPATHWAY_ANNOTATION;
 		}else if(Commons.DO_NOT_KEGGPATHWAY_ANNOTATION.equals(annotationType)){
 			return DO_NOT_KEGGPATHWAY_ANNOTATION;
@@ -137,10 +160,19 @@ public enum AnnotationType {
 		else if(this.equals(AnnotationType.DO_NOT_GENE_ANNOTATION))
 			return Commons.DO_NOT_GENE_ANNOTATION;
 		
-		else if(this.equals(AnnotationType.DO_GOTERMS_ANNOTATION))
-			return Commons.DO_GOTERMS_ANNOTATION;
-		else if(this.equals(AnnotationType.DO_NOT_GOTERMS_ANNOTATION))
-			return Commons.DO_NOT_GOTERMS_ANNOTATION;
+		else if(this.equals(AnnotationType.DO_BP_GOTERMS_ANNOTATION))
+			return Commons.DO_BP_GOTERMS_ANNOTATION;
+		else if(this.equals(AnnotationType.DO_MF_GOTERMS_ANNOTATION))
+			return Commons.DO_MF_GOTERMS_ANNOTATION;
+		else if(this.equals(AnnotationType.DO_CC_GOTERMS_ANNOTATION))
+			return Commons.DO_CC_GOTERMS_ANNOTATION;
+		
+		else if(this.equals(AnnotationType.DO_NOT_BP_GOTERMS_ANNOTATION))
+			return Commons.DO_NOT_BP_GOTERMS_ANNOTATION;
+		else if(this.equals(AnnotationType.DO_NOT_MF_GOTERMS_ANNOTATION))
+			return Commons.DO_NOT_MF_GOTERMS_ANNOTATION;
+		else if(this.equals(AnnotationType.DO_NOT_CC_GOTERMS_ANNOTATION))
+			return Commons.DO_NOT_CC_GOTERMS_ANNOTATION;
 
 		else if(this.equals(AnnotationType.DO_KEGGPATHWAY_ANNOTATION))
 			return Commons.DO_KEGGPATHWAY_ANNOTATION;
@@ -198,11 +230,26 @@ public enum AnnotationType {
 		return this == DO_GENE_ANNOTATION;
 	}
 	
+	public boolean doBPGOTermsAnnotation() {
+
+		return this == DO_BP_GOTERMS_ANNOTATION;
+	}
+
+	public boolean doMFGOTermsAnnotation() {
+
+		return this == DO_MF_GOTERMS_ANNOTATION;
+	}
+	
+	public boolean doCCGOTermsAnnotation() {
+
+		return this == DO_CC_GOTERMS_ANNOTATION;
+	}
+	
 	public boolean doGOTermsAnnotation() {
 
 		return this == DO_GOTERMS_ANNOTATION;
 	}
-
+	
 	public boolean doKEGGPathwayAnnotation() {
 
 		return this == DO_KEGGPATHWAY_ANNOTATION;

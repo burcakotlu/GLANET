@@ -8,6 +8,9 @@
  */
 package augmentation.humangenes;
 
+import enumtypes.CommandLineArguments;
+import gnu.trove.map.TIntObjectMap;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,12 +19,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+
+import ui.GlanetRunner;
 import auxiliary.FileOperations;
 import common.Commons;
-import enumtypes.CommandLineArguments;
-import gnu.trove.map.TIntObjectMap;
 
 public class HumanGenesAugmentation {
+	
+	final static Logger logger = Logger.getLogger(HumanGenesAugmentation.class);
+
 
 	// read NCBI humanGene2RefSeq file
 	// fill map --> geneSymbol2ListofGeneIDMap: this map is ? 2 ? (? pairs)
@@ -102,7 +110,10 @@ public class HumanGenesAugmentation {
 
 						 //For debugging purposes starts
 						 if(geneIDList.size()>1){
-							 System.out.println("geneSymbol: " + geneSymbol + "geneIDList size: " + geneIDList.size());
+							 
+							 if(GlanetRunner.shouldLog())
+									logger.info("geneSymbol: " + geneSymbol + "geneIDList size: " + geneIDList.size());
+
 						 }
 						 //For debugging purposes ends
 
