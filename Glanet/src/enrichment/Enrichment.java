@@ -2680,19 +2680,16 @@ public class Enrichment {
 			
 			
 			//GO Terms starts
-			// EXON BASED KEGG PATHWAY
 			if(leftPermutationNumberExonBasedGOTermNumber2KMap != null){
 				combineLeftMapandRightMap(leftPermutationNumberExonBasedGOTermNumber2KMap,rightPermutationNumberExonBasedGOTermNumber2KMap);
 				leftPermutationNumberExonBasedGOTermNumber2KMap = null;
 			}
 
-			// REGULATION BASED KEGG PATHWAY
 			if(leftPermutationNumberRegulationBasedGOTermNumber2KMap != null){
 				combineLeftMapandRightMap(leftPermutationNumberRegulationBasedGOTermNumber2KMap,rightPermutationNumberRegulationBasedGOTermNumber2KMap);
 				leftPermutationNumberRegulationBasedGOTermNumber2KMap = null;
 			}
 
-			// ALL BASED KEGG PATHWAY
 			if(leftPermutationNumberAllBasedGOTermNumber2KMap != null){
 				combineLeftMapandRightMap(leftPermutationNumberAllBasedGOTermNumber2KMap,rightPermutationNumberAllBasedGOTermNumber2KMap);
 				leftPermutationNumberAllBasedGOTermNumber2KMap = null;

@@ -14673,8 +14673,7 @@ public class Annotation {
 		}
 		
 		//13 FEB 2017
-		else if (annotationType.doBPGOTermsAnnotation() ||annotationType.doMFGOTermsAnnotation() || annotationType.doCCGOTermsAnnotation() ){
-			
+		else if (annotationType.doGOTermsAnnotation()){
 			
 			// Exon Based GO Term Analysis
 			TLongIntMap permutationNumberExonBasedGOTermNumber2KMap = new TLongIntHashMap();
