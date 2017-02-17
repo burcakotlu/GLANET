@@ -4,6 +4,7 @@
 package goterms;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -13,7 +14,10 @@ import org.apache.log4j.Logger;
 
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+import auxiliary.FunctionalElement;
+
 import common.Commons;
+
 import enumtypes.AnnotationType;
 import enumtypes.GeneOntologyFunction;
 import gnu.trove.iterator.TIntIntIterator;
@@ -33,6 +37,69 @@ import gnu.trove.map.TObjectIntMap;
 public class GOTermsUtility {
 	
 	final static Logger logger = Logger.getLogger(GOTermsUtility.class);
+	
+	public static void augmentGOIDWithGOTerm(Map<String,String> GOID2TermMap, List<FunctionalElement> list){
+		
+		String goID;
+		String goTerm;
+
+		for( FunctionalElement element : list){
+
+			goID = element.getGoID();
+			goTerm = GOID2TermMap.get(goID);
+
+			element.setGoTerm(goTerm);
+		}
+	}
+
+	
+	
+	public static void fillGOID2TermMap( 
+			String GOID2TermInputFile,
+			Map<String,String> ID2TermMap) {
+
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+
+		String strLine;
+		int indexofFirstTab;
+		
+		String ID;
+		String term;
+		
+		try{
+			fileReader = FileOperations.createFileReader(GOID2TermInputFile);
+			bufferedReader = new BufferedReader(fileReader);
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+				
+				if (!strLine.startsWith("!")){
+					
+					//GO:0000001	mitochondrion inheritance	P
+
+					indexofFirstTab = strLine.indexOf('\t');
+					//indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+					
+					ID = strLine.substring( 0, indexofFirstTab);
+
+					//please note that in fact term contains ontology separated by tab character
+					term = strLine.substring(indexofFirstTab+1);
+
+					//Check whether there are any duplicates
+					ID2TermMap.put(ID,term);
+				}
+				
+			}// End of While
+
+			bufferedReader.close();
+
+		}catch( FileNotFoundException e){
+			e.printStackTrace();
+		}catch( IOException e){
+			e.printStackTrace();
+		}
+
+	}
 
 	
 	public static void fillConsideredGOClasses(

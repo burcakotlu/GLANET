@@ -1462,7 +1462,8 @@ public class Commons {
 	public static final String ALL_POSSIBLE_GO_TERMS_NUMBER_2_NAME_OUTPUT_FILENAME = "all_possible_goTerms_Number_2_Name.txt";
 	
 	
-	public static final String GOTERM_GENESYMBOL_EVIDENCECODE_ONTOLOGY_INPUT_FILE = Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + "GOTerm_GeneSymbol_EvidenceCode_Ontology.txt";
+	public static final String GOTERM_GENESYMBOL_EVIDENCECODE_ONTOLOGY_INPUT_FILE = Commons.GENE_ONTOLOGY_TERMS + System.getProperty( "file.separator") + "GOTerm_GeneSymbol_EvidenceCode_Ontology.txt";	
+	public static final String GOID2TERM_INPUTFILE = "GO.terms_and_ids.txt";
 	/**************************************************************************************************/
 	/********************************** GO TERMS ALL POSSIBLE NAMES ends ******************************/
 	/**************************************************************************************************/

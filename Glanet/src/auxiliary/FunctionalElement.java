@@ -21,6 +21,10 @@ public class FunctionalElement extends FunctionalElementMinimal {
 
 	// 23 OCT 2014
 	String userDefinedGeneSetDescription;
+	
+	//17 FEB 2017
+	String goID;
+	String goTerm;
 
 	// In case of Functional element contains a KEGG Pathway
 	int keggPathwayNumber; 		// 202
@@ -31,6 +35,25 @@ public class FunctionalElement extends FunctionalElementMinimal {
 	List<String> keggPathwayAlternateGeneNameList;
 	
 	
+
+	
+	
+	
+	public String getGoID() {
+		return goID;
+	}
+
+	public void setGoID(String goID) {
+		this.goID = goID;
+	}
+
+	public String getGoTerm() {
+		return goTerm;
+	}
+
+	public void setGoTerm(String goTerm) {
+		this.goTerm = goTerm;
+	}
 
 	public String getUserDefinedGeneSetDescription() {
 

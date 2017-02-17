@@ -18,7 +18,6 @@ public class FunctionalElementMinimal implements Comparable<FunctionalElementMin
 	int originalNumberofOverlaps;
 	int numberofPermutationsHavingOverlapsGreaterThanorEqualtoOriginalNumberofOverlaps;
 	int numberofPermutations;
-	//int numberofComparisons;
 
 	Float empiricalPValue;
 	Float bonferroniCorrectedPValue;

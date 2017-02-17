@@ -102,6 +102,11 @@ public enum GeneratedMixedNumberDescriptionOrderLength {
 		return this == INT_10DIGIT_KEGGPATHWAYNUMBER;
 	}
 	
+	//17 FEB 2017
+	public boolean is_INT_10DIGIT_GOTERMNUMBER() {
+		return this == INT_10DIGIT_GOTERMNUMBER;
+	}
+	
 	
 	/** An added method.  */
 	public boolean is_INT_5DIGITS_ELEMENTNUMBER_5DIGITS_KEGGPATHWAYNUMBER() {
