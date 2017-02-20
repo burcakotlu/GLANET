@@ -116,6 +116,11 @@ Other features of GLANET includes Enrichment Analysis and Regulatory Sequence An
 	* *Gene Annotation* 
 		-  Check this check box, if you want to annotate given intervals w.r.t. clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg19), RefSeq Genes.
 
+	* *Gene Ontology Annotation*
+		-  Check Biological Process GO check box, if you want to annotate given intervals w.r.t. Gene Ontology Biological Process terms in exon-based, regulation-based and all-based manner.
+		-  Check Molecular Function GO check box, if you want to annotate given intervals w.r.t. Gene Ontology Molecular Function terms in exon-based, regulation-based and all-based manner.
+		-  Check Cellular Component GO check box, if you want to annotate given intervals w.r.t. Gene Ontology Cellular Component terms in exon-based, regulation-based and all-based manner.
+
 	* *KEGG Pathway Annotation*
 		-  Check this check box, if you want to annotate given intervals w.r.t. KEGG Pathways in exon-based, regulation-based and all-based manner.
 
@@ -366,6 +371,12 @@ Note that parameter "-c" indicates that GLANET will run in command-line mode, no
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-gene`_      |  Optional         | `-c`_        | None                 |
 |                         +---------------+-------------------+--------------+----------------------+
+|                         | `-gobp`_      |  Optional         | `-c`_        | None                 |
+|                         +---------------+-------------------+--------------+----------------------+   
+|						  | `-gomf`_      |  Optional         | `-c`_        | None                 |		
+|                         +---------------+-------------------+--------------+----------------------+
+|                         | `-gocc`_      |  Optional         | `-c`_        | None                 |
+|                         +---------------+-------------------+--------------+----------------------+
 |                         | `-kegg`_      |  Optional         | `-c`_        | None                 |
 |                         +---------------+-------------------+--------------+----------------------+
 |                         | `-tfkegg`_    |  Optional         | `-c`_        | None                 |
@@ -567,6 +578,21 @@ This option enables clade: Mammal, genome: Human, assembly: Feb. 2009 (GRCh37/hg
 ^^^
 
 This option enables Transcription Factors Binding Sites (Cell Line Based) annotation.
+
+-gobp
+^^^^^
+
+This option enables Biological Process Gene Ontology annotation.
+
+-gomf
+^^^^^
+
+This option enables Molecular Function Gene Ontology annotation.
+
+-gocc
+^^^^^
+
+This option enables Cellular Component Gene Ontology annotation.
 
 -kegg
 ^^^^^
