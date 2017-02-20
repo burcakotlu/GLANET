@@ -8576,7 +8576,7 @@ public class IntervalTree {
 		if(Commons.NCBI_GENE_ID.equals(type)){
 			
 			if(overlaps(node.getLow(), node.getHigh(), interval.getLow(), interval.getHigh())){
-
+				
 				if(node instanceof UcscRefSeqGeneIntervalTreeNodeWithNumbers){
 					//castedNode = (UcscRefSeqGeneIntervalTreeNodeWithNumbers)node;
 					//castedNode must be newly created and there must be no color assigned at first.

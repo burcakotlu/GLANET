@@ -252,8 +252,6 @@ public class GOTermsUtility {
 		int goTermNumber;
 		
 		
-		
-		
 		try {
 			
 			fileReader = FileOperations.createFileReader(goTerm_geneSymbol_evidenceCode_ontology_inputFile);
@@ -263,7 +261,6 @@ public class GOTermsUtility {
 				
 				//example strline
 				//GO:0005783	GIMAP1-GIMAP5	IDA	C
-
 				
 				indexofFirstTab = strLine.indexOf('\t');
 				indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
@@ -276,7 +273,6 @@ public class GOTermsUtility {
 				goFunction = GeneOntologyFunction.convertStringtoEnum(strLine.substring(indexofThirdTab+1));
 				
 				
-
 				goTermNumber = goTermName2NumberMap.get(goTermName);
 				
 				//Fill goTermNumber2GeneOntologyFunctionMap starts
@@ -288,10 +284,8 @@ public class GOTermsUtility {
 				
 				if(consideredGOClassesList.contains(goFunction)){
 					
-					//Fill geneId2GOTermNumberListMap starts
-					
+					//Fill geneId2GOTermNumberListMap starts					
 					geneIDList = geneSymbol2ListofGeneIDMap.get(geneSymbol);
-					
 					
 					if (geneIDList!=null){
 						
@@ -309,8 +303,13 @@ public class GOTermsUtility {
 								
 							}else{
 								
-								goTermNumberList.add(goTermNumber);
-								
+								//Please keep in mind that for different geneSymbols we may have same geneID
+								//Therefore we might have more than one same goTermNumbers
+								//In order to get rid of these I have added not contains restriction
+								if (!goTermNumberList.contains(goTermNumber)){
+									goTermNumberList.add(goTermNumber);
+								}
+																
 							}
 
 						
