@@ -7450,7 +7450,6 @@ public class Enrichment {
 					}// End of for each elementTypeNumber
 				}
 				
-				//Left here
 				//GO Terms 
 				if(goTermsAnnotationType.doGOTermsAnnotation()){
 					
@@ -8909,6 +8908,8 @@ public class Enrichment {
 		AnnotationType artificial_goTermsAnnotationType = null;
 		if (bpGOTermsAnnotationType.doBPGOTermsAnnotation() || mfGOTermsAnnotationType.doMFGOTermsAnnotation() || ccGOTermsAnnotationType.doCCGOTermsAnnotation()){
 			artificial_goTermsAnnotationType = AnnotationType.DO_GOTERMS_ANNOTATION;
+		}else{
+			artificial_goTermsAnnotationType = AnnotationType.DO_NOT_GOTERMS_ANNOTATION;
 		}
 		//Gene Ontology Terms ends
 		

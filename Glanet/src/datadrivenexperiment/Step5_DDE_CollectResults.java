@@ -61,12 +61,16 @@ import gnu.trove.map.hash.TObjectIntHashMap;
  * 
  * 
  * EnrichmentDecisionType provides which pValue we will use for enrichment decision. 
+ * //Let's decide on Enrichment depending on empirical p value
+ * //ENRICHED_WRT_EMPIRICAL_PVALUE_FROM_RATIO_OF_PERMUTATIONS
+ * 
+ * We read the output file and just take the lines containing considered cell line and write it to a file.
  * 
  * We have to provide the
- * 
  *  Glanet Folder
- *  TPM value (0.1, 0.01, 0.001)
- *  DnaseOverlapExclusionType e.g. PartiallyDiscardIntervalTakeAllTheRemainingIntervals
+ *  TPM value (TPM=0 for NonExpressedGenes)
+ *  Top5 Top20 for Expressed Genes
+ *  DnaseOverlapExclusionType (CompletelyDiscard,TakeTheLongest) for NonExpressedGenes
  *  FDR value (e.g. "0.05")
  *  Bonferroni Correction Significance Level ( e.g "0.05")
  *  MultipleTestingType e.g. "Bonferroni Correction" or "Benjamini Hochberg FDR"
