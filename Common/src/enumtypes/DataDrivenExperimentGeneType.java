@@ -57,6 +57,18 @@ public enum DataDrivenExperimentGeneType {
 			return null;
 	}
 
+	public String convertEnumtoShortString() {
+
+		if( this.equals( DataDrivenExperimentGeneType.NONEXPRESSING_PROTEINCODING_GENES))
+			return Commons.NONEXPRESSING_PROTEINCODING_GENES_SHORT;
+		
+		else if( this.equals( DataDrivenExperimentGeneType.EXPRESSING_PROTEINCODING_GENES))
+			return Commons.EXPRESSING_PROTEINCODING_GENES_SHORT;
+		
+		else
+			return null;
+	}
+
 	public boolean isNonExpressingProteinCodingGenes() {
 		return ( this == DataDrivenExperimentGeneType.NONEXPRESSING_PROTEINCODING_GENES);
 	}

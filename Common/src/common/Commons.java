@@ -78,7 +78,11 @@ public class Commons {
 	public static final String DNASE_OVERLAPS_EXCLUDED 				= "DnaseOverlapsExcluded";
 	public static final String NONEXPRESSING_PROTEINCODING_GENES 	= "NonExpressingGenes";
 	public static final String EXPRESSING_PROTEINCODING_GENES 		= "ExpressingGenes";
+
 	
+	public static final String NONEXPRESSING_PROTEINCODING_GENES_SHORT 	= "NonExp";
+	public static final String EXPRESSING_PROTEINCODING_GENES_SHORT 	= "Exp";
+
 	public static final String ACTIVATOR = "Activator";
 	public static final String REPRESSOR = "Repressor";
 	public static final String AMBIGIOUS = "Ambigious";

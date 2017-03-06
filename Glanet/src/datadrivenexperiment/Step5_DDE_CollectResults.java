@@ -1163,6 +1163,7 @@ public class Step5_DDE_CollectResults {
 		BufferedWriter overallSituationBufferedWriter = null;
 		
 		DateFormat dateFormat = new SimpleDateFormat("_yyyy_MM_dd_");
+		DateFormat onlyYearDateFormat = new SimpleDateFormat("_yyyy_");
 		Date date = new Date();
 		
 		try {
@@ -1255,7 +1256,7 @@ public class Step5_DDE_CollectResults {
 								associationMeasureType,
 								unaccomplishedGLANETRunsBufferedWriter,
 								unaccomplishedGLANETRunsList,
-								dateFormat,
+								onlyYearDateFormat,
 								date);
 						
 						
@@ -1278,7 +1279,7 @@ public class Step5_DDE_CollectResults {
 								associationMeasureType,
 								unaccomplishedGLANETRunsBufferedWriter,
 								unaccomplishedGLANETRunsList,
-								dateFormat,
+								onlyYearDateFormat,
 								date);
 						
 						//For Overall Situation Information

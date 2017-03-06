@@ -190,7 +190,7 @@ public class UserDefinedLibraryUtility {
 		try{
 
 			// Read each file written in UserDefinedLibraryInputFile
-			fileReader = FileOperations.createFileReader( filePathFileName);
+			fileReader = FileOperations.createFileReader(filePathFileName);
 			bufferedReader = new BufferedReader( fileReader);
 			
 
@@ -405,7 +405,12 @@ public class UserDefinedLibraryUtility {
 					/*************** ElementNumber 2 ElementName starts ********************************************************/
 					if( indexofThirdTab > 0){
 						elementName = strLine.substring( indexofSecondTab + 1, indexofThirdTab);
-						windowAroundSummit = Integer.parseInt( strLine.substring( indexofThirdTab + 1));
+						
+						if(!(strLine.substring(indexofThirdTab+1).isEmpty())){
+							windowAroundSummit = Integer.parseInt( strLine.substring( indexofThirdTab + 1));								
+						}else{
+							windowAroundSummit = Integer.MIN_VALUE;
+						}
 					}else{
 						elementName = strLine.substring( indexofSecondTab + 1);
 						windowAroundSummit = Integer.MIN_VALUE;

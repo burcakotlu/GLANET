@@ -8858,6 +8858,10 @@ public class Enrichment {
 		/***********************************************************************************/
 		/********************FOR SLURM Output ends *****************************************/
 		/***********************************************************************************/
+		
+		//6 March 2017 starts
+		String performEnrichment = args[CommandLineArguments.PerformEnrichment.value()];		
+		//6 March 2017 ends
 	
 		
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
@@ -9314,9 +9318,9 @@ public class Enrichment {
 			userDefinedLibraryElementTypeNumber2ElementNumber2ElementNameMap = new TIntObjectHashMap<TIntObjectMap<String>> ();
 			TIntIntMap userDefinedLibraryElementTypeNumber2NumberofComparisonMap = new TIntIntHashMap();
 			
-			//24 August 2016 starts
-			//If this is a data driven experiment run
-			if (glanetRunType.equalsIgnoreCase(Commons.ARG_GLANET_EXPERIMENT_RUN)){
+			//24 August 2016 starts If this is a data driven experiment run
+			//6 March 2017 or if it is an enrichment without annotation 
+			if (glanetRunType.equalsIgnoreCase(Commons.ARG_GLANET_EXPERIMENT_RUN) || performEnrichment.equalsIgnoreCase(Commons.DO_ENRICH_WITHOUT_ANNOTATION)){
 				String userDefinedLibraryInputFile = args[CommandLineArguments.UserDefinedLibraryInput.value()];
 
 				UserDefinedLibraryDataFormat userDefinedLibraryDataFormat = UserDefinedLibraryDataFormat.convertStringtoEnum(args[CommandLineArguments.UserDefinedLibraryDataFormat.value()]);
@@ -9352,7 +9356,7 @@ public class Enrichment {
 			}//End of If this is data driven experiment run
 			//24 August 2016 ends
 			
-			//This is a normal run
+			//This is a normal run enrichment with annotation
 			else{
 				
 				UserDefinedLibraryUtility.fillNumber2NameMap(
