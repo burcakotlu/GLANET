@@ -117,7 +117,7 @@ public enum CommandLineArguments {
 	CellLineBasedTfAndKeggPathwayAnnotation(23,Commons.DO_NOT_TF_CELLLINE_KEGGPATHWAY_ANNOTATION), 
 	RegulatorySequenceAnalysisUsingRSAT(24,Commons.DO_NOT_REGULATORY_SEQUENCE_ANALYSIS_USING_RSAT), 
 	JobName(25, Commons.NO_NAME),
-	WriteAnnotationFoundOverlapsMode(26, Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED),
+	AnnotationFoundOverlapsOutputMode(26, Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED),
 	WriteAnnotationBinaryMatrixMode(27, Commons.DO_NOT_WRITE_ANNOTATION_BINARY_MATRIX), 
 	WriteGeneratedRandomDataMode(28, Commons.DO_NOT_WRITE_GENERATED_RANDOM_DATA),
 	WritePermutationBasedandParametricBasedAnnotationResultMode(29,Commons.DO_NOT_WRITE_PERMUTATION_BASED_AND_PARAMETRIC_BASED_ANNOTATION_RESULT),

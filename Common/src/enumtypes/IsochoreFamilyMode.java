@@ -64,5 +64,8 @@ public enum IsochoreFamilyMode {
 		return this == IsochoreFamilyMode.DO_USE_ISOCHORE_FAMILY;
 	}
 
+	public boolean doNotUseIsochoreFamily() {
+		return this == IsochoreFamilyMode.DO_NOT_USE_ISOCHORE_FAMILY;
+	}
 
 }

@@ -946,19 +946,16 @@ public class Remap {
 
 	}
 	//25 November 2016 ends
-
-	/*
-	 * InputFileSourceAssembly contains one genomic loci per line.
-	 * OutputFileTargetAssembly contains one genomic loci per line.
-	 */
-	public static void convertOneGenomicLociPerLineUsingMap( 
+	
+	
+	//5 April 2017
+	public static void convertOneGenomicLociPerLineUsingMap(
 			String outputFolder,
 			String oneGenomicLociPerLineOutputFileInTargetAssembly,
-			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
-			TIntObjectMap<String> lineNumber2SourceInformationMap,
-			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, 
-			String headerLine) {
-
+			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap, 
+			Map<String,String> source_1BasedStart_1BasedEnd2SourceInformationMap,
+			String headerLine){
+		
 		// outputFile In Target Assembly
 		BufferedWriter bufferedWriter = null;
 
@@ -975,16 +972,17 @@ public class Remap {
 			// Header line
 			bufferedWriter.write( headerLine + System.getProperty( "line.separator"));
 
-			for( int i = 1; i <= lineNumber2SourceGenomicLociMap.size(); i++){
+			for(Map.Entry<String, String> entry: source_1BasedStart_1BasedEnd2TargetMap.entrySet()){
+				
+				toBeRemapped =entry.getKey();
+				mapped = entry.getValue();	
 
-				toBeRemapped = lineNumber2SourceGenomicLociMap.get(i);
-				mapped = lineNumber2TargetGenomicLociMap.get(i);
 				
 				if( mapped != null){
 					bufferedWriter.write(mapped +  System.getProperty( "line.separator"));
 				}else{
-					if( lineNumber2SourceInformationMap != null){
-						toBeRemappedInformation = lineNumber2SourceInformationMap.get( i);
+					if( source_1BasedStart_1BasedEnd2SourceInformationMap != null){
+						toBeRemappedInformation = source_1BasedStart_1BasedEnd2SourceInformationMap.get(toBeRemapped);
 						if( GlanetRunner.shouldLog())logger.warn("Please notice that there is an unconverted genomic loci during NCBI REMAP API. This may be due to positions are not in primary assembly.");
 						if( GlanetRunner.shouldLog())logger.warn("rsId: " + toBeRemappedInformation + " To be Remapped: " + toBeRemapped + " Mapped: " + mapped);
 						numberofUnRemappedInputLine++;
@@ -1011,87 +1009,9 @@ public class Remap {
 			if( GlanetRunner.shouldLog())logger.error( e.toString());
 		}
 
+		
 	}
-
-	/*
-	 * InputFileSourceAssembly contains two genomic loci per line.
-	 */
-	public static void convertTwoGenomicLociPerLineUsingMap( 
-			String outputFolder, 
-			String outputFileInTargetAssembly,
-			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
-			TIntObjectMap<String> lineNumber2SourceInformationMap,
-			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, 
-			String headerLine) {
-
-		BufferedWriter bufferedWriter = null;
-
-		String toBeRemapped1;
-		String toBeRemapped2;
-
-		String mapped1;
-		String mapped2;
-
-		String information = null;
-		int numberofUnRemappedInputLine = 0;
-
-		try{
-
-			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( outputFolder + outputFileInTargetAssembly));
-
-			// Header line
-			bufferedWriter.write( headerLine + System.getProperty( "line.separator"));
-
-			for( int i = 1; i <= lineNumber2SourceGenomicLociMap.size();){
-
-				toBeRemapped1 = lineNumber2SourceGenomicLociMap.get( i);
-				toBeRemapped2 = lineNumber2SourceGenomicLociMap.get( i + 1);
-
-				mapped1 = lineNumber2TargetGenomicLociMap.get( i);
-				mapped2 = lineNumber2TargetGenomicLociMap.get( i + 1);
-
-				information = lineNumber2SourceInformationMap.get( i);
-
-				// Increase i by 2
-				// Since we have two genomic loci per line in original all TF Annotations File.
-				i = i + 2;
-
-				if( mapped1 != null && mapped2 != null){
-					bufferedWriter.write( mapped1 + "\t" + mapped2 + "\t" + information + System.getProperty( "line.separator"));
-				}// End of IF: None of the mapped is null
-				else{
-
-					if( mapped1 == null){
-						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API. This may be due to positions are not in primary assembly.");
-						if( GlanetRunner.shouldLog())logger.warn( "To be Remapped1: " + toBeRemapped1 + " Mapped1: " + mapped1 + " after: " + information);
-
-						numberofUnRemappedInputLine++;
-					}
-
-					if( mapped2 == null){
-						if( GlanetRunner.shouldLog())logger.warn( "Please notice that there is an unconverted genomic loci during NCBI REMAP API. This may be due to positions are not in primary assembly.");
-						if( GlanetRunner.shouldLog())logger.warn( " To be Remapped2: " + toBeRemapped2 + " Mapped2: " + mapped2 + " after: " + information);
-
-						numberofUnRemappedInputLine++;
-					}
-				}// End of ELSE: at least one of the mapped is null
-
-			}// End of FOR
-
-			if( GlanetRunner.shouldLog())logger.warn( "Number of unremapped lines is: " + numberofUnRemappedInputLine);
-
-			// CLOSE
-			bufferedWriter.close();
-
-		}catch( FileNotFoundException e){
-
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}catch( IOException e){
-
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}
-
-	}
+	
 	
 	
 	//16 DEC 2016
@@ -1175,10 +1095,14 @@ public class Remap {
 				tfTarget = source_1BasedStart_1BasedEnd2TargetMap.get(tfKey);
 				
 				//Get the observed allele for this snpKey
-				observedAlleles = snpKey2ObservedAllelesMap.get(snpKey);
+				if(snpKey2ObservedAllelesMap!=null){
+					observedAlleles = snpKey2ObservedAllelesMap.get(snpKey);					
+				}
 						
-				if (snpTarget!=null &&  tfTarget!=null){
+				if (snpTarget!=null &&  tfTarget!=null && observedAlleles!=null){
 					bufferedWriter.write(snpTarget +"\t" + tfTarget + "\t" + after + "\t" + observedAlleles +System.getProperty("line.separator"));
+				}else if (snpTarget!=null &&  tfTarget!=null){
+					bufferedWriter.write(snpTarget +"\t" + tfTarget + "\t" + after  +System.getProperty("line.separator"));
 				}else if(snpTarget!=null){
 					bufferedWriter.write(snpTarget +"\t" + tfChrName + "\t" + "-1" + "\t"  + "-1" + "\t" + after +  "\t" + observedAlleles + System.getProperty("line.separator"));
 				}else
@@ -1367,6 +1291,9 @@ public class Remap {
 		
 	}
 
+	
+	//Depreceated
+	//Then delete it
 	public static void fillConversionMap(
 			String outputFolder, 
 			String remapReportFile,

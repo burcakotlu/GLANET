@@ -3,21 +3,23 @@
  */
 package giveninputdata;
 
-import enumtypes.Assembly;
-import enumtypes.CommandLineArguments;
-import enumtypes.GivenIntervalsInputFileDataFormat;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
+
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
+
+import enumtypes.Assembly;
+import enumtypes.CommandLineArguments;
+import enumtypes.GivenIntervalsInputFileDataFormat;
 
 /**
  * @author Burcak Otlu
@@ -82,12 +84,11 @@ public class InputDataNCBIRemap {
 	}
 
 	// read inputFileName
-	// write
-	// Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
+	// write Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
 	public static void readInputFileFillMapWriteRemapInputFile(
 			String givenInputDataFolder,
 			String inputFile0BasedStartEnd, 
-			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
+			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap,
 			String remapInputFileOBasedStartEndExclusive) {
 
 		BufferedReader bufferedReader = null;
@@ -98,11 +99,12 @@ public class InputDataNCBIRemap {
 		int indexofSecondTab;
 
 		int start0Based;
+		int start1Based;
+		
 		int end0Based;
 		int end0BasedExclusive;
 
-		int lineNumber = 1;
-
+		
 		try{
 			bufferedReader = new BufferedReader(FileOperations.createFileReader( givenInputDataFolder + inputFile0BasedStartEnd));
 			bufferedWriter = new BufferedWriter(FileOperations.createFileWriter( givenInputDataFolder + remapInputFileOBasedStartEndExclusive));
@@ -113,11 +115,13 @@ public class InputDataNCBIRemap {
 				indexofSecondTab = ( indexoFirstTab > 0)?strLine.indexOf( '\t', indexoFirstTab + 1):-1;
 
 				start0Based = Integer.parseInt( strLine.substring( indexoFirstTab + 1, indexofSecondTab));
+				start1Based = start0Based + 1;
+				
 				end0Based = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
 				end0BasedExclusive = end0Based + 1;
 
 				bufferedWriter.write( strLine.substring( 0, indexoFirstTab) + "\t" + start0Based + "\t" + end0BasedExclusive + System.getProperty( "line.separator"));
-				lineNumber2SourceGenomicLociMap.put( lineNumber++,strLine.substring( 0, indexoFirstTab) + "\t" + start0Based + "\t" + end0BasedExclusive);
+				source_1BasedStart_1BasedEnd2TargetMap.put(strLine.substring(0,indexoFirstTab) + "\t" + start1Based + "\t" + end0BasedExclusive, null);
 
 			}// End of WHILE
 
@@ -198,15 +202,18 @@ public class InputDataNCBIRemap {
 		/**********************************************************/
 
 		String headerLine = Commons.HEADER_LINE_FOR_COORDINATES_IN_LATEST_ASSEMBLY;
-
-		TIntObjectMap<String> lineNumber2SourceGenomicLociMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> lineNumber2SourceInformationMap = null;
-		TIntObjectMap<String> lineNumber2TargetGenomicLociMap = new TIntObjectHashMap<String>();
+		
+		
+		Map<String,String> source_1BasedStart_1BasedEnd2TargetMap = new HashMap<String,String>();
+		Map<String,String> source_1BasedStart_1BasedEnd2SourceInformationMap = new HashMap<String,String>();
+		
+		
 
 		// read inputFileName
-		// write
-		// Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
-		readInputFileFillMapWriteRemapInputFile( givenInputDataFolder, inputFile, lineNumber2SourceGenomicLociMap,
+		// write Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE
+		readInputFileFillMapWriteRemapInputFile( 
+				givenInputDataFolder, inputFile, 
+				source_1BasedStart_1BasedEnd2TargetMap,
 				Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE);
 
 		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
@@ -218,18 +225,27 @@ public class InputDataNCBIRemap {
 				givenInputDataFolder + Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE,
 				givenInputDataFolder + Commons.REMAP_DUMMY_OUTPUT_FILE,
 				givenInputDataFolder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-				givenInputDataFolder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, merge, allowMultipleLocation,
-				minimumRatioOfBasesThatMustBeRemapped, maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
+				givenInputDataFolder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 
+				merge, 
+				allowMultipleLocation,
+				minimumRatioOfBasesThatMustBeRemapped, 
+				maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength,
 				inputFormat, Commons.REMAP_GIVENINPUTDATA_FROM_GRCH38_TO_GRCH37P13);
 
-		Remap.fillConversionMap( givenInputDataFolder, Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-				lineNumber2SourceGenomicLociMap, lineNumber2TargetGenomicLociMap);
-
+		Remap.fillConversionMap(
+				givenInputDataFolder, 
+				Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
+				source_1BasedStart_1BasedEnd2TargetMap,
+				Commons.TAB);
+		
 		Remap.convertOneGenomicLociPerLineUsingMap(
 				givenInputDataFolder,
 				Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
-				lineNumber2SourceGenomicLociMap, lineNumber2SourceInformationMap, lineNumber2TargetGenomicLociMap,
+				source_1BasedStart_1BasedEnd2TargetMap, 
+				source_1BasedStart_1BasedEnd2SourceInformationMap,
 				headerLine);
+
+
 
 		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 

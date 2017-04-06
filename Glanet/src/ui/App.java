@@ -942,29 +942,29 @@ public class App {
 		
 		for( int i = 0; i < args.length; i++)
 			if( args[i].equalsIgnoreCase( Commons.ARG_ANNOTATION_OUTPUT_ELEMENT))
-				if( argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED;
+				if( argsInOrder[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()] = Commons.DO_WRITE_OVERLAPS_EACH_ONE_IN_SEPARATE_FILE_ELEMENT_BASED;
 				else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
 
 			else if( args[i].equalsIgnoreCase( Commons.ARG_ANNOTATION_OUTPUT_ELEMENT_TYPE))
-				if( argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = Commons.DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED;
+				if( argsInOrder[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()] = Commons.DO_WRITE_OVERLAPS_ALL_IN_ONE_FILE_ELEMENT_TYPE_BASED;
 				else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
 			else if( args[i].equalsIgnoreCase( Commons.ARG_ANNOTATION_NO_OUTPUT))
-				if( argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()].equals( notSet))
-					argsInOrder[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL;
+				if( argsInOrder[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()].equals( notSet))
+					argsInOrder[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()] = Commons.DO_NOT_WRITE_OVERLAPS_AT_ALL;
 				else{
 					System.out.println( "Same argument has already been defined. Conflict occured, exiting...");
 					return false;
 				}
 		
-		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.WriteAnnotationFoundOverlapsMode))
+		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.AnnotationFoundOverlapsOutputMode))
 			return false;
 		
 		if( !setWithDefaultValueIfNotSet( argsInOrder, CommandLineArguments.JobName))

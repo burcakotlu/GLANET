@@ -1585,7 +1585,7 @@ public class GenerationofSequencesandMatricesforSNPs {
 		/***************************************************************************************/
 		// Download from  ftp://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/All/RefSeqAssemblyID.assembly.txt
 		String assemblyReportFileName = Commons.ASSEMBLY_REPORTS +  refSeqAssemblyID + Commons.ASSEMBLY_REPORTS_FILE_EXTENSION ;
-		NCBIEutils.getAssemblyReport(refSeqAssemblyID, dataFolder, assemblyReportFileName);
+		NCBIEutils.getAssemblyReport(latestAssemblyNameReturnedByNCBIEutils,refSeqAssemblyID, dataFolder, assemblyReportFileName);
 		/***************************************************************************************/
 		/***********************************Part4 ends******************************************/
 		/***************************************************************************************/

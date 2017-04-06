@@ -94,7 +94,7 @@ import enumtypes.NodeType;
 import enumtypes.RegulatorySequenceAnalysisType;
 import enumtypes.TreeType;
 import enumtypes.UserDefinedLibraryDataFormat;
-import enumtypes.WriteAnnotationFoundOverlapsMode;
+import enumtypes.AnnotationFoundOverlapsOutputMode;
 
 /**
  * Annotate given intervals with annotation options with numbers
@@ -113,7 +113,7 @@ public class Annotation {
 		private String outputFolder;
 		private ChromosomeName chromName;
 		private List<Interval> data;
-		private WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode;
+		private AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode;
 
 		private int lowTaskIndex;
 		private int highTaskIndex;
@@ -126,7 +126,7 @@ public class Annotation {
 		private char[][] fileNames;
 
 		public FindOverlaps(String outputFolder, ChromosomeName chromName, List<Interval> data,
-				WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+				AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 				int lowTaskIndex, int highTaskIndex, int overlapDefinition, IntervalTree intervalTree,
 				int numberofComparisonsDnase, char[][] dnaseCellLineNames, char[][] fileNames) {
 
@@ -1837,7 +1837,7 @@ public class Annotation {
 	public void searchDnaseWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntIntMap dnaseCellLineNumber2KMap, 
 			int overlapDefinition,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
@@ -1962,7 +1962,7 @@ public class Annotation {
 
 	// searchDnaseWithNumbersWithStringBuilder
 	public void searchDnaseWithNumbersStringBuilder(String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree dnaseIntervalTree,
 			int[] dnaseCellLineKArray, int overlapDefinition,
 			TShortObjectMap<StringBuilder> cellLineNumber2CellLineNameMap,
@@ -2021,7 +2021,7 @@ public class Annotation {
 	// With Numbers
 	// Using TShortObjectMap<CharSequence>
 	public void searchDnaseWithNumbers(String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree dnaseIntervalTree,
 			int[] dnaseCellLineKArray, int overlapDefinition,
 			TShortObjectMap<CharSequence> cellLineNumber2CellLineNameMap,
@@ -2081,7 +2081,7 @@ public class Annotation {
 	// With Numbers
 	// Using int array
 	public void searchDnaseWithNumbers(String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			ChromosomeName chromName, BufferedReader bufferedReader, IntervalTree dnaseIntervalTree,
 			int[] dnaseCellLineKArray, int overlapDefinition, char[][] dnaseCellLineNames, char[][] fileNames) {
 
@@ -2140,7 +2140,7 @@ public class Annotation {
 	public void searchDnaseWithNumbers(
 			String outputFolder,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTreeMarkdeBerg dnaseIntervalTreeMarkdeBerg,
@@ -2316,7 +2316,7 @@ public class Annotation {
 	public void searchDnaseWithNumbers(
 			String outputFolder,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
 			IntervalTree dnaseIntervalTree,
@@ -2841,7 +2841,7 @@ public class Annotation {
 	// Annotation Common for EOO and NOOB
 	public static void searchGeneWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGeneBufferedWriter,
 			TIntByteMap geneEntrezID2HeaderWrittenMap,
 			TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap,
@@ -3063,7 +3063,7 @@ public class Annotation {
 	// UDGS or KEGG
 	public void searchGeneSetWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGeneBufferedWriter,
 			TIntByteMap geneEntrezID2HeaderWrittenMap,
 			TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap,
@@ -3458,7 +3458,7 @@ public class Annotation {
 	// Both TFKEGG and TFCellLineKEGG	
 	public void searchTfKEGGPathwayWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGenesBufferedWriter,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntByteMap tfCellLineNumber2HeaderWrittenMap,
@@ -5381,7 +5381,7 @@ public class Annotation {
 	// With Numbers
 	public void searchUserDefinedLibraryWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap elementNumber2HeaderWrittenMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
@@ -5552,7 +5552,7 @@ public class Annotation {
 	// With Numbers
 	public void searchTranscriptionFactorWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap tfCellLineNumber2HeaderWrittenMap,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT, 
 			ChromosomeName chromName,
@@ -5724,7 +5724,7 @@ public class Annotation {
 	// With Numbers
 	public void searchHistoneWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap histoneCellLineNumber2HeaderWrittenMap,
 			ChromosomeName chromName, 
 			BufferedReader bufferedReader, 
@@ -8223,7 +8223,7 @@ public class Annotation {
 	//Format of tfNumberCellLineNumber is INT_5DIGITS_ELEMENTNUMBER_5DIGITS_CELLLINENUMBER
 	public static void findCommonOverlaps(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> tfNumber2TfNameMap, 
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String> keggPathwayNumber2KeggPathwayNameMap,
@@ -9804,7 +9804,7 @@ public class Annotation {
 	public int[] searchDnaseWithNumbers(String dataFolder, String outputFolder, ChromosomeName chromName,
 			List<Interval> dataArrayList, int overlapDefinition, IntervalTree dnaseIntervalTree,
 			int numberofComparisonsDnase, char[][] dnaseCellLineNames, char[][] fileNames,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode, ForkJoinPool pool) {
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode, ForkJoinPool pool) {
 
 		FindOverlaps findOverlaps;
 		int[] kArray = new int[numberofComparisonsDnase];
@@ -9831,7 +9831,7 @@ public class Annotation {
 	public static void searchGeneWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> givenIntervalNumber2GivenIntervalNameMap,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
 			TObjectIntMap<ChromosomeName> chromosomeName2CountMap, 
@@ -9940,7 +9940,7 @@ public class Annotation {
 	public void searchGeneSetWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntIntMap geneEntrezID2KMap,
 			TIntIntMap exonBasedGeneSetNumber2KMap, 
 			TIntIntMap regulationBasedGeneSetNumber2KMap,
@@ -10068,7 +10068,7 @@ public class Annotation {
 	public void searchTfKEGGPathwayWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntIntMap tfNumberCellLineNumber2KMap, 
 			TIntIntMap geneEntrezID2KMap,
@@ -10240,7 +10240,7 @@ public class Annotation {
 	public void searchUserDefinedLibraryWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			int overlapDefinition, 
 			TIntObjectMap<TIntIntMap> elementTypeNumber2ElementNumber2KMapMap,
 			TIntObjectMap<TIntObjectMap<String>> elementTypeNumber2ElementNumber2ElementNameMapMap,
@@ -10316,7 +10316,7 @@ public class Annotation {
 	public void searchTranscriptionFactorWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT, 
 			TIntIntMap tfNumberCellLineNumber2KMap,
 			int overlapDefinition, 
@@ -10380,7 +10380,7 @@ public class Annotation {
 	public void searchHistoneWithNumbers(
 			String dataFolder, 
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntIntMap histoneNumberCellLineNumber2KMap, 
 			int overlapDefinition,
 			TIntObjectMap<String> histoneNumber2HistoneNameMap,
@@ -11095,7 +11095,7 @@ public class Annotation {
 		// If you want to change this argument
 		// Then update runButtonPressed method of MainView Class for UI and
 		// Update CommandLineArguments constructor of CommandLineArguments class for Command Line.
-		WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum(args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
+		AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode = AnnotationFoundOverlapsOutputMode.convertStringtoEnum(args[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()]);
 
 		int overlapDefinition = Integer.parseInt(args[CommandLineArguments.NumberOfBasesRequiredForOverlap.value()]);
 

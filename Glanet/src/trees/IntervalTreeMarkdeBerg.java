@@ -26,7 +26,7 @@ import common.Commons;
 import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.SortingOrder;
-import enumtypes.WriteAnnotationFoundOverlapsMode;
+import enumtypes.AnnotationFoundOverlapsOutputMode;
 import gnu.trove.map.TIntByteMap;
 import gnu.trove.map.TIntObjectMap;
 
@@ -558,7 +558,7 @@ public class IntervalTreeMarkdeBerg {
 			String outputFolder,
 			String annotationFolder,
 			String elementTypeName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String>fileNumber2FileNameMap,
 			Interval interval, 
@@ -671,7 +671,7 @@ public class IntervalTreeMarkdeBerg {
 			String outputFolder,
 			String annotationFolder,
 			String elementTypeName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String>fileNumber2FileNameMap,
 			Interval interval, 
@@ -755,7 +755,7 @@ public class IntervalTreeMarkdeBerg {
 			String outputFolder,
 			String annotationFolder,
 			String elementTypeName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String>fileNumber2FileNameMap,
 			Interval interval, 
@@ -823,7 +823,7 @@ public class IntervalTreeMarkdeBerg {
 			String outputFolder,
 			String annotationFolder,
 			String elementTypeName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String>fileNumber2FileNameMap,
 			Interval interval, 
@@ -921,7 +921,7 @@ public class IntervalTreeMarkdeBerg {
 	//IntervalTreeMarkdeBerg
 	public static void searchIntervalTreeMarkdeBerg(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
 			TIntObjectMap<String> fileNumber2FileNameMap,

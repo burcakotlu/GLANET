@@ -25,7 +25,7 @@ import common.Commons;
 import enumtypes.AnnotationType;
 import enumtypes.CommandLineArguments;
 import enumtypes.WriteAnnotationBinaryMatrixMode;
-import enumtypes.WriteAnnotationFoundOverlapsMode;
+import enumtypes.AnnotationFoundOverlapsOutputMode;
 
 /**
  * 
@@ -375,7 +375,7 @@ public class GivenIntervalVersusElementAnnotationBinaryMatrixForOnePhenotype {
 		/*************************** READ GIVEN INPUT ends ***********************************************/
 		/***********************************************************************************************/
 
-		WriteAnnotationFoundOverlapsMode writeElementBasedAnnotationFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
+		AnnotationFoundOverlapsOutputMode writeElementBasedAnnotationFoundOverlapsMode = AnnotationFoundOverlapsOutputMode.convertStringtoEnum( args[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()]);
 		WriteAnnotationBinaryMatrixMode writeAnnotationBinaryMatrixMode = WriteAnnotationBinaryMatrixMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationBinaryMatrixMode.value()]);
 
 		if( writeElementBasedAnnotationFoundOverlapsMode.isWriteFoundOverlapsElementBased() && writeAnnotationBinaryMatrixMode.doWriteAnnotationBinaryMatrixMode()){

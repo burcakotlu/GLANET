@@ -192,7 +192,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssemblySimpl
 			String outputFolder, 
 			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap,
 			Map<String,String> snpKey_chrName_1BasedStart_1BasedEnd_2ObservedAllelesMap,
-			String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13_BED_FILE,
+			String remapInputFile_0Based_Start_EndExclusive_GRCh37_P13_BED_FILE,
 			String latestAssembyNameReturnedByNCBIEutils,
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap) {
 
@@ -222,7 +222,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssemblySimpl
 				dataFolder, 
 				sourceReferenceAssemblyID, 
 				targetReferenceAssemblyID,
-				forRSA_REMAP_Folder + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13_BED_FILE,
+				forRSA_REMAP_Folder + remapInputFile_0Based_Start_EndExclusive_GRCh37_P13_BED_FILE,
 				forRSA_REMAP_Folder + Commons.REMAP_DUMMY_OUTPUT_FILE,
 				forRSA_REMAP_Folder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
 				forRSA_REMAP_Folder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 

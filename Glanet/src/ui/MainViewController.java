@@ -129,7 +129,7 @@ public class MainViewController extends ViewController implements MainViewDelega
 		args[CommandLineArguments.CellLineBasedTfAndKeggPathwayAnnotation.value()] = cellLineBasedTfAndKeggPathwayAnnotation;
 		args[CommandLineArguments.RegulatorySequenceAnalysisUsingRSAT.value()] = regulatorySequenceAnalysisUsingRSAT;
 		args[CommandLineArguments.JobName.value()] = jobName;
-		args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()] = writeAnnotationFoundOverlapsMode;
+		args[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()] = writeAnnotationFoundOverlapsMode;
 		args[CommandLineArguments.WriteAnnotationBinaryMatrixMode.value()] = writeAnnotationBinaryMatrixMode;
 		args[CommandLineArguments.WriteGeneratedRandomDataMode.value()] = writeGeneratedRandomDataMode;
 		args[CommandLineArguments.WritePermutationBasedandParametricBasedAnnotationResultMode.value()] = writePermutationBasedandParametricBasedAnnotationResultMode;

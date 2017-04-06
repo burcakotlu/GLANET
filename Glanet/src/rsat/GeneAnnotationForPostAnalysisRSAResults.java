@@ -8,7 +8,7 @@ import enumtypes.ChromosomeName;
 import enumtypes.CommandLineArguments;
 import enumtypes.GeneOverlapAnalysisFileMode;
 import enumtypes.IntervalName;
-import enumtypes.WriteAnnotationFoundOverlapsMode;
+import enumtypes.AnnotationFoundOverlapsOutputMode;
 import gnu.trove.iterator.TIntObjectIterator;
 import gnu.trove.map.TIntIntMap;
 import gnu.trove.map.TIntObjectMap;
@@ -483,7 +483,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 			String RSAPostAnalysisAugmentedWithGeneAnnotationsFileName,
 			Map<String,String> _1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
 			Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode){
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode){
 		
 		String remapFolder = RSAFolder + Commons.NCBI_REMAP + System.getProperty("file.separator");
 		
@@ -600,7 +600,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 			String RSAFolder,
 			String RSAPostAnalysisFileName,
 			String RSAPostAnalysisAugmentedWithGeneAnnotationsFileName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode){
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode){
 		
 		String remapFolder = RSAFolder + Commons.NCBI_REMAP + System.getProperty("file.separator");
 		
@@ -752,7 +752,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
 		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
 		
-		WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode = WriteAnnotationFoundOverlapsMode.convertStringtoEnum( args[CommandLineArguments.WriteAnnotationFoundOverlapsMode.value()]);
+		AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode = AnnotationFoundOverlapsOutputMode.convertStringtoEnum( args[CommandLineArguments.AnnotationFoundOverlapsOutputMode.value()]);
 
 		
 		//For Debug delete later

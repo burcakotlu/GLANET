@@ -118,6 +118,7 @@ public class NCBIEutils {
 	// as ftp://ftp.ncbi.nlm.nih.gov/genomes/ASSEMBLY_REPORTS/All/RefSeqAssemblyID.assembly.txt
 	// Write to assemblyReportFileName
 	public static void getAssemblyReport(
+			String latestAssemblyNameReturnedByNCBIEutils,
 			String refSeqAssemblyID,
 			String dataFolder,
 			String assemblyReportFileName){
@@ -128,7 +129,16 @@ public class NCBIEutils {
 		
 		int read = 0;
 		byte[] bytes = new byte[1024];
+		
+		String firstTriple = null;
+		String secondTriple = null;
+		String thirdTriple = null;
 
+		int indexofFirstTab = refSeqAssemblyID.indexOf("_");
+		firstTriple = refSeqAssemblyID.substring(indexofFirstTab+1, indexofFirstTab+4);
+		secondTriple = refSeqAssemblyID.substring(indexofFirstTab+4, indexofFirstTab+7);
+		thirdTriple = refSeqAssemblyID.substring(indexofFirstTab+7, indexofFirstTab+10);
+		 
 		try {
 			
 			ftpClient.connect("ftp.ncbi.nlm.nih.gov");
@@ -137,9 +147,17 @@ public class NCBIEutils {
 			
 			ftpClient.enterLocalPassiveMode();
 			
-			ftpClient.changeWorkingDirectory("/genomes/ASSEMBLY_REPORTS/All/");
+			//ftpClient.changeWorkingDirectory("/genomes/ASSEMBLY_REPORTS/All/");
+			ftpClient.changeWorkingDirectory("/genomes/all/GCF/" + firstTriple + "/" + secondTriple + "/" + thirdTriple +"/" + refSeqAssemblyID + "_" + latestAssemblyNameReturnedByNCBIEutils + "/");
 			
-			inputStream = ftpClient.retrieveFileStream(refSeqAssemblyID + Commons.ASSEMBLY_REPORTS_FILE_EXTENSION);
+			//Directory and filename: genomes/all/GCF/000/001/405/GCF_000001405.33_GRCh38.p7/GCF_000001405.33_GRCh38.p7_assembly_report.txt			
+			//Directory: genomes/all/GCF/000/001/405/GCF_000001405.33_GRCh38.p7/
+			//Filename: GCF_000001405.33_GRCh38.p7_assembly_report.txt
+			
+			//refSeqAssemblyID GCF_000001405.33
+			//latestAssemblyNameReturnedByNCBIEutils	"GRCh38.p7" 
+			
+			inputStream = ftpClient.retrieveFileStream(refSeqAssemblyID + "_"  + latestAssemblyNameReturnedByNCBIEutils + "_" +  Commons.NEW_ASSEMBLY_REPORT_FILE_EXTENSION);
 			
 			// write the inputStream to a FileOutputStream
 			outputStream = new FileOutputStream(new File(dataFolder + assemblyReportFileName));
@@ -274,7 +292,7 @@ public class NCBIEutils {
 		/***************************************************************************************/
 		/***************************************************************************************/
 		String assemblyReportFileName = "AssemblyReports" + System.getProperty("file.separator") + refSeqAssemblyID + ".assembly.txt" ;
-		getAssemblyReport(refSeqAssemblyID, dataFolder, assemblyReportFileName);
+		getAssemblyReport(latestAssembyNameReturnedByNCBIEutils,refSeqAssemblyID, dataFolder, assemblyReportFileName);
 		/***************************************************************************************/
 		/***************************************************************************************/
 		/***************************************************************************************/

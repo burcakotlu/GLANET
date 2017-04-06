@@ -62,7 +62,7 @@ import enumtypes.KeggPathwayAnalysisType;
 import enumtypes.NodeName;
 import enumtypes.NodeType;
 import enumtypes.RegulatorySequenceAnalysisType;
-import enumtypes.WriteAnnotationFoundOverlapsMode;
+import enumtypes.AnnotationFoundOverlapsOutputMode;
 import gc.GCIsochoreIntervalTreeFindAllOverlapsResult;
 import gnu.trove.iterator.TIntIterator;
 import gnu.trove.iterator.TIntObjectIterator;
@@ -2789,7 +2789,7 @@ public class IntervalTree {
 			String outputFolder,
 			String annotationFolder,
 			String elementTypeName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String>fileNumber2FileNameMap,
 			Interval interval, 
@@ -2887,7 +2887,7 @@ public class IntervalTree {
 			String outputFolder,
 			String annotationFolder,
 			String allInOneFileName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			AnnotationType annotationType,
 			ChromosomeName chromName,
 			Interval interval,
@@ -3066,7 +3066,7 @@ public class IntervalTree {
 			String outputFolder,
 			int elementTypeNumber,
 			String elementTypeName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			Interval interval,
 			UserDefinedLibraryIntervalTreeNodeWithNumbers castedNode,
 			ChromosomeName chromName,
@@ -3157,7 +3157,7 @@ public class IntervalTree {
 			GeneSetType geneSetType,
 			String mainGeneSetName,
 			GeneSetAnalysisType geneSetAnalysisType,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			int geneSetNumber,
 			Interval interval, 
 			ChromosomeName chromName,
@@ -3307,7 +3307,7 @@ public class IntervalTree {
 			String outputFolder,
 			String annotationFolder,
 			String elementTypeName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			Interval interval, 
 			ChromosomeName chromName,
 			UcscRefSeqGeneIntervalTreeNodeWithNumbers castedNode,
@@ -3404,7 +3404,7 @@ public class IntervalTree {
 			String outputFolder,
 			String annotationFolder,
 			String elementTypeName,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> elementNumber2ElementNameMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap,
 			TIntObjectMap<String>fileNumber2FileNameMap,
@@ -3497,7 +3497,7 @@ public class IntervalTree {
 	//Histone
 	public void findAllOverlappingHistoneIntervalsWithoutIOWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap histoneCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> histoneNumber2HistoneNameMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
@@ -3835,7 +3835,7 @@ public class IntervalTree {
 	// HISTONE
 	public void findAllOverlappingHistoneIntervalsWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap histoneCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> histoneNumber2HistoneNameMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
@@ -4391,7 +4391,7 @@ public class IntervalTree {
 	//TF
 	public void findAllOverlappingTFIntervalsWithoutIOWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntByteMap tfCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> tfNumber2TFNameMap,
@@ -4960,7 +4960,7 @@ public class IntervalTree {
 	//NOOB
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithoutIOWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap elementNumber2HeaderWrittenMap,
 			int elementTypeNumber,
 			String elementTypeName, 
@@ -5279,7 +5279,7 @@ public class IntervalTree {
 	// UDL
 	public void findAllOverlappingUserDefinedLibraryIntervalsWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap elementNumber2HeaderWrittenMap,
 			int elementTypeNumber,
 			String elementTypeName, 
@@ -5366,7 +5366,7 @@ public class IntervalTree {
 	//Called from TF TFKEGG TFCellLineKEGG BOTH
 	public void findAllOverlappingTfbsIntervalsWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			RegulatorySequenceAnalysisType regulatorySequenceAnalysisUsingRSAT,
 			TIntByteMap tfCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> tfNumber2TfNameMap,
@@ -6949,7 +6949,7 @@ public class IntervalTree {
 	//12 April 2016
 	public void findAllOverlappingDnaseIntervalsWithoutIOWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
 			TIntObjectMap<String> fileNumber2FileNameMap,
@@ -7169,7 +7169,7 @@ public class IntervalTree {
 	//No more used
 	// TShortObjectMap<StringBuilder>
 	public void findAllOverlappingDnaseIntervalsWithNumbersStringBuilder(String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName, byte[] oneOrZeroByteArray,
 			int overlapDefinition, TShortObjectMap<StringBuilder> cellLineNumber2CellLineNameMap,
 			TShortObjectMap<StringBuilder> fileNumber2FileNameMap) {
@@ -7236,7 +7236,7 @@ public class IntervalTree {
 	// No more used
 	// Annotation Sequentially Starts
 	public void findAllOverlappingDnaseIntervalsWithNumbers(String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName, byte[] oneOrZeroByteArray,
 			int overlapDefinition, TShortObjectMap<CharSequence> cellLineNumber2CellLineNameMap,
 			TShortObjectMap<CharSequence> fileNumber2FileNameMap) {
@@ -7306,7 +7306,7 @@ public class IntervalTree {
 	//No more used
 	// Annotation Sequentially Starts
 	public void findAllOverlappingDnaseIntervalsWithNumbers(String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			IntervalTreeNode node, Interval interval, ChromosomeName chromName, byte[] oneOrZeroByteArray,
 			int overlapDefinition, char[][] dnaseCellLineNames, char[][] fileNames) {
 
@@ -7376,7 +7376,7 @@ public class IntervalTree {
 	// DNASE
 	public void findAllOverlappingDnaseIntervalsWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap dnaseCellLineNumber2HeaderWrittenMap,
 			TIntObjectMap<String> cellLineNumber2CellLineNameMap, 
 			TIntObjectMap<String> fileNumber2FileNameMap,
@@ -8213,7 +8213,7 @@ public class IntervalTree {
 			GeneSetType geneSetType,
 			String geneSetName,
 			GeneSetAnalysisType geneSetAnalysisType,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntObjectMap<String> geneSetNumber2GeneSetNameMap,
 			TIntByteMap geneSetNumber2HeaderWrittenMap,
 			TIntObjectMap<String> geneHugoSymbolNumber2GeneHugoSymbolNameMap,
@@ -8561,7 +8561,7 @@ public class IntervalTree {
 			int givenIntervalNumber,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,
 			BufferedWriter hg19RefSeqGenesBufferedWriter,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			TIntByteMap geneEntrezID2HeaderWrittenMap,
 			TIntByteMap exonBasedGeneSetNumber2HeaderWrittenMap,
 			TIntByteMap regulationBasedGeneSetNumber2HeaderWrittenMap,
@@ -10749,7 +10749,7 @@ public class IntervalTree {
 	// It is called from Genes, KEGGPathway, UDGS, TFKEGG, TFCellLineKEGG and BOTH (TFKEGG or TFCellLineKEGG)
 	public void findAllOverlappingUcscRefSeqGenesIntervalsWithNumbers(
 			String outputFolder,
-			WriteAnnotationFoundOverlapsMode writeFoundOverlapsMode,
+			AnnotationFoundOverlapsOutputMode writeFoundOverlapsMode,
 			BufferedWriter hg19RefSeqGeneBufferedWriter, 
 			int givenIntervalNumber,
 			TIntObjectMap<OverlapInformation> givenIntervalNumber2OverlapInformationMap,

@@ -49,6 +49,7 @@ public class Commons {
 	public static final String RSAPostAnalysisFileName = "PostAnalysisofRegulatorySequenceAnalysisResults.txt";
 	public static final String RSAPostAnalysisAugmentedWithGeneAnnotationsFileName = "PostAnalysisofRegulatorySequenceAnalysisResults_AugmentedWithGeneAnnotations.txt";
 	
+	public static final String SUMMARY_REPORT_FILE = "SummaryReport.html";
 	
 	public static final String NCBI_REMAP_HOMO_SAPIENS = "Homo sapiens";
 	
@@ -574,6 +575,8 @@ public class Commons {
 	// RSID to CHRNAME CHRPOSITION OBSERVEDALLELES converter
 	public static final String ASSEMBLY_REPORTS = "AssemblyReports" + System.getProperty("file.separator");
 	public static final String ASSEMBLY_REPORTS_FILE_EXTENSION = ".assembly.txt";
+	
+	public static final String NEW_ASSEMBLY_REPORT_FILE_EXTENSION = "assembly_report.txt";
 	
 	// dbSNP
 	public static final String NUCLEOTIDE_A = "A";

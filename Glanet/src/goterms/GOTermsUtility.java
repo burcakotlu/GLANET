@@ -15,9 +15,7 @@ import org.apache.log4j.Logger;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
 import auxiliary.FunctionalElement;
-
 import common.Commons;
-
 import enumtypes.AnnotationType;
 import enumtypes.GeneOntologyFunction;
 import gnu.trove.iterator.TIntIntIterator;
@@ -52,6 +50,58 @@ public class GOTermsUtility {
 		}
 	}
 
+	
+	//21 March 2017
+	public static void fillGOTermName2GOTermIDMap(
+			String GOID2TermInputFile, 
+			Map<String,String> GOTermName2GOTermIDMap){
+		
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+
+		String strLine;
+		int indexofFirstTab;
+		int indexofSecondTab;
+		
+		String GOTermID;
+		String GOTermName;
+		
+		try{
+			fileReader = FileOperations.createFileReader(GOID2TermInputFile);
+			bufferedReader = new BufferedReader(fileReader);
+
+			while( ( strLine = bufferedReader.readLine()) != null){
+				
+				if (!strLine.startsWith("!")){
+					
+					//GO:0000001	mitochondrion inheritance	P
+
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = strLine.indexOf('\t',indexofFirstTab+1);
+					
+					GOTermID = strLine.substring( 0, indexofFirstTab);
+
+					//please note that in fact term contains ontology separated by tab character
+					GOTermName = strLine.substring(indexofFirstTab+1,indexofSecondTab);
+
+					//Check whether there are any duplicates
+					if (!GOTermName.isEmpty()){
+						GOTermName2GOTermIDMap.put(GOTermName,GOTermID);						
+					}
+			}
+				
+			}// End of While
+
+			bufferedReader.close();
+
+		}catch( FileNotFoundException e){
+			e.printStackTrace();
+		}catch( IOException e){
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	
 	public static void fillGOID2TermMap( 

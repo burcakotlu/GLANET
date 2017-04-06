@@ -257,24 +257,33 @@ public class Step3_DDE_DataCreation {
 
 			if (numberofIntervalsInEachSimulation > intervalPoolData.size()){
 				System.out.println("There is a situation, numberofIntervalsInEachSimulation" + "\t" + numberofIntervalsInEachSimulation + "\t" + "is greater than" + "\t" + "numberofTotalIntervals in the intervalPool which is" + intervalPoolData.size());
-			}
-			
-			//Initialize for each simulation
-			randomIntervalIndexes = new ArrayList<Integer>();
-			
-			//Select intervals from interval pool one by one
-			//So that there is no overlap between the selected intervals
-			selectSimulationDataOneByOne(
-					numberofIntervalsInEachSimulation,
-					intervalPoolData,
-					intervalPoolData.size(),
-					randomIntervalIndexes);
+				System.out.println("IntervalPoolFileName is " + intervalPoolFileName);
+				System.out.println("cellLineType: " + cellLineType + " geneType: " + geneType + " tpmType: " + tpmType + " dnaseOverlapExclusionType: " + dnaseOverlapExclusionType );
+				
+				
+			}else{
+				
+				//Please notice that if there are not many intervals, finding non-overlapping intervals will be problematic.
+				//It may cause infinite loop.
+				
+				//Initialize for each simulation
+				randomIntervalIndexes = new ArrayList<Integer>();
+				
+				//Select intervals from interval pool one by one
+				//So that there is no overlap between the selected intervals
+				selectSimulationDataOneByOne(
+						numberofIntervalsInEachSimulation,
+						intervalPoolData,
+						intervalPoolData.size(),
+						randomIntervalIndexes);
 
-			// Write Simulation Data
-			writeSimulationData(
-					randomIntervalIndexes, 
-					intervalPoolData, 
-					simulationDataFile);
+				// Write Simulation Data
+				writeSimulationData(
+						randomIntervalIndexes, 
+						intervalPoolData, 
+						simulationDataFile);
+			}
+						
 
 		}// End of for each simulation
 

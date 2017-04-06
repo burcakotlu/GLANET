@@ -247,8 +247,12 @@ public class MainView extends JPanel {
 		@Override
 		public void actionPerformed( ActionEvent e) {
 
-			if( inputTextField.getText().length() <= 0 || glanetFolderTextField.getText().length() <= 0 || ( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0) || ( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
-					|| (associationMeasureTypeCombo.getSelectedItem().toString().equals(Commons.EXISTENCE_OF_OVERLAP) && Integer.parseInt(numberOfBases.getText())<1) ){
+			if( inputTextField.getText().length() <= 0 
+					|| glanetFolderTextField.getText().length() <= 0 
+					|| ( userDefinedGeneSetAnnotation.isSelected() && userDefinedGeneSetInput.getText().length() <= 0) 
+					|| ( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
+					|| (associationMeasureTypeCombo.getSelectedItem().toString().equals(Commons.EXISTENCE_OF_OVERLAP) && Integer.parseInt(numberOfBases.getText())<1)
+					|| (Integer.parseInt(numberOfPerInEachRunCombo.getSelectedItem().toString()) > Integer.parseInt(numberOfPerCombo.getSelectedItem().toString()))){
 
 				String dialogMessage = "Please fill all the necessary parameters:\n";
 
@@ -262,6 +266,9 @@ public class MainView extends JPanel {
 					dialogMessage += "User Defined GeneSet Input File\n";
 				if( userDefinedLibraryAnnotation.isSelected() && userDefinedLibraryInput.getText().length() <= 0)
 					dialogMessage += "User Defined Library Input File\n";
+				
+				if (Integer.parseInt(numberOfPerInEachRunCombo.getSelectedItem().toString()) > Integer.parseInt(numberOfPerCombo.getSelectedItem().toString()))
+					dialogMessage += "Please note that Number of Samplings In Each Run can not be greater than Number of Samplings\n";
 
 				JOptionPane.showMessageDialog( null, dialogMessage);
 			}else{
@@ -772,9 +779,10 @@ public class MainView extends JPanel {
 		performEnrichmentPanel.add(createPanelWithHint(performEnrichmentComboBox, Commons.GUI_HINT_ENRICHMENT_MODE));
 		
 		
-		performEnrichmentWithZScoresCheckBox = new JCheckBox( "Enrichment With ZScores");
+		performEnrichmentWithZScoresCheckBox = new JCheckBox("Enrichment With ZScores");
 		performEnrichmentWithZScoresCheckBox.setSelected(true);
-		performEnrichmentPanel.add( performEnrichmentWithZScoresCheckBox);
+		performEnrichmentWithZScoresCheckBox.setEnabled(false);
+		performEnrichmentPanel.add(performEnrichmentWithZScoresCheckBox);
 
 		enrichmentPanel.add( performEnrichmentPanel);
 
@@ -788,7 +796,7 @@ public class MainView extends JPanel {
 				Commons.GENERATE_RANDOM_DATA_WITH_MAPPABILITY_AND_GC_CONTENT, 
 				Commons.GENERATE_RANDOM_DATA_WITHOUT_MAPPABILITY_AND_GC_CONTENT};
 		generateRandomDataGCAndMapabilityModeCombo = new JComboBox<String>( randomDataGCAndMapability);
-		generateRandomDataGCAndMapabilityModeCombo.setSelectedIndex(2);
+		generateRandomDataGCAndMapabilityModeCombo.setSelectedIndex(1);
 		randomDataModePanel.add( createPanelWithHint( generateRandomDataGCAndMapabilityModeCombo, Commons.GUI_HINT_GENERATE_RANDOM_DATA_MODE));
 		
 		String[] randomDataIsochoreFamilyMode = {Commons.DO_USE_ISOCHORE_FAMILY,Commons.DO_NOT_USE_ISOCHORE_FAMILY};
@@ -822,15 +830,15 @@ public class MainView extends JPanel {
 		// numberOfPerCombo added to permutationPanel
 		String[] numberOfPermutations = {"1000","5000", "10000", "50000", "100000"};
 		numberOfPerCombo = new JComboBox<String>( numberOfPermutations);
-		//Default number of permutations is 10000
-		numberOfPerCombo.setSelectedIndex(2);
+		//Default number of permutations is 1000
+		numberOfPerCombo.setSelectedIndex(0);
 		permutationPanel.add( createBorderedPanel( "Number of Samplings", createPanelWithHint( numberOfPerCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS)));
 
 		// numberOfPerInEachRun added to permutationPanel
 		String[] numberOfPermutationsInEachRun = {"1000", "5000", "10000"};
 		numberOfPerInEachRunCombo = new JComboBox<String>( numberOfPermutationsInEachRun);
-		//Default number of permutations in each run is 10000
-		numberOfPerInEachRunCombo.setSelectedIndex(2);
+		//Default number of permutations in each run is 1000
+		numberOfPerInEachRunCombo.setSelectedIndex(0);
 		permutationPanel.add( createBorderedPanel( "Number of Samplings In Each Run", createPanelWithHint( numberOfPerInEachRunCombo, Commons.GUI_HINT_NUMBER_OF_PERMUTATIONS_IN_EACH_RUN)));
 
 		enrichmentPanel.add( permutationPanel);
@@ -1034,7 +1042,9 @@ public class MainView extends JPanel {
 
 	public void enableEnrichmentOptions( boolean shouldEnable) {
 
-		performEnrichmentWithZScoresCheckBox.setEnabled( shouldEnable);
+		//6 April 2017
+		//performEnrichmentWithZScoresCheckBox.setEnabled( shouldEnable);
+		
 		generateRandomDataGCAndMapabilityModeCombo.setEnabled( shouldEnable);
 		generateRandomDataIsochoreFamilyModeCombo.setEnabled( shouldEnable);
 		multipleTestingCombo.setEnabled( shouldEnable);
@@ -1142,7 +1152,9 @@ public class MainView extends JPanel {
 		//performEnrichmentCheckBox.setEnabled( shouldEnable);
 		performEnrichmentComboBox.setEnabled( shouldEnable);
 		
-		performEnrichmentWithZScoresCheckBox.setEnabled( shouldEnable);
+		//6 April 2017
+		//performEnrichmentWithZScoresCheckBox.setEnabled( shouldEnable);
+		
 		regulatorySequenceAnalysisUsingRSATCheck.setEnabled( shouldEnable);
 		dnaseAnnotation.setEnabled( shouldEnable);
 		geneAnnotation.setEnabled( shouldEnable);

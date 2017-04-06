@@ -21,7 +21,6 @@ import org.apache.log4j.Logger;
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
-
 import common.Commons;
 
 /**
@@ -34,13 +33,15 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 	final static Logger logger = Logger.getLogger(GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly.class);
 
+	
+	//6 April 2017
 	public static void callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly( 
 			String dataFolder,
 			String outputFolder, 
-			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
-			TIntObjectMap<String> lineNumber2SourceInformationMap,
-			TIntObjectMap<String> lineNumber2TargetGenomicLociMap,
-			String remapInputFile_OBased_Start_EndExclusive_GRCh37_P13_BED_FILE,
+			String all_GivenIntervalsTFOverlapsInGRCh37_p13_FileName,
+			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap,
+			Map<String,String> source_1BasedStart_1BasedEnd2SourceInformationMap,
+			String remapInputFile_0Based_Start_EndExclusive_GRCh37_P13_BED_FILE,
 			String latestAssembyNameReturnedByNCBIEutils,
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap) {
 
@@ -70,7 +71,7 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 				dataFolder, 
 				sourceReferenceAssemblyID, 
 				targetReferenceAssemblyID,
-				forRSA_REMAP_Folder + remapInputFile_OBased_Start_EndExclusive_GRCh37_P13_BED_FILE,
+				forRSA_REMAP_Folder + remapInputFile_0Based_Start_EndExclusive_GRCh37_P13_BED_FILE,
 				forRSA_REMAP_Folder + Commons.REMAP_DUMMY_OUTPUT_FILE,
 				forRSA_REMAP_Folder + Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
 				forRSA_REMAP_Folder + Commons.REMAP_DUMMY_GENOME_WORKBENCH_PROJECT_FILE, 
@@ -84,21 +85,183 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 		Remap.fillConversionMap(
 				forRSA_REMAP_Folder, 
 				Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-				lineNumber2SourceGenomicLociMap, 
-				lineNumber2TargetGenomicLociMap);
-
-		Remap.convertTwoGenomicLociPerLineUsingMap( 
+				source_1BasedStart_1BasedEnd2TargetMap, 
+				Commons.TAB);
+		
+		
+		Remap.convertTwoGenomicLociPerLineUsingMap(
 				forRSA_Folder,
-				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_LATEST_ASSEMBLY_RETURNED_BY_NCBI_EUTILS, 
-				lineNumber2SourceGenomicLociMap,
-				lineNumber2SourceInformationMap, 
-				lineNumber2TargetGenomicLociMap, 
+				all_GivenIntervalsTFOverlapsInGRCh37_p13_FileName,
+				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_LATEST_ASSEMBLY_RETURNED_BY_NCBI_EUTILS,
+				source_1BasedStart_1BasedEnd2TargetMap,
+				null,
 				headerLine);
+
+		//Depreceated
+		//Will be deleted
+//		Remap.convertTwoGenomicLociPerLineUsingMap( 
+//				forRSA_Folder,
+//				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_LATEST_ASSEMBLY_RETURNED_BY_NCBI_EUTILS, 
+//				lineNumber2SourceGenomicLociMap,
+//				lineNumber2SourceInformationMap, 
+//				lineNumber2TargetGenomicLociMap, 
+//				headerLine);
 
 		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
 	}
 
+	
+	
+
+	
+	//6 April 2017
+	public static void generateAllTFAnnotationsFileAndREMAPInputFile( 
+			String outputFolder,
+			String all_TF_Annotations_1Based_Start_End_GRCh37_p13,
+			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap,
+			Map<String,String> source_1BasedStart_1BasedEnd2SourceInformationMap,
+			String remapInputFile_0Based_Start_EndExclusive_GRCh37_P13) {
+
+		String fileAbsolutePath = null;
+
+		BufferedReader bufferedReader = null;
+
+		BufferedWriter allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter = null;
+		BufferedWriter remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter = null;
+
+		String strLine;
+		String after;
+
+		int indexofFirstTab;
+		int indexofSecondTab;
+		int indexofThirdTab;
+		int indexofFourthTab;
+		int indexofFifthTab;
+		int indexofSixthTab;
+
+		// snpStart
+		int snpStart0Based;
+		int snpStart1Based;
+
+		// snpEnd
+		int snpEnd0Based;
+		int snpEnd1Based;
+
+		// tfStart
+		int tfStart0Based;
+		int tfStart1Based;
+
+		// tfEnd
+		int tfEnd0Based;
+		int tfEnd1Based;
+
+		String remapInputFileLine1 = null;
+		String remapInputFileLine2 = null;
+
+		String tfAnnotationDirectory = outputFolder + System.getProperty( "file.separator") + Commons.ANNOTATION + System.getProperty( "file.separator") + Commons.TF + System.getProperty( "file.separator");
+		String allTFAnnotationsDirectory = outputFolder + System.getProperty( "file.separator") + Commons.FOR_RSA + System.getProperty( "file.separator");
+
+		File baseFolder = new File( tfAnnotationDirectory);
+
+		try{
+			allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter = new BufferedWriter(
+					FileOperations.createFileWriter( allTFAnnotationsDirectory + all_TF_Annotations_1Based_Start_End_GRCh37_p13));
+			remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter = new BufferedWriter(
+					FileOperations.createFileWriter( allTFAnnotationsDirectory + Commons.NCBI_REMAP + System.getProperty( "file.separator") + remapInputFile_0Based_Start_EndExclusive_GRCh37_P13));
+
+			if( baseFolder.exists() && baseFolder.isDirectory()){
+
+				File[] files = baseFolder.listFiles();
+
+				allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter.write( "#ChrName	snpStart1Based	snpEnd1Based	ChrName	tfStart1Based	tfEnd1Based	(All TF annotations in 1Based Start and End in GRCh37.p13 coordinates.)" + System.getProperty( "line.separator"));
+
+				for( File tfAnnotationFile : files){
+
+					// fileName = tfAnnotationFile.getName();
+					fileAbsolutePath = tfAnnotationFile.getAbsolutePath();
+
+					bufferedReader = new BufferedReader( FileOperations.createFileReader( fileAbsolutePath));
+
+					// Start reading each TF Annotation File which is OBased
+					// Start End GRCh37 p13
+					while( ( strLine = bufferedReader.readLine()) != null){
+
+						// chr1 11862777 11862777 chr1 11862636 11863019
+						// AP2ALPHA HELAS3
+						// spp.optimal.wgEncodeSydhTfbsHelas3Ap2alphaStdAlnRep0_VS_wgEncodeSydhTfbsHelas3InputStdAlnRep1.narrowPeak
+
+						if( strLine.charAt( 0) != Commons.GLANET_COMMENT_CHARACTER){
+
+							indexofFirstTab = strLine.indexOf( '\t');
+							indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
+							indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
+							indexofFourthTab = ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
+							indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
+							indexofSixthTab = ( indexofFifthTab > 0)?strLine.indexOf( '\t', indexofFifthTab + 1):-1;
+
+							snpStart0Based = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
+							snpStart1Based = snpStart0Based + 1;
+
+							snpEnd0Based = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
+							snpEnd1Based = snpEnd0Based + 1;
+
+							tfStart0Based = Integer.parseInt( strLine.substring( indexofFourthTab + 1, indexofFifthTab));
+							tfStart1Based = tfStart0Based + 1;
+
+							tfEnd0Based = Integer.parseInt( strLine.substring( indexofFifthTab + 1, indexofSixthTab));
+							tfEnd1Based = tfEnd0Based + 1;
+
+							after = strLine.substring( indexofSixthTab + 1);
+
+							allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter.write( strLine.substring( 0,
+									indexofFirstTab) + "\t" + snpStart1Based + "\t" + snpEnd1Based + "\t" + strLine.substring(
+									indexofThirdTab + 1, indexofFourthTab) + "\t" + tfStart1Based + "\t" + tfEnd1Based + "\t" + after + System.getProperty( "line.separator"));
+
+							/*** 1st******SNP Genomic Loci Line starts ****************/
+							remapInputFileLine1 = strLine.substring( 0, indexofFirstTab) + "\t" + snpStart0Based + "\t" + snpEnd1Based + System.getProperty( "line.separator");
+
+							remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter.write( remapInputFileLine1);
+
+							source_1BasedStart_1BasedEnd2TargetMap.put(strLine.substring(0,indexofFirstTab) + "\t" + snpStart1Based + "\t" + snpEnd1Based, null);
+							source_1BasedStart_1BasedEnd2SourceInformationMap.put(strLine.substring(0,indexofFirstTab) + "\t" + snpStart1Based + "\t" + snpEnd1Based, after);
+
+							/*** 1st******SNP Genomic Loci Line ends ******************/
+
+							/*** 2nd******TF Genomic Loci Line starts *****************/
+							remapInputFileLine2 = strLine.substring( indexofThirdTab + 1, indexofFourthTab) + "\t" + tfStart0Based + "\t" + tfEnd1Based + System.getProperty( "line.separator");
+
+							remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter.write( remapInputFileLine2);
+
+							source_1BasedStart_1BasedEnd2TargetMap.put(strLine.substring(indexofThirdTab+1,indexofFourthTab) + "\t" + tfStart1Based + "\t" + tfEnd1Based,null);
+							source_1BasedStart_1BasedEnd2SourceInformationMap.put(strLine.substring(indexofThirdTab + 1, indexofFourthTab) + "\t" + tfStart1Based + "\t" + tfEnd1Based, after);
+
+							/*** 2nd******TF Genomic Loci Line ends *******************/
+
+						}// End of IF strLine is not Comment Line
+
+					}// End of While loop: reading each TF Annotation File
+
+					// Close each TF File
+					bufferedReader.close();
+
+				}// End of For loop: each TF Annotation file
+
+			}// TF Annotation Directory
+
+			// Close AllTFAnnotationsFile And RemapInputFile
+			allTFAnnotations1BasedStartEndGRCh37p13BufferedWriter.close();
+			remapInput0BasedStartEndExclusiveGrch37p13BufferedWriter.close();
+
+		}catch( IOException e){
+
+			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}
+	}
+
+	
+	
+	//Will be deleted 
 	/*
 	 * By reading each TF Annotation File Generate All TF Annotations File Then
 	 * Generate REMAP InputFile 
@@ -275,17 +438,32 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 		TIntObjectMap<String> lineNumber2SourceGenomicLociMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> lineNumber2SourceInformationMap = new TIntObjectHashMap<String>();
 		TIntObjectMap<String> lineNumber2TargetGenomicLociMap = new TIntObjectHashMap<String>();
-
+		
+		//6 April 2017
+		Map<String,String> source_1BasedStart_1BasedEnd2TargetMap = new HashMap<String,String>();
+		Map<String,String> source_1BasedStart_1BasedEnd2SourceInformationMap = new HashMap<String,String>();
+		
+		//Depreceated
+		//Will be deleted
+//		generateAllTFAnnotationsFileAndREMAPInputFile(
+//				outputFolder,
+//				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13, 
+//				lineNumber2SourceGenomicLociMap,
+//				lineNumber2SourceInformationMap,
+//				Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE);
+		
+		//TODO
 		generateAllTFAnnotationsFileAndREMAPInputFile(
 				outputFolder,
 				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13, 
-				lineNumber2SourceGenomicLociMap,
-				lineNumber2SourceInformationMap,
+				source_1BasedStart_1BasedEnd2TargetMap,
+				source_1BasedStart_1BasedEnd2SourceInformationMap,
 				Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE);
 		
+
 		
 		//Means that there are no source genomic loci to be remapped to target genomic loci.
-		if (!lineNumber2SourceGenomicLociMap.isEmpty()){
+		if (!source_1BasedStart_1BasedEnd2TargetMap.isEmpty()){
 			
 			/***************************************************************************************/
 			/***************************************************************************************/
@@ -313,16 +491,32 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			/***************************************************************************************/
 			/***************************************************************************************/
 
-
+			
+			//TODO
+			//6 April 2017
 			callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
 					dataFolder, 
 					outputFolder,
-					lineNumber2SourceGenomicLociMap, 
-					lineNumber2SourceInformationMap, 
-					lineNumber2TargetGenomicLociMap,
+					Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13,
+					source_1BasedStart_1BasedEnd2TargetMap,
+					source_1BasedStart_1BasedEnd2SourceInformationMap,
 					Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE,
 					latestAssembyNameReturnedByNCBIEutils,
 					assemblyName2RefSeqAssemblyIDMap);
+
+			
+
+			//Depreceated
+			//Will be deleted
+//			callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
+//					dataFolder, 
+//					outputFolder,
+//					lineNumber2SourceGenomicLociMap, 
+//					lineNumber2SourceInformationMap, 
+//					lineNumber2TargetGenomicLociMap,
+//					Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE,
+//					latestAssembyNameReturnedByNCBIEutils,
+//					assemblyName2RefSeqAssemblyIDMap);
 			
 		}//End of IF
 		

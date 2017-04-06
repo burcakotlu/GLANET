@@ -1,11 +1,5 @@
 package giveninputdata;
 
-import enumtypes.Assembly;
-import enumtypes.CommandLineArguments;
-import enumtypes.GivenIntervalsInputFileDataFormat;
-import gnu.trove.iterator.TIntObjectIterator;
-import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 import intervaltree.IntervalTreeNode;
 
 import java.io.BufferedReader;
@@ -31,6 +25,10 @@ import ui.GlanetRunner;
 import auxiliary.FileOperations;
 
 import common.Commons;
+
+import enumtypes.Assembly;
+import enumtypes.CommandLineArguments;
+import enumtypes.GivenIntervalsInputFileDataFormat;
 
 /**
  * @author burcakotlu
@@ -69,36 +67,65 @@ public class InputDataProcess {
 		}
 	}
 
+	//5 April 2017
 	public static void writeRSIDLatestAssemblyGRCh37p13AssemblyFile(
-			TIntObjectMap<String> lineNumber2SourceInformationMap,
-			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
-			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, BufferedWriter bufferedWriter) throws IOException {
-
-		int lineNumber = 0;
+			Map<String,String> source_1BasedStart_1BasedEnd2TargetMap, 
+			Map<String,String> source_1BasedStart_1BasedEnd2SourceInformationMap,
+			BufferedWriter rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter) throws IOException{
+		
 		String rsId = null;
 		String source = null;
 		String target = null;
 
 		// Write Header Line
-		bufferedWriter.write( "#rsId" + "\t" + "chrName" + "\t" + "1BasedStartLatestAssembly" + "\t" + "1BasedEndLatestAssembly" + "\t" + "chrName" + "\t" + "1BasedStartGRCh37p13Assembly" + "\t" + "1BasedEndGRCh37p13Assembly" + System.getProperty( "line.separator"));
+		rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.write( "#rsId" + "\t" + "chrName" + "\t" + "1BasedStartLatestAssembly" + "\t" + "1BasedEndLatestAssembly" + "\t" + "chrName" + "\t" + "1BasedStartGRCh37p13Assembly" + "\t" + "1BasedEndGRCh37p13Assembly" + System.getProperty( "line.separator"));
 
 		// MAP
 		// accessing keys/values through an iterator:
-		for( TIntObjectIterator<String> it = lineNumber2SourceInformationMap.iterator(); it.hasNext();){
+		for(Map.Entry<String, String> entry: source_1BasedStart_1BasedEnd2SourceInformationMap.entrySet()){
 
-			it.advance();
+			source = entry.getKey();
+			rsId = entry.getValue();
+			target= source_1BasedStart_1BasedEnd2TargetMap.get(source);
 
-			lineNumber = it.key();
-			rsId = ( String)it.value();
-
-			source = lineNumber2SourceGenomicLociMap.get( lineNumber);
-			target = lineNumber2TargetGenomicLociMap.get( lineNumber);
-
-			bufferedWriter.write( rsId + "\t" + source + "\t" + target + System.getProperty( "line.separator"));
+			
+			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.write( rsId + "\t" + source + "\t" + target + System.getProperty( "line.separator"));
 
 		}// End of FOR:
-
+		
 	}
+	
+	
+//	public static void writeRSIDLatestAssemblyGRCh37p13AssemblyFile(
+//			TIntObjectMap<String> lineNumber2SourceInformationMap,
+//			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
+//			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, BufferedWriter bufferedWriter) throws IOException {
+//
+//		int lineNumber = 0;
+//		String rsId = null;
+//		String source = null;
+//		String target = null;
+//
+//		// Write Header Line
+//		bufferedWriter.write( "#rsId" + "\t" + "chrName" + "\t" + "1BasedStartLatestAssembly" + "\t" + "1BasedEndLatestAssembly" + "\t" + "chrName" + "\t" + "1BasedStartGRCh37p13Assembly" + "\t" + "1BasedEndGRCh37p13Assembly" + System.getProperty( "line.separator"));
+//
+//		// MAP
+//		// accessing keys/values through an iterator:
+//		for( TIntObjectIterator<String> it = lineNumber2SourceInformationMap.iterator(); it.hasNext();){
+//
+//			it.advance();
+//
+//			lineNumber = it.key();
+//			rsId = ( String)it.value();
+//
+//			source = lineNumber2SourceGenomicLociMap.get( lineNumber);
+//			target = lineNumber2TargetGenomicLociMap.get( lineNumber);
+//
+//			bufferedWriter.write( rsId + "\t" + source + "\t" + target + System.getProperty( "line.separator"));
+//
+//		}// End of FOR:
+//
+//	}
 
 	// eutil efetch returns 0-based coordinates for given dbSNP ids
 	public static void readDBSNPIDs(
@@ -155,10 +182,11 @@ public class InputDataProcess {
 
 		String headerLine = Commons.HEADER_LINE_FOR_DBSNP_IDS_FROM_LATEST_ASSEMBLY_TO_GRCH37_P13;
 
-		TIntObjectMap<String> lineNumber2SourceGenomicLociMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> lineNumber2SourceInformationMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> lineNumber2TargetGenomicLociMap = new TIntObjectHashMap<String>();
-
+		
+		//5 April 2017
+		Map<String,String> source_1BasedStart_1BasedEnd2TargetMap = new HashMap<String,String>();
+		Map<String,String> source_1BasedStart_1BasedEnd2SourceInformationMap = new HashMap<String,String>(); 
+				
 		String remapInputFileLine = null;
 
 		try{
@@ -281,13 +309,19 @@ public class InputDataProcess {
 					bufferedWriter.write( Commons.RS + rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty( "line.separator"));
 					remapInputFileBufferedWriter.write( remapInputFileLine + System.getProperty( "line.separator"));
 
-					lineNumber2SourceGenomicLociMap.put(
-							numberofLocisInRemapInputFile,
-							Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + ( rsInformation.getZeroBasedStart() + 1) + "\t" + ( rsInformation.getZeroBasedEnd() + 1));
-					lineNumber2SourceInformationMap.put( numberofLocisInRemapInputFile,
-							Commons.RS + rsInformation.getRsId());
-
-					numberofLocisInRemapInputFile++;
+					//Fill keys
+					source_1BasedStart_1BasedEnd2TargetMap.put(Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + (rsInformation.getZeroBasedStart()+1) + "\t" + (rsInformation.getZeroBasedEnd()+1), null);
+					//Fill keys and values
+					source_1BasedStart_1BasedEnd2SourceInformationMap.put(Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + (rsInformation.getZeroBasedStart()+1) + "\t" + (rsInformation.getZeroBasedEnd()+1), Commons.RS + rsInformation.getRsId());
+					
+					
+//					lineNumber2SourceGenomicLociMap.put(
+//							numberofLocisInRemapInputFile,
+//							Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + ( rsInformation.getZeroBasedStart() + 1) + "\t" + ( rsInformation.getZeroBasedEnd() + 1));
+//					lineNumber2SourceInformationMap.put( numberofLocisInRemapInputFile,
+//							Commons.RS + rsInformation.getRsId());
+//
+//					numberofLocisInRemapInputFile++;
 
 					//Fill the map 
 					if (!sourceAssemblyName2NumberofrsIDsMap.containsKey(rsInformation.getGroupLabel())){
@@ -371,29 +405,35 @@ public class InputDataProcess {
 					maximumRatioForDifferenceBetweenSourceLengtheAndTargetLength, inputFormat,
 					Commons.REMAP_DBSNP_IDS_COORDINATES_FROM_LATEST_ASSEMBLY_TO_GRCH37P13);
 
+		
+			
+			//5 April 2017
+			//Here keys and value are written.
 			Remap.fillConversionMap(
 					givenDataFolder, 
 					Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
-					lineNumber2SourceGenomicLociMap, 
-					lineNumber2TargetGenomicLociMap);
-
+					source_1BasedStart_1BasedEnd2TargetMap,
+					Commons.TAB);
+			
+			//5 April 2017
 			Remap.convertOneGenomicLociPerLineUsingMap(
 					givenDataFolder,
 					Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
-					lineNumber2SourceGenomicLociMap, 
-					lineNumber2SourceInformationMap, 
-					lineNumber2TargetGenomicLociMap,
+					source_1BasedStart_1BasedEnd2TargetMap, 
+					source_1BasedStart_1BasedEnd2SourceInformationMap,
 					headerLine);
 
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
+		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			
 			// Write
-			// rsId_chrNameStartEndLatestAssembly_chrNameStartEndGRCh37p13Assembly_File
+			//5 April 2017
 			writeRSIDLatestAssemblyGRCh37p13AssemblyFile(
-					lineNumber2SourceInformationMap,
-					lineNumber2SourceGenomicLociMap, 
-					lineNumber2TargetGenomicLociMap,
+					source_1BasedStart_1BasedEnd2TargetMap, 
+					source_1BasedStart_1BasedEnd2SourceInformationMap,
 					rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter);
+			
+
 
 			// Read from GRCh37.p13 (Hg19) bed file
 			// Write to usual processed input file in GRCh37_hg19
