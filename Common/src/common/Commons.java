@@ -1639,7 +1639,7 @@ public class Commons {
 	public static final String GUI_HINT_ASSEMBLY_FORMAT = "Supported Assemblies";
 	public static final String GUI_HINT_GLANET_FOLDER = "Choose GLANET FOLDER Which Is The Parent Of Data Folder";
 	public static final String GUI_HINT_OUTPUT_FOLDER = "Output folder where the results will be located (Optional)";
-	public static final String GUI_HINT_NUMBER_OF_BASES = "Number Of Bases That Must Overlap In Order To Accept That Two Intervals Overlap";
+	public static final String GUI_HINT_NUMBER_OF_BASES = "Number Of Bases That Must Overlap In Order To Accept That Two Intervals Overlap. Enabled when Association Measure Type is Existence of Overlap.";
 	public static final String GUI_HINT_ENRICHMENT_MODE = "Perform Enrichment with or without Annotation or do not Perform Enrichment at all";
 	public static final String GUI_HINT_GENERATE_RANDOM_DATA_MODE = "Generate Random Data Mode";
 	public static final String GUI_HINT_MULTIPLE_TESTING = "Multiple Testing";

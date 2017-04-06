@@ -7,7 +7,6 @@ import giveninputdata.InputDataNCBIRemap;
 import giveninputdata.InputDataProcess;
 import giveninputdata.InputDataRemoveOverlaps;
 import giveninputdata.Preparation;
-import rsat.GeneAnnotationForPostAnalysisRSAResults;
 import rsat.GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly;
 import rsat.GenerationofSequencesandMatricesforSNPs;
 import rsat.RegulatorySequenceAnalysisPostAnalysis;

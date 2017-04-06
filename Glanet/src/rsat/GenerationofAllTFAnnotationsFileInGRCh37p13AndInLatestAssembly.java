@@ -5,7 +5,6 @@ package rsat;
 
 import enumtypes.CommandLineArguments;
 import gnu.trove.map.TIntObjectMap;
-import gnu.trove.map.hash.TIntObjectHashMap;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -21,6 +20,7 @@ import org.apache.log4j.Logger;
 import remap.Remap;
 import ui.GlanetRunner;
 import auxiliary.FileOperations;
+
 import common.Commons;
 
 /**
@@ -97,15 +97,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 				null,
 				headerLine);
 
-		//Depreceated
-		//Will be deleted
-//		Remap.convertTwoGenomicLociPerLineUsingMap( 
-//				forRSA_Folder,
-//				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_LATEST_ASSEMBLY_RETURNED_BY_NCBI_EUTILS, 
-//				lineNumber2SourceGenomicLociMap,
-//				lineNumber2SourceInformationMap, 
-//				lineNumber2TargetGenomicLociMap, 
-//				headerLine);
 
 		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
 
@@ -178,7 +169,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 				for( File tfAnnotationFile : files){
 
-					// fileName = tfAnnotationFile.getName();
 					fileAbsolutePath = tfAnnotationFile.getAbsolutePath();
 
 					bufferedReader = new BufferedReader( FileOperations.createFileReader( fileAbsolutePath));
@@ -435,24 +425,13 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 		FileOperations.deleteOldFiles( outputFolder + Commons.REGULATORY_SEQUENCE_ANALYSIS_DIRECTORY);
 		// delete old files ends
 
-		TIntObjectMap<String> lineNumber2SourceGenomicLociMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> lineNumber2SourceInformationMap = new TIntObjectHashMap<String>();
-		TIntObjectMap<String> lineNumber2TargetGenomicLociMap = new TIntObjectHashMap<String>();
 		
 		//6 April 2017
 		Map<String,String> source_1BasedStart_1BasedEnd2TargetMap = new HashMap<String,String>();
 		Map<String,String> source_1BasedStart_1BasedEnd2SourceInformationMap = new HashMap<String,String>();
 		
-		//Depreceated
-		//Will be deleted
-//		generateAllTFAnnotationsFileAndREMAPInputFile(
-//				outputFolder,
-//				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13, 
-//				lineNumber2SourceGenomicLociMap,
-//				lineNumber2SourceInformationMap,
-//				Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE);
 		
-		//TODO
+	
 		generateAllTFAnnotationsFileAndREMAPInputFile(
 				outputFolder,
 				Commons.ALL_TF_ANNOTATIONS_FILE_1BASED_START_END_GRCh37_P13, 
@@ -492,7 +471,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 			/***************************************************************************************/
 
 			
-			//TODO
 			//6 April 2017
 			callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
 					dataFolder, 
@@ -506,17 +484,6 @@ public class GenerationofAllTFAnnotationsFileInGRCh37p13AndInLatestAssembly {
 
 			
 
-			//Depreceated
-			//Will be deleted
-//			callNCBIREMAPAndGenerateAllTFAnnotationsFileInLatestAssembly(
-//					dataFolder, 
-//					outputFolder,
-//					lineNumber2SourceGenomicLociMap, 
-//					lineNumber2SourceInformationMap, 
-//					lineNumber2TargetGenomicLociMap,
-//					Commons.REMAP_INPUT_FILE_All_TF_ANNOTATIONS_0BASED_START_ENDEXCLUSIVE_GRCH37_P13_COORDINATES_BED_FILE,
-//					latestAssembyNameReturnedByNCBIEutils,
-//					assemblyName2RefSeqAssemblyIDMap);
 			
 		}//End of IF
 		
