@@ -197,8 +197,9 @@ public class UserDefinedLibraryUtility {
 
 			while( ( strLine = bufferedReader.readLine()) != null){
 				
-				//Skip header line
-				if (!strLine.startsWith(Commons.GLANET_COMMENT_STRING)){
+				//Skip comment lines
+				//Skip "browser" or "track"
+				if(!(strLine.startsWith(Commons.GLANET_COMMENT_STRING) || strLine.startsWith(Commons.BROWSER) || strLine.startsWith(Commons.TRACK))){
 					
 					// example strLine
 					// chr1 91852781 91853156 1 1 . 1728.25 7.867927 7.867927 187
@@ -553,8 +554,7 @@ public class UserDefinedLibraryUtility {
 	 */
 	public static void main( String[] args) {
 
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

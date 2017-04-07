@@ -109,6 +109,7 @@ public class InputDataRemoveOverlaps {
 		case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
 		case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
 		case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+		case INPUT_FILE_FORMAT_NARROWPEAK_0BASED_START_ENDEXCLUSIVE_COORDINATES:
 		case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
 
 			switch( inputFileAssembly){
@@ -270,17 +271,18 @@ public class InputDataRemoveOverlaps {
 			case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
 			case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
 			case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+			case INPUT_FILE_FORMAT_NARROWPEAK_0BASED_START_ENDEXCLUSIVE_COORDINATES:
 			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
 
 				switch( inputFileAssembly){
-				case GRCh38:
-					bufferedWriter = new BufferedWriter(
-							FileOperations.createFileWriter( givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38));
-					break;
-				case GRCh37_p13:
-					bufferedWriter = new BufferedWriter(
-							FileOperations.createFileWriter( givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13));
-					break;
+					case GRCh38:
+						bufferedWriter = new BufferedWriter(
+								FileOperations.createFileWriter( givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh38));
+						break;
+					case GRCh37_p13:
+						bufferedWriter = new BufferedWriter(
+								FileOperations.createFileWriter( givenDataFolder + Commons.REMOVED_OVERLAPS_INPUT_FILE_0BASED_START_END_GRCh37_p13));
+						break;
 				}// End of SWITCH inputFileAssembly
 				break;
 

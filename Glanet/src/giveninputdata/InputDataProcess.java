@@ -46,22 +46,22 @@ public class InputDataProcess {
 	final static Logger logger = Logger.getLogger(InputDataProcess.class);
 
 	// for debug purposes
-	static Collection<IntervalTreeNode> nonOverLap( Collection<IntervalTreeNode> bigger,
+	static Collection<IntervalTreeNode> nonOverLap(Collection<IntervalTreeNode> bigger,
 			Collection<IntervalTreeNode> smaller) {
 
 		Collection<IntervalTreeNode> result = bigger;
-		result.removeAll( smaller);
+		result.removeAll(smaller);
 		return result;
 	}
 
 	// for debug purposes
-	static void printDifference( Collection<IntervalTreeNode> difference) {
+	static void printDifference(Collection<IntervalTreeNode> difference) {
 
 		Iterator<IntervalTreeNode> itr = difference.iterator();
 
-		while( itr.hasNext()){
+		while(itr.hasNext()){
 
-			GlanetRunner.appendLog( itr.toString());
+			GlanetRunner.appendLog(itr.toString());
 			itr.next();
 
 		}
@@ -78,7 +78,7 @@ public class InputDataProcess {
 		String target = null;
 
 		// Write Header Line
-		rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.write( "#rsId" + "\t" + "chrName" + "\t" + "1BasedStartLatestAssembly" + "\t" + "1BasedEndLatestAssembly" + "\t" + "chrName" + "\t" + "1BasedStartGRCh37p13Assembly" + "\t" + "1BasedEndGRCh37p13Assembly" + System.getProperty( "line.separator"));
+		rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.write("#rsId" + "\t" + "chrName" + "\t" + "1BasedStartLatestAssembly" + "\t" + "1BasedEndLatestAssembly" + "\t" + "chrName" + "\t" + "1BasedStartGRCh37p13Assembly" + "\t" + "1BasedEndGRCh37p13Assembly" + System.getProperty("line.separator"));
 
 		// MAP
 		// accessing keys/values through an iterator:
@@ -88,44 +88,16 @@ public class InputDataProcess {
 			rsId = entry.getValue();
 			target= source_1BasedStart_1BasedEnd2TargetMap.get(source);
 
-			
-			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.write( rsId + "\t" + source + "\t" + target + System.getProperty( "line.separator"));
+			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.write(rsId + "\t" + source + "\t" + target + System.getProperty("line.separator"));
 
 		}// End of FOR:
+		
+		//Close
+		rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.close();
 		
 	}
 	
 	
-//	public static void writeRSIDLatestAssemblyGRCh37p13AssemblyFile(
-//			TIntObjectMap<String> lineNumber2SourceInformationMap,
-//			TIntObjectMap<String> lineNumber2SourceGenomicLociMap,
-//			TIntObjectMap<String> lineNumber2TargetGenomicLociMap, BufferedWriter bufferedWriter) throws IOException {
-//
-//		int lineNumber = 0;
-//		String rsId = null;
-//		String source = null;
-//		String target = null;
-//
-//		// Write Header Line
-//		bufferedWriter.write( "#rsId" + "\t" + "chrName" + "\t" + "1BasedStartLatestAssembly" + "\t" + "1BasedEndLatestAssembly" + "\t" + "chrName" + "\t" + "1BasedStartGRCh37p13Assembly" + "\t" + "1BasedEndGRCh37p13Assembly" + System.getProperty( "line.separator"));
-//
-//		// MAP
-//		// accessing keys/values through an iterator:
-//		for( TIntObjectIterator<String> it = lineNumber2SourceInformationMap.iterator(); it.hasNext();){
-//
-//			it.advance();
-//
-//			lineNumber = it.key();
-//			rsId = ( String)it.value();
-//
-//			source = lineNumber2SourceGenomicLociMap.get( lineNumber);
-//			target = lineNumber2TargetGenomicLociMap.get( lineNumber);
-//
-//			bufferedWriter.write( rsId + "\t" + source + "\t" + target + System.getProperty( "line.separator"));
-//
-//		}// End of FOR:
-//
-//	}
 
 	// eutil efetch returns 0-based coordinates for given dbSNP ids
 	public static void readDBSNPIDs(
@@ -150,10 +122,10 @@ public class InputDataProcess {
 		int numberofRsIdsLost = 0;
 		int numberofRsIdsGainedByMerge = 0;
 
-		NCBIEutilStatistics ncbiEutilStatistics = new NCBIEutilStatistics( 0, 0);
+		NCBIEutilStatistics ncbiEutilStatistics = new NCBIEutilStatistics(0, 0);
 		int numberofRsIdsWeMightHaveLostAfterNCBIEUTILs = 0;
 
-		int numberofLocisInRemapInputFile = 1;
+		//int numberofLocisInRemapInputFile = 1;
 
 		/**********************************************************/
 		/********** NCBI REMAP PARAMETERS starts ******************/
@@ -190,41 +162,44 @@ public class InputDataProcess {
 		String remapInputFileLine = null;
 
 		try{
-			bufferedReader = new BufferedReader( new FileReader( inputFileName));
+			bufferedReader = new BufferedReader(new FileReader(inputFileName));
 
-			// This file will have NCBI EUTIL results
+			//This file will have NCBI EUTIL results with latest assembly
 			bufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( givenDataFolder + Commons.RSID_CHRNAME_0Based_START_END_NCBI_EUTIL_RETURNED_LATEST_ASSEMBLY_FILE));
+					FileOperations.createFileWriter(givenDataFolder + Commons.RSID_CHRNAME_0Based_START_END_NCBI_EUTIL_RETURNED_LATEST_ASSEMBLY_FILE));
+			
+			//Remap Input File that has latest assembly coordinates
 			remapInputFileBufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( givenDataFolder + Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE));
+					FileOperations.createFileWriter(givenDataFolder + Commons.REMAP_INPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_0BASED_START_ENDEXCLUSIVE_BED_FILE));
 
-			// This file will have NCBI REMAP results
+			//This file will have NCBI REMAP results with GRCh37.p13 coordinates
 			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter = new BufferedWriter(
-					FileOperations.createFileWriter( givenDataFolder + Commons.RSID_ChrName1BasedStartEndLatestAssembly_ChrName1BasedStartEndGRCh37p13_FILE));
+					FileOperations.createFileWriter(givenDataFolder + Commons.RSID_ChrName1BasedStartEndLatestAssembly_ChrName1BasedStartEndGRCh37p13_FILE));
 
 			AugmentationofGivenRsIdwithInformation app = new AugmentationofGivenRsIdwithInformation();
 
 			/*********************************************************************/
 			/***************** READ GIVEN RSIDs INPUTFILE starts *****************/
 			/*********************************************************************/
-			while( ( rsId = bufferedReader.readLine()) != null){
+			while((rsId = bufferedReader.readLine()) != null){
 
-				// Skip comment lines
-				if( !( rsId.startsWith( Commons.GLANET_COMMENT_STRING))){
+				//Skip comment lines
+				//Skip "browser" or "track"
+				if(!(rsId.startsWith(Commons.GLANET_COMMENT_STRING) || rsId.startsWith(Commons.BROWSER) || rsId.startsWith(Commons.TRACK))){
 
 					numberofGivenRsIds++;
 
-					if( !rsIdList.contains( rsId)){
+					if(!rsIdList.contains(rsId)){
 						numberofGivenUniqueRsIds++;
-						rsIdList.add( rsId);
+						rsIdList.add(rsId);
 					}
 				}// End of if not comment line
 			}// End of WHILE
 
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
-			if( GlanetRunner.shouldLog())logger.info( "Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
-			if( GlanetRunner.shouldLog())logger.info( "Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
+			if(GlanetRunner.shouldLog())logger.info("Number of rsIds in the given rsID input file: " + numberofGivenRsIds);
+			if(GlanetRunner.shouldLog())logger.info("Number of unique rsIds in the given rsID input file: " + numberofGivenUniqueRsIds);
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
 			/*********************************************************************/
 			/***************** READ GIVEN RSIDs INPUTFILE ends *******************/
 			/*********************************************************************/
@@ -232,7 +207,7 @@ public class InputDataProcess {
 			/*********************************************************************/
 			/******** GET rsInformation using NCBI EUTILS starts *****************/
 			/*********************************************************************/
-			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList( rsIdList, ncbiEutilStatistics);
+			List<RsInformation> rsInformationList = app.getInformationforGivenRsIdList(rsIdList, ncbiEutilStatistics);
 			/*********************************************************************/
 			/******** GET rsInformation using NCBI EUTILS ends *******************/
 			/*********************************************************************/
@@ -240,74 +215,74 @@ public class InputDataProcess {
 			/************************************************************************************/
 			/*************** NCBI EUTIL EFETCH RESULTS ANALYSIS STARTS ****************************/
 			/************************************************************************************/
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
 			numberofRsIdsLost = 0;
 
-			for( int i = 0; i < rsIdList.size(); i++){
+			for(int i = 0; i < rsIdList.size(); i++){
 				boolean check = false;
-				for( int j = 0; j < rsInformationList.size(); j++)
-					if( ( Commons.RS + rsInformationList.get( j).getRsId()).equalsIgnoreCase( rsIdList.get( i))){
+				for(int j = 0; j < rsInformationList.size(); j++)
+					if((Commons.RS + rsInformationList.get(j).getRsId()).equalsIgnoreCase(rsIdList.get(i))){
 						check = true;
 						break;
 					}
 
-				if( !check)
-					if( GlanetRunner.shouldLog())logger.info( "rsId Lost Count: " + ++numberofRsIdsLost + " Given input rsID: " + rsIdList.get( i) + " Not found in the list returned by NCBI EUTIL");
+				if(!check)
+					if(GlanetRunner.shouldLog())logger.info("rsId Lost Count: " + ++numberofRsIdsLost + " Given input rsID: " + rsIdList.get(i) + " Not found in the list returned by NCBI EUTIL");
 
 			}// End of FOR
 
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
 
 			numberofRsIdsGainedByMerge = 0;
 
-			for( int i = 0; i < rsInformationList.size(); i++){
+			for(int i = 0; i < rsInformationList.size(); i++){
 				boolean check = false;
-				for( int j = 0; j < rsIdList.size(); j++)
-					if( rsIdList.get( j).equalsIgnoreCase( Commons.RS + rsInformationList.get( i).getRsId())){
+				for(int j = 0; j < rsIdList.size(); j++)
+					if(rsIdList.get(j).equalsIgnoreCase(Commons.RS + rsInformationList.get(i).getRsId())){
 						check = true;
 						break;
 					}
 
-				if( !check)
-					if( GlanetRunner.shouldLog())logger.info( "rsId Gained By Merge Count: " + ++numberofRsIdsGainedByMerge + " NCBI EUTIL returned rsID: " + rsInformationList.get(
+				if(!check)
+					if(GlanetRunner.shouldLog())logger.info("rsId Gained By Merge Count: " + ++numberofRsIdsGainedByMerge + " NCBI EUTIL returned rsID: " + rsInformationList.get(
 							i).getRsId() + " Not found in the given rsIDList");
 
 			}// End of FOR
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
-			if( GlanetRunner.shouldLog())logger.info( "We have " + rsIdList.size() + " rsIds at hand before NCBI EUTIL EFETCH");
+			
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
+			if(GlanetRunner.shouldLog())logger.info("We have " + rsIdList.size() + " rsIds at hand before NCBI EUTIL EFETCH");
 
-			if( GlanetRunner.shouldLog())logger.info( "Number of given rsIds that are lost " + numberofRsIdsLost);
-			if( GlanetRunner.shouldLog())logger.info( "Number of NCBI EUTIL returned rsIds that are gained " + numberofRsIdsGainedByMerge);
+			if(GlanetRunner.shouldLog())logger.info("Number of given rsIds that are lost " + numberofRsIdsLost);
+			if(GlanetRunner.shouldLog())logger.info("Number of NCBI EUTIL returned rsIds that are gained " + numberofRsIdsGainedByMerge);
 
-			if( GlanetRunner.shouldLog())logger.info( "Number of given rsIds  does not map to any assembly " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly());
-			if( GlanetRunner.shouldLog())logger.info( "Number of given rsIds  does not return any rsID " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs());
+			if(GlanetRunner.shouldLog())logger.info("Number of given rsIds  does not map to any assembly " + ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly());
+			if(GlanetRunner.shouldLog())logger.info("Number of given rsIds  does not return any rsID " + ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs());
 
-			if( GlanetRunner.shouldLog())logger.info( "We have " + rsInformationList.size() + " rsIds remained after NCBI EUTIL EFETCH");
+			if(GlanetRunner.shouldLog())logger.info("We have " + rsInformationList.size() + " rsIds remained after NCBI EUTIL EFETCH");
 
 			numberofRsIdsWeMightHaveLostAfterNCBIEUTILs = numberofRsIdsLost - ncbiEutilStatistics.getNumberofRsIDsDoesNotMapToAnyAssembly() - ncbiEutilStatistics.getNumberofRsIDsDoesNotReturnAnyRs() - numberofRsIdsGainedByMerge;
 
-			if( GlanetRunner.shouldLog())logger.info( "We might have lost " + numberofRsIdsWeMightHaveLostAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if(GlanetRunner.shouldLog())logger.info("We might have lost " + numberofRsIdsWeMightHaveLostAfterNCBIEUTILs + " rsIDs after NCBI EUTIL");
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
 			/************************************************************************************/
 			/*************** NCBI EUTIL EFETCH RESULTS ANALYSIS ENDS ******************************/
 			/************************************************************************************/
 
 			// header line
-			bufferedWriter.write( Commons.GLANET_COMMENT_CHARACTER + "rsID" + "\t" + "chrName" + "\t" + "0BasedStart_in_LatestAssembly" + "\t" + "0BasedEnd_in_LatestAssembly" + System.getProperty( "line.separator"));
+			bufferedWriter.write(Commons.GLANET_COMMENT_CHARACTER + "rsID" + "\t" + "chrName" + "\t" + "0BasedStart_in_LatestAssembly" + "\t" + "0BasedEnd_in_LatestAssembly" + System.getProperty("line.separator"));
 
 			/*********************************************************************/
 			/***************** WRITE TO REMAP INPUT FILE starts ******************/
 			/*********************************************************************/
-			for( RsInformation rsInformation : rsInformationList){
+			for(RsInformation rsInformation : rsInformationList){
 
-				if( rsInformation != null){
+				if(rsInformation != null){
 
-					// My understanding: Remap input file requires 0BasedStart
-					// EndExclusive
-					remapInputFileLine = Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + ( rsInformation.getZeroBasedEnd() + 1);
+					// My understanding: Remap input file requires 0BasedStart EndExclusive
+					remapInputFileLine = Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + (rsInformation.getZeroBasedEnd() + 1);
 
-					bufferedWriter.write( Commons.RS + rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty( "line.separator"));
-					remapInputFileBufferedWriter.write( remapInputFileLine + System.getProperty( "line.separator"));
+					bufferedWriter.write(Commons.RS + rsInformation.getRsId() + "\t" + Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + rsInformation.getZeroBasedStart() + "\t" + rsInformation.getZeroBasedEnd() + System.getProperty("line.separator"));
+					remapInputFileBufferedWriter.write(remapInputFileLine + System.getProperty("line.separator"));
 
 					//Fill keys
 					source_1BasedStart_1BasedEnd2TargetMap.put(Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + (rsInformation.getZeroBasedStart()+1) + "\t" + (rsInformation.getZeroBasedEnd()+1), null);
@@ -315,14 +290,6 @@ public class InputDataProcess {
 					source_1BasedStart_1BasedEnd2SourceInformationMap.put(Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + (rsInformation.getZeroBasedStart()+1) + "\t" + (rsInformation.getZeroBasedEnd()+1), Commons.RS + rsInformation.getRsId());
 					
 					
-//					lineNumber2SourceGenomicLociMap.put(
-//							numberofLocisInRemapInputFile,
-//							Commons.CHR + rsInformation.getChrNameWithoutChr() + "\t" + ( rsInformation.getZeroBasedStart() + 1) + "\t" + ( rsInformation.getZeroBasedEnd() + 1));
-//					lineNumber2SourceInformationMap.put( numberofLocisInRemapInputFile,
-//							Commons.RS + rsInformation.getRsId());
-//
-//					numberofLocisInRemapInputFile++;
-
 					//Fill the map 
 					if (!sourceAssemblyName2NumberofrsIDsMap.containsKey(rsInformation.getGroupLabel())){
 						sourceAssemblyName2NumberofrsIDsMap.put(rsInformation.getGroupLabel(), 1);
@@ -343,11 +310,10 @@ public class InputDataProcess {
 				}
 			}
 
-			numberofLocisInRemapInputFile--;
-
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
-			if( GlanetRunner.shouldLog())logger.info( "Number of genomic loci is " + numberofLocisInRemapInputFile + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
+			if(GlanetRunner.shouldLog())logger.info("Number of genomic loci is " + source_1BasedStart_1BasedEnd2TargetMap.size() + " in NCBI REMAP input file in sourceAssembly " + sourceAssemblyName);
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
 			/*********************************************************************/
 			/***************** WRITE TO REMAP INPUT FILE ends ********************/
 			/*********************************************************************/
@@ -357,7 +323,7 @@ public class InputDataProcess {
 			bufferedWriter.close();
 			remapInputFileBufferedWriter.close();
 
-			Remap.remap_show_batches( dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
+			Remap.remap_show_batches(dataFolder, Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE);
 
 			Map<String, String> assemblyName2RefSeqAssemblyIDMap = new HashMap<String, String>();
 			Remap.fillAssemblyName2RefSeqAssemblyIDMap(
@@ -365,11 +331,11 @@ public class InputDataProcess {
 					Commons.NCBI_REMAP_API_SUPPORTED_ASSEMBLIES_FILE,
 					assemblyName2RefSeqAssemblyIDMap);
 			
-			if( !sourceAssemblyName.isEmpty()){
+			if(!sourceAssemblyName.isEmpty()){
 				// sourceReferenceAssemblyID = "GCF_000001405.26";
-				sourceReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get( sourceAssemblyName);
+				sourceReferenceAssemblyID = assemblyName2RefSeqAssemblyIDMap.get(sourceAssemblyName);
 			}else{
-				if( GlanetRunner.shouldLog())logger.error( Commons.THERE_IS_A_SITUATION + " sourceAssemblyName is " + sourceAssemblyName);
+				if(GlanetRunner.shouldLog())logger.error(Commons.THERE_IS_A_SITUATION + " sourceAssemblyName is " + sourceAssemblyName);
 			}
 
 			// targetReferenceAssemblyID = "GCF_000001405.25";
@@ -389,7 +355,7 @@ public class InputDataProcess {
 			// outputFolder +
 			// Commons.CHRNAME_0Based_START_Inclusive_END_Exclusive_HG19_BED_FILE);
 
-			if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+			if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
 
 			Remap.remap(
 					dataFolder,
@@ -408,7 +374,7 @@ public class InputDataProcess {
 		
 			
 			//5 April 2017
-			//Here keys and value are written.
+			//Here keys and value are filled.
 			Remap.fillConversionMap(
 					givenDataFolder, 
 					Commons.REMAP_REPORT_CHRNAME_1Based_START_END_XLS_FILE,
@@ -416,6 +382,7 @@ public class InputDataProcess {
 					Commons.TAB);
 			
 			//5 April 2017
+			//Here Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT is written			
 			Remap.convertOneGenomicLociPerLineUsingMap(
 					givenDataFolder,
 					Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
@@ -424,10 +391,11 @@ public class InputDataProcess {
 					headerLine);
 
 
-		if( GlanetRunner.shouldLog())logger.info( "******************************************************************************");
+		if(GlanetRunner.shouldLog())logger.info("******************************************************************************");
 			
 			// Write
 			//5 April 2017
+			//rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter is closed inside
 			writeRSIDLatestAssemblyGRCh37p13AssemblyFile(
 					source_1BasedStart_1BasedEnd2TargetMap, 
 					source_1BasedStart_1BasedEnd2SourceInformationMap,
@@ -436,32 +404,30 @@ public class InputDataProcess {
 
 
 			// Read from GRCh37.p13 (Hg19) bed file
-			// Write to usual processed input file in GRCh37_hg19
+			// Write to usual processed input file in GRCh37_p13 (hg19)
 			FileOperations.readFromBedFileWriteToGlanetFile(
 					givenDataFolder,
 					Commons.REMAP_OUTPUTFILE_ONE_GENOMIC_LOCI_PER_LINE_CHRNAME_1Based_START_END_BED_FILE_USING_REMAP_REPORT,
 					Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 
-			// Close
-			rsID_LatestAssembly_GRCh37p13Assembly_BufferedWriter.close();
+			
 
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
-		}catch( Exception e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch(IOException e){
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
+		}catch(Exception e){
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
 		}
 
 	}
 
 	// BED format is 0-based, end is exclusive
-	// In BED format, bed lines have three required fileds and nine additional
-	// optional fields.
+	// In BED format, bed lines have three required fields and nine additional optional fields.
 	// chrom chr3 chrY chr2_random
 	// chromStart first base in a chromosome is numbered 0.
 	// chromEnd is exclusive, fisrt 100 bases of a chromosome are defined as
 	// chromStart=0 chromEnd=100, and
 	// span the bases numbered 0-99.
-	public static void readBEDFile( String inputFileName, Assembly inputFileAssembly, String givenDataFolder) {
+	public static void readBEDFile(String inputFileName, Assembly inputFileAssembly, String givenDataFolder) {
 
 		// read the file line by line
 		BufferedReader bufferedReader = null;
@@ -479,38 +445,40 @@ public class InputDataProcess {
 		int start, exclusiveEnd, inclusiveEnd;
 
 		try{
-			bufferedReader = new BufferedReader( new FileReader( inputFileName));
+			bufferedReader = new BufferedReader(new FileReader(inputFileName));
 
-			switch( inputFileAssembly){
+			switch(inputFileAssembly){
 				case GRCh38:
 					bufferedWriter = new BufferedWriter(
-							FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38));
+							FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38));
 					break;
 				case GRCh37_p13:
 					bufferedWriter = new BufferedWriter(
-							FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13));
+							FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13));
 					break;
 			}// End of SWITCH
 
-			while( ( strLine = bufferedReader.readLine()) != null){
+			while((strLine = bufferedReader.readLine()) != null){
+				
+				
+				//Skip comment lines
+				//Skip "browser" or "track"
+				if(!(strLine.startsWith(Commons.GLANET_COMMENT_STRING) || strLine.startsWith(Commons.BROWSER) || strLine.startsWith(Commons.TRACK))){
 
-				// Skip comment lines
-				if( !( strLine.startsWith( "#"))){
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = (indexofFirstTab > 0)?strLine.indexOf('\t', indexofFirstTab + 1):-1;
+					indexofThirdTab = (indexofSecondTab > 0)?strLine.indexOf('\t', indexofSecondTab + 1):-1;
 
-					indexofFirstTab = strLine.indexOf( '\t');
-					indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
-					indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
+					chrName = strLine.substring(0, indexofFirstTab);
+					start = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
 
-					chrName = strLine.substring( 0, indexofFirstTab);
-					start = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-
-					if( indexofThirdTab > 0){
-						exclusiveEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1, indexofThirdTab));
+					if(indexofThirdTab > 0){
+						exclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab + 1, indexofThirdTab));
 					}else{
-						exclusiveEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1));
+						exclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab + 1));
 					}
 
-					if( !( chrName.startsWith( "chr"))){
+					if(!(chrName.startsWith("chr"))){
 						// add "chr"
 						chrName = "chr" + chrName;
 					}
@@ -518,15 +486,16 @@ public class InputDataProcess {
 					// get the inclusive end
 					inclusiveEnd = exclusiveEnd - 1;
 
-					bufferedWriter.write( chrName + "\t" + start + "\t" + inclusiveEnd + System.getProperty( "line.separator"));
+					bufferedWriter.write(chrName + "\t" + start + "\t" + inclusiveEnd + System.getProperty("line.separator"));
 				}// End of if not comment line
 			}
 
+			//Close
 			bufferedWriter.close();
 			bufferedReader.close();
 
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch(IOException e){
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
 		}
 
 		// @todo remove overlaps if any exists
@@ -535,7 +504,7 @@ public class InputDataProcess {
 	// GFF3 format is 1-based, end is inclusive
 	// example GFF3 input line
 	// chrX experiment SNP 146993388 146993388 . - 0 cellType=HeLA
-	public static void readGFF3File( String inputFileName, Assembly inputFileAssembly, String givenDataFolder) {
+	public static void readGFF3File(String inputFileName, Assembly inputFileAssembly, String givenDataFolder) {
 
 		// read the file line by line
 		BufferedReader bufferedReader = null;
@@ -556,40 +525,42 @@ public class InputDataProcess {
 		int zeroBasedStart, zeroBasedInclusiveEnd;
 
 		try{
-			bufferedReader = new BufferedReader( new FileReader( inputFileName));
+			bufferedReader = new BufferedReader(new FileReader(inputFileName));
 
-			switch( inputFileAssembly){
+			switch(inputFileAssembly){
 			case GRCh38:
 				bufferedWriter = new BufferedWriter(
-						FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38));
+						FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38));
 				break;
 			case GRCh37_p13:
 				bufferedWriter = new BufferedWriter(
-						FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13));
+						FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13));
 				break;
 			}// End of SWITCH
 
-			while( ( strLine = bufferedReader.readLine()) != null){
+			while((strLine = bufferedReader.readLine()) != null){
 
-				// Skip comment lines
-				if( !( strLine.startsWith( "#"))){
-					indexofFirstTab = strLine.indexOf( '\t');
-					indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
-					indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
-					indexofFourthTab = ( indexofThirdTab > 0)?strLine.indexOf( '\t', indexofThirdTab + 1):-1;
-					indexofFifthTab = ( indexofFourthTab > 0)?strLine.indexOf( '\t', indexofFourthTab + 1):-1;
+				//Skip comment lines
+				//Skip "browser" or "track"
+				if(!(strLine.startsWith(Commons.GLANET_COMMENT_STRING) || strLine.startsWith(Commons.BROWSER) || strLine.startsWith(Commons.TRACK))){
+					
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = (indexofFirstTab > 0)?strLine.indexOf('\t', indexofFirstTab + 1):-1;
+					indexofThirdTab = (indexofSecondTab > 0)?strLine.indexOf('\t', indexofSecondTab + 1):-1;
+					indexofFourthTab = (indexofThirdTab > 0)?strLine.indexOf('\t', indexofThirdTab + 1):-1;
+					indexofFifthTab = (indexofFourthTab > 0)?strLine.indexOf('\t', indexofFourthTab + 1):-1;
 
-					chrName = strLine.substring( 0, indexofFirstTab);
-					oneBasedStart = Integer.parseInt( strLine.substring( indexofThirdTab + 1, indexofFourthTab));
+					chrName = strLine.substring(0, indexofFirstTab);
+					oneBasedStart = Integer.parseInt(strLine.substring(indexofThirdTab + 1, indexofFourthTab));
 
-					if( indexofFifthTab > 0){
-						oneBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofFourthTab + 1,
+					if(indexofFifthTab > 0){
+						oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofFourthTab + 1,
 								indexofFifthTab));
 					}else{
-						oneBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofFourthTab + 1));
+						oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofFourthTab + 1));
 					}
 
-					if( !( chrName.startsWith( "chr"))){
+					if(!(chrName.startsWith("chr"))){
 						// add "chr"
 						chrName = "chr" + chrName;
 					}
@@ -600,16 +571,17 @@ public class InputDataProcess {
 					// get the 0-based inclusive end
 					zeroBasedInclusiveEnd = oneBasedInclusiveEnd - 1;
 
-					bufferedWriter.write( chrName + "\t" + zeroBasedStart + "\t" + zeroBasedInclusiveEnd + System.getProperty( "line.separator"));
+					bufferedWriter.write(chrName + "\t" + zeroBasedStart + "\t" + zeroBasedInclusiveEnd + System.getProperty("line.separator"));
 				}// End of if not comment line
 
 			}
 
+			//Close
 			bufferedWriter.close();
 			bufferedReader.close();
 
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch(IOException e){
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
 		}
 
 	}
@@ -619,7 +591,7 @@ public class InputDataProcess {
 	// 1 100
 	// chr1 100
 	// chr1 100 200
-	public static void readOneBasedCoordinates( String inputFileName, Assembly inputFileAssembly, String givenDataFolder) {
+	public static void readOneBasedCoordinates(String inputFileName, Assembly inputFileAssembly, String givenDataFolder) {
 
 		int zeroBasedStart;
 		int zeroBasedInclusiveEnd;
@@ -646,101 +618,102 @@ public class InputDataProcess {
 
 		try{
 
-			bufferedReader = new BufferedReader( new FileReader( inputFileName));
+			bufferedReader = new BufferedReader(new FileReader(inputFileName));
 
-			switch( inputFileAssembly){
+			switch(inputFileAssembly){
 			case GRCh38:
 				bufferedWriter = new BufferedWriter(
-						FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38));
+						FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38));
 				break;
 			case GRCh37_p13:
 				bufferedWriter = new BufferedWriter(
-						FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13));
+						FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13));
 				break;
 			}// End of SWITCH
 
-			while( ( strLine = bufferedReader.readLine()) != null){
+			while((strLine = bufferedReader.readLine()) != null){
 
-				// skip comment lines
-				if( !( strLine.startsWith( "#"))){
+				//Skip comment lines
+				//Skip "browser" or "track"
+				if(!(strLine.startsWith(Commons.GLANET_COMMENT_STRING) || strLine.startsWith(Commons.BROWSER) || strLine.startsWith(Commons.TRACK))){
+				
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = (indexofFirstTab > 0)?strLine.indexOf('\t', indexofFirstTab + 1):-1;
+					indexofThirdTab = (indexofSecondTab > 0)?strLine.indexOf('\t', indexofSecondTab + 1):-1;
 
-					indexofFirstTab = strLine.indexOf( '\t');
-					indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
-					indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
-
-					indexofColon = strLine.indexOf( ':');
-					indexofDot = strLine.indexOf( '.');
-					indexofHyphen = strLine.indexOf( '-');
+					indexofColon = strLine.indexOf(':');
+					indexofDot = strLine.indexOf('.');
+					indexofHyphen = strLine.indexOf('-');
 
 					// 19:12995239..12998702
 					// 19:12995239-12998702
 					// chr19:12995239-12998702
 					// chr11:524690..5247000
 					// there is no tab
-					if( indexofColon >= 0){
-						chrName = strLine.substring( 0, indexofColon);
+					if(indexofColon >= 0){
+						chrName = strLine.substring(0, indexofColon);
 
-						if( !( chrName.startsWith( "chr"))){
+						if(!(chrName.startsWith("chr"))){
 							// add "chr"
 							chrName = "chr" + chrName;
 						}
 
-						if( indexofHyphen >= 0){
-							oneBasedStart = Integer.parseInt( strLine.substring( indexofColon + 1, indexofHyphen));
-							oneBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofHyphen + 1).trim());
-						}else if( indexofDot >= 0){
-							oneBasedStart = Integer.parseInt( strLine.substring( indexofColon + 1, indexofDot));
-							oneBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofDot + 2).trim());
+						if(indexofHyphen >= 0){
+							oneBasedStart = Integer.parseInt(strLine.substring(indexofColon + 1, indexofHyphen));
+							oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofHyphen + 1).trim());
+						}else if(indexofDot >= 0){
+							oneBasedStart = Integer.parseInt(strLine.substring(indexofColon + 1, indexofDot));
+							oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofDot + 2).trim());
 						}
 						// 19:12995239
 						// chr19:12995239
 						else{
-							oneBasedStart = Integer.parseInt( strLine.substring( indexofColon + 1).trim());
+							oneBasedStart = Integer.parseInt(strLine.substring(indexofColon + 1).trim());
 							oneBasedInclusiveEnd = oneBasedStart;
 						}
 					}
 					// chrX 100 200
 					// X 100 200
-					else if( indexofThirdTab >= 0 && indexofSecondTab >= 0 && indexofFirstTab >= 0){
+					else if(indexofThirdTab >= 0 && indexofSecondTab >= 0 && indexofFirstTab >= 0){
 
-						chrName = strLine.substring( 0, indexofFirstTab);
+						chrName = strLine.substring(0, indexofFirstTab);
 
-						if( !( chrName.startsWith( "chr"))){
+						if(!(chrName.startsWith("chr"))){
 							// add "chr"
 							chrName = "chr" + chrName;
 						}
 
-						oneBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-						oneBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1,indexofThirdTab).trim());
+						oneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+						oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab + 1,indexofThirdTab).trim());
 
 					}
 
 					// chrX 100 200
 					// X 100 200
-					else if( indexofSecondTab >= 0 && indexofFirstTab >= 0){
+					else if(indexofSecondTab >= 0 && indexofFirstTab >= 0){
 
-						chrName = strLine.substring( 0, indexofFirstTab);
+						chrName = strLine.substring(0, indexofFirstTab);
 
-						if( !( chrName.startsWith( "chr"))){
+						if(!(chrName.startsWith("chr"))){
 							// add "chr"
 							chrName = "chr" + chrName;
 						}
 
-						oneBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-						oneBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1).trim());
+						oneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+						oneBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab + 1).trim());
 					}
 					// chrX 100
 					// X 100
-					else if( indexofFirstTab >= 0){
+					else if(indexofFirstTab >= 0){
 
-						chrName = strLine.substring( 0, indexofFirstTab);
+						chrName = strLine.substring(0, indexofFirstTab);
 
-						if( !( chrName.startsWith( "chr"))){
+						if(!(chrName.startsWith("chr"))){
 							// add "chr"
 							chrName = "chr" + chrName;
 						}
 
-						oneBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1).trim());
+						oneBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab + 1).trim());
 						oneBasedInclusiveEnd = oneBasedStart;
 
 					}
@@ -748,7 +721,7 @@ public class InputDataProcess {
 					zeroBasedStart = oneBasedStart - 1;
 					zeroBasedInclusiveEnd = oneBasedInclusiveEnd - 1;
 
-					bufferedWriter.write( chrName + "\t" + zeroBasedStart + "\t" + zeroBasedInclusiveEnd + System.getProperty( "line.separator"));
+					bufferedWriter.write(chrName + "\t" + zeroBasedStart + "\t" + zeroBasedInclusiveEnd + System.getProperty("line.separator"));
 				}// End of if not comment line
 
 			}// End of while
@@ -756,8 +729,8 @@ public class InputDataProcess {
 			bufferedWriter.close();
 			bufferedReader.close();
 
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch(IOException e){
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
 		}
 	}
 
@@ -766,7 +739,7 @@ public class InputDataProcess {
 	// 1 100
 	// chr1 100
 	// chr1 100 200
-	public static void readZeroBasedCoordinates( String inputFileName, Assembly inputFileAssembly,
+	public static void readZeroBasedCoordinates(String inputFileName, Assembly inputFileAssembly,
 			String givenDataFolder) {
 
 		// read the file line by line
@@ -793,109 +766,110 @@ public class InputDataProcess {
 
 		try{
 
-			fileReader = new FileReader( inputFileName);
-			bufferedReader = new BufferedReader( fileReader);
+			fileReader = new FileReader(inputFileName);
+			bufferedReader = new BufferedReader(fileReader);
 
-			switch( inputFileAssembly){
+			switch(inputFileAssembly){
 				case GRCh38:
-					fileWriter = FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38);
+					fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh38);
 					break;
 				case GRCh37_p13:
-					fileWriter = FileOperations.createFileWriter( givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
+					fileWriter = FileOperations.createFileWriter(givenDataFolder + Commons.PROCESSED_INPUT_FILE_0BASED_START_END_GRCh37_p13);
 					break;
 			}// End of SWITCH
 
-			bufferedWriter = new BufferedWriter( fileWriter);
+			bufferedWriter = new BufferedWriter(fileWriter);
 
-			while( ( strLine = bufferedReader.readLine()) != null){
+			while((strLine = bufferedReader.readLine()) != null){
 
-				// skip comment lines
-				if( !( strLine.startsWith( "#"))){
+				//Skip comment lines
+				//Skip "browser" or "track"
+				if(!(strLine.startsWith(Commons.GLANET_COMMENT_STRING) || strLine.startsWith(Commons.BROWSER) || strLine.startsWith(Commons.TRACK))){
+				
+					indexofFirstTab = strLine.indexOf('\t');
+					indexofSecondTab = (indexofFirstTab > 0)?strLine.indexOf('\t', indexofFirstTab + 1):-1;
+					indexofThirdTab = (indexofSecondTab > 0)?strLine.indexOf('\t', indexofSecondTab + 1):-1;
 
-					indexofFirstTab = strLine.indexOf( '\t');
-					indexofSecondTab = ( indexofFirstTab > 0)?strLine.indexOf( '\t', indexofFirstTab + 1):-1;
-					indexofThirdTab = ( indexofSecondTab > 0)?strLine.indexOf( '\t', indexofSecondTab + 1):-1;
-
-					indexofColon = strLine.indexOf( ':');
-					indexofDot = strLine.indexOf( '.');
-					indexofHyphen = strLine.indexOf( '-');
+					indexofColon = strLine.indexOf(':');
+					indexofDot = strLine.indexOf('.');
+					indexofHyphen = strLine.indexOf('-');
 
 					// 19:12995239..12998702
 					// 19:12995239-12998702
 					// chr19:12995239-12998702
 					// chr11:524690..5247000
 					// there is no tab
-					if( indexofColon >= 0){
-						chrName = strLine.substring( 0, indexofColon);
+					if(indexofColon >= 0){
+						chrName = strLine.substring(0, indexofColon);
 
-						if( !( chrName.startsWith( "chr"))){
+						if(!(chrName.startsWith("chr"))){
 							// add "chr"
 							chrName = "chr" + chrName;
 						}
 
-						if( indexofHyphen >= 0){
-							zeroBasedStart = Integer.parseInt( strLine.substring( indexofColon + 1, indexofHyphen));
-							zeroBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofHyphen + 1).trim());
-						}else if( indexofDot >= 0){
-							zeroBasedStart = Integer.parseInt( strLine.substring( indexofColon + 1, indexofDot));
-							zeroBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofDot + 2).trim());
+						if(indexofHyphen >= 0){
+							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon + 1, indexofHyphen));
+							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofHyphen + 1).trim());
+						}else if(indexofDot >= 0){
+							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon + 1, indexofDot));
+							zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofDot + 2).trim());
 						}
 						// 19:12995239
 						// chr19:12995239
 						else{
-							zeroBasedStart = Integer.parseInt( strLine.substring( indexofColon + 1).trim());
+							zeroBasedStart = Integer.parseInt(strLine.substring(indexofColon + 1).trim());
 							zeroBasedInclusiveEnd = zeroBasedStart;
 						}
 					}
 
 					// chrX 100 200 blablabla
 					// X 100 200 blablabla
-					else if( indexofThirdTab >= 0 && indexofSecondTab >= 0 && indexofFirstTab >= 0){
+					else if(indexofThirdTab >= 0 && indexofSecondTab >= 0 && indexofFirstTab >= 0){
 
-						chrName = strLine.substring( 0, indexofFirstTab);
+						chrName = strLine.substring(0, indexofFirstTab);
 
-						if( !( chrName.startsWith( "chr"))){
+						if(!(chrName.startsWith("chr"))){
 							// add "chr"
 							chrName = "chr" + chrName;
 						}
 
-						zeroBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-						zeroBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1,
+						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+						zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab + 1,
 								indexofThirdTab).trim());
 
 					}
 
 					// chrX 100 200
 					// X 100 200
-					else if( indexofSecondTab >= 0 && indexofFirstTab >= 0){
+					else if(indexofSecondTab >= 0 && indexofFirstTab >= 0){
 
-						chrName = strLine.substring( 0, indexofFirstTab);
+						chrName = strLine.substring(0, indexofFirstTab);
 
-						if( !( chrName.startsWith( "chr"))){
+						if(!(chrName.startsWith("chr"))){
 							// add "chr"
 							chrName = "chr" + chrName;
 						}
 
-						zeroBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1, indexofSecondTab));
-						zeroBasedInclusiveEnd = Integer.parseInt( strLine.substring( indexofSecondTab + 1).trim());
+						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab + 1, indexofSecondTab));
+						zeroBasedInclusiveEnd = Integer.parseInt(strLine.substring(indexofSecondTab + 1).trim());
 					}
 					// chrX 100
 					// X 100
-					else if( indexofFirstTab >= 0){
+					else if(indexofFirstTab >= 0){
 
-						chrName = strLine.substring( 0, indexofFirstTab);
+						chrName = strLine.substring(0, indexofFirstTab);
 
-						if( !( chrName.startsWith( "chr"))){
+						if(!(chrName.startsWith("chr"))){
 							// add "chr"
 							chrName = "chr" + chrName;
 						}
 
-						zeroBasedStart = Integer.parseInt( strLine.substring( indexofFirstTab + 1).trim());
+						zeroBasedStart = Integer.parseInt(strLine.substring(indexofFirstTab + 1).trim());
 						zeroBasedInclusiveEnd = zeroBasedStart;
 
 					}
 
-					bufferedWriter.write( chrName + "\t" + zeroBasedStart + "\t" + zeroBasedInclusiveEnd + System.getProperty( "line.separator"));
+					bufferedWriter.write(chrName + "\t" + zeroBasedStart + "\t" + zeroBasedInclusiveEnd + System.getProperty("line.separator"));
 
 				}// End of if not comment line
 
@@ -905,34 +879,35 @@ public class InputDataProcess {
 			bufferedWriter.close();
 			bufferedReader.close();
 
-		}catch( IOException e){
-			if( GlanetRunner.shouldLog())logger.error( e.toString());
+		}catch(IOException e){
+			if(GlanetRunner.shouldLog())logger.error(e.toString());
 		}
 
 	}
 
-	public static void processInputData( 
+	public static void processInputData(
 			String inputFileName, 
 			GivenIntervalsInputFileDataFormat inputFileFormat,
 			Assembly inputFileAssembly, 
 			String givenDataFolder, 
 			String dataFolder) {
 
-		switch( inputFileFormat){
+		switch(inputFileFormat){
 			case INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES:
-				readZeroBasedCoordinates( inputFileName, inputFileAssembly, givenDataFolder);
+				readZeroBasedCoordinates(inputFileName, inputFileAssembly, givenDataFolder);
 				break;
 			case INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES:
-				readOneBasedCoordinates( inputFileName, inputFileAssembly, givenDataFolder);
+				readOneBasedCoordinates(inputFileName, inputFileAssembly, givenDataFolder);
 				break;
 			case INPUT_FILE_FORMAT_DBSNP_IDS:
-				readDBSNPIDs( dataFolder, inputFileName, inputFileAssembly, givenDataFolder);
+				readDBSNPIDs(dataFolder, inputFileName, inputFileAssembly, givenDataFolder);
 				break;
 			case INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES:
-				readBEDFile( inputFileName, inputFileAssembly, givenDataFolder);
+			case INPUT_FILE_FORMAT_NARROWPEAK_0BASED_START_ENDEXCLUSIVE_COORDINATES:
+					readBEDFile(inputFileName, inputFileAssembly, givenDataFolder);
 				break;
 			case INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES:
-				readGFF3File( inputFileName, inputFileAssembly, givenDataFolder);
+				readGFF3File(inputFileName, inputFileAssembly, givenDataFolder);
 				break;
 
 		}// End of SWITCH
@@ -1026,31 +1001,31 @@ public class InputDataProcess {
 	// If no cell line selected so the args.length-1 will be 22-1 = 21. So it
 	// will never
 	// give an out of boundry exception in a for loop with this approach.
-	public static void main( String[] args) {
+	public static void main(String[] args) {
 
 		String glanetFolder = args[CommandLineArguments.GlanetFolder.value()];
-		Assembly inputFileAssembly = Assembly.convertStringtoEnum( args[CommandLineArguments.InputFileAssembly.value()]);
+		Assembly inputFileAssembly = Assembly.convertStringtoEnum(args[CommandLineArguments.InputFileAssembly.value()]);
 
 		// jobName starts
 //		String jobName = args[CommandLineArguments.JobName.value()].trim();
-//		if( jobName.isEmpty()){
+//		if(jobName.isEmpty()){
 //			jobName = Commons.NO_NAME;
 //		}
 		// jobName ends
 
 		String inputFileName = args[CommandLineArguments.InputFileNameWithFolder.value()];
-		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum( args[CommandLineArguments.InputFileDataFormat.value()]);
+		GivenIntervalsInputFileDataFormat inputFileFormat = GivenIntervalsInputFileDataFormat.convertStringtoEnum(args[CommandLineArguments.InputFileDataFormat.value()]);
 
-//		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty( "file.separator") + jobName + System.getProperty( "file.separator");
+//		String outputFolder = glanetFolder + Commons.OUTPUT + System.getProperty("file.separator") + jobName + System.getProperty("file.separator");
 		String outputFolder = args[CommandLineArguments.OutputFolder.value()];
-		String dataFolder = glanetFolder + Commons.DATA + System.getProperty( "file.separator");
-		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty( "file.separator");
+		String dataFolder = glanetFolder + Commons.DATA + System.getProperty("file.separator");
+		String givenDataFolder = outputFolder + Commons.GIVENINPUTDATA + System.getProperty("file.separator");
 
 		/********************************************************************/
 		/*********** delete old files starts **********************************/
 		String givenInputDataOutputBaseDirectoryName = outputFolder + Commons.GIVENINPUTDATA;
 
-		FileOperations.deleteOldFiles( givenInputDataOutputBaseDirectoryName);
+		FileOperations.deleteOldFiles(givenInputDataOutputBaseDirectoryName);
 		/*********** delete old files ends ***********************************/
 		/******************************************************************/
 

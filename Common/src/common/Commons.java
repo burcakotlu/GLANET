@@ -541,6 +541,7 @@ public class Commons {
 	// INPUT FILE DATA FORMAT start
 	public static final String INPUT_FILE_FORMAT_DBSNP_IDS = "dbSNP IDs";
 	public static final String INPUT_FILE_FORMAT_BED_0BASED_START_ENDEXCLUSIVE_COORDINATES = "BED";
+	public static final String INPUT_FILE_FORMAT_NARROWPEAK_0BASED_START_ENDEXCLUSIVE_COORDINATES = "narrowPeak";
 	public static final String INPUT_FILE_FORMAT_GFF3_1BASED_START_ENDINCLUSIVE_COORDINATES = "GFF3";
 	public static final String INPUT_FILE_FORMAT_0BASED_START_ENDINCLUSIVE_COORDINATES = "0-based coordinates (End Inclusive)";
 	public static final String INPUT_FILE_FORMAT_1BASED_START_ENDINCLUSIVE_COORDINATES = "1-based coordinates (End Inclusive)";
@@ -1065,6 +1066,9 @@ public class Commons {
 
 	public static final char GLANET_COMMENT_CHARACTER = '#';
 	public static final String GLANET_COMMENT_STRING = "#";
+	
+	public static final String BROWSER = "browser";
+	public static final String TRACK = "track";
 
 	public static final byte BYTE_1 = 1;
 
