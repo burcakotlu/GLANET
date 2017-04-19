@@ -6,6 +6,12 @@ GLANET Installation and System Requirements
 GLANET Installation
 -------------------
 
+**You can find a demo screencast for GLANET Installation on youtube in the link below:**
+
+`<https://www.youtube.com/watch?v=d-tRriMCmjY&t=130s>`_
+
+
+
 1. Java
 
 Install latest Java SE from `here <http://www.oracle.com/technetwork/articles/javase/index-jsp-138363.html>`_
