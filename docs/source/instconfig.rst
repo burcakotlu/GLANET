@@ -7,7 +7,6 @@ GLANET Installation
 -------------------
 
 **You can find a demo screencast for GLANET Installation on youtube in the link below:**
-
 `<https://www.youtube.com/watch?v=d-tRriMCmjY&t=130s>`_
 
 
