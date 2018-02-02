@@ -22,7 +22,6 @@ Content:
    instconfig
    download
    tutorial
-   datadrivencomputationalexperiments
    contact
    licence
 
