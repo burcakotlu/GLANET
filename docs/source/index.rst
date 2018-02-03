@@ -23,6 +23,7 @@ Content:
    download
    tutorial
    contact
+   citation
    licence
 
 
