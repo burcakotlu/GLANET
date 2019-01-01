@@ -947,15 +947,17 @@ public class FileOperations {
 				chromName = ChromosomeName.convertStringtoEnum(strLine.substring(0,indexofFirstTab));
 				low = Integer.parseInt(strLine.substring(indexofFirstTab+1,indexofSecondTab));
 				high = Integer.parseInt(strLine.substring(indexofSecondTab+1));
-				
+
+				writeChromBaseSearchInputFile(chromName, strLine, chrNumber2BufferedWriterMap);
+
 				//12 NOV 2015
 				//For running BroadEnrich input file
 				//Before there was no condition
 				//if((high-low+1) <= Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
 				//Simply since GLANET Convention is 0BasedStart and 0BasedEndInclusive
-				if((high-low) < Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
-					writeChromBaseSearchInputFile(chromName, strLine, chrNumber2BufferedWriterMap);
-				}
+//				if((high-low) < Commons.GC_ISOCHORE_MOVING_WINDOW_SIZE){
+//					writeChromBaseSearchInputFile(chromName, strLine, chrNumber2BufferedWriterMap);
+//				}
 				
 			} // End of While
 
