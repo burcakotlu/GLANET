@@ -80,7 +80,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 	
 	public static void writeInputFile(
 			String remapFolder,
-			String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
+			String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesinGRCh37p13_FileName,
 			Map<String,String> _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap){
 		
 		
@@ -91,7 +91,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 		int _0BasedCoordinate_InGRCH37p13 = -1;
 		
 		try {
-			fileWriter = FileOperations.createFileWriter(remapFolder + PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName);
+			fileWriter = FileOperations.createFileWriter(remapFolder + PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesinGRCh37p13_FileName);
 			bufferedWriter = new BufferedWriter(fileWriter);
 			
 			for(String key : _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap.keySet()){
@@ -478,7 +478,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 	public static void annotateInputFileWithRefSeqGenes(
 			String dataFolder,
 			String RSAFolder,			
-			String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
+			String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesinGRCh37p13_FileName,
 			String RSAPostAnalysisFileName,
 			String RSAPostAnalysisAugmentedWithGeneAnnotationsFileName,
 			Map<String,String> _1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
@@ -490,7 +490,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 		/*****************************************************************************************/
 		/************************* GIVEN INPUT DATA starts ***************************************/
 		/*****************************************************************************************/
-		String inputFileName = remapFolder +  PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName;
+		String inputFileName = remapFolder +  PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesinGRCh37p13_FileName;
 
 		TIntObjectMap<FileWriter> chrNumber2FileWriterMap = new TIntObjectHashMap<FileWriter>();
 		TIntObjectMap<BufferedWriter> chrNumber2BufferedWriterMap = new TIntObjectHashMap<BufferedWriter>();
@@ -618,7 +618,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 		String PostAnalysis_RSA_chrName_1BasedCoordinateGRCh37p13_FileName = "PostAnalysis_RSA_chrName_1BasedCoordinateInGRCh37p13.txt";
 
 		//Third outputFile in _0BasedStart _0BasedEnd Coordinates in GRCh37.p13 using my map, this will be used in gene annotation
-		String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName = "PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinateInGRCh37p13.txt";		
+		String PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesInGRCh37p13_FileName = "PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinateInGRCh37p13.txt";		
 		
 		String strLine = null;
 		int indexofFirstTab = -1;
@@ -710,7 +710,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 				//Write input file for GLANET annotation using keys in _0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap
 				writeInputFile(
 						remapFolder,
-						PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
+						PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesInGRCh37p13_FileName,
 						_0BasedCoordinatesInGRCh37p13Map_2_GeneAnnotationsMap);
 				
 				//Annotate with genes
@@ -718,7 +718,7 @@ public class GeneAnnotationForPostAnalysisRSAResults {
 				annotateInputFileWithRefSeqGenes(
 						dataFolder,
 						RSAFolder,
-						PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesınGRCh37p13_FileName,
+						PostAnalysis_RSA_chrName_0BasedStart_0BasedEnd_CoordinatesInGRCh37p13_FileName,
 						RSAPostAnalysisFileName,
 						RSAPostAnalysisAugmentedWithGeneAnnotationsFileName,
 						_1BasedCoordinatesInlatestAssembly_2_0BasedCoordinatesInGRCh37p13Map,
